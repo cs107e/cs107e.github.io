@@ -8,19 +8,24 @@ We are using the raspberry pi A+ in class. The A+ is similar to the B+.
 
 * [Broadcom BCM2835 Peripherals Documentation](http://www.raspberrypi.org/wp-content/uploads/2012/02/BCM2835-ARM-Peripherals.pdf)
 
+  * [Errata](http://elinux.org/BCM2835_datasheet_errata)
+
+  * [GPIO Pad Control](http://www.scribd.com/doc/101830961/GPIO-Pads-Control2).
 
 ## ARM
 
-* The processor specification is in the [ARM1176JFZ-S Technical Reference Manual](http://infocenter.arm.com/help/topic/com.arm.doc.ddi0301h/DDI0301H_arm1176jzfs_r0p7_trm.pdf).
+* The Raspberry Pi uses the ARM1176JFZ-S which is documented
+in the [Technical Reference Manual](http://infocenter.arm.com/help/topic/com.arm.doc.ddi0301h/DDI0301H_arm1176jzfs_r0p7_trm.pdf).
 
-* The architecture of the ARM processor is specified in the [ARMv6 Architecture Manual](https://www.scss.tcd.ie/~waldroj/3d1/arm_arm.pdf).
+* ARM1176JFZ-S processors use the ARMv6 architecture,
+[ARMv6 Architecture Manual](https://www.scss.tcd.ie/~waldroj/3d1/arm_arm.pdf).
 
-* The following [excerpt](http://www.uniroma2.it/didattica/eldig2/deposito/arm-instructionset.pdf) from the architecture document describes just the instructions.
-
-* Excellent [slides](http://twins.ee.nctu.edu.tw/courses/ip_core_02/handout_pdf/Chapter_2.pdf) by Prof. Yen at NCTU on the ARM processor core and instruction sets.
+    * The following [excerpt](http://www.uniroma2.it/didattica/eldig2/deposito/arm-instructionset.pdf) from the architecture document describes just the instructions.
 
 * ARM System Developer's Guide: Designing and Optimizing System Software (The Morgan Kaufmann Series in Computer Architecture and Design), Andrew Sloss, Dominic Symes, and Chris Wright, 2004. This book is a bit dated, but still provides an excellent overview of low-level ARM programming.
 Google and you might be able to find a free pdf.
+
+* Excellent [slides](http://twins.ee.nctu.edu.tw/courses/ip_core_02/handout_pdf/Chapter_2.pdf) by Prof. Yen at NCTU on the ARM processor core and instruction sets.
 
 ## ARM Assembly Language
 
@@ -38,3 +43,4 @@ Google and you might be able to find a free pdf.
 
 * Alex Chadwick's [Baking Pi Course](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/).
 
+* The [Raspberry Pi Bare Metal Forum](http://www.raspberrypi.org/forums/viewforum.php?f=72) has lots of information from experienced developers. Venturing into the forum is a great way to learn advanced techniques. 
