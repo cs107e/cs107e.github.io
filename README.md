@@ -44,11 +44,58 @@ You should also read the [Guides](guide/README.md) for each week.
 
 
 | Topics | Readings |
-| ------ | -------- |
-| Week 1 |  x |
-| Lecture 1 (Mon): Introduction | x |
+| :----- | :------- |
+| **Week 1 Jan 5**| |
+| Lecture 1 (Mon): Introduction |  |
+| *No Lab* | |
+| Lecture 2 (Fri): Introduction to ARM : Blinking an LED | |
+| **Week 2 Jan 12** | |
+| Lecture 3 (Mon): ARM Assembly and Machine Code | |
+| Lab 1 : Setup the Raspberry Pi | |
+| Assignment 1 : Larson scanner | |
+| Lecture 4 (Fri): Introduction to C | |
+| **Week 3 Jan 19** | |
+| *Martin Luther King Holiday - No Class* | |
+| Lab 2 : Below C Level| |
+| Assignment 2 : Clock | |
+| Lecture 6 (Fri): Functions | |
+| **Week 4 Jan 26** | |
+| Lecture 7 (Mon): Serial communication, ASCII and strings | |
+| Lab 3 : Programming a UART | |
+| Assignment 3 : String formatting and printing | |
+| Lecture 6 (Fri): Linking, loading, and starting| |
+| **Week 5 Feb 2** | |
+| Guest Lecture (Mon): Quinn Dunki, Building Veronica | |
+| Lab 4 : Understanding linking and loading | |
+| Assignment 4 : Debugger | |
+| Lecture 7 (Fri): Graphics and the framebuffer | |
+| **Week 6 Feb 9** | |
+| Lecture 8 (Mon): Keyboards | |
+| Lab 5: Setting up the framebuffer and keyboad| |
+| Assignment 5: Terminal program | | 
+| Lecture 9 (Fri): Interupts | |
+| **Week 7 Feb 16** | |
+| *President's Day - Computer History Musueum Tour* | |
+| Lab 6: Working with interupts
+| Assignment 6: Interupt-drive terminal program
+| Lecture 10 (Fri): Audio
+| **Week 8 Feb 22** | |
+| Lecture 11 (Mon): MIDI Input and Peripherals | |
+| Lab 7: PWM and sound | |
+| Assignment 7: Sound | |
+| Lecture 12 (Fri): Networking I | |
+| **Week 9 Mar 2** | |
+| Lecture 13 (Mon): Networking II | |
+| Lecture 14 (Fri): Memory management : sbrk/malloc | |
+| **Week 10 Mar 9** | |
+| Lecture 15 (Mon): Caches | |
+| Lecture 16 (Fri): To Linux and Beyond | |
 
-[Collabortation Policy](collaboration.md)
+
+
+## Information
+
+[Collaboration Policy](collaboration.md)
 
 
 
