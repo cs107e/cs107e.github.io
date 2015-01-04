@@ -6,6 +6,8 @@ Welcome to the Winter 2015 offering of CS107e.
 
 *The first class is Mon Jan 5 12:50 pm in Rm 107 Littlefield Center.*
 
+*Review the material in [electricity](guides/electricity.md), [binary and hexadecimal numbers](guides/numbers.md), and the [unix command line](guides/unix.md). Test your knowledge by answering the questions in the introduction to each topic.*
+
 ### Course Information 
 
 **Course Description:** 
@@ -56,6 +58,10 @@ including *The C Programming Languge*, Kernighan and Ritchie.
 
 **CA:** Isabel Bush
 
+**Office Hours:**
+
+- Hanrahan, Mon 2:15 to 3:30 pm, Gates 370
+
 ### Schedule
 
 In the readings, K&R is The C Programming Language (Kernighan and Ritchie),
@@ -75,7 +81,7 @@ on President's Day Feb 16th.
 | Topics | Readings |
 | :----- | :------- |
 | **Week 1 Jan 5**| |
-| Lecture 1 (Mon): Introduction |  |
+| Lecture 1 (Mon): Introduction |  Review [electricity](guides/electricity.md). [binary and hexadecimal](guides/numbers.md), and the [unix command line](guides/unix.md).
 | *No Lab* | |
 | Lecture 2 (Fri): Introduction to ARM : Blinking an LED | |
 | **Week 2 Jan 12** | |
