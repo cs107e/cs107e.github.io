@@ -1,4 +1,4 @@
-# Collaboration and Honor Code policy
+## Collaboration and Honor Code policy
 
 *Originally written by Julie Zelenski, some wording borrowed from a collaboration policy distributed by Brown CS.*
 
@@ -32,7 +32,7 @@ part, we will treat students with trust and respect. When alerted
 to any possible infraction, we will protect the honorable students'
 interests by investigating and prosecuting dishonorable behavior.
 
-## Assistance that is allowed and requires no citation
+### Assistance that is allowed and requires no citation
 
 These things are encouraged and allowed for all students:
 
@@ -76,7 +76,7 @@ debugging with the course staff. They are the best folks to
 talk to because they are knowledgeable about all the material
 and know how to help you without overly influencing or leading you.
 
-## Assistance that is allowed but must be cited
+### Assistance that is allowed but must be cited
 
 Whereas the discussions listed above are allowable, certain discussions
 require citation. The difference between the two comes in what is
@@ -147,7 +147,7 @@ a problem to give proper credit where due. If the assistance is
 truthfully cited, even if impermissible, we can work with you to
 discount the work rather than handle as a Honor Code violation.
 
-## Assistance that is NOT allowed
+### Assistance that is NOT allowed
 
 Whereas discussion as described above is acceptable if cited, these
 discussions should never become so detailed that they involve jointly
@@ -223,7 +223,7 @@ our respect and appreciation for your honor and efforts by doing
 our part to make absolutely clear our expectations and hold accountable
 those students who act in violation.
 
-## Frequently asked questions about the Honor Code and the course collaboration policy.
+### Frequently asked questions about the Honor Code and the course collaboration policy.
 
 **Can I include my solution code in my portfolio for internship/scholarship
 applications?**

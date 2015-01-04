@@ -6,7 +6,7 @@
 
 Labs are Tue evening from 7-9 pm in Gates 415.
 
-### Frequently asked questions about labs
+### Lab FAQ
 
 **What is a lab?**
 

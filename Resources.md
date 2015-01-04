@@ -1,6 +1,6 @@
-# Resources
+## Resources
 
-## Raspberry Pi Hardware
+### Raspberry Pi Hardware
 
 We are using the raspberry pi A+ in class. The A+ is similar to the B+.
 
@@ -12,7 +12,7 @@ We are using the raspberry pi A+ in class. The A+ is similar to the B+.
 
   * [GPIO Pad Control](http://www.scribd.com/doc/101830961/GPIO-Pads-Control2).
 
-## ARM
+### ARM
 
 * The Raspberry Pi uses the ARM1176JFZ-S which is documented
 in the [Technical Reference Manual](http://infocenter.arm.com/help/topic/com.arm.doc.ddi0301h/DDI0301H_arm1176jzfs_r0p7_trm.pdf).
@@ -27,7 +27,7 @@ Google and you might be able to find a free pdf.
 
 * Excellent [slides](http://twins.ee.nctu.edu.tw/courses/ip_core_02/handout_pdf/Chapter_2.pdf) by Prof. Yen at NCTU on the ARM processor core and instruction sets.
 
-## ARM Assembly Language
+### ARM Assembly Language
 
 * [Worldwind Tour of ARM Assembly](http://www.coranac.com/tonc/text/asm.htm) from the TONC Guide to programming the Nintendo Game Boy Advance (which uses am ARM processor).
 
@@ -35,7 +35,7 @@ Google and you might be able to find a free pdf.
 
 * [Thinkingeek ARM Assembler for the Raspberry Pi](http://thinkingeek.com/2013/01/09/arm-assembler-raspberry-pi-chapter-1/).
 
-## Bare Metal Programming
+### Bare Metal Programming
 
 * David Welch's excellent set of [bare metal programming examples](https://github.com/dwelch67/raspberrypi).
 

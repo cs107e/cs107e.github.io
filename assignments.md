@@ -82,14 +82,14 @@ You are expected to do the basic part of each assignment.
 
 Grades will be assigned using the following criteria:
 
-o **A.** All laboratories and basic part of assignments must be completed.
+**A.** All laboratories and basic part of assignments must be completed.
 In addition, you must do extensions for 4 assignments, and your final
 project must be outstanding.
 
-o **B.** All laboratories and basic part of assignments must be completed.
+**B.** All laboratories and basic part of assignments must be completed.
 Your final project should be excellent.
 
-o **C and below.** All work is not completed satisfactorily.
+**C and below.** All work is not completed satisfactorily.
 
 
 **What about extra credit**
@@ -102,5 +102,5 @@ guides, of FAQs, on the hardware and software used in the course.
 
 **What is the final project?**
 
-More on that soon.
+More on the final project soon.
 
