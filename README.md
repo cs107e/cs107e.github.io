@@ -35,6 +35,15 @@ compilation, linking and loading,
 networking, memory organization and management, debugging, and
 controlling peripherals such as graphics, sound, and keyboards,
 
+This class is organized by weeks. Each week consists of two lectures
+on Fri and Mon, a lab on Tue evening, and a programming assignment
+which is due the following Mon at 12 midnight. Lecture and
+lab attendance is mandatory. There will be a short final project,
+but no exams. 
+
+Readings will be assigned from a variety of sources,
+including *The C Programming Languge*, Kernighan and Ritchie.
+
 **Prerequisite:** 106B or X, and consent of instructor. 
 
 **Lectures:** Mon & Fri 12:50-2:05 pm, Rm 107, Littlefield Center
@@ -57,7 +66,7 @@ Slides and code from lecture will be available in Lectures.
 You should also read the [Guides](guides/README.md) for each week.
 
 Note that the schedule includes a guest lecturer
-Quinn Dunki (http://quinndunki.com/blondihacks/)
+[Quinn Dunki](http://quinndunki.com/blondihacks/)
 on Mon Feb 2nd, 
 and a tour of the [Computer History Musuem](http://www.computerhistory.org/)
 on President's Day Feb 16th.
@@ -115,7 +124,16 @@ on President's Day Feb 16th.
 
 ## Information
 
-[Collaboration Policy](collaboration.md)
+[Labs](labs.md)
 
+[Assignments and grading](assignments.md)
+
+[Collaboration policy](collaboration.md)
+
+[Late days](late.md)
+
+## Resources
+
+[Readings](resources.md)
 
 
