@@ -1,4 +1,4 @@
-# cs107e - Computer Systems from the Ground Up
+# Computer Systems from the Ground Up
 
 ## Announcements
 
@@ -11,15 +11,23 @@ Welcome to the Winter 2015 offering of CS107e.
 **Course Description:** 
 
 CS107 is the third course in Stanford's introductory programming sequence.
-Our CS106 courses provide students with a solid foundation in programming methodology and abstractions and CS107 follows on to build up their programming maturity and expand breadth and depth of experience. The course will work from the 
-microprocessor up to the C programming language to de-mystify the machine.
-The goal is to build a solid understanding of how modern computers
-execute programs and manipulate data.
-With a complete understanding of how computer systems work,
-you will become a more effective programmer,
-especially in dealing with issues of 
-debugging, performance, portability, and robustness.
-You will also be on your way to build innovative and new computer systems.
+CS106 provides students 
+with a solid foundation in programming methodology and abstractions,
+and CS107 follows on to give you 
+the skills needed to build computer systems.
+The course will start with the microprocessor and move
+up to the C programming language, without skipping anything in between..
+The goal is to build a solid understanding of all aspects of
+how modern computers execute programs 
+and how program development tools work.
+
+Topics covered include:
+the ARM architecture, assembly language, and machine-level code;
+the C programming language;
+compilation, linking and loading, debugging,
+networking, memory organization and management,
+and controlling peripherals 
+such as general-purpose IO pins, graphics, sound, and keyboards,
 
 CS107e is an experimental approach 
 that teaches the fundamental concepts of computer systems 
@@ -28,17 +36,11 @@ Bare metal programming means you will not be run an operating
 system on the Raspberry Pi, and will make minimal use of libraries.
 This course also serves as a short introduction to embedded systems.
 
-Topics covered include:
-the ARM architecture, assembly language, and machine-level code;
-the C programming language;
-compilation, linking and loading,
-networking, memory organization and management, debugging, and
-controlling peripherals such as graphics, sound, and keyboards,
-
 This class is organized by weeks. Each week consists of two lectures
 on Fri and Mon, a lab on Tue evening, and a programming assignment
-which is due the following Mon at 12 midnight. Lecture and
-lab attendance is mandatory. There will be a short final project,
+which is due the following Mon at 12 midnight.
+Lecture and lab attendance is mandatory.
+There will be a short final project,
 but no exams. 
 
 Readings will be assigned from a variety of sources,
@@ -59,9 +61,7 @@ including *The C Programming Languge*, Kernighan and Ritchie.
 In the readings, K&R is The C Programming Language (Kernighan and Ritchie),
 and EssentialC is a PDF available at http://cslibrary.stanford.edu/101. 
 A digital copy of K&R is available to Stanford students via Safari Books Online.
-Read before attending lecture and lab for best effect.
-
-Slides and code from lecture will be available in Lectures.
+Please read the assigned readings before attending lecture and lab.
 
 You should also read the [Guides](guides/README.md) for each week.
 
@@ -128,9 +128,9 @@ on President's Day Feb 16th.
 
 [Assignments and grading](assignments.md)
 
-[Collaboration policy](collaboration.md)
-
 [Late days](late.md)
+
+[Collaboration policy](collaboration.md)
 
 ## Resources
 
