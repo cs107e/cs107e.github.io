@@ -28,5 +28,5 @@ we recommend you review the following material.
 
 * [Hexadecimal Numbers](https://learn.sparkfun.com/tutorials/hexadecimal)
 
-* [Bitwise Operators](http://en.wikipedia.org/wiki/Bitwise_operation)
+* [Bitwise Operators](http://en.wikipedia.org/wiki/Bitwise_operations_in_C)
 
