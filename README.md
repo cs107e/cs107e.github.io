@@ -40,11 +40,9 @@ Read before attending lecture and lab for best effect.
 
 Slides and code from lecture will be available in Lectures.
 
-You should also read the course [Guides](guide/README.md) for each week.
-
-** Topics **
-
-| Week 1 | |
+| Topics | Readings |
+| -------| - |
+| Week 1 |   |
 | Lecture 1 (Mon): Introduction | |
 | *No Lab* | |
 | Lecture 2 (Fri): Introduction to ARM : Blinking an LED | |
@@ -63,9 +61,9 @@ You should also read the course [Guides](guide/README.md) for each week.
 | Week 4 | |
 | Guest Lecture (Mon): Quinn Dunki, Building Veronica | |
 
-## Information
-
 [Collabortation Policy](collaboration.md)
+
+[Guides](guide/README.md)
 
 
 
