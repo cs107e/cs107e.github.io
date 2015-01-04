@@ -134,6 +134,6 @@ on President's Day Feb 16th.
 
 ### Resources
 
-[Readings](resources.md)
+[Readings](readings.md)
 
 
