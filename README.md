@@ -102,11 +102,11 @@ on President's Day Feb 16th.
 | Lecture 8 (Mon): Keyboards | |
 | Lab 5: Setting up the framebuffer and keyboad| |
 | Assignment 5: Terminal program | | 
-| Lecture 9 (Fri): Interupts | |
+| Lecture 9 (Fri): Interrupts | |
 | **Week 7 Feb 16** | |
 | *President's Day - Computer History Musueum Tour* | |
-| Lab 6: Working with interupts
-| Assignment 6: Interupt-drive terminal program
+| Lab 6: Working with interrupts
+| Assignment 6: Interrupt-drive terminal program
 | Lecture 10 (Fri): Audio
 | **Week 8 Feb 22** | |
 | Lecture 11 (Mon): MIDI Input and Peripherals | |
