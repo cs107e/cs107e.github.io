@@ -1,12 +1,12 @@
-# Computer Systems from the Ground Up
+## Computer Systems from the Ground Up
 
-## Announcements
+### Announcements
 
 Welcome to the Winter 2015 offering of CS107e.
 
 *The first class is Mon Jan 5 12:50 pm in Rm 107 Littlefield Center.*
 
-## Course Information 
+### Course Information 
 
 **Course Description:** 
 
@@ -56,7 +56,7 @@ including *The C Programming Languge*, Kernighan and Ritchie.
 
 **CA:** Isabel Bush
 
-## Schedule
+### Schedule
 
 In the readings, K&R is The C Programming Language (Kernighan and Ritchie),
 and EssentialC is a PDF available at http://cslibrary.stanford.edu/101. 
@@ -122,7 +122,7 @@ on President's Day Feb 16th.
 
 
 
-## Information
+### Information
 
 [Labs](labs.md)
 
@@ -132,7 +132,7 @@ on President's Day Feb 16th.
 
 [Collaboration policy](collaboration.md)
 
-## Resources
+### Resources
 
 [Readings](resources.md)
 
