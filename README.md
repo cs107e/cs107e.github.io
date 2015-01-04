@@ -4,22 +4,36 @@
 
 Welcome to the Winter 2015 offering of CS107e.
 
-The first class is Mon Jan 5 12:50 pm in Rm 107 Littlefield Center.
+*The first class is Mon Jan 5 12:50 pm in Rm 107 Littlefield Center.*
 
 ## Course Information 
 
 **Course Description:** 
 
 CS107 is the third course in Stanford's introductory programming sequence.
-Our CS106 courses provide students with a solid foundation in programming methodology and abstractions and CS107 follows on to build up their programming maturity and expand breadth and depth of experience. The course will work from the C programming language down to the microprocessor to de-mystify the machine. With a complete understanding of how computer systems execute programs and manipulate data, you will become a more effective programmer, especially in dealing with issues of debugging, performance, portability, and robustness.
+Our CS106 courses provide students with a solid foundation in programming methodology and abstractions and CS107 follows on to build up their programming maturity and expand breadth and depth of experience. The course will work from the 
+microprocessor up to the C programming language to de-mystify the machine.
+The goal is to build a solid understanding of how modern computers
+execute programs and manipulate data.
+With a complete understanding of how computer systems work,
+you will become a more effective programmer,
+especially in dealing with issues of 
+debugging, performance, portability, and robustness.
+You will also be on your way to build innovative and new computer systems.
 
 CS107e is an experimental approach 
 that teaches the fundamental concepts of computer systems 
 through bare metal programming on the Raspberry Pi.
 Bare metal programming means you will not be run an operating
 system on the Raspberry Pi, and will make minimal use of libraries.
+This course also serves as a short introduction to embedded systems.
 
-Topics covered include: the C programming language, data representation, machine-level code, computer arithmetic, compilation, memory organization and management, debugging, hardware, and I/O.
+Topics covered include:
+the ARM architecture, assembly language, and machine-level code;
+the C programming language;
+compilation, linking and loading,
+networking, memory organization and management, debugging, and
+controlling peripherals such as graphics, sound, and keyboards,
 
 **Prerequisite:** 106B or X, and consent of instructor. 
 
@@ -40,7 +54,13 @@ Read before attending lecture and lab for best effect.
 
 Slides and code from lecture will be available in Lectures.
 
-You should also read the [Guides](guide/README.md) for each week.
+You should also read the [Guides](guides/README.md) for each week.
+
+Note that the schedule includes a guest lecturer
+Quinn Dunki (http://quinndunki.com/blondihacks/)
+on Mon Feb 2nd, 
+and a tour of the [Computer History Musuem](http://www.computerhistory.org/)
+on President's Day Feb 16th.
 
 
 | Topics | Readings |
