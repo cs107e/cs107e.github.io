@@ -40,30 +40,15 @@ Read before attending lecture and lab for best effect.
 
 Slides and code from lecture will be available in Lectures.
 
+You should also read the [Guides](guide/README.md) for each week.
+
+
 | Topics | Readings |
-| -------| - |
-| Week 1 |   |
-| Lecture 1 (Mon): Introduction | |
-| *No Lab* | |
-| Lecture 2 (Fri): Introduction to ARM : Blinking an LED | |
-| Week 2 | |
-| Lecture 3 (Mon): ARM Assembly and Machine Code | |
-| Lab 1 : Setup the Raspberry Pi | |
-| Lecture 4 (Fri): Introduction to C | |
-| Week 3 | |
-| *Martin Luther King Holiday - No Class* | |
-| Lab 2 : Below C Level| |
-| Lecture 6 (Fri): Functions | |
-| Week 4 | |
-| Lecture 7 (Mon): Serial communication, ASCII and strings | |
-| Lab 3 : Programming a UART | |
-| Lecture 6 (Fri): Linking and loading | |
-| Week 4 | |
-| Guest Lecture (Mon): Quinn Dunki, Building Veronica | |
+| ------ | -------- |
+| Week 1 |  x |
+| Lecture 1 (Mon): Introduction | x |
 
 [Collabortation Policy](collaboration.md)
-
-[Guides](guide/README.md)
 
 
 
