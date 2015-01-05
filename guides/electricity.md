@@ -11,7 +11,7 @@ Do you know the answers to the following questions?
 
 3. What might happen if you pin in 12V power supply to a IC rated for 3.3V?
 
-4. Support you have an LED with a 2.3V drop across it when
+4. Suppose you have an LED with a 2.3V drop across it when
 when 1 mA passes through it. The LED is full-on with 1 mA
 and you want to limit the current to 1 mA. 
 What size resistor do you
@@ -23,7 +23,7 @@ of current to an LED?
 6. Do know how to use a breadboard, a multimeter, a soldering gun?
 
 As a review, 
-we recommend you read the following articles from [Sparkfun](sparkfun.com)
+we recommend you read the following articles from [Sparkfun](https://www.sparkfun.com)
 
 ### Basic Concepts
 

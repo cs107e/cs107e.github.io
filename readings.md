@@ -39,7 +39,7 @@ Google and you might be able to find a free pdf.
 
 * David Welch's excellent set of [bare metal programming examples](https://github.com/dwelch67/raspberrypi).
 
-* Steve Halliday's [videos](http://computersciencevideos.org/Raspberry-Pi/Raspberry-Pi-Setup) about the programming the raspberry pi.
+* Steve Halliday's [videos](http://computersciencevideos.org/Raspberry-Pi/Raspberry-Pi-Setup) about programming the raspberry pi.
 
 * Alex Chadwick's [Baking Pi Course](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/).
 
