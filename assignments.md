@@ -97,8 +97,8 @@ Your final project should be excellent.
 This is the first time this course has been offered. We will give
 extra credit for any work that we deem will make the next version
 of the course better. This could include a creative variation of
-an assignment that might be usable in the future. Written documentation,
-guides, of FAQs, on the hardware and software used in the course.
+an assignment that might be usable in the future; or written documentation,
+guides, or FAQs on the hardware and software used in the course.
 
 **What is the final project?**
 

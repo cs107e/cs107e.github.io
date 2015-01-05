@@ -44,7 +44,7 @@ labs, textbook, and course documents with other students.
 **Asking/answering questions about the programming language, libraries, and tools**
 
 For example: "Does strcmp compare strings case-insensitively?
-What does the keyword static mean? How do I view my Mercurial
+What does the keyword static mean? How do I view my git
 history? What does this error message mean in a Valgrind report?"
 
 **Clarifying the requirements or specification of an assignment**
@@ -55,7 +55,7 @@ expected response if the input is empty?"
 **Sharing generic advice and techniques for coding or debugging**
 
 For example: "I test each function right after I finish writing
-it. When my programs crashes, I first look at the stack trace
+it. When my program crashes, I first look at the stack trace
 in the debugger. I used custom sanity check to test these kinds
 of inputs. Valgrind callgrind is great for finding performance bottlenecks."
 
@@ -83,7 +83,7 @@ require citation. The difference between the two comes in what is
 being discussed and in how much detail. You may discuss general
 topics (course materials, tools, language) in any depth without
 citation, but discussion or help specific to the particulars of an
-assignment requires citation. The particulars include such as things
+assignment requires citation. The particulars include such things
 as the program's design, data structures, choice of algorithms,
 implementation strategies, testing, and debugging. Some examples:
 
@@ -121,8 +121,8 @@ This special rule applies to students who are re-taking the
 course. Re-using your previous quarter's work is generally
 permissible as long as the work was your original, independent
 creation and the self re-use is clearly cited. A specific
-exception to this general rule is the final project (heap
-allocator) on which any re-use is expressly disallowed. For the
+exception to this general rule is the final project on which 
+any re-use is expressly disallowed. For the
 final project, a re-taking student must take a distinct approach
 from any previous submission and write new code and new
 documentation from scratch. Re-using the same design or borrowing

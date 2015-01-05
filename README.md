@@ -18,7 +18,7 @@ with a solid foundation in programming methodology and abstractions,
 and CS107 follows on to give you 
 the skills needed to build computer systems.
 The course will start with the microprocessor and move
-up to the C programming language, without skipping anything in between..
+up to the C programming language, without skipping anything in between.
 The goal is to build a solid understanding of all aspects of
 how modern computers execute programs 
 and how program development tools work.
@@ -26,16 +26,16 @@ and how program development tools work.
 Topics covered include:
 the ARM architecture, assembly language, and machine-level code;
 the C programming language;
-compilation, linking and loading, debugging,
-networking, memory organization and management,
+compilation, linking and loading; debugging;
+networking; memory organization and management;
 and controlling peripherals 
-such as general-purpose IO pins, graphics, sound, and keyboards,
+such as general-purpose IO pins, graphics, sound, and keyboards.
 
 CS107e is an experimental approach 
 that teaches the fundamental concepts of computer systems 
 through bare metal programming on the Raspberry Pi.
-Bare metal programming means you will not be run an operating
-system on the Raspberry Pi, and will make minimal use of libraries.
+Bare metal programming means you will not run an operating
+system on the Raspberry Pi and will make minimal use of libraries.
 This course also serves as a short introduction to embedded systems.
 
 This class is organized by weeks. Each week consists of two lectures
@@ -46,13 +46,13 @@ There will be a short final project,
 but no exams. 
 
 Readings will be assigned from a variety of sources,
-including *The C Programming Languge*, Kernighan and Ritchie.
+including *The C Programming Language*, Kernighan and Ritchie.
 
 **Prerequisite:** 106B or X, and consent of instructor. 
 
 **Lectures:** Mon & Fri 12:50-2:05 pm, Rm 107, Littlefield Center
 
-**Lab:** Tue: 7:00-9:00 pm, Gates 415
+**Lab:** Tue 7:00-9:00 pm, Gates 415
 
 **Lecturers:** Dawson Engler, Pat Hanrahan, Phil Levis
 
@@ -64,7 +64,7 @@ including *The C Programming Languge*, Kernighan and Ritchie.
 
 ### Schedule
 
-In the readings, K&R is The C Programming Language (Kernighan and Ritchie),
+In the readings, K&R is *The C Programming Language* (Kernighan and Ritchie),
 and EssentialC is a PDF available at http://cslibrary.stanford.edu/101. 
 A digital copy of K&R is available to Stanford students via Safari Books Online.
 Please read the assigned readings before attending lecture and lab.
@@ -81,7 +81,7 @@ on President's Day Feb 16th.
 | Topics | Readings |
 | :----- | :------- |
 | **Week 1 Jan 5**| |
-| Lecture 1 (Mon): Introduction |  Review [electricity](guides/electricity.md). [binary and hexadecimal numbers and bitwire operations](guides/numbers.md), and the [unix command line](guides/unix.md).
+| Lecture 1 (Mon): Introduction |  Review [electricity](guides/electricity.md), [binary and hexadecimal numbers and bitwire operations](guides/numbers.md), and the [unix command line](guides/unix.md).
 | *No Lab* | |
 | Lecture 2 (Fri): Introduction to ARM : Blinking an LED | |
 | **Week 2 Jan 12** | |
@@ -112,7 +112,7 @@ on President's Day Feb 16th.
 | **Week 7 Feb 16** | |
 | *President's Day - Computer History Musueum Tour* | |
 | Lab 6: Working with interrupts
-| Assignment 6: Interrupt-drive terminal program
+| Assignment 6: Interrupt-driven terminal program
 | Lecture 10 (Fri): Audio
 | **Week 8 Feb 22** | |
 | Lecture 11 (Mon): MIDI Input and Peripherals | |
@@ -121,7 +121,7 @@ on President's Day Feb 16th.
 | Lecture 12 (Fri): Networking I | |
 | **Week 9 Mar 2** | |
 | Lecture 13 (Mon): Networking II | |
-| Lecture 14 (Fri): Memory management : sbrk/malloc | |
+| Lecture 14 (Fri): Memory management: sbrk/malloc | |
 | **Week 10 Mar 9** | |
 | Lecture 15 (Mon): Caches | |
 | Lecture 16 (Fri): To Linux and Beyond | |
