@@ -66,7 +66,8 @@ including *The C Programming Language*, Kernighan and Ritchie.
 
 In the readings, K&R is *The C Programming Language* (Kernighan and Ritchie),
 and EssentialC is a PDF available at http://cslibrary.stanford.edu/101. 
-A digital copy of K&R is available to Stanford students via Safari Books Online.
+A digital copy of K&R is available to Stanford students via [Safari Books Online]
+(http://proquest.safaribooksonline.com.ezproxy.stanford.edu/book/programming/c/9780133086249).
 Please read the assigned readings before attending lecture and lab.
 
 You should also read the [Guides](guides/README.md) for each week.
