@@ -12,6 +12,8 @@ Welcome to the Winter 2015 offering of CS107e.
 
 *Any CS107e student may attend any of the CS107 help sessions. There is no sign-up, just drop in. They are all held in Gates B08.*
 
+    http://piazza.com/stanford/winter2015/cs107e
+
 
 ### Course Information 
 
