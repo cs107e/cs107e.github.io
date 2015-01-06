@@ -4,9 +4,14 @@
 
 Welcome to the Winter 2015 offering of CS107e.
 
-*The first class is Mon Jan 5 12:50 pm in Rm 107 Littlefield Center.*
-
 *Review the material in [electricity](guides/electricity.md), [binary and hexadecimal numbers](guides/numbers.md), and the [unix command line](guides/unix.md). Test your knowledge by answering the questions in the introduction to each topic.*
+
+*The CS107 Unix help sessions are now posted to the schedule here:*
+
+    http://web.stanford.edu/class/cs107/officehours.html
+
+*Any CS107e student may attend any of the CS107 help sessions. There is no sign-up, just drop in. They are all held in Gates B08.*
+
 
 ### Course Information 
 
