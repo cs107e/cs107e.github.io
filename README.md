@@ -1,4 +1,4 @@
-## Computer Systems from the Ground Upµ
+## Computer Systems from the Ground Up
 
 ### Announcements
 
