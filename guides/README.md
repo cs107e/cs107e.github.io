@@ -4,7 +4,7 @@
 
 1. [Basic electricity](electricity.md)
 
-2. [Binary and hexadecimal number representations](number.md)
+2. [Binary and hexadecimal number representations](numbers.md)
 
 3. [Unix command line](unix.md)
 
