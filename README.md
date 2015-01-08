@@ -68,6 +68,7 @@ including *The C Programming Language*, Kernighan and Ritchie.
 **Office Hours:**
 
 - Hanrahan, Mon 2:15 to 3:30 pm, Gates 370
+- Levis, Fri 11AM-Noon, Gates 412
 
 ### Schedule
 
