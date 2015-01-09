@@ -1,0 +1,11 @@
+#!/bin/bash -x
+
+arm-none-eabi-as button.s -o button.o
+
+arm-none-eabi-objcopy button.o -O binary button.bin
+
+
+
+
+
+
