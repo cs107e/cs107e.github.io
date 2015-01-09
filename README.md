@@ -91,7 +91,7 @@ on President's Day Feb 16th.
 | Topics | Readings |
 | :----- | :------- |
 | **Week 1 Jan 5**| |
-| Lecture 1 (Mon): Introduction |  Review [electricity](guides/electricity.md), [binary and hexadecimal numbers and bitwire operations](guides/numbers.md), and the [unix command line](guides/unix.md).
+| Lecture 1 (Mon): Introduction [slides](lectures/Intro/intro.pdf) |  Review [electricity](guides/electricity.md), [binary and hexadecimal numbers and bitwire operations](guides/numbers.md), and the [unix command line](guides/unix.md).
 | *No Lab* | |
 | Lecture 2 (Fri): Introduction to ARM : Blinking an LED | |
 | **Week 2 Jan 12** | |
