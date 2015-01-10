@@ -2,7 +2,7 @@
 
 *Written by Pat Hanrahan*
 
-**Warning: This guide applies to the models A+ and B+, and not A and B**
+**Warning: This guide applies to the newest A+ and B+ models, and not the older A and B models**
 
 ### Powering using a micro-usb cable
 
