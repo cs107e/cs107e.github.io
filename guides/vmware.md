@@ -29,7 +29,11 @@ To get it running, you'll need to do 4 things:
 3. Download the virtual machine. You can find it at
    http://www.stanford.edu/~plevis/107E%20Ubuntu%20VM.zip
    Note that it is 3.2GB in size: I recommend that you plug into
-   a wired connection to download it.
+   a wired connection to download it. Don't put the VM on an external
+   hard drive, since USB is much slower than SATA. Since you're running
+   a whole another computer which needs to load all of its data out
+   of the VM file, this is like trying to run a full computer off of
+   a USB drive: slow!
 
 4. Unzip the virtual machine and run it. Open the .zip file
    and copy the directory into "My Documents/Virtual Machines".
@@ -44,6 +48,5 @@ To get it running, you'll need to do 4 things:
    icon the left to open a terminal. There is a subdirectory
    cs107e that has your tools and a little bit of source code
    in it.
-
 
 
