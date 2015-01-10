@@ -40,6 +40,7 @@ may go up if you are using LEDs and other peripherals.
 Another common way to power the Pi is 
 to use the usb serial break out board.
 The header on the break out board has pins for 5V and GND.
+The 5V pin is labeled VCC.
 These are connected to the Raspberry Pi's GPIO pins as shown.
 
 ![usb serial cable](images/power.usb.serial.jpg)
