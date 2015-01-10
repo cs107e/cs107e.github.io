@@ -43,26 +43,29 @@ Your last step in the setup will be to get started with GitHub. If you do not ha
 an account already, [sign up now](https://github.com). Once you have an account,
 please email your username to me (ibush@stanford.edu) so that I can add you to the
 [CS107e organization](https://github.com/cs107e). Each of you will be the sole member 
-of your own "Team" in the organization, and I will create repositories in your "Team" 
-for each stand-alone assignment.
+of your own "Team" in the organization, and your "Team" will have one private repo.
+This is where you will push all of your assignments for grading.
 
 ###Using Git
 
-For each assignment, we instructors will set up a repository for you that will 
-include any starter code. You will need to clone the starter code (or blank repo)
-locally to your machine so that you can add your own code. To do this, you should
-find the url of your assignment repo in the [CS107e organization]
-(https://github.com/cs107e). From the command line on your machine, make or go to
-the directory where you would like this code to live 
-(something like cs107e/assignments) and type the following (replacing url with
+The first step when working with git is to initalize a git repo locally on your machine
+or to clone an existing git project (or empty repo). This tutorial will teach the latter.
+For the first assignment, you will start by cloning your empty repository from GitHub.
+Go to the [CS107e organization](https://github.com/cs107e) and click on your username in the 
+Teams section, and then click on the repository for your Team. Copy the url (https) shown in
+the Quick setup box. From the command line on your machine, make or go to
+the directory where you would like this code to live and type the following (replacing url with
 your repository's url):
 
 $ git clone url 
 
-If you now type the ls command, you should now see the new repository and any starter 
-code.
+If you now type the ls command, you should see the new repository (directory).
 
-Now you can modify the code as usual locally on your machine. When you are ready to 
+Now you can cd into the new directory and add code locally on your machine. For assignments in this class,
+you will have a subdirectory within your repo for each assignment. But for now you may want to test
+out the git steps below by adding a simple test file. 
+
+When you are ready to 
 make a commit (generally a good idea after you add a new feature, fix a bug, or are 
 finished with an assignment), you should first verify your changes using the following 
 commands:
@@ -112,12 +115,12 @@ the changes to the remote server. To do this, simply use:
 
 $ git push
 
-If you get the message  
+The first time you do this, you are likely to get the message  
 "No refs in common and none specified; doing nothing.  
 Perhaps you should specify a branch such as 'master'.  
-Everything up-to-date",   
-it is likely because the initial repo that you cloned was empty. If 
-this is the case, you will need to specify the remote branch to which you would like to
+Everything up-to-date".   
+This is because the initial repo that you cloned was empty. In this case, 
+you will need to specify the remote branch to which you would like to
 push your code. We will not go into branch usage in this guide (checkout the Git 
 documentation if you're interested), so all you need to know is that the main remote
 branch is origin/master. So if you get the above error, use the following command
