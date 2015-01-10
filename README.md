@@ -91,9 +91,9 @@ on President's Day Feb 16th.
 | Topics | Readings |
 | :----- | :------- |
 | **Week 1 Jan 5**| |
-| Lecture 1 (Mon): Introduction |  Review [electricity](guides/electricity.md), [binary and hexadecimal numbers and bitwire operations](guides/numbers.md), and the [unix command line](guides/unix.md).
+| Lecture 1 (Mon): Introduction [slides](lectures/Intro/intro.pdf) |  Review [electricity](guides/electricity.md), [binary and hexadecimal numbers and bitwire operations](guides/numbers.md), and the [unix command line](guides/unix.md).
 | *No Lab* | |
-| Lecture 2 (Fri): Introduction to ARM : Blinking an LED | |
+| Lecture 2 (Fri): Introduction to ARM ([slides](lectures/ARM/arm.pdf)) : Blinking an LED ([code](lectures/ARM/code))| Start with Baking Pi ([intro](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/introduction.html), [ok01](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/ok01.html), [ok02](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/ok02.html)) and then read about [ARM ASM](http://www.toves.org/books/arm/). |
 | **Week 2 Jan 12** | |
 | Lecture 3 (Mon): ARM Assembly and Machine Code | |
 | Lab 1 : Setup the Raspberry Pi | |
