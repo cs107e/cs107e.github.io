@@ -17,46 +17,6 @@ Welcome to the Winter 2015 offering of CS107e.
 
 ### Course Information 
 
-**Course Description:** 
-
-CS107 is the third course in Stanford's introductory programming sequence.
-CS106 provides students 
-with a solid foundation in programming methodology and abstractions,
-and CS107 follows on to give you 
-the skills needed to build computer systems.
-The course will start with the microprocessor and move
-up to the C programming language, without skipping anything in between.
-The goal is to build a solid understanding of all aspects of
-how modern computers execute programs 
-and how program development tools work.
-
-Topics covered include:
-the ARM architecture, assembly language, and machine-level code;
-the C programming language;
-compilation, linking and loading; debugging;
-networking; memory organization and management;
-and controlling peripherals 
-such as general-purpose IO pins, graphics, sound, and keyboards.
-
-CS107e is an experimental approach 
-that teaches the fundamental concepts of computer systems 
-through bare metal programming on the Raspberry Pi.
-Bare metal programming means you will not run an operating
-system on the Raspberry Pi and will make minimal use of libraries.
-This course also serves as a short introduction to embedded systems.
-
-This class is organized by weeks. Each week consists of two lectures
-on Fri and Mon, a lab on Tue evening, and a programming assignment
-which is due the following Mon at 12 midnight.
-Lecture and lab attendance is mandatory.
-There will be a short final project,
-but no exams. 
-
-Readings will be assigned from a variety of sources,
-including *The C Programming Language*, Kernighan and Ritchie.
-
-**Prerequisite:** 106B or X, and consent of instructor. 
-
 **Lectures:** Mon & Fri 12:50-2:05 pm, Rm 107, Littlefield Center
 
 **Lab:** Tue 7:00-9:00 pm, Gates 415
@@ -95,7 +55,7 @@ on President's Day Feb 16th.
 | *No Lab* | |
 | Lecture 2 (Fri): Introduction to ARM ([slides](lectures/ARM/arm.pdf)) : Blinking an LED ([code](lectures/ARM/code))| Start with Baking Pi ([intro](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/introduction.html), [ok01](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/ok01.html), [ok02](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/ok02.html)) and then read about [ARM ASM](http://www.toves.org/books/arm/). |
 | **Week 2 Jan 12** | |
-| Lecture 3 (Mon): ARM Assembly and Machine Code | |
+| Lecture 3 (Mon): ARM Assembly and Machine Code [slides](lectures/ASM/asm.pdf) | Read sections 4.1-4.5 (lectures/ASM/armisa.pdf) |
 | Lab 1 : Setup the Raspberry Pi | |
 | Assignment 1 : Larson scanner | |
 | Lecture 4 (Fri): Introduction to C | |
@@ -139,6 +99,8 @@ on President's Day Feb 16th.
 
 
 ### Information
+
+[Course description](course.md)
 
 [Labs](labs.md)
 
