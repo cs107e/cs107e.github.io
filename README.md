@@ -61,7 +61,7 @@ on President's Day Feb 16th.
 | *No Lab* | |
 | Lecture 2 (Fri): Introduction to ARM ([slides](lectures/ARM/arm.pdf)) : Blinking an LED ([code](lectures/ARM/code))| Start with Baking Pi ([intro](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/introduction.html), [ok01](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/ok01.html), [ok02](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/ok02.html)) and then read about [ARM ASM](http://www.toves.org/books/arm/). |
 | **Week 2 Jan 12** | |
-| Lecture 3 (Mon): ARM Assembly and Machine Code [slides](lectures/ASM/asm.pdf) | Read sections 4.1-4.5 (lectures/ASM/armisa.pdf) |
+| Lecture 3 (Mon): ARM Assembly and Machine Code [slides](lectures/ASM/asm.pdf) | Read sections 4.1-4.5 from the [ARM ISA](lectures/ASM/armisa.pdf) |
 | Lab 1 : Setup the Raspberry Pi | |
 | Assignment 1 : Larson scanner | |
 | Lecture 4 (Fri): Introduction to C | |
