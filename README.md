@@ -4,7 +4,7 @@
 
 Welcome to the Winter 2015 offering of CS107e.
 
-*Review the material in [electricity](guides/electricity.md), [binary and hexadecimal numbers](guides/numbers.md), and the [unix command line](guides/unix.md). Test your knowledge by answering the questions in the introduction to each topic.*
+Review the material in [electricity](guides/electricity.md), [binary and hexadecimal numbers](guides/numbers.md), and the [unix command line](guides/unix.md). Test your knowledge by answering the questions in the introduction to each topic.
 
 <!---
 *The CS107 Unix help sessions are now posted to the schedule here:*
