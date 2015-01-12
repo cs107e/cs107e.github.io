@@ -41,8 +41,8 @@ Starting at the top, we have
      2 5V
      4 5V
      6 GND
-     8 TX
-    10 XX
+     8 TX 
+    10 RX
 
 By convention, the transmit TX on one end is connected
 to the receive RX on the other end.
@@ -50,5 +50,11 @@ to the receive RX on the other end.
 The proper connections are shown below
 
 ![Console cable](images/console.cable.zoom.jpg)
+
+In this configuration, the yellow wire connects
+the RX header pin on the usb serial breakout board
+to the TX GPIO Pin 8 on the Pi's header.
+The orange wire connects the TX header pin
+to the RX GPIO Pin 10.
 
 
