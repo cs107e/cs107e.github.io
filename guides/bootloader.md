@@ -23,12 +23,12 @@ to run bare metal programs on the Raspberry Pi.
 8 Power on the Raspberry Pi
 
 This takes a fair amount of time,
-and doesn't take too long to become quite tedious.
+and doesn't take long before it becomes quite tedious.
 Repeatedly inserting and removing SDHC 
 also can wear out the SDHC connectors 
 in your laptop and the Raspberry Pi.
 
-Another better method is to use a *bootloader.*
+A better method is to use a *bootloader.*
 The bootloader is installed on the SDHC card as `kernel.img`.
 When the Raspberry Pi runs, the bootloader is run.
 THe bootloader listens on the serial port
@@ -43,11 +43,9 @@ and download a new version of your program.
 The SDHC card song and dance described above 
 is replaced with the simpler procedure:
 
-1 Power off Raspberry Pi
+1 Reset the Raspberry Pi
 
-2 Power on Raspberry Pi
-
-3 Run the command to load and start your program
+2 Run the command to load and start your program
 
 In order to use the bootloader, 
 you need to format an SDHC card 
@@ -72,10 +70,11 @@ To run the bootloader, just copy `bootloader.bin` to `kernel.img`.
 Next time you reset the Raspberry Pi,
 the bootloader will run.
 
-### Loading and running code 
+### Connect your laptop to the Pi using the console cable
 
-Make sure you have your console cable setup
-as per our [instructions](console.md)
+Setup your console cable as per our [instructions](console.md)
+
+### Loading and running code 
 
 We have created a python program that sends binary
 files to the bootloader.
