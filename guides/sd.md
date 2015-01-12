@@ -24,7 +24,6 @@ printed circuit board.
 Most laptops contain a SD slot.
 You need to insert the SDHC card into your laptop,
 and mount the file system.
-Insert the SDHC card into your laptop. 
 
 - On the Macbook Pro,
 the card holder is on the right-hand side of the machine.
@@ -65,7 +64,7 @@ Normally, `kernel.img` is the linux kernel.
 In this course,
 we will run replace this file with our own program.
 
-Copy these files onto your Raspberry Pi.
+Copy these files onto your SDHC Card.
 
 ### Eject your SDHC card
 
