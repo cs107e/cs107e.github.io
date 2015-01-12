@@ -7,12 +7,19 @@ the following song and dance
 to run bare metal programs on the Raspberry Pi.
 
 1 Power off the Raspberry Pi
+
 2 Remove the SDHC card
+
 3 Insert the SDHC card into laptop card slot
+
 4 Mount the SDHC card
+
 5 Copy your binary file to `kernel.img`
+
 6 Eject the SDHC card
+
 7 Insert the SDHC card into the Raspberry PI
+
 8 Power on the Raspberry Pi
 
 This takes a fair amount of time,
@@ -37,7 +44,9 @@ The SDHC card song and dance described above
 is replaced with the simpler procedure:
 
 1 Power off Raspberry Pi
+
 2 Power on Raspberry Pi
+
 3 Run the command to load and start your program
 
 In order to use the bootloader, 
