@@ -7,7 +7,7 @@
 Your Raspberry Pi kit contains a 
 Kingston 4GB micro class 4 SDHC card.
 A secure digital (SD) contains non-volatile memory for storage. 
-A SDHC card is a high capacity SD card.
+A HC in SDVC stands for high capacity.
 
 ![Kingston SDHC Card](images/kingston.sdhc.jpg)
 
@@ -15,7 +15,7 @@ The Raspberry Pi runs the software on the SDHC card
 installed in the SD card holder on the bottom of the
 printed circuit board.
 
-![SDHC Card](images/sdhc.jpg)
+![SDHC Card](images/pi.sd.jpg)
 
 
 
