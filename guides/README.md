@@ -10,9 +10,9 @@
 
 ## Setup
 
-1. [Powering the Pi](power.card)
+1. [Powering the Pi](power.md)
 
-2. [Working with SD cards](sd.card)
+2. [Working with SD cards](sd.md)
 
 3. [Working from the console using a usb serial cable](console.md)
 
