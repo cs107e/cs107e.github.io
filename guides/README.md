@@ -10,11 +10,13 @@
 
 ## Setup
 
-1. [Working with SD cards](sd.card)
+1. [Powering the Pi](power.card)
 
-2. [Working from the console using a usb serial cable](console.md)
+2. [Working with SD cards](sd.card)
 
-3. [Setting up cross development environment](arm-none-eabi.md)
+3. [Working from the console using a usb serial cable](console.md)
+
+4. [Setting up cross development environment](arm-none-eabi.md)
 
 ## Tools
 
