@@ -21,7 +21,7 @@ make this directory (assuming you do not have one already):
 
 5. Your tools should now be installed. To check, try the following command:
 
-   $ ~/bin/arm-none-eabi/bin/arm-none-eabi-as -v
+   $ ~/bin/arm-none-eabi/bin/arm-none-eabi-as -v  
    GNU assembler version 2.24 (arm-none-eabi) using BFD version (GNU Binutils) 2.24
 
 6. While the above command works, it is annoying to have to specify the directory of the
@@ -34,5 +34,5 @@ add the following line:
 
 7. If you close that shell window and open a new one, you should now be able to simply type
 
-   $ arm-none-eabi-as -v
+   $ arm-none-eabi-as -v  
    GNU assembler version 2.24 (arm-none-eabi) using BFD version (GNU Binutils) 2.24
