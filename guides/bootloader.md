@@ -55,7 +55,7 @@ to your laptop and the Raspberry Pi.
 Finally, you need to run a script that uses
 the `xmodem` protocol to send the program to the Pi.
 
-### Installing the bootloader
+### Install the bootloader
 
 The bootloader we are using was developed by David Welch.
 It's his bootloader06. 
@@ -74,7 +74,7 @@ the bootloader will run.
 
 Setup your console cable as per our [instructions](console.md)
 
-### Loading and running code 
+### Load and run your program 
 
 We have created a python program that sends binary
 files to the bootloader.
