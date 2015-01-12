@@ -83,7 +83,7 @@ the program is already installed.
 
 To load and run `blink.bin`, simply type:
 
-    % rpi-install blink.bin
+    % rpi-install.py blink.bin
     Sent True
     %
 
