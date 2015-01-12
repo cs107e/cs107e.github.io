@@ -14,15 +14,13 @@
 
 2. [Working with SD cards](sd.md)
 
-3. [Working from the console using a usb serial cable](console.md)
+3. [Installing the cross-development tools on a Mac](mac_toolchain)
 
-4. [Setting up cross development environment](arm-none-eabi.md)
-
-5. [Installing a virtual machine on windows](vmware.md). 
+4. [Installing a virtual machine on windows](vmware.md). 
 The virtual machine will contain Ubuntu so you can run linux,
 and all the ARM cross-development tools will be installed.
 
-6. [Installing the cross-development tools on a Mac](mac_toolchain)
+5. [Working from the console using a usb serial cable](console.md)
 
 ## Tools
 
