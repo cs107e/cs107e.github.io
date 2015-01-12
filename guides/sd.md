@@ -59,7 +59,7 @@ There should be 6 files.
 
 Recall that `bootcode.bin` is the bootloader for the GPU,
 `start.elf` is the GPU start up code,
-and ``kernel.img` is the program run by the Pi.
+and `kernel.img` is the program run by the Pi.
 Normally, `kernel.img` is the linux kernel.
 In this course,
 we will run replace this file with our own program.

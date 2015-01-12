@@ -153,7 +153,7 @@ bookeeping and linking.
 
 ### `objcopy`
 
-This program transforms binary objects between different formats. For example, you can use objcopy to transform
+Transforms binary objects between different formats. For example, you can use objcopy to transform
 an ELF executable (which has symbols and all kinds of other information) into a simple binary. The principal
 options to `objcopy` are `-O` and `-I`, which specify the output and input formats. Example formats are
 elf32-bigarm, ihex, and binary. Sometimes `objcopy` can tell what the format is and so doesn't need to be

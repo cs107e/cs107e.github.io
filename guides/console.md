@@ -3,7 +3,7 @@
 *Written by Pat Hanrahan*
 
 The usb serial cable can be used to communicate
-between your lqptop and the Raspberry Pi.
+between your laptop and the Raspberry Pi.
 
 One use of the usb serial cable is to implement a console.
 The console acts as a terminal connected to the Pi.
@@ -23,7 +23,7 @@ In this course, we will be using a CP2102 usb serial breakout board.
 The CP2102 is the chip that converts from a
 serial interface to a usb interface.
 
-On`one end of the breakout board is a usb Type A connecter.
+On one end of the breakout board is a usb Type A connecter.
 The breakout board plugs into any usb port on your laptop.
 
 The other end of the console cable contains a 6 pin header.

@@ -15,7 +15,7 @@ lit if the Raspberry Pi is receiving power.
 Note that there are different types of usb connectors.
 The Raspberry Pi uses a micro-usb connector.
 
-Note also that there is also a large USB port
+Note also that there is a large USB port
 (on the bottom of the Raspberry Pi board).
 The large usb connector is not used to power the Pi.
 
@@ -25,7 +25,7 @@ by using an inline power meter.
 
 ![Mac usb](images/power.jpg)
 
-The usb specification says that usb port should supply 5V,
+The usb specification says that the usb port should supply 5V,
 and up too 500 mA of current.
 Our experiment shows that the usb port has a voltage of 4.72V,
 is supplying 80 mA of current,
@@ -53,8 +53,8 @@ part of the schematic.
 
 ### Powering using the micro-usb cable connected to an AC adapter
 
-You can also directly power it with a AC adapter. 
-The same kind that you use to charge your phone..
+You can also directly power it with an AC adapter. 
+The same kind that you use to charge your phone.
 
 ![micro-usb ac-adater](images/power.usb.ac.adapter.jpg)
 
