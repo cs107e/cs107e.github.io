@@ -64,12 +64,15 @@ communicate between your laptop and the Raspberry Pi.
 When doing this, the usb serial breakout board appears
 at a serial device, or COM port.
 
-- On Windows and Linux, there is now need to install any
-drivers to use the breakout board.
+**Windows and Linux**
 
-- On the Mac, you need to install the 
+There is now need to install any drivers to use the breakout board.
+
+**Mac OSX**
+
+On the Mac, you need to install the 
 CP210X usb to uart bridge vcp drivers
-Download [Version 3.1](https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.asp) of the drivers.
+Download [Version 3.1](https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx) of the drivers.
 Clicking on the download link will download the
 file `Mac_OSX_VCP_Driver.zip`.
 Opening this file will uncompress and you will see a new file,
