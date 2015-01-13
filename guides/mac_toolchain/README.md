@@ -1,6 +1,11 @@
-## Arm-none-eabi Installation for OSX
+## Mac Installs
+For this class, you will need to install the arm-none-eabi tools and the driver
+and script to use the CP2102 console cable to load your programs onto the Pi. 
+If you are on a Mac, please follow the instructions below.
 
-To ease the installation process for the arm-none-eabi- tools on OSX, we have
+### Arm-none-eabi Installation for OSX
+
+To ease the installation process for the arm-none-eabi tools on OSX, we have
 prebuilt them for you. Follow these steps to install them:
 
 1. Download the arm-none-eabi.tar.bz2 file.
@@ -36,3 +41,24 @@ add the following line:
 
    $ arm-none-eabi-as -v  
    GNU assembler version 2.24 (arm-none-eabi) using BFD version (GNU Binutils) 2.24
+
+### Console Cable Driver & Script
+
+To use the CP2102 console cable, you will need to [download the driver]
+(http://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx).
+
+Also download the rpi-install.py script, which you will be using to load 
+your programs onto the Pi over the serial cable.
+
+If you try to run this script, you may run across errors that there is 
+"No module named serial" or "No module named xmodem". You will need to 
+install these Python modules.
+
+If you do not have pip (Python package management) on your Mac, [download and 
+install pip](https://pip.pypa.io/en/latest/installing.html). Once you have
+pip, you can easily get the missing modules using
+
+     $ sudo pip install pyserial  
+     $ sudo pip install xmodem
+
+Once those are installed, you should be able to run the script.
