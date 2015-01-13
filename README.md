@@ -25,7 +25,7 @@ We have posted instructions on how to prepare for Tuesday's lab.
 
 **Lectures:** Mon & Fri 12:50-2:05 pm, Rm 107, Littlefield Center
 
-**Lab:** Tue 7:00-9:00 pm, Gates 415
+**Lab:** Tue 7:00-9:00 pm, Gates 415, if you have trouble getting in call Phil's office at 650-725-9046 (across the hall)
 
 **Lecturers:** Dawson Engler, Pat Hanrahan, Phil Levis
 
