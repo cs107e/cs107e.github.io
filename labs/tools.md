@@ -1,6 +1,6 @@
 ## Tool Suggestions
 
-*By Pat Hanrahan*
+*Suggestions by Pat Hanrahan*
 
 We will using the following tools in the lab.
 
@@ -13,15 +13,6 @@ We like people to use their own tools;
 it is very empowering.
 And that also means you will be able to work outside of lab.
 If you don't own these tools, don't worry. 
-If you want to buy tools and don't know what to buy,
-talk to the instructors. They love tools!
-
-During this first lab you will be using
-a wire strippers/cutter (yellow handled widget), 
-a needle-nose pliers (green-handled widget), 
-and a multimeter (the orange thing with a display).
-Don't worry about wire and other supplies;
-we'll provide that.
 
 If you don't have tools, and you want to buy some,
 here are my recommendations. 
