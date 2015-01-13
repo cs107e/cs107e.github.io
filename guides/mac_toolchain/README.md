@@ -44,8 +44,10 @@ add the following line:
 
 ### Console Cable Driver & Script
 
-To use the CP2102 console cable, you will need to [download the driver]
-(http://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx).
+To use the CP2102 console cable,
+you will need to install the drivers.
+Instructions on how to do this are in
+the [Console Guide](console.md).
 
 Also download the rpi-install.py script, which you will be using to load 
 your programs onto the Pi over the serial cable.
