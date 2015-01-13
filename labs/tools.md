@@ -4,7 +4,7 @@
 
 We will using the following tools in the lab.
 
-![Tools](labs/lab1/images/tools.jpg)
+![Tools](lab1/images/tools.jpg)
 
 We do not have enough tools for everyone,
 so you will have to share them.
@@ -32,15 +32,15 @@ since - although we may not use them in class -
 they are well worth having.
 The multimeter is a good basic multimeter.
 
-- wire stripper [Amazon](http://www.amazon.com/gp/product/B002UP7J5M/)
+- Ideal wire stripper [Amazon](http://www.amazon.com/gp/product/B002UP7J5M/)
 
-- needle nose pliers [Amazon](http://www.amazon.com/Xcelite-L4G-Sub-Miniature-Needle-Cushion/dp/B004UNFE9U/)
+- Xcelite needle nose pliers [Amazon](http://www.amazon.com/Xcelite-L4G-Sub-Miniature-Needle-Cushion/dp/B004UNFE9U/)
 
-- diagonal cutters [Amazon](http://www.amazon.com/gp/product/B00FZPDG1K/)
+- Hakko diagonal cutters [Amazon](http://www.amazon.com/gp/product/B00FZPDG1K/)
 
-- slotted screwdrivers [Amazon](http://www.amazon.com/gp/product/B000F0EJSY/)
+- Wiha slotted screwdrivers [Amazon](http://www.amazon.com/gp/product/B000F0EJSY/)
 
-- philips head screwdrivers [Amazon](http://www.amazon.com/gp/product/B000NZ5QGK/)
+- Wiha philips head screwdrivers [Amazon](http://www.amazon.com/gp/product/B000NZ5QGK/)
 
-- multi-meter [Amazon](http://www.amazon.com/gp/product/B000EX0AE4/)
+- Extech 330 multi-meter [Amazon](http://www.amazon.com/gp/product/B000EX0AE4/)
 
