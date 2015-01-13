@@ -33,5 +33,5 @@ The multimeter is a good basic multimeter.
 
 - Wiha philips head screwdrivers [Amazon](http://www.amazon.com/gp/product/B000NZ5QGK/)
 
-- Extech 330 multi-meter [Amazon](http://www.amazon.com/gp/product/B000EX0AE4/)
+- Extech EX330 multi-meter [Amazon](http://www.amazon.com/gp/product/B000EX0AE4/)
 
