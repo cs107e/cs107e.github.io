@@ -57,4 +57,40 @@ to the TX GPIO Pin 8 on the Pi's header.
 The orange wire connects the TX header pin
 to the RX GPIO Pin 10.
 
+### Installing the CP2102 virtual serial port drivers
+
+Another common use of the usb serial breakbout is to
+communicate between your laptop and the Raspberry Pi.
+When doing this, the usb serial breakout board appears
+at a serial device, or COM port.
+
+- On Windows and Linux, there is now need to install any
+drivers to use the breakout board.
+
+- On the Mac, you need to install the 
+CP210X usb to uart bridge vcp drivers
+Download [Version 3.1](https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.asp) of the drivers.
+Clicking on the download link will download the
+file `Mac_OSX_VCP_Driver.zip`.
+Opening this file will uncompress and you will see a new file,
+SiLabsUSBDriverDisk.dmg.
+Opening the dmg file, will mount the volume.
+You should see a volume named
+"Silicon Labs VCP Driver Install Disk" in the finder under devices.
+Going to that folder, you will see an installed named
+"Silicon Labs VCP Driver Installer."
+Opening that file will launch the installer.
+Follow the instructions to complete the installation.
+You will need to restart the computer after the installation.
+
+Now plug the usb breakout board into a usb port on your laptop.
+Check whether the serial port exists by looking for the device file.
+
+    % ls /dev/tty.SLAB_USBtoUART
+    /dev/tty.SLAB_USBtoUART
+
+You will now be able to use the 
+[bootloader](bootloader.md) and a 
+[terminal program](terminal.md)
+to communicate with the Raspberry Pi.
 
