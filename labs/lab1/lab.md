@@ -138,7 +138,7 @@ and have it open in a browser
 so you can jot things down as you go.
 Only one checklist needs to submitted for both you and your partner.
 
-Now 'cd blink' and type the commands:
+Now 'cd courseware/labs/lab1/code/blink' and type the commands:
 
     % arm-none-eabi-as blink.s -o blink.o
     % arm-none-eabi-objcopy blink.o -O binary blink.bin
