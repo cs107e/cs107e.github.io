@@ -50,7 +50,7 @@ This is where you will push all of your assignments for grading.
 
 The first step when working with git is to initalize a git repo locally on your machine
 or to clone an existing git project (or empty repo). This tutorial will teach the latter.
-For the first assignment, you will start by cloning your empty repository from GitHub.
+For the first assignment, you will start by cloning your repository from GitHub.
 Go to the [CS107e organization](https://github.com/cs107e) and click on your username in the 
 Teams section, and then click on the repository for your Team. Copy the url (https) shown in
 the Quick setup box. From the command line on your machine, make or go to
@@ -115,11 +115,11 @@ the changes to the remote server. To do this, simply use:
 
 $ git push
 
-The first time you do this, you are likely to get the message  
+The first time you do this, you may get the message  
 "No refs in common and none specified; doing nothing.  
 Perhaps you should specify a branch such as 'master'.  
 Everything up-to-date".   
-This is because the initial repo that you cloned was empty. In this case, 
+This happens if the initial repo that you cloned was empty. In this case, 
 you will need to specify the remote branch to which you would like to
 push your code. We will not go into branch usage in this guide (checkout the Git 
 documentation if you're interested), so all you need to know is that the main remote
