@@ -158,14 +158,14 @@ which produces output like this:
      80	       24      32      136 	88 	  test.o
      72	        0       0       72	48	  test2.o
 
-Under 'text' you see the size of the actual machine code that makes up your program. Similarly to 
-the symbol types listed under 'nm' above, the 'data' section is the size of storing your initialized 
-global variables, and 'bss' is the size of storing your uninitialized global variables. The 'dec' and 
-'hex' numbers indicate the total size (sum of text, data, & bss) in decimal and hexidecimal, 
+Under `text` you see the size of the actual machine code that makes up your program. Similarly to 
+the symbol types listed under `nm` above, the `data` section is the size of storing your initialized 
+global variables, and `bss` is the size of storing your uninitialized global variables. The `dec` and 
+`hex` numbers indicate the total size (sum of text, data, & bss) in decimal and hexidecimal, 
 respectively.
 
 The options for the size command are mostly to change the format of the output. For example, to see 
-the section sizes in hexidecimal, use the '-x' option ('size -x test.o'). You can also specify the 
+the section sizes in hexidecimal, use the `-x` option (`size -x test.o`). You can also specify the 
 file type if it is not automatically recognized. For example if you want to know the size of a raw 
 binary file, you could use 
 
@@ -173,16 +173,16 @@ binary file, you could use
 
 ### `strings`
 
-Prints text strings embedded in the input file. 'strings' is useful 
+Prints text strings embedded in the input file. `strings` is useful 
 for searching binary files, which are not readable using a text editor. For example, if you 
 wanted to search an object file for a particular string, you could call strings and pipe the result to 
 grep, like this:
 
       % strings test.o | grep "my string"
 
-By default, 'strings' looks for strings of at least 4
+By default, `strings` looks for strings of at least 4
 printable characters (followed by a NUL character indicating the end of a string).
-To set a minimum string length other than 4, use the '-n' option. For example,
+To set a minimum string length other than 4, use the `-n` option. For example,
 
       % strings -n 6 test.o
 
@@ -191,11 +191,11 @@ looks for strings of at least 6 characters.
 ### `strip`
 
 Removes symbols from object files. Symbols indicate where in memory variables and functions reside, 
-see 'ld' above. By stripping out symbol tables and debug information, 'strip' decreases the size of 
+see `ld` above. By stripping out symbol tables and debug information, `strip` decreases the size of 
 object files.
 
-'strip' modifies the input file rather than creating a new, stripped output file. Compare the file 
-before and after you strip it using 'nm' (above). You will find that the symbols have been removed. 
+`strip` modifies the input file rather than creating a new, stripped output file. Compare the file 
+before and after you strip it using `nm` (above). You will find that the symbols have been removed. 
 
 ### `objcopy`
 
@@ -215,12 +215,12 @@ takes main as input (an ELF file), transforms it into a raw binary file and outp
 
 ### `objdump`
 
-Displays information about object files. To use 'objdump', you must specify at least one of the many 
+Displays information about object files. To use `objdump`, you must specify at least one of the many 
 options, which indicate what type of information you would like to view. There are many different options, 
-check out 'man objdump' to see what it can show.
+check out `man objdump` to see what it can show.
 
-A very useful option is the '-d' option, which allows you to view the assembly instructions 
-associated with the executable part of the binary file ('-d' is for dissassemble):
+A very useful option is the `-d` option, which allows you to view the assembly instructions 
+associated with the executable part of the binary file (`-d` is for dissassemble):
 
     % objdump -d test.o
 
@@ -228,15 +228,15 @@ associated with the executable part of the binary file ('-d' is for dissassemble
 
 Allows you to create, modify, and extract archives. Archives are single files holding 
 collections of other (usually binary) files, similar to a zip or tar file. Archives have a .a extension 
-and are usually used to hold libraries. The linker (see 'ld' above) is often used to link to functions 
+and are usually used to hold libraries. The linker (see `ld` above) is often used to link to functions 
 in these archive library files.
 
-'ar' has options for you to create an archive, add or remove files from an existing archive, and 
-extract files from an archive. To create an archive from object files, use the 'cr' or 
-'crs' options, followed by your object files. The 'c' option means it will not warn you that it 
+`ar` has options for you to create an archive, add or remove files from an existing archive, and 
+extract files from an archive. To create an archive from object files, use the `cr` or 
+`crs` options, followed by your object files. The `c` option means it will not warn you that it 
 needs to create the library (since that is 
-what you are trying to do). The 'r' option says to insert the new files (or replace existing ones).
-If you specify the 's' option, the archive maintains an
+what you are trying to do). The `r` option says to insert the new files (or replace existing ones).
+If you specify the `s` option, the archive maintains an
 index to all symbols defined in files in the archive to allow for quicker linking to the library
 functions.
 
@@ -245,9 +245,9 @@ For example,
     % ar cr libtest.a test.o test2.o
 
 makes the library archive file libtest.a containing test.o and test2.o. Then you can link to this 
-library by specifying '-ltest' in the 'ld' command (see 'ld' above).
+library by specifying `-ltest` in the `ld` command (see `ld` above).
 
-For more options on how to modify archives, see 'man ar' or 'ar --help'.
+For more options on how to modify archives, see `man ar` or `ar --help`.
 
 ## Other utilities
 
