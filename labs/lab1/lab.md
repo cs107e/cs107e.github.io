@@ -88,7 +88,7 @@ and a running version of git.
 Before coming to lab,
 you should be able to login to a shell and type the following
 
-    % arm-none-ebai-as -v
+    % arm-none-eabi-as -v
     GNU assembler version 2.24 (arm-none-eabi) using BFD version (GNU Binutils) 2.24
     % git --version
     git version 1.9.3
