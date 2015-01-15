@@ -78,8 +78,10 @@ Setup your console cable as per our [instructions](console.md)
 
 We have created a python program that sends binary
 files to the bootloader.
-If you have installed the cross-development tools,
-the program is already installed.
+If you have followed all the setup instructions,
+the program is already installed. If you are on a Mac and 
+it is not working for you, be sure you followed the latter part
+of the setup instructions [here](mac_toolchain).
 
 To load and run `blink.bin`, simply type:
 

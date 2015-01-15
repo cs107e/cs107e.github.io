@@ -66,14 +66,14 @@ To prepare for this lab, you should do the following.
 1 If you are using a windows laptop, download and install a
 virtual machine running linux.
 We have written [instructions]
-(https://github.com/cs107e/courseware/blob/master/guides/vmware.md)
+(../../guides/vmware.md)
 on how to install this software.
 The virtual machine will have the arm cross-development tools 
 (all starting with the prefix `arm-none-eabi-`) installed.
 
 2 If you are using a Mac laptop, download and [install
 the arm cross-development tools]
-(https://github.com/cs107e/courseware/tree/master/guides/mac_toolchain) 
+(../../guides/mac_toolchain) 
 from the course github repository.
 You do not have to install a virtual machine running linux on a Mac,
 since OSX is based on unix.
@@ -81,7 +81,7 @@ since OSX is based on unix.
 3 Install git and learn how to use it.
 Consult the following 
 [CS107e guide to git]
-(https://github.com/cs107e/courseware/blob/master/guides/git.md)
+(../../guides/git.md)
 for instructions on how to download and use it.
 
 You should come to lab with working versions of the cross-development tools
@@ -91,7 +91,7 @@ and a running version of git.
 Before coming to lab,
 you should be able to login to a shell and type the following
 
-    % arm-none-ebai-as -v
+    % arm-none-eabi-as -v
     GNU assembler version 2.24 (arm-none-eabi) using BFD version (GNU Binutils) 2.24
     % git --version
     git version 1.9.3
@@ -141,7 +141,7 @@ and have it open in a browser
 so you can jot things down as you go.
 Only one checklist needs to submitted for both you and your partner.
 
-Now 'cd blink' and type the commands:
+Now `cd courseware/labs/lab1/blink` and type the commands:
 
     % arm-none-eabi-as blink.s -o blink.o
     % arm-none-eabi-objcopy blink.o -O binary blink.bin

@@ -3,12 +3,16 @@ import sys
 import serial
 from xmodem import XMODEM
 
-if len(sys.argv) != 3:
+if len(sys.argv) == 3:
+    portname = sys.argv[1]
+    filename = sys.argv[2]
+elif len(sys.argv) == 2:
+    portname = "/dev/tty.SLAB_USBtoUART"
+    filename = sys.argv[1]
+else:
     print "usage: %s tty bin" % sys.argv[0]
     sys.exit(1)
 
-portname = sys.argv[1]
-filename = sys.argv[2]
 
 port = serial.Serial(port=portname, baudrate=115200)
 if not port:
