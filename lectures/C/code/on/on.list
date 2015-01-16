@@ -1,0 +1,14 @@
+
+on.o:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00008000 <main>:
+    8000:	e59f3010 	ldr	r3, [pc, #16]	; 8018 <main+0x18>
+    8004:	e3a01001 	mov	r1, #1
+    8008:	e3a02601 	mov	r2, #1048576	; 0x100000
+    800c:	e5831008 	str	r1, [r3, #8]
+    8010:	e583201c 	str	r2, [r3, #28]
+    8014:	eafffffe 	b	8014 <main+0x14>
+    8018:	20200000 	.word	0x20200000
