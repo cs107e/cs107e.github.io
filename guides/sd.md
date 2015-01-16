@@ -49,7 +49,7 @@ By default, the volume is named `NO NAME`.
 
 Now, download the Raspberry Pi firmware from
 
-    https://github.com/phanrahan/cs107e/firmware
+    https://github.com/cs107e/firmware
 
 There should be 6 files.
 
