@@ -57,14 +57,14 @@ on President's Day Feb 16th.
 | Topics | Readings |
 | :----- | :------- |
 | **Week 1 Jan 5**| |
-| Lecture 1 (Mon): Introduction [slides](lectures/Intro/intro.pdf) |  Review [electricity](guides/electricity.md), [binary and hexadecimal numbers and bitwire operations](guides/numbers.md), and the [unix command line](guides/unix.md).
+| Lecture 1 (Mon): Introduction ([slides](lectures/Intro/intro.pdf)) |  Review [electricity](guides/electricity.md), [binary and hexadecimal numbers and bitwire operations](guides/numbers.md), and the [unix command line](guides/unix.md).
 | *No Lab* | |
 | Lecture 2 (Fri): Introduction to ARM ([slides](lectures/ARM/arm.pdf)) : Blinking an LED ([code](lectures/ARM/code))| Start with Baking Pi ([intro](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/introduction.html), [ok01](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/ok01.html), [ok02](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/ok02.html)) and then read about [ARM ASM](http://www.toves.org/books/arm/). |
 | **Week 2 Jan 12** | |
-| Lecture 3 (Mon): ARM Assembly and Machine Code [slides](lectures/ASM/asm.pdf) | Read sections 4.1-4.5 from the [ARM ISA](lectures/ASM/armisa.pdf) |
+| Lecture 3 (Mon): ARM Assembly and Machine Code ([slides](lectures/ASM/asm.pdf)) | Read sections 4.1-4.5 from the [ARM ISA](lectures/ASM/armisa.pdf) |
 | Lab 1 : [Setup the Raspberry Pi](labs/lab1/walk.md) | |
 | Assignment 1 : [Larson scanner](assignment/assign1/assign1.md) | |
-| Lecture 4 (Fri): Introduction to C | Brush up on C syntax, data types, operators, control structure, function calls. EssentialC chapters 1, 2, and 4; or K&R 1, 2 and 3. Skip stuff involving arrays, io, and standard libraries.|
+| Lecture 4 (Fri): Introduction to C | Brush up on C syntax, data types, operators, control structure, function calls. EssentialC chapters 1, 2, and 4; or K&R 1, 2, 3, 4 and 5.1-5.4. Skip sections involving arrays, characters, strings, io, and standard libraries.|
 | **Week 3 Jan 19** | |
 | *Martin Luther King Holiday - No Class* | |
 | Lab 2 : Below C Level| |
