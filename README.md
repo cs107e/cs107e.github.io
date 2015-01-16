@@ -64,7 +64,7 @@ on President's Day Feb 16th.
 | Lecture 3 (Mon): ARM Assembly and Machine Code ([slides](lectures/ASM/asm.pdf)) | Read sections 4.1-4.5 from the [ARM ISA](lectures/ASM/armisa.pdf) |
 | Lab 1 : [Setup the Raspberry Pi](labs/lab1/walk.md) | |
 | Assignment 1 : [Larson scanner](assignment/assign1/assign1.md) | |
-| Lecture 4 (Fri): Introduction to C ([slides](lectures/C/c.pdf)) | Brush up on C syntax, data types, operators, control structure, function calls. EssentialC chapters 1, 2, and 4; or K&R 1, 2, 3, 4 and 5.1-5.4. Skip sections involving characters, strings, io, and standard libraries.|
+| Lecture 4 (Fri): Introduction to C ([slides](lectures/C/c.pdf)), ([code](lectures/C/code)) | Brush up on C syntax, data types, operators, control structure, function calls. EssentialC chapters 1, 2, and 4; or K&R 1, 2, 3, 4 and 5.1-5.4. Skip sections involving characters, strings, io, and standard libraries.|
 | **Week 3 Jan 19** | |
 | *Martin Luther King Holiday - No Class* | |
 | Lab 2 : Below C Level| |
