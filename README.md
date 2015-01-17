@@ -4,9 +4,9 @@
 
 Welcome to the Winter 2015 offering of CS107e.
 
+<!---
 Review the material in [electricity](guides/electricity.md), [binary and hexadecimal numbers](guides/numbers.md), and the [unix command line](guides/unix.md). Test your knowledge by answering the questions in the introduction to each topic.
 
-<!---
 *The CS107 Unix help sessions are now posted to the schedule here:*
 
     http://web.stanford.edu/class/cs107/officehours.html
@@ -14,11 +14,8 @@ Review the material in [electricity](guides/electricity.md), [binary and hexadec
 *Any CS107e student may attend any of the CS107 help sessions. There is no sign-up, just drop in. They are all held in Gates B08.*
 -->
 
-All class announcements will be posted to Piazza. Make sure to sign up.
-
-    http://piazza.com/stanford/winter2015/cs107e
-
-We have posted instructions on how to prepare for Tuesday's lab.
+All class announcements will be posted to 
+[Piazza](http://piazza.com/stanford/winter2015/cs107e).
 
 
 ### Course Information 
