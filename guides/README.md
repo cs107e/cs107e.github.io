@@ -28,9 +28,9 @@ and all the ARM cross-development tools will be installed.
 
 2. [Bare metal programming using gcc](gcc.md) 
 
-<!---
-3. [gdb](gdb.md)
+3. [Using gdb in simulation mode](gdb.md)
 
+<!---
 4. [make](make.md)
 --->
 
