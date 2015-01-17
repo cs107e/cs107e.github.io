@@ -21,7 +21,7 @@ the program without an operating system or standard libraries.
 The program does not *stand* on top of an operating system or library.
 It is *on its own* and free to do whatever it wants.
 Operating systems and libraries will not get in its way.
-The opposite is freestanding is hosted.
+The opposite of freestanding is hosted.
 In hosted mode, the program runs at the pleasure of the host operating system.
 
 In freestanding mode only the following header files
@@ -31,7 +31,7 @@ These headers define the types appropriate for the machine
 being used, as well as useful constants such as
 the minimum and maximum values for different types.
 
-The -ffreestanding option directs the compiler to not assume that
+The `-ffreestanding` option directs the compiler to not assume that
 standard functions have their usual definition. 
 
 Freestanding mode does not associate any special semantics to the function main.
@@ -41,15 +41,15 @@ Normally, main is predeclared as follows:
 
 and the compiler will issue warnings if you define main differently.
 In freestanding mode, main can have any type signature.
-For example, in freestanding mode `main` maybe called
+For example, in freestanding mode `main` may be called
 without any input arguments, and will return anything.
 In freestanding mode, you can define main as
 
     void main(void)
     
 Freestanding mode does not change the linking behaviour.
-For that, you need to use the -nostdlib option, 
-or possibly -nostartfiles or -nodefaultlibs.
+For that, you need to use the `-nostdlib` option, 
+or possibly `-nostartfiles` or `-nodefaultlibs`.
 
 `gcc` normally performs many optimizations.
 For example, in a hosted environment,
@@ -96,7 +96,7 @@ Examples of standard libraries are `libc` and `libm`.
 
     -nostdlib
 
-Instructs the compiler to link to the standard system library,
+Instructs the compiler to not link to the standard system library,
 as well as to not link to the standard system startup library. 
 No startup files and only the libraries you specify are passed to the linker.
 
@@ -106,20 +106,20 @@ These entries are usually resolved by entries in `libc`.
 These entry points should be supplied through some other mechanism 
 when this `-nostdlib` is specified.
 
-If you use `-nostdlib` and want to include libraries,,
-you need to specify linker path and libraries explicitly with -L and -l.
+If you use `-nostdlib` and want to include libraries,
+you need to specify linker paths and libraries explicitly with -L and -l.
 
 One of the standard libraries that is not linked in when
 using `-nostdlib` and `-nodefaultlibs`
 is `libgcc.a`, a runtime library implementing 
 functions that are needed to compile C.
-For example, the ARM processor does include a division instruction. 
+For example, the ARM processor does not include a division instruction. 
 `libgcc.a` includes functions to perform division.
 If you do not provide an implementation of these functions,
 the program will not run.
 
-If you use -nostdlib, 
-then you need to explicitly link with libgcc.a (-lgcc)
+If you use `-nostdlib`, 
+then you need to explicitly link with `libgcc.a` (`-lgcc`)
 
 ### Start files
 
@@ -133,11 +133,11 @@ The option
 
     - nostartfiles
 
-Instructs the compiler to not call the 
-standard system startup functions or and not link to the
+instructs the compiler to not call the 
+standard system startup functions and to not link to the
 libraries containing those functions.
 
-If you don't like to a start function,
+If you don't link to a start function,
 program variables may not be properly initialized.
 You may need to provide your own start function
 when running in freestanding mode.
