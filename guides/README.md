@@ -26,9 +26,9 @@ and all the ARM cross-development tools will be installed.
 
 1. [git](git.md)
 
-<!---
-2. [gcc](gcc.md)
+2. [Bare metal programming using gcc](gcc.md) 
 
+<!---
 3. [gdb](gdb.md)
 
 4. [make](make.md)
