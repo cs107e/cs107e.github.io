@@ -31,6 +31,7 @@ All class announcements will be posted to
 
 - Hanrahan, Mon 2:15 to 3:30 pm, Gates 370
 - Levis, Fri 11AM-Noon, Gates 412
+- Engler, Fri 2:15 to 3:30 Gates 314 or appt
 - Isabel, Wed noon-2pm, Gates B28; Thurs 4-6pm, Huang Basement
 
 ### Schedule
