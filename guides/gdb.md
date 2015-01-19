@@ -229,3 +229,36 @@ Here is a list of useful `gdb` commands.
 
 
 
+
+### Getting GDB
+
+If you don't have arm GDB installed, you can use this simple bash script
+(save it to a file, and run "bash <file>"):
+
+	export TARGET=arm-none-eabi
+	export PREFIX=$HOME/bin/$TARGET
+	export PATH=$PATH:$PREFIX/bin
+	export VERSION=7.8.1
+	export GDB=gdb-$VERSION
+
+	rm -rf $GDB
+
+	# Get archives
+	wget http://ftp.gnu.org/gnu/gdb/$GDB.tar.gz
+
+	# Extract archives
+	tar xzvf $GDB.tar.gz 
+
+	mkdir build-gdb
+	cd build-gdb
+	../$GDB/configure --target=$TARGET --prefix=$PREFIX --enable-interwork --enable-multilib
+	make 
+	make install
+
+
+Note that if you are missing packages this depends on, it can fail in mysterious ways.    My distribution was missing makeinfo and screen manipulation routines:
+
+	sudo apt-get install texinfo
+	sudo apt-get install libncurses5-dev
+
+Fixed it.
