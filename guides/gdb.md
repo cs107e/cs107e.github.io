@@ -172,6 +172,26 @@ Now let's step one instructionn, and inspect the registers again.
 
 Again, success. We loaded 1 into r1.
 
+### Useful setup.
+
+GDB can ask a lot of annoying questions and not recall previous commands
+by default.  I put the following in a ".gdbinit" file in my home directory
+to fix that:
+
+% cat ~/.gdbinit 
+set history expansion
+set confirm off
+
+These defaults are useful in general.  Similarly, to avoid having to set
+the target and load the program I put:
+
+% cat ~/.gdbinit.arm 
+target sim
+load
+
+And set the following alias:
+	alias rgdb "arm-none-eabi-gdb  --command=~/.gdbinit.arm"
+
 
 ### Commands
 
@@ -181,6 +201,7 @@ Here is a list of useful `gdb` commands.
 |:------|:---:|:----------|
 |run|r|start program|
 |quit|q|quit gdb|
+|<up-arrow>||scroll up through already executed commands (down-arrow goes down)|
 |cont|c|continue execution after a break|
 |break [addr]|b [addr]|set breakpoint to addr|
 |delete [n]|d [n]|removes n'th breakpoint|
@@ -190,6 +211,7 @@ Here is a list of useful `gdb` commands.
 |stepi [n]|si [n]|execute next n instructions|
 |nexti|ni|execute next instruction, stepping over function calls|
 |nexti [n]|ni [n]|execute next n instructions, stepping over function calls|
+|next|n|execute the next line of source (can be multiple instructions)|
 |where||show where execution halted|
 |disas [addr]||disassemble instructions at given address|
 |disas/r [addr]||same, adds hex machine code for instructions|
@@ -202,6 +224,7 @@ Here is a list of useful `gdb` commands.
 |display [expr]||automatically print the expression each time the program is halted|
 |info display||show list of automatically displays|
 |undisplay [n]||undisplay 1 remove an automatic display|
+
 
 
 
