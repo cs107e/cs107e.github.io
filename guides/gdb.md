@@ -178,18 +178,19 @@ GDB can ask a lot of annoying questions and not recall previous commands
 by default.  I put the following in a ".gdbinit" file in my home directory
 to fix that:
 
-% cat ~/.gdbinit 
-set history expansion
-set confirm off
+	% cat ~/.gdbinit 
+	set history expansion
+	set confirm off
 
 These defaults are useful in general.  Similarly, to avoid having to set
 the target and load the program I put:
 
-% cat ~/.gdbinit.arm 
-target sim
-load
+	% cat ~/.gdbinit.arm 
+	target sim
+	load
 
 And set the following alias:
+
 	alias rgdb "arm-none-eabi-gdb  --command=~/.gdbinit.arm"
 
 
