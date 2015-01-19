@@ -177,29 +177,31 @@ Again, success. We loaded 1 into r1.
 
 Here is a list of useful `gdb` commands.
 
-|Example|Description|
-|:------|:----------|
-|run|start program|
-|quit|quit gdb|
-|cont|continue execution after a break|
-|break [addr]|set breakpoint to addr|
-|delete [n]|removes n'th breakpoint|
-|delete|removes all breakpoints|
-|info break|lists all breakpoints|
-|stepi|execute next instruction|
-|stepi [n]|execute next n instructions|
-|nexti|execute next instruction, stepping over function calls|
-|nexti [n]|execute next n instructions, stepping over function calls|
-|where|show where execution halted|
-|disas [addr]|disassemble instructions at given address|
-|info registers|dump contents of all registers|
-|print/d [expr]|print expression in decimal|
-|print/x [expr]|print expression in hex|
-|print/t [expr]|print expression in binary|
-|x/NFU [addr]|Examine contents of memory in given format|
-|display [expr]|automatically print the expression each time the program is halted|
-|info display|show list of automatically displays|
-|undisplay [n]|undisplay 1 remove an automatic display|
+|Command|Abbrv|Description|
+|:------|:---:|:----------|
+|run|r|start program|
+|quit|q|quit gdb|
+|cont|c|continue execution after a break|
+|break [addr]|b [addr]|set breakpoint to addr|
+|delete [n]|d [n]|removes n'th breakpoint|
+|delete|d|removes all breakpoints|
+|info break|i break|lists all breakpoints|
+|stepi|si|execute next instruction|
+|stepi [n]|si [n]|execute next n instructions|
+|nexti|ni|execute next instruction, stepping over function calls|
+|nexti [n]|ni [n]|execute next n instructions, stepping over function calls|
+|where||show where execution halted|
+|disas [addr]||disassemble instructions at given address|
+|disas/r [addr]||same, adds hex machine code for instructions|
+|disas [b,e]||same, but disassembles the range [b,e] inclusive|
+|info registers|i r|dump contents of all registers|
+|print/d [expr]|p/d [expr]|print expression in decimal|
+|print/x [expr]|p/x [expr]|print expression in hex|
+|print/t [expr]|p/t [expr]|print expression in binary|
+|x/NFU [addr]||Examine contents of memory in given format|
+|display [expr]||automatically print the expression each time the program is halted|
+|info display||show list of automatically displays|
+|undisplay [n]||undisplay 1 remove an automatic display|
 
 
 
