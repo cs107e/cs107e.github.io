@@ -255,10 +255,15 @@ If you don't have arm GDB installed, you can use this simple bash script
 	make 
 	make install
 
+GDB will now be in:
 
-Note that if you are missing packages this depends on, it can fail in mysterious ways.    My distribution was missing makeinfo and screen manipulation routines:
+	%  ls ~/bin/arm-none-eabi/bin/
+	arm-none-eabi-gdb*  arm-none-eabi-run*
+
+Note that if you are missing packages this depends on, it can fail in mysterious ways.    My distribution was missing makeinfo and screen manipulation routines.
+I am on Ubuntu so a package install:
 
 	sudo apt-get install texinfo
 	sudo apt-get install libncurses5-dev
 
-Fixed it.
+fixed the problem.  There are guides for installing on Window/Mac under the "guides" section.
