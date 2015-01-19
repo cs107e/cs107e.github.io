@@ -232,8 +232,8 @@ Here is a list of useful `gdb` commands.
 
 ### Getting GDB
 
-If you don't have arm GDB installed, you can use this simple bash script
-(save it to a file, and run "bash <file>"):
+If you are on Linux and don't have the ARM GDB installed, you can use
+this simple bash script (save it to a file, and run "bash <file>"):
 
 	export TARGET=arm-none-eabi
 	export PREFIX=$HOME/bin/$TARGET
