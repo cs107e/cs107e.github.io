@@ -235,8 +235,32 @@ Here is a list of useful `gdb` commands.
 |undisplay [n]||undisplay 1 remove an automatic display|
 
 
+### Random examples
 
+Most people don't know about gdb macros, but they can be nice.  Suppose we
+want to see which instructions in our code modify the cpsr register.
+We can define a simple macro "np" to step a single instruction and print
+the cpsr register in hex.
 
+	(gdb) def np
+	Type commands for definition of "n".
+	End with a line saying just "end".
+	>nexti
+	>p/x $cpsr
+	>end
+
+Run it a bit:
+
+	(gdb) b _start
+	Breakpoint 1 at 0x8004: file blink.s, line 6.
+	(gdb) r
+	6 mov r1, #1
+	(gdb) np
+	7	str r1, [r0]
+	$1 = 0x13
+	...
+
+The value of cpsr will be printed after each executed instruction.
 
 ### Getting GDB
 
