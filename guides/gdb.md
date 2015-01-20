@@ -18,7 +18,6 @@ For example, suppose we want to simulate the following
 program to blink an LED on and off.
 
     .globl _start
-
     _start:
 
     // configure GPIO 20 for output
@@ -98,7 +97,7 @@ the start address (0x8000).
 Let's set a breakpoint at `_start`.
 
     (gdb) break _start
-    Breakpoint 1, _start () at blink.s:7
+    Breakpoint 1, _start () at blink.s:6
 
 Note that `gdb` knows about the source file and line numbers.
 
@@ -118,15 +117,15 @@ Now run it
 
     (gdb) run
     Starting program: blink.exe
-    Breakpoint 1, _start at blink.s:7
-    7   mov r1, #1
+    Breakpoint 1, _start () at blink.s:6
+    6   mov r1, #1
 
 Note that we ran the first `ldr` instruction 
 and the program stopped at line 7, the `mov` instruction.
 
-Let's inspect the register values
+Let's inspect all the register values
 
-     (gdb) info registers
+    (gdb) info registers
     r0             0x20200008 538968072
     r1             0x0 0
     r2             0x0 0
@@ -145,32 +144,41 @@ Let's inspect the register values
     pc             0x8004 0x8004 <_start+4>
     cpsr           0x13 19
 
+or a single value register 0, `$r0`.
+
+    (gdb) print/x $r0
+
 Success, we loaded 0x20200008 into register 0!
+`print/x` says to print in hexadecimal format.
 
 Now let's step one instructionn, and inspect the registers again.
 
     (gdb) stepi
     8   str r1, [r0]
-    (gdb) info registers
-    r0             0x20200008   538968072
-    r1             0x1  1
-    r2             0x0  0
-    r3             0x0  0
-    r4             0x0  0
-    r5             0x0  0
-    r6             0x0  0
-    r7             0x0  0
-    r8             0x0  0
-    r9             0x0  0
-    r10            0x0  0
-    r11            0x0  0
-    r12            0x0  0
-    sp             0x800    0x800
-    lr             0x0  0
-    pc             0x8008   0x8008 <_start+8>
-    cpsr           0x13 19
 
 Again, success. We loaded 1 into r1.
+The next instruction to be executed is the store instruction.
+Let's execute it.
+
+    (gdb) stepi
+    9   mov r1, #1
+
+Let's *examine* memory to see if the it has the right contents.
+
+    (gdb) x 0x20200008
+    0x20200008: 0x00000001
+    (gdb) x $r0
+    0x20200008: 0x00000001
+
+We have stored 1 at address 0x20200008. 
+
+Continue debugging this program.
+In particular, debug the delay loop.
+What is does CPSR standard for?
+Inspect the values of CPSR as you step through the delay loop.
+What value does CPSR have when `bne` returns to `wait1`?
+What values does CPSR have when `bne` does not branch
+and the loop is exited?
 
 ### Useful setup.
 
