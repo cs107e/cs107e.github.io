@@ -43,7 +43,7 @@ To start this lab, find the `courseware/labs/lab2/code` directory.
 You may need to pull from the `cs107e/courseware` repository
 to get the latest code.
 There are four sub-directories, `blink`, `simple`, `volatile`, and `opt`. 
-Make a working copy of these three directories and proceed.
+Make a working copy of these four directories and proceed.
 
 ### Lab exercises
 
