@@ -7,7 +7,7 @@ for cross-development for the ARM.
 We will briefly review makefile syntax and usage.
 For more information about makefiles,
 read the 
-[CS107 Guide to Makefiles](http://web.stanford.edu/class/cs107/guide_make.html)].
+[CS107 Guide to Makefiles](http://web.stanford.edu/class/cs107/guide_make.html).
 
 Below is a simple makefile that can be used
 to build a binary for the ARM processor.
