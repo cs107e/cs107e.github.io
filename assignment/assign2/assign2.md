@@ -1,4 +1,4 @@
-## Assignment 1: Implementing a Clock
+## Assignment 2: Implementing a Clock
 
 This assignment involves building a clock with
 a 4-digit 7-segment display.
@@ -16,7 +16,7 @@ The goals of this assignment are
 ### Basic Part: A Simple Clock
 
 1 Wire up your breadboard with a 4-digit 7-segment display.
-Hopefully you finished setting it up in [lab](../../lab/lab2/lab.md).
+Hopefully you finished setting it up in [lab](../../labs/lab2/lab.md).
 Test it so that you know the wiring is correct before
 you connect it to the Raspberry Pi.
 
