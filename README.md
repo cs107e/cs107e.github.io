@@ -64,9 +64,9 @@ on President's Day Feb 16th.
 | Lecture 4 (Fri): Introduction to C ([slides](lectures/C/c.pdf)), ([code](lectures/C/code)) | Brush up on C syntax, data types, operators, control structure, function calls. EssentialC chapters 1, 2, and 4; or K&R 1, 2, 3, 4 and 5.1-5.4. Skip sections involving characters, strings, io, and standard libraries. Read the about the [history of C](http://cm.bell-labs.com/who/dmr/chist.html)|
 | **Week 3 Jan 19** | |
 | *Martin Luther King Holiday - No Class* | |
-| Lab 2 : Below C Level| |
-| Assignment 2 : Clock | |
-| Lecture 6 (Fri): Functions | |
+| Lab 2 : [Below C Level](labs/lab2/lab.md)| |
+| Assignment 2 : [Clock](assignments/assign2/assign2.md) | |
+| Lecture 6 (Fri): Functions | Read (or read again) about functions in C (Chapter 4 in K&R, Section 4 in Essential C), Read this nice explanation of [local data and frame pointers](http://thinkingeek.com/2014/05/11/arm-assembler-raspberry-pi-chapter-18/)|
 | **Week 4 Jan 26** | |
 | Lecture 7 (Mon): Serial communication, ASCII and strings | |
 | Lab 3 : Programming a UART | |
