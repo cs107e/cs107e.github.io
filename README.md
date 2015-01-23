@@ -66,7 +66,7 @@ on President's Day Feb 16th.
 | *Martin Luther King Holiday - No Class* | |
 | Lab 2 : [Below C Level](labs/lab2/lab.md)| |
 | Assignment 2 : [Clock](assignment/assign2/assign2.md) | |
-| Lecture 6 (Fri): Functions ([slides](lectures/Functions/functions.pdf), [code[(lectures/Functions/code))| Read (or read again) about functions in C (Chapter 4 in K&R, Section 4 in Essential C), Read this nice explanation of [local data and frame pointers](http://thinkingeek.com/2014/05/11/arm-assembler-raspberry-pi-chapter-18/)|
+| Lecture 6 (Fri): Functions ([slides](lectures/Functions/functions.pdf), [code](lectures/Functions/code))| Read (or read again) about functions in C (Chapter 4 in K&R, Section 4 in Essential C), Read this nice explanation of [local data and frame pointers](http://thinkingeek.com/2014/05/11/arm-assembler-raspberry-pi-chapter-18/)|
 | **Week 4 Jan 26** | |
 | Lecture 7 (Mon): Serial communication, ASCII and strings | |
 | Lab 3 : Programming a UART | |
