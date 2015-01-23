@@ -174,7 +174,7 @@ We have stored 1 at address 0x20200008.
 
 Continue debugging this program.
 In particular, debug the delay loop.
-What is does CPSR standard for?
+What does CPSR stand for?
 Inspect the values of CPSR as you step through the delay loop.
 What value does CPSR have when `bne` returns to `wait1`?
 What values does CPSR have when `bne` does not branch
