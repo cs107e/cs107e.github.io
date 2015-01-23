@@ -46,3 +46,17 @@ Google and you might be able to find a free pdf.
 * Alex Chadwick's [Baking Pi Course](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/).
 
 * The [Raspberry Pi Bare Metal Forum](http://www.raspberrypi.org/forums/viewforum.php?f=72) has lots of information from experienced developers. Venturing into the forum is a great way to learn advanced techniques. 
+
+### C Pogramming Language
+
+* [EssentialC](http://cslibrary.stanford.edu/101)
+
+* *The C Programming Language, 2nd Ed.*, B. Kernighan and D. Ritchie.
+A digital copy of K&R is available to Stanford students via 
+[Safari Books Online]
+(http://proquest.safaribooksonline.com.ezproxy.stanford.edu/book/programming/c/9780133086249).
+
+* *The Definitive Guide to GCC, 2nd Ed.*, William von Hagen, Apress, 2006
+[pdf]
+(http://sensperiodit.files.wordpress.com/2011/04/hagen-the-definitive-guide-to-gcc-2e-apress-2006.pdf)
+
