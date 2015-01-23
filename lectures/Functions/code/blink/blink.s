@@ -2,33 +2,51 @@
 
 _start:
 
-// configure GPIO 20 for output
-ldr r0, =0x20200008
-mov r1, #1
-str r1, [r0]
-
-mov r1, #(1<<20)
+bl init
 
 loop: 
 
-// set GPIO 20 high
-ldr r0, =0x2020001C
-str r1, [r0] 
+    mov r0, #20
+    bl set
 
-// delay
-mov r2, #0x3F0000
-wait1:
-subs r2, #1
-bne wait1
+    mov r0, #0x3F0000
+    bl delay
 
-// set GPIO 20 low
-ldr r0, =0x20200028
-str r1, [r0] 
+    mov r0, #20
+    bl clr
 
-// delay
-mov r2, #0x3F0000
-wait2:
-subs r2, #1
-bne wait2
+    mov r0, #0x0F0000
+    bl delay
 
 b loop
+
+// delay
+delay:
+   wait:
+      subs r0, #1
+      bne wait
+   bx lr
+
+// configure GPIO 20 for output
+init:
+    ldr r0, =0x20200008
+    mov r1, #1
+    str r1, [r0]
+    bx lr
+
+// set GPIO 20 high
+set:
+   mov r1, #1
+   lsl r1, r1, r0
+   ldr r0, =0x2020001C // SET0
+   str r1, [r0] 
+   bx lr
+
+// set GPIO 20 low
+clr:
+   mov r1, #1
+   lsl r1, r1, r0
+   ldr r0, =0x20200028 // CLR0
+   str r1, [r0] 
+   bx lr
+
