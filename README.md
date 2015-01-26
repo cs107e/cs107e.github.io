@@ -64,11 +64,11 @@ on President's Day Feb 16th.
 | Lecture 4 (Fri): Introduction to C ([slides](lectures/C/c.pdf)), ([code](lectures/C/code)) | Brush up on C syntax, data types, operators, control structure, function calls. EssentialC chapters 1, 2, and 4; or K&R 1, 2, 3, 4 and 5.1-5.4. Skip sections involving characters, strings, io, and standard libraries. Read the about the [history of C](http://cm.bell-labs.com/who/dmr/chist.html)|
 | **Week 3 Jan 19** | |
 | *Martin Luther King Holiday - No Class* | |
-| Lab 2 : Below C Level| |
-| Assignment 2 : Clock | |
-| Lecture 6 (Fri): Functions | |
+| Lab 2 : [Below C Level](labs/lab2/lab.md)| |
+| Assignment 2 : [Clock](assignment/assign2/assign2.md) | |
+| Lecture 6 (Fri): Functions ([slides](lectures/Functions/functions.pdf), [code](lectures/Functions/code))| Read (or read again) about functions in C (Chapter 4 in K&R, Section 4 in Essential C), Read this nice explanation of [local data and frame pointers](http://thinkingeek.com/2014/05/11/arm-assembler-raspberry-pi-chapter-18/)|
 | **Week 4 Jan 26** | |
-| Lecture 7 (Mon): Serial communication, ASCII and strings | |
+| Lecture 7 (Mon): Serial communication, ASCII and strings (slides, code) | Read about characters and strings, basic IO (getc, putc, puts, printf), and structures (Section 1.5, 1.6, 1.9, 5.5, 6, 7 in K&R; Section 3 in EssentialC). Read about [Serial Communication](https://learn.sparkfun.com/tutorials/serial-communication/all). |
 | Lab 3 : Programming a UART | |
 | Assignment 3 : String formatting and printing | |
 | Lecture 6 (Fri): Linking, loading, and starting| |
