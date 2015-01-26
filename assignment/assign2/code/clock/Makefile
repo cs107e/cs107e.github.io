@@ -1,5 +1,5 @@
 ARMGNU = arm-none-eabi
-CFLAGS = -O2 -nostdlib -nostartfiles -ffreestanding
+CFLAGS = -Wall -O2 -nostdlib -nostartfiles -ffreestanding
 
 clock.bin: clock.c
 	$(ARMGNU)-gcc $(CFLAGS) start.s clock.c -o clock.o

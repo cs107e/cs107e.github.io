@@ -112,6 +112,10 @@ clock is running at the right rate.
 You may want to create two versions of your clock.
 One that shows minutes and seconds,
 and another that shows hours and minutes.
+The minutes and seconds version will be easier to debug 
+initially since the display will change more frequently, 
+but once it is working, you could change to hours and 
+minutes to make it more like a real clock.
 
 ### Extension
 

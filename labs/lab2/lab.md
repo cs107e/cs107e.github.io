@@ -194,49 +194,63 @@ Here is the schematic for the entire circuit.
 The anodes for the LEDs comprising each segment are
 labeled A, B, C, D, E, F, G and "colon",
 and correspond to the segments of the digit as shown above.
+
 Each of the anodes should be connected to a 1K
 current limiting resistor (shown as a rectangle in the schematic).
 One end of the resistor will connect to the GPIO pin on the raspberry Pi,
 and the other end to the pins on the 4-digit display.
 
-The digits themselves are controlled using a bipolar-junction transistor,
-or BJT. 
+In the schematic, you may notice that each segment (A-G) is wired to all 
+four digits (this wiring is internal to the display). To control which 
+digit is lit up at any one time, we will use bipolar-junction transistors,
+or BJTs. 
+There are 4 transistors, one per digit.
 The base of each transistor will be connected to the
-GPIO pin on the Raspberry Pi.
+GPIO pin on the Raspberry Pi (through a resistor).
 The collector of the transistor is connected
-to the pin on the 4-digit display.
+to the pin on the 4-digit display. 
 The emitter is connected to ground.
+When the transistor is "on" (3.3V applied from the GPIO at the base
+of the transistor),
+it will allow current to flow from the common cathode of one of the
+display digits to ground, thus completing the circuit 
+and lighting up that digit. 
 The following diagram identifies which
 pins on the 2N3904 are collector, base, and emitter.
 
 ![2n3904](images/2n3904.jpg)
 
-When wired up properly,
-applying 3.3V to the base will turn the transistor on,
-which will then turn on all the segments for that digit.
-There are 4 transistors, one per digit.
+Below is a schematic of the entire circuit laid out in a way that fits on 
+your small breadboard. Pins 7 and 8 on the display control the colon and can 
+be wired to ground and 3.3V (through a resistor) if you wish. 
 
-Here are two photos of the breadboarded circuit that I built.
+We have also included two photos of a completed 
+breadboarded circuit. We highly recommend you
+build and test the circuit in sections. 
+See our recommendations below the images.
+
+![schematic layout on breadboard](images/schematicLayout.png)
 
 ![4-digit breadboard wired with display](images/breadboard.wired.4digit.jpg)
 
 ![4-digit breadboard wired](images/breadboard.wired.jpg)
 
 Test it as you build it step-by-step.
-For example, start by connecting one end of a resistor to the A pin,
-and then other end to 3.3V.
-Next, ground digit 1.
+For example, start by connecting one end of a resistor to the A pin (pin 13),
+and the other end to 3.3V.
+Next, ground digit 1 (pin 14).
 Providing power to the anode while the cathode is grounded should
 turn on segment A.
-Map out all the pins systematically in this way.
+If you connect all the 
+display cathode pins to ground (pins 6, 10, 11, 14) and all the anode pins to 
+resistors, you should be able to check every segment be applying 3.3V to the 
+other end of each resistor. Once you are satisfied that the display is wired 
+correctly, insert the transistors between the cathodes and ground to act as 
+switches. Apply 3.3V to the base of the transistors (through the resistors), 
+and ensure your segments still light up as expected.
 
-Then wire up a transistor for digit 1 as shown in the schematic.
-When you apply 3.3V to the base of the transistor,
-you should turn on segment A.
-When the transistor turns on,
-it has the effect of connecting digit 1 to ground.
-
-What segments do you need to turn on to make a 0?  A 1?
+Remember to answer the checklist questions. What segments do you need to 
+turn on to make a 0?  A 1?
 
 **Additional Resources**
 
