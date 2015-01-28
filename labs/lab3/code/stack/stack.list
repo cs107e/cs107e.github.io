@@ -1,0 +1,73 @@
+
+stack:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00008000 <_start>:
+    8000:	e3a0d902 	mov	sp, #32768	; 0x8000
+    8004:	eb00002c 	bl	80bc <notmain>
+
+00008008 <hang>:
+    8008:	eafffffe 	b	8008 <hang>
+
+0000800c <A>:
+    800c:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+    8010:	e28db000 	add	fp, sp, #0
+    8014:	e24dd014 	sub	sp, sp, #20
+    8018:	e50b0008 	str	r0, [fp, #-8]
+    801c:	e50b100c 	str	r1, [fp, #-12]
+    8020:	e50b2010 	str	r2, [fp, #-16]
+    8024:	e50b3014 	str	r3, [fp, #-20]
+    8028:	e51b2008 	ldr	r2, [fp, #-8]
+    802c:	e51b300c 	ldr	r3, [fp, #-12]
+    8030:	e0632002 	rsb	r2, r3, r2
+    8034:	e51b3010 	ldr	r3, [fp, #-16]
+    8038:	e0822003 	add	r2, r2, r3
+    803c:	e51b3014 	ldr	r3, [fp, #-20]
+    8040:	e0822003 	add	r2, r2, r3
+    8044:	e59b3004 	ldr	r3, [fp, #4]
+    8048:	e0823003 	add	r3, r2, r3
+    804c:	e1a00003 	mov	r0, r3
+    8050:	e24bd000 	sub	sp, fp, #0
+    8054:	e49db004 	pop	{fp}		; (ldr fp, [sp], #4)
+    8058:	e12fff1e 	bx	lr
+
+0000805c <B>:
+    805c:	e92d4800 	push	{fp, lr}
+    8060:	e28db004 	add	fp, sp, #4
+    8064:	e24dd020 	sub	sp, sp, #32
+    8068:	e50b0010 	str	r0, [fp, #-16]
+    806c:	e50b1014 	str	r1, [fp, #-20]
+    8070:	e50b2018 	str	r2, [fp, #-24]
+    8074:	e51b2010 	ldr	r2, [fp, #-16]
+    8078:	e51b3014 	ldr	r3, [fp, #-20]
+    807c:	e0633002 	rsb	r3, r3, r2
+    8080:	e50b3008 	str	r3, [fp, #-8]
+    8084:	e3a03009 	mov	r3, #9
+    8088:	e58d3000 	str	r3, [sp]
+    808c:	e51b0018 	ldr	r0, [fp, #-24]
+    8090:	e51b1008 	ldr	r1, [fp, #-8]
+    8094:	e3a02007 	mov	r2, #7
+    8098:	e3a03008 	mov	r3, #8
+    809c:	ebffffda 	bl	800c <A>
+    80a0:	e1a03000 	mov	r3, r0
+    80a4:	e51b2008 	ldr	r2, [fp, #-8]
+    80a8:	e0633002 	rsb	r3, r3, r2
+    80ac:	e1a00003 	mov	r0, r3
+    80b0:	e24bd004 	sub	sp, fp, #4
+    80b4:	e8bd4800 	pop	{fp, lr}
+    80b8:	e12fff1e 	bx	lr
+
+000080bc <notmain>:
+    80bc:	e92d4800 	push	{fp, lr}
+    80c0:	e28db004 	add	fp, sp, #4
+    80c4:	e3a00001 	mov	r0, #1
+    80c8:	e3a01002 	mov	r1, #2
+    80cc:	e3a02003 	mov	r2, #3
+    80d0:	ebffffe1 	bl	805c <B>
+    80d4:	e1a03000 	mov	r3, r0
+    80d8:	e1a00003 	mov	r0, r3
+    80dc:	e24bd004 	sub	sp, fp, #4
+    80e0:	e8bd4800 	pop	{fp, lr}
+    80e4:	e12fff1e 	bx	lr

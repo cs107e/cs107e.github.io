@@ -197,8 +197,8 @@ and correspond to the segments of the digit as shown above.
 
 Each of the anodes should be connected to a 1K
 current limiting resistor (shown as a rectangle in the schematic).
-One end of the resistor will connect to the GPIO pin on the raspberry Pi,
-and the other end to the pins on the 4-digit display.
+One end of each resistor will connect to a GPIO pin on the raspberry Pi,
+and the other end to the pin on the 4-digit display.
 
 In the schematic, you may notice that each segment (A-G) is wired to all 
 four digits (this wiring is internal to the display). To control which 
@@ -255,7 +255,10 @@ turn on to make a 0?  A 1?
 **Additional Resources**
 
 Here are pin-outs for the 4-digit displays. The pin on the lower
-left when looking at the display in reading order is labeled pin 1.
+left when looking at the display in reading order is labeled pin 1. Although 
+the layout diagram shows 12 pins, in reality there are 14. Pins 1 through 7 
+are left to right across the bottom, pins 8 through 14 right to left across 
+the top (as shown in the schematic above).
 
 ![4-digit](images/4digit.jpg) ![4-digit schematic](images/4digit.schematic.jpg)
 

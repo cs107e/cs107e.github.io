@@ -1,0 +1,44 @@
+
+warn:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00008000 <_start>:
+    8000:	e3a0d902 	mov	sp, #32768	; 0x8000
+    8004:	eb000000 	bl	800c <notmain>
+
+00008008 <hang>:
+    8008:	eafffffe 	b	8008 <hang>
+
+0000800c <notmain>:
+    800c:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+    8010:	e28db000 	add	fp, sp, #0
+    8014:	e24dd014 	sub	sp, sp, #20
+    8018:	e3a03001 	mov	r3, #1
+    801c:	e50b3008 	str	r3, [fp, #-8]
+    8020:	e3a03002 	mov	r3, #2
+    8024:	e50b300c 	str	r3, [fp, #-12]
+    8028:	e51b300c 	ldr	r3, [fp, #-12]
+    802c:	e50b3008 	str	r3, [fp, #-8]
+    8030:	e51b3008 	ldr	r3, [fp, #-8]
+    8034:	e3530000 	cmp	r3, #0
+    8038:	0a000002 	beq	8048 <notmain+0x3c>
+    803c:	e3a03003 	mov	r3, #3
+    8040:	e50b3008 	str	r3, [fp, #-8]
+    8044:	ea000009 	b	8070 <notmain+0x64>
+    8048:	e51b2008 	ldr	r2, [fp, #-8]
+    804c:	e51b300c 	ldr	r3, [fp, #-12]
+    8050:	e1520003 	cmp	r2, r3
+    8054:	1a000003 	bne	8068 <notmain+0x5c>
+    8058:	e51b3010 	ldr	r3, [fp, #-16]
+    805c:	e2833002 	add	r3, r3, #2
+    8060:	e50b3008 	str	r3, [fp, #-8]
+    8064:	ea000001 	b	8070 <notmain+0x64>
+    8068:	e3a03005 	mov	r3, #5
+    806c:	e50b3008 	str	r3, [fp, #-8]
+    8070:	e51b3008 	ldr	r3, [fp, #-8]
+    8074:	e1a00003 	mov	r0, r3
+    8078:	e24bd000 	sub	sp, fp, #0
+    807c:	e49db004 	pop	{fp}		; (ldr fp, [sp], #4)
+    8080:	e12fff1e 	bx	lr
