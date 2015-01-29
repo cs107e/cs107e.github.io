@@ -14,16 +14,21 @@ The goals of this assignment are
 
 - Understand how to convert basic C types (`int`, `int*`, ...) to a string.
 
-- Use your gpio and timer libraries built in the previous assignment.
+- Use your gpio and timer code from the previous assignment.
 
 - Use the uart library shown in class to communicate with your laptop.
 
 ### Basic Part: Basic formatting functions
 
-1. There is no starter code for this project. 
+1. There is no starter code for this assignment.
   Setup a project in the `assign3` directory in your course repository.
-  Include README.md, Makefile, and your timer and gpio functions
-  you used in the clock assignment. 
+  Include README.md, Makefile, uart.c & uart.h (from the Serial lecture), 
+  and your gpio and timer functions
+  you used in the clock assignment. You should put the pinmode and pinwrite 
+  functions from the clock assignment in a file gpio.c, and the timer and 
+  delay functions in a file timer.c. Then create header files for these two 
+  files (gpio.h and timer.h) so that the functions may be imported into new 
+  files. In this lab, some of these functions are required by uart.c.
 
 2. Implement the following basic formatting functions: 
 
@@ -98,7 +103,8 @@ The goals of this assignment are
 
 ### Extensions
 
-Implement a markdown style table formatter.
+Implement a [markdown style table formatter]
+(https://help.github.com/articles/github-flavored-markdown/#tables)
 
      header("|Addr|Data|");
      for( i=0; i<n; i++ ) {
