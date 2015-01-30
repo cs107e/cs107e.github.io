@@ -101,50 +101,7 @@ The goals of this assignment are
     } 
   ```
 
-### Extensions
-
-Implement a [markdown style table formatter]
-(https://help.github.com/articles/github-flavored-markdown/#tables)
-
-     header("|Addr|Data|");
-     for( i=0; i<n; i++ ) {
-         row( "|%x|%x|", addr, *addr ):
-         addr += 1;
-     }
-     footer();
-
-The `header` defines the header for the table. 
-Each column of the table is contained in between "|'.
-This table will have two column headers, 
-one with "Addr" and the other with "Data".
-The `row` function creates a row in the table.
-In this case, each row will contain two numbers,
-an address and the value stored at that address.
-This is formatted using the snprintf function you created 
-in the basic part of the assignment.
-Finally, the `footer` functions ends the table,
-and prints the result.
-
-The only tricky part of thie function is that
-you need to compute the width of each column.
-You wouldn't know that until all the rows have been formatted.
-Thus, you will need to make two passes over the data.
-The first pass will calculate the column widths of each row.
-The actual column width will be the maximum width needed for any row.
-The second pass will allocate space for each row,
-and perform the final formatting.
-
-Use these routines to perform a `hexdump` of memory.
-
-    hexdump( int *addr, int n );
-
-For example, 
-
-    hexdump( 0x8000, 0x1000 );
-
-should print out the `0x1000` words starting at location `0x8000`.
-
-### Using variable numbers of arguments
+#### Using variable numbers of arguments
 
 `printf` is a function that takes a variable number of arguments.
 C has standardized the way to access variadic functions 
@@ -195,4 +152,47 @@ When we are done, we call `va_end(ap)` to clean up after ourselves.
 
 For more details about `stdarg`, 
 read the [Wikipedia Page stdarg.h](http://en.wikipedia.org/wiki/Stdarg.h).
+
+### Extension
+
+Implement a [markdown style table formatter]
+(https://help.github.com/articles/github-flavored-markdown/#tables)
+
+     header("|Addr|Data|");
+     for( i=0; i<n; i++ ) {
+         row( "|%x|%x|", addr, *addr ):
+         addr += 1;
+     }
+     footer();
+
+The `header` defines the header for the table. 
+Each column of the table is contained in between "|'.
+This table will have two column headers, 
+one with "Addr" and the other with "Data".
+The `row` function creates a row in the table.
+In this case, each row will contain two numbers,
+an address and the value stored at that address.
+This is formatted using the snprintf function you created 
+in the basic part of the assignment.
+Finally, the `footer` functions ends the table,
+and prints the result.
+
+The only tricky part of thie function is that
+you need to compute the width of each column.
+You wouldn't know that until all the rows have been formatted.
+Thus, you will need to make two passes over the data.
+The first pass will calculate the column widths of each row.
+The actual column width will be the maximum width needed for any row.
+The second pass will allocate space for each row,
+and perform the final formatting.
+
+Use these routines to perform a `hexdump` of memory.
+
+    hexdump( int *addr, int n );
+
+For example, 
+
+    hexdump( 0x8000, 0x1000 );
+
+should print out the `0x1000` words starting at location `0x8000`.
 
