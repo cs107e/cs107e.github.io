@@ -7,6 +7,8 @@
 #define TX 14
 #define RX 15
 
+#define ALT5 2
+
 struct UART {
     int data; // I/O Data
     int ier;  // Interupt enable
@@ -65,9 +67,6 @@ void uart_init ( void )
 
     pinMode( TX, ALT5 ); 
     pinMode( RX, ALT5 ); 
-
-    //pinPullUpDown( TX, 0 ); // disable pull ups/downs on TX
-    //pinPullUpDown( RX, 0 ); // disable pull ups/downs on RX
 
     uart->cntl = AUX_MU_CNTL_TX_ENABLE|AUX_MU_CNTL_RX_ENABLE;; 
 }

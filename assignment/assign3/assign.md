@@ -28,7 +28,16 @@ The goals of this assignment are
   functions from the clock assignment in a file gpio.c, and the timer and 
   delay functions in a file timer.c. Then create header files for these two 
   files (gpio.h and timer.h) so that the functions may be imported into new 
-  files. In this lab, some of these functions are required by uart.c.
+  files. 
+
+  Some of the gpio functions are required by uart.c, which 
+  will be used in part 4 of this assignment. You 
+  will need to create a library with your imported files and then link to that 
+  library in your Makefile. This will be demonstrated in class on Friday. You 
+  can do part 2 and part 3 before then as they do not have 
+  dependencies on other files.
+
+  Lastly create a new file where you will write your code for this assignment.
 
 2. Implement the following basic formatting functions: 
 
@@ -73,15 +82,26 @@ The goals of this assignment are
   For example, "%2x" will print the first two characters
   of the hexadecimal int.
 
-  Use your `snprintf` to implement `printf`,
-  which should output characters to the mini uart using `uart_putc`.
+  See the note below about how to create functions
+  with variable numbers of arguments.
+
+4. Use your `snprintf` to implement `printf`,
+  which should output characters to the mini uart using `uart_putc` from 
+  uart.c. 
 
     printf(char *format, ... );
 
-  See the note below about how to create functions 
-  with variable numbers of arguments.
+  You may notice that the `uart_init` function in uart.c calls your pinMode 
+  function (from assignment 2) with a value of ALT5 (equal to 2). In 
+  assignment 2, we only required that your pinmode function handle input and 
+  output modes (values of 0 or 1). Extend your pinmode function to handle all 
+  alternate functions 0-5 as well. See page 92 of the [broadcom peripherals manual]
+  (http://www.raspberrypi.org/wp-content/uploads/2012/02/BCM2835-ARM-Peripherals.pdf) 
+  for the codes for alternate functions, and page 102 for what these 
+  alternate functions are for each pin. You can see that for pins 14 and 15 
+  that we use for the UART, ALT5 sets these as TXD1 and RXD1.
 
-4. Use your code to print the sizes of the basic C types to your console:
+ Use your code to print the sizes of the basic C types to your console:
 
   ```
     void main(void) { 
