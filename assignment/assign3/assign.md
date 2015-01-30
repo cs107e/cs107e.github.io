@@ -32,10 +32,8 @@ The goals of this assignment are
 
   Some of the gpio functions are required by uart.c, which 
   will be used in part 4 of this assignment. You 
-  will need to create a library with your imported files and then link to that 
-  library in your Makefile. This will be demonstrated in class on Friday. You 
-  can do part 2 and part 3 before then as they do not have 
-  dependencies on other files.
+  will need to set up your Makefile to compile all these files into object 
+  files and link them together.
 
   Lastly create a new file where you will write your code for this assignment.
 
