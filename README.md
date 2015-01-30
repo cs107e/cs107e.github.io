@@ -71,7 +71,7 @@ on President's Day Feb 16th.
 | Lecture 7 (Mon): Serial communication, ASCII and strings ([slides](lectures/Serial/serial.pdf), [code](lectures/Serial/code)) | Read about characters and strings, basic IO (getc, putc, puts, printf), and structures (Section 1.5, 1.6, 1.9, 5.5, 6, 7 in K&R; Section 3 in EssentialC). Read about [Serial Communication](https://learn.sparkfun.com/tutorials/serial-communication/all). |
 | Lab 3 : Programming a UART | |
 | Assignment 3 : String formatting and printing | |
-| Lecture 6 (Fri): Linking, loading, and starting| |
+| Lecture 6 (Fri): Linking, loading and starting ([slides](lectures/LD/ld.pdf), [code](lectures/LD/code))| Read David Welch's articles on [baremetal programming](https://github.com/dwelch67/raspberrypi/tree/master/baremetal) and [bss data](https://github.com/dwelch67/raspberrypi/tree/master/bssdata).|
 | **Week 5 Feb 2** | |
 | Guest Lecture (Mon): Quinn Dunki, Building Veronica | |
 | Lab 4 : Understanding linking and loading | |
