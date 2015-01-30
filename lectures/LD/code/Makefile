@@ -1,8 +1,9 @@
 ARMGNU ?= arm-none-eabi
 
 ASFLAGS =
+CPPFLAGS =
 CFLAGS  = -Wall -O2 
-CLFAGS += -nostdlib -nostartfiles -ffreestanding
+CFLAGS += -nostdlib -nostartfiles -ffreestanding
 LDFLAGS = 
 
 .PHONY : all clean
