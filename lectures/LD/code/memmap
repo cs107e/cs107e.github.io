@@ -6,13 +6,12 @@ MEMORY
 
 SECTIONS
 {
-    .text : { *(.text*) } > ram
     .text : {
         start.o (.text)
         *(.text*)
     } > ram
-    .rodata : { *(.rodata*) } > ram
     .data : { *(.data*) } > ram
+    .rodata : { *(.rodata*) } > ram
     .bss : {
         __bss_start__ = .;
         *(.bss*)
