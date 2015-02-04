@@ -86,7 +86,7 @@ What does `arm-none-eabi-nm` tell us about the symbols in `cstart.o`.
 `arm-none-eabi-ld` is the command 
 that *links* the three files together to form a single executable.
 
-    % arm-none-eabi-nm -d main.exe
+    % arm-none-eabi-nm main.exe
 
 What has happened during the link process?
 

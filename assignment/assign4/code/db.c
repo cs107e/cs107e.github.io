@@ -1,0 +1,4 @@
+void db(void)
+{
+}
+
