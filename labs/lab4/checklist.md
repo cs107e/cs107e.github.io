@@ -1,7 +1,7 @@
 ### Linking and Loading
 
 1 In the `Makefile` dependency used to generate `main.exe`, 
-what do `$@`, `$*`, and `$^` expend into?
+what do `$@`, `$*`, and `$^` expand into?
 
 2 How is the instruction `bl cstart` modified during the linking process? 
 
