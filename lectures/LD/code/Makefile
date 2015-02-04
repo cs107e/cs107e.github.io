@@ -21,7 +21,7 @@ clean :
 
 main.exe: main.o cstart.o start.o
 	$(ARMGNU)-ld $(LDFLAGS) -T memmap $^ -o $@
-	$(ARMGNU)-objdump -D $@ > $*.list
+	$(ARMGNU)-objdump -D $@ > $*.exe.list
 
 .s.o:
 	$(ARMGNU)-as $(ASFLAGS) $< -o $@ 
