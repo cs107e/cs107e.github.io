@@ -1,10 +1,10 @@
 ARMGNU ?= arm-none-eabi
 
-COPS = -Wall -O2 -nostdlib -nostartfiles -ffreestanding 
+CFLAGS = -Wall -O2 -nostdlib -nostartfiles -ffreestanding 
 
 gcc : kernel.img 
 
-all : gcc
+all : kernel.img
 
 clean :
 	rm -f *.o *.bin *.elf *.list *.img *~ Makefile.bak
@@ -14,10 +14,10 @@ start.o : start.s
 	$(ARMGNU)-as start.s -o start.o
 
 bootloader.o : bootloader.c rpi.h
-	$(ARMGNU)-gcc $(COPS) -c bootloader.c -o bootloader.o
+	$(ARMGNU)-gcc $(CFLAGS) -c bootloader.c -o bootloader.o
 
 periph.o : periph.c rpi.h
-	$(ARMGNU)-gcc $(COPS) -c periph.c -o periph.o
+	$(ARMGNU)-gcc $(CFLAGS) -c periph.c -o periph.o
 
 kernel.img : memmap start.o periph.o bootloader.o 
 	$(ARMGNU)-ld start.o periph.o bootloader.o -T memmap -o bootloader.elf

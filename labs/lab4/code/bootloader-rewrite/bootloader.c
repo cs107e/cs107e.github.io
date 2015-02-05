@@ -1,5 +1,5 @@
 /* 
- * Rewritten version of Welch's bootloader.
+ * engler: Rewritten version of Welch's bootloader.
  * Copyright (c) 2012 David Welch dwelch@dwelch.com
  *
  * The raspberry pi firmware at the time this was written defaults
@@ -15,30 +15,25 @@ enum {
        	ACK = 0x06,   // Acknowledge (positive)
        	NAK = 0x15,   // Acknowledge (negative)
        	EOT = 0x04,   // End of transmission 
-
        	PAYLOAD_SIZE = 128,
+
 	ARMBASE = 0x8000
 };
 
-static unsigned char serial_recv(void) { 
-	static unsigned rx;
-	if(!rx)
-		rx = timer_tick();
-
-	// not ready, just keep going.
+static unsigned char getbyte(void) { 
+	unsigned t0 = timer_tick();
+	// while uart not ready, just keep going; nak every 4 sec
 	while(((uart_lcr() & 0x01) == 0)) {
-		// nak every 4 sec
-        	if ((timer_tick() - rx) >= 4000000) {
+		unsigned t = timer_tick();
+        	if ((t - t0) >= 4000000) {
             		uart_send(NAK);
-            		rx += 4000000;
+            		t0 = t;
         	}
 	}
-        unsigned char uc = uart_recv();
-        rx = timer_tick();
-	return uc;
+        return uart_recv();
 }
 
-int notmain ( void ) {
+void notmain ( void ) {
 	uart_init();
     	hexstring(0x12345678);
     	hexstring(GETPC());
@@ -55,53 +50,46 @@ int notmain ( void ) {
      	 *  - CRC is over the whole packet 
      	 *  - after all packets sent, sender transmits a single EOT (must ACK).
      	 */
-	unsigned char block = 1, crc = 0;
+	unsigned char block = 1;
     	unsigned addr = ARMBASE;
     	while (1) {
-		unsigned char b, data[256];
+		unsigned char b;
 
         	// We received an EOT, send an ACK, jump to beginning of code
-        	if((b = serial_recv()) == EOT) {
+        	if((b = getbyte()) == EOT) {
               		uart_send(ACK);
               		BRANCHTO(ARMBASE);
-			return 0; // NOTREACHED
-		} else if(b != SOH) {
-			uart_send(NAK);  // Don't recognize command, NAK it
-			continue;	 // restart;
+			return; // NOTREACHED
 		}
 
-        	// Check if first byte of block is expected block number;
-        	// if not, NAK, restart for next block
-		if(serial_recv() != block) {
+		/* 
+		 * if first byte is not SOH, or second byte is not the 
+		 * expected block number or the third byte is not its
+		 * negation, send a nak for a resend of this block.
+		 */
+		if(b != SOH 
+		|| getbyte() != block 
+		|| getbyte() != (0xFF - block)) {
                 	uart_send(NAK);
-			continue;   // restart
+			continue;  
 		}
 
-		// Check that second byte of block is negative of block
-		// number, if not, NAK, restart for next block
-		b = serial_recv();
-        	if(b == (0xFF - block)) 
-			crc = (SOH + block + b);
-        	else {
-			uart_send(NAK);
-			continue;
-		}
-	
 		// get the data bytes
 		int i;
-		for(i = 0; i < PAYLOAD_SIZE; i++)
-                	crc += (data[i] = serial_recv());
+		unsigned char crc;
+		for(crc = i = 0; i < PAYLOAD_SIZE; i++) {
+                	crc += (b = getbyte());
+                        PUT8(addr+i, b);
+		}
 	
 		// Checksum failed: NAK the block
-		if(serial_recv() != crc)
+		if(getbyte() != crc)
 			uart_send(NAK);
-		// Checksum passed, copy block to program region.  ACK
+		// Commit our addr pointer and go to next block.
 		else {
-               		for(i = 0; i < PAYLOAD_SIZE; i++)
-                        	PUT8(addr++, data[i]);
 			uart_send(ACK);
+			addr += PAYLOAD_SIZE;
 			block++;
 		}
     	}
-    	return(0);
 }
