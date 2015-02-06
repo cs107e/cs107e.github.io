@@ -15,9 +15,11 @@ void notmain() {
     }
     
     for (i = 0; i < 1000000; i++) {}
-      
+
     for (i = 0; i < length; i++) {
       buffer[i] = 0x00;
     }
+
+    for (i = 0; i < 1000000; i++) {}
   }
 }
