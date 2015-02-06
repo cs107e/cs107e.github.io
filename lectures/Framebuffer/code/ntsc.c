@@ -48,17 +48,17 @@ int notmain(void) {
   int i;
 
   for (ry = 0; ry < 480; ry++) {
-    if (ry < 360) {
+    if (ry < 360) {  // Top bars are 0-359
       for (rx = 0; rx < 640; rx++) {
         unsigned int index = rx / 90;
         fb[ry][rx] = bars[index];
       }
-    } else if (ry < 384 ) {
+    } else if (ry < 384 ) { // Castellations are 360-383
       for (rx = 0; rx < 640; rx++) {
         unsigned int index = rx / 90;
          fb[ry][rx] = castellations[index];
       }
-    } else {
+    } else { // Bottom pattern is 384-480
       // The bottom pattern has a different geometry so just
       // brute force it with the X offsets.
       for (rx = 0; rx < 640; rx++) {
