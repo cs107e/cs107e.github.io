@@ -29,13 +29,13 @@ Included in the starter code is the following example program `hello.c`.
     {
         while(1) {
             puts("hello\n");
-            db():
+            db();
         }
     }
 
 
-If you call `db()` as shown above,
-you should get a prompt on your terminal.
+Add your code from assignment 3 (call it printf.c) and any dependency files,
+and add code in db.c to print a prompt, as shown below.
 Compile the starter code and test it.
 
     % rpi-install.py program.bin

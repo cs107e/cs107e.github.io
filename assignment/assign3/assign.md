@@ -49,11 +49,16 @@ The goals of this assignment are
   The size of the buffer is equal to n.
   Do not write past the end of the buffer!
   
-  `val` is the integer value to be converted to a string.
+  `val` is the integer value to be converted to a string. When converting to 
+  a decimal string, treat the integer `val` as a signed two's complement value 
+  (this is how integers are stored in C). 
+  For binary and hexidecimal values, return the unsigned value of the bits.
   
-  `width` is the number of digits to be formatted. 
-  If necessary, pad the string with spaces or zeros
-  so that it has length `width`.
+  `width` is the minimum size of the returned string. 
+  If `width` is greater than needed to fit the formatted value, pad the 
+  string with zeros so that it has length `width`. If `width` is 
+  less than the space needed to hold the formatted value, ignore the `width` 
+  parameter.
   
   These functions should return a pointer to the start
   of the formatted string.
@@ -77,8 +82,8 @@ The goals of this assignment are
   ```
 
   The formatting codes for integers should optionally contain a width.
-  For example, "%2x" will print the first two characters
-  of the hexadecimal int.
+  For example, "%4x" will be a string of at least four characters (padded 
+  with zeros as necessary) representing the hexidecimal value.
 
   See the note below about how to create functions
   with variable numbers of arguments.
@@ -136,7 +141,7 @@ Here is an example.
 
         va_start(ap, n);
         for( int i=0; i<n; i++ )
-            sum += va_arg(ap, int);
+            sum += va_arg(ap, i);
         va_end(ap);
 
         return sum;
