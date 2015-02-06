@@ -43,7 +43,7 @@ void notmain ( void ) {
      	 * 132 byte packet.  All fields are 1 byte except for the 128 byte data 
      	 * payload.
      	 * 		+-----+------+----------+--....----+-----+
-     	 * 		| SOH | blk# | 255-blk# | ..data.. | crc | 
+     	 * 		| SOH | blk# | 255-blk# | ..data.. | cksum | 
      	 * 		+-----+------+----------+--....----+-----+
      	 * Protocol:
      	 * 	- first block# = 1.
@@ -76,14 +76,14 @@ void notmain ( void ) {
 
 		// get the data bytes
 		int i;
-		unsigned char crc;
-		for(crc = i = 0; i < PAYLOAD_SIZE; i++) {
-                	crc += (b = getbyte());
+		unsigned char cksum;
+		for(cksum = i = 0; i < PAYLOAD_SIZE; i++) {
+                	cksum += (b = getbyte());
                         PUT8(addr+i, b);
 		}
 	
 		// Checksum failed: NAK the block
-		if(getbyte() != crc)
+		if(getbyte() != cksum)
 			uart_send(NAK);
 		// Commit our addr pointer and go to next block.
 		else {
