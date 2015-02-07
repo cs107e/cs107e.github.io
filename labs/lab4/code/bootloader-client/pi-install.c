@@ -119,14 +119,15 @@ static void xmodem(int fd, const unsigned char * buf, unsigned n) {
 static void check_binary(const unsigned char *buf, unsigned n) { 
 	// this is the prefix we expect from the pi.  will add a set of these as
 	// the programs get more rich.
-	static const unsigned char expected_prefix[] = {
+	static const unsigned expected_prefix[] = {
         	0x2,
         	0xd9,
         	0xa0,
         	0xe3,
-        	0x48,
-        	0x1,
-        	0x0,
+		// we skip any entry that is -1 --- linked values change
+        	-1,
+        	-1,
+        	-1,
         	0xeb,
         	0xfe,
         	0xff,
@@ -137,9 +138,15 @@ static void check_binary(const unsigned char *buf, unsigned n) {
         	0x80,
         	0xe5,
 	};
+	int sz = sizeof expected_prefix / sizeof expected_prefix[0];
 
-	// others?
-	if(memcmp(buf, expected_prefix, sizeof expected_prefix) == 0)
+	int mismatch_p = 0;
+	int i;
+	for(i = 0; i < sz; i++)
+		if(expected_prefix[i] != -1 && expected_prefix[i] != buf[i])
+			mismatch_p = 1;
+
+	if(!mismatch_p)
 		return;
 
 	puts("ERROR: bad prefix for the pi program.  Possible causes:");
@@ -147,9 +154,8 @@ static void check_binary(const unsigned char *buf, unsigned n) {
 	puts("	* Not linking start as the first routine.");
 	puts("Dumping memory:");
 
-	int i;
-	for(i = 0; i < sizeof expected_prefix; i++) 
-		if(expected_prefix[i] != buf[i]) 
+	for(i = 0; i < sz; i++)
+		if(expected_prefix[i] != -1 && expected_prefix[i] != buf[i])
 			fprintf(stderr, "\texpected byte[%d] = 0x%x, got 0x%x\n",
 				i, expected_prefix[i], buf[i]);
 
