@@ -53,7 +53,7 @@ bits (an unsigned integer).
 
     The first step is to wait until the most significant bit of the
     status field is 0 (the mailbox is not full).  Now that the mailbox
-    is empty, we can send a message. This involves writing a pointer
+    is not full, we can send a message. This involves writing a pointer
     to the message to the `write` field of the Mailbox. There are a
     few details on how this works, so read the next two steps
     carefully.
@@ -101,6 +101,8 @@ bits (an unsigned integer).
     The fifth step is to retrieve the frame buffer pointer. It is
     stored in the pointer field of your now filled-in configuration
     structure.
+
+    Lastly, fb_init() should return 0 or 1 for success/failure.
 
     Below is some pseudocode pulled from the lecture slides to help you with 
     the above steps. Check that your code has this general form.
