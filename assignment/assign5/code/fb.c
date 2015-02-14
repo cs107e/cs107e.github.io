@@ -5,7 +5,7 @@
 typedef struct {
 } fb_config_t;
 
-fb_config_t config __attribute__ ((aligned(16)));
+volatile fb_config_t config __attribute__ ((aligned(16)));
 
 int fb_init() {return 0;}
 
