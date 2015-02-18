@@ -1,0 +1,134 @@
+<h2>Assignment 6: From Keyboard to Screen</h2>
+<p><img alt="Matrix Trinity Hack" src="images/shell.png" /></p>
+<p>In this assignment, you'll get a PS2 keyboard working with your
+Raspberry Pi. This will let you type in commands and control the
+Pi without needing to plug another computer into it.</p>
+<h3>Learning goals</h3>
+<p>In this assignment, you will</p>
+<ol>
+<li>Learn how PS2 scan codes work </li>
+<li>Write a small driver that correctly translates PS2 scan codes into
+    ASCII characters that can be displayed on the screen</li>
+<li>Write a console program that allows you to type in and execute
+    commands.</li>
+</ol>
+<h3>Assignment tasks</h3>
+<ol>
+<li>
+<p><strong>Pull the assignment 6 project.</strong></p>
+<p>To start the assignment, find the <code>courseware/assign/assign6/code</code>
+directory. You may need to pull from the <code>cs107e/courseware</code> repository
+to get the latest code. </p>
+<p>This project includes one file that will help you significantly,
+<code>ps2.h</code>. This file defines a few useful constants and two arrays,
+<code>lookup_table</code> and <code>shift_lookup_table</code>, which are 128-element <code>char</code>
+arrays that map key codes on the range 0x00-0x7f to ASCII characters.
+The first is for when shift is not enagaged (e.g., "a" or "5"), while the
+second is for when shift is engaged (e.g., "A" or "%").</p>
+<p>The project also has <code>keyboard.h</code> and <code>console.h</code>, which you will
+implement in this assignment. You will need to make your own
+<code>keyboard.c</code> and <code>console.c</code> files and include them in the
+Makefile as you make progress in the assignment.</p>
+<p>Finally, there is <code>fractal.h</code> and <code>fractal.c</code>, which you'll use
+for commands you can type at the command line.</p>
+<p>You will probably want to copy your lab6 code into the code directory.</p>
+</li>
+<li>
+<p><strong>Process PS2 scan codes.</strong> Recall from lecture that a PS2 scan code
+    is an 8-odd-1 packet consisting of 11 bits. The first bit, the start
+    bit, is low. The next 8 bits are data bits, least significant bit first.
+    The tenth bit is a parity bit -- odd parity means that there should be
+    an odd number of 1s in the data and parity bits. The 11th and final
+    bit is the stop bit, which is always high.</p>
+<p><img alt="PS2 Packet Format" src="images/ps2.png" /></p>
+<p>Implement <code>keyboard_init()</code> and <code>keyboard_read()</code> in <code>keyboard.h</code>.
+You should build on your lab code to do so: initalize GPIO pins 23
+and 24 to be inputs with pull-up resistors. Recall that PS2 sends
+a new data bit on the data line on a falling clock edge, so when
+reading pin 23 goes from high to low.</p>
+<p>At this point, whenever you read a scan code, translate it to an
+ASCII character and display it on the screen. Do not worry about
+shift or other complexities. You can display the typed character
+as a character in a fixed position on the screen using a single-buffered
+graphics library. This way, a letter will appear immediately when
+you type it. All you need is a while loop that reads a character
+and draws it.</p>
+<p><img alt="PS2 Scan Codes" src="images/scancode.gif" /></p>
+<p>Note that since you are simply turning scan codes to characters, typing
+some keys might lead to strange symbols appearing on the screen.
+That's fine: what matters is that typing basic characters shows up
+correctly.</p>
+</li>
+<li>
+<p><strong>Handle key press vs. key release.</strong></p>
+<p>When you press a key, the PS2 keyboard sends a scan code. When you
+release the same key, it also sends a scan code. This scan code
+is the same as the first one, except it is one byte longer: it
+has a leading <code>0xF0</code>. So typing z will cause the keyboard to
+send scan code <code>0x1A</code>. Releasing z will cause the keyboard to
+send scan code <code>0xF0 0x1A</code>. If you hold down z long enough
+the keyboard will send multiple press scan codes (auto-repeat).</p>
+<p>Modify your keyboard driver so it will only return characters
+that are pressed, not those that are released. I.e., if the
+scan codes received are <code>0x1A</code>, <code>0x1A</code>, <code>0xF0 0x1A</code> and <code>0x34</code>,
+the calls to <code>keyboard_read()</code> would have returned z, z, g,
+and not z, z, z, g.</p>
+<p>Also, modify your driver so it ignores (reads and does nothing with)
+a value of <code>0xE0</code>. This code is used for some more advanced keys.
+Ignoring it means that you might see some funny behavior (e.g., pressing
+volume up will cause a b to be read), but that's OK. If you don't
+do this then pressing keys which have an <code>0xE0</code>, such as the right
+control key, will cause multiple characters to be read.</p>
+</li>
+<li>
+<p><strong>Implement shift and caps lock.</strong></p>
+<p>Modify your driver so it correctly handles caps lock and shift.
+If you press a key while the shift key is down, <code>keyboard_read</code>
+should return the result of the character is <code>shift_lookup_table</code>.
+If you press the caps lock key, then shift should be enabled
+until caps lock is pressed again. If you press shift while
+caps lock is enabled, characters should be lower case.</p>
+</li>
+<li>
+<p><strong>Lines of text.</strong></p>
+<p>At this point, you should be able to handle most characters typed
+at the keyboard. Implement a simple console that lets you type
+in commands. This means storing lines of text which typing feeds
+into. When someone types delete or backspace (scan code <code>0x66</code>), the
+console should delete the last character on the current line, or
+do nothing if the line is empty. When someone types return/enter
+(scan code <code>0x5A</code>), the console should call <code>console_execute()</code>
+with the contents of that line and go to the next line.</p>
+<p>You do not have to handle line wrap: if a line reaches the end of
+the screen you should stop accepting new key strokes.</p>
+<p>You do not have to handle scrolling: if the console reaches the bottom
+of the screen it should stay at the bottom line and delete the previous
+one when return is pressed.</p>
+</li>
+<li>
+<p><strong>Fractals!</strong></p>
+<p>Fill in <code>console_execute()</code> so that if someone types the command
+<code>attractor</code> it invokes <code>strange_attractor</code> from <code>fractal.h</code>
+with a parameter you decide. This call should never return --
+you will need to reboot the Pi to get back to the console.
+Also add a command <code>list</code> that
+lists all of the available commands in the line(s) below the current
+one then brings the user to a new line. Finally, add a command <code>clear</code>
+that clears the screen and brings the console back to the top line.</p>
+</li>
+</ol>
+<h3>Handing in</h3>
+<p>Commit your code to your repository.</p>
+<h3>Extensions</h3>
+<ol>
+<li><strong>Better command line</strong>. Extend your command line so it explicitly
+    displays where the cursor is (e.g., by inverting colors or a white line
+    at the bottom) and allows the user to move back and forth with
+    the arrow keys. So, for example, someone can type "attrctor", then
+    hit left arrow 4 times and type "a" to spell "attractor". Hitting
+    return at any point in the line should execute the entire command.
+    Also, support history: allow the user to type the up arrow to recall
+    prior commands and easily re-execute them. Finally, support scrolling,
+    such that if the console reaches the bottom of the screen then previous
+    lines move up to make room.</li>
+</ol>
