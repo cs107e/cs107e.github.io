@@ -78,22 +78,22 @@ on President's Day Feb 16th.
 | Assignment 4 : Debugger | |
 | Lecture 7 (Fri): Graphics and the framebuffer | |
 | **Week 6 Feb 9** | |
-| Lecture 8 (Mon): Keyboards | |
-| Lab 5: Setting up the framebuffer and keyboad| |
-| Assignment 5: Terminal program | | 
+| Lecture 8 (Mon): GPIO and the keyboards | |
+| Lab 5: Setting up the framebuffer| |
+| Assignment 5: Displaying strings | | 
 | Lecture 9 (Fri): Interrupts | |
 | **Week 7 Feb 16** | |
 | *President's Day - Computer History Musueum Tour* | |
-| Lab 6: Working with interrupts
-| Assignment 6: Interrupt-driven terminal program
-| Lecture 10 (Fri): Audio
+| Lab 6: PS2 keyboard hack | |
+| Assignment 6: Keyboard to console | |
+| Lecture 10 (Fri): Interrupts, continued | |
 | **Week 8 Feb 22** | |
-| Lecture 11 (Mon): MIDI Input and Peripherals | |
-| Lab 7: PWM and sound | |
-| Assignment 7: Sound | |
-| Lecture 12 (Fri): Networking I | |
+| Lecture 11 (Mon): C Programming | |
+| Lab 7: Handling Interrupts | |
+| Assignment 7: Interrupt console  | |
+| Lecture 12 (Fri): Sound and MIDI | |
 | **Week 9 Mar 2** | |
-| Lecture 13 (Mon): Networking II | |
+| Lecture 13 (Mon): Networking | |
 | Lecture 14 (Fri): Memory management: sbrk/malloc | |
 | **Week 10 Mar 9** | |
 | Lecture 15 (Mon): Caches | |
