@@ -23,6 +23,9 @@ unsigned int interrupt_lr = 0xdeadbeef;
 void int_handler(unsigned int pc) {
   interrupt_lr = pc;
   gpio_check_and_clear_event(GPIO_PIN23);
+  // Note that this is unsafe; if this executes
+  // while main loop is incrementing, could lose
+  // this increment.
   bit_count += 0x1000;
 }
 
@@ -49,6 +52,7 @@ void notmain() {
     gfx_clear();
     display_state();
     gfx_draw();
+    // To be safe, should disable interrupts while incrementing
     bit_count++;
   }
 }
