@@ -75,7 +75,7 @@ char shift_lookup_table[] = {
   ' ',  
   ' ', // 0x40
   '<',  
-  'L',  
+  'K',  
   'I',  
   'O',  
   ')',
