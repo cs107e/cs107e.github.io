@@ -1,94 +1,50 @@
-/* Functions for a simple graphics library for the bare metal
- * Raspberry Pi.
+#ifndef GFX_H_INCLUDED
+#define GFX_H_INCLUDED
+
+/* Functions for a simple bare metal Raspberry Pi graphics
+ * library. Builds on the video library video.[ch] for frame buffer
+ * access and configuration; trying to use both simultaneously
+ * is discouraged.
+ *
+ * This is a simple double-buffering library. You can draw on a
+ * writeable buffer with gfx_block and other commands, then swap it in
+ * as the display buffer with gfx_draw.  The function gfx_clear clears
+ * the writeable buffer.
  *
  * Author: Philip Levis <pal@cs.stanford.edu>
  * Date: August 14 2014
  */ 
 
-#include "gfx.h"
-#include "fb.h"
-#include "system.h"
-#include "font.h"
-
-void gfx_init() {
-  fb_init();
-}
+void gfx_init();
 
 unsigned int gfx_compute_color(unsigned char red,
                                unsigned char green,
-                               unsigned char blue) {
-  return (0xFF000000 | blue << 16 | green << 8 | red);
-}
+                               unsigned char blue);
 
-unsigned int gfx_get_width() {
-  return fb_width();
-}
+unsigned int gfx_get_width();
+unsigned int gfx_get_height();
 
-unsigned int gfx_get_height() {
-  return fb_height();
-}
-
+// Plot a single point
 void gfx_plot(unsigned int color,
               unsigned int x,
-              unsigned int y) {
-  if (x >= fb_width() ||
-      y >= fb_height()) {
-    return;
-  }
-  unsigned int addr = (unsigned int)fb_writeable_buffer();
-  addr += ((y * fb_width()) + x) * fb_byte_depth();
-  PUT32(addr, color);
-}
-
-unsigned int gfx_letter_height() {
-  return font_height();
-}
-
-unsigned int gfx_letter_width() {
-  return font_width();
-}
-
+              unsigned int y);
 unsigned int gfx_draw_letter(unsigned int color,
                              unsigned int x,
                              unsigned int y,
-                             char letter) {
-  int bufsize = font_buflen();
-  int row_width = font_width();
-  if (letter < ' ' || letter > '~') {
-    return 0;
-  }
-  else {
-    unsigned int xindex, yindex;
-    char buffer[bufsize];
-    font_ascii(letter, buffer, bufsize);
-    unsigned int (*pixels)[row_width] = (unsigned int (*)[row_width])buffer;
-    for (yindex = 0; yindex < font_height(); yindex++) {
-      for (xindex = 0; xindex < font_width(); xindex++) {
-        unsigned int pixel_val = pixels[yindex][xindex];
-        gfx_plot(pixel_val, x + xindex, y + yindex);
-      }
-    }
-  }
-  return 1;
-}
-  
+                             char letter);
 
 unsigned int gfx_draw_string(unsigned int color,
                              unsigned int x,
                              unsigned int y,
-                             char* str) {
-  char* ptr;
-  int xpos = x;
-  for (ptr = str; *ptr != 0; ptr++) {
-    if (gfx_draw_letter(color, xpos, y, *ptr)) {
-      xpos += (gfx_letter_width() + 1);
-    } else {
-      return 0;
-    }
-  }
-  return 1;
-}
+                             char* str);
 
+unsigned int gfx_letter_height();
+unsigned int gfx_letter_width();
+
+void gfx_clear();
+void gfx_draw();
+
+#endif
 
 /*
  * Copyright (c) 2014 Stanford University.

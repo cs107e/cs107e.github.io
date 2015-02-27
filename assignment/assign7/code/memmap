@@ -1,0 +1,23 @@
+MEMORY
+{
+    ram : ORIGIN = 0x8000,
+          LENGTH = 0x1000000
+}
+
+SECTIONS
+{
+    .text : {
+        start.o (.text)
+        *(.text*)
+	__text_end__ = .;
+    } > ram
+    .data : { *(.data*) } > ram
+    .rodata : { *(.rodata*) } > ram
+    .bss : {
+        __bss_start__ = .;
+        *(.bss) *(COMMON)
+        . = ALIGN(4);
+        __bss_end__ = .;
+    } > ram
+ 
+}
