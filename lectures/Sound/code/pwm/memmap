@@ -1,0 +1,22 @@
+MEMORY
+{
+    ram : ORIGIN = 0x8000,
+          LENGTH = 0x20000
+}
+
+SECTIONS
+{
+    .text : {
+        start.o (.text)
+        *(.text*)
+    } > ram
+    .data : { *(.data*) } > ram
+    .rodata : { *(.rodata*) } > ram
+    .bss : {
+        __bss_start__ = .;
+        *(.bss*)
+        . = ALIGN(4);
+        __bss_end__ = .;
+    } > ram
+    .fbconfig : { *(.fbconfig*) } > ram
+}
