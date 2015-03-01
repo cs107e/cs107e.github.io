@@ -1,8 +1,8 @@
 #ifndef SYSTEM_H_INCLUDED
 #define SYSTEM_H_INCLUDED
 
-/* Commmon low-level helper functions. Header file
- * for dwelch assembly routines.
+/* Commmon low-level helper functions (dwelch assembly routines)
+ * and core processor operations.
  * Author: Philip Levis <pal@cs.stanford.edu>
  * Date: August 14 2014
  */ 
@@ -16,11 +16,13 @@ extern unsigned int GETPC ( void );
 extern void BRANCHTO ( unsigned int );
 extern void dummy ( unsigned int );
 
-/* Implemented in system.s */
+/* Implemented in system.c */
+void system_enable_interrupts();
+void system_disable_interrupts();
+void system_enable_caches();
+void system_enable_branch_prediction();
 void system_memory_read_barrier();
 void system_memory_write_barrier();
-void system_interrupts_enable();
-void system_interrupts_disable();
 
 #endif
 
