@@ -29,12 +29,12 @@ void gfx_plot(unsigned int color,
               unsigned int x,
               unsigned int y);
 
-unsigned int gfx_draw_letter(unsigned int color,
+unsigned void gfx_draw_char(unsigned int color,
                              unsigned int x,
                              unsigned int y,
-                             char letter);
+                             char ch);
 
-unsigned int gfx_draw_string(unsigned int color,
+unsigned void gfx_draw_string(unsigned int color,
                              unsigned int x,
                              unsigned int y,
                              char* str);
