@@ -2,13 +2,6 @@
 
 *Written by Pat Hanrahan*
 
-### Assignments
-
-1.
-
-2.
-
-
 ### Frequently asked questions about assignments
 
 **What is the expected assignment workload?**
