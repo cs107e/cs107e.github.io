@@ -16,7 +16,7 @@ We are using the raspberry pi A+ in class. The A+ is similar to the B+.
 
 * The ARM1176JFZ-S (used by the Raspberry Pi) is documented
 in the [Technical Reference Manual](http://infocenter.arm.com/help/topic/com.arm.doc.ddi0301h/DDI0301H_arm1176jzfs_r0p7_trm.pdf).  
-The following short [excerpt](lectures/ASM/armisa.pdf)
+The following short [excerpt](readings/armisa.pdf)
 describes just the instructions.
 
 * ARM1176JFZ-S processors use the ARMv6 architecture,
