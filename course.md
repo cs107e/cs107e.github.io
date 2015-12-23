@@ -40,10 +40,10 @@ including *The C Programming Language*, Kernighan and Ritchie.
 
 **Prerequisite:** 106B or X, and consent of instructor. 
 
-**Lectures:** Mon & Fri 12:50-2:05 pm, Rm 107, Littlefield Center
+**Lectures:** Mon & Fri 1:30-2:50pm, Rm 160-319
 
-**Lab:** Tue 7:00-9:00 pm, Gates 415
+**Lab:** Tue/Wed 7:00-9:00 pm
 
-**Lecturers:** Dawson Engler, Pat Hanrahan, Phil Levis
+**Lecturers:** Dawson Engler, Pat Hanrahan, Julie Zelenski
 
-**CA:** Isabel Bush
+**CAs:** Isabel Bush, Ngoc Bui, Omar Rizwan

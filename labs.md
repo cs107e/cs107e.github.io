@@ -4,7 +4,7 @@
 
 ### Lab schedule
 
-Labs are Tue evening from 7-9 pm in Gates 415.
+Labs are Tue or Wed evenings from 7-9pm.
 
 ### Lab FAQ
 
@@ -14,7 +14,7 @@ Each student **must** participate in a weekly 2-hour lab section
 that focuses on active hands-on experimentation and practical skill-building.
 In lab, you will work on a set of exercises/tasks that reinforce 
 the week's material.
-All the instructors and CAs will be available during the labs.
+Instructors and CAs will be available during the labs.
 
 The labs will often involve hardware.
 For example, in the first lab you will learn 
@@ -61,7 +61,9 @@ arriving late or skipping out early will result in not receiving lab credit.
 
 **What happens if I miss my lab?**
 
-If you do have to miss attending a lab entirely,
+If you do have to miss attending your lab session one week, 
+please come to the other session if possible. If you 
+miss a lab entirely,
 you must still complete the exercises on your own.
 
 Many of the labs go over material for that weeks assignment. 

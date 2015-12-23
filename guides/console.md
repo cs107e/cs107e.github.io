@@ -66,7 +66,7 @@ at a serial device, or COM port.
 
 **Windows and Linux**
 
-There is now need to install any drivers to use the breakout board.
+There is no need to install any drivers to use the breakout board.
 
 **Mac OSX**
 

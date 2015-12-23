@@ -41,7 +41,7 @@ $ git config --list
 
 Your last step in the setup will be to get started with GitHub. If you do not have
 an account already, [sign up now](https://github.com). Once you have an account,
-please email your username to me (ibush@stanford.edu) so that I can add you to the
+please email your username to Isabel (ibush@stanford.edu) so that she can add you to the
 [CS107e organization](https://github.com/cs107e). Each of you will be the sole member 
 of your own "Team" in the organization, and your "Team" will have one private repo.
 This is where you will push all of your assignments for grading.

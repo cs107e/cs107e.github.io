@@ -2,11 +2,11 @@
 
 *Written by Pat Hanrahan*
 
-Compiling program that run bare metal is different than compiling
+Compiling programs that run bare metal is different than compiling
 programs that run under an operating system and use
 standard libraries. `gcc` is configured by default to
 assume you are using an operating system and the standard libraries,
-which is how most program are developed. 
+which is how most programs are developed. 
 Therefore, in order to compile bare metal programs
 we need to provide the appropriate options.
 
@@ -81,14 +81,14 @@ libraries and include files.
 
 Options include
 
-   -nostdinc 
+    -nostdinc 
    
 This option sets the include path so that the 
 standard C include directories cannot be found.
 If you try to include a standard header file,
 the compiler will issue an error.
 
-   -nodefaultlibs
+    -nodefaultlibs
 
 Instructs the compiler to not use the standard system libraries when linking. 
 Only the libraries you specify will be passed to the linker.
@@ -100,7 +100,7 @@ Instructs the compiler to not link to the standard system library,
 as well as to not link to the standard system startup library. 
 No startup files and only the libraries you specify are passed to the linker.
 
-If the program is being compiler in hosted mode,
+If the program is being compiled in hosted mode,
 the compiler may generate calls to `memcmp`, `memset`, `memcpy` and `memmove`.
 These entries are usually resolved by entries in `libc`.
 These entry points should be supplied through some other mechanism 

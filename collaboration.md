@@ -200,7 +200,11 @@ You must not share your code with individual students nor
 publicly broadcast it. You should not post your assignment code
 in a public site for the review of others nor ask in a public
 forum for others to resolve issues specific to your assignment
-code. You are expected to take reasonable security precautions
+code. Although you will submit assignment code using Github, 
+we have private accounts set up for this and we expect that you will 
+keep this code private. Even after the course ends, you should not put 
+your assignment code on a public Github account.
+You are expected to take reasonable security precautions
 to maintain your work privately. If we request that you
 remove/protect code that has been improperly shared, you are
 expected to comply in a timely manner.
@@ -216,7 +220,7 @@ will not excuse the violation.
 
 The Honor Code is a powerful assertion that we as a community proudly
 dedicate ourselves to upholding the highest standards of academic
-integrity. The vast majority will do right by CS107 -- we ask a lot
+integrity. The vast majority will do right by CS107E -- we ask a lot
 of you and you will consistently meet those challenges by creating
 work that authentically represents your own effort. We demonstrate
 our respect and appreciation for your honor and efforts by doing

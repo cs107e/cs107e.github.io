@@ -14,13 +14,13 @@ and you will have two weeks to do the project.
 The final project is more open-ended than the assignments,
 and most students will spend more than 20 hours on their final project.
 
-Starting early and making steady progress has been a generally more successful tactic than cramming the work into a last minute all-nighter.
+Starting early and making steady progress has been a generally more successful tactic than cramming the work into a last-minute all-nighter.
 
 **What programming environment and tools are used?**
 
 Students will use their own laptop for the assignments.
 If you use a Mac laptop,
-you will be using the Terminal program and unix commaand line tools.
+you will be using the Terminal program and unix command line tools.
 If you own a Windows laptop,
 you will install a virtual machine running Ubuntu linux 
 and you will use the virtual machine for your assignments.
@@ -39,13 +39,13 @@ Assignments are distributed to students as `git` repositories.
 Students edit, compile, and debug their assignments on their laptop.
 When they are finished, 
 they hand in the assignment by checking their files 
-into their personal git repository.
+into their personal git repository and creating a pull-request.
 
 **What is the policy on late assignments?**
 
 Students are given a few self-granted grace days,
 a penalty is applied for further late work,
-and there a hard deadline after which no further late work will be accepted.
+and there is a hard deadline after which no further late work will be accepted.
 Read our detailed [late policy](late.md) for the nitty-gritty mechanics.
 
 **What is the assignment collaboration policy?**
@@ -87,7 +87,7 @@ Your final project should be excellent.
 
 **What about extra credit**
 
-This is the first time this course has been offered. We will give
+This is still a new course, so we are always trying to improve it. We will give
 extra credit for any work that we deem will make the next version
 of the course better. This could include a creative variation of
 an assignment that might be usable in the future; or written documentation,
