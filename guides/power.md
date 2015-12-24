@@ -62,5 +62,6 @@ The same kind that you use to charge your phone.
 
 Note that there is a large USB port
 on the bottom of the Raspberry Pi board.
-The large usb connector will *not* power the Pi.
+Connecting a power source to the large usb connector 
+will *not* power the Pi.
 
