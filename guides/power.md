@@ -9,7 +9,7 @@ and not the older A and B models**
 
 The way we will power the Pi in this course 
 is to use the usb-serial breakout board.
-The header on the breakout board has pins labeled 5V and GND
+The header on the breakout board has pins labeled 5V and GND.
 On some breakout boards, The 5V pin may be labeled VCC;
 if you are uncertain, check the voltage using a multimeter.
 Some breakout boards will also have a pin labeled 3.3V.
@@ -54,12 +54,13 @@ cable connected to a usb port on a laptop.
 Note that there are different types of usb connectors.
 The Raspberry Pi uses a micro-usb connector.
 
-Note also that there is a large USB port
-(on the bottom of the Raspberry Pi board).
-The large usb connector is not used to power the Pi.
-
 You can also directly power it with an AC adapter. 
 The same kind that you use to charge your phone.
 
 ![micro-usb ac-adater](images/power.usb.ac.adapter.jpg)
+
+
+Note that there is a large USB port
+on the bottom of the Raspberry Pi board.
+The large usb connector will *not* power the Pi.
 
