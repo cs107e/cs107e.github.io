@@ -15,7 +15,8 @@ We've prepared a VM with Linux and all of the needed tools installed on it.
 To get it running, you'll need to do 4 things:
 
 1. Install VMware workstation. Go to
-   `http://sem.stanford.edu/vmware#academic_use` and scroll down to
+   <https://sustainable.stanford.edu/campus-action/energy/sustainability-information-technology/vmware> 
+   and scroll down to
    *SOFTWARE FOR ACADEMIC/RESEARCH PURPOSES* and follow the
    Software Licensing Store link. Scroll down to VMware and
    click on VMware Workstation 10. This is a personal, not a lab
@@ -27,7 +28,7 @@ To get it running, you'll need to do 4 things:
 2. Install VMware workstation and enter the license key.
 
 3. Download the virtual machine. You can find it at
-   http://www.stanford.edu/~plevis/107E%20Ubuntu%20VM.zip
+   <http://www.stanford.edu/~plevis/107E%20Ubuntu%20VM.zip>
    Note that it is 3.2GB in size: I recommend that you plug into
    a wired connection to download it. Don't put the VM on an external
    hard drive, since USB is much slower than SATA. Since you're running
