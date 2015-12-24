@@ -4,10 +4,9 @@
 
 ### SDHC card
 
-Your Raspberry Pi kit contains a 
-Kingston 4GB micro class 4 SDHC card.
-A secure digital (SD) contains non-volatile memory for storage. 
-A HC in SDHC stands for high capacity.
+Your Raspberry Pi kit contains a Kingston SDHC card.
+A secure digital (SD) card contains non-volatile memory for storage. 
+The HC in SDHC stands for high capacity.
 
 ![Kingston SDHC Card](images/kingston.sdhc.jpg)
 
@@ -57,12 +56,25 @@ There should be 6 files.
     blink.bin   bootloader.bin  kernel.img
     bootcode.bin    config.txt  start.elf
 
-Recall that `bootcode.bin` is the bootloader for the GPU,
+`bootcode.bin` is the bootloader for the GPU,
 `start.elf` is the GPU start up code,
 and `kernel.img` is the program run by the Pi.
 Normally, `kernel.img` is the linux kernel.
 In this course,
-we will run replace this file with our own program.
+we will run replace the linux kernel with our own program.
+
+Notice there are also two programs,
+`blink.bin` and `bootloader.bin`.
+Initially, `kernel.img` is just `bootloader.bin`.
+Thus, when the Pi boots, it runs a boot loader
+that can be used to upload programs to the Pi.
+If instead, you replace `kernel.img` with `blink.bin`,
+then the Pi will boot and run a program 
+that blinks an LED connected to GPIO20.
+This is a good way to test whether your Pi is working.
+If you switch to blink,
+remember to switch back to the bootloader
+by copying `bootloader.bin` to `kernel.img`.
 
 Copy these files onto your SDHC Card.
 
