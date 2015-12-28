@@ -94,5 +94,5 @@ $ sudo pip install xmodem
 Once those are installed, you should be able to run the script. You
 will probably want to add the path of wherever you put the script to
 your PATH variable (see above) so that you can run it from any
-directory. The [bootloader guide](../bootlader.md) will go over how to
+directory. The [bootloader guide](../bootloader.md) will go over how to
 load programs over the console cable.
