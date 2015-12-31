@@ -22,9 +22,9 @@ Are you familiar with the following commands?
 
 If you don't know how to do all these things, you will need to learn these skills.
 
-Philip Guo, a formed PhD student at Stanford. 
-has produced some nice [videos](http://pgbovine.net/command-line-tutorial.htm) 
-that introduce basic unix commands.
+Philip Guo, a former PhD student at Stanford. has produced some nice
+[videos](http://pgbovine.net/command-line-tutorial.htm) that introduce basic
+unix commands.
 
 
 
