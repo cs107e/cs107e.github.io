@@ -85,7 +85,7 @@ Your final project should be excellent.
 **C and below.** All work is not completed satisfactorily.
 
 
-**What about extra credit**
+**What about extra credit?**
 
 This is still a new course, so we are always trying to improve it. We will give
 extra credit for any work that we deem will make the next version
