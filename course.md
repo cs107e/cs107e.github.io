@@ -46,4 +46,4 @@ including *The C Programming Language*, Kernighan and Ritchie.
 
 **Lecturers:** Dawson Engler, Pat Hanrahan, Julie Zelenski
 
-**CAs:** Isabel Bush, Ngoc Bui, Omar Rizwan
+**CAs:** Sergio Benitez, Isabel Bush, Ngoc Bui, Omar Rizwan
