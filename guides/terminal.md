@@ -1,4 +1,0 @@
-## Terminal Program
-
-*Coming soon*
-
