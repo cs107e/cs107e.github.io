@@ -1,20 +1,90 @@
-<!DOCTYPE html>
-<html>
+---
+layout: compress
+---
 
-  {% include head.html %}
+<!doctype html>
+<html dir="ltr" lang="{{ site.noita.lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }}</title>
+  {% include noita/robots.html %}
+  {% include noita/meta-description.html %}
 
-  <body>
+  {% for favicon in site.noita.favicons %}
+    {% assign size = favicon | split: '-' | last | split: '.' | first %}
+    <link rel="icon"
+      sizes="{{ size }}x{{ size }}"
+      href="{{ favicon }}">
+    <link rel="apple-touch-icon"
+      sizes="{{ size }}x{{ size }}"
+      href="{{ favicon }}">
+  {% endfor %}
 
-    {% include header.html %}
+  <link rel="alternate" href="/blog/feed.atom"
+    title="{{ site.noita.name }}" type="application/atom+xml">
 
-    <div class="page-content">
-      <div class="wrapper">
-        {{ content }}
-      </div>
+  <link rel="stylesheet" href="/noita/app.css">
+  <script src="/noita/js/vendor/modernizr.js"></script>
+</head>
+<body>
+
+  <div class="top-bar" data-topbar id="topbar">
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="/">{{ site.noita.name }}</a></h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#topbar"><span>{{ site.noita.topbar.toggle }}</span></a></li>
+    </ul>
+    <div class="top-bar-section">
+      {% if site.noita.topbar.left %}
+      <ul class="left">
+      {% for item in site.noita.topbar.left %}
+        <li{% if item.class %} class="has-form"{% endif %}>
+          <a href="{{ item.url }}" class="{{ item.class }}">{{ item.name }}</a>
+        </li>
+      {% endfor %}
+      </ul>
+      {% endif %}
+
+      {% if site.noita.topbar.right %}
+      <ul class="right">
+      {% for item in site.noita.topbar.right %}
+        <li{% if item.class %} class="has-form"{% endif %}>
+          <a href="{{ item.url }}" class="{{ item.class }}">{{ item.name }}</a>
+        </li>
+      {% endfor %}
+      </ul>
+      {% endif %}
     </div>
+  </div>
 
-    {% include footer.html %}
+  <div class="row">
+    <div class="column">
+      <h1>{{ page.title }}</h1>
+    </div>
+  </div>
 
-  </body>
+  <hr />
 
+  {{ content }}
+
+  <!-- <div class="row"> -->
+  <!--   <div class="column"> -->
+  <!--     <hr> -->
+  <!--   </div> -->
+  <!--   <div class="small-8 columns"> -->
+  <!--     <p>© 2014–2015 <a href="http://penibelst.de/">Anatol Broder</a>. Released under -->
+  <!--     the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p> -->
+  <!--   </div> -->
+  <!--   <div class="small-4 columns"> -->
+  <!--     <p class="text-right menu-icon"><a href="#topbar">&#x25B2;</a></p> -->
+  <!--   </div> -->
+  <!-- </div> -->
+
+  <script src="/noita/js/vendor/jquery.js"></script>
+  <script src="/noita/js/vendor/fastclick.js"></script>
+  <script src="/noita/js/foundation.min.js"></script>
+  <script>$(document).foundation();</script>
+</body>
 </html>
