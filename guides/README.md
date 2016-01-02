@@ -26,4 +26,3 @@ and all the ARM cross-development tools will be installed.
 4. [make](make.md)
 --->
 
-
