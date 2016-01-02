@@ -62,9 +62,8 @@ to CS107E coursework in our [course collaboration policy](collaboration.md).
 
 **How do I submit an assignment?**
 
-Assignments are submitted online using `git` tool. 
-Consult the [`git` guide](guides/git.md) 
-for information about how to use `git`.
+Assignments are submitted online using `git`. 
+Consult assignment 0 for information about how to use `git`.
 
 **How are assignments graded?**
 
