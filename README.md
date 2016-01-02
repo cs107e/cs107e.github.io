@@ -1,1 +1,1 @@
-Class webpage at [http://cs107e.github.io/](http://cs107e.github.io/)
+This site is hosted at [http://cs107e.github.io/](http://cs107e.github.io/).
