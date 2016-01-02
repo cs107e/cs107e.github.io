@@ -31,5 +31,14 @@
 *.xxd
 *.bin
 
+# Except firmware
+!/firmware/*.bin
+!/firmware/*.elf
+
 # Mac
 .DS_Store
+
+# Jekyll
+_site/
+.sass-cache/
+.jekyll-metadata

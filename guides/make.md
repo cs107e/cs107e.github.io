@@ -1,4 +1,7 @@
-## Guide to makefiles for ARM cross-development
+---
+layout: page
+title: Guide to Make for ARM cross-development
+---
 
 *Written for CS107E by Pat Hanrahan*
 

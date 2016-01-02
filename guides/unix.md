@@ -1,4 +1,7 @@
-## Guide to the unix command line
+---
+layout: page
+title: Guide to the unix command line
+---
 
 *Prepared by Alexandre Becker, cs107 TA, Modified for cs107E by Pat Hanrahan*
 
@@ -8,25 +11,26 @@ To begin, you should be familiar with the *command line*.
 
 Are you familiar with the following commands?
 
-1. Do you know how to login and logout? Do you know how to open a terminal window that is running a *shell*?
-
-2. What are the commands for changing directories and listing files in a directory. Do you know how the filesystem is organized in linux?
-
-3. Do you know how to create, move, rename, and delete files and directories from the command line?
-
-4. Do you know how to create a text file using an editor such as vi or emacs? Do you know how to create a text file on your terminal?
-
-5. Do you know how to run a command with different options? Do you know how to find documentation about the options to a unix command?
-
-6. Are you proficient with unix text editors such as Emacs or Vi? If not, you should learn one of these editors. Stanford has good tutorials on both [emacs](http://web.stanford.edu/class/cs107/guide_emacs.html) and [vi](http://web.stanford.edu/class/cs107/guide_vim.html)
+1. Do you know how to login and logout? Do you know how to open a terminal
+   window that is running a *shell*?
+2. What are the commands for changing directories and listing files in a
+   directory. Do you know how the filesystem is organized in linux?
+3. Do you know how to create, move, rename, and delete files and directories
+   from the command line?
+4. Do you know how to create a text file using an editor such as vi or emacs?
+   Do you know how to create a text file on your terminal?
+5. Do you know how to run a command with different options? Do you know how to
+   find documentation about the options to a unix command?
+6. Are you proficient with unix text editors such as Emacs or Vi? If not, you
+   should learn one of these editors. Stanford has good tutorials on both
+   [emacs](http://web.stanford.edu/class/cs107/guide_emacs.html) and
+   [vi](http://web.stanford.edu/class/cs107/guide_vim.html)
 
 If you don't know how to do all these things, you will need to learn these skills.
 
 Philip Guo, a former PhD student at Stanford. has produced some nice
 [videos](http://pgbovine.net/command-line-tutorial.htm) that introduce basic
 unix commands.
-
-
 
 ## Unix commands
 

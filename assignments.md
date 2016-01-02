@@ -1,4 +1,9 @@
-## Assignments
+---
+layout: page
+title: Assignment FAQ
+permalink: /assignments/
+menu_item: true
+---
 
 *Written by Pat Hanrahan*
 

@@ -1,4 +1,7 @@
-## Guide to using GDB in simulation mode
+---
+layout: page
+title: Guide to using GDB in simulation mode
+---
 
 `gdb` can be run on your laptop in simulation mode. 
 Single stepping through the program will help you understand

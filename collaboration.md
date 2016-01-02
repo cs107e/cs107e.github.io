@@ -1,3 +1,10 @@
+---
+layout: page
+title: Collaboration Policy
+permalink: /collaboration/
+menu_item: true
+---
+
 ## Collaboration and Honor Code policy
 
 *Originally written by Julie Zelenski, some wording borrowed from a collaboration policy distributed by Brown CS.*

@@ -1,0 +1,48 @@
+# build
+markdown: kramdown
+permalink: /blog/:year/:title/
+exclude:
+  - CNAME
+  - Gemfile
+  - LICENSE
+  - Rakefile
+  - README.md
+  - vendor/
+  - vnu/
+  - vnu.zip
+layouts_dir: ./_noita
+sass:
+  sass_dir: noita/_scss
+  style: compressed
+# compress layout in _noita/compress.html
+compress_html:
+  clippings: all
+  endings: all
+  comments: ["<!--", "-->"]
+  ignore:
+    envs: [travis]
+# theme
+noita:
+  name: CS107e
+  description: Computer Systems from the Ground Up
+  lang: en
+  favicons:
+    - /assets/2014/04/21/favicon-152.png
+  topbar:
+    toggle: Menu
+    right:
+      - name: Course Description
+        url: /about/
+      - name: Course Guides
+        url: /guides/
+      - name: Assignment FAQ
+        url: /assignments/
+      - name: Collaboration Policy
+        url: /collaboration/
+      - name: Late Policy
+        url: /late/
+      - name: Lab Info
+        url: /labs/
+      - name: Repository
+        url: https://github.com/cs107e/cs107e.github.io
+        class: small button

@@ -1,4 +1,7 @@
-## Git
+---
+layout: page
+title: Guide to Git
+---
 
 Git is a version control system commonly used in the software industry.
 Git tracks changes between versions so that you can easily revert to old versions

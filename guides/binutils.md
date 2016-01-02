@@ -1,4 +1,7 @@
-# Binary Utilities (binutils)
+---
+layout: page
+title: Binary Utilities (binutils)
+---
 
 This document describes the binary utilities (binutils), the set of tools used for compiling,
 inspecting, and transforming binaries (machine code files). Some of them you've probably
@@ -17,7 +20,7 @@ prefixed with `arm-none-eabi`. So you want to use `arm-none-eabi-ld` not `ld`.
 
 ## Installing
 
-## Core utilities
+### Core utilities
 
 This section discusses the core utilities that you use very often: `as`, `ld`, `nm`, `size`, `strings`,
 `strip`, `objcopy`, `objdump`, and `ar`.
@@ -249,5 +252,5 @@ library by specifying `-ltest` in the `ld` command (see `ld` above).
 
 For more options on how to modify archives, see `man ar` or `ar --help`.
 
-## Other utilities
+<!-- ## Other utilities -->
 

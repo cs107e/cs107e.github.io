@@ -1,4 +1,7 @@
-## Guide to running Linux within VMware Workstation
+---
+layout: page
+title: Running Linux within VMware
+---
 
 *Prepared by Philip Levis*
 

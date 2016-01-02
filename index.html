@@ -1,0 +1,15 @@
+---
+layout: default
+title: <h1>CS107e <small>Winter 2016</small></h1>
+---
+
+<div class="row">
+  <div class="medium-12 columns">
+    {% for page in site.pages %}
+      {% if page.show_on_index %}
+        {{ page.content }}
+      {% endif %}
+    {% endfor %}
+
+    {% include schedule.html %}
+</div>

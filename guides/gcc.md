@@ -1,4 +1,7 @@
-## Guide to Bare Metal Programming with GCC
+---
+layout: page
+title: Guide to Bare Metal Programming with GCC
+---
 
 *Written by Pat Hanrahan*
 

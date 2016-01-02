@@ -1,4 +1,8 @@
-## Labs
+---
+layout: page
+title: Lab Information
+permalink: /labs/
+---
 
 *Written by Julie Zelenski, modified for CS107E by Pat Hanrahan*
 

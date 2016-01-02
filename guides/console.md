@@ -1,4 +1,7 @@
-## Working with the console cable
+---
+layout: page
+title: Working with the console cable
+---
 
 *Written by Pat Hanrahan*
 
@@ -49,7 +52,7 @@ to the receive RX on the other end.
 
 The proper connections are shown below
 
-![Console cable](images/console.cable.zoom.jpg)
+![Console cable](/images/console.cable.zoom.jpg)
 
 In this configuration, the yellow wire connects
 the RX header pin on the usb serial breakout board

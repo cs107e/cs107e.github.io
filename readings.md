@@ -1,4 +1,9 @@
-## Resources
+---
+layout: page
+title: Resources
+permalink: /resources/
+menu_item: true
+---
 
 ### Raspberry Pi Hardware
 
