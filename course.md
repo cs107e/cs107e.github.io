@@ -2,7 +2,6 @@
 layout: page
 title: Course Description
 permalink: /about/
-menu_item: true
 ---
 
 ## Computer Systems from the Ground Up

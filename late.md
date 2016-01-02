@@ -2,7 +2,6 @@
 layout: page
 title: Late Policy
 permalink: /late/
-menu_item: true
 ---
 
 *Written by Pat Hanrahan*

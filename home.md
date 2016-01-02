@@ -21,9 +21,9 @@ All class announcements will be posted on
 
 ### Course Info
 
-  -   **Lectures:** Mon & Fri 1:30-2:50 pm, Rm 160-319\
-  -   **Lab**: Tue 7:00-9:00 pm, Gates 325\
-  -   **Lecturers**: Dawson Engler, Pat Hanrahan, Julie Zelenski\
+  -   **Lectures:** Mon & Fri 1:30-2:50 pm, Rm 160-319
+  -   **Lab**: Tue 7:00-9:00 pm, Gates 325
+  -   **Lecturers**: Dawson Engler, Pat Hanrahan, Julie Zelenski
   -   **CAs** Sergio Benitez, Ngoc Bui, Isabel Bush, Omar Rizwan
 
 ### Office Hours

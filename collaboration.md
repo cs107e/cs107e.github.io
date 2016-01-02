@@ -2,7 +2,6 @@
 layout: page
 title: Collaboration Policy
 permalink: /collaboration/
-menu_item: true
 ---
 
 ## Collaboration and Honor Code policy
