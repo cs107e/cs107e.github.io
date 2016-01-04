@@ -43,7 +43,7 @@ Programming Language*, Kernighan and Ritchie.
 
 **Lectures:** Mon & Fri 1:30-2:50pm, Rm 160-319
 
-**Lab:** Tue/Wed 7:00-9:00 pm
+**Lab:** Tue or Wed 7:00-9:00 pm
 
 **Lecturers:** Dawson Engler, Pat Hanrahan, Julie Zelenski
 
