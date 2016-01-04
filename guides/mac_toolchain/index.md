@@ -5,14 +5,15 @@ title: Mac Installation Guide
 
 For this class, you will need to install both:
 
-1. the `arm-none-eabi-` tools (including a special C compiler which compiles C
-   to _Pi_ machine code, instead of your computer's x86 machine code) and
-2. the driver and script for the CP2102 console cable (which connects your
+1. The `arm-none-eabi-` toolchain (including a special C compiler which
+   compiles C to _Pi_ machine code, instead of your computer's x86 machine
+   code).
+2. The driver and script for the CP2102 console cable (which connects your
    computer and Pi, so you can load programs onto the Pi).
 
 If you are on a Mac, follow all the instructions on this page.
 
-### arm-none-eabi installation for OS X
+### `arm-none-eabi` installation
 
 To ease the installation process for the arm-none-eabi tools on OS X,
 we have built and packaged them up for you. Follow these steps to
