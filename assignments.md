@@ -10,9 +10,11 @@ permalink: /assignments/
 
 **What is the expected assignment workload?**
 
-There are 7-8 assignments over the quarter, one per week.
+There are 7 assignments over the quarter, one per week.
 Assignments involve writing approximately 100 lines of code,
 and should be doable in 10 hours.
+The assignments generally build on each other,
+so it is hard to skip an assignment.
 The last assignment will be a project, 
 and you will have two weeks to do the project. 
 The final project is more open-ended than the assignments,
@@ -42,8 +44,9 @@ and become proficient using the unix shell.
 Assignments are distributed to students as `git` repositories.
 Students edit, compile, and debug their assignments on their laptop.
 When they are finished, 
-they hand in the assignment by checking their files 
-into their personal git repository and creating a pull-request.
+they hand in the assignment by commiting their files 
+into their personal git repository 
+and creating a pull-request.
 
 **What is the policy on late assignments?**
 
@@ -77,8 +80,9 @@ improvement falls in the [-] bucket, code that meets our expectations is in the
 [ok] bucket, and exceptional code falls in the [+] bucket.
 In rare cases when the assignment was not sufficiently attempted, 
 we will use a [--] bucket. We will also provide comments throughout your code 
-to help you improve your code quality. Please incorporate our feedback into future 
-assignments; it will improve your grade and more importantly your coding style.
+to help you improve your code quality.
+Please incorporate our feedback into future assignments;
+it will improve your grade and more importantly your coding style.
 
 Assignments will have a basic part and various extensions. 
 You are expected to do the basic part of each assignment.
@@ -86,21 +90,21 @@ You are expected to do the basic part of each assignment.
 Grades will be assigned using the following criteria:
 
 **A.** All laboratories and basic part of assignments must be completed.
-In addition, you must do extensions for 4 assignments, and your final
-project must be outstanding. Your code quality grades should average somewhere 
+Your code quality grades should average somewhere 
 between the [ok] and [+] buckets.
+In addition, and your final project must be outstanding.
 
 **B.** All laboratories and basic part of assignments must be completed.
-Your final project should be excellent. Your code quality grades should average in 
-the [ok] bucket.
+Your final project should be excellent.
+Your code quality grades should average in the [ok] bucket.
 
 **C and below.** All work is not completed satisfactorily.
 
 
 **What about extra credit?**
 
-This is still a new course, so we are always trying to improve it. We will give
-extra credit for any work that we deem will make the next version
+This is still a new course, so we are always trying to improve it.
+We will give extra credit for any work that we deem will make the next version
 of the course better. This could include a creative variation of
 an assignment that might be usable in the future; or written documentation,
 guides, or FAQs on the hardware and software used in the course.
