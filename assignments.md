@@ -50,7 +50,7 @@ into their personal git repository and creating a pull-request.
 Students are given a few self-granted grace days,
 a penalty is applied for further late work,
 and there is a hard deadline after which no further late work will be accepted.
-Read our detailed [late policy](late.md) for the nitty-gritty mechanics.
+Read our detailed [late policy](../late) for the nitty-gritty mechanics.
 
 **What is the assignment collaboration policy?**
 
@@ -58,7 +58,7 @@ The programming assignments are to be done individually
 and should represent independent, original work.
 We adhere to the Stanford and CS department Honor Code policies,
 and offer specific examples of its application 
-to CS107E coursework in our [course collaboration policy](collaboration.md).
+to CS107E coursework in our [course collaboration policy](../collaboration).
 
 **How do I submit an assignment?**
 
