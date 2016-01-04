@@ -42,6 +42,8 @@ noita:
         url: /late/
       - name: Lab Info
         url: /labs/
+      - name: Readings
+        url: /resources/
       - name: Repository
         url: https://github.com/cs107e/cs107e.github.io
         class: small button
