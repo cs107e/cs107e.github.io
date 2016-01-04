@@ -5,7 +5,7 @@ title: Working with the bootloader
 
 *Written by Pat Hanrahan*
 
-In the [SDHC card guide](../sd.md), you should have installed a 
+In the [SDHC card guide](sd.md), you should have installed a 
 bootloader on the SDHC card as `kernel.img`.
 When the Raspberry Pi runs, the bootloader is run.
 The bootloader listens on the serial port

@@ -70,8 +70,15 @@ Consult assignment 0 for information about how to use `git`.
 Each assignment will have a clear specification of what the program should do.
 If there are multiple features, 
 it will be clear how much of your grade depends on each feature.
+
 We will also look at your code and assess the code quality.
-Points will be docked for poorly written code.
+Code quality will be graded on a bucket system where code that needs 
+improvement falls in the [-] bucket, code that meets our expectations is in the 
+[ok] bucket, and exceptional code falls in the [+] bucket.
+In rare cases when the assignment was not sufficiently attempted, 
+we will use a [--] bucket. We will also provide comments throughout your code 
+to help you improve your code quality. Please incorporate our feedback into future 
+assignments; it will improve your grade and more importantly your coding style.
 
 Assignments will have a basic part and various extensions. 
 You are expected to do the basic part of each assignment.
@@ -80,10 +87,12 @@ Grades will be assigned using the following criteria:
 
 **A.** All laboratories and basic part of assignments must be completed.
 In addition, you must do extensions for 4 assignments, and your final
-project must be outstanding.
+project must be outstanding. Your code quality grades should average somewhere 
+between the [ok] and [+] buckets.
 
 **B.** All laboratories and basic part of assignments must be completed.
-Your final project should be excellent.
+Your final project should be excellent. Your code quality grades should average in 
+the [ok] bucket.
 
 **C and below.** All work is not completed satisfactorily.
 
