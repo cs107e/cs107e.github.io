@@ -153,13 +153,13 @@ bookeeping and linking.
 Lists the size of sections (and total size) of object files. Can be invoked on multiple 
 files at once simply by listing the desired files, 
 
-      % size test.o test2.o
+    % size test.o test2.o
 
 which produces output like this:
 
-   text	     data     bss      dec     hex	  filename
-     80	       24      32      136 	88 	  test.o
-     72	        0       0       72	48	  test2.o
+     text	     data     bss      dec     hex	  filename
+       80	       24      32      136 		88 	  test.o
+       72	        0       0       72		48	  test2.o
 
 Under `text` you see the size of the actual machine code that makes up your program. Similarly to 
 the symbol types listed under `nm` above, the `data` section is the size of storing your initialized 
@@ -172,7 +172,7 @@ the section sizes in hexidecimal, use the `-x` option (`size -x test.o`). You ca
 file type if it is not automatically recognized. For example if you want to know the size of a raw 
 binary file, you could use 
 
-       % size --target=binary test.bin
+    % size --target=binary test.bin
 
 ### `strings`
 
@@ -181,13 +181,13 @@ for searching binary files, which are not readable using a text editor. For exam
 wanted to search an object file for a particular string, you could call strings and pipe the result to 
 grep, like this:
 
-      % strings test.o | grep "my string"
+    % strings test.o | grep "my string"
 
 By default, `strings` looks for strings of at least 4
 printable characters (followed by a NUL character indicating the end of a string).
 To set a minimum string length other than 4, use the `-n` option. For example,
 
-      % strings -n 6 test.o
+    % strings -n 6 test.o
 
 looks for strings of at least 6 characters.
 
