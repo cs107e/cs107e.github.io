@@ -1,5 +1,5 @@
 # build
-markdown: kramdown
+markdown: redcarpet
 permalink: /blog/:year/:title/
 exclude:
   - CNAME
