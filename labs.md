@@ -18,6 +18,8 @@ Each student **must** participate in a weekly 2-hour lab section
 that focuses on active hands-on experimentation and practical skill-building.
 In lab, you will work on a set of exercises/tasks that reinforce 
 the week's material.
+When you leave the lab, you should be well-prepared
+to do the assignment for that week.
 Instructors and CAs will be available during the labs.
 
 The labs will often involve hardware.

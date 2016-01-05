@@ -15,6 +15,8 @@ The rules:
 Late days are counted in 24-hour periods.
 Submitting one minute past midnight until midnight of the next day 
 is one day late, and so on.  
+We use the timestamp of your final git commit 
+as the the time you submitted your assignment.
 
 2. You are given **4 "grace days"** (self-granted extensions)
 which you can use to give yourself extra time without penalty.

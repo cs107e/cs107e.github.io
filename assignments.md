@@ -10,9 +10,11 @@ permalink: /assignments/
 
 **What is the expected assignment workload?**
 
-There are 7-8 assignments over the quarter, one per week.
+There are 7 assignments over the quarter, one per week.
 Assignments involve writing approximately 100 lines of code,
 and should be doable in 10 hours.
+The assignments generally build on each other,
+so it is hard to skip an assignment.
 The last assignment will be a project, 
 and you will have two weeks to do the project. 
 The final project is more open-ended than the assignments,
@@ -42,15 +44,16 @@ and become proficient using the unix shell.
 Assignments are distributed to students as `git` repositories.
 Students edit, compile, and debug their assignments on their laptop.
 When they are finished, 
-they hand in the assignment by checking their files 
-into their personal git repository and creating a pull-request.
+they hand in the assignment by commiting their files 
+into their personal git repository 
+and creating a pull-request.
 
 **What is the policy on late assignments?**
 
 Students are given a few self-granted grace days,
 a penalty is applied for further late work,
 and there is a hard deadline after which no further late work will be accepted.
-Read our detailed [late policy](late.md) for the nitty-gritty mechanics.
+Read our detailed [late policy](../late) for the nitty-gritty mechanics.
 
 **What is the assignment collaboration policy?**
 
@@ -58,7 +61,7 @@ The programming assignments are to be done individually
 and should represent independent, original work.
 We adhere to the Stanford and CS department Honor Code policies,
 and offer specific examples of its application 
-to CS107E coursework in our [course collaboration policy](collaboration.md).
+to CS107E coursework in our [course collaboration policy](../collaboration).
 
 **How do I submit an assignment?**
 
@@ -70,8 +73,16 @@ Consult assignment 0 for information about how to use `git`.
 Each assignment will have a clear specification of what the program should do.
 If there are multiple features, 
 it will be clear how much of your grade depends on each feature.
+
 We will also look at your code and assess the code quality.
-Points will be docked for poorly written code.
+Code quality will be graded on a bucket system where code that needs 
+improvement falls in the [-] bucket, code that meets our expectations is in the 
+[ok] bucket, and exceptional code falls in the [+] bucket.
+In rare cases when the assignment was not sufficiently attempted, 
+we will use a [--] bucket. We will also provide comments throughout your code 
+to help you improve your code quality.
+Please incorporate our feedback into future assignments;
+it will improve your grade and more importantly your coding style.
 
 Assignments will have a basic part and various extensions. 
 You are expected to do the basic part of each assignment.
@@ -79,19 +90,21 @@ You are expected to do the basic part of each assignment.
 Grades will be assigned using the following criteria:
 
 **A.** All laboratories and basic part of assignments must be completed.
-In addition, you must do extensions for 4 assignments, and your final
-project must be outstanding.
+Your code quality grades should average somewhere 
+between the [ok] and [+] buckets.
+In addition, and your final project must be outstanding.
 
 **B.** All laboratories and basic part of assignments must be completed.
 Your final project should be excellent.
+Your code quality grades should average in the [ok] bucket.
 
 **C and below.** All work is not completed satisfactorily.
 
 
 **What about extra credit?**
 
-This is still a new course, so we are always trying to improve it. We will give
-extra credit for any work that we deem will make the next version
+This is still a new course, so we are always trying to improve it.
+We will give extra credit for any work that we deem will make the next version
 of the course better. This could include a creative variation of
 an assignment that might be usable in the future; or written documentation,
 guides, or FAQs on the hardware and software used in the course.
