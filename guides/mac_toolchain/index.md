@@ -69,8 +69,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ### Using the CP2102 Console Cable
 
 To use the CP2102 console cable, you will need to install the drivers.
-Instructions on how to do this are in the [Console Guide](../console.md). Also
-download the [rpi-install.py
+Instructions on how to do this are in the [console guide](/guides/console).
+Also download the [rpi-install.py
 script](https://raw.githubusercontent.com/cs107e/courseware/master/guides/mac_toolchain/rpi-install.py),
 which you will be using to load your programs onto the Pi over the serial
 cable.
