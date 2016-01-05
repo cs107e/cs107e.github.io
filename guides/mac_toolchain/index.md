@@ -66,7 +66,7 @@ This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
     ```
 
-### Using the CP2120 Console Cable
+### Using the CP2102 Console Cable
 
 To use the CP2102 console cable, you will need to install the drivers.
 Instructions on how to do this are in the [Console Guide](../console.md). Also
