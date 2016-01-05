@@ -3,75 +3,70 @@ layout: page
 title: Mac Installation Guide
 ---
 
-For this class, you will need to install both:
+For this class, you will need to install the following software:
 
-1. The `arm-none-eabi-` toolchain (including a special C compiler which
-   compiles C to _Pi_ machine code, instead of your computer's x86 machine
-   code).
-2. The driver and script for the CP2102 console cable (which connects your
-   computer and Pi, so you can load programs onto the Pi).
+1.  The `arm-none-eabi` toolchain, which includes a C x86 to ARM cross-compiler
+    which compiles C code on your x86 machine to ARM machine code which can run
+    on the Raspberry Pi.
+2.  The driver and script for the CP2102 console cable which connects your
+    computer and Pi, so you can load programs onto the Pi.
 
 If you are on a Mac, follow all the instructions on this page.
 
 ### `arm-none-eabi` installation
 
-To ease the installation process for the arm-none-eabi tools on OS X,
-we have built and packaged them up for you. Follow these steps to
-install them:
+To ease the installation process for the `arm-none-eabi` tools on OS X, we have
+built and packaged them into a Homebrew formula for you.
+[Homebrew](http://brew.sh/) is a popular [package
+manager](https://en.wikipedia.org/wiki/Package_manager) for OS X. It is good
+practice to install software using a package manager.
 
-1. Download the [arm-none-eabi.tar.bz2
-   file](https://github.com/cs107e/courseware/blob/master/guides/mac_toolchain/arm-none-eabi.tar.bz2?raw=true).
+#### Install Homebrew
 
-2. We will run the tools from a bin subdirectory in your home folder, instead
-   of a computer-wide bin, so make this directory first (provided you don't
-   have one already):
+If you aren't yet using Homebrew, use these instruction to get Homebrew up and
+running. If you are already using Homebrew, skip to the next section.
 
-    ```
-$ mkdir ~/bin
-    ```
-
-3. Copy the downloaded file into your bin directory:
+1.  Install the Xcode command line tools by running the command below. A dialog
+    should pop up on your screen. Click "Install" when it appears.
 
     ```
-$ cp ~/Downloads/arm-none-eabi.tar.bz2 ~/bin/
+$ xcode-select --install
     ```
 
-4. `cd` into the bin directory and decompress and unpack the .tar.bz2 file (you
-   should see a lot of files being extracted):
+2.  Run Homebrew's install script by using the command below. The script will
+    guide you through the rest of the install process.
 
     ```
-$ tar -xjvf arm-none-eabi.tar.bz2
-  ```
-
-5. Your tools should now be installed. To check, try the following command and
-   make sure the output matches:
-
-    ```
-$ ~/bin/arm-none-eabi/bin/arm-none-eabi-as -v GNU assembler version 2.24
-(arm-none-eabi) using BFD version (GNU Binutils) 2.24
+$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     ```
 
-6. While the above command works, it is annoying to have to specify the
-   directory of the installed tools each time you use them. To avoid this, we
-   can add the directory to our \$PATH variable so that the shell will search
-   this directory when we type a command.
+#### Install the `arm-none-eabi` formula
 
-    To do this, open or create a file called .bash_profile in your home directory
-    (~/.bash_profile) and add the following line:
+1.  "Tap" into the CS107e Homebrew packages repository using the command below.
+    This allows you to use the Homebrew formulas we have provided.
 
     ```
-export PATH=$PATH:~/bin/arm-none-eabi/bin
+$ brew tap cs107e/cs107e
     ```
 
-7. If you close that shell window and open a new one, you should now be able to
-   simply type
+2.  Install the `arm-none-eabi` toolchain:
 
     ```
-$ arm-none-eabi-as -v GNU assembler version 2.24 (arm-none-eabi) using BFD
-version (GNU Binutils) 2.24
+$ brew install arm-none-eabi
     ```
 
-### Console cable driver & script
+3.  Ensure it works by running the following command and checking that its
+    output is identical to what is displayed below:
+
+    ```
+$ arm-none-eabi-gcc --version
+arm-none-eabi-gcc (GCC) 4.8.3
+Copyright (C) 2013 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    ```
+
+### Using the CP2120 Console Cable
 
 To use the CP2102 console cable, you will need to install the drivers.
 Instructions on how to do this are in the [Console Guide](../console.md). Also
@@ -87,10 +82,8 @@ your Mac, [download and install
 pip](https://pip.pypa.io/en/latest/installing.html). Once you have pip, you can
 easily get the missing modules using
 
-```
-$ sudo pip install pyserial
-$ sudo pip install xmodem
-```
+    $ sudo pip install pyserial
+    $ sudo pip install xmodem
 
 Once those are installed, you should be able to run the script. You
 will probably want to add the path of wherever you put the script to
