@@ -1,44 +1,80 @@
 ---
 layout: page
-title: Collaboration Policy
-permalink: /collaboration/
+title: Course Policies
+permalink: /policies/
 ---
 
-## Collaboration and Honor Code policy
+## Table of Contents
 
-*Originally written by Julie Zelenski, some wording borrowed from a collaboration policy distributed by Brown CS.*
+*  [Late Policy](#late-policy)
+*  [Collaboration Policy](#collaboration-policy)
+*  [Collaboration Policy FAQ](#collaboration-policy-faq)
 
-The programming assignments are an integral part of the CS107e
-learning experience. We have a great set of projects lined up for
-you and the time you spend designing your own solution and working
-toward its successful implementation can be fun, challenging,
-illuminating, time-consuming, rewarding, and frustrating. Your pride
-upon finishing is a fantastic high and your efforts earn you powerful
-skills and deep understanding. Don't cheat yourself out of this
-incredible learning opportunity! Borrowing someone else's design,
-building on another's code, being lead by another person, and other
-such "shortcuts" jeopardize the chance to develop your own mastery
-and compromise your integrity.
+## Late Policy
 
-This document is designed to make clear our expectations and
-restrictions on collaboration. We expect your assignment submissions
-to be your own independent effort and not be derived from the
-thoughts and work of others. You should do your own thinking, your
-own design, your own coding, and your own debugging. This doesn't
-mean that you can't ask questions or get help when you get stuck,
-but any help must remain within acceptable limits, as detailed in
-the concrete examples given below.
+*Written by Pat Hanrahan*
 
-All of you should be familiar with 
-the principles of the [Stanford Honor Code](http://web.stanford.edu/class/cs107/collaboration.html).
-The [CS department Honor Code policy](http://csmajor.stanford.edu/HonorCode.shtml) further explains how it applies in CS courses.
-Students are to uphold their obligations
-to do honorable work and encourage others to do the same. On our
-part, we will treat students with trust and respect. When alerted
-to any possible infraction, we will protect the honorable students'
-interests by investigating and prosecuting dishonorable behavior.
+Hofstadter's Law: "It always takes longer than you think, even when you take
+Hofstadter's Law into account."
 
-### Assistance that is allowed and requires no citation
+The rules:
+
+1.  The cutoff for on-time submission is **midnight** of the due date. Late
+    days are counted in 24-hour periods. Submitting one minute past midnight
+    until midnight of the next day is one day late, and so on. We use the
+    timestamp of your final git commit as the the time you submitted
+    your assignment.
+
+2.  You are given **4 "grace days"** (self-granted extensions) which you can
+    use to give yourself extra time without penalty.
+
+3.  Instructor-granted extensions are only considered **after all grace days
+    are used** and only given in exceptional situations.
+
+4.  Late work handed in when you have run out of grace is **discounted 10% per
+    day late**. It is always to your advantage to complete all the assignments
+    even if they are late.
+
+5.  Late submissions (penalty or not) are not accepted after the hard deadline,
+    which is **4 days past the original due date,** but may be restricted to
+    fewer days on a per-assignment basis.
+
+6.  The final project must be submitted on time.
+
+## Collaboration Policy
+
+*Originally written by Julie Zelenski, some wording borrowed from a
+collaboration policy distributed by Brown CS.*
+
+The programming assignments are an integral part of the CS107e learning
+experience. We have a great set of projects lined up for you and the time you
+spend designing your own solution and working toward its successful
+implementation can be fun, challenging, illuminating, time-consuming,
+rewarding, and frustrating. Your pride upon finishing is a fantastic high and
+your efforts earn you powerful skills and deep understanding. Don't cheat
+yourself out of this incredible learning opportunity! Borrowing someone else's
+design, building on another's code, being lead by another person, and other
+such "shortcuts" jeopardize the chance to develop your own mastery and
+compromise your integrity.
+
+This document is designed to make clear our expectations and restrictions on
+collaboration. We expect your assignment submissions to be your own independent
+effort and not be derived from the thoughts and work of others. You should do
+your own thinking, your own design, your own coding, and your own debugging.
+This doesn't mean that you can't ask questions or get help when you get stuck,
+but any help must remain within acceptable limits, as detailed in the concrete
+examples given below.
+
+All of you should be familiar with the principles of the [Stanford Honor
+Code](http://web.stanford.edu/class/cs107/collaboration.html). The [CS
+department Honor Code policy](http://csmajor.stanford.edu/HonorCode.shtml)
+further explains how it applies in CS courses. Students are to uphold their
+obligations to do honorable work and encourage others to do the same. On our
+part, we will treat students with trust and respect. When alerted to any
+possible infraction, we will protect the honorable students' interests by
+investigating and prosecuting dishonorable behavior.
+
+#### Assistance that is allowed and requires no citation
 
 These things are encouraged and allowed for all students:
 
@@ -82,7 +118,7 @@ debugging with the course staff. They are the best folks to
 talk to because they are knowledgeable about all the material
 and know how to help you without overly influencing or leading you.
 
-### Assistance that is allowed but must be cited
+#### Assistance that is allowed but must be cited
 
 Whereas the discussions listed above are allowable, certain discussions
 require citation. The difference between the two comes in what is
@@ -153,7 +189,7 @@ a problem to give proper credit where due. If the assistance is
 truthfully cited, even if impermissible, we can work with you to
 discount the work rather than handle as a Honor Code violation.
 
-### Assistance that is NOT allowed
+#### Assistance that is **_not_** allowed
 
 Whereas discussion as described above is acceptable if cited, these
 discussions should never become so detailed that they involve jointly
@@ -233,7 +269,7 @@ our respect and appreciation for your honor and efforts by doing
 our part to make absolutely clear our expectations and hold accountable
 those students who act in violation.
 
-### Frequently asked questions about the Honor Code and the course collaboration policy.
+## Collaboration Policy FAQ
 
 **Can I include my solution code in my portfolio for internship/scholarship
 applications?**

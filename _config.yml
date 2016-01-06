@@ -35,18 +35,16 @@ noita:
     right:
       - name: Course Description
         url: /about/
-      - name: Guides
-        url: /guides/
-      - name: Collaboration Policy
-        url: /collaboration/
-      - name: Late Policy
-        url: /late/
+      - name: Course Policies
+        url: /policies/
+      - name: Assignments
+        url: /assignments/
       - name: Labs
         url: /labs/
-      - name: Readings
+      - name: Guides
+        url: /guides/
+      - name: Resources
         url: /resources/
-      - name: Assignments
-        url: /assignment/
       - name: Repository
         url: https://github.com/cs107e/cs107e.github.io
         class: small button

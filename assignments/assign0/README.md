@@ -1,7 +1,7 @@
 ---
 layout: page
-title: 'Assignment 0: Choose a lab section and learn Git'
-permalink: /assignment/assign0/
+title: 'Assignment 0: Choose Lab Section, Learn Git'
+permalink: /assignments/assign0/
 ---
 
 **Part 1 hard deadline:** Friday, January 8, 2016, 1:30 PM (start of class)

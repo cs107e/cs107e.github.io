@@ -1,12 +1,11 @@
 ---
 layout: page
 title: Assignments
-permalink: /assignment/
 ---
 
 ### List of assignments
 
-- [Assignment 0: Choose a lab section and learn Git](assign0)
+- [Assignment 0: Choose Lab Section, Learn Git](assign0)
 
 ### Frequently asked questions about assignments
 
