@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Assignment 0: Choose a lab section and learn Git
+title: 'Assignment 0: Choose a lab section and learn Git'
 permalink: /assignment/assign0/
 ---
 
