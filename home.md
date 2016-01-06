@@ -24,7 +24,7 @@ All class announcements will be posted on
   -   **Lectures:** Mon & Fri 1:30-2:50 pm, Rm 160-319
   -   **Lab**: Tue or Wed 7:00-9:00 pm, Gates 325
   -   **Lecturers**: Dawson Engler, Pat Hanrahan, Julie Zelenski
-  -   **CAs** Sergio Benitez, Ngoc Bui, Isabel Bush, Omar Rizwan
+  -   **CAs**: Sergio Benitez, Ngoc Bui, Isabel Bush, Omar Rizwan
 
 ### Office Hours
 
@@ -55,25 +55,26 @@ and a tour of the Computer History Musuem on President's Day Feb 16th.
 | **Week 1 Jan 4** |
 | Lecture 1 (Mon): Introduction ([slides](lectures/intro/intro.pdf)) | Review [electricity](guides/electricity), [binary and hexadecimal numbers and bitwire operations](guides/numbers), and the [unix command line](guides/unix). |
 | _No Lab_ (attend a 107 Unix help session!) |
+| Assignment 0: [Choose a lab section and learn Git](assignment/assign0) |
 | Lecture 2 (Fri): Introduction to ARM | Start with Baking Pi ([intro](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/introduction.html), [ok01](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/ok01.html), [ok02](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/ok02.html)) and then read about [ARM ASM](http://www.toves.org/books/arm/). |
 | **Week 2 Jan 11** |
 | Lecture 3 (Mon): ARM Assembly and Machine Code | Read sections 4.1-4.5 from the [ARM ISA](readings/armisa.pdf) |
-| Lab 1 : Setup the Raspberry Pi |
-| Assignment 1 : Larson scanner |
+| Lab 1: Setup the Raspberry Pi |
+| Assignment 1: Larson scanner |
 | Lecture 4 (Fri): Baremetal programming in C | Brush up on C syntax, data types, operators, control structure, function calls. EssentialC chapters 1, 2, and 4; or K&R 1, 2, 3, 4 and 5.1-5.4\. Skip sections involving characters, strings, io, and standard libraries. Read the about the [history of C](http://cm.bell-labs.com/who/dmr/chist.html) |
 | **Week 3 Jan 18** |
 | _Martin Luther King Holiday - No Class_ |
-| Lab 2 : Baremetal programming in C |
-| Assignment 2 : Clock |
+| Lab 2: Baremetal programming in C |
+| Assignment 2: Clock |
 | Lecture 5 (Fri): Functions | Read (or read again) about functions in C (Chapter 4 in K&R, Section 4 in Essential C), Read this nice explanation of [local data and frame pointers](http://thinkingeek.com/2014/05/11/arm-assembler-raspberry-pi-chapter-18/) |
 | **Week 4 Jan 25** |
 | Lecture 6 (Mon): Serial communication, ASCII and strings | Read about characters and strings, basic IO (getc, putc, puts, printf), and structures (Section 1.5, 1.6, 1.9, 5.5, 6, 7 in K&R; Section 3 in EssentialC). Read about [Serial Communication](https://learn.sparkfun.com/tutorials/serial-communication/all). |
-| Lab 3 : Below C Level |
-| Assignment 3 : String formatting and printing |
+| Lab 3: Below C Level |
+| Assignment 3: String formatting and printing |
 | Lecture 7 (Fri): Linking, loading and starting | Read David Welch's articles on [baremetal programming](https://github.com/dwelch67/raspberrypi/tree/master/baremetal) and [bss data](https://github.com/dwelch67/raspberrypi/tree/master/bssdata). |
 | **Week 5 Feb 1** |
 | Lecture 8 (Mon): Memory allocation and Valgrind |
-| Lab 4 : Understanding linking and loading |
+| Lab 4: Understanding linking and loading |
 | Assignment 4 |
 | Lecture 9 (Fri): Graphics and the framebuffer |
 | **Week 6 Feb 8** |
