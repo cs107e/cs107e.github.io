@@ -53,17 +53,17 @@ This assignment expects you to know how to use the UNIX command line
 on Linux or OS X, and how to edit a text file.
 
 If you're on Windows, you should have set up
-[a Linux virtual machine](https://github.com/cs107e/courseware/blob/master/guides/vmware.md);
+[a Linux virtual machine](/guides/vmware);
 you'll be using that machine for all assignments, including this one.
 
 See
-[our UNIX guide](https://github.com/cs107e/courseware/blob/master/guides/unix.md)
+[our UNIX guide](/guides/unix)
 if you need information about these topics. The standard CS 107 will also
 have a UNIX lab in week 1 which we'll announce to the class, should
 you want to attend.
 
 You should also read through the other
-[course guides](https://github.com/cs107e/courseware/tree/master/guides)
+[course guides](/guides)
 for information about hardware and the Pi, which we'll start working
 with in week 2.
 
