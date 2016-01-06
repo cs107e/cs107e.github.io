@@ -1,6 +1,9 @@
 # build
-markdown: redcarpet
-permalink: /blog/:year/:title/
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+permalink: pretty
 exclude:
   - CNAME
   - Gemfile
@@ -32,18 +35,18 @@ noita:
     right:
       - name: Course Description
         url: /about/
-      - name: Course Guides
+      - name: Guides
         url: /guides/
-      - name: Assignment FAQ
-        url: /assignments/
       - name: Collaboration Policy
         url: /collaboration/
       - name: Late Policy
         url: /late/
-      - name: Lab Info
+      - name: Labs
         url: /labs/
       - name: Readings
         url: /resources/
+      - name: Assignments
+        url: /assignment/
       - name: Repository
         url: https://github.com/cs107e/cs107e.github.io
         class: small button

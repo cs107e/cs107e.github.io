@@ -24,7 +24,7 @@ All class announcements will be posted on
   -   **Lectures:** Mon & Fri 1:30-2:50 pm, Rm 160-319
   -   **Lab**: Tue or Wed 7:00-9:00 pm, Gates 325
   -   **Lecturers**: Dawson Engler, Pat Hanrahan, Julie Zelenski
-  -   **CAs** Sergio Benitez, Ngoc Bui, Isabel Bush, Omar Rizwan
+  -   **CAs**: Sergio Benitez, Ngoc Bui, Isabel Bush, Omar Rizwan
 
 ### Office Hours
 
@@ -48,4 +48,4 @@ You should also read the [guides](/guides/) for each week.
 
 Note that the schedule includes a guest lecture, Quinn Dunki, 
 tentatively scheduled for Fri Feb 26th,
-and a tour of the Computer History Musuem on President's Day Feb 16th.
+and a tour of the Computer History Museum on President's Day Feb 16th.
