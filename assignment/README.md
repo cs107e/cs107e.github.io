@@ -1,12 +1,16 @@
 ---
 layout: page
-title: Assignment FAQ
-permalink: /assignments/
+title: Assignments
+permalink: /assignment/
 ---
 
-*Written by Pat Hanrahan*
+### List of assignments
+
+- [Assignment 0: Choose a lab section and learn Git](assign0)
 
 ### Frequently asked questions about assignments
+
+*Written by Pat Hanrahan*
 
 **What is the expected assignment workload?**
 
