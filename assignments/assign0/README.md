@@ -172,10 +172,10 @@ Open lab.txt in a text editor. Replace its contents with one of these
 four options. Make sure you use the exact same text (your submission
 will be automatically checked):
 
-- Tuesday
-- Tuesday, can't make Wednesday
-- Wednesday
-- Wednesday, can't make Tuesday
+- `Tuesday`
+- `Tuesday, can't make Wednesday`
+- `Wednesday`
+- `Wednesday, can't make Tuesday`
 
 Save the file.
 
