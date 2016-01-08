@@ -9,8 +9,7 @@ xxd -g 1 add.bin add.hex
 sed s/01/02/ add.hex > add2.hex
 xxd -g 1 -r add2.hex add2.bin
 
-# test
-cmp add.bin add2.bin
+arm-none-eabi-objdump -m arm -b binary -D add2.bin
 
 
 
