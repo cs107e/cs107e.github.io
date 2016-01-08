@@ -1,0 +1,13 @@
+# assembly
+arm-none-eabi-as add.s -o add.o
+arm-none-eabi-objcopy add.o -O binary add.bin
+
+# disassemble the code 3 ways!
+arm-none-eabi-as add.s -o add.o -a
+arm-none-eabi-objdump -D add.o
+arm-none-eabi-objdump -m arm -b binary -D add.bin
+
+
+
+
+

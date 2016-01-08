@@ -1,0 +1,31 @@
+# assembly
+arm-none-eabi-as add.s -o add.o
+file add.o
+ls -l add.o
+arm-none-eabi-size add.o
+
+# create binary
+arm-none-eabi-objcopy add.o -O binary add.bin
+file add.bin
+ls -l add.bin
+
+# disassemble the code 3 ways!
+arm-none-eabi-as add.s -o add.o -a
+arm-none-eabi-objdump -D add.o
+arm-none-eabi-objdump -m arm -b binary -D add.bin
+
+# default is 16-bits, to output a single byte
+xxd -g 1 add.bin add.hex
+xxd -g 1 -r add.hex add2.bin
+cmp add.bin add2.bin
+
+# reassmble
+sed s/01/02/ add.hex > add2.hex
+xxd -g 1 -r add2.hex add2.bin
+cmp add.bin add2.bin
+arm-none-eabi-objdump -m arm -b binary -D add2.bin
+
+
+
+
+
