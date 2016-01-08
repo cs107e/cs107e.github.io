@@ -1,0 +1,15 @@
+size
+as
+
+will fail since the mac is an Intel IA64 processor
+
+need to prefix commands with arm-none-eabi-
+
+# https://www.mkssoftware.com/docs/man1/od.1.asp
+od
+xd -X
+
+xxd
+
+hexdump
+

@@ -1,0 +1,10 @@
+# assembly
+arm-none-eabi-as add.s -o add.o
+arm-none-eabi-objcopy add.o -O binary add.bin
+
+
+
+
+
+
+
