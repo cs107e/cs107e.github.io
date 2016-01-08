@@ -21,17 +21,19 @@ All class announcements will be posted on
 
 ### Course Info
 
-  -   **Lectures:** Mon & Fri 1:30-2:50 pm, Rm 160-319
+  -   **Lectures:** Mon & Fri 1:30-2:50 pm, [Room 200-305]
   -   **Lab**: Tue or Wed 7:00-9:00 pm, Gates 325
   -   **Lecturers**: Dawson Engler, Pat Hanrahan, Julie Zelenski
   -   **CAs**: Sergio Benitez, Ngoc Bui, Isabel Bush, Omar Rizwan
+
+[Room 200-305]: https://campus-map.stanford.edu/?id=01-200&lat=37.42832452750049&lng=-122.17104196554779&zoom=17&srch=200-305
 
 ### Office Hours
 
   -   **Hanrahan**: Gates 370
   -   **Engler**: Gates 314
   -   **Zelenski**: TBA
-  -   **Sergio**: TBA
+  -   **Sergio**: Gates 288
   -   **Isabel**: Huang Basement
 
 ### Schedule
