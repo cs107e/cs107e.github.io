@@ -1,0 +1,13 @@
+# assembly
+arm-none-eabi-as add.s -o add.o
+
+# create binary
+arm-none-eabi-objcopy add.o -O binary add.bin
+
+# default is 16-bits, to output a single byte
+xxd -g 1 add.bin 
+
+
+
+
+
