@@ -30,7 +30,7 @@ All class announcements will be posted on
 
 ### Office Hours
 
-  -   **Hanrahan**: Gates 370
+  -   **Hanrahan**: Gates 370, Mon 3:30-5:00 pm 
   -   **Engler**: Gates 314
   -   **Zelenski**: TBA
   -   **Sergio**: Gates 288
