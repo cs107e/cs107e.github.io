@@ -56,12 +56,13 @@ the linux kernel. In this course, we will run replace the linux kernel with our
 own program.
 
 Notice there are also two programs, `blink.bin` and `bootloader.bin`.
-Initially, `kernel.img` is just `bootloader.bin`. Thus, when the Pi boots, it
-runs a boot loader that can be used to upload programs to the Pi. If instead,
-you replace `kernel.img` with `blink.bin`, then the Pi will boot and run a
-program that blinks an LED connected to GPIO20. This is a good way to test
-whether your Pi is working. If you switch to blink, remember to switch back to
-the bootloader by copying `bootloader.bin` to `kernel.img`.
+Initially, `kernel.img` is just `blink.bin`. Thus, when the Pi boots, it runs a
+program that blinks the on-board activity (ACT) LED connected to GPIO47. This
+is a good way to test whether your Pi is working. If instead, you replace
+`kernel.img` with `bootloader.bin`, the Pi will boot and run a boot loader that
+can be used to upload programs to the Pi. You should replace `kernel.img` with
+`bootloader.bin` after you've tested that your Pi works correctly with
+`blink.bin`.
 
 Copy these files onto your SDHC Card.
 
