@@ -95,7 +95,7 @@ your home directory (~/.bash_profile) and add the following line (replacing
 \<path_to_rpi-install_script\> with the directory where you saved rpi-install.py).
 
 ```
-export PATH=$PATH:\<path_to_rpi-install_script\>
+export PATH=$PATH:<path_to_rpi-install_script>
 ```
 
 The [bootloader guide](/guides/bootloader) will go over how to load programs over
