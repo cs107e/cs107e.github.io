@@ -16,7 +16,7 @@ version of your program.
 So each time you wish to run a new version of your program, you only
 need to do two steps:
 
-1.  Reset the Raspberry Pi
+1.  Reset the Raspberry Pi (by unplugging the Pi from your computer or by pushing the reset button if you have soldered one on)
 2.  Run the command to load and start your program
 
 In order to use the bootloader, you need to format an SDHC card with the
