@@ -174,7 +174,7 @@ If you are missing stuff, we have extras available.
 
 The next step is to wire up your breadboard.
 It is a little hard to describe this process in writing,
-but there are people in the lab who have down it before.
+but there are people in the lab who have done it before.
 Watch what they do.
 Arrange everything to look neat.
 Take your time and check your work.
@@ -280,24 +280,39 @@ Does the brightness of the LED change?
 
 **Warning: Don't have the usb serial breakout board plugged in while you are fiddling with the wiring. This can cause a short circuit, which could fry your Pi.**
 
-4 *Run Blink on your Raspberry Pi.* 
+4 *Load code onto your Raspberry Pi.* 
 
-First, connect the LED to GPIO 20.
-
-![GPIO 20 connected to LED](images/piled.gpio20.jpg)
-
-Second, 
-follow the instructions in [working with sd cards](http://cs107e.github.io/guides/sd/).
+Follow the instructions in [working with sd cards](http://cs107e.github.io/guides/sd/).
 They will show you how to mount the sd card,
 where to get the Raspberry Pi firmware,
 and how to copy the firmware to the SD card.
-After you have the firmware installed,
-copy blink.bin to the sd card as kernel.img.
-Eject the SD card properly.
+After you have the firmware installed, eject the SD card properly.
 
-Third, insert the SD card into the raspberry pi.
+Insert the SD card into the raspberry pi.
 Power it up.
-The LED should blink.
+The LED on the Raspberry Pi board should blink.
+
+5 *Blink a breadboard LED*
+
+Connect an LED on your breadboard to GPIO 20.
+
+![GPIO 20 connected to LED](images/piled.gpio20.jpg)
+
+Mount the SD card again and this time copy your assembled blink.bin
+file (the one you created in lab step 1, not the one in the firmware directory)
+to your SD card as kernel.img. Eject the SD card and insert it into the 
+raspberry pi. It should now blink the LED on your breadboard.
+
+6 *Load the blink code using the bootloader.*
+
+Each time you change your code, you could compile it and recopy it onto the 
+SD card as kernel.img like you did in step 5. But this is a tedius process.
+To avoid having to switch your SD card back and forth between 
+your laptop and the raspberry pi each time you change your program, 
+we will use a bootloader. Mount the SD card one last time 
+and copy bootloader.bin to kernel.img. Then follow the 
+instructions in the [bootloader guide](/guides/bootloader) to load 
+your blink program onto your raspberry pi using the bootloader.
 
 Study the blink program:
 
@@ -343,9 +358,9 @@ What is byte offset of `e3` relative to the start of the file?
 
 - Change the program such that the blink rate slows down by a factor of 2. 
 Now perform experiments to determine 
-how many instructions per per second the Raspberry Pi executes.
+how many instructions per second the Raspberry Pi executes.
 
-5 *Run Button on your Raspberry Pi.* 
+7 *Run Button on your Raspberry Pi.* 
 
 This last part is optional.
 There are no questions on the checklist for this exercise.
