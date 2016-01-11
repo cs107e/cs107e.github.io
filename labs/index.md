@@ -1,16 +1,19 @@
 ---
 layout: page
-title: Lab Information
-permalink: /labs/
+title: Labs
 ---
 
-*Written by Julie Zelenski, modified for CS107E by Pat Hanrahan*
+### List of labs
+
+- [Lab 1: Setup the Raspberry Pi](lab1)
 
 ### Lab schedule
 
 Labs are Tue or Wed evenings from 7-9pm.
 
 ### Lab FAQ
+
+*Written by Julie Zelenski, modified for CS107E by Pat Hanrahan*
 
 **What is a lab?**
 

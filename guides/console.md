@@ -62,7 +62,7 @@ There is no need to install any drivers to use the breakout board.
 **Mac OSX**
 
 On the Mac, you need to install the 
-CP210X usb to uart bridge vcp drivers
+CP210X usb to uart bridge vcp drivers.
 Download [Version 3.1](https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx) of the drivers.
 Clicking on the download link will download the
 file `Mac_OSX_VCP_Driver.zip`.

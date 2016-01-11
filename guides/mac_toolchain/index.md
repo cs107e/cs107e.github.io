@@ -82,11 +82,21 @@ your Mac, [download and install
 pip](https://pip.pypa.io/en/latest/installing.html). Once you have pip, you can
 easily get the missing modules using
 
-    $ sudo pip install pyserial
-    $ sudo pip install xmodem
+```
+$ sudo pip install pyserial
+$ sudo pip install xmodem
+```
 
 Once those are installed, you should be able to run the script. You
 will probably want to add the path of wherever you put the script to
-your PATH variable (see above) so that you can run it from any directory. The
-[bootloader guide](/guides/bootloader) will go over how to load programs over
+your PATH variable so that you can run it from any
+directory. To add to your PATH, open or create a file called .bash_profile in
+your home directory (~/.bash_profile) and add the following line (replacing
+\<path_to_rpi-install_script\> with the directory where you saved rpi-install.py).
+
+```
+export PATH=$PATH:\<path_to_rpi-install_script\>
+```
+
+The [bootloader guide](/guides/bootloader) will go over how to load programs over
 the console cable.
