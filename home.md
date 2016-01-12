@@ -35,6 +35,8 @@ All class announcements will be posted on
   -   **Zelenski**: TBA
   -   **Sergio**: Gates 288
   -   **Isabel**: Gates 325, Mon 4:30-6:30pm
+  -   **Ngoc**: TBA
+  -   **Omar**: Gates 325, Fri 12:30-1:30pm
 
 ### Schedule
 
