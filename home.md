@@ -34,7 +34,7 @@ All class announcements will be posted on
   -   **Engler**: Gates 314
   -   **Zelenski**: TBA
   -   **Sergio**: Gates 288
-  -   **Isabel**: Huang Basement
+  -   **Isabel**: Gates 325, Mon 4:30-6:30pm
 
 ### Schedule
 

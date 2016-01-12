@@ -51,6 +51,11 @@ they hand in the assignment by commiting their files
 into their personal git repository 
 and creating a pull-request.
 
+When the pull-request is created, code is run through a sanity check 
+to ensure the code compiles. Students should ensure their code aligns with 
+cs107e required [assignment directory structure](dir_structure) so it 
+passes sanity check and may be evaluated by the graders.
+
 **What is the policy on late assignments?**
 
 Students are given a few self-granted grace days,
