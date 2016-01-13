@@ -6,6 +6,7 @@ title: Assignments
 ### List of assignments
 
 - [Assignment 0: Choose Lab Section, Learn Git](assign0)
+- [Assignment 1: Larson Scanner](assign1)
 
 ### Frequently asked questions about assignments
 
