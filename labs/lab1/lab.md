@@ -10,11 +10,11 @@ permalink: /labs/lab1/
 
 During this lab you will:
 
-1 Learn how to perform cross-development for the arm in the Raspberry Pi.
+1. Learn how to perform cross-development for the arm in the Raspberry Pi.
 
-2 Learn how to use a breadboard with buttons and LEDs.
+2. Learn how to use a breadboard with buttons and LEDs.
 
-3 Download and run bare metal programs on the Raspberry Pi.
+3. Download and run bare metal programs on the Raspberry Pi.
 
 You will be developing all the software in this course 
 on your personal computer.
@@ -91,9 +91,9 @@ and a running version of git.
 Before coming to lab,
 you should be able to login to a shell and type the following
 
-    % arm-none-eabi-as -v
+    $ arm-none-eabi-as -v
     GNU assembler version 2.24 (arm-none-eabi) using BFD version (GNU Binutils) 2.24
-    % git --version
+    $ git --version
     git version 1.9.3
 
 If this doesn't work, don't worry.
@@ -133,7 +133,7 @@ for the class and work off the lab code from there.
 Clone the courseware repo, which includes the `blink` code from lecture 2 
 under labs/lab1/code.
 
-    git clone https://github.com/cs107e/cs107e.github.io
+    $ git clone https://github.com/cs107e/cs107e.github.io
 
 Pull up the 
 [checklist form](checklist)
@@ -141,10 +141,10 @@ and have it open in a browser
 so you can jot things down as you go.
 Only one checklist needs to submitted for both you and your partner.
 
-Now `cd cs107e.github.io.git/labs/lab1/blink` and type the commands:
+Now `cd cs107e.github.io/labs/lab1/code/blink` and type the commands:
 
-    % arm-none-eabi-as blink.s -o blink.o
-    % arm-none-eabi-objcopy blink.o -O binary blink.bin
+    $ arm-none-eabi-as blink.s -o blink.o
+    $ arm-none-eabi-objcopy blink.o -O binary blink.bin
 
 2 *Inventory your Raspberry Pi Kit*
 
