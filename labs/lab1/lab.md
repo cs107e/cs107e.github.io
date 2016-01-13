@@ -310,8 +310,7 @@ Each time you change your code, you could compile it and recopy it onto the
 SD card as kernel.img like you did in step 5. But this is a tedius process.
 To avoid having to switch your SD card back and forth between 
 your laptop and the raspberry pi each time you change your program, 
-we will use a bootloader. Mount the SD card one last time 
-and copy bootloader.bin to kernel.img. Then follow the 
+we will use a bootloader. Mount the SD card one last time and copy bootloader.bin to the SD as kernel.img. Then follow the 
 instructions in the [bootloader guide](/guides/bootloader) to load 
 your blink program onto your raspberry pi using the bootloader.
 
