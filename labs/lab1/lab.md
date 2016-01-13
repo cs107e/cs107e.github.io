@@ -164,7 +164,8 @@ and contains the following parts:
 - 8 1K resistors
 - 4 10K resistors
 - 4 2n3904 bipolar-junction transistors (BJTs).
-- 20 female-male jumpers
+- 10 female-male jumpers
+- 10 female-female jumpers
 - 20 male-male jumpers in various sizes
 
 Identify all the components and make sure your kit is complete.
