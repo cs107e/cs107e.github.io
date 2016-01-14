@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Working with the bootloader
+title: Using the console cable and bootloader
 ---
 
 *Written by Pat Hanrahan*
@@ -22,8 +22,8 @@ two steps:
 
 In order to use the bootloader, you need to format an SDHC card with the
 bootloader installed as `kernel.img`. You also need to connect your console
-cable to your laptop and the Raspberry Pi. Finally, you need to run a script
-that uses the `xmodem` protocol to send the program to the Pi.
+cable to your laptop and the Raspberry Pi. Finally, you need to run a script to
+send the program to the Pi.
 
 ### Install the bootloader on the Pi
 
@@ -39,12 +39,47 @@ the Raspberry Pi, the bootloader will run.
 
 ### Connect your laptop to the Pi using the console cable
 
-Setup your console cable as per our [instructions](/guides/console). After
-this, you should four wires going from the Pi to your computer.
+In this course, we will be using a CP2102 USB serial breakout board. The CP2102
+is the chip that converts from a serial interface to a USB interface. On one
+end of the breakout board is a USB Type A connecter. The breakout board plugs
+into any USB port on your laptop. The other end of the console cable contains a
+6 pin header. Two of the pins deliver 5V and GND. They can be used to power the
+Pi; for details, consult the [Powering the Pi Guide](/guides/power).
 
-### Load and run your program 
+Two other pins are used for transmitting (TX) and receiving (RX). The Pi also
+has a TX and RX pin on the GPIO header. These pins are on the outside of the
+header. Starting at the top, we have
 
-We have created a python program that sends binary files to the bootloader. If
+     2 5V
+     4 5V
+     6 GND
+     8 TX 
+    10 RX
+
+By convention, the transmit TX on one end is connected to the receive RX on the
+other end.
+
+Connect the TX and RX pins on your Pi to the TX and RX pins on the USB breakout
+board. The proper connections are shown below. Note that your USB breakout board
+may have pins in different positions. Don't just follow the picture blindly!
+
+![Console cable](/images/console.cable.zoom.jpg)
+
+In this configuration, the yellow wire connects
+the RX header pin on the usb serial breakout board
+to the TX GPIO Pin 8 on the Pi's header.
+The orange wire connects the TX header pin
+to the RX GPIO Pin 10.
+
+### Installing the CP2102 virtual serial port drivers
+
+If you are on a Mac, ensure you have followed the instruction for the console
+drivers in the [Mac toolchain guide](/guides/mac_toolchain). On Windows or
+Linux, you don't need to do anything special here.
+
+### Load and run your program
+
+We have created a Python program that sends binary files to the bootloader. If
 you have followed all the setup instructions, the program is already installed.
 If you are on a Mac and it is not working for you, be sure you followed the
 latter part of the setup instructions [here](/guides/mac_toolchain).
