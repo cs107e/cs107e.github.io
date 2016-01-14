@@ -28,9 +28,9 @@ send the program to the Pi.
 ### Install the bootloader on the Pi
 
 The bootloader we are using was developed by David Welch and modified by Dawson
-Engler. It is a modification of David Welch's bootloader06 from
-(https://github.com/dwelch67/raspberrypi). If you have some time, we highly
-recommend you explore his github repository.
+Engler. It is a modification of David Welch's bootloader06. 
+If you have some time, we highly
+recommend you explore his [github repository](https://github.com/dwelch67/raspberrypi).
 
 We have already compiled a working `bootloader.bin` for you. It is part of the
 default set of firmware files, and should already be on your SDHC card. To run
@@ -92,3 +92,7 @@ To load and run `blink.bin`, simply type:
 
 After a few seconds, you should see the LED blinking.
 
+If you change your program and wish to reload it onto the Pi, 
+you must power cycle the Pi (press the reset button if you have installed 
+one or simply unplug the USB console cable). The Pi will reboot into 
+the bootloader and once again wait for a new program to be loaded.

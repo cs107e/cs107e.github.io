@@ -158,8 +158,11 @@ resistor and then connected the other end of the resistor to GND (the blue
 bus). Note how the LED crosses over the middle of the breadboard. To light up
 the LED, apply 3.3V or 5V to the anode.
 
-Connect the multimeter to the pushbutton and figure out what pins are connected
-when the button is pushed. The pushbutton needs a 10K pull-up resistor to the
+Measure the resistance across the pushbutton legs using a 
+multimeter and figure out which pins are always connected 
+and which become connected when the button is pushed.
+Use your measurements to position the button correctly on the breadboard. 
+The pushbutton needs a 10K pull-up resistor to the
 red power rail. Verify that the resistor is 10K Ohms using the multimeter.
 Measure the voltage at the pin, and measure it again when you push the button.
 
@@ -235,8 +238,8 @@ mount the sd card, where to get the Raspberry Pi firmware, and how to copy the
 firmware to the SD card. After you have the firmware installed, eject the SD
 card properly.
 
-Insert the SD card into the raspberry pi. Power it up. The LED on the Raspberry
-Pi board should blink.
+Insert the SD card into the raspberry pi. Power it up. The on-board activity 
+(ACT) LED on the Raspberry Pi board should blink.
 
 **5. Blink a breadboard LED**
 
@@ -246,7 +249,8 @@ Connect an LED on your breadboard to GPIO 20.
 
 Mount the SD card again and this time copy your assembled blink.bin file (the
 one you created in lab step 1, not the one in the firmware directory) to your
-SD card as kernel.img. Eject the SD card and insert it into the raspberry pi.
+SD card and rename it kernel.img. 
+Eject the SD card and insert it into the raspberry pi.
 It should now blink the LED on your breadboard.
 
 **6. Load the blink code using the bootloader.**
