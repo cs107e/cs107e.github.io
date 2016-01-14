@@ -32,7 +32,7 @@ All class announcements will be posted on
 
   -   **Hanrahan**: Gates 370, Mon 3:30-5:00 pm 
   -   **Engler**: Gates 314
-  -   **Zelenski**: TBA
+  -   **Zelenski**: Gates 188, Wed 12:30-2pm
   -   **Sergio**: Gates 288
   -   **Isabel**: Gates 325, Mon 4:30-6:30pm
   -   **Ngoc**: Old Union Couches, Thursday 4:30-5:30pm
