@@ -16,7 +16,7 @@ menu_item: true
 2. [Working with SD cards](sd)
 3. [Installing the cross-development tools on a Mac](mac_toolchain)
 4. [Installing a Ubuntu virtual machine on Windows](vmware).
-5. [Using console cable and bootloader](bootloader)
+5. [Using the console cable and bootloader](bootloader)
 
 ## Tools
 
