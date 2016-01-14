@@ -95,10 +95,7 @@ $ ls /dev/tty.SLAB_USBtoUART
     ```
 
 3.  Ensure you have `pip`, a Python package manager, installed. If you do not,
-    following the [official installation
-    instructions](https://pip.pypa.io/en/latest/installing.html). Note that you
-    will likely need to run `sudo pip` instead of just `pip` in the
-    instructions.
+    run `sudo easy_install pip`.
 
 4.  Install the `rpi-install.py` Python script using Homebrew:
 
