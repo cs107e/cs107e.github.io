@@ -127,7 +127,7 @@ The kit comes in a plastic sandwich box, and contains the following parts:
 -   USB serial cable with jumpers
 -   Breadboard
 -   8 LEDs
--   8 pushbuttons and colored caps
+-   4 pushbuttons and colored caps
 -   8 1K resistors
 -   4 10K resistors
 -   4 2n3904 bipolar-junction transistors (BJTs).
