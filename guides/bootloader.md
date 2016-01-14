@@ -13,10 +13,11 @@ start address of the program, and the program begins to run. If you want to run
 a new version of your program, you reboot the processor, and download a new
 version of your program.
 
-So each time you wish to run a new version of your program, you only
-need to do two steps:
+So each time you wish to run a new version of your program, you only need to do
+two steps:
 
-1.  Reset the Raspberry Pi (by unplugging the Pi from your computer or by pushing the reset button if you have soldered one on)
+1.  Reset the Raspberry Pi (by unplugging the Pi from your computer or by
+    pushing the reset button if you have soldered one on)
 2.  Run the command to load and start your program
 
 In order to use the bootloader, you need to format an SDHC card with the
@@ -24,7 +25,7 @@ bootloader installed as `kernel.img`. You also need to connect your console
 cable to your laptop and the Raspberry Pi. Finally, you need to run a script
 that uses the `xmodem` protocol to send the program to the Pi.
 
-### Install the bootloader
+### Install the bootloader on the Pi
 
 The bootloader we are using was developed by David Welch and modified by Dawson
 Engler. It is a modification of David Welch's bootloader06 from
@@ -38,7 +39,8 @@ the Raspberry Pi, the bootloader will run.
 
 ### Connect your laptop to the Pi using the console cable
 
-Setup your console cable as per our [instructions](/guides/console)
+Setup your console cable as per our [instructions](/guides/console). After
+this, you should four wires going from the Pi to your computer.
 
 ### Load and run your program 
 

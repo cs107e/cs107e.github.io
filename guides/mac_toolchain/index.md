@@ -66,37 +66,52 @@ This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
     ```
 
-### Using the CP2102 Console Cable
+### Console drivers and script installation
 
-To use the CP2102 console cable, you will need to install the drivers.
-Instructions on how to do this are in the [console guide](/guides/console).
-Also download the [rpi-install.py
-script](https://raw.githubusercontent.com/cs107e/courseware/master/guides/mac_toolchain/rpi-install.py),
-which you will be using to load your programs onto the Pi over the serial
-cable.
+To use the console cable to send information from and to your Pi, you'll need
+to install a few things. These instructions will guide you through those steps.
 
-If you try to run this script, you may run across errors that there is "No
-module named serial" or "No module named xmodem". You will need to install
-these Python modules. If you do not have pip (Python package management) on
-your Mac, [download and install
-pip](https://pip.pypa.io/en/latest/installing.html). Once you have pip, you can
-easily get the missing modules using
+1.  Install the CP210x USB to UART Drivers
 
-```
+    [Download Version
+    3.1](https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx)
+    of the drivers. Clicking on the download link will download the file
+    `Mac_OSX_VCP_Driver.zip`. Opening this file will uncompress and you will
+    see a new file, `SiLabsUSBDriverDisk.dmg`. Opening the dmg file, will mount
+    the volume.
+
+    You should see a volume named "Silicon Labs VCP Driver Install Disk" in the
+    finder under devices. Going to that folder, you will see an installed named
+    "Silicon Labs VCP Driver Installer." Opening that file will launch the
+    installer. Follow the instructions to complete the installation. You will need
+    to restart the computer after the installation.
+
+2.  Plug the USB breakout board into a USB port on your laptop. Check whether
+    the serial port exists by looking for the device file:
+
+    ```
+$ ls /dev/tty.SLAB_USBtoUART
+/dev/tty.SLAB_USBtoUART
+    ```
+
+3.  Ensure you have `pip`, a Python package manager, installed. If you do not,
+    following the [official installation
+    instructions](https://pip.pypa.io/en/latest/installing.html). Note that you
+    will likely need to run `sudo pip` instead of just `pip` in the
+    instructions.
+
+4.  Install the `rpi-install.py` Python script using Homebrew:
+
+    ```
 $ sudo pip install pyserial
 $ sudo pip install xmodem
-```
+$ brew install rpi-install
+    ```
 
-Once those are installed, you should be able to run the script. You
-will probably want to add the path of wherever you put the script to
-your PATH variable so that you can run it from any
-directory. To add to your PATH, open or create a file called .bash_profile in
-your home directory (~/.bash_profile) and add the following line (replacing
-\<path_to_rpi-install_script\> with the directory where you saved rpi-install.py).
+5.  Check that everything is working by running `rpi-install.py`. You should
+    see the output below:
 
-```
-export PATH=$PATH:<path_to_rpi-install_script>
-```
-
-The [bootloader guide](/guides/bootloader) will go over how to load programs over
-the console cable.
+    ```
+$ rpi-install.py
+usage: /usr/local/bin/rpi-install.py tty bin
+    ```
