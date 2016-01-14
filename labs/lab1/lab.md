@@ -11,9 +11,7 @@ permalink: /labs/lab1/
 During this lab you will:
 
 1.  Learn how to perform cross-development for the arm in the Raspberry Pi.
-
 2.  Learn how to use a breadboard with buttons and LEDs.
-
 3.  Download and run bare metal programs on the Raspberry Pi.
 
 You will be developing all the software in this course on your personal
@@ -57,12 +55,10 @@ To prepare for this lab, you should do the following.
    running linux. We have written [instructions] on how to install this
    software. The virtual machine will have the arm cross-development tools (all
    starting with the prefix `arm-none-eabi-`) installed.
-
 2. If you are using a Mac laptop, download and [install the arm
-   cross-development tools] from the course github repository. You do not have
-   to install a virtual machine running linux on a Mac, since OSX is based on
-   unix.
-
+   cross-development tools, console drivers, and uploader script] from the course
+   github repository. You do not have to install a virtual machine running linux
+   on a Mac, since OSX is based on unix.
 3. Make sure you have installed and learned how to use git. You should have
    completed this in [assignment 0]
 
