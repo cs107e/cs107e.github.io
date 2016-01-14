@@ -59,18 +59,18 @@ passes sanity check and may be evaluated by the graders.
 
 **What is the policy on late assignments?**
 
-Students are given a few self-granted grace days,
-a penalty is applied for further late work,
-and there is a hard deadline after which no further late work will be accepted.
-Read our detailed [late policy](../late) for the nitty-gritty mechanics.
+Students are given a few self-granted grace days, a penalty is applied for
+further late work, and there is a hard deadline after which no further late
+work will be accepted. Read our detailed [late policy](/policies/#late-policy)
+for the nitty-gritty mechanics.
 
 **What is the assignment collaboration policy?**
 
-The programming assignments are to be done individually 
-and should represent independent, original work.
-We adhere to the Stanford and CS department Honor Code policies,
-and offer specific examples of its application 
-to CS107E coursework in our [course collaboration policy](../collaboration).
+The programming assignments are to be done individually and should represent
+independent, original work. We adhere to the Stanford and CS department Honor
+Code policies, and offer specific examples of its application to CS107E
+coursework in our [course collaboration
+policy](/policies/#collaboration-policy).
 
 **How do I submit an assignment?**
 
