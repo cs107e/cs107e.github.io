@@ -34,7 +34,7 @@ All class announcements will be posted on
   -   **Engler**: Gates 314
   -   **Zelenski**: Gates 188, Wed 12:30-2pm
   -   **Sergio**: Gates 288
-  -   **Isabel**: Gates 325, Mon 4:30-6:30pm
+  -   **Isabel**: Gates 325, Mon 5-6:30pm
   -   **Ngoc**: Old Union Couches, Thursday 4:30-5:30pm
   -   **Omar**: Gates 325, Fri 12:30-1:20pm
 
