@@ -4,6 +4,8 @@ title: 'Assignment 1: Implement a Larson Scanner'
 permalink: /assignments/assign1/
 ---
 
+**Due: Monday, January 18, 2016 at 11:59PM**
+
 [Glen A. Larson](http://en.wikipedia.org/wiki/Glen_A._Larson), 
 the man responsible for producing 
 the original 
