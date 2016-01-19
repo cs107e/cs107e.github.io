@@ -55,7 +55,15 @@ LEDs). The leftmost LED in your scanner should be connected to GPIO
 rightmost LED in your scanner is connected to GPIO 23 (or 27 if using
 8 LEDs).
 
-3 Pull your 107e Github assignment repo and switch to your assign1 branch. 
+3 Pull your 107e Github assignment repo (that you cloned in Assignment 0) 
+and switch to your assign1 branch by typing the following commands
+from your local [YOUR_GITHUB_USERNAME]-assignments repository:
+
+```
+git pull
+git checkout assign1
+```
+
 You should see some starter code in the repo.
 
 4 Currently `larson.s` in the starter code is simply a copy of `blink.s` 
