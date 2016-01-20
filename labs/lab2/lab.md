@@ -61,8 +61,22 @@ Using your ARM superpowers, you can dig into the generated
 assembly and figure out what the compiler did rather than sit 
 there dumbfounded when an executing program does not behave as expected!
 
+##### Instructions
+
 Change to the `codegen` directory. Review the C code in the `codegen.c`
 and `ptrs.c` source files.
+
+Whenever you want to see the ARM assembly code which the C compiler
+generates from `codegen.c`, run `make codegen.list` in that folder,
+then open `codegen.list` in your text editor. Similarly, if you want
+to see the assembly generated from `ptrs.c`, run `make
+ptrs.list`.
+
+You'll probably want to run this once on the original C files, and
+then again if you change the C code, so you can see how the generated
+assembly changes.
+
+##### Work
 
 The code is decomposed into a number of functions, each of which explores 
 a particular issue for code generation. You will have to wait until
