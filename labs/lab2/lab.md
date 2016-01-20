@@ -244,7 +244,7 @@ clean:
 	rm -f *.o *.bin
 ```
 
-Document all the various features and syntactical constructs used
+Discuss and document all the various features and syntactical constructs used
 in this Makefile. 
 
  - What do each of the CFLAGS do?
@@ -254,4 +254,8 @@ What part of each target indicates the prerequisites? (A prerequisite means
 that if that file changes, then the target is stale and must be rebuilt)
  - What do the symbols `$<` and `$@` mean?
 
-Hand-in your documents.
+Now that you understand this simple Makefile, take a look at the one in the
+`codegen` directory. That is an example of a more complete Makefile and is the
+one we will work with and modify for labs and assignments in this class.
+When you have time (now or later), go through that Makefile and ensure you
+understand it as well.
