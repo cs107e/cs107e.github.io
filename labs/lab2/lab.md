@@ -107,8 +107,9 @@ The displays we are using are from
 [Adafruit](http://www.adafruit.com/products/865).
 
 In this lab, you should wire up the display on your breadboard.
-You can see a
-[schematic for the entire circuit](images/schematic.png). 
+Below is a schematic for the entire circuit.
+
+![schematic](images/schematic.png)
 
 The anodes for the LEDs comprising each segment are
 labeled A, B, C, D, E, F, G and "dp",
