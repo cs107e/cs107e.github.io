@@ -5,22 +5,25 @@
 
 
 // preprocessor define
-#define DNUM 4
+#define DNUM 5
 
 // global variable
-int gnum = 4;
+int gnum = 5;
 
 // global constant
-const int cnum = 4;
+const int cnum = 5;
 
 // Part (a): constant-folding
-// In the initiaization of val below, replace DNUM with gnum or cnum and
-// recompile to see the generated ARM.  What changes when using a
-// a global variable or constants versus a preprocessor #define?
+// In the initialization of val below, replace DNUM with gnum or cnum and
+// recompile to see what changes in the generated ARM when using a
+// a global variable versus global constant versus a preprocessor #define.
+// Note that none of the generated ARM contains a function call or any
+// instructions to compute sizeof at runtime, a raw 4 is subtracted.
+// sizeof is an entirely compile-time operator!
 int constant_fold()
 {
-    int val = DNUM; // replace DNUM with gnum or cnum, does generated ARM change?
-    return (val*7 + 13)*2 - 1;
+    int val = gnum; // replace DNUM with gnum or cnum, does generated ARM change?
+    return (val*7 + 13)*val - sizeof(int);
 }
 
 
@@ -86,18 +89,26 @@ int dense_choice_switch(int n)
 
 
 // Part (c): undefined behavior, ARM divide
-// The is_prime function is buggy due to a missing initialization. Furthermore
+// The is_prime function is buggy due to a missing initialization and furthermore
 // it uses integer division/mod (not available in the ARM instruction set!). 
 // Surprisingly, the code as-is builds without error, executes without incident, 
 // and always returns false. Let's look at the ARM to figure out why.
-// First consider the use of division to initialize i. Look at generated ARM 
-// instructions for this statement. How was no division needed? Why was this 
-// transformation legal?
-// Now consider the mod in the loop body. (Mod is the dual to div, both require
-// a division operation). The same trick that worked above doesn't apply here, 
-// yet it compiles anyway. How was no division needed? Why was this 
-// transformation legal?  
-// Correct the bug in the code. What happens when you now try to compile?
+// The local variable has_factor is intended to track whether a divisor has
+// been found. The value of a local is unreliable until set. The oh-so-clever
+// compiler realizes that loop might set the value to 1 but otherwise, its
+// value is left indeterminate. Use of an uninitialized value is an undefined
+// behavior for C, so the compiler has latitude to handle in any way it chooses.
+// In this case, the compiler chooses to pretend that the unset value would
+// be a 1. This conveniently means that the value will be 1 before,
+// during, and after the loop, no matter what happens in the loop at all!
+// The function always returns 0; the compiler can eliminate the rest of the
+// function body as it has no effect whatsoever. Wow -- what an optimization!
+// Correct the code by making an initial assignment of has_factor to 0. Now
+// try to rebuild. Ooops! The build now fails due to a link error. The compiler
+// has generated division as a call to a library routine (__aeabi_uidivmod)
+// that is not available in our bare metal world. We'll talk about the linker
+// in a future lecture.
+ __attribute__((optimize("-O2")))    // GCC directive to ask for level 2 optimization
 int is_prime(int n)
 {
     int has_factor;     // BUG: missing initialization
@@ -107,16 +118,20 @@ int is_prime(int n)
     return !has_factor;
 }
 
-
 // Part (d): loops
 // This function computes the binary discrete logarithm of its argument 
-// using an ordinary for loop. The C language semantics require that
+// using an ordinary for loop. The C language semantics dictate that
 // both for and while loops are pre-tested (i.e. the test expression 
-// is evaluated before the first and every subsequent iteration). Sketch 
-// for yourself how to arrange the ARM instructions to direct control flow
-// to match a C for-loop (i.e. first init, followed by test, body, incr).
-// Now look at the actual generated ARM and see how the compiler arranged it.
-// What did it do with the test? Do you have any idea why it did that? 
+// is evaluated before the first and every subsequent iteration). First
+// sketch your own arrangement of ARM instructions to match the control
+// flow for a C for-loop (i.e. init, followed by test, body, incr).
+// Now look at the generated ARM to see how the compiler arranged it.
+// It may help to print out the listing and annotate which section
+// corresponds to init/test/body/incr. The compiler's arrangement
+// makes a special case out of the first iteration so as to streamline
+// each subsequent loop iteration to need only one branch, not two. I
+// In many architectures (ARM included), branch instructions are more
+// costly than others, so the compiler is eager to minimize their use.
 int discrete_log(int n)
 {
     for (int pow = 31; pow > 0; pow--) {
@@ -126,12 +141,12 @@ int discrete_log(int n)
 }
 
 // More part (d): loops and unrolling
-// This is a copy of the same function as above, but wtih an added GCC
-// derivate to enable an aggressive loop optimization known as 
+// This is a copy of the same function as above, but with an added GCC
+// directive to enable an aggressive loop optimization known as
 // "loop unrolling". Look at the generated ARM for this function and
-// compare to the original above. What transformation is being applied
-// by loop unrolling?
- __attribute__((optimize("-funroll-loops"))) 
+// compare to the original above. Can you identify what kind of
+// transformation is made by loop unrolling?
+ __attribute__((optimize("-funroll-loops"))) // GCC-specific directive
 int discrete_log_alt(int n)
 {
     for (int pow = 31; pow > 0; pow--) {

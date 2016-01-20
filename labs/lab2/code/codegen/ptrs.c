@@ -2,20 +2,35 @@
 // ------------
 // Simple C examples to show pointer/array access
 
+int gnum = 107;
+
 // Part (a): dead-code elimination
-// This function tries to demo some various legal operations 
-// on pointers. Take a look at the generated ARM for this function.
-// Why is this transformation legal?
-void where_did_my_code_go(int num)
+// This function tries to demo some various legal operations
+// on pointers. Take a look at the generated ARM for this
+// function to see that it is mostly empty! What gives?
+// The optimizer compiler is quite aggressive about removing
+// so-called "dead code" such as statements that are never
+// reached/executed or code that has no effect (does not change
+// any observable results). In this function, most of the
+// statements read and write local variables and parameters, which
+// are private to the function call and go away when the function
+// completes. The only observable result of the function is
+// the return value, whose code is properly generated.
+int where_did_my_code_go(int num)
 {
     int val, *p, *q;
 
     val = 10;
     p = &num;
     q = &val;
-    *p = *q;
-    if (p == q)
-        p = q;
+    *p = *q;        // only reads/writes local/param
+    // The test expression below compares the memory location of a
+    // local variable versus a parameter. The compiler knows that the
+    // two addresses are never equal (two distinct variables!) so
+    // will eliminate as dead code.
+    if (&num == &val)
+        gnum = 20;  // would change observable state, but never executed
+    return gnum;
 }
 
 
@@ -53,8 +68,8 @@ void main()
 
 // Part (c): GPIO pointers/bits
 // Look at the generated ARM for these two functions and compare to
-// the hand-written ARM from your larson scanner. Despite having
-// what looks like several divide operations in C, the generated ARM
+// the hand-written ARM from your larson scanner. Despite the C
+// showing several uses of the div/mod operators, the generated ARM
 // doesn't contain any references to the (non-existent) divide.
 // Why not?
 // For set_pin_to_output_mode, the "pin" argument is expected to
