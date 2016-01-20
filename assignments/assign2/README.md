@@ -30,7 +30,7 @@ The goals of this assignment are:
     output 3.3V on GPIO 20, and 3.3V on GPIO 10, you should turn on segment A
     of digit 1.
 
-3.  Pull your private assignment repository and checkout the assign2 branch. 
+3.  Pull your private assignment repository and checkout the assign2 branch.
     Familiarize yourself with the starter code.
 
     You will implement two extremely useful functions in `clock.c` for
@@ -69,9 +69,23 @@ The goals of this assignment are:
     the future. Test this part by writing a program that displays a number on
     the display.
 
-5.  Only one set of GPIO pins drives the 7 segments for all of the four digits.
-    These pins are _shared_ by the four digits, and we use a different set of
-    pins to control which digit is currently active.
+5.  In order to implement a clock, we'll need some way to figure out what time
+    it is. Thankfully, the Raspberry Pi includes a "system timer", an on-board
+    peripheral that is continuously incremented once every microsecond behind
+    the scenes, that will allow us to do just this.
+
+    Implement the `timer_get_time` function in `clock.c` that fetches the
+    current system time from the Raspberry Pi. Chapter 12 of the [Broadcom
+    BCM2835 Peripherals
+    Manual](http://www.raspberrypi.org/wp-content/uploads/2012/02/BCM2835-ARM-Peripherals.pdf)
+    contains the documentation for the system timer peripheral, and the
+    function's description is in `clock.c` above its declaration. Note that,
+    for this assignment, we only care about the lower 32-bits of the system
+    timer.
+
+6.  Only one set of GPIO pins drives the 7 segments for all of the four digits.
+    These pins are _shared_ by the four digits, and we use another, different
+    set of pins to control which digit is currently active.
 
     We are going to drive all four digits by continuously looping over the
     digits one-by-one. In the inner loop, we will turn on a digit, wait a short
@@ -80,23 +94,15 @@ The goals of this assignment are:
     the digits so fast that our eyes cannot see them changing. Good thing
     computers are fast!
 
-    In order to refresh the display, we will use the *system timer*. The file
-    `clock.c` contains a function `timer_get_time` that reads the system timer
-    register. The system timer is a peripheral on the Raspberry Pi. The timer
-    is being continuously incremented once every microsecond behind the scenes,
-    For more information about the system timer, read Chapter 12 of the
-    [Broadcom BCM2835 Peripherals
-    Manual](http://www.raspberrypi.org/wp-content/uploads/2012/02/BCM2835-ARM-Peripherals.pdf).
-
-    Each time you call the function `timer_get_time` it will return the current
-    value of the lowest 32-bits of the 64-bit system timer. We have also
-    provided a function `delay_us` that uses `timer_get_time` to wait for the
-    desired number of microseconds.
+    In order to refresh the display, we will use the `timer_get_time` function
+    you implemented in the previous step. We have also provided a function
+    `delay_us` that uses `timer_get_time` to wait for the desired number of
+    microseconds.
 
     Implement the display refresh loop. Loop though all four digits, turning
     each on for 2500 microseconds (2.5 milliseconds). Do you see any flicker?
 
-6.  Finally, implement a clock.
+7.  Finally, implement the clock.
 
     The current time will be represented with four numbers: hours, minutes,
     seconds, and milliseconds. The inner loop should perform one refresh cycle
@@ -114,12 +120,12 @@ The goals of this assignment are:
 
 One challenge with a clock is how to set the time.
 
-Add two buttons to your clock breadboard and connect them to GPIO pins 2 and 3. 
+Add two buttons to your clock breadboard and connect them to GPIO pins 2 and 3.
 Build a user interface that allows
 you to set the time. Try to design an interface that is easy to use. It can be
 challenging to build an interface with just a few buttons!
 
-Make sure to document your interface in a README.md file so that your grader 
+Make sure to document your interface in a README.md file so that your grader
 can test it out!
 
 ### Magic Files
