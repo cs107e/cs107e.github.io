@@ -35,8 +35,8 @@ The goal of the first exercise is to teach you how to use gdb in ARM
 simulation mode. This is useful as a way of learning what happens
 when ARM instructions are executed, and to debug programs.
 
-Change to the blink directory. Assemble and link the program using
-make.
+Change to the `cs107e.github.io/labs/lab3/code/blink`
+directory. Assemble and link the program using `make`:
 
     $ make
     arm-none-eabi-as -g blink.s -o blink.o
@@ -62,7 +62,8 @@ Inspect the values of `CPSR` each time through the loop.
 - What value does `CPSR` have when `bne` returns to `wait1`?
 - What values does `CPSR` have when `bne` does not branch, and the loop is exited?
 
-Record your answer to the first question on the checklist.
+Record your answer to the first question on the
+[checklist](checklist).
 
 #### 2. Stack frames and backtraces
 
