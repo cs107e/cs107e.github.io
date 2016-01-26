@@ -30,26 +30,26 @@ All class announcements will be posted on
 
 ### Office Hours
 
-  -   **Hanrahan**: Gates 370, Mon 4:30-5:00 pm 
+  -   **Hanrahan**: Gates 370, Mon 4:30-5:00 pm
   -   **Engler**: Gates 314
   -   **Zelenski**: Gates 188, Wed 12:30-2pm
-  -   **Sergio**: Gates 288
+  -   **Sergio**: Gates 288, Tue 5:30pm - 7pm
   -   **Isabel**: Gates 325, Mon 5-6:30pm
   -   **Ngoc**: Old Union Couches, Thu 5pm-6pm
   -   **Omar**: Gates 325, Fri 12:30-1:20pm
 
 ### Schedule
 
-In the readings, K&R is The C Programming Language (Kernighan and Ritchie), 
+In the readings, K&R is The C Programming Language (Kernighan and Ritchie),
 and EssentialC is a PDF available via [Stanford's CS
-Library](http://cslibrary.stanford.edu/101). 
+Library](http://cslibrary.stanford.edu/101).
 A digital copy of K&R is available
-to Stanford students via 
+to Stanford students via
 [Safari Books Online](http://proquest.safaribooksonline.com.ezproxy.stanford.edu/book/programming/c/9780133086249).
 
 Please read the assigned readings before attending lecture and lab.
 You should also read the [guides](/guides/) for each week.
 
-Note that the schedule includes a guest lecture, Quinn Dunki, 
+Note that the schedule includes a guest lecture, Quinn Dunki,
 tentatively scheduled for Mon Mar 7th,
 and a tour of the Computer History Museum on President's Day Feb 16th.
