@@ -12,11 +12,11 @@ During this lab you will:
 
 1. Learn how to simulate the ARM processor using `gdb`.
 
-2. Use `gdb` to inspect stack frames.
+2. Set up your console cable to work with the UART on the Raspberry
+Pi.
 
-3. Use `gdb` to find bugs in C programs.
-
-4. Set up your console cable to work with the UART on the Raspberry Pi.
+3. Use multiple techniques to debug a program: `gdb`, your system
+   debugger, and printing through the console cable.
 
 To complete the lab, you must answer the questions in the
 [checklist](checklist).
@@ -65,140 +65,9 @@ Inspect the values of `CPSR` each time through the loop.
 Record your answer to the first question on the
 [checklist](checklist).
 
-#### 2. Stack frames and backtraces
+#### 2. Using the console cable with the Raspberry Pi
 
-Each time your program performs a function call,
-a function activation record or stack frame is generated.
-The stack frame contains arguments, local variables, and saved registers.
-The stack frame is stored on the stack,
-a region of memory your program sets aside for this purpose.
-
-Check out the code for this lab and go the directory `code/stack`.
-Read `stack.c` which is similar to the code I showed in lecture.
-Also read the `Makefile`. 
-First, notice that we compile the program
-with debugging turned on (-g).
-Second, notice that we compile the code with the 
-flag `fno-omit-frame-pointer` to make sure
-that gcc does not optimize away the stack frame.
-Finally, notice the file `start.s`,
-which is called first when your program runs.
-The assembly language in this program
-initializes the stack pointer (sp) to 0x8000,
-and then calls the function `notmain`.
-We use the name `notmain` 
-because sometimes gcc will treat the function main different
-than a normal function;
-we do not want it to do that because we are running bare metal.
-We will explain startup in more detail on Friday.
-
-    $ make
-    arm-none-eabi-gcc -O2 -g -Wall -nostdlib -nostartfiles -ffreestanding -fno-omit-frame-pointer start.s stack.c -o stack
-    arm-none-eabi-objdump stack -d > stack.list
-
-We now have an excutable `stack`, 
-and the assembly language listing `stack.list`.
-
-Run gdb,
-
-    $ arm-none-eabi-gdb stack
-    (gdb) target sim
-    (gdb) load
-    (gdb) break notmain
-    Breakpoint 1 at 0x8094: file stack.c, line 14.
-    (gdb) run
-    Breakpoint 1, notmain () at stack.c:14
-    14      return B(1,2,3);
-    (gdb) break A
-    (gdb) cont
-    Breakpoint 2, A (a=3, b=-1) at stack.c:3
-    3       return a-b;
-
-When your program stops at a breakpoint, 
-you can examine the stack frame.
-
-    (gdb) backtrace
-    #0  A (a=3, b=-1) at stack.c:3
-    #1  0x00008070 in B (a=1, b=2, c=3) at stack.c:9
-    #2  0x000080a4 in notmain () at stack.c:14
-    #3  0x00008008 in _start () at start.s:4
-    Backtrace stopped: previous frame identical to this frame (corrupt stack?)
-
-Frames have numbers.
-The current frame is numbered 0,
-and corresponds to the invocation of function A.
-Frames for caller functions have higher numbers.
-
-    (gdb) info frame
-    Stack level 0, frame at 0x7fd8:
-     pc = 0x8020 in A (stack.c:3); saved pc = 0x8070
-     called by frame at 0x7ff8
-     source language c.
-     Arglist at 0x7fd4, args: a=3, b=-1
-     Locals at 0x7fd4, Previous frame's sp is 0x7fd8
-     Saved registers:
-      r11 at 0x7fd4
-    (gdb) info args
-    a = 3
-    b = -1
-    (gdb) info locals
-    No locals
-
-We can also inspect caller functions variables.
-
-    (gdb) up
-    #1  0x00008070 in B (a=1, b=2, c=3) at stack.c:9
-    9       return d - A(c,d);
-
-This moves up to frame #1, which is the function B.
-B called A.
-
-    (gdb) info args
-    a = 1
-    b = 2
-    c = 3
-    (gdb) info locals
-    d = -1
-
-Play around with gdb.
-Try changing the functions, see how those changes
-affect the generated assembly, and how this affects the stack frame. For
-example, what happens if a function has more than 4 parameters? Note how gdb
-both lets you see the affect on stack frame size by showing you the
-previous and current stack frame pointers, but also hides it by allowing you
-to reference variables by name.
-
-Make sure to learn the abbreviated commands:
-they will make you faster, and using them more will make them second nature.
-
-#### 3. Bugs in C programs
-
-Now change into the directory `code/bugs`.
-This directory contains the following programs.
-
-    $ ls
-    array.c
-    copy.c
-    string.c
-    recursion.c
-    warn.c 
-    epsilon.c
-
-The `Makefile` has been setup to compile `warn.c`.
-Compile the program and look at the warnings.
-Why is gcc generating these warnings?
-
-Now read the other programs.
-Identify the bug.
-If you have trouble indentifying the bug,
-use gdb to step through the program
-and see if you can track it down.
-
-Extension: change -O0 to -O2 and recompile recursion.c.  What is going on?
-
-#### 4. Using the console cable with the Raspberry Pi
-
-*Make sure your cp2102 drivers are installed and worked properly.*
+*Make sure your cp2102 drivers are installed and work properly.*
 
 If you haven't done this, 
 follow the instructions in the [Console Guide](/guides/console).
@@ -207,23 +76,21 @@ follow the instructions in the [Console Guide](/guides/console).
 
 Check whether it appears as a tty device.
 
-On a MAC:
+On a Mac:
 
-    % ls /dev/tty.SLAB_USBtoUART
+    $ ls /dev/tty.SLAB_USBtoUART
     /dev/tty.SLAB_USBtoUART
 
+On Linux:
 
-On Linux 
-
-    % ls /dev/ttyUSB0
+    $ ls /dev/ttyUSB0
     /dev/ttyUSB0
 
 You can also type "dmesg" or use "tail -f" on whatever log your kernel writes to.  E.g., 
 
-    % tail -f /var/log/kern.log  # on ubuntu
+    $ tail -f /var/log/kern.log  # on ubuntu
     [output deleted]
     Jan 27 16:23:45 ThinkPad-W530 kernel: [116656.523573] usb 1-1.2: cp210x converter now attached to ttyUSB0
-
 
 If the drivers are not installed, this tty port will not appear.
 If you remove the usb serial breakout port from your usb port,
@@ -238,9 +105,10 @@ This causes characters sent out to be echoed back.
 
 ![loop back](images/loopback.jpg)
 
-Start a terminal program and connect to the tty port from above.  E.g.,
+Start a terminal program and connect to the tty port from above.  For
+example,
 
-    % screen /dev/tty.SLAB_USBtoUART 115200
+    $ screen /dev/tty.SLAB_USBtoUART 115200
 
 The screen should be cleared and the cursor positioned
 in the upper left hand corner.
@@ -258,14 +126,14 @@ Typing `y` should return you to the shell.
 
 *Test printing on your screen from the Raspberry Pi.*
 
-First, download the code examples from
-the last lecture on *Serial Communication*.
-Change to the directory `lectures/Serial/code/hello`.
+Run `git pull` in your `cs107e.github.io` folder to download the code
+examples from the latest lecture.  Change to the directory
+`cs107e.github.io/lectures/serial/code/uart`.
 
-    % cd courseware/lectures/Serial/code/uart
-    % ls
+    $ cd cs107e.github.io/lectures/Serial/code/uart
+    $ ls
     Makefile    hello.c     start.s     uart.c      uart.h
-    % make
+    $ make
     arm-none-eabi-gcc -I../include  -Wall -O2 -nostdlib -nostartfiles -ffreestanding -c hello.c 
     arm-none-eabi-gcc -I../include  -Wall -O2 -nostdlib -nostartfiles -ffreestanding -c uart.c 
     arm-none-eabi-as  start.s -o start.o 
@@ -278,7 +146,8 @@ so that TX on the breakout board is connected to RX on the Raspberry Pi.
 Also RX on the breakout board to TX on the Raspberry Pi.
 
 Download the `hello.bin` to the Raspberry Pi 
-using either the bootloader or the SD card. 
+using the bootloader by running `mqke install`.
+
 Power up the Raspberry Pi, and start `screen`.
 
     % screen /dev/tty.SLAB_USBtoUART 115200
