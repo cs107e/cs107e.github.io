@@ -1,6 +1,6 @@
 ---
 layout: page
-title: 'Lab 3: Debugging and the Stack'
+title: 'Lab 3: Debugging'
 permalink: /labs/lab3/
 ---
 
@@ -15,8 +15,9 @@ During this lab you will:
 2. Set up your console cable to work with the UART on the Raspberry
 Pi.
 
-3. Use multiple techniques to debug a program: `gdb`, your system
-   debugger, and printing through the console cable.
+3. Use multiple techniques to debug a program: running on your system
+   instead of the Pi, using the gdb simulation, and printing from the
+   real Pi through the console cable.
 
 To complete the lab, you must answer the questions in the
 [checklist](checklist).
@@ -164,6 +165,19 @@ To stop it, exit `screen` (holding the control key down and typing
 "ad" is a quick way; if you haven't reset the pi you can also 
 reattach later by doing "screen -r")
 
+#### 3. Debug a program
+
+The upcoming assignment will require you to write the most complex
+program so far in the course. We want to introduce you to some useful
+debugging techniques.
+
+Change to the `cs107e.github.io/labs/lab3/code/debug` directory.
+
+##### Run on your laptop
+
+##### gdb and simulation
+
+##### Print from the Pi
 
 ### Stack intuition
 
