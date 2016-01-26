@@ -1,8 +1,8 @@
 #include "gpio.h"
 #include "timer.h"
 
-//const int pin = 14;
-const int pin = 20;
+const int pin = 14;
+//const int pin = 20;
 
 #define BAUD 9600
 #define DELAY (1000000/BAUD)
