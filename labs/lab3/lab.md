@@ -134,7 +134,7 @@ so that TX on the breakout board is connected to RX on the Raspberry Pi.
 Also RX on the breakout board to TX on the Raspberry Pi.
 
 Download the `hello.bin` to the Raspberry Pi 
-using the bootloader by running `mqke install`.
+using the bootloader by running `make install`.
 
 Power up the Raspberry Pi, and start `screen`.
 
