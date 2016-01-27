@@ -194,8 +194,7 @@ $ make local
 $ ./program
 ```
 
-Wait the initial delay time of 10 seconds (this is so that you have
-time to start `screen`), and then the program should start printing.
+Wait the initial delay time of 10 seconds, and then the program should start printing to your console.
 
 Check that our implementation of `my_puts` matches the system's `puts`
 in behavior (they should be outputting the same thing).
@@ -208,7 +207,7 @@ Finally, let's load this program onto the Pi itself, then see what
 it's printing.
 
 Make sure your serial cable is connected and your Pi is ready to
-receive the program.
+receive the program. Again, there is a 10 second delay before the program will start printing.
 
 ```
 $ make
@@ -237,7 +236,7 @@ Then restart your Pi, `make` and `make install` the program again, and
 use `screen` as before to see your program's output. Record the answer
 on the checklist.
 
-##### Extension: gdb simulation and the stack
+#### Extension: gdb simulation and the stack
 
 _This section is optional._
 
