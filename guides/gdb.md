@@ -202,7 +202,7 @@ the target and load the program I put:
 
 And set the following alias:
 
-	alias rgdb "arm-none-eabi-gdb  --command=~/.gdbinit.arm"
+    $ alias rgdb="arm-none-eabi-gdb  --command=~/.gdbinit.arm"
 
 
 ### Commands
