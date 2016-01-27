@@ -7,6 +7,10 @@
 
 #else
 
+/* Not used until you call printf and gpio_set_function yourself. */
+#include <stdio.h>
+#include "gpio.h"
+
 #include "uart.h"
 #define PUTCHAR(C) uart_putc(C)
 #include "timer.h"
@@ -27,6 +31,8 @@ int main() {
 #ifndef LOCAL_TEST
   uart_init();
 #endif
+
+  DELAY(10);
 
 #ifdef LOCAL_TEST
   puts("hello");

@@ -10,7 +10,7 @@ CPPFLAGS = -I../include
 CFLAGS = -std=c99 -Wall -Og -g -ffreestanding $(CPPFLAGS)
 ASFLAGS = 
 LDFLAGS  = -nostdlib -T memmap -L../lib 
-LDLIBS = -lpi
+LDLIBS = -lpi -lgcc 
 
 .SUFFIXES: 
 
