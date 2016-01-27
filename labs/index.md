@@ -7,6 +7,7 @@ title: Labs
 
 - [Lab 1: Setup the Raspberry Pi](lab1)
 - [Lab 2: Below C Level](lab2)
+- [Lab 3: Debugging](lab3)
 
 ### Lab schedule
 
