@@ -207,6 +207,9 @@ $ make local
 $ ./program
 ```
 
+Check that our implementation of `my_puts` matches the system's
+`puts`. Press Ctrl-C to terminate the program.
+
 ##### gdb and simulation
 
 Now we will build the program so that it can run on the Pi.
@@ -227,11 +230,74 @@ $ arm-none-eabi-gdb -tui program.exe
 ```
 
 Check back to the [gdb guide](/guides/gdb) if you don't remember how
-to use gdb.
+to use gdb. Remember to `target sim` and `load`.
 
-Set a breakpoint at `DELAY(1);` at the bottom of the loop body in
-`main`. Then run the program. Does gdb reach the breakpoint? If not,
-why not?
+Now set a breakpoint at `puts("hello")`, inside the `#ifdef`. Then run
+the program. Where does gdb break? Why?
+
+Set another breakpoint at the first line inside the `my_puts`
+function with `b 19`. Continue the program. 
+
+```
+(gdb) b 19
+Breakpoint 1 at 0x8014: file program.c, line 19.
+(gdb) cont
+```
+
+gdb should break where you set the breakpoint. Now let's examine the
+backtrace.
+
+```
+Breakpoint 1, my_puts (s=s@entry=0x84dc "hello") at program.c:19
+(gdb) backtrace
+#0  my_puts (s=s@entry=0x84dc "hello") at program.c:19
+#1  0x00008050 in main () at program.c:32
+(gdb) 
+```
+
+Frames have numbers. The current frame is numbered 0, and corresponds
+to the invocation of function `my_puts`. Frames for caller functions
+have higher numbers.
+
+```
+(gdb) info frame
+Stack level 0, frame at 0x7ff8:
+ pc = 0x8014 in my_puts (program.c:19); saved pc = 0x8050
+ called by frame at 0x8000
+ source language c.
+ Arglist at 0x7ff0, args: s=s@entry=0x84dc "hello"
+ Locals at 0x7ff0, Previous frame's sp is 0x7ff8
+ Saved registers:
+ r4 at 0x7ff0, lr at 0x7ff4
+(gdb) info args
+s = 0x84dc "hello"
+(gdb) info locals
+No locals.
+```
+
+We can also inspect caller functions' locals.
+
+```
+(gdb) up
+#1  0x00008050 in main () at program.c:32
+```
+
+This moves up to function #1, which is the function `main`. `main`
+called `my_puts`.
+
+```
+(gdb) info args
+No arguments.
+(gdb) info locals
+No locals.
+```
+
+Finally, let's look at the limitations of debugging with the
+simulator.
+
+Set a breakpoint at `DELAY(1);` at the bottom of the loop body
+in `main`. Then continue the program's execution again. Does gdb reach
+that breakpoint? Why not? How might you work around this problem?
 
 ##### Print from the Pi
 
