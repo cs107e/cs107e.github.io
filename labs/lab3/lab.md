@@ -53,8 +53,11 @@ Execution will stop at the breakpoint, and then you can single step
 through the program inspecting registers and memory. Follow the
 entire guide and make sure you understand what is going on.
 
-The final part of this exercise is to understand the
-*current program status register (CPSR)*.
+The final part of this exercise is to understand the *current program
+status register
+(CPSR)*. [Here is a page which documents this register.](http://www-mdp.eng.cam.ac.uk/web/library/enginfo/mdp_micro/lecture3/lecture3-1.html)
+Pay particular attention to the top four condition code bits, N, Z, C,
+and V.
 
 Continue stepping through blink until you enter the delay loop.
 
