@@ -46,28 +46,14 @@ directory. Assemble and link the program using `make`:
 **Follow all the steps in the [gdb guide](/guides/gdb).** This guide
 walks you through how to setup gdb to simulate the ARM processor.
 
-You will load `blink.exe`, set a breakpoint at `_start`, and then run
-the program.
-
-Execution will stop at the breakpoint, and then you can single step
-through the program inspecting registers and memory. Follow the
-entire guide and make sure you understand what is going on.
-
-The final part of this exercise is to understand the *current program
-status register
+The final part of this exercise, as stated in the guide, is to
+understand the *current program status register
 (CPSR)*. [Here is a page which documents this register.](http://www-mdp.eng.cam.ac.uk/web/library/enginfo/mdp_micro/lecture3/lecture3-1.html)
 Pay particular attention to the four condition code bits at the top,
 N, Z, C, and V.
 
-Continue stepping through blink until you enter the delay loop.
-
-Inspect the values of `CPSR` each time through the loop.
-
-- What value does `CPSR` have when `bne` returns to `wait1`?
-- What values does `CPSR` have when `bne` does not branch, and the loop is exited?
-
-Record your answer to the first question on the
-[checklist](checklist).
+Record your answers to the CPSR questions at the end of the guide on
+the [checklist](checklist).
 
 #### 2. Using the console cable with the Raspberry Pi
 
