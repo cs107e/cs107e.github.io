@@ -173,11 +173,78 @@ debugging techniques.
 
 Change to the `cs107e.github.io/labs/lab3/code/debug` directory.
 
+We have provided you a test program, `program.c`, along with a
+Makefile. Open `program.c` in your text editor.
+
 ##### Run on your laptop
+
+We will start by showing how you can run your C programs on your
+laptop, too, with some work.
+
+Notice the use of `#ifdef`, `#else`, `#endif` preprocessor
+directives. These are evaluated by the C preprocessor before
+`program.c` reaches the compiler. We are using them to choose sections
+of code that will work on your laptop, as opposed to on the Pi.
+
+This way, we can have one C file that works on both platforms. When
+you run `program` on your laptop, it will try both our implementation
+of `puts`, which we've called `my_puts`, and the system implementation
+of `puts`, so that we can compare their output.
+
+Which parts of `program.c` will get included if the value
+`LOCAL_TEST` is defined? What if that symbol is not defined?
+
+Next, look at the Makefile. In particular, notice the `local` and
+`run-local` targets. What C compiler command, instead of
+`arm-none-eabi-gcc`, is used to build a program for your laptop? What
+argument is given to your computer's C compiler to define the
+`LOCAL_TEST` value?
+
+Finally, run the program:
+
+```
+$ make local
+$ ./program
+```
 
 ##### gdb and simulation
 
+Now we will build the program so that it can run on the Pi.
+
+```
+$ make
+```
+
+You should see the resulting `program.bin` and `program.exe` files in
+your folder.
+
+Before running it on the real Pi, let's debug this program in gdb's
+simulator like we debugged the blink program earlier. We'll also use
+the `-tui` option which shows a source listing on top.
+
+```
+$ arm-none-eabi-gdb -tui program.exe
+```
+
+Check back to the [gdb guide](/guides/gdb) if you don't remember how
+to use gdb.
+
+Set a breakpoint at `DELAY(1);` at the bottom of the loop body in
+`main`. Then run the program. Does gdb reach the breakpoint? If not,
+why not?
+
 ##### Print from the Pi
+
+Finally, let's load this program onto the Pi itself, then see what
+it's printing.
+
+Make sure your serial cable is connected and your Pi is ready to
+receive the program.
+
+```
+$ make install
+$ screen /dev/tty.SLAB_USBtoUART 115200
+```
 
 ### Stack intuition
 
