@@ -58,7 +58,7 @@ of the gdb guide on the [checklist](checklist).
 *Make sure your cp2102 drivers are installed and work properly.*
 
 If you haven't done this, 
-follow the instructions in the [Console Guide](/guides/console).
+follow the instructions in the [bootloader guide](/guides/bootloader).
 
 *Insert the usb serial point into a usb port on your laptop.*
 
