@@ -8,6 +8,7 @@ title: Assignments
 - [Assignment 0: Choose Lab Section, Learn Git](assign0)
 - [Assignment 1: Larson Scanner](assign1)
 - [Assignment 2: Clock](assign2)
+- [Assignment 3: String Formatting & Printing](assign3)
 
 ### Frequently asked questions about assignments
 
@@ -89,7 +90,7 @@ Code quality will be graded on a bucket system where code that needs
 improvement falls in the [-] bucket, code that meets our expectations is in the 
 [ok] bucket, and exceptional code falls in the [+] bucket.
 In rare cases when the assignment was not sufficiently attempted, 
-we will use a [--] bucket. We will also provide comments throughout your code 
+we will use a [- -] bucket. We will also provide comments throughout your code 
 to help you improve your code quality.
 Please incorporate our feedback into future assignments;
 it will improve your grade and more importantly your coding style.
@@ -102,7 +103,8 @@ Grades will be assigned using the following criteria:
 **A.** All laboratories and basic part of assignments must be completed.
 Your code quality grades should average somewhere 
 between the [ok] and [+] buckets.
-In addition, and your final project must be outstanding.
+In addition, you must do at least 3 extensions and your final 
+project must be outstanding.
 
 **B.** All laboratories and basic part of assignments must be completed.
 Your final project should be excellent.
