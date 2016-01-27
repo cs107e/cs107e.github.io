@@ -23,7 +23,11 @@ void my_puts(char *s)
 }
 
 int main() {
-  
+
+#ifndef LOCAL_TEST
+  uart_init();
+#endif
+
 #ifdef LOCAL_TEST
   puts("hello");
 #endif

@@ -50,10 +50,8 @@ The final part of this exercise, as stated in the guide, is to
 understand the *current program status register
 (CPSR)*. [Here is a page which documents this register.](http://www-mdp.eng.cam.ac.uk/web/library/enginfo/mdp_micro/lecture3/lecture3-1.html)
 Pay particular attention to the four condition code bits at the top,
-N, Z, C, and V.
-
-Record your answers to the CPSR questions at the end of the guide on
-the [checklist](checklist).
+N, Z, C, and V. Record your answers to the CPSR questions at the end
+of the gdb guide on the [checklist](checklist).
 
 #### 2. Using the console cable with the Raspberry Pi
 
@@ -199,20 +197,42 @@ $ ./program
 Check that our implementation of `my_puts` matches the system's
 `puts`. Press Ctrl-C to terminate the program.
 
-##### gdb and simulation
+##### Print from the Pi
 
-Now we will build the program so that it can run on the Pi.
+Finally, let's load this program onto the Pi itself, then see what
+it's printing.
+
+Make sure your serial cable is connected and your Pi is ready to
+receive the program.
 
 ```
 $ make
+...
+$ make install
+sent True
+$ screen /dev/tty.SLAB_USBtoUART 115200
 ```
 
-You should see the resulting `program.bin` and `program.exe` files in
-your folder.
+You should see the same thing you saw when running it on your computer
+locally.
 
-Before running it on the real Pi, let's debug this program in gdb's
-simulator like we debugged the blink program earlier. We'll also use
-the `-tui` option which shows a source listing on top.
+Finally, you'll use the printf we provide you in libpi.a to debug
+program state. Edit program.c to do these three things:
+
+1. Use printf to print out the value of the GPFSEL2 register. You can
+just call `printf`.
+
+2. Use `gpio_set_function` to turn on pins 20 and 21.
+
+3. Print out the value of GPFSEL2 again.
+
+##### Extension: gdb simulation and the stack
+
+_This section is optional._
+
+Let's debug this program in gdb's simulator like we debugged the blink
+program earlier. We'll also use the `-tui` option which shows a source
+listing on top.
 
 ```
 $ arm-none-eabi-gdb -tui program.exe
@@ -293,19 +313,6 @@ again.
 
 Does gdb reach that breakpoint? Why not? How might you work around
 this problem to debug a program like this?
-
-##### Print from the Pi
-
-Finally, let's load this program onto the Pi itself, then see what
-it's printing.
-
-Make sure your serial cable is connected and your Pi is ready to
-receive the program.
-
-```
-$ make install
-$ screen /dev/tty.SLAB_USBtoUART 115200
-```
 
 ### Stack intuition
 
