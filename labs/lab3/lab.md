@@ -30,7 +30,7 @@ processor using `gdb` in simulate mode.
 
 ### Lab exercises
 
-#### 1. Simulate the blink program using gdb
+#### Debugging Technique #1: gdb
 
 The goal of the first exercise is to teach you how to use gdb in ARM
 simulation mode. This is useful as a way of learning what happens
@@ -48,12 +48,19 @@ walks you through how to setup gdb to simulate the ARM processor.
 
 The final part of this exercise, as stated in the guide, is to
 understand the *current program status register
-(CPSR)*. [Here is a page which documents this register.](http://www-mdp.eng.cam.ac.uk/web/library/enginfo/mdp_micro/lecture3/lecture3-1.html)
-Pay particular attention to the four condition code bits at the top,
+(CPSR)*. [Here is a page which documents this register and how its bits are structured.](http://www-mdp.eng.cam.ac.uk/web/library/enginfo/mdp_micro/lecture3/lecture3-1.html)
+
+To see how the 32 bits of CPSR stores information, let's walk through the 'blink.s' program again. This time, write down the value of the CPSR register at 3 instances:
+
+1. Before the delay loop
+2. In the middle of the loop
+3. After the loop
+
+These values, however, are in hex form so you will need to convert them to binary to see the bit representation. Once you do so, pay particular attention to the four condition code bits (which are the four most significant bits),
 N, Z, C, and V. Record your answers to the CPSR questions at the end
 of the gdb guide on the [checklist](checklist).
 
-#### 2. Using the console cable with the Raspberry Pi
+#### Debugging Technique #2: printf using serial communication
 
 *Make sure your cp2102 drivers are installed and work properly.*
 
@@ -152,7 +159,26 @@ To stop it, exit `screen` (holding the control key down and typing
 "ad" is a quick way; if you haven't reset the pi you can also 
 reattach later by doing "screen -r")
 
-#### 3. Debug a program
+Now that your Pi can communicate with your computer, you can use the printf we provide you in libpi.a to debug
+program state. 
+
+For example, you can call `printf("value: %d\r\n", 10);` to print the number 10 or `printf("value: %c\r\n", 'a');` to print the letter a. To learn more about how to use printf, check out [the documentation for it here](http://www.tutorialspoint.com/c_standard_library/c_function_printf.htm).
+
+Edit program.c to do the following three things. Be sure you
+do these *after* the `uart_init()` call and initial delay, though, so
+that you have time to start `screen` after running the program.
+
+1. Use printf to print out the value of the GPFSEL2 register in hex form. 
+
+2. Use `gpio_set_function` to make pins 20 and 21 output pins.
+
+3. Print out the value of GPFSEL2 again.
+
+Then restart your Pi, `make` and `make install` the program again, and
+use `screen` as before to see your program's output. Recall that in order to see the value of each bit, you have the convert the value that was printed into binary. Record the answer
+on the checklist. 
+
+#### Debugging Technique #3: cross compiling and run on your laptop
 
 The upcoming assignment will require you to write the most complex
 program so far in the course. We want to introduce you to some useful
@@ -169,14 +195,13 @@ We will start by showing how you can run your C programs on your
 laptop, too, with some work.
 
 Notice the use of `#ifdef`, `#else`, `#endif` preprocessor
-directives. These are evaluated by the C preprocessor before
-`program.c` reaches the compiler. We are using them to choose sections
-of code that will work on your laptop, as opposed to on the Pi.
+directives. These conditions are evaluated by the C preprocessor before
+`program.c` reaches the compiler. We are using them to specify sections
+of code that will execute on your laptop, as opposed to on the Pi.
 
 This way, we can have one C file that works on both platforms. When
-you run `program` on your laptop, it will try both our implementation
-of `puts`, which we've called `my_puts`, and the system implementation
-of `puts`, so that we can compare their output.
+you run `program` on your laptop, it will be able to run both `my_puts` (for the Pi), and the system implementation
+of `puts`. This allows us to compare their output.
 
 Which parts of `program.c` will get included if the value
 `LOCAL_TEST` is defined? What if that symbol is not defined?
@@ -220,21 +245,6 @@ $ screen /dev/tty.SLAB_USBtoUART 115200
 You should see the same thing you saw when running it on your computer
 locally.
 
-Finally, you'll use the printf we provide you in libpi.a to debug
-program state. Edit program.c to do these three things (make sure you
-do these after the `uart_init()` call and initial delay, though, so
-that you have time to start `screen` after running the program):
-
-1. Use printf to print out the value of the GPFSEL2 register. You can
-call `printf("value: %d\r\n", 10);` to print the number 10, for example.
-
-2. Use `gpio_set_function` to make pins 20 and 21 output pins.
-
-3. Print out the value of GPFSEL2 again.
-
-Then restart your Pi, `make` and `make install` the program again, and
-use `screen` as before to see your program's output. Record the answer
-on the checklist.
 
 #### Extension: gdb simulation and the stack
 
