@@ -166,7 +166,7 @@ Let's execute it.
     (gdb) stepi
     9   mov r1, #1
 
-Let's *examine* memory to see if the it has the right contents.
+Let's *examine* memory to see if it has the right contents.
 
     (gdb) x 0x20200008
     0x20200008: 0x00000001

@@ -43,7 +43,7 @@ directory. Assemble and link the program using `make`:
     arm-none-eabi-as -g blink.s -o blink.o
     arm-none-eabi-ld blink.o -o blink.exe
 
-Follow the steps in the [gdb guide](/guides/gdb). This guide
+**Follow all the steps in the [gdb guide](/guides/gdb).** This guide
 walks you through how to setup gdb to simulate the ARM processor.
 
 You will load `blink.exe`, set a breakpoint at `_start`, and then run
@@ -56,8 +56,8 @@ entire guide and make sure you understand what is going on.
 The final part of this exercise is to understand the *current program
 status register
 (CPSR)*. [Here is a page which documents this register.](http://www-mdp.eng.cam.ac.uk/web/library/enginfo/mdp_micro/lecture3/lecture3-1.html)
-Pay particular attention to the top four condition code bits, N, Z, C,
-and V.
+Pay particular attention to the four condition code bits at the top,
+N, Z, C, and V.
 
 Continue stepping through blink until you enter the delay loop.
 
@@ -134,7 +134,7 @@ Run `git pull` in your `cs107e.github.io` folder to download the code
 examples from the latest lecture.  Change to the directory
 `cs107e.github.io/lectures/serial/code/uart`.
 
-    $ cd cs107e.github.io/lectures/Serial/code/uart
+    $ cd cs107e.github.io/lectures/serial/code/uart
     $ ls
     Makefile    hello.c     start.s     uart.c      uart.h
     $ make
@@ -235,8 +235,8 @@ $ arm-none-eabi-gdb -tui program.exe
 Check back to the [gdb guide](/guides/gdb) if you don't remember how
 to use gdb. Remember to `target sim` and `load`.
 
-Now set a breakpoint at `puts("hello")`, inside the `#ifdef`. Then run
-the program. Where does gdb break? Why?
+Now set a breakpoint at the line with `puts("hello")`, inside the
+`#ifdef`. Then run the program. Where does gdb actually break? Why?
 
 Set another breakpoint at the first line inside the `my_puts`
 function with `b 19`. Continue the program. 
@@ -295,12 +295,18 @@ No arguments.
 No locals.
 ```
 
+Try playing around with adding locals to `main`. Why might locals that
+you define in `main` not appear in the debugger?
+
 Finally, let's look at the limitations of debugging with the
 simulator.
 
-Set a breakpoint at `DELAY(1);` at the bottom of the loop body
-in `main`. Then continue the program's execution again. Does gdb reach
-that breakpoint? Why not? How might you work around this problem?
+Set a breakpoint at the line containing `DELAY(1);` at the bottom of
+the loop body in `main`. Then continue the program's execution
+again.
+
+Does gdb reach that breakpoint? Why not? How might you work around
+this problem to debug a program like this?
 
 ##### Print from the Pi
 
