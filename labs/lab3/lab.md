@@ -159,12 +159,18 @@ To stop it, exit `screen` (holding the control key down and typing
 "ad" is a quick way; if you haven't reset the pi you can also 
 reattach later by doing "screen -r")
 
+#### Using printf
+
+Change to the 'cs107e.github.io/labs/lab3/code/printf' directory.
+
 Now that your Pi can communicate with your computer, you can use the printf we provide you in libpi.a to debug
 program state. 
 
 For example, you can call `printf("value: %d\r\n", 10);` to print the number 10 or `printf("value: %c\r\n", 'a');` to print the letter a. To learn more about how to use printf, check out [the documentation for it here](http://www.tutorialspoint.com/c_standard_library/c_function_printf.htm).
 
-Edit program.c to do the following three things. Be sure you
+Open `print.c` in your text editor.
+
+Edit 'print.c' to do the following three things. Be sure you
 do these *after* the `uart_init()` call and initial delay, though, so
 that you have time to start `screen` after running the program.
 
