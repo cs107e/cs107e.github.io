@@ -219,12 +219,19 @@ locally.
 Finally, you'll use the printf we provide you in libpi.a to debug
 program state. Edit program.c to do these three things:
 
+1. Delay for a while so that you have time to start `screen` and
+actually see what gets printed after.
+
 1. Use printf to print out the value of the GPFSEL2 register. You can
-just call `printf`.
+call `printf("value: %d\r\n", 10);` to print the number 10, for example.
 
 2. Use `gpio_set_function` to turn on pins 20 and 21.
 
 3. Print out the value of GPFSEL2 again.
+
+Then restart your Pi, `make` and `make install` the program again, and
+use `screen` as before to see your program's output. Record the answer
+on the checklist.
 
 ##### Extension: gdb simulation and the stack
 
