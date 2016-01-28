@@ -14,7 +14,7 @@ LDLIBS = -lpi -lgcc
 
 .SUFFIXES: 
 
-NAME = program
+NAME = print
 SRCS = $(NAME).c
 
 all : $(NAME).bin
@@ -44,13 +44,6 @@ clean :
 
 install: $(NAME).bin
 	rpi-install.py $(NAME).bin
-
-# Use the system compiler for your (OS X or Linux) computer.
-local: $(NAME).c
-	cc -std=c99 -Wall -O2 -DLOCAL_TEST -o $(NAME) -g $(NAME).c
-
-run-local: local
-	./$(NAME)
 
 .PHONY : all clean
 
