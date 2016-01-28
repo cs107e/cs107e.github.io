@@ -32,8 +32,6 @@ int main() {
   uart_init();
 #endif
 
-  DELAY(10);
-
 #ifdef LOCAL_TEST
   puts("hello");
 #endif
