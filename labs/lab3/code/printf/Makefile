@@ -14,7 +14,7 @@ LDLIBS = -lpi -lgcc
 
 .SUFFIXES: 
 
-NAME = program
+NAME = print
 SRCS = $(NAME).c
 
 all : $(NAME).bin
