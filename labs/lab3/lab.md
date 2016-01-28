@@ -10,14 +10,18 @@ permalink: /labs/lab3/
 
 During this lab you will:
 
-1. Learn how to simulate the ARM processor using `gdb`.
+1. Learn how to simulate the ARM processor using `arm-none-eabi-gdb`
+   and debug your programs in it.
 
 2. Set up your console cable to work with the UART on the Raspberry
-Pi.
+   Pi, and learn how to use `printf` to debug your programs.
 
-3. Use multiple techniques to debug a program: running on your system
-   instead of the Pi, using the gdb simulation, and printing from the
-   real Pi through the console cable.
+3. Learn how to write a multiplatform program that can run on both
+   your laptop and on the Pi.
+
+The upcoming assignment will require you to write the most complex
+program so far in the course, so we want to introduce you to some
+useful debugging techniques.
 
 To complete the lab, you must answer the questions in the
 [checklist](checklist).
@@ -56,9 +60,12 @@ To see how the 32 bits of CPSR stores information, let's walk through the 'blink
 2. In the middle of the loop
 3. After the loop
 
-These values, however, are in hex form so you will need to convert them to binary to see the bit representation. Once you do so, pay particular attention to the four condition code bits (which are the four most significant bits),
-N, Z, C, and V. Record your answers to the CPSR questions at the end
-of the gdb guide on the [checklist](checklist).
+These values, however, are in hex form so you will need to convert
+them to binary to see the bit representation. Once you do so, pay
+particular attention to the four condition code bits (which are the
+four most significant bits), N, Z, C, and V. Record your answers to
+the CPSR questions at the end of the gdb guide on the
+[checklist](checklist).
 
 #### Debugging Technique #2: printf using serial communication
 
@@ -184,14 +191,16 @@ that you have time to start `screen` after running the program.
 3. Print out the value of GPFSEL2 again.
 
 Then restart your Pi, `make` and `make install` the program again, and
-use `screen` as before to see your program's output. Recall that in order to see the value of each bit, you have the convert the value that was printed into binary. Record the answer
-on the checklist. 
+use `screen` as before to see your program's output. Recall that in
+order to see the value of each bit, you have the convert the value
+that was printed into binary. Record the answer on the checklist.
 
 #### Debugging Technique #3: cross compiling and run on your laptop
 
-The upcoming assignment will require you to write the most complex
-program so far in the course. We want to introduce you to some useful
-debugging techniques.
+Now we will show you how to write a C program that can run on both the
+Pi and on your laptop. Then you can quickly rerun your program on your
+laptop after making changes, and compare your printf's behavior to
+your computer's printf.
 
 Change to the `cs107e.github.io/labs/lab3/code/debug` directory.
 
@@ -209,8 +218,9 @@ directives. These conditions are evaluated by the C preprocessor before
 of code that will execute on your laptop, as opposed to on the Pi.
 
 This way, we can have one C file that works on both platforms. When
-you run `program` on your laptop, it will be able to run both `my_puts` (for the Pi), and the system implementation
-of `puts`. This allows us to compare their output.
+you run `program` on your laptop, it will be able to run both
+`my_puts` (for the Pi), and the system implementation of `puts`. This
+allows us to compare their output.
 
 Which parts of `program.c` will get included if the value
 `LOCAL_TEST` is defined? What if that symbol is not defined?
@@ -253,7 +263,6 @@ $ screen /dev/tty.SLAB_USBtoUART 115200
 
 You should see the same thing you saw when running it on your computer
 locally.
-
 
 #### Extension: gdb simulation and the stack
 
