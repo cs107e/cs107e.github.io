@@ -240,7 +240,7 @@ C has standardized the way to access variadic functions
 using the `stdarg.h` interface. 
 Here is an example.
 
-    ```
+    
     #include <stdarg.h>
     #include <stdio.h>
 
@@ -251,7 +251,7 @@ Here is an example.
 
         va_start(ap, n);
         for( int i=0; i<n; i++ )
-            sum += va_arg(ap, i);
+            sum += va_arg(ap, int);
         va_end(ap);
 
         return sum;
@@ -262,7 +262,7 @@ Here is an example.
         printf("%d\n", sum(3,  1,2,3) );
         return 0;
     }
-    ```
+    
 
 Note how to declare a function with a variable number
 of arguments using `...`.
