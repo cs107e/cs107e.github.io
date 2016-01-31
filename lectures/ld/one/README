@@ -1,0 +1,16 @@
+gcc-5 main.c
+./a.out
+
+gcc-5 -E main.c
+gcc-5 -E main.c # now without stdio.h to clean it up
+gcc-5 -xc -E -v - # include path
+gcc-5 -H -fsyntax-only main.c # see where it's found
+gcc-5 -H -fsyntax-only test.c # stdarg.h
+
+gcc-5 -E main.c # try angled <main.h>
+gcc-5 -E main.c -I. # try angled <main.h>
+
+vim mail.txt
+cpp-5 -P -traditional-cpp mail.txt | tail -n 6
+cpp-5 -P -DCORDIAL -traditional-cpp mail.txt | tail -n 7
+rm -f a.out

@@ -1,0 +1,36 @@
+arm-none-eabi-as start.s -o start.o
+arm-none-eabi-readelf -S -s start.o
+
+# inspect main.o
+arm-none-eabi-gcc -Wall -std=c99 -Og -ffreestanding -c main.c -o main.o
+arm-none-eabi-readelf -S -s main.o # what do main's sections look like?
+arm-none-eabi-nm main.o # easier symbol reading
+arm-none-eabi-readelf -s -r main.o # relocation
+arm-none-eabi-objdump -d -j .text main.o # see relocation, offsets match
+
+# inspecting util.o
+arm-none-eabi-gcc -Wall -std=c99 -Og -ffreestanding -c util.c -o util.o
+arm-none-eabi-readelf -S -s util.o # what do util's sections look like?
+arm-none-eabi-nm util.o # easier symbol reading
+arm-none-eabi-readelf -s -r util.o # relocation
+arm-none-eabi-objdump -d -j .text util.o # see relocation, offsets match
+
+# Okay, bring them together.
+arm-none-eabi-gcc -Wall -std=c99 -Og -ffreestanding -c main.c -o main.o
+arm-none-eabi-gcc -Wall -std=c99 -Og -ffreestanding -c util.c -o util.o
+arm-none-eabi-as start.s -o start.o
+arm-none-eabi-ld -nostdlink main.o util.o start.o -o finished.o
+arm-none-eabi-nm -S -s finished.o # every symbol is defined! but, uh, new ones?
+
+# static vs. extern (extern add_char util.c, util.h)
+arm-none-eabi-gcc -Wall -std=c99 -Og -ffreestanding -c util.c -o util.o
+arm-none-eabi-nm util.o
+
+# check out memmap
+arm-none-eabi-ld -nostdlink main.o util.o start.o -o finished1.o
+arm-none-eabi-ld -nostdlink -Tmemmap main.o util.o start.o -o finished2.o
+arm-none-eabi-nm -S -s finished1.o
+arm-none-eabi-nm -S -s finished2.o # checkout memmap
+arm-none-eabi-ld -nostdlink main.o util.o start.o -verbose -o finished1.o # default script
+
+rm -f *.o

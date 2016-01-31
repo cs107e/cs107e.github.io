@@ -1,0 +1,16 @@
+#define SIGNATURE - Sergio
+
+#define RECIPIENT Bob
+#define KIND_OF_DAY crummy
+#define WHAT something bad has happened :(
+#define FEEL make you somewhat sad. But hang in there!
+
+Hi RECIPIENT,
+
+I hope you are having a KIND_OF_DAY day! I'm just writing to let you know that
+WHAT. I am sure hearing this will FEEL.
+
+#ifdef CORDIAL
+Yours truly,
+#endif
+SIGNATURE
