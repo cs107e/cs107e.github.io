@@ -80,6 +80,7 @@ Finally, let's see what `arm-none-eabi-nm` tell us about the symbols in `cstart.
     % arm-none-eabi-nm cstart.o
 
 **Linking Object Files into Executables**
+
 During lecture, we went over how object files need to be linked together to form one executable. `arm-none-eabi-ld` is the command 
 that *links* the three files together to form a single executable. Let's do this now.
 
@@ -103,7 +104,8 @@ Let's disassemble `start.o` to get a better idea of what happens during linking.
        0: e3a0d902    mov sp, #32768  ; 0x8000
        4: ebfffffe    bl  0 <cstart>
 
-Note that branch at location 4.  
+Note the branch at location 4.  
+
 The *branch and link* instruction `bl` branches to location 0.
 Is 0 the address of `cstart`?
 
@@ -128,7 +130,7 @@ What did the linker do to change the address?
 
 **memmap**
 
-A crucial part of executing any program is memory management. In order to get a sense of how memory gets organized through linking, run 
+A crucial part of executing any program is memory management. In order to get a sense of how memory gets organized through linking, run the following line: 
 
     % make main.exe
     arm-none-eabi-ld  -T memmap main.o cstart.o start.o -o main.exe
@@ -181,7 +183,7 @@ The transmitter first reads in the binary file it wants to send,
 and then sends the bytes to the Raspberry Pi as a series of packets.
 This is the algorithm used in the transmitter.
 
-[xmodem image](../xmodem.jpg)
+![xmodem image](xmodem.jpg)
 
 1) Start the transmission by sending the SOH character,
 which has the value 0x01.
