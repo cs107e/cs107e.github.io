@@ -1,0 +1,6 @@
+gcc main.c util.c
+./a.out; echo $?
+./a.out 4 1; echo $?
+./a.out 23 4; echo $? # whoops?
+gcc -save-temps -v main.c util.c
+rm -f *.o *.i *.bc *.s *.out

@@ -1,0 +1,8 @@
+make
+file blink.o
+file blink.exe
+arm-none-eabi-readelf -h blink.o
+arm-none-eabi-readelf -h -S blink.o
+arm-none-eabi-objdump -j .text -d blink.o
+arm-none-eabi-readelf -h -l blink.o
+arm-none-eabi-readelf -h -l blink.exe

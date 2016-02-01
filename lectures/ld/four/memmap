@@ -1,0 +1,24 @@
+/* Tell LD about available memory regions */
+MEMORY
+{
+    ram : ORIGIN = 0x8000,
+          LENGTH = 0x1000
+}
+
+/* Tell LD what to put in each section. */
+SECTIONS
+{
+    .text : {
+        start.o (.text)
+        *(.text*)
+    } > ram
+    .data : { *(.data*) } > ram
+    .rodata : { *(.rodata*) } > ram
+    .bss : {
+        __bss_start__ = .;
+        *(.bss) *(COMMON)
+        . = ALIGN(4);
+        __bss_end__ = .;
+    } > ram
+ 
+}

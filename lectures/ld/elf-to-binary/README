@@ -1,0 +1,6 @@
+arm-none-eabi-as blink.s -o blink.o
+arm-none-eabi-objcopy blink.o -O binary blink.bin.theirs
+gcc main.c -o obj_to_bin && ./obj_to_bin blink.o blink.bin.ours
+md5 blink.bin*
+xxd blink.bin.ours; printf "\n-----\n"; xxd blink.bin.theirs
+rm -f blink.o blink.bin* obj_to_bin
