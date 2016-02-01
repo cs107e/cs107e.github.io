@@ -55,37 +55,24 @@ or a list of filenames. Read over [this guide](http://www.gnu.org/software/make/
 
 **Symbols in Object Files**
 
-Let's begin to examine the symbols (i.e. function names, variables, constants, etc) in this program by typing: 
-
-    % make clean
-    % make start.o
-    % arm-none-eabi-nm start.o
-
-What is the purpose of `arm-none-eabi-nm`? Here's a [helpful documentation](https://manned.org/arm-none-eabi-nm) to get a better understanding.
-What does it print out?
-What do the single letter symbols 'T', 'U', and 't' mean?
-
-Let's now try examining the symbols for main. 
+Let's begin to examine the symbols (i.e. function names, variables, constants, etc) in the program by typing: 
 
     % make main.o
     % arm-none-eabi-nm main.o
 
-What does this command print out? 
-What does the print out tell you about the variables
-and the functions in `main.c`.
-
-Finally, let's see what `arm-none-eabi-nm` tell us about the symbols in `cstart.o`.
-
-    % make cstart.o
-    % arm-none-eabi-nm cstart.o
+What is the purpose of `arm-none-eabi-nm`? Here's a [helpful documentation](https://manned.org/arm-none-eabi-nm) to get a better understanding.
+What information does it print out?
+What do the single letter symbols 'T', 't', and 'R' mean?
 
 **Linking Object Files into Executables**
 
 During lecture, we went over how object files need to be linked together to form one executable. `arm-none-eabi-ld` is the command 
 that *links* the three files together to form a single executable. Let's do this now.
 
-    % make main.exe
+    % make main.exe 
+    ...
     arm-none-eabi-ld  -T memmap main.o cstart.o start.o -o main.exe
+    arm-none-eabi-objdump -D main.exe > main.exe.list
     ...
     
 Next, look at the symbols for the executable as you did before with `nm`.
@@ -161,6 +148,8 @@ How does `cstart` use those addresses to initialize the variables to 0?
 
 #### The bootloader
 
+Change into the `bootloader` directory inside `code`.
+
 The second part of the lab involves
 reading and understanding
 the bootloader, which you are currently using to send programs from your laptop to the Pi.
@@ -207,8 +196,7 @@ send the EOT character; EOT stands for *end of transmission*.
 
 **Receving Programs on the Pi**
 
-To see how the receiving end of the communication as it occurs on the Pi, pull the [bootloader code](code/bootloader-rewrite).
-This is normally installed on your SD card as `kernel.img`.
+On the Pi, `bootloader.c` is normally installed on your SD card as `kernel.img`.
 When the Pi boots,
 it loads the bootloader code,
 and starts running it.
@@ -291,6 +279,10 @@ one for each person in your group.
 Assign part of the description to each person.
 Each person should write one paragraph 
 describing the part of the implementation assigned to them.
-Collate your descriptions, and hand in the completed writeup to the CA.
 
+**Collate your descriptions, and hand in the completed writeup to the CA.**
+
+Here is a helpful diagram as you look through the code. 
+
+![bootloader diagram](bootloader.jpg)
 
