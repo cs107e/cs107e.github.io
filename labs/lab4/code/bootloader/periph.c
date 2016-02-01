@@ -1,13 +1,4 @@
-
-//-------------------------------------------------------------------------
-//-------------------------------------------------------------------------
-
-extern void PUT32 ( unsigned int, unsigned int );
-extern void PUT16 ( unsigned int, unsigned int );
-extern void PUT8 ( unsigned int, unsigned int );
-extern unsigned int GET32 ( unsigned int );
-extern void BRANCHTO ( unsigned int );
-extern void dummy ( unsigned int );
+#include "rpi.h"
 
 #define ARM_TIMER_CTL 0x2000B408
 #define ARM_TIMER_CNT 0x2000B420

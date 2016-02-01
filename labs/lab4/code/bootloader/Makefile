@@ -1,30 +1,32 @@
 ARMGNU ?= arm-none-eabi
 
-COPS = -Wall -O2 -nostdlib -nostartfiles -ffreestanding 
+CFLAGS = -Wall -O2 -nostdlib -nostartfiles -ffreestanding 
 
 gcc : kernel.img 
 
-all : gcc
+all : kernel.img
 
 clean :
-	rm -f *.o
-	rm -f *.bin
-	rm -f *.elf
-	rm -f *.list
-	rm -f *.img
+	rm -f *.o *.bin *.elf *.list *.img *~ Makefile.bak
 
 
 start.o : start.s
 	$(ARMGNU)-as start.s -o start.o
 
-bootloader.o : bootloader.c
-	$(ARMGNU)-gcc $(COPS) -c bootloader.c -o bootloader.o
+bootloader.o : bootloader.c rpi.h
+	$(ARMGNU)-gcc $(CFLAGS) -c bootloader.c -o bootloader.o
 
-periph.o : periph.c
-	$(ARMGNU)-gcc $(COPS) -c periph.c -o periph.o
+periph.o : periph.c rpi.h
+	$(ARMGNU)-gcc $(CFLAGS) -c periph.c -o periph.o
 
 kernel.img : memmap start.o periph.o bootloader.o 
 	$(ARMGNU)-ld start.o periph.o bootloader.o -T memmap -o bootloader.elf
 	$(ARMGNU)-objdump -D bootloader.elf > bootloader.list
 	$(ARMGNU)-objcopy bootloader.elf -O binary kernel.img
 
+depend:
+	makedepend *.[ch] 
+# DO NOT DELETE
+
+bootloader.o: rpi.h
+periph.o: rpi.h
