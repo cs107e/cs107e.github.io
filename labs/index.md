@@ -8,7 +8,8 @@ title: Labs
 - [Lab 1: Setup the Raspberry Pi](lab1)
 - [Lab 2: Below C Level](lab2)
 - [Lab 3: Debugging](lab3)
-
+- [Lab 3: Linking and Loading](lab4)
+- 
 ### Lab schedule
 
 Labs are Tue or Wed evenings from 7-9pm.
