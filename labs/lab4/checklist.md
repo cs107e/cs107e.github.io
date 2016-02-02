@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 'Lab 4: Linking and Loading Checklist'
-permalink: /labs/lab4/checklist
+permalink: /labs/lab4/checklist/
 ---
 
 1. What does the `nm` tool print out, and what do the symbols `T`, `U`, etc.
@@ -13,5 +13,3 @@ permalink: /labs/lab4/checklist
    restore a previous stack frame?
 
 4. As a group, write a description of how the bootloader works.
-
-
