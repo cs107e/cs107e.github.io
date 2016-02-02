@@ -4,8 +4,6 @@ title: 'Lab 4: Linking and Loading'
 permalink: /labs/lab4/
 ---
 
-## Lab 4: Linking and Loading
-
 *Lab written by Pat Hanrahan*
 
 ### Goals
