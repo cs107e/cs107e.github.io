@@ -10,7 +10,7 @@ CPPFLAGS = -I../include
 CFLAGS = -std=c99 -Wall -Og -g -ffreestanding -mapcs-frame \
 	-fno-omit-frame-pointer $(CPPFLAGS)
 ASFLAGS =
-LDFLAGS  = -nostdlib -T memmap -L../lib
+LDFLAGS  = -nostdlib -T memmap -L../../../lab3/code/lib
 LDLIBS = -lpi -lgcc
 
 .SUFFIXES:
