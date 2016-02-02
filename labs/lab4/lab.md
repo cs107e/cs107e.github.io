@@ -31,30 +31,38 @@ demonstrations showed during the lecture on linking and loading.
 
 To start, check out the
 [code](https://github.com/cs107e/cs107e.github.io/tree/master/labs/lab4/code)
-for this lab.
+for this lab by changing to the `cs107e.github.io/labs/lab4/code`
+directory.
 
 **Symbols in Object Files**
 
-`cd` into the `linking` folder. We will begin to examine the symbols (i.e.
+`cd` into the `linking` folder.
+
+We will begin to examine the symbols (i.e.
 function names, variables, constants, etc) in this program by typing:
 
     % make clean
     % make start.o
     % arm-none-eabi-nm start.o
 
-What is the purpose of `arm-none-eabi-nm`? Here's [helpful
-documentation](https://manned.org/arm-none-eabi-nm) to get a better
-understanding. What does it print out? What do the single letter symbols 'T',
-'U', and 't' mean? Don't move forward until you and your partners understand
-`nm`'s output.
+What is the purpose of `arm-none-eabi-nm`? Here's
+[helpful documentation](https://manned.org/arm-none-eabi-nm) to get a
+better understanding. What does it print out? What do the single
+letter symbols 'T', 'U', and 't' mean? In another window, you may want
+to open `start.s` in a text editor for comparison.
+
+Don't move forward until you and your partners understand `nm`'s
+output.
 
 Let's now try examining the symbols for main.
 
     % make main.o
     % arm-none-eabi-nm main.o
 
-What does this command print out? What does the print out tell you about the
-variables and the functions in `main.c`.
+What does this command print out? What does the printout tell you
+about the variables and the functions in `main.c`? (You may want to
+open `main.c` in a text editor to see the source material for
+`main.o`.)
 
 Finally, let's see what `arm-none-eabi-nm` tell us about the symbols in
 `cstart.o`.
@@ -109,7 +117,7 @@ Now let's disassemble `main.exe`, and let's look at the same code after linking.
 
 What is the difference between the branch address before and after linking? What
 did the linker do to change the address? Again, don't move forward until you and
-your partners understand the answers to these questions. (Note: This is checlist
+your partners understand the answers to these questions. (Note: This is checklist
 question 2.)
 
 **memmap**
