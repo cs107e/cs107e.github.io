@@ -31,48 +31,41 @@ In the first part of this lab,
 you should repeat some of live coding demonstrations
 showed during the lecture on linking and loading.
 
-To start, check out the [code](../../lectures/LD/code)
-that was used in lecture.
-
-**Makefiles**
-
-Start by looking at the Makefile.
-Note the dependencies main.exe has.
-
-    main.exe: main.o cstart.o start.o
-        $(ARMGNU)-ld $(LDFLAGS) -T memmap $^ -o $@
-        $(ARMGNU)-objdump -D $@ > $*.exe.list
-
-Make sure you understand this Makefile. 
-The variables beginning with `$` expand into a filename
-or a list of filenames. Read over [this guide](http://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html) to become more familiar with the various symbols.
-
-- What does `$@` expand into?
-
-- What does `$*` expand into?
-
-- What does `$^` expand into?
+To start, check out the [code](./code) for this lab.
 
 **Symbols in Object Files**
 
-Let's begin to examine the symbols (i.e. function names, variables, constants, etc) in the program by typing: 
+Descend into the `linking` folder. We will begin to examine the symbols (i.e. function names, variables, constants, etc) in this program by typing: 
+
+    % make clean
+    % make start.o
+    % arm-none-eabi-nm start.o
+
+What is the purpose of `arm-none-eabi-nm`? Here's a [helpful documentation](https://manned.org/arm-none-eabi-nm) to get a better understanding.
+What does it print out?             
+What do the single letter symbols 'T', 'U', and 't' mean?
+
+Let's now try examining the symbols for main. 
 
     % make main.o
     % arm-none-eabi-nm main.o
 
-What is the purpose of `arm-none-eabi-nm`? Here's a [helpful documentation](https://manned.org/arm-none-eabi-nm) to get a better understanding.
-What information does it print out?
-What do the single letter symbols 'T', 't', and 'R' mean?
+What does this command print out? 
+What does the print out tell you about the variables
+and the functions in `main.c`.
+
+Finally, let's see what `arm-none-eabi-nm` tell us about the symbols in `cstart.o`.
+
+    % make cstart.o
+    % arm-none-eabi-nm cstart.o
 
 **Linking Object Files into Executables**
 
 During lecture, we went over how object files need to be linked together to form one executable. `arm-none-eabi-ld` is the command 
 that *links* the three files together to form a single executable. Let's do this now.
 
-    % make main.exe 
-    ...
+    % make main.exe
     arm-none-eabi-ld  -T memmap main.o cstart.o start.o -o main.exe
-    arm-none-eabi-objdump -D main.exe > main.exe.list
     ...
     
 Next, look at the symbols for the executable as you did before with `nm`.
@@ -121,9 +114,10 @@ A crucial part of executing any program is memory management. In order to get a 
 
     % make main.exe
     arm-none-eabi-ld  -T memmap main.o cstart.o start.o -o main.exe
-    arm-none-eabi-objdump -D main.exe > main.list
+    arm-none-eabi-objdump -D main.exe > main.exe.list
 
-This generates the file `main.list`, which shows the mapping of symbols to their addresses.  
+This generates the file `main.exe.list`, which shows the mapping of symbols to their addresses.  
+
 Look at the listing.
 How do the `.text`, `.data`, `.rodata`, and `.bss`
 sections from the different files get combined during linking?
@@ -148,25 +142,35 @@ How does `cstart` use those addresses to initialize the variables to 0?
 
 #### The bootloader
 
-Change into the `bootloader` directory inside `code`.
-
 The second part of the lab involves
 reading and understanding
-the bootloader, which you are currently using to send programs from your laptop to the Pi.
+how programs get sent from your laptop to your Pi.
+
+The code for this portion is in the folder `bootloader-rewrite`.
+
 The bootloader we are using was written by David Welch,
 the person most responsible for figuring out how
 to write bare metal programs on the Raspberry Pi.
 If it wasn't for his work,
 we would not be offering this course.
 
-**Sending Programs**
-
-We have been using the program `rpi-install.py` to send 
-the program binary to the Raspberry Pi.
+In order for your laptop to transmit the program binary to the Pi, we have been using the program `rpi-install.py`.
 The laptop and the Pi communicate using a simple
 file transfer protocol called XMODEM.
 In the jargon of XMODEM,
 the host laptop is called the tranmitter.
+
+
+The `bootloader.c` program is normally installed on your SD card as `kernel.img`.
+When the Pi boots,
+it loads the bootloader code,
+and starts running it.
+The bootloader program uses the Pi's UART to communicate with the host (i.e. your laptop).
+What happens is the Pi receives the binary,
+loads it into memory,
+and then branches to the code to begin execution.
+
+**Sending Programs**
 
 The transmitter first reads in the binary file it wants to send,
 and then sends the bytes to the Raspberry Pi as a series of packets.
@@ -195,15 +199,6 @@ When there are no more packets to be sent,
 send the EOT character; EOT stands for *end of transmission*.
 
 **Receving Programs on the Pi**
-
-On the Pi, `bootloader.c` is normally installed on your SD card as `kernel.img`.
-When the Pi boots,
-it loads the bootloader code,
-and starts running it.
-The bootloader program uses the Pi's UART to communicate with the host (i.e. your laptop).
-What happens is the Pi receives the binary,
-loads it into memory,
-and then branches to the code to begin execution.
 
 First, read the assembly language file `start.s`. 
 Note the `.space` directive between `_start` and the label `skip`.
@@ -279,10 +274,8 @@ one for each person in your group.
 Assign part of the description to each person.
 Each person should write one paragraph 
 describing the part of the implementation assigned to them.
+**Collate your descriptions, and hand in the completed writeup to the CA.**		
 
-**Collate your descriptions, and hand in the completed writeup to the CA.**
-
-Here is a helpful diagram as you look through the code. 
+Here is a helpful diagram as you look through the code. 		
 
 ![bootloader diagram](bootloader.jpg)
-
