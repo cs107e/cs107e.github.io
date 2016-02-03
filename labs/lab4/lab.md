@@ -171,20 +171,20 @@ Now set a breakpoint at the line with `puts("hello")`, inside the `#ifdef`. Then
 run the program. Where does gdb actually break? Why?
 
 Set another breakpoint at the first line inside the `my_puts` function with `b
-19`. Continue the program.
+22`. Continue the program.
 
 ```
-(gdb) b 19
-Breakpoint 1 at 0x8014: file program.c, line 19.
+(gdb) b 22
+Breakpoint 1 at 0x8014: file program.c, line 22.
 (gdb) cont
 ```
 
 gdb should break where you set the breakpoint. Now let's examine the backtrace.
 
 ```
-Breakpoint 1, my_puts (s=s@entry=0x84dc "hello") at program.c:19
+Breakpoint 1, my_puts (s=s@entry=0x84dc "hello") at program.c:22
 (gdb) backtrace
-#0  my_puts (s=s@entry=0x84dc "hello") at program.c:19
+#0  my_puts (s=s@entry=0x84dc "hello") at program.c:22
 #1  0x00008050 in main () at program.c:32
 (gdb)
 ```
@@ -196,7 +196,7 @@ numbers.
 ```
 (gdb) info frame
 Stack level 0, frame at 0x7ff8:
- pc = 0x8014 in my_puts (program.c:19); saved pc = 0x8050
+ pc = 0x8014 in my_puts (program.c:22); saved pc = 0x8050
  called by frame at 0x8000
  source language c.
  Arglist at 0x7ff0, args: s=s@entry=0x84dc "hello"
