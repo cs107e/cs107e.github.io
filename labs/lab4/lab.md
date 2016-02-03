@@ -392,19 +392,19 @@ the complement of the packet number are not consistent,
 send a `NAK` to the transmitter.
 
 4. Read the 128 bytes comprising the payload of the packet.
-Incrementally update the cyclic redundancy check (CRC) when a byte arrives.
-The CRC is formed by adding together mod 256 all the bytes in the packet.
+Incrementally update the checksum when a byte arrives.
+The checksum is formed by adding together mod 256 all the bytes in the packet.
 
 	How is this done in the bootloader?
 	Suppose we send 128 bytes,
 	where the 1st byte is 1, the 2nd byte is 2, and so on, until
 	we get to 128th byte which has the value 128.
-	What is the value of the CRC in this case?
+	What is the value of the checksum in this case?
 
 4. After all 128 bytes have been sent,
-read the CRC byte sent by the transmitter.
-Compare the CRC sent by the transmitter
-with the calculated CRC.
+read the checksum byte sent by the transmitter.
+Compare the checksum sent by the transmitter
+with the calculated checksum.
 If they agree, send an `ACK` (acknowledge) to the transmitter;
 if they do not agree, send a `NAK` (not acknowledge) to the transmitter.
 
