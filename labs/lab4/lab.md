@@ -291,7 +291,7 @@ old stack frame from the calling function. This is the "function epilogue". Look
 at the assembly from the `my_puts` function. Which instructions restore the
 previous stack frame? Also, does `main` have an epilogue? Why or why not?
 
-#### The bootloader
+#### Exercise 3: The Bootloader
 
 The third part of the lab involves reading and understanding how programs get
 sent from your laptop to your Pi.
