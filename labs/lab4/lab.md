@@ -266,21 +266,15 @@ The figure to the left shows two stack frames, one in grey and the other in
 white. Note that memory addresses increase going up and the stack grows
 downward. Thus, frame 1 existed before frame 2 did.
 
-The figure to the left shows that some function using frame 1,
-called another function, which set up frame 2. Each function is
-using its stack frame to push a few saved register values,
-namely the `pc`, `lr`, `ip`, and `fp` registers. When entering a new function,
-it will set the `fp` register to point to the first element in their stack frame. During
-the function's execution, `fp` can be used as the anchor from which to
-to access local variables via fp-relative addressing. The called function 
-shown here sets `fp` to point to the saved `pc` register which was the first value added 
-to its stack frame. The function will then make space on the stack for its local variables
-by adjusting the `sp` register. The storage for the local variables can be accessed 
-via a negative offset from the `fp` anchor. In the stack frame shown,
-there are 4 words of saved register values followed by the local variables. 
-If treating `fp` as a pointer to a word-size pointee and the first local variable is 
-word-size value, it could be located at `&fp[-4]`. Where would the second local variable be located if it too was a
-word-size value?
+The figure to the left shows that some function, which was using frame 1,
+called another function, which is now using frame 2. Both functions saved some
+registers onto the stack, namely the `pc`, `lr`, `ip`, and `fp` registers.
+Furthermore, when creating a new stack frame, each function set their `fp`
+register to point to the first element in their stack, namely, the stored `pc`
+register. This allows the function to quickly access their local variables. If
+the first local variable is a 32-bit value, for example, it would be located at
+`&fp[-4]`. Where would the second local variable be located if it too was a
+32-bit value?
 
 Functions create this stack frame as part of their "function prologue". Let's
 take a look at this now. Disassemble the `program.o` file:
@@ -297,8 +291,8 @@ frame?
 
 Setting up the full stack frame takes quite a few instructions. Because of this,
 the compiler will usually optimize most of the stack frame out. However, it's
-possible to instruct the compiler not to do this. We've added two new compiler
-flags in the `Makefile`. Which are they, and what do they do?
+possible to instruct the compiler not to do this. We've added two new flags to
+the compiler in the `Makefile`. Which are they, and what do they do?
 
 Finally, when a function returns, it must destroy its stack frame and set up the
 old stack frame from the calling function. This is the "function epilogue". Look
