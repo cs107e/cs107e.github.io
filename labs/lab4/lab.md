@@ -268,7 +268,7 @@ downward. Thus, frame 1 existed before frame 2 did.
 
 The figure to the left shows that some function, which was using frame 1,
 called another function, which is now using frame 2. Both functions saved some
-registers onto the stack, namely the `pc`, `ir`, `ip`, and `fp` registers.
+registers onto the stack, namely the `pc`, `lr`, `ip`, and `fp` registers.
 Furthermore, when creating a new stack frame, each function set their `fp`
 register to point to the first element in their stack, namely, the stored `pc`
 register. This allows the function to quickly access their local variables. If
