@@ -31,30 +31,38 @@ demonstrations showed during the lecture on linking and loading.
 
 To start, check out the
 [code](https://github.com/cs107e/cs107e.github.io/tree/master/labs/lab4/code)
-for this lab.
+for this lab by changing to the `cs107e.github.io/labs/lab4/code`
+directory.
 
 **Symbols in Object Files**
 
-`cd` into the `linking` folder. We will begin to examine the symbols (i.e.
+`cd` into the `linking` folder.
+
+We will begin to examine the symbols (i.e.
 function names, variables, constants, etc) in this program by typing:
 
     % make clean
     % make start.o
     % arm-none-eabi-nm start.o
 
-What is the purpose of `arm-none-eabi-nm`? Here's [helpful
-documentation](https://manned.org/arm-none-eabi-nm) to get a better
-understanding. What does it print out? What do the single letter symbols 'T',
-'U', and 't' mean? Don't move forward until you and your partners understand
-`nm`'s output.
+What is the purpose of `arm-none-eabi-nm`? Here's
+[helpful documentation](https://manned.org/arm-none-eabi-nm) to get a
+better understanding. What does it print out? What do the single
+letter symbols 'T', 'U', and 't' mean? In another window, you may want
+to open `start.s` in a text editor for comparison.
+
+Don't move forward until you and your partners understand `nm`'s
+output.
 
 Let's now try examining the symbols for main.
 
     % make main.o
     % arm-none-eabi-nm main.o
 
-What does this command print out? What does the print out tell you about the
-variables and the functions in `main.c`.
+What does this command print out? What does the printout tell you
+about the variables and the functions in `main.c`? (You may want to
+open `main.c` in a text editor to see the source material for
+`main.o`.)
 
 Finally, let's see what `arm-none-eabi-nm` tell us about the symbols in
 `cstart.o`.
@@ -109,7 +117,7 @@ Now let's disassemble `main.exe`, and let's look at the same code after linking.
 
 What is the difference between the branch address before and after linking? What
 did the linker do to change the address? Again, don't move forward until you and
-your partners understand the answers to these questions. (Note: This is checlist
+your partners understand the answers to these questions. (Note: This is checklist
 question 2.)
 
 **memmap**
@@ -296,7 +304,10 @@ previous stack frame? Also, does `main` have an epilogue? Why or why not?
 The third part of the lab involves reading and understanding how programs get
 sent from your laptop to your Pi.
 
-The code for this portion is in the folder `bootloader-rewrite`.
+The code for this portion is in the folder
+`bootloader`. Specifically, we will be reading the code for
+the program that runs on the Pi, receives your programbinary from your
+computer, then starts it.
 
 The bootloader we are using was written by David Welch, the person most
 responsible for figuring out how to write bare metal programs on the Raspberry
@@ -340,6 +351,9 @@ used in the transmitter.
 
 **Receving Programs on the Pi**
 
+You should be in the `cs107e.github.io/labs/lab4/code/bootloader`
+directory.
+
 First, read the assembly language file `start.s`.
 Note the `.space` directive between `_start` and the label `skip`.
 This has the effect of placing the bootloader code
@@ -355,9 +369,9 @@ This program, which runs on the Raspberry Pi, is the receiver.
 
 It reads bytes by doing the following:
 
-1) Wait for a SOH.
+1. Wait for a SOH.
 
-2) Read the packet number.
+2. Read the packet number.
 The first block must be packet number 1.
 The packet number of each packet should be incremented
 after each packet is successfully received.
@@ -365,34 +379,34 @@ If the receiver sees a packet with the wrong packet number,
 the receiver should send the control character `NAK`, for
 negative acknowledge, to the transmitter.
 
-3) Check that the complement of the packet number is correct.
+3. Check that the complement of the packet number is correct.
 How does the C code in bootloader check that the complement is correct?
 If the packet number and
 the complement of the packet number are not consistent,
 send a `NAK` to the transmitter.
 
-4) Read the 128 bytes comprising the payload of the packet.
+4. Read the 128 bytes comprising the payload of the packet.
 Incrementally update the cyclic redundancy check (CRC) when a byte arrives.
 The CRC is formed by adding together mod 256 all the bytes in the packet.
 
-How is this done in the bootloader?
-Suppose we send 128 bytes,
-where the 1st byte is 1, the 2nd byte is 2, and so on, until
-we get to 128th byte which has the value 128.
-What is the value of the CRC in this case?
+	How is this done in the bootloader?
+	Suppose we send 128 bytes,
+	where the 1st byte is 1, the 2nd byte is 2, and so on, until
+	we get to 128th byte which has the value 128.
+	What is the value of the CRC in this case?
 
-4) After all 128 bytes have been sent,
+4. After all 128 bytes have been sent,
 read the CRC byte sent by the transmitter.
 Compare the CRC sent by the transmitter
 with the calculated CRC.
 If they agree, send an `ACK` (acknowledge) to the transmitter;
 if they do not agree, send a `NAK` (not acknowledge) to the transmitter.
 
-5) If the packet has been successfully received,
+5. If the packet has been successfully received,
 copy it to memory,
 and prepare to receive the next packet.
 
-6) If the receiver receives the EOT byte,
+6. If the receiver receives the EOT byte,
 then the tranmission has ended.
 EOT stands for *end of transmission*.
 Send an `ACK`,
