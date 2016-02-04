@@ -9,6 +9,7 @@ title: Assignments
 - [Assignment 1: Larson Scanner](assign1)
 - [Assignment 2: Clock](assign2)
 - [Assignment 3: String Formatting & Printing](assign3)
+- [Assignment 4: Backtrace, Redzones, & STABS](assign4)
 
 ### Frequently asked questions about assignments
 
