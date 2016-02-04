@@ -18,7 +18,7 @@ During this lab you will:
    to read code produced in the wild.
 
 To complete the lab, you must answer the questions in the [check
-list](checklist). The third question involves writing a description of how
+list](checklist). The last question involves writing a description of how
 the bootloader works. See the detailed instructions in the third section of the
 lab.
 
@@ -242,7 +242,7 @@ to debug a program like this?
 Functions often need space (e.g., for variables or to store the return address
 of their caller before they call another function). There's nothing special
 about this space, and we could allocate it as we would any other memory.
-However, functions calls are frequent, so we want them as fast as possible.
+However, function calls are frequent, so we want them as fast as possible.
 Fortunately they have two properties we can exploit for speed: (1) when they
 return all memory they allocated is considered dead (2) they return in LIFO
 order.  As a result for speed, people have converged on using a contiguous array
@@ -312,10 +312,11 @@ sent from your laptop to your Pi.
 
 The code for this portion is in the folder
 `bootloader`. Specifically, we will be reading the code for
-the program that runs on the Pi, receives your programbinary from your
+the program that runs on the Pi, receives your program binary from your
 computer, then starts it.
 
-The bootloader we are using was written by David Welch, the person most
+The bootloader we are using is a modified version of one written by 
+David Welch, the person most
 responsible for figuring out how to write bare metal programs on the Raspberry
 Pi. If it wasn't for his work, we would not be offering this course.
 

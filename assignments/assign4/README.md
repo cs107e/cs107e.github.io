@@ -4,6 +4,8 @@ title: 'Assignment 4: Backtrace, Redzones, and STABS'
 permalink: /assignments/assign4/
 ---
 
+**Due: Monday, February 8, 2016 at 11:59PM**
+
 ## Overview
 
 This assignment consists of two parts and an extension. This overview attempts
