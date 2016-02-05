@@ -78,10 +78,10 @@ started.
 For this part of the assignment, you'll be implementing the `bt()` function in
 `main.c`. To implement the function, you'll need to inspect the current stack
 frame, which is pointed to by the `fp` register, print the address of the
-calling function and the stack frame number, and then proceed recursively to
-the previous stack frame until either the calling function's address is `0` or
-the `fp` is `0`. It may be helpful to reread the [lab 4 stack
-section](/labs/lab4), which includes a figure of two stack frames.
+calling function and the stack frame number, and then proceed recursively to the
+previous stack frame until either the calling function's address is `0` or the
+`fp` is `0`. It may be helpful to reread the [lab 4 stack section](/labs/lab4),
+which includes a figure of two stack frames.
 
 To retrieve the current value of a register without calling out to assembly
 code, you can insert variations of the following snippet into your C code:
@@ -102,16 +102,16 @@ function's address in the following format:
     #n 0x0000000n
 
 Of course, the `0x00000001` addresses should be the actual function call
-addresses. For example, calling `bt()` from `main()` should yield something
-similar to the backtrace below:
+addresses. The address printed at `#0` should be an address in the function of
+the caller to `bt()`. For example, calling `bt()` from `main()` should yield
+something similar to the backtrace below, where `0x80a8` is an address in
+`main`:
 
-    #0 0x0000804c
-    #1 0x000080a8
+    #0 0x000080a8
 
-The addresses above will likely be different for you since your functions will
-be at different addresses. You should verify, using `nm` and `objdump`, that
-the addresses printed by your backtrace functions are valid function addresses.
-We will be testing this.
+The address above will likely be different for you since your functions will be
+at different addresses. You should verify, using `nm` and `objdump`, that the
+addresses printed by your backtrace function are valid.
 
 # Part 2: `malloc()`
 
@@ -190,8 +190,11 @@ print out a message saying:
 The goal of this extension is to emit a backtrace identical to the one shown in
 the overview:
 
-    #0 0x0000804c at bt+0x0c
-    #1 0x000080a8 at main+0x0c
+    #0 0x0000806c at d+0x10
+    #1 0x00008084 at c+0x10
+    #2 0x000080a0 at b+0x10
+    #3 0x000080bc at a+0x10
+    #4 0x000080e4 at main+0x1c
 
 ### Overview
 
@@ -207,7 +210,7 @@ addition of several new sections to an ELF file. Of note are the `.stab` and
 including mapping addresses to indexes in a string table. The latter is the
 string table.
 
-You can see that these new sections exist in the object file with `objdump`:
+You can see that these new sections exist in the object file with `readelf`:
 
     arm-none-eabi-readelf -S main.elf
 
@@ -265,5 +268,6 @@ add a new function that your `bt()` function calls, to read the `.stab` and
 `.stabstr` data in the binary. Your upgraded `bt()` should print out a backtrace
 that adds the function's name and the offset to each backtrace step:
 
-    #0 0x0000804c at bt+0x0c
-    #1 0x000080a8 at main+0x0c
+    #0 0x0000806c at d+0x10
+    ...
+    #4 0x000080e4 at main+0x1c
