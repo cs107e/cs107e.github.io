@@ -52,7 +52,7 @@ install: $(NAME).bin
 
 .PHONY : all clean
 
-.PRECIOUS: %.exe
+.PRECIOUS: %.exe %.o
 
 # include dependency info 
 #  "-" suppresses errors
