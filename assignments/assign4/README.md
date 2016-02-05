@@ -210,7 +210,7 @@ addition of several new sections to an ELF file. Of note are the `.stab` and
 including mapping addresses to indexes in a string table. The latter is the
 string table.
 
-You can see that these new sections exist in the object file with `objdump`:
+You can see that these new sections exist in the object file with `readelf`:
 
     arm-none-eabi-readelf -S main.elf
 
