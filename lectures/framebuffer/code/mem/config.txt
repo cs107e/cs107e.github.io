@@ -1,0 +1,7 @@
+gpu_mem=128
+
+arm_freq=700
+core_freq=250
+
+kernel=kernel.img
+kernel_address=0x8000
