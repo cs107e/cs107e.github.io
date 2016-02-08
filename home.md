@@ -51,5 +51,4 @@ Please read the assigned readings before attending lecture and lab.
 You should also read the [guides](/guides/) for each week.
 
 Note that the schedule includes a guest lecture, Quinn Dunki,
-tentatively scheduled for Mon Mar 7th,
-and a tour of the Computer History Museum on President's Day Feb 16th.
+tentatively scheduled for Mon Mar 7th.
