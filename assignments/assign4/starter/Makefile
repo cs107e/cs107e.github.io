@@ -27,6 +27,9 @@ CFLAGS = -gstabs -Wall -Og -std=gnu99 -ffreestanding -Iinc/ -mapcs-frame \
 LDFLAGS = -nostdlib -T memmap
 LDLIBS = -Llibs/ -lpi -lgcc
 
+# --gstabs 			assemble with STABS debug information
+ASFLAGS = --gstabs
+
 # Set name of the executable, built from single source file 'name.c'
 # Edit here to change executable name or add/remove/change source files
 NAME = main
