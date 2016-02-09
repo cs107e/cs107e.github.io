@@ -1,0 +1,442 @@
+unroll will run slower b/c of unalignment  change to O2 vs O10
+insert nops to bump stuff around
+
+- show the slow one.
+- ask them optimize.
+
+* pretty early, define the TIME macro.
+
+- optimize
+- get rid of function calls.
+- get rid of volatile
+- get rid of char assigns.
+- make it a long long
+- unroll
+- stm
+
+
+* enable caches.  do this probably earlier.
+initial: 
+	no optimizations.
+
+	running uncached
+	took 441819 ticks
+	took 441946 ticks
+	took 442015 ticks
+	took 441988 ticks
+	took 441984 ticks
+	took 442031 ticks
+	took 441937 ticks
+	took 442053 ticks
+	took 441943 ticks
+	took 442050 ticks
+
+add -O3 optimizations:
+	running uncached
+	took 230992 ticks
+	took 230918 ticks
+	took 230915 ticks
+	took 230927 ticks
+	took 230924 ticks
+	took 230913 ticks
+	took 230937 ticks
+	took 230943 ticks
+	took 230996 ticks
+	took 230996 ticks
+
+good for 2x!  not bad.
+
+try -O10
+	took 230922 ticks
+	took 230915 ticks
+	took 230933 ticks
+	took 230916 ticks
+	took 230935 ticks
+	took 230910 ticks
+no difference.
+-----------------------------------------------------------------------
+now start changing the code
+
+
+	---------------------------------------
+simplest change?
+	record the functions.  they don't change.
+
+
+void write_screen_precomp(unsigned char v) {
+        volatile int i;
+        unsigned n = fb_width() * fb_height();
+
+        for(i = 0; i < n; i++) {
+                fb_t p = &fb[i];
+                p->r = p->g = p->b = v;
+                p->alpha = 0xff;
+        }
+}
+
+        printf("running pre-compute size version\n");
+        for(i = 0; i < 10; i++) {
+                start = gettime();
+                        write_screen_precomp(0xff);
+                total = gettime() - start;
+                printf("took %d ticks\n", total);
+        }
+
+running pre-compute size version
+took 106023 ticks
+took 106025 ticks
+took 105953 ticks
+took 106038 ticks
+took 105927 ticks
+took 106058 ticks
+took 106035 ticks
+took 105980 ticks
+took 106037 ticks
+took 105920 ticks
+
+
+  another 2x!
+
+	---------------------------------------
+next simplest change?   
+	volatile.
+	do we need this?   
+		no: nothing else is changing. 
+
+void write_no_volatile(unsigned char v) {
+        int i;
+
+        for(i = 0; i < h*w; i++) {
+                fb_t p = &fb[i];
+                p->r = p->g = p->b = v;
+                p->alpha = 0xff;
+        }
+}
+
+
+        printf("running no volatile size version\n");
+        for(i = 0; i < 10; i++) {
+                start = gettime();
+                        write_screen_no_volatile(0xff);
+                total = gettime() - start;
+                printf("took %d ticks\n", total);
+        }
+
+
+
+running no volatile size version
+took 40044 ticks
+took 40159 ticks
+took 40061 ticks
+took 40160 ticks
+took 40108 ticks
+took 40113 ticks
+took 40155 ticks
+took 40082 ticks
+took 40160 ticks
+took 40044 ticks
+
+
+another 2x!
+
+
+------------------------------------------------------------------------
+at this point add the macro.
+
+#define TIME(cmd, iter) do {                            \
+        printf("running: " #cmd "\n");                  \
+        int i;                                          \
+        for(i = 0; i < iter; i++) {                     \
+                unsigned start = gettime();             \
+                        cmd;                            \
+                unsigned total = gettime() - start;     \
+                printf("took %d ticks\n", total);       \
+        }                                               \
+} while(0)
+
+	---------------------------------------
+interesting: do in different order
+	
+	keep function calls, but eliminate volatile = modest speedup.
+	
+	"why?"
+
+	ahmdahl's law.  it removed a fixed number of instructions.   
+	when overhead is higher, it's going to matter less.
+
+	you can see this since the volatile -> no function call = 5x.
+
+void write_screen_no_volatile_no_precomp(unsigned char v) {
+        int i;
+
+        for(i = 0; i < fb_width() * fb_height(); i++) {
+                fb_t p = &fb[i];
+                p->r = p->g = p->b = v;
+                p->alpha = 0xff;
+        }
+}
+
+
+        printf("running no v, no pre-compute size version\n");
+        for(i = 0; i < 10; i++) {
+                start = gettime();
+                        write_screen_no_volatile_no_precomp(0xff);
+                total = gettime() - start;
+                printf("took %d ticks\n", total);
+        }
+
+
+running no v, no pre-compute size version
+took 191550 ticks
+took 191433 ticks
+took 191571 ticks
+took 191445 ticks
+took 191543 ticks
+took 191474 ticks
+took 191509 ticks
+took 191527 ticks
+took 191482 ticks
+took 191540 ticks
+
+	---------------------------------------
+ok, at this point we should look at the generated code.
+
+the key loop is:
+
+    84fc:       e08c2101        add     r2, ip, r1, lsl #2
+    8500:       e2833001        add     r3, r3, #1
+    8504:       e1530000        cmp     r3, r0
+    8508:       e5c24002        strb    r4, [r2, #2]
+    850c:       e5c24001        strb    r4, [r2, #1]
+    8510:       e7cc4101        strb    r4, [ip, r1, lsl #2]
+    8514:       e5c25003        strb    r5, [r2, #3]
+    8518:       e1a01003        mov     r1, r3
+    851c:       1afffff6        bne     84fc <write_screen_no_volatile+0x34>
+
+so what should we do?
+	just assign a unsigned.
+
+	[generally don't unroll the loop til you have ti pretty tight]
+
+
+if you want to go down this path, using a stucture doesn't work!
+
+	void write_screen_assign_struct(unsigned char v) {
+        	int i;
+        	unsigned n = fb_width() * fb_height();
+	
+        	struct pixel px;
+        	px.r = px.g = px.b = v;
+        	px.alpha = 0xff;
+	
+        	for(i = 0; i < n; i++) {
+                	fb_t p = &fb[i];
+                	*p = px;
+        	}
+	}
+
+
+removing volatile does
+
+void write_screen_assign_struct(unsigned char v) {
+        int i;
+        unsigned n = fb_width() * fb_height();
+
+        struct pixel px;
+        px.r = px.g = px.b = v;
+        px.alpha = 0xff;
+
+        struct pixel *p = (void*) fb;
+
+        for(i = 0; i < n; i++, p++) {
+                //fb_t p = &fb[i];
+                *p = px;
+        }
+}
+
+    85c8:       e2833001        add     r3, r3, #1
+    85cc:       e1530000        cmp     r3, r0
+    85d0:       e782c101        str     ip, [r2, r1, lsl #2]
+    85d4:       e2822004        add     r2, r2, #4
+    85d8:       e1a01003        mov     r1, r3
+    85dc:       1afffff9        bne     85c8 <write_screen_assign_struct+0x4c>
+
+void write_screen_assign_struct(unsigned char v) {
+        int i;
+        unsigned n = fb_width() * fb_height();
+
+        struct pixel px;
+        px.r = px.g = px.b = v;
+        px.alpha = 0xff;
+        unsigned u = *(unsigned *)&px;
+
+        volatile unsigned *p = (void*) fb;
+        for(i = 0; i < n; i++)
+                p[i] = u;
+}
+
+    85c8:       e2833001        add     r3, r3, #1
+    85cc:       e1530000        cmp     r3, r0
+    85d0:       e78c1102        str     r1, [ip, r2, lsl #2]
+    85d4:       e1a02003        mov     r2, r3
+    85d8:       1afffffa        bne     85c8 <write_screen_assign_struct+0x4c>
+
+
+use unsigned, and pointer arithmatic, eliminates one instruction.
+
+   85c4:       e2833001        add     r3, r3, #1
+    85c8:       e1530000        cmp     r3, r0
+    85cc:       e4821004        str     r1, [r2], #4
+    85d0:       1afffffb        bne     85c4 <write_screen_assign_struct+0x48>
+
+
+void write_screen_assign_struct(unsigned char v) {
+        int i;
+        unsigned n = fb_width() * fb_height();
+
+        struct pixel px;
+        px.r = px.g = px.b = v;
+        px.alpha = 0xff;
+        unsigned u = *(unsigned *)&px;
+
+        volatile unsigned *p = (void*) fb;
+        for(i = 0; i < n; i++, p++)
+                *p = u;
+}
+
+running: write_screen_assign_ll(0xff)
+took 17261 ticks
+took 17260 ticks
+took 17259 ticks
+took 17278 ticks
+took 17277 ticks
+took 17278 ticks
+took 17276 ticks
+took 17277 ticks
+took 17277 ticks
+took 17279 ticks
+
+
+so that's another 2x!
+		---------------------------------
+
+let's just do it again.
+
+void write_screen_assign_ll(unsigned char v) {
+        int i;
+        unsigned n = fb_width() * fb_height();
+
+        struct pixel px;
+        px.r = px.g = px.b = v;
+        px.alpha = 0xff;
+        unsigned long long u = *(unsigned *)&px;
+        unsigned long long uu = u << 32 | u;
+
+        volatile unsigned long long *p = (void*) fb;
+        for(i = 0; i < n/2; i++, p++)
+                *p = uu;
+}
+some percent
+		---------------------------------
+
+let's unroll
+
+
+
+void write_screen_unroll(unsigned char v) {
+        int i;
+        unsigned n = fb_width() * fb_height();
+
+        struct pixel px;
+        px.r = px.g = px.b = v;
+        px.alpha = 0xff;
+        unsigned long long u = *(unsigned *)&px;
+        unsigned long long uu = u << 32 | u;
+
+        volatile unsigned long long *p = (void*) fb;
+
+	n = n/2;
+        assert(n%8 == 0);
+        for(i = 0; i < n; i+=8, p+=8)  {
+                p[0] = uu;
+                p[1] = uu;
+                p[2] = uu;
+                p[3] = uu;
+                p[4] = uu;
+                p[5] = uu;
+                p[6] = uu;
+                p[7] = uu;
+        }
+}
+
+running: write_screen_unroll(0xff)
+took 4513 ticks
+took 4625 ticks
+took 4623 ticks
+took 4534 ticks
+took 4620 ticks
+took 4625 ticks
+took 4561 ticks
+took 4592 ticks
+took 4625 ticks
+took 4588 ticks
+
+-------------------------------------------------------------------
+asm
+
+
+void assign8(void *, unsigned u, unsigned n);
+
+void write_screen_asm(unsigned char v) {
+        struct pixel px;
+        px.r = px.g = px.b = v;
+        px.alpha = 0xff;
+        unsigned u = *(unsigned *)&px;
+
+        unsigned n = fb_width() * fb_height();
+        assert(n%8 == 0);
+        assign8((void*)fb, u, n/8);
+}
+
+
+running: write_screen_asm(0xff)
+took 3926 ticks
+took 3900 ticks
+took 3857 ticks
+took 3928 ticks
+took 3929 ticks
+took 3861 ticks
+took 3896 ticks
+took 3927 ticks
+took 3930 ticks
+took 3822 ticks
+enabling caches
+
+a bit more
+-------------------------------------------------------------------
+cache
+
+running: write_screen_asm(0xff)
+took 1025 ticks
+took 1055 ticks
+took 1061 ticks
+took 1024 ticks
+took 1027 ticks
+took 1004 ticks
+took 1035 ticks
+took 1006 ticks
+took 1022 ticks
+took 1037 ticks
+
+4x
+
+-------------------------------------------------------------------
+2x from -O
+2x from precomp
+2x from no volatile
+2x from loop and aggregate assign
+2x from long long
+4x from unroll
+4x from cache [after asm]
+
+

@@ -1,0 +1,27 @@
+
+Store Multiple registers.
+
+Syntax
+ STM{addr_mode}{cond} Rn{!}, reglist{^}
+
+where:
+addr_mode
+   Default: Increment address After each transfer.
+
+cond
+   is an optional condition code (see Conditional execution).
+
+Rn ---- is the base register, the ARM register holding the initial
+address for the transfer. Rn must not be r15.
+
+!
+ 	is an optional suffix. If ! is present, the final address is written
+	back into Rn.
+
+reglist
+	is a list of one or more registers to be loaded or stored,
+	enclosed in braces. It can contain register ranges. It must be
+	comma separated if it contains more than one register or register
+	range (see Examples).  See Restrictions on reglist in 32‑bit
+	Thumb‑2 instructions.
+
