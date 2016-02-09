@@ -9,6 +9,7 @@ title: Labs
 - [Lab 2: Below C Level](lab2)
 - [Lab 3: Debugging](lab3)
 - [Lab 4: Linking and Loading](lab4)
+- [Lab 5: Framebuffer](lab5)
 
 ### Lab schedule
 
