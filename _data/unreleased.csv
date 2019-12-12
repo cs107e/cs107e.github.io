@@ -1,0 +1,38 @@
+permalink,title,released
+"/assignments/assign1/","Assignment 1: Implement a Larson Scanner",false
+"/assignments/assign4/","Assignment 4: Backtrace and Malloc",false
+"/assignments/assign7/","Assignment 7: System Monitor with Interrupts",false
+"/assignments/assign2/","Assignment 2: Implement a Clock",false
+"/assignments/assign5/","Assignment 5: Keyboard and Simple Shell",false
+"/assignments/assign6/","Assignment 6: Graphics Library and Console",false
+"/assignments/assign0/","Assignment 0: Choose Lab Section, Learn Git",false
+"/assignments/project/","Final Project",false
+"/assignments/assign3/","Assignment 3: Implement a String Formatting Library",false
+"/labs/lab6/","Lab 6: Drawing into the Framebuffer",false
+"/labs/projectlab2/","Project Lab 2: How Are You Doing?",false
+"/labs/lab7/","Lab 7: Raspberry Pi, Interrupted",false
+"/labs/lab3/","Lab 3: Debugging and Testing",false
+"/labs/lab5/","Lab 5: Keyboard Surfin",false
+"/labs/lab4/","Lab 4: Linked and Loaded",false
+"/labs/projectlab1/","Project Lab 1: What is Your Project?",false
+"/labs/lab1/","Lab 1: Setup your Raspberry Pi",false
+"/labs/lab2/","Lab 2: Below C Level",false
+"/lectures/C2/","C Pointers and Arrays",false
+"/lectures/Sensors/","Sensors",false
+"/lectures/C-mastery/","C Mastery",false
+"/lectures/Functions/","C Functions",false
+"/lectures/C1/","From Assembly to C",false
+"/lectures/Arithmetic/","Computer Arithmetic, Signed and Unsigned",false
+"/lectures/Memory/","Memory Management",false
+"/lectures/Intro/","Introduction and Welcome",false
+"/lectures/Linking/","Modules, Libraries, and Linking",false
+"/lectures/Wrap/","Wrap",false
+"/lectures/Interrupts2/","Interrupts, cont'd",false
+"/lectures/Framebuffer/","Graphics and the framebuffer",false
+"/lectures/Performance/","Performance and Computer Architecture",false
+"/lectures/Keyboard/","Keyboards and the PS/2 Protocol",false
+"/lectures/Sound/","Sound",false
+"/lectures/ASM/","ARM assembly and machine code",false
+"/lectures/ARM/","ARM processor and architecture",false
+"/lectures/Serial/","Communication and the Serial Protocol",false
+"/lectures/Interrupts1/","Interrupts",false

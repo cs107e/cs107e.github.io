@@ -1,0 +1,35 @@
+---
+# front matter so Jekyll will transform in CSS 
+# (maybe not needed, unsure?)
+# only Main files need front matter, not partials
+---
+
+$font-family-sans-serif:    Rubik, Arial, Helvetica, sans-serif;
+$font-family-monospace:     Inconsolata, Consolas, Menlo, monospace;
+$font-size-base:            15px;
+
+$dkgreen:#060;
+$nearwhite: #ccc;
+
+$navbar-inverse-bg: $dkgreen;
+$navbar-inverse-link-color: $nearwhite;
+$navbar-inverse-brand-color: $nearwhite;
+
+
+h1.title {
+    color: $dkgreen;
+}
+
+h4 {
+    padding-top: 20px;
+}
+
+.navbar-brand-image {
+    padding: 4px !important;
+}
+
+@import "bootstrap";
+@import url(http://fonts.googleapis.com/css?family=Inconsolata|Rubik);
+img {
+    @include img-responsive();
+}

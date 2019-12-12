@@ -1,0 +1,41 @@
+<!-- This partial used like a function to harvest info for lab/lect/assign, include.plink is permalink ref  -->
+
+<!-- look up by permalink if possible -->
+{% if include.plink != null %}
+{% assign front_matter = site.pages | where:"permalink",include.plink | first %}
+
+<!-- Public site won't have unreleased assign/lab, read title from _data/unreleased.csv -->
+{% if front_matter == null %}
+{% assign unreleased = site.data.unreleased | where:"permalink",include.plink | first %}
+{% if unreleased %}
+{{ unreleased.title }}
+{% else %}
+<I>{{ include.plink }}</I>
+{% endif %}
+
+{% else %}
+
+<B>{{ front_matter.title }}</B>
+
+{% assign resource_path = front_matter.path | split:'/' | pop | join:'/' %}
+{% assign criteria = "file.path contains '" | append: resource_path | append: "'" %}
+{% assign other_files = site.static_files | where_exp:"file",criteria  %}
+
+{% capture output %}
+{% assign found = other_files | where:"name","slides.pdf" | first %}
+{% if found %} <a href="{{found.path}}">slides</a> 
+{% assign code_found = other_files | where_exp:"file","file.path contains '/code/'" | first %}
+{% assign code_path = "https://github.com/cs107e/cs107e.github.io/tree/master/" | append: resource_path | append: "/code/" %}
+{% if code_found %} <a href="{{code_path}}">code</a> {% endif %}
+{% elsif front_matter.permalink contains "labs" or front_matter.permalink contains "assignments" %} <a href="{{front_matter.permalink}}">writeup</a> 
+{% endif %}
+{% endcapture %}
+
+{% assign cleaned = output | newline_to_br | strip_newlines | split: "<br />" | where_exp:"l", "l contains 'href'" | join: ',' %}
+{{ '(' | append: cleaned | append: ')' }}
+
+<div style="font-size: 80%; margin: 1em;"> {{ front_matter.readings || markdownify }} </div>
+{% endif %}
+{% endif %}
+
+

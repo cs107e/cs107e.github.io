@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/_assets/site.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ "/_assets/favicon.png" | absolute_url }}">
+    <title>CS107E {% if page.title %}{{ page.title }}{% endif %}</title>
+  </head>
+
+<body>
+  {% include navbar.html %}
+  <div class="container" style="max-width:55em;">
+    {% if page.title %}<h1 class="title">{{ page.title }}</h1><hr>{% endif %}
+    {% include body.html toc=page.toc %}
+  </div>
+  {% include footer.html %}
+</body>
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+</html>

@@ -1,0 +1,67 @@
+<!-- populated from data in _data/quarter.yml -->
+
+<div class="schedule">
+<table class="table table-condensed">
+  <colgroup>
+    <col width="12%" />
+    <col width="44%" />
+    <col width="44%" />
+  </colgroup>
+  <THEAD><TR>
+    <TH>Date</TH>
+    <TH>Topics/Readings</TH>
+  </TR>
+  </THEAD>
+
+    {% assign first_monday = site.data.quarter.weeks[0].start_date | date: "%s" %}
+    {% assign one_day = 86400 %}
+    {% assign one_week = one_day | times: 7 %}
+    {% assign four_days = one_day | times: 4 %}
+
+    {% assign start_index = 0 %}
+    {% assign num_weeks = site.data.quarter.weeks.size %}    
+    {% if include.current_only %}
+        {% assign num_weeks = 2 %}
+        {% assign where_is_today = site.time | date: "%s" | minus: first_monday | divided_by: one_week %}
+        {% if where_is_today >= 0 and where_is_today < site.data.quarter.weeks.size %}
+            {% assign start_index = where_is_today %}
+        {% endif %}
+    {% endif %}
+
+    {% for week in site.data.quarter.weeks offset:start_index limit:num_weeks %} 
+        {% assign i = forloop.index | plus: start_index %}
+        {% assign i_weeks = i | minus: 1 | times: one_week %}
+        {% assign ith_monday = first_monday | plus: i_weeks %}
+        {% assign ith_friday = ith_monday | plus: four_days %}
+
+    <TR>
+        <TD colspan="3" style="background-color:#cccccc; font-size:75%; font-style:italic; padding: 2px 12px 2px 12px;"
+>Week {{ i }} </TD>
+    </TR>
+
+    {% if week.project_due %} 
+    <TR>
+        <TD></TD>
+        <TD colspan="2"> <B> Final projects due {{ week.project_due | date: "%s" | date: "%a %-m/%-d" }} </B></TD>
+    </TR>
+    {% break %} 
+    {% endif %}
+
+    <TR>
+        <TD style="font-size: 75%; vertical-align: middle;"> Lecture <BR>{{ ith_monday | date: "%a %-m/%-d" }}</TD>
+        <TD colspan="2"> {% include event.html plink=week.mon %} </TD>
+    </TR>
+    <TR>
+        <TD style="font-size: 75%; vertical-align: middle">Lab/assign</TD>
+        <TD class="bg-warning"> {% include event.html plink=week.lab %} </TD>
+        <TD class="bg-danger"> {% include event.html plink=week.assign %} </TD>
+    </TR>
+    <TR>
+        <TD style="font-size: 75%; vertical-align: middle"> Lecture <BR>{{ ith_friday | date: "%a %-m/%-d" }} </TD>
+        <TD colspan="2"> {% include event.html plink=week.fri %} </TD>
+    </TR>
+
+  {% endfor %}
+</table>
+</div>
+

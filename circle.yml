@@ -1,0 +1,23 @@
+dependencies:
+  override:
+    - if [ ! -d ~/gcc-arm-none-eabi-4_8-2014q3 ]; then (curl -L -s -o - https://launchpad.net/gcc-arm-embedded/4.8/4.8-2014-q3-update/+download/gcc-arm-none-eabi-4_8-2014q3-20140805-linux.tar.bz2 | tar xjf - -C ~); fi
+  cache_directories:
+    - "~/gcc-arm-none-eabi-4_8-2014q3"
+
+test:
+  override:
+    - make:
+        environment: { PATH: "${PATH}:/home/ubuntu/gcc-arm-none-eabi-4_8-2014q3/bin" }
+        pwd: private/libraries/libpi
+    - make clean:
+        environment: { PATH: "${PATH}:/home/ubuntu/gcc-arm-none-eabi-4_8-2014q3/bin" }
+        pwd: private/libraries/libpi
+    - git checkout -- .
+
+deployment:
+  public:
+    branch: master
+    commands:
+      - git config --global user.email "cs107e.bot@gmail.com"
+      - git config --global user.name "CS107E Bot"
+      - ./private/scripts/deploy_public.sh deploy

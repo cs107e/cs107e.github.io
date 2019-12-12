@@ -1,0 +1,11 @@
+<!-- This partial will open warning/danger callout box  -->
+
+{% if include.type == "danger" %}
+<div style="background-color:#ffcccc; color:#993333; border-left: 5px solid #993333;margin: 5px 25px; padding: 5px;" markdown="1">
+{% elsif include.type == "warning" %}
+<div style="background-color:#ffffcc; color:#996633; border-left: 5px solid #996633;margin: 5px 25px; padding: 5px;" markdown="1">
+{% elsif include.type == "success" %}
+<div style="background-color:#ccffcc; color:#336633; border-left: 5px solid #336633;margin: 5px 25px; padding: 5px;" markdown="1">
+{% endif %}
+
+

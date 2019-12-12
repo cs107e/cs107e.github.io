@@ -1,0 +1,30 @@
+language: c
+
+git:
+  depth: false
+
+cache:
+    directories:
+        - ~/gcc-arm-none-eabi-7-2017-q4-major/
+        - ~/cs107e.github.io/
+
+install:
+    - if [ ! "$(ls -A ~/gcc-arm-none-eabi-7-2017-q4-major)" ]; then (curl -L -s -o - https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2017q4/gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2 | tar xjf - -C ~); fi
+    - if [ ! "$(ls -A ~/cs107e.github.io)" ]; then (cd ~ && git clone https://github.com/cs107e/cs107e.github.io); fi
+    - (cd ~/cs107e.github.io && git pull)
+    - git clone https://$CLONE_TESTS_GITHUB_USERNAME:$CLONE_TESTS_GITHUB_PASSWORD@github.com/cs107e/tests.git ~/tests
+    - ~/tests/setup_travis.sh
+    - export CS107E=~/cs107e.github.io/cs107e
+
+before_script:
+    - export PATH=$PATH:~/gcc-arm-none-eabi-7-2017-q4-major/bin/
+
+script:
+    - python ~/tests/run.py
+
+after_script:
+    - ~/tests/post-run.sh
+
+branches:
+    except:
+        - master

@@ -1,0 +1,77 @@
+# This is the data file to edit when setting up a new quarter
+# The home page and schedule will be generated using these settings
+---
+name: Winter 2019
+instructors: 
+    - name: Pat Hanrahan
+      img: /_assets/pat.png
+    - name: Julie Zelenski
+      img: /_assets/julie.jpg
+cas:
+    - name: Jennifer Lin
+      img: /_assets/jenn.png
+    - name: Eric Yang
+      img: /_assets/eric.png
+sls: 
+    - name: Ashwin Agarwal
+      img: /_assets/ashwin.png
+    - name: Natasha Goenawan
+      img: /_assets/natasha.png
+lectures: Mon and Fri 11:30am-12:50pm in McMurtry Art Building, Room 350
+labs: Tue or Wed 6:30-8:30pm in Gates B21
+forum: 'https://piazza.com/stanford/winter2019/cs107e'
+weeks:
+    # start is date of first lecture (a Monday)
+    # due date-time is for assign1 (will assume weekly repeat thereafter)
+  - start_date: "2019-01-07"
+    assign1_duedate: "2019-01-22 6:00 PM"
+    mon: /lectures/Intro/
+    lab: No lab in first week
+    assign: /assignments/assign0/
+    fri: /lectures/ARM/
+  - 
+    mon: /lectures/ASM/
+    lab: /labs/lab1/
+    assign: /assignments/assign1/
+    fri: /lectures/C1/
+  -
+    mon: /lectures/C2/
+    lab: /labs/lab2/
+    assign: /assignments/assign2/
+    fri: /lectures/Functions/ 
+  -
+    mon: /lectures/Serial/ 
+    lab: /labs/lab3/
+    assign: /assignments/assign3/
+    fri: /lectures/Linking/
+  -
+    mon: /lectures/Memory/ 
+    lab: /labs/lab4/
+    assign: /assignments/assign4/
+    fri: /lectures/C-mastery/
+  -
+    mon: /lectures/Keyboard/
+    lab: /labs/lab5/
+    assign: /assignments/assign5/
+    fri: /lectures/Framebuffer/
+  -
+    mon: President's Day Holiday
+    lab: /labs/lab6/
+    assign: /assignments/assign6/
+    fri: /lectures/Interrupts1/
+  -
+    mon: /lectures/Interrupts2/ 
+    lab: /labs/lab7/
+    assign: /assignments/assign7/
+    fri: /lectures/Sensors/
+  -
+    mon: /lectures/Arithmetic/
+    lab: /labs/projectlab1/
+    assign: /assignments/project/
+    fri: /lectures/Performance/
+  -
+    mon: /lectures/Wrap/ 
+    lab: /labs/projectlab2/
+    fri: No lecture (payback for attending on MLK, thank you!)
+  -
+    project_due: "2019-03-22"

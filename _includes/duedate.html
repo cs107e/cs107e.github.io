@@ -1,0 +1,13 @@
+<!-- If duedate set in front_matter, use that, otherwise calculate based on n*weeks + assign1 due -->
+
+{% assign duedate = page.duedate %}
+
+{% if duedate == null %}
+{% assign first = site.data.quarter.weeks[0].assign1_duedate | date: "%s" %}
+{% assign one_day = 86400 %}
+{% assign one_week = one_day | times: 7 %}
+{% assign delta = include.n | minus: 1 | times: one_week %}
+{% assign duedate = first | plus: delta %}
+{% endif %}
+
+<b>Due: {{ duedate | date: "%A, %B %d at %l:%M %P" }}</b>
