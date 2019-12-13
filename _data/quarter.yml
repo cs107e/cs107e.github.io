@@ -23,8 +23,8 @@ forum: 'https://piazza.com/stanford/winter2020/cs107e'
 weeks:
     # start is date of first lecture (a Monday)
     # due date-time is for assign1 (will assume weekly repeat thereafter)
-  - start_date: "2019-01-06"
-    assign1_duedate: "2019-01-21 6:00 PM"
+  - start_date: "2020-01-06"
+    assign1_duedate: "2020-01-21 6:00 PM"
     mon: /lectures/Intro/
     lab: No lab in first week
     assign: /assignments/assign0/
@@ -74,4 +74,4 @@ weeks:
     lab: /labs/projectlab2/
     fri: No lecture (payback for attending on MLK, thank you!)
   -
-    project_due: "2019-03-20"
+    project_due: "2020-03-20"
