@@ -1,5 +1,5 @@
 ---
-title: UART->WiFi bridge for two Raspberry Pis
+title: 'UART to WiFi bridge for two Raspberry Pis'
 ---
 
 *Written by Chris Gregg*

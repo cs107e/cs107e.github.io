@@ -22,18 +22,16 @@ Here are descriptions of some projects from other past years:
   - Chess board that can record & visualize moves on a screen (using Hall-effect sensors)
 * Threading system
   - Build threading system so Pi can simulate running code in parallel
-* Pi-ke
-  - Bike system with indicator lights, user display
 * Keyboard Orchestra
   - Record/play music using keyboard
 * Sunlight lamp
   - Lamp that mirrors natural sunlight intensity throughout day
-* Raspberry Pi Bongos
+* Drum hero
   - Electronic drumset with piezoelectric vibration sensors
 * SPI Network with Slave-Slave communication
   - Communication between Pis (display received data, store to memory, run received code)
-* The Fruit Ninjas
-  - Fruit-ninja inspired game controlled by user hand gestures (sonar sensors)
+* Fruit Ninja
+  - arcade game controlled by user hand gestures (sonar sensors)
 * Theremins visualized
   - Translate time-of-flight distance to pitch and output sound and visualization
 * Synthetic Music
@@ -46,28 +44,27 @@ Here are descriptions of some projects from other past years:
     controls menu UI and paint program
 * ArduCAM
   - A library to access ArduCAM with the Raspberry Pi, along with a
-    shell to enter commands (filters, camera settings) and display
-    output
+    interactive control shell
 * Robo-Turtle
-  - A robotic turtle with servo motors and ultrasonic sensor (for
-    self-driving), controllable with an NES controller
-* Game Boy emulator
+  - A robotic turtle with servo motors and ultrasonic sensor, controllable with an NES controller
 * Raspberry Pi GPU
   - An assembler which targets the Pi GPU, some sample assembly
     programs, and a guide to using the GPU from bare metal
 * Intruder detection system
   - Uses a network of passive infrared sensors around the room to detect motion
 * DMX lighting console and receiver
-  - User interface to see lighting data, plus commands like setting
-    light color, setting intensity, patching the light, changing the
-    fixture type
+  - User interface to set/read lighting controls
 * 2-player basketball arcade game
-  - Uses Apple remote to choose time to play, then uses IR sensor to
-    check when ball goes into basket. Sounds buzzer when a player
-    scores.
+  - IR sensor checks when ball goes into basket.
 * Sensor visualizer
   - Car dashboard-like visualization of MCP3008 ADC, including a GL
     library
+* Clappy bird
+  - Arcade game controlled by sounds
+* Finger-spelling recognition
+  - Pi can recognize letters spelled while wearing sensor-equipped glove.
+* Walking weatherman
+  - Wearable shirt with environment sensors and informational display via leds.
 * CNC drawing machine
   - A user's picture painted on Pi is drawn on a Post-It using a pen controlled by stepper motors.
 * Vintage boombox
@@ -80,7 +77,17 @@ Here are descriptions of some projects from other past years:
   - Wirelessly controlled via a glove outfitted with sensors
 * Text-a-sketch
   - Pi receives texted photo and drives stepper motors to control an Etch-a-Sketch to draw the photo
+* PiCycle
+  - Automatic brake and turn signals for your bike
+* EANAB maker
+  - Swipe your Stanford ID and receive your preferred beverage mixed to order
+* DrawBot
+  - Pen plotter that draws gcode files
+* Gun of the sentry
+  - Nerf gun that tracks and shoots at moving target
+* Pi Rat
+  - Sensing and mobile robot that can autonomously solve a maze.
   
-Talk to the course staff if you want more information or you think you
+Talk to the course staff if you would like more information or you think you
 could use code from one of these projects.
 

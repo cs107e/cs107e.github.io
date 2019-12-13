@@ -79,7 +79,7 @@ that provides internal subroutines to overcome shortcomings of particular machin
 calls to that function where needed. A program that attempts to use division and is linked `-nodefaultlibs` will fail to link. The linker error will be something
 akin to
 
-	undefined reference to `__aeabi_idivmod'
+	undefined reference to __aeabi_idivmod
 
 You can resolve this reference by linking with `libgcc.a` (`-lgcc`).
 

@@ -47,7 +47,7 @@ using a keyboard and display. Finally, students do a project of their choosing
 where they build a complete hardware-software system.
 
 This class is organized by weeks. Each week consists of lectures
-on Fri and Mon, a lab offered on Tue or Wed evening, and a programming
+on Fri and Mon, a lab session on Tue or Wed evening, and a programming
 assignment which is due the following week. Lecture and lab attendance is mandatory. The final project is completed over the last two weeks of the quarter. There are no exams.
 
 For information about the differences between CS107 and CS107e,
@@ -57,7 +57,7 @@ check out this [FAQ](https://web.stanford.edu/class/cs107e/).
 CS107e is an experiment in creating a new approach to introducing students to computer systems. It is the brainchild of __Pat Hanrahan__; the course owes its very existence to Pat's inspiration and travail, along with the heroic contributions of the multi-talented __Isabel Bush__, the Lead TA in the first offerings of the course. __Phil Levis__, __Dawson Engler__, __Julie Zelenski__, and __Chris Gregg__ have contributed to the cause as instructors and we've have enjoyed superb student collaborators: __Anna__, __Ashwin__, __Eric__, __Jane__, __Jennifer__, __Lenny__, __Matt__, __Michelle__, __Mihir__, __Natasha__, __Ngoc__, __Omar__, __Peter__, __Sean__, __Sergio__, __Shannon__ and __Will__. The tireless efforts of the TAs to support student learning have earned boundless praise from our students.
 A huge shout-out to __David Welch__, the person most
 responsible for figuring out how to write bare metal programs on the Raspberry
-Pi. If it wasn't for [his great work](https://github.com/dwelch67/raspberrypi), we would not be offering this course!
+Pi. If it wasn't for David [sharing his great work](https://github.com/dwelch67/raspberrypi), we would not be offering this course!
 
 As of Winter 2020, the course materials have evolved to a fairly solid and stable state. We would be delighted for others to adopt from our work. Contact us at `cs107e@cs.stanford.edu` for more information and access to our private-facing material.
 
