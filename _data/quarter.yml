@@ -16,7 +16,7 @@ sls:
     - name: Mihir Garimella
       img: /_assets/mihir.png
     - name: Shannon Yan
-      img: /_assets/shannon.png
+      img: /_assets/shannon.jpg
 lectures: Mon and Fri 11:30am-12:50pm in Lathrop 299
 labs: Tue or Wed 7-9pm in Gates B21
 forum: 'https://piazza.com/stanford/winter2020/cs107e'
