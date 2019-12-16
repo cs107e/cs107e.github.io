@@ -12,6 +12,7 @@ CS107E is __Computer Systems from the Ground Up__. Read more about the course [h
 <div class="col-xs-5" markdown="1">
 
 #### Quick links
+- Please read the [FAQ](http://cs107e.stanford.edu) for answers to common questions about the course. We expect to have more interested students than capacity. To be considered, you must attend the first lecture and submit the interest questionnaire.
 - Our class discussion form is hosted on [Piazza]({{ site.data.quarter.forum }}). We will post all announcements on Piazza and you can ask and answer questions there.   
 
 </div>
