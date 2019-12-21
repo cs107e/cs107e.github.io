@@ -8,9 +8,7 @@ Here are links to various external resources with information about the Raspberr
 
 ### Raspberry Pi
 
-We are using the Raspberry Pi A+ in class. The A+ is similar to the B+.
-
-* [Raspberry Pi Board Schematics](https://github.com/raspberrypi/documentation/blob/master/hardware/raspberrypi/schematics/README.md)
+* [Raspberry Pi Board Schematics](https://github.com/raspberrypi/documentation/blob/master/hardware/raspberrypi/schematics/README.md). In this course, we use the Raspberry Pi A+.
 
 ### ARM architecture
 
@@ -18,7 +16,7 @@ The Raspberry Pi A+ uses a Broadcom BCM2835 chip.
 Inside the chip is an ARM1176JFZ-S processor 
 which is based on the ARMv6 architecture.
 
-* The peripherals are documented in [Broadcom BCM2835 ARM Peripherals](../readings/BCM2835-ARM-Peripherals.pdf).
+* The peripherals are documented in [Broadcom BCM2835 ARM Peripherals](/readings/BCM2835-ARM-Peripherals.pdf).
 
   * __Important:__ [Errata](http://elinux.org/BCM2835_datasheet_errata) for the above datasheet. Some of the issues are simple typos but there are places where the text is wrong or backwards, so keep the errata at hand to reconcile those.
 
@@ -28,9 +26,7 @@ which is based on the ARMv6 architecture.
 [Technical Reference Manual](http://infocenter.arm.com/help/topic/com.arm.doc.ddi0301h/DDI0301H_arm1176jzfs_r0p7_trm.pdf).  
 
 * ARM1176JFZ-S processors use the ARMv6 architecture,
-which is documented in [ARMv6 Architecture Manual](../readings/armv6.pdf).
-The following [excerpt](../readings/armisa.pdf)
-describes just the instructions.
+which is documented in the [ARMv6 Architecture Manual](/readings/armv6.pdf). At 1000 pages, the full manual is quite a tome; this [excerpt](/readings/armisa.pdf) from the manual documents just the instruction set.
 
 
 * ARM System-on-Chip Architecture (2nd Edition), Steve Furber. <https://www.amazon.com/dp/0201675196/>
@@ -46,21 +42,21 @@ in Chapter 4: ARM Organization and Implementation.
 
 * Carl Burch's
   [Introduction to ARM Assembly Language](http://www.toves.org/books/arm/)
-  is highly recommended starting point.
+  is a highly recommended starting point.
 
   *Note: Burch's document uses the
   [older ARM syntax](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0773a/chr1383143764305.html)
   instead of the GNU syntax we use.*
 
-* [Worldwind Tour of ARM Assembly](http://www.coranac.com/tonc/text/asm.htm) from the TONC Guide to programming the Nintendo Game Boy Advance (which uses am ARM processor).
+* A [Whirlwind Tour of ARM Assembly](http://www.coranac.com/tonc/text/asm.htm) from the TONC Guide to programming the Nintendo Game Boy Advance (which uses am ARM processor).
 
-* [Davespace Introduction to ARM Course](http://www.davespace.co.uk/arm/introduction-to-arm/index.html).
+* Davespace's [Introduction to ARM Course](http://www.davespace.co.uk/arm/introduction-to-arm/index.html).
 
-* [Thinkingeek ARM Assembler for the Raspberry Pi](http://thinkingeek.com/2013/01/09/arm-assembler-raspberry-pi-chapter-1/).
+* Think in Geek article series [ARM Assembler for the Raspberry Pi](http://thinkingeek.com/2013/01/09/arm-assembler-raspberry-pi-chapter-1/).
 
 ### Bare Metal Programming
 
-* David Welch's excellent set of [bare metal programming examples](https://github.com/dwelch67/raspberrypi).
+* David Welch's extensive github repository of [bare metal programming examples](https://github.com/dwelch67/raspberrypi).
 
 * Steve Halliday's [videos](http://computersciencevideos.org/Raspberry-Pi/Raspberry-Pi-Setup) about programming the raspberry pi.
 
