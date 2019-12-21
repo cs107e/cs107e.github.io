@@ -21,7 +21,7 @@ The kit comes in a plastic sandwich box, and contains the following parts:
 
 You will also use male-male jumpers in various lengths. These jumpers aren't included in the kit; you can pick up some in lab whenever the need comes up.
 
-<img src="../images/kit.jpg" width="800">
+![kit inventory](../images/bom.jpg)
 
 
 

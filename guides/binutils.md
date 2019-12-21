@@ -3,15 +3,15 @@ title: Binary Utilities (binutils)
 toc: true
 ---
 
-This document describes the binary utilities (binutils), the set of tools used for compiling,
+This document describes binutils (binary utilities). These are utility programs used for compiling,
 inspecting, and transforming binaries (machine code files). Some of them you've probably
 heard of or used before. Other, more specialized ones, might be new to you. Learning these
 tools and what they can do will greatly improve your productivity as a programmer. They'll
 let you quickly and easily figure out what is wrong and why with a large number of otherwise
 very difficult problems.
 
-This guide refers to each tool with its short name (e.g., ld, as). Typically, on a UNIX/Linux/Darwin
-machine, these names refer to the native tools, tools for that computer. For example, gcc on
+This guide refers to each tool with its short name (e.g., `ld`, `as`). Typically, on a UNIX/Linux/Darwin
+machine, these names refer to the native tools, tools for that computer. For example, `gcc` on
 a myth machine is a version of the Gnu C Compiler for Linux on an x86 processor. Since we're
 using a laptop to cross-compile for the Raspberry Pi, you want to use the binary utilities
 that are designed to run on your machine but compile for the Raspberry Pi. These tools are
@@ -38,6 +38,19 @@ that say where the code for each library function starts. That way, when you com
 that invokes the library function, binutils can find where it is and link the two files together
 correctly (see `ld` below).
 
+
+
+The most common use of `as` is as follows:
+
+    $ as code.s -o code.o
+
+This command instructs the assembler to read assembly code from the input file `code.s` and to write the machine code to the output file `code.o`. If you do not include `-o code.o` then it will default to a output file named to
+`a.out`. If you do not include `code.s` it will default to taking its input from standard
+input. These two invocations are therefore equivalent:
+
+    $ cat code.s | as
+    $ as code.s -o a.out
+
 Just as the input to `as` might not be a executable program, the output of `as` might
 not be executable. For example, a library is a set of functions that other programs can
 call, but does not have any entry point (`main()` function). It can also be that the
@@ -45,18 +58,6 @@ compiled assembly code references functions that are in another binary file. For
 your program that calls a library, when compiled into machine code, does not have the
 actual instructions of those library calls. The tool that takes multiple binary files
 and links them together is `ld`, described below.
-
-The most common use of `as` is as follows:
-
-    $ as code.s -o code.o
-
-This tells the assembler that `code.s` is its input of assembly code, and to output object
-code to `code.o`. If you do not include `-o code.o` then it will default to outputting to
-`a.out`. If you do not include `code.s` it will default to taking its input from standard
-input. These two invocations are therefore equivalent:
-
-    $ cat code.s | as
-    $ as code.s -o a.out
 
 ### `ld`
 

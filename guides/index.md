@@ -2,15 +2,15 @@
 title: Course Guides
 ---
 
-We prepared these guides on various topics relevant to CS107E students. Hope you find them useful!
+We prepared these guides on various topics relevant to CS107E students. Hope you find them useful.
 
-## Review
+### Review
 
 - [Basic electricity](electricity)
 - [Binary and hexadecimal number representations](numbers)
 - [Unix command line](unix)
 
-## Setup
+### Setup
 
 - [Powering the Pi](power)
 - [Working with SD cards](sd)
@@ -18,8 +18,9 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 - [Installing a Ubuntu virtual machine on Windows](vmware)
 - [Using the bootloader](bootloader)
 - [Reset the Pi without unplugging](reset-button)
+- [Kit inventory](bom)
 
-## Tools
+### Tools
 
 - [Hand tools](handtools)
 - [binutils](binutils)
@@ -28,7 +29,5 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 - [Using `gdb` in simulation mode](gdb)
 - [TravisCI (continuous integration)](ci)
 
-## Libraries
-- [UART-WiFi-Bridge to wirelessly connect two Raspberry Pis (requires two ESP32 Arduino devices)](UART-WiFi-Bridge)
-- [WiFi web page](WebPage)
-- [SD Card Library for reading and writing files](sd_library)
+### Extras
+- [Using Arduino ESP32 for Pi wireless connectivity](esp32/)

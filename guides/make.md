@@ -51,7 +51,7 @@ This Makefile may look a bit cryptic at first! Let's try breaking it down step b
 
 ### Rules and recipes
 
-In lecture, Pat whipped up a little [doit script](https://github.com/cs107e/cs107e.github.io/blob/master/lectures/ASM/code/blink/doit) to automate retyping the commands to rebuild a program. The `make` tool is just a fancier version of `doit`. A `Makefile` is a text file that describes the steps needed to build a program.
+In lecture, Pat whipped up a simple [doit script](/lectures/ASM/code/blink/doit) to automate retyping the commands to rebuild a program. The `make` tool is just a fancier version of doit. A `Makefile` is a text file that describes the steps needed to build a program.
 Here is an example of a very simple hard-coded Makefile containing three targets `all`, `button.bin` and `clean`:
     
     all: button.bin

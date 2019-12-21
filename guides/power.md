@@ -12,7 +12,7 @@ and not the older A and B models**
 The way we will power the Pi in this course 
 is to use the usb-serial breakout board.
 The header on the breakout board has pins labeled 5V and GND.
-On some breakout boards, The 5V pin may be labeled VCC;
+On some breakout boards, the 5V pin may be labeled VCC;
 if you are uncertain, check the voltage using a multimeter.
 Some breakout boards will also have a pin labeled 3.3V.
 The Pi will not run properly if you power it from 3.3V.

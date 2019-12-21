@@ -6,7 +6,7 @@ title: Using the SD Card library to read and write files
 
 This tutorial describes how to read and write files from the internal SD card on the Raspberry Pi.
 
-1. Download the [example](sd_example.zip) program, and unzip.
+1. Download the [example](/guides/esp32/sd_example.zip) program, and unzip.
 2. Perform a `make install` in the directory. You should see the following output:
 
 

@@ -71,7 +71,7 @@ Use female-female jumpers to connect the TX and RX pins on your Pi to the TX and
 board. The proper connections are shown below. Note that your USB breakout board
 may have pins in different positions. Don't just follow the picture blindly!
 
-![Console cable](../images/console.cable.zoom.jpg)
+![Console cable](../images/bootloader.cable.jpg)
 
 In this configuration, the green wire connects
 the RX header pin on the USB serial breakout board

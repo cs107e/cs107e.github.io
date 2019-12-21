@@ -12,9 +12,9 @@ Use the following steps to setup the Arduino development environment:
 
     <a href="https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z/ref=sr_1_2_sspa">ESP32 on Amazon.com</a>
 
-2. Download the `Wifi-UART.zip` file from the course website, and unzip:
+2. Download the `esp32.zip` file from the course website, and unzip:
 
-   <a href="http://cs107e.github.io/guides/UART-WiFi.zip">UART-WiFi.zip</a>
+    <a href="/guides/esp32/esp32.zip">esp32.zip</a>
 
 3. Download and install the Arduino IDE for your computer:
 

@@ -1,32 +1,29 @@
 ---
 title: Working with SD cards
+toc: true
 ---
 
 *Written by Pat Hanrahan*
 
-### Using the SD card
+Your Raspberry Pi kit contains a microSDHC card. A secure digital (SD) card
+stores data in non-volatile memory. The HC in SDHC stands for high
+capacity. A microSDHC card is shown below on the right. The adapter "jacket" on the left allows the small card to be used in a full-size SD card reader.
 
-Your Raspberry Pi kit contains a Kingston microSDHC card. A secure digital (SD) card
-contains non-volatile memory for storage. The HC in SDHC stands for high
-capacity.
+![Kingston SDHC Card](../images/sd.kingston.jpg)
 
-![Kingston SDHC Card](../images/kingston.sdhc.jpg)
+When a Raspberry Pi boots, it accesses the card to read the file named `kernel.img` and executes that program.
 
-The Raspberry Pi runs the software on the microSDHC card installed in the card
-holder on the bottom of the printed circuit board.
+1. Prepare the card with the proper files by mounting it on your laptop and copying the necessary files onto it. 
+2. Eject the card from your laptop and insert it into Raspberry Pi.  
+3. When the Pi boots, it runs the program on the card.
+4. To change the program, repeat the process and copy the updated file. A much less tedious long-term solution is running a [bootloader](/guides/bootloader).
 
-![SDHC Card](../images/pi.sd.jpg)
+#### Mount SD card on laptop
+To copy a program to the SD card, you need to mount it on your laptop. If your laptop does not have a built-in SD card reader, you will need an external reader (we have a few to loan in lab).  To mount the card, first insert the microSDHC card into its adapter, and then insert the adapter into the SD card slot.
 
-### Mounting the SDHC Card in your laptop
+![SDHC holder](../images/sd.mac.jpg)
 
-Most laptops contain a SD slot. To copy software to the card, you need to mount it on your laptop. To do this, insert the microSDHC card into the SD card holder, and then insert the holder into your laptop’s SD card slot.
-
-![SDHC holder](../images/mac.sd.jpg)
-
-When you insert the SD card it should mount automatically. You should see it
-show up in your finder along with other mounted file systems.
-
-![SD Finder](../images/mac.finder.jpg)
+The SD card mounts automatically and will show up in your finder along with other mounted file systems.
 
 Verify that the card is mounted.
 
@@ -36,35 +33,37 @@ Verify that the card is mounted.
 By default, the volume is named `NO NAME`.
 
 
-### Download and install firmware
+#### Copy files onto card
 
-Now, download the Raspberry Pi firmware files from our [courseware
-repository](https://github.com/cs107e/cs107e.github.io/tree/master/firmware).
-
-There should be 4 files.
+The necessary files are stored in the firmware directory of our [courseware
+repository](https://github.com/cs107e/cs107e.github.io/tree/master/firmware). There are 4 files.
 
     $ ls firmware
     blink-actled.bin   bootcode.bin     bootloader.bin  start.elf     
 
-`bootcode.bin` is the bootloader for the GPU and `start.elf` is the GPU start up code. Normally, `kernel.img` is
-the linux kernel. In this course, we will replace the linux kernel with our
-own program to run.
+`bootcode.bin` and `start.elf` are the start files necessary for the GPU. The Pi boot sequence next looks for a file called `kernel.img`, the program to run. Normally `kernel.img` is the linux kernel. In this course, we will replace the linux kernel with our
+own program.
 
-We have included two programs, `blink-actled.bin` and
-`bootloader.bin`.  Initially, you should copy `blink-actled.bin`
-to `kernel.img`. Thus, when the Pi boots, this program will
-blink the on-board activity (ACT) LED. This is a
-good way to test whether your Pi is working. If instead, you replace
-`kernel.img` with `bootloader.bin`, the Pi will boot and run a boot
-loader that can be used to upload programs to the Pi. You should
-replace `kernel.img` with `bootloader.bin` after you've tested that
-your Pi works correctly with `blink-actled.bin`.
+Our firmware folder has two programs, `blink-actled.bin` and
+`bootloader.bin`.  As a first step, copy `blink-actled.bin`
+to `kernel.img`. This program
+blinks the on-board activity (ACT) LED. This is a
+good way to test whether your Pi is working.
 
-Copy these files onto your SD Card.
+Later, after you've verified the blink program, you can
+replace `kernel.img` with `bootloader.bin` so that Pi will boot and run a boot
+loader that can receive uploaded programs. 
 
-### Eject your SD card
+Copy the firmware files onto your SD card and eject it. On a Mac, click on the Eject icon next to the volume name in the Finder.
 
-On the Mac, go to the finder and click on the Eject icon next to the file name.
+#### Insert card into Raspberry Pi
+Remove the microSDHC card from its adapter and insert it into the card holder slot on the underside of the Raspberry Pi circuit board. There is a small spring that holds the card in place. As you push it in, you will feel the mechanism grab onto the card.
+
+![SDHC Card](../images/sd.pi.jpg)
+
+{% include callout.html type="danger" %}
+**Take care!** To eject the microSDHC from the Pi's card slot, gently push the card in and allow it to spring back out. If you try to pull out the card by force, you can break the mechanism and potentially destroy your Pi.
+</div>
 
 ### Troubleshooting
 
