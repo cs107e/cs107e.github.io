@@ -4,7 +4,7 @@ title: Hand tools
 
 _Written by Pat Hanrahan_
 
-We have stocked our lab with great tools and all students are welcome to use our tools, but for those of you interested in acquiring tools of your own, please read on! 
+In the course, you will do some breadboarding work using hand tools such as cutters, pliers, and the like. We have stocked our lab with great tools and all students are welcome to use our tools, so you will not need to purchase any.  However if you are interested in acquiring your own tools, please read on!
 
 We like people to use their own tools; it is very empowering. It also means you will be able to work outside of lab. Investing in a few well-chosen hand tools will not only be useful in this
 class, but useful for years to come. I still use hand tools I bought
@@ -15,15 +15,15 @@ tools. I was looking for high quality tools at reasonable prices.
 I've enclosed the list of tools I ended up buying for the lab. Of
 course, these are just my opinions, and different people like
 different tools. 
-<img src="../images/tools.jpg" width="400">
+<img src="../images/handtools.jpg" width="400">
 - Hakko wire stripper/cutter for 30-20 gauge wire, $12 <https://www.amazon.com/gp/product/B00FZPHMUG/>
-- Hanloop wire strippers, $14 <https://www.amazon.com/dp/B00B88EK3Q/>
-- Hakko CHP PN-2007 Long-Nose Pliers, $12 <https://www.amazon.com/dp/B00FZPHEW2/>
-- TEKTON Mini Needle Nose Pliers, Smooth Jaw, $14 <https://www.amazon.com/dp/B07CNSHZ1H/>
-- Darice 5" needle noise pliers, $9 <https://www.amazon.com/dp/B0733P4KZ5>
-- Weller Xcelite 4" sub-miniature needle nose pliers, $17 <https://www.amazon.com/dp/B074NKY1BH/>
+- Hanloop wire stripper/cutter, $14 <https://www.amazon.com/dp/B00B88EK3Q/>
+- Weller Xcelite 4" sub-miniature needle-nose pliers, $17 <https://www.amazon.com/dp/B074NKY1BH/>
+- Hakko CHP PN-2007 long-nose pliers, $12 <https://www.amazon.com/dp/B00FZPHEW2/>
+- TEKTON mini needle-nose pliers $14 <https://www.amazon.com/dp/B07CNSHZ1H/>
+- Darice 5" needle-nose pliers, $9 <https://www.amazon.com/dp/B0733P4KZ5>
 - Hakko diagonal wire cutter, $8 <http://www.amazon.com/gp/product/B00FZPDG1K/>
-- Extech EX330 mini multimeter, $50 <http://www.amazon.com/gp/product/B000EX0AE4/>
+- Extech EX330 mini-multimeter, $50 <http://www.amazon.com/gp/product/B000EX0AE4/>
 
 I include amazon links in case you have an Amazon Prime account which includes free shipping. This means you can get them fast at a good price. 
 

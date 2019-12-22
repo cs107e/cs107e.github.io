@@ -282,7 +282,7 @@ option, that can split your window into various panes:
 
 The gdb command `layout asm` followed by `layout reg` will display the following split window. 
 
-<img title="Tui split-screen" src="../images/tui.png">
+<img title="Tui split-screen" src="../images/gdb.tui.png">
 
 The upper pane displays current values for all registers, the middle pane is the assembly instructions, the bottom pane is a normal gdb command window. As you single-step with `si`, the register values will update automatically (those values that changed are highlighted) and middle pane will follow instruction control flow. This is a convenient view of what is happening at the machine level -- try it out!
 

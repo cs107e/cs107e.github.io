@@ -1,5 +1,5 @@
 ---
-title: Running Linux within VMware
+title: Installing Linux VM on Windows
 ---
 
 *Prepared by Philip Levis*
@@ -13,18 +13,14 @@ environment for CS107E is to run Linux within a virtual machine. You'll
 use Windows normally, but will have a window in which a full Linux system
 is running.
 
-If you have a Mac laptop, you can install the tools directly in MacOS using
-[this guide](http://cs107e.github.io/guides/mac_toolchain/) and **do not need
-to use a virtual machine**.
-
 We've prepared a VM with Linux and all of the needed tools installed on it.
 To get it running, you'll need to do 4 things:
 
 1. Install VMware workstation. Go to
    <https://sustainable.stanford.edu/campus-action/energy/sustainability-information-technology/vmware> 
    and scroll down to
-   *SOFTWARE FOR ACADEMIC/RESEARCH PURPOSES* and follow the
-   Software Licensing Store link. Scroll down to VMware and
+   "SOFTWARE FOR ACADEMIC/RESEARCH PURPOSES" and follow the
+   Software Licensing Store link. Choose VMware and
    click on VMware Workstation 14. This is a personal, not a lab,
    download. Use your own SUNet ID. When you check out, the
    checkout page will give you a download button as well as

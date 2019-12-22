@@ -24,17 +24,11 @@ to the Raspberry Pi's GPIO pins as shown.
 
 The power LED is lit if the Raspberry Pi is receiving power.
 
-Be careful that you connect things up properly.
-For reference, here is a snapshot of the relevant
-part of the schematic.
-
-![gpio schematic](../images/gpio.schematic.jpg)
-
 Raspberry Pi A+ does not need much power. 
 We can measure how much power the Raspberry Pi requires
 by using an inline power meter.
 
-![Mac usb](../images/power.jpg)
+![Mac usb](../images/power.meter.jpg)
 
 The usb specification says that a usb port should supply 5V,
 and up to 500 mA of current.

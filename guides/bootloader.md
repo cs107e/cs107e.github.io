@@ -82,7 +82,7 @@ to the Pi's RX GPIO.
 ### Installing the serial port driver
 
 If you are on a Mac, ensure you have followed the instruction for the console
-drivers in the [Mac toolchain guide](/guides/mac_toolchain). On Windows or
+drivers in the [Mac install](/guides/install/mac). On Windows or
 Linux, you don't need to do anything special here.
 
 ### Load and run your program
