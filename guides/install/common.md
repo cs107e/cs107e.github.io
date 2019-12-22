@@ -8,14 +8,13 @@ Note: If you are using the VM on Windows, be sure that you are __inside__ the VM
 
 ### cs107e_home and shell environment
 1. Create a `cs107e_home` directory to hold all your course materials. You can create this directory anywhere, but this guide
-assumes that you are doing it in your home directory. 
+assumes that you are doing it in your home directory, referred to by its shorthand name `~`. 
 
     ```
-    $ cd
+    $ mkdir ~/cs107e_home
+    $ cd ~/cs107e_home
     $ pwd
-    /Users/student
-    $ mkdir cs107e_home
-    $ cd cs107e_home
+    /Users/student/cs107e_home
     ```
 
 2. Download the courseware repository into `cs107e_home`.  The courseware repo
@@ -32,27 +31,18 @@ labs and assignments.
     /Users/student/cs107e_home/cs107e.github.io/cs107e
     ```
 
-3. Edit your shell configuration file to identify the path to the courseware repo.  
+3. Now you will edit your shell configuration file to identify the path where you have stored the courseware files.
 
-    When a shell starts, it initializes the environment by reading a configuration file from your home directory. Editing this configuration file will change the initial state that applies to all shells.
-    The shell configuration file is named `.bashrc` (for bash) or `.zshrc` (for zsh). 
-
-    Use this command to determine which shell you are using:
+    When a shell starts, it initializes the environment by reading the configuration file named `.bashrc` in your home directory. If you edit the config file, you can set the initial state that applies to all shells. Open the file `~/.bashrc` in a text editor, and append the following two lines to set these two variables (note: value assigned to CS107E should match the location of the cs107e subdirectory of the courseware repo):
     ```
-    $ echo $SHELL
-    /bin/bash
-    ```
-
-    If you are using a shell other than bash or zsh, please contact a CA to get help.
-
-    Find the .bashrc or .zshrc in your home directory and add these two lines at the end of the file. The value for CS107E should match the path to the cs107e subdirectory of the courseware repo shown above. 
-    ```
-    export CS107E=/Users/student/cs107e_home/cs107e.github.io/cs107e
+    export CS107E=~/cs107e_home/cs107e.github.io/cs107e
     export PATH=$PATH:$CS107E/bin
     ```
 
+    These instructions assume you are using the bash shell. The command `echo $SHELL` reports which shell you are using. If using zsh shell, append the export lines to the file named `~/.zshrc` instead. For a shell other than bash or zsh, please contact a CA for help.
+  
 
-    ✔️__Check:__ confirm environment variables CS107E and PATH are properly set with the following commands:
+    ✔️__Check:__ Open a new shell and confirm environment variables CS107E and PATH are properly set with the following commands:
 
     ```
     $ echo $CS107E
@@ -63,9 +53,6 @@ labs and assignments.
     $ which pinout
     /Users/student/cs107e_home/cs107e.github.io/cs107e/bin/pinout
     ```
-
-If you have troubles completing this task, reach out for help before going on, as setting up a proper
-environment is crucial for later steps.
 
 ### Configure git user
 These commands configure Git with your identity, which will be

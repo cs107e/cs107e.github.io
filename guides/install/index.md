@@ -3,9 +3,7 @@ title: Installation Guide
 ---
 
 ### Prerequisites
-The installation guide assumes basic knowledge of the UNIX command line ( opening a shell, entering commands, navigating file system, editing text files) .
-
-See our [UNIX guide](/guides/unix) for more information about these topics.
+The installation guide assumes basic knowledge of the UNIX command line (opening a shell, entering commands, navigating file system, editing text files). Read our [UNIX guide](/guides/unix) for a quick introduction.
 Those new to UNIX or wishing to brush up their skills may want to check out the
 library of [introductory unix videos/guides](https://web.stanford.edu/class/archive/cs/cs107/cs107.1186/unixref/)
 maintained on the standard CS107 web site.
@@ -13,8 +11,8 @@ maintained on the standard CS107 web site.
 ### Install steps
 In this course, you will use your laptop as a development environment to write programs that run on the Raspberry Pi. There are several steps you must take to configure your laptop with the needed tools and environment.
 
-1. _WINDOWS-ONLY_ Follow our [Windows VM install instructions](vmware) to first install a virtual machine running Linux.
-1. Follow [these common instructions](custom) to:
+1. _WINDOWS-ONLY_ Follow our [Windows VM install instructions](vm) to first install a virtual machine running Linux.
+1. Follow [these common instructions](common) to:
     + Create a `cs107e_home` directory to store your class materials. 
     + Configure the `git` version control system. We distribute course materials as git repos and you will use git to access, manage, and submit your work. 
 1. _MAC-ONLY_ Follow [Mac install instructions](mac) to:

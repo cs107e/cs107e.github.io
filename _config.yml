@@ -6,7 +6,6 @@ permalink: pretty
 exclude:
   - /cs107e/
   - /firmware/
-  - /hardware/
   - /stickers/
 include:
   - _assets
