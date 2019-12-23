@@ -6,7 +6,7 @@ You will receive the official CS107e Raspberry Pi kit in the first lab.
 The kit comes in a plastic sandwich box, and contains the following parts:
 
 * a Raspberry Pi A+
-* a MicroSDHC card with SD holder
+* a MicroSDHC card with SD adapter jacket
 * a USB-to-serial breakout board 
 * a full-sized breadboard
 * twenty 1K resistors (for leds, 4-digit display, transistors)

@@ -7,9 +7,9 @@ toc: true
 
 Your Raspberry Pi kit contains a microSDHC card. A secure digital (SD) card
 stores data in non-volatile memory. The HC in SDHC stands for high
-capacity. A microSDHC card is shown below on the right. The adapter "jacket" on the left allows the small card to be used in a full-size SD card reader.
+capacity. A micro-SD is shown below on the right. The adapter "jacket" on the left allows the small card to be used in a full-size SD card reader.
 
-![Kingston SDHC Card](../images/sd.kingston.jpg)
+![micro card with adapter](../images/sd.kingston.jpg)
 
 When a Raspberry Pi boots, it accesses the card to read the file named `kernel.img` and executes that program.
 
@@ -19,9 +19,9 @@ When a Raspberry Pi boots, it accesses the card to read the file named `kernel.i
 4. To change the program, repeat the process and copy the updated file. A much less tedious long-term solution is running a [bootloader](/guides/bootloader).
 
 #### Mount SD card on laptop
-To copy a program to the SD card, you need to mount it on your laptop. If your laptop does not have a built-in SD card reader, you will need an external reader (we have a few to loan in lab).  To mount the card, first insert the microSDHC card into its adapter, and then insert the adapter into the SD card slot.
+To copy a program to the SD card, you need to mount it on your laptop. If your laptop does not have a built-in SD card reader, you will need an external reader (we have a few to loan in lab). To mount the card, first insert the micro-SD into the adapter, and then insert the adapter into the SD card slot.
 
-![SDHC holder](../images/sd.mac.jpg)
+![insert sd card into slot](../images/sd.mac.jpg)
 
 The SD card mounts automatically and will show up in your finder along with other mounted file systems.
 
@@ -57,12 +57,12 @@ loader that can receive uploaded programs.
 Copy the firmware files onto your SD card and eject it. On a Mac, click on the Eject icon next to the volume name in the Finder.
 
 #### Insert card into Raspberry Pi
-Remove the microSDHC card from its adapter and insert it into the card holder slot on the underside of the Raspberry Pi circuit board. There is a small spring that holds the card in place. As you push it in, you will feel the mechanism grab onto the card.
+Remove the micro-SD from its adapter and insert it into the slot on the underside of the Raspberry Pi circuit board. There is a small spring that holds the card in place. As you push it in, you will feel the mechanism grab onto the card.
 
-![SDHC Card](../images/sd.pi.jpg)
+![micro SD inserted on Pi](../images/sd.pi.jpg)
 
 {% include callout.html type="danger" %}
-**Take care!** To eject the microSDHC from the Pi's card slot, gently push the card in and allow it to spring back out. If you try to pull out the card by force, you can break the mechanism and potentially destroy your Pi.
+**Take care!** To eject the micro-SD from the Pi's card slot, gently push the card in and allow it to spring back out. If you try to pull out the card by force, you can break the mechanism and potentially destroy your Pi.
 </div>
 
 ### Troubleshooting

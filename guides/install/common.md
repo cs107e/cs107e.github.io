@@ -1,48 +1,55 @@
 ---
-title: Home/user configuration
+title: Home/user config for CS107E
 ---
+
+
+These instructions walk you through customizations specific to CS107E. You will set up a `cs107e_home` directory and establish your git identity.
 
 {% include callout.html type="warning" %}
 Note: If you are using the VM on Windows, be sure that you are __inside__ the VM when following these instructions to set up the home/user configuration.
 </div>
 
-### cs107e_home and shell environment
-1. Create a `cs107e_home` directory to hold all your course materials. You can create this directory anywhere, but this guide
-assumes that you are doing it in your home directory, referred to by its shorthand name `~`. 
+
+### Set up cs107e_home
+1. Create a new directory named `cs107e_home` to store course materials. The tilde character `~` is shorthand for home directory, so the path `~/cs107e_home` creates the directory within your home. 
 
     ```
     $ mkdir ~/cs107e_home
+    ```
+
+2. Change to your new directory and download the courseware repository. We use this repo to distribute code and materials for lectures, labs, and assignments. 
+
+    ```
     $ cd ~/cs107e_home
-    $ pwd
-    /Users/student/cs107e_home
-    ```
-
-2. Download the courseware repository into `cs107e_home`.  The courseware repo
-contains the lecture material as well as common files that we distribute for
-labs and assignments.
-
-    ```
-    $ pwd
-    /Users/student/cs107e_home
     $ git clone https://github.com/cs107e/cs107e.github.io
     Cloning into 'cs107e.github.io'...
-    $ cd cs107e.github.io/cs107e
-    $ pwd
-    /Users/student/cs107e_home/cs107e.github.io/cs107e
+
+    $ ls ~/cs107e_home/cs107e.github.io/cs107e/
+    bin/     etc/     extras/  include/ lib/     src/
     ```
 
-3. Now you will edit your shell configuration file to identify the path where you have stored the courseware files.
+3. As the final step, you must edit your shell configuration to indicate where you have stored your class files. 
 
-    When a shell starts, it initializes the environment by reading the configuration file named `.bashrc` in your home directory. If you edit the config file, you can set the initial state that applies to all shells. Open the file `~/.bashrc` in a text editor, and append the following two lines to set these two variables (note: value assigned to CS107E should match the location of the cs107e subdirectory of the courseware repo):
+    When opening a new shell, the environment is initialized by reading a configuration file in your home directory. Editing this file allows you to control the initial state for a new shell. 
+
+   The configuration file varies slightly depending on the shell. Use the command `echo $SHELL` to see which shell you are using. 
+
+   ```
+   $ echo $SHELL
+   /bin/bash
+   ```
+
+   For bash, the config file is named `.bashrc`.  For zsh, the config file is named `.zshrc`.  For a shell other than bash or zsh, please contact a CA for help.
+
+   Look in your home directory to find the appropriate config file for your shell. Open the file in a text editor, and append the following two lines:
     ```
     export CS107E=~/cs107e_home/cs107e.github.io/cs107e
     export PATH=$PATH:$CS107E/bin
     ```
 
-    These instructions assume you are using the bash shell. The command `echo $SHELL` reports which shell you are using. If using zsh shell, append the export lines to the file named `~/.zshrc` instead. For a shell other than bash or zsh, please contact a CA for help.
+    The first line sets the environment variable `CS107E` to the path to where the class files are stored. The second line adds our `bin` subdirectory to your executable path.
   
-
-    ✔️__Check:__ Open a new shell and confirm environment variables CS107E and PATH are properly set with the following commands:
+✔️__Check:__ Open a new shell and confirm the configuration with the following commands:
 
     ```
     $ echo $CS107E
@@ -55,8 +62,7 @@ labs and assignments.
     ```
 
 ### Configure git user
-These commands configure Git with your identity, which will be
-associated with the git actions that you perform.
+Execute the following two commands so that your identity will be properly recorded for your git actions.
 
 (Replace `My Name` and `myemail@stanford.edu` with your own.)
 

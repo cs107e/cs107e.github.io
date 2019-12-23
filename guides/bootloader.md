@@ -38,7 +38,7 @@ This document will walk you through the steps to use the bootloader.
 
 You should have previously set up your micro-SD card with the 
 [firmware files](https://github.com/cs107e/cs107e.github.io/tree/master/firmware) 
-as directed in the [SDHC card guide](/guides/sd).
+as directed in the [SD card guide](/guides/sd).
 
 The firmware files include the program `bootloader.bin`. Insert the SD card into your
 laptop and copy `bootloader.bin` to `kernel.img`. Eject the card and install 
