@@ -22,7 +22,7 @@ linker options to ensure the program is configured to run standalone.
 ### Compiler option `-ffreestanding`
 This `gcc` option directs the compiler to limit this program to only those features available in the freestanding environment. 
 
-	% arm-none-eabi-gcc -ffreestanding -c blink.c
+	$ arm-none-eabi-gcc -ffreestanding -c blink.c
 
 In freestanding mode, the only available standard header files are:
 `<float.h>`, `<iso646.h>`, `<limits.h>`, `<stdarg.h>`, 

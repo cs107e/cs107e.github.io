@@ -252,7 +252,7 @@ GDB can ask a lot of annoying questions and does not track previous commands
 by default.  I put the following in a `.gdbinit` configuration file 
 in my home directory to fix that:
 
-	% cat ~/.gdbinit 
+	$ cat ~/.gdbinit 
 	set confirm off
     set history expansion
 
@@ -264,7 +264,7 @@ For a program that runs only in simulation mode, you might want to
 avoid having to repeatedly set the target and load the program each time you use gdb. For this, 
 add a `.gdbinit` configuration file in the project directory:
 
-	% cat ./.gdbinit
+	$ cat ./.gdbinit
 	target sim
 	load
 

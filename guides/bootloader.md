@@ -92,7 +92,7 @@ file to the bootloader.
 
 To load and run `blink-actled.bin`, simply type:
 
-    % rpi-install.py blink-actled.bin 
+    $ rpi-install.py blink-actled.bin 
 	Found serial port: /dev/cu.SLAB_USBtoUART
 	Sending `blink-actled.bin` (72 bytes): .
 	Successfully sent!
