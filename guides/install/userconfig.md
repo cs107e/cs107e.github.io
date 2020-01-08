@@ -4,10 +4,10 @@ toc: true
 ---
 
 
-After you have installed the development tools, follow the steps below to configure your user environment.
+After you have installed the development tools on your laptop, follow the steps below to configure your user environment. Take care to validate at each ✔️__Check__ point before moving on to the next step.  If you hit a snag, reach out on Piazza or come to office hours for help!
 
 {% include callout.html type="warning" %}
-Note: For those running WSL on Windows, be sure that you are in the linux shell when following these instructions.
+Note: For those running WSL on Windows, be sure that you are in the Ubuntu shell when following these instructions.
 </div>
 
 ### Set up cs107e_home
@@ -25,7 +25,7 @@ Note: For those running WSL on Windows, be sure that you are in the linux shell 
     Cloning into 'cs107e.github.io'...
     ```
 
-✔️__Check:__ confirm with the following command:
+✔️__Check:__ confirm your cs107e_home:
 
 ```
 $ ls ~/cs107e_home/cs107e.github.io/cs107e/
@@ -33,11 +33,11 @@ bin/     etc/     extras/  include/ lib/     src/
 ```
 
 ### Edit shell configuration file
-Now you must edit your shell configuration to indicate where your cs107e home is.
+Next, configure your shell environment to match where you stored cs107e_home.
 
 When opening a new shell, the environment is initialized by reading a configuration file in your home directory. Editing the configuration file allows you to set the initial state of your shell. 
 
-The name of the configuration file depends on which shell you are using. Use the command `echo $SHELL` to see your shell. Your shell is likely `bash`, although it might be `zsh`.
+The name of the configuration file depends on which shell you are using. Use the command `echo $SHELL` to see your shell. Your shell is likely `bash`, although it might be `zsh` if on a newer Mac.
 
 ```
 $ echo $SHELL
@@ -62,9 +62,16 @@ export CS107E=~/cs107e_home/cs107e.github.io/cs107e
 export PATH=$PATH:$CS107E/bin
 ```
 
-The first line sets the environment variable `CS107E` to the path to where the class files are stored. The second line adds our `bin` subdirectory to your executable path.
+The first line sets the environment variable `CS107E` to the path to where the class files are stored. The second line adds our `bin` subdirectory to your executable path. 
+
+The configuration file will be automatically read when creating a new shell in the future. Use the `source` command to re-read the configuration right now in your current shell: 
+
+```
+$ source .bashrc
+```
+
   
-✔️__Check:__ Open a new shell and confirm the configuration with the following commands:
+✔️__Check:__ confirm your shell configuration:
 
 ```
 $ echo $CS107E
@@ -76,8 +83,8 @@ $ which pinout
 /Users/student/cs107e_home/cs107e.github.io/cs107e/bin/pinout
 ```
 
-### Configure git user
-Execute the following two commands so that your identity will be properly recorded for your git actions.
+### Configure git identity
+The following commands set the identity recorded with your git actions.
 
 (Replace `My Name` and `myemail@stanford.edu` with your own.)
 
@@ -86,7 +93,7 @@ $ git config --global user.name "My Name"
 $ git config --global user.email myemail@stanford.edu
 ```
 
-✔️__Check:__ confirm your git configuration with the following command:
+✔️__Check:__ confirm your git identity:
 
 ```
 $ git config --get-regexp user
