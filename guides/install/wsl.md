@@ -39,6 +39,8 @@ We'll be using the Ubuntu 16.04 installation on windows for the course.
 
 Now we have an up-to-date version of Ubuntu running on our Windows machine!
 
+One thing to note about WSL is that it hosts it's own file system. This means that when you're using the WSL terminl you're working inside of seperate file system from your windows file system. In order to access your WSL files from within windows you'll need to to open WSL files through a windows application or through windows explorer. You can open windows explorer in your WSL file system by navigating to a particular directory in the WSL terminal and typing `explorer.exe .`. This will open an explorer window at the current directory location.
+
 ### Install Python3 and packages
 
 The `rpi-install.py` script will be used to send programs from your computer to the Pi. This script requires python3 and two support modules to be installed on your laptop.
