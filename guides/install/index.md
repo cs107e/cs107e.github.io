@@ -2,9 +2,6 @@
 title: Installation Guide
 ---
 
-__January 2020__: We are in the process of updating our install instructions for Winter quarter 2020. Stay tuned.
-
-
 ### Prerequisites
 The installation guide assumes basic knowledge of the UNIX command line (opening a shell, entering commands, navigating file system, editing text files). Read our [UNIX guide](/guides/unix) for a quick introduction.
 Those new to UNIX may want to check out the [unix videos/guides](https://web.stanford.edu/class/archive/cs/cs107/cs107.1186/unixref/)
