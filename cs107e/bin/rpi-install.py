@@ -82,9 +82,9 @@ def find_serial_port():
         ps_cmd = ['powershell.exe', '(Get-WmiObject -query "SELECT * FROM Win32_PnPEntity" | ' +
                   'Where-Object {$_.DeviceID -like "*VID_%s&PID_%s*"}).Name' % (SERIAL_VID, SERIAL_PID)]
         output = subprocess.check_output(ps_cmd).strip()
-        match = re.search(r'\(COM(\d+)\)', output)
+        match = re.search(rb'\(COM(\d+)\)', output)
         if match:
-            portname = '/dev/ttyS' + match.group(1)
+            portname = '/dev/ttyS' + match.group(1).decode('utf-8')
 
     if portname is not None:
         printq('Found serial port:', bcolors.OKBLUE + portname + bcolors.ENDC)
@@ -97,7 +97,7 @@ your Pi plugged in?
 """)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="This script sends a binary file to the Raspberry Pi bootloader. Version %s." % VERSION)
+    parser = argparse.ArgumentParser(description="This script sends a binary file to the Raspberry Pi bootloader. Version %s" % VERSION)
 
     parser.add_argument("port", help="serial port", nargs="?")
     parser.add_argument("file", help="binary file to upload",
