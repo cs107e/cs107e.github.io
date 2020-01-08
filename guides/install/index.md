@@ -2,6 +2,9 @@
 title: Installation Guide
 ---
 
+__January 2020__: We are in the process of updating our install instructions for Winter quarter 2020. Stay tuned.
+
+<!--
 ### Prerequisites
 The installation guide assumes basic knowledge of the UNIX command line (opening a shell, entering commands, navigating file system, editing text files). Read our [UNIX guide](/guides/unix) for a quick introduction.
 Those new to UNIX or wishing to brush up their skills may want to check out the
@@ -67,4 +70,4 @@ usage: rpi-install.py [-h] [-v] [-q] [-t T] [-T T] [-p | -s] [port] file
 This script sends a binary file to the Raspberry Pi bootloader. Version 1.0.
 ```
 
-
+-->
