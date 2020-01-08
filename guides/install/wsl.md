@@ -141,8 +141,8 @@ The console driver enables the bootloader client to communicate with the Pi over
 1. Download the CP2012 driver. The drivers are available on the Silicon Labs [CP210x Downloads page](https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers). Scroll down to the section titled "Download for Windows 10 Universal" and download the VCP zip file. Decompress the zip file and open the containing folder.
 2. Find the file named `CP210xVCPInstaller_x64.exe` (if your system is 64-bit) or `CP210xVCPInstaller_x86.exe` (if 32-bit). If you don't know if your system is 32 or 64-bit, see [these instructions](https://support.microsoft.com/en-us/help/13443/windows-which-version-am-i-running). Open the appropriate installer file and follow the prompts.
 
-   ✔️**Check:** Confirm the driver is installed by validating you see the driver in the list of drivers after following these steps:
+✔️**Check:** confirm the driver appears in the list of installed drivers by following the steps below:
 
-   1. Type "MSInfo" into the start menu search bar. Select the "System Information" app that is suggested. A window shows up with a bunch of information about your computer
-   2. In the search bar at the bottom of the "System Information" screen type "silabs" and hit enter.
-   3. Validate that you see a record for a driver with Name "silabser" and Description "Silicon Labs CP210x USB to UART Bridge Driver"
+1. Type "MSInfo" into the start menu search bar. Launch the "System Information" app that is suggested. A panel pops up with a "System Summary" of your hardware and software environment.
+2. Use the "Find what:" field at the bottom of the panel to search for "silabs". (Be patient while it searches.)
+3. The search should report a matching Serial Port Driver with name "SILABSER.SYS" and description "Silicon Labs CP210x USB to UART Bridge Driver".
