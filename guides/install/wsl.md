@@ -2,84 +2,113 @@
 title: Using WSL in CS107E
 toc: true
 ---
-Written by Rohan Deshpande, CS 107E Winter 2019_
 
-Welcome to my comprehensive guide for using WSL in CS 107E! The following guide documents all the challenges that I've faced while using WSL this quarter and includes solutions that I've come up with. Currently, the only feature that WSL doesn't support (which you may need during the course) is `screen`. Make sure you have a VM handy if you need to use screen -- otherwise you should be fine for the duration of this quarter!
+These are the instructions for setting up your development environment in Windows using the Windows Sub-System for Linux (WSL).
 
-## Setup & Assignment 0
+You may need to restart your computer a few times throughout this process, so it’s a good idea to save all your work before starting. It’s easiest to restart your computer when prompted, so we recommend just restarting when prompted.
 
-Start by installing your favorite flavor of linux. I strongly suggest using Ubuntu 16.04 over 18.04 since `arm-none-eabi-gdb` isn't included and 18.04. If you don't know what `arm-none-eabi-gdb` is, don't worry about it! It's a tool that you'll use later in the quarter that you'll need, so just use Ubuntu 16.04.
+### Requirements
 
-Once you have successfully installed WSL with the chosen flavor of linux, follow the instructions from `Assignment 0`. You shouldn't have any trouble with any of the commands used in this assignment since you're just using `git` (which works well with WSL).
+- Windows 10: These instructions were tested on Windows 10. If you're using Windows 8, let one of the instructors know so we can help get you set up
 
-## Using Sublime with WSL (optional but recommended)
+### Enable and Install WSL with Ubuntu 16.04
 
-Throughout the quarter, you will write/edit code using the text editor of your choice. Rather than stick with vim/emacs (which are command line text editors), you may want to edit files using Sublime Text. You can use this [link](https://www.sublimetext.com/) to download and install Sublime Text 3.
+#### Enable WSL
 
-It is often helpful to be able to open a file in Sublime Text directly through command line, rather than having to open Sublime Text and navigate to the location of the file. This is really helpful when you're coding with multiple files and need to open/close them in Sublime. To integrate Sublime with WSL, you'll first have to find the location of your Sublime installation (on your Windows computer). For example, mine is in the directory `C:/Program Files/Sublime Text 3/subl.exe` (yours should be in a similar location). To check that you found the right path to the Sublime Text executable, type in the *absolute* path into terminal and hit enter. I typed:
+We'll first need to enable WSL in Windows 10.
 
-```
-$ "/mnt/c/Program Files/Sublime Text 3/subl.exe"
-```
+1. Open the settings app and navigate to Apps -> Apps & Features
+2. Scroll to the bottom of the page, and click the link that says "Programs and Features". A new window will open with a list of applications installed on your machine
+3. On the left side of the screen, click the link titled "Turn Windows features on or off". Another window should open with a list of checkboxes and titles
+4. Find the checkbox for "Windows Subsystem for Linux". Check it, and click "OK". An "Applying changes window will open. Wait for it to finish. Once it's finished, restart your computer.
 
-Note two things: You need to include `/mnt/` at the start to access your Windows files through terminal when using WSL, and I wrapped the command in quotes since the command has spaces in it. When you hit enter, you should see Sublime Text open successfully.
+#### Install Ubuntu 16.04
 
-Rather than type the long command from above each time we want to use Sublime, we are next going to add Sublime as an alias. To do so, follow these steps:
+We'll be using the Ubuntu 16.04 installation on windows for the course.
 
-1. Type in `vim ~/.bashrc`. This will open your `.bashrc` file in vim so that you can edit it.
-2. Scroll to the bottom of the file with arrow keys. Near the bottom, you may see a line that reads `export CS107E=...`. You will see this line if you completed Assignment 0 correctly. You do not need to modify this line.
-3. Hit `i` on your keyboard. This puts vim into INSERT mode. Add the following line to the bottom of the file: `alias subl='"/mnt/c/Program Files/Sublime Text 3/subl.exe"'`. Take note that the path should point to the Sublime Text executable path that you found in the previous step and make to include the quotes. This line creates an alias called `subl` that points to the Sublime Text executable.
-4. Save your edits by hitting the ESC button on your keyboard and then type `:wq`. This will save your edits and quit out of vim.
-5. Almost done! Just type in `bash` in the terminal or exit and reopen WSL. You should now be able to use Sublime Text with WSL.
+1. Open the windows store app and type "Ubuntu" in the search bar.
+2. Select the result titled "Ubuntu 16.04 LTS" and click Install on the app landing page
+3. Once it's done installing, launch the application. A terminal window will open that says "Installing, this may take a few minutes...".
+4. Once it's done installing, you'll be prompted to enter a new username and Password. This will be your username and password for your Ubuntu WSL installation. You’ll need to use these when you access administrator privileges, so make sure you remember it!
+5. Once you're done creating your user account and password, you'll have a normal linux terminal to work in! It's always a good idea to update new systems, so we'll do that first. Run the following commands:
 
-### Testing Sublime - WSL Integration
+   ```
+   $ sudo apt update
+   $ sudo apt upgrade
+   ```
 
-Navigate to a folder of your choosing and pick a file that you want to edit. To open this file with Sublime, type `subl ` followed by the file name. For example, I'm trying to open a file titled `gpio.c` so I typed in `subl gpio.c`. If you did everything correctly, you should see the file automatically open up in Sublime!
+Now we have an up-to-date version of Ubuntu running on our Windows machine!
 
-## Lab 1: Setting up your Raspberry Pi
+### Install Python3 and packages
 
-The prelab mentions that you may need to install arm cross-development tools depending on the OS environment that you're using. Since you're using Ubuntu 16.04/18.04, you don't need to worry about this step since the cross-dev tools come pre-installed.
+The `rpi-install.py` script will be used to send programs from your computer to the Pi. This script requires python3 and two support modules to be installed on your laptop.
 
-### Step 5: SD Card
+Note: Ubuntu 16.04 comes with a version of python installed, but it is an older version (version 2) which is nearing end of life. You need version 3. If you previously have installed python3, skip step 1 below.
 
-In step 5, the instructions tell you to plug in an SD Card and then navigate to the folder (in terminal) which corresponds to the SD card. 
+1.  Install python3. Run the following command from your WSL terminal:
 
-> *Warning!* You probably won't see the SD card show up in the linux command line when you plug it in.
+    ```
+    $ sudo apt install python3
+    ```
 
-You will first need to mount the SD card before being able to see it in terminal. On your Windows machine, check File Manager / This PC under the Devices & Drives section to check where the SD Card was mounted. For example, my SD card appears under `D:`. To mount the drive type:
-```
-$ sudo mount -t drvfs D: /mnt/d
-```
-> Note: If your SD Card is mounted under a path other than `D:` you should change the part that reads `D:` and `/mnt/d` accordingly.
+    ✔️**Check:** use the following command to confirm `python3` installation:
 
-After completing this step, you should be able to navigate to the mount location (in my case `/mnt/d`) in order to add files to this location.
+    ```
+    $ python3 --version
+    Python 3.8.1
+    ```
 
-> Having trouble with mounting the SD Card? You don't have to do this step in terminal! You could just drag and drop files into your SD card as you normally would in Windows...
+2.  Install pip for python3
 
-### Step 7: Bootloader
+    ```
+    $ sudo apt-get install python3-pip
+    ```
 
-Start by following the instructions in step 7 from Lab 1. When you get to the part where you type `rpi-install.py blink.bin` it is likely that the python script won't be able to connect to your USB port even though it can find it. Use the USB port name from the error message (mine was `/dev/ttyS6`) to enter the following commands:
-```
-$ sudo chmod 666 /dev/ttyS6
-$ stty -F /dev/ttyS6 -a
-```
-> Note: make sure you replace `/dev/ttyS6` with appropriate port if yours is different.
+    ✔️**Check:** use the following command to confirm `pip3` installation:
 
-If you run `rpi-install.py blink.bin` again, the bootloader process should now work!
+    ```
+    $ which pip
+    ```
 
-> *Important!* If you restart your WSL instance, it is possible that `rpi-install.py` will have trouble finding your USB port. If this happens all you have to do is type `sudo chmod 666 /dev/ttyS6` again and you should be good to go...
+3.  Use the following command to install the pyserial and xmodem packages for python3:
 
-## Lab 3: Debugging and Testing
+    ```
+    $ pip3 install pyserial xmodem
+    ```
 
-Part 2 of Lab 3 explores Serial communication by connecting TX and RX on the USB-serial adapter which causes characters sent out to be echoed back. To do this, the lab uses `screen`. Unfortunately, as of March 2019, screen isn't very stable in WSL as it depends heavily on which release of WSL you are using (and I wasn't able to get it working when I did the lab). I recommend using a VM for this part or at the very least working with someone who has screen working. If you *really* want to try to get screen working with WSL, I have two suggestions (which I haven't tried on the most recent release of WSL):
+    You may see a warning about the pip version being slightly out of date, this is harmless and can be ignored.
 
-```
-$ sudo /etc/init.d/screen-cleanup start
-# above may work according to https://bugs.launchpad.net/ubuntu/+source/screen/+bug/574773
+    ✔️**Check:** confirm the packages are installed by using import command within python3 as shown below:
 
-$ sudo screen 			# or try this (didn't work for me, but worth a shot)
-```
+    ```
+    $ python3
+    Python 3.8.1 (v3.8.1:1b293b6006, Dec 18 2019, 14:08:53)
+    [Clang 6.0 (clang-600.0.57)] on darwin
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> import serial, xmodem
+    ```
 
-## Other Labs & Assignments
+    If there is a problem accessing the modules, you will see an error; otherwise, the expected response from a successful import is simply silence.
 
-You shouldn't have any trouble using WSL on any other labs / assignments. If you made it to the end of this guide, thanks for sticking around and happy coding with WSL!
+### Install arm-none-eabi toolchain
+
+This is the toolchain we need in order to compile code for the Raspberry Pi.
+
+1. Install the gcc compiler
+
+   ```
+   $ sudo apt install gcc-arm-none-eabi
+   ```
+
+2. Install the gdb debugger
+   ```
+   $ sudo apt install gdb-arm-none-eabi
+   ```
+
+### Install CP2012 console driver
+
+The console driver enables the bootloader client to communicate with the Pi over the USB-serial device.
+
+1. Download the CP2012 driver. The drivers are available on the Silicon Labs [CP210x Downloads page](https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers). Scroll down to the section titled "Download for Windows 10 Universal" and download the VCP zip file. Decompress the zip file and open the containing folder. You should see a few folder s and files. Look for the file named "CP210xVCPInstaller_x64.exe". Double click this file to run the executable and follow the prompts on the screen.
+
+(If you have a 32 bit machine, you should run the file named "CP210xVCPInstaller_x86.exe instead. To check which version of windows your running, follow the instructions [here](https://support.microsoft.com/en-us/help/13443/windows-which-version-am-i-running))
