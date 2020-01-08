@@ -99,14 +99,11 @@ Note: Macs come with a version of python installed, but it is an older version (
 
     You may see a warning about the pip version being slightly out of date, this is harmless and can be ignored.
 
-    ✔️__Check:__ confirm the packages are installed by using import command within python3 as shown below:
+    ✔️__Check:__ confirm pyserial and xmodem are listed as installed for python3:
     ```
-    $ python3
-    Python 3.8.1 (v3.8.1:1b293b6006, Dec 18 2019, 14:08:53) 
-    [Clang 6.0 (clang-600.0.57)] on darwin
-    Type "help", "copyright", "credits" or "license" for more information.
-    >>> import serial, xmodem
+    $ python3 -m pip freeze 
+    pyserial==3.4
+    xmodem==0.4.5
     ```
-If there is a problem accessing the modules, you will see an error; otherwise, the expected response from a successful import is simply silence.
 
 
