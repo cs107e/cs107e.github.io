@@ -139,9 +139,9 @@ if __name__ == "__main__":
 
     try:
         # if existing rpi screen is hanging onto port, terminate it now
-        if os.system("screen -S rpi -X select . &>/dev/null") == 0:
-            os.system("screen -X -S rpi quit &>/dev/null")
-            printq("(had to close previous screen on port before uploading)")
+        if os.system("screen -S rpi -X select . 2>&1 >/dev/null") == 0:
+            os.system("screen -S rpi -X quit 2>&1 >/dev/null")
+            printq("(had to close active `screen` on port first)")
             time.sleep(1)
     except:
         pass
