@@ -32,6 +32,8 @@ $ ls ~/cs107e_home/cs107e.github.io/cs107e/
 bin/     etc/     extras/  include/ lib/     src/
 ```
 
+Note: If you're using WSL, now is a good time to open File Explorer on your new cS107e_home and and "Pin to Quick Access" to add it the sidebar for future use. See [accessing WSL files from Windows](../wsl/#files).
+
 ### Edit shell configuration file
 Next, configure your shell environment to match where you stored cs107e_home.
 
@@ -84,7 +86,7 @@ $ which pinout
 ```
 
 ### Configure git identity
-The following commands set the identity recorded with your git actions.
+We distribute course materials as git repos and you will use git to access, manage, and submit your work. The commands below will properly set the identity recorded with your git actions.
 
 (Replace `My Name` and `myemail@stanford.edu` with your own.)
 

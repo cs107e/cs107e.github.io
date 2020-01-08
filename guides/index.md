@@ -12,7 +12,7 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 - [Recommendations for hand tools](handtools)
 
 ### Installation
-- [Installing the development tools on your laptop](install)
+- [Installing the development environment on your laptop](install)
 
 ### Raspberry Pi
 - [Kit inventory](bom)
