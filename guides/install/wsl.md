@@ -122,11 +122,11 @@ Note: Ubuntu 16.04 comes with a version of python installed, but it is an older 
 
     You may see a warning about the pip version being slightly out of date, this is harmless and can be ignored.
 
-    ✔️__Check:__ confirm pyserial and xmodem are listed as installed for python3:
+    ✔️__Check:__ confirm `pyserial` and `xmodem` are listed as installed packages for python3:
     ```
-    $ pip3 freeze --user 
-    pyserial==3.4
-    xmodem==0.4.5
+    $ pip3 list --user 
+    pyserial (3.4)
+    xmodem (0.4.5)
     ```
 
 ### Install CP2012 console driver

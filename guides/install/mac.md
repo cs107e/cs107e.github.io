@@ -99,11 +99,13 @@ Note: Macs come with a version of python installed, but it is an older version (
 
     You may see a warning about the pip version being slightly out of date, this is harmless and can be ignored.
 
-    ✔️__Check:__ confirm pyserial and xmodem are listed as installed for python3:
+    ✔️__Check:__ confirm `pyserial` and `xmodem` are listed as installed packages for python3:
     ```
-    $ python3 -m pip freeze 
-    pyserial==3.4
-    xmodem==0.4.5
+    $ python3 -m pip list 
+    Package    Version
+    ---------- -------
+    pyserial   3.4    
+    xmodem     0.4.5 
     ```
 
 
