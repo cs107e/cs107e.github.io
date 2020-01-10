@@ -31,6 +31,5 @@ permalink,title,released
 "/lectures/Keyboard/","Keyboards and the PS/2 Protocol",false
 "/lectures/Sound/","Sound",false
 "/lectures/ASM/","ARM assembly and machine code",false
-"/lectures/ARM/","ARM processor and architecture",false
 "/lectures/Serial/","Communication and the Serial Protocol",false
 "/lectures/Interrupts1/","Interrupts",false
