@@ -1,116 +1,95 @@
 ---
 title: Using the bootloader
+toc: true
 ---
 
-*Written by Pat Hanrahan*
+*Written by Pat Hanrahan and Julie Zelenski*
 
-During development, you will edit and compile programs on your laptop,
-but when you are ready to execute the program you need to transfer it to the Pi.
-You could do this using a micro-SD card where after each re-compile, you
-copy the freshly compiled program from your laptop onto the card, eject the
-card and insert into Pi, but that process quickly becomes tedious!
+### What is a bootloader?
+You will edit and compile programs on your laptop,
+but you must transfer the compiled program to the Pi to execute it. One way to move a program from your laptop to the Pi is using a micro-SD card.  You would insert the card on your laptop, 
+copy the newly compiled program onto it, eject the
+card and then insert into Pi. You can see how following up each re-compile with this process would quickly become tedious!
 
-Instead, we will use a __bootloader__. The bootloader is a program
-that runs on the Pi and listens on the serial port for commands and data
-coming from a connected computer. On your laptop, you run a script
-to send your compiled program over the serial port to the waiting 
+Instead, you can set up a serial connection between your laptop and the Pi and use a __bootloader__ to transfer the program. The bootloader runs on your Pi
+and listens on the serial connection. On your laptop, you send the newly compiled program over the serial connection to the waiting 
 bootloader. The bootloader receives the program and writes it to the
 memory of the Pi, a process called "loading" the program. After the
 program is loaded, the bootloader jumps to the start address of the program,
-and the program begins to run. To stop that program and start another,
-you will reset the Pi and use the bootloader again.
+and the program begins to run.
 
-Instead of using an SD card to move programs from your laptop to the Pi, 
-using a bootloader, the cycle to run a new program is just:
+Using a bootloader, the cycle to run a newly-compiled program is just:
 
-1.  Reset the Raspberry Pi (by unplugging the Pi from your computer or by
-    pushing the reset button if you have soldered one on)
-2.  Use `rpi-install.py` to send your program to the bootloader
+1.  Reset the Raspberry Pi to restart the bootloader
+2.  Use `rpi-install.py` from your laptop to send your program to the bootloader
 
 The bootloader we are using was developed by David Welch and modified by Dawson
-Engler and Julie Zelenski. It is a modification of David Welch's bootloader06. 
+Engler and Julie Zelenski. 
 If you have some time, we highly
-recommend you explore his [github repository](https://github.com/dwelch67/raspberrypi).
+recommend you explore David Welch's [github repository](https://github.com/dwelch67/raspberrypi) of code for bare-metal development on Raspberry Pi.
 
-This document will walk you through the steps to use the bootloader.
+This guide walks you through configuring and using the bootloader.
 
-### Configure Pi's micro-SD card to run the bootloader
+### Configure micro-SD card for bootloader
 
-You should have previously set up your micro-SD card with the 
+You should have previously set up a micro-SD card for your Pi with the 
 [firmware files](https://github.com/cs107e/cs107e.github.io/tree/master/firmware) 
 as directed in the [SD card guide](/guides/sd).
 
-The firmware files include the program `bootloader.bin`. Insert the SD card into your
-laptop and copy `bootloader.bin` to `kernel.img`. Eject the card and install 
-into the micro-SD slot on your Pi. The next (and every subsequent) time that you reset the
-Pi with that micro-SD card installed, the bootloader will run.
+The firmware files include the program `bootloader.bin`; this is the compiled binary for the bootloader. Insert the SD card into your
+laptop and copy `bootloader.bin` to `kernel.img`. Eject the card and insert it
+into the micro-SD slot on your Pi. The next and every subsequent time that you reset the
+Pi, the bootloader will run.
 
 ### Connect your laptop to the Pi
 
-In this course, we will be using a CP2102 USB serial breakout board. The CP2102
-is the chip that converts from a USB interface to a serial interface. On one
-end of the breakout board is a USB Type A connector. The breakout board plugs
+You will use a CP2102 USB to serial breakout board (hereafter referred to as just “USB-serial”) to connect your laptop to the Pi. The CP2102
+is the chip that converts from a USB interface to a serial interface.
+
+{% include callout.html type="danger" %}
+To use the USB-serial, your laptop needs the CS2012 console driver. You should have installed it when configuring your development environment. Refer to the section "CP2102 console driver" in the [installation guide](/guides/install) for your OS.
+</div>
+
+
+One
+end of the USB-serial is a USB Type A connector that plugs
 into any USB port on your laptop. The other end contains a
 6 pin header. Two of the pins deliver 5V and GND. They can be used to power the
 Pi; for details, consult the [Powering the Pi Guide](/guides/power).
 
-Two other pins are used for transmitting (TX) and receiving (RX). The Pi also
-has a TX and RX pin on the GPIO header. These pins are on the outside of the
-header. Starting at the top, we have
+Two other pins on the USB-serial are used for transmitting (TX) and receiving (RX). The Pi also
+has a TX and RX pin on its GPIO header. Review the [Pi's pinout diagram](../images/pinout.pdf) to find the pins labeled `UART TXD` and `UART RXD`. 
 
-     2 5V
-     4 5V
-     6 GND
-     8 TX 
-    10 RX
+Use female-female jumpers to connect the TX and RX pins on your Pi to the TX and RX pins on the USB-serial.  By convention, the transmit TX on one end is connected to the receive RX on the
+other end. 
 
-By convention, the transmit TX on one end is connected to the receive RX on the
-other end.
-
-Use female-female jumpers to connect the TX and RX pins on your Pi to the TX and RX pins on the USB breakout
-board. The proper connections are shown below. Note that your USB breakout board
-may have pins in different positions. Don't just follow the picture blindly!
+In the configuration pictured below, the green wire connects
+the RX header pin on the USB-serial
+to the TX GPIO on the Pi's header.
+The blue wire connects the TX header pin
+to the Pi's RX GPIO. 
 
 ![Console cable](../images/bootloader.cable.jpg)
 
-In this configuration, the green wire connects
-the RX header pin on the USB serial breakout board
-to the TX GPIO on the Pi's header.
-The blue wire connects the TX header pin
-to the Pi's RX GPIO.
+Note that the pins on your USB-serial
+may be in different positions or have different label names. Don't just follow the picture blindly!
 
-### Installing the serial port driver
+### Load and run a program
+The `rpi-install.py` script sends a binary file from your laptop to the bootloader. Change to the firmware directory and send the blink program:
 
-If you are on a Mac, ensure you have followed the instruction for the console
-drivers in the [Mac install](/guides/install/mac). On Windows or
-Linux, you don't need to do anything special here.
-
-### Load and run your program
-
-Our provided `rpi-install.py` program is used to send a binary
-file to the bootloader.  
-
-To load and run `blink-actled.bin`, simply type:
-
+    $ cd ~/cs107e_home/cs107e.github.io/firmware
     $ rpi-install.py blink-actled.bin 
 	Found serial port: /dev/cu.SLAB_USBtoUART
 	Sending `blink-actled.bin` (72 bytes): .
 	Successfully sent!
     
-After a brief pause, you should see the green LED on the Pi slowly blinking.
+After a brief pause, you should see the green activity LED on the Pi slowly blinking.
 
-If you change your program and wish to reload it onto the Pi, 
-you must power cycle the Pi (press the reset button if you have installed 
-one or simply unplug the USB-serial). The Pi will reboot into 
-the bootloader and once again wait for a new program to be loaded.
-
+To load and run a different program, your must first reset the Pi by briefly unplugging the USB-serial. This step is necessary to restart the bootloader so it is ready to receive the program you sent via `rpi-install.py`.
 
 <a name="troubleshooting"></a>
 ### Troubleshooting 
-
-If you are having trouble using the bootloader to send programs
-to the Pi, work through this checklist to find and resolve
-your issue.
+If you are having bootloader trouble, work through this checklist to find and resolve your issue.
 
 1. Reset Pi and verify bootloader is running by looking for its "heartbeat".
 
@@ -120,23 +99,23 @@ your issue.
 	bootloader is ready and listening.
 
 	- If your Pi doesn't have a heartbeat, the most common cause is because
-	you have already bootloaded a program and need to reset the Pi to
-	restart the bootloader.	Do that now!  
+	you have already bootloaded a program which is now running on the Pi. To stop that program and restart the bootloader, you must reset the Pi.	Do that now!   You can reset the Pi by briefly unplugging the USB-serial or using your [reset switch](../reset-button).
 	
-2. If bootloader does not run after you reset Pi, check the micro-SD card.
+2. If bootloader does not run after reset, check the micro-SD card.
 
 	- Be sure that the micro-SD card is fully inserted into the slot on the underside of the Pi.
 
-	- Verify the contents of the micro-SD card by inserting into your
-	laptop. It should have a file named `kernel.img` that is a copy
+	- Verify the files of the micro-SD card by inserting it into your
+	laptop. There should be a file named `kernel.img` that is a copy
 	of the file originally called `bootloader.bin` from the
 	 [firmware](https://github.com/cs107e/cs107e.github.io/tree/master/firmware) directory.
 
-3. If bootloader is running on Pi, but your laptop fails to communicate with it, check your connections.
+3. If bootloader is running, but your laptop fails to communicate with it, check your connections.
 
-	- The TX and RX from your USB-serial breakout board should be connected to
-	 RX and TX on your Pi.  Remember: TX should go RX and 
-	 vice versa (review the diagram above).
+	- The TX and RX from your USB-serial should be connected to
+	 RX and TX pins on your Pi.  Remember: TX should go to RX and 
+	 vice versa.
+	- If your jumper cables have become stressed/worn, try replacing them with fresh ones.
 
 
 
