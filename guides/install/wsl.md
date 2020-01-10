@@ -59,7 +59,6 @@ A File Explorer window opens in Windows that show the WSL files in the current d
 
 {% include callout.html type="warning" %}
 Note: Be sure that you are in the Ubuntu shell when following the next steps (installing toolchain and python).
-
 </div>
 This is the toolchain we need in order to compile code for the Raspberry Pi.
 
@@ -136,8 +135,13 @@ The console driver enables the bootloader client to communicate with the Pi over
 1. Download the CP2012 driver. The drivers are available on the Silicon Labs [CP210x Downloads page](https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers). Scroll down to the section titled "Download for Windows 10 Universal" and download the VCP zip file. Decompress the zip file and open the containing folder.
 2. Find the file named `CP210xVCPInstaller_x64.exe` (if your system is 64-bit) or `CP210xVCPInstaller_x86.exe` (if 32-bit). If you don't know if your system is 32 or 64-bit, see [these instructions](https://support.microsoft.com/en-us/help/13443/windows-which-version-am-i-running). Open the appropriate installer file and follow the prompts.
 
-✔️**Check:** confirm the driver appears in the list of installed drivers by following the steps below:
+✔️**Check:**  Confirm the driver appears in the list of system drivers by following the steps below:
 
 1. Type "MSInfo" into the start menu search bar. Launch the "System Information" app that is suggested. A panel pops up with a "System Summary" of your hardware and software environment.
 2. Use the "Find what:" field at the bottom of the panel to search for "silabs". (Be patient while it searches.)
 3. The search should report a matching Serial Port Driver with name "SILABSER.SYS" and description "Silicon Labs CP210x USB to UART Bridge Driver".
+
+{% include callout.html type="danger" %}
+We are not sure the driver check step is reliable, as it may be that the driver will not show up in the list unless loaded. You won't be able to test loading the driver until you get your kit in lab1, so hang tight for now. Keep an eye on Piazza and we'll make a post if we discover a reliable way to confirm driver installation without loading it.
+</div>
+

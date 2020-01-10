@@ -10,9 +10,8 @@ duedate: 2020-01-12 9:00 PM
 Task list to copy/paste when creating PR for this assign:
 
 __Before releasing assign0:__
-- [ ] Review writeup/starter code (instructor)
-- [ ] Consider changes for clarity of spec/ease of grading (TA)
-- [ ] Followup on any github issue from previous
+- [ ] Review writeup/starter files/process (TA)
+- [ ] Followup on issues from previous quarter postmortem (issue #221)
 
 __To prep for assign0:__
 - [ ] 
@@ -165,7 +164,7 @@ two files have been edited, you may want to only commit changes to one file.
 In this case, you would stage only the file of interest before committing,
 and changes to the other file will not be included.
 
-Use `git add` to add a change file to the staging area:
+Use `git add` to add a changed file to the staging area:
 
 ```
 $ git add lab.txt
@@ -210,7 +209,7 @@ Date:   Thu Jan 9 13:05:11 2020 -0800
 ```
 
 
-Each commit that you make records a snapshot of your work. You can use these snapshots to review your progress, compare versions, or identity and revert an unfortunate change.  Establishing good commit practices will give you the ability to navigate the history of
+Each commit that you make records a snapshot of your work. You can use these snapshots to review your progress, compare versions, or identify and undo an unfortunate change.  Establishing good commit practices will give you the ability to navigate the history of
 code changes, as well as providing the opportunity to revert to previous
 versions.  Sometimes you may find that you want to revert to a commit before a
 set a changes that introduced a bug in your code.  The more you commit, the
