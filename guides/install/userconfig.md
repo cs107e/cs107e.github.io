@@ -85,6 +85,8 @@ $ which pinout
 /Users/student/cs107e_home/cs107e.github.io/cs107e/bin/pinout
 ```
 
+As a followup check, close your current shell and open a new one. Run the check step again and confirm the configuration in the new shell is set properly too.
+
 ### Configure git identity
 We distribute course materials as git repos and you will use git to access, manage, and submit your work. The commands below will properly set the identity recorded with your git actions.
 
