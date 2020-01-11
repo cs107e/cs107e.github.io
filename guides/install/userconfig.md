@@ -48,7 +48,7 @@ $ echo $SHELL
 
 If your shell is `bash`, the file is named `.bashrc`.  If your shell is `zsh`, the file is named `.zshrc`.  For any other shell, please contact a CA for help.
 
-Change to your home directory and find the configuration file for your shell. Note that filenames starting with a dot are hidden in the directory listing by default. Use the command `ls -a` to list all files, including hidden ones:
+Change to your home directory and look for the configuration file for your shell. Note that filenames starting with a dot are hidden in the directory listing by default. Use the command `ls -a` to list all files, including hidden ones:
 
 ```
 $ cd ~
@@ -57,7 +57,12 @@ $ ls -a
 ..   .bash_logout    .config     .profile        .viminfo
 ```
 
-Open the appropriate configuration file for your shell in a text editor, and append the following two lines verbatim:
+If your home directory does not yet have the configuration file, you can create an empty file with the appropriate name:
+```
+$ touch .bashrc
+```
+
+Open the configuration file in a text editor and append the following two lines verbatim:
 
 ```
 export CS107E=~/cs107e_home/cs107e.github.io/cs107e
@@ -73,7 +78,7 @@ $ source .bashrc
 ```
 
   
-✔️__Check:__ confirm your shell configuration:
+✔️__Check:__ confirm your current shell configuration:
 
 ```
 $ echo $CS107E
@@ -85,7 +90,9 @@ $ which pinout
 /Users/student/cs107e_home/cs107e.github.io/cs107e/bin/pinout
 ```
 
-As a followup check, close your current shell and open a new one. Run the check step again and confirm the configuration in the new shell is set properly too.
+✔️__Check:__ confirm your shell customization is persistent:
+
+Close your current shell and open a new one. Try the check step above in the new shell and confirm this shell is also properly configured.
 
 ### Configure git identity
 We distribute course materials as git repos and you will use git to access, manage, and submit your work. The commands below will properly set the identity recorded with your git actions.
