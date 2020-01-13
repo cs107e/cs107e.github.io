@@ -430,11 +430,11 @@ ask questions of your partner and others.
 Do the following exercises:
 
 -   Look at the bytes in the `blink.bin` you assembled earlier by
-    running `xxd -g 1 blink.bin` at a shell in the `blink` folder.
+    running `hexdump blink.bin` at a shell in the `blink` folder.
 
-    (`xxd` is a command that prints the bytes in a file in a
-    human-readable form. You can run `man xxd` to learn more. What are
-    the numbers at the beginning of each line `xxd` outputs?)
+    (`hexdump` is a command that prints the bytes in a file in a
+    human-readable form. You can run `man hexdump` to learn more. What are
+    the numbers at the beginning of each line `hexdump` outputs?)
 
     Find the first occurrence of `e3`. What is the byte offset of `e3`
     relative to the start of the file?
