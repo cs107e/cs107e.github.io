@@ -30,6 +30,5 @@ permalink,title,released
 "/lectures/Performance/","Performance and Computer Architecture",false
 "/lectures/Keyboard/","Keyboards and the PS/2 Protocol",false
 "/lectures/Sound/","Sound",false
-"/lectures/ASM/","ARM assembly and machine code",false
 "/lectures/Serial/","Communication and the Serial Protocol",false
 "/lectures/Interrupts1/","Interrupts",false
