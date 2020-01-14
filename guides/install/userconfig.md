@@ -74,7 +74,7 @@ The first line sets the environment variable `CS107E` to the path to where the c
 The configuration file will be automatically read when creating a new shell in the future. Use the `source` command to re-read the configuration right now in your current shell: 
 
 ```
-$ source .bashrc
+$ source ~/.bashrc
 ```
 
   
@@ -90,9 +90,18 @@ $ which pinout
 /Users/student/cs107e_home/cs107e.github.io/cs107e/bin/pinout
 ```
 
+
+If your shell is `bash` and you are using the Terminal app on Mac OS, you will need an additional customization to make the shell configuration persistent. __This step is NOT necessary if your shell is `zsh` or you are using WSL__.
+
++ Find the file named `.bash_profile` in your home directory. If you do not yet have such a file, use the `touch` command to create an empty file with that name. Open that file in a text editor and append the following line verbatim:
+
+    ```
+    source ~/.bashrc
+    ```
+
 ✔️__Check:__ confirm your shell customization is persistent:
 
-Close your current shell and open a new one. Try the check step above in the new shell and confirm this shell is also properly configured.
+Close your current shell and open a new one. Try the check step above in the new shell and confirm the new shell is also properly configured.
 
 ### Configure git identity
 We distribute course materials as git repos and you will use git to access, manage, and submit your work. The commands below will properly set the identity recorded with your git actions.
