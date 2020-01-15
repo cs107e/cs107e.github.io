@@ -21,7 +21,7 @@ build. Here you can scan the Job log to understand any failures reported by the
 automated checker. You can also select the Build History tab to view a list of
 your past builds.
 
-<img title="CI page for assignments repo." src="../images/ci-repo.png" width="800">
+<img title="CI page for assignments repo." src="../images/travis-history.png" width="800">
 
 On the GitHub, you can also click the Details link in the test result in your
 pull request (which you might want to make early -- you can always push more
