@@ -98,7 +98,7 @@ Change to the lab subdirectory that contains the `blink` example and build the `
     $ arm-none-eabi-as blink.s -o blink.o
     $ arm-none-eabi-objcopy blink.o -O binary blink.bin
 
-If this works, you are good to go!
+If above commands execute without error, you are good to go!
 
 ### 2. Inventory your kit
 
@@ -214,11 +214,13 @@ When you insert the SD card it should mount automatically and the volume will sh
 By default, the SD card volume is named `NO NAME`.
 You can change the name if you wish.
 
-Another way to confirm that the card is mounted is to list 
-the mounted Volumes. If you're on a Mac:
+On a Mac, another way to confirm that the card is mounted is to list 
+the mounted Volumes in your shell:
 
     $ ls /Volumes
     Macintosh HD    NO NAME
+
+On Windows, the SD card will show up in your File Explorer, but the WSL shell will not have access to it. Use File Explorer to copy/rename files on the SD card.
 
 {% include callout.html type="warning" %}
 **Note:**  If your laptop doesn't have an SD card slot or the card slot isn't cooperating, ask your partner to use their computer or borrow a USB card reader from us. Configuring your SD card is a one-time task. You will not need to modify it again and in future will use the bootloader, so do whatever is most expedient to prep your SD card and move on.
@@ -242,9 +244,11 @@ We choose to first run the `blink-actled.bin`. This program blinks the green act
 
 Follow these steps in order:
 
-1. Copy the four files from the firmware folder onto the SD card. (You can use either do this in the shell or using Finder/File Explorer.)    
+1. Copy the four files from the firmware folder onto the SD card.
+    - On Mac, you can use either do this in the shell or using Finder. 
+    - On Windows, you can access the SD card only in in File Explorer, not the WSL shell. After changing to the firmware directory in your WSL shell, use the command `explorer.exe .` to show the current directory contents in File Explorer and you can copy those files to the SD card.
 
-2. On the SD card, make a copy of  `blink-actled.bin` named  `kernel.img`.
+2. On the SD card, make a copy of `blink-actled.bin` named  `kernel.img`.
 
 3. Confirm that your SD card has the following files:
 
