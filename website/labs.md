@@ -14,7 +14,7 @@ Labs meet {{ site.data.quarter.labs }}. You will be assigned to one of the two l
 
 *Written by Julie Zelenski, modified for CS107E by Pat Hanrahan*
 
-**What is a lab?**
+#### What is a lab?
 
 The weekly 2-hour lab section focuses on active experimentation and practical skill-building. 
 The lab content consists of a set of exercises/tasks that reinforce the week's lecture content.
@@ -26,7 +26,7 @@ For example, in the first lab you will learn
 how to create a circuit on a breadboard.
 We will bring tools and supplies to the labs. 
 
-**How is lab credit awarded?**
+#### How is lab credit awarded?
 
 Labs are graded for participation on a credit/no-credit basis.
 You earn credit by actively participating for the full lab period.
@@ -36,7 +36,7 @@ but what you don't finish, we encourage you to complete on your own.
 During the lab, we ask that you periodically check-in with the course staff, so we can see how you're doing and help resolve any issues that come up. This check-in also serves as our way of tracking your participation.
 
 
-**What is the lab collaboration policy?**
+#### What is the lab collaboration policy?
 
 More heads are better than one for this kind of experimenting,
 so you will work in **pairs.** 
@@ -50,12 +50,12 @@ with a clear understanding of the lab concepts
 and be prepared to go on to complete the assignments 
 (which are done individually).
 
-**Is it okay to arrive to lab late or leave early?**
+#### Is it okay to arrive to lab late or leave early?
 
 We award credit for labs based on participation and effort.
 We won't quibble about a few lost minutes here or there, but we do generally expect you to arrive on-time and participate for the full lab period  (or until satisfactorily completing all lab exercises).
 
-**What happens if I miss my lab?**
+#### What happens if I miss my lab?
 
 If you have to miss your lab session one week, 
 please come to the other session if possible. If you 

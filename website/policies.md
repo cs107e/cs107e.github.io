@@ -4,9 +4,36 @@ title: Course Policies
 toc: true
 ---
 
-## Late Policy
 
-*Written by Pat Hanrahan*
+## Grading Policy
+Your course grade is a combination of your participation in lab and your work on the assignments and final project. 
+
+
++ There are 9 weekly labs, graded for participation on a credit/no-credit basis.
++ There are 7 weekly assignments. Each assignment will have a required basic part and optional extensions.  You are required to complete the basic part, and are encouraged to attempt some of the extensions.
++ The course culminates with a final project where you design and implement a system of your choosing. 
+
+If you have your sights set on earning an __A__ course grade, you will need consistently __outstanding__ work:
++ Attend all labs 
++ Assignments 
+    - Basic requirements are complete and fully-functional for all assignments
+    - In addition, 3 or more assignment extensions successfully completed
+    - Earn the full system bonus for using all your own code on the last assignment
+    - Code quality (style and tests) trending to `+`
++ Outstanding final project, excellent execution
+
+For a __B__ course grade, we expect consistently __solid__ work:
++ Attend all labs
++ Assignments
+    - Basic requirements are complete and mostly fully-functional for all assignments
+    - At least 1 assignment extension attempted/completed or full system bonus achieved
+    - Code quality (style and tests) trending to `ok`
++ Good final project, satisfactory execution
+
+Work that is not completed satisfactorily will earn grades **C and below**.
+
+
+## Late Policy
 
 Hofstadter's Law: "It always takes longer than you think, even when you take
 Hofstadter's Law into account."
@@ -37,10 +64,10 @@ The rules:
 
 ## Collaboration Policy
 
-*Originally written by Julie Zelenski, some wording borrowed from a
+*Adapted from CS107 policy by Julie Zelenski, some wording borrowed from a
 collaboration policy distributed by Brown CS.*
 
-The programming assignments are an integral part of the CS107e learning
+The programming assignments are an integral part of the course learning
 experience. We have a great set of projects lined up for you and the time you
 spend designing your own solution and working toward its successful
 implementation can be fun, challenging, illuminating, time-consuming,
@@ -64,66 +91,55 @@ Code](https://communitystandards.stanford.edu/student-conduct-process/honor-code
 department Honor Code policy](http://csmajor.stanford.edu/HonorCode.shtml)
 further explains how it applies in CS courses. Students are to uphold their
 obligations to do honorable work and encourage others to do the same. On our
-part, we will treat students with trust and respect. When alerted to any
-possible infraction, we will protect the honorable students' interests by
-investigating and prosecuting dishonorable behavior.
+part, we will treat students with trust and respect.
 
-#### Assistance that is allowed and requires no citation
+### Assistance that is allowed
 
-These things are encouraged and allowed for all students:
+These things are encouraged and allowed for all students and require no citation:
 
-**Discussing course topics and materials**
+#### Discussing course topics
 
 You may freely talk through any material from the lectures,
-labs, textbook, and course documents with other students.
+labs, readings, and course website.
 
-**Asking/answering questions about the programming language, libraries, and tools**
+#### Discussing the language, libraries, and tools
 
-For example: "Does strcmp compare strings case-insensitively?
-What does the keyword static mean? How do I view my git
-history? What does this error message mean in a Valgrind report?"
+For example: "What does the keyword static mean? How do I view my git
+history? What does this ARM instruction do?"
 
-**Clarifying the requirements or specification of an assignment**
+#### Clarifying an assignment specification
 
 For example: "Do the results have to be sorted? What is the
 expected response if the input is empty?"
 
-**Sharing generic advice and techniques for coding or debugging**
+#### Sharing generic advice and techniques
 
 For example: "I test each function right after I finish writing
 it. When my program crashes, I first look at the stack trace
-in the debugger. I used custom sanity check to test these kinds
-of inputs. Valgrind callgrind is great for finding performance bottlenecks."
+in the debugger. I used a logic analyzer to study the signals in my circuit."
 
-**Use of web or public resources for background information**
+#### Use of external resources for background information
 
 You may search for and use external resources (web sites, blogs,
 forums, etc.) for information on course topics, as reference
 material on the programming language and libraries, and to
-resolve technical difficulties in use of the tools. The allowable
-use of these resources does not extend to assistance specific
-to the assignment code. (Please see below for restrictions on
-use of external resources)
+resolve technical difficulties in use of the tools.
 
-**Any discussion between student and the staff**
+#### Any discussion between student and the staff
 
 You are welcome to discuss any aspects of design, code, or
 debugging with the course staff. They are the best folks to
 talk to because they are knowledgeable about all the material
 and know how to help you without overly influencing or leading you.
 
-#### Assistance that is allowed but must be cited
+### Assistance that must be cited
 
-Whereas the discussions listed above are allowable, certain discussions
-require citation. The difference between the two comes in what is
-being discussed and in how much detail. You may discuss general
-topics (course materials, tools, language) in any depth without
-citation, but discussion or help specific to the particulars of an
-assignment requires citation. The particulars include such things
+Discussion and advice specific to the particulars of an
+assignment should be cited. The particulars include such things
 as the program's design, data structures, choice of algorithms,
 implementation strategies, testing, and debugging. Some examples:
 
-**Discussing the design of an assignment**
+#### Discussing your assignment design
 
 Design is a crucial part of the programming process, and we
 want you to learn to work through design problems on your own.
@@ -132,59 +148,27 @@ you may compare and contrast with a peer who has also completed
 their own design. You both must cite this discussion and note
 any ideas taken away from it.
 
-**Helping another student to debug**
+#### Helping another student to debug
 
-Two students should not sit down and debug jointly at the same
-computer, but a student could describe symptoms to a peer who
-responds with suggestions and hints (e.g. "it sounds like you
-might have forgotten to terminate the strings" or "you might
-be accessing freed memory, have you tried commenting out all
-the free statements?"). Receiving specific debugging advice
-must be cited.
+A student might describe symptoms to a peer who
+responds with suggestions (e.g. "it sounds like you
+might have forgotten to terminate the string" or  have you tried running under the gdb simulator?"). If you receive debugging help that was essential to your progress, please cite it.
 
-**Sharing specific test inputs or strategy**
+#### Sharing test strategies or inputs
 
-You may exchange strategies for testing (e.g. "here's my approach
-for testing code") and brainstorm together about test
-cases (e.g. "be sure to verify handling when index is out of range") but this collaboration must be cited. Sharing actual
-code used for testing is off-limits.
+If you discuss strategies for testing or jointly brainstorm test
+inputs (e.g. "be sure to verify handling when index is out of range"), this collaboration should be cited.
 
-**Re-using your own work from a previous quarter**
+#### What is an appropriate citation?
 
-This special rule applies to students who are re-taking the
-course. Re-using your previous quarter's work is generally
-permissible as long as the work was your original, independent
-creation and the self re-use is clearly cited. A specific
-exception to this general rule is the final project on which 
-any re-use is expressly disallowed. For the
-final project, a re-taking student must take a distinct approach
-from any previous submission and write new code and new
-documentation from scratch. Re-using the same design or borrowing
-code/documentation from a previous submission will not be
-considered a Honor Code violation, but such a submission will
-not be accepted for grading.
-
-A required citation must be specific, complete, and truthful. You
-must clearly identify the source of the help/discussion (person's
+A citation should be specific, complete, and truthful. Clearly identify the source of the help/discussion (person's
 name, book title, URL), describe the nature and extent of the
-assistance, and indicate how you believe the help may have influenced
-your work. A vague mention of "discussion with friends in my dorm"
-does not meet the obligations for a required citation. A misleading,
-incomplete, or untruthful citation can be considered an aggravating
-factor when a case is referred to the Office of Community Standards.
+assistance, and indicate how it influenced
+your submission.
 
-Failing to make a necessary citation can be charged as an Honor
-Code violation. Some former students have acknowledged they were
-unsure about the appropriateness of the assistance and chose not
-to cite to avoid drawing scrutiny. If in doubt, cite, as it is never
-a problem to give proper credit where due. If the assistance is
-truthfully cited, even if impermissible, we can work with you to
-discount the work rather than handle as a Honor Code violation.
+### Assistance that is NOT allowed
 
-#### Assistance that is **_not_** allowed
-
-Whereas discussion as described above is acceptable if cited, these
-discussions should never become so detailed that they involve jointly
+Discussions should never become so detailed that they involve jointly
 writing or exchanging/sharing passages of code. Your code must
 represent your original, independent work and it should not be
 developed in conjunction with or derived from anyone else's. You
@@ -192,7 +176,7 @@ should never be intimate with another's code nor allow others to
 be intimate with yours. Here are specific examples of unpermitted
 aid:
 
-**Copying code**
+#### Copying code
 
 It is an act of plagiarism to submit work which is copied or
 derived from the work of others and represent it as your own.
@@ -203,7 +187,7 @@ in all cases, it is unacceptable. You should never be in
 possession of anyone's else code, whether in printed, written,
 or electronic form.
 
-**Reviewing the code/design of another**
+#### Reviewing the code/design of another
 
 You are not permitted to have another person "walk you through"
 their approach nor may you use their work "as a reference" to
@@ -212,7 +196,7 @@ and design, to isolated passages as well as the entire program,
 and whether the review is conducted verbally or in
 printed/written/electronic form.
 
-**Joint development/debugging**
+#### Joint development/debugging
 
 You are not permitted to work with another to jointly develop
 a design, write code, or debug. Two students should never be
@@ -220,7 +204,7 @@ working together on a passage of code/pseudocode whether on
 paper, on a whiteboard, or in editor/debugger of a shared
 computer.
 
-**Use of web or public resources for assignment-specific code**
+#### Use of external resources for assignment-specific code
 
 You should not be searching external resources for solutions,
 whether in the form of code, pseudocode, or design. Should you
@@ -228,29 +212,17 @@ find full/partial solutions anyway, you are to turn away and
 report the location to us. A submission must not be adopted
 from or influenced by study of any external resource.
 
-**Sharing your code/design**
+#### Sharing your code/design
 
 You must not share your code with individual students nor
-publicly broadcast it. You should not post your assignment code
-in a public site for the review of others nor ask in a public
-forum for others to resolve issues specific to your assignment
-code. Although you will submit assignment code using Github, 
-we have private accounts set up for this and we expect that you will 
-keep this code private. Even after the course ends, you should not put 
-your assignment code on a public Github account.
-You are expected to take reasonable security precautions
+publicly broadcast it. The repositories we create for you on Github, 
+will be private and we expect that you will 
+keep them so. Even after the course ends, you are expected to take reasonable security precautions
 to maintain your work privately. If we request that you
 remove/protect code that has been improperly shared, you are
 expected to comply in a timely manner.
 
-Note that the giver of unpermitted aid, i.e. the student who provides
-the code/design/walkthrough to another, can also be charged with a
-violation.
-
-If you are ever unsure whether something you intend to do is
-acceptable, play it safe and ask us first. A student's explanation
-that "I thought it was okay; I didn't learn the course policies"
-will not excuse the violation.
+### Integrity as community
 
 The Honor Code is a powerful assertion that we as a community proudly
 dedicate ourselves to upholding the highest standards of academic
@@ -261,24 +233,21 @@ our respect and appreciation for your honor and efforts by doing
 our part to make absolutely clear our expectations and hold accountable
 those students who act in violation.
 
-## Questions
+### Common questions about collaboration
 
-**Can I include my solution code in my portfolio for internship/scholarship
-applications?**
+#### Can I include my solution code in my portfolio for internship/scholarship applications?
 
 We're delighted to hear that you are proud of your work and want
 to show it off! We are supportive, but ask that you contain the
 code to the intended audience. You may share your code via direct
 communication, privately-maintained repositories, restricted access,
-or another controlled channel. (as a suggestion, bitbucket.org
-offers academic users unlimited private repos). Making your code
+or another controlled channel. Making your code
 freely accessible on the web or maintaining a public repository at
 a code-sharing site will be a temptation for others who would exploit
 it. This is a bad situation we would much rather prevent than
 prosecute.  
 
-**What does it mean to have "third-party responsibility"
-under the Honor Code?**
+#### What does it mean to have "third-party responsibility" under the Honor Code?
 
 The students and faculty agree to work together to establish and
 maintain standards for honorable work. Students are not the primary
@@ -291,13 +260,12 @@ improper, take reasonable action to rectify the problem: draw
 attention to it, ask the student to stop, remove the temptation,
 or alert the course staff.  
 
-**Can you further clarify
-appropriate and inappropriate use of external resources?**
+#### Can you further clarify appropriate and inappropriate use of external resources?
 
 External resources can be used to research course topics and answer
 general questions, e.g. review 2's complement addition, ask "does
 strncpy null-terminate the destination string?", or learn how to
-use a gdb watchpoint. You are not to search for nor use external
+use a gdb watchpoint. It is not okay to use external
 resources to obtain solutions/answers to assignment-specific tasks.
 The prohibition applies to solutions in any form (e.g. design,
 algorithm, code, pseudocode) and whether a complete solution or
@@ -309,14 +277,7 @@ others to debug it. When you have assignment-specific issues, the
 appropriate resource to tap into is us -- come by office hours,
 post to the forum or send us email. We're happy to help!
 
-Appropriate use of external resources does not generally require
-citation, but if your code/design was materially influenced by what
-you viewed, it is appropriate to cite that resource and indicate
-the affected passage.
-
-**I'm in a tough situation (out of time, behind on
-material, stressed) and my panic has me considering less-than-honorable
-ways to get my assignment finished. Help!**
+#### I'm in tough situation (overloaded, falling behind, stressed) and my panic has me considering less-than-honorable ways to finish my assignment. Help!
 
 As much as we all intend and aspire to be worthy, in the heat of
 the moment with mounting pressures and the coincidence of opportunity,
