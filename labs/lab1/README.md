@@ -120,7 +120,7 @@ The voltage from anode to the cathode should be positive.
 If the polarity of voltages are switched, the LED will not light up.
 A LED also needs a 1K current limiting resistor
 otherwise it can literally 
-[blow up in a fiery extravaganza](https://www.youtube.com/watch?v=JCPXckfT-6g)!
+[blow up in a fiery, smoky extravaganza](https://www.youtube.com/watch?v=WLctUO1DGtw)!
 
 In the photo below of our circuit,
 we connected the cathode of the LED to the 1K resistor 

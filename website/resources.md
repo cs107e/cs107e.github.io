@@ -28,7 +28,6 @@ which is based on the ARMv6 architecture.
 * ARM1176JFZ-S processors use the ARMv6 architecture,
 which is documented in the [ARMv6 Architecture Manual](/readings/armv6.pdf). At 1000 pages, the full manual is quite a tome; this [excerpt](/readings/armisa.pdf) from the manual documents just the instruction set.
 
-
 * ARM System-on-Chip Architecture (2nd Edition), Steve Furber. <https://www.amazon.com/dp/0201675196/>
 Steve Furber was the principal design of the first ARM processor.
 The diagrams of the ARM architecture are based on the diagrams
