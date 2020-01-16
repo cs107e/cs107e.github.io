@@ -9,10 +9,14 @@ You may need to restart your computer a few times throughout this process, so it
 
 ### Requirements
 
+These instructions are newly updated for Winter quarter 2020. We did our testing on **Windows 10 version 1903** and recommend that your version match ours. Confirm your OS version by typing "winver" into the start menu search bar and run the suggested command. A panel appears that reports the OS version as shown in this screenshot:
+
+![Window Version 1903](/guides/images/winver.png)
+
+If your OS version is 1903 (or newer), you are good to go!
+
 {% include callout.html type='danger'%}
-
-These instructions are newly updated for Winter quarter 2020. We did our testing on **Windows 10 version 1903** and recommend that your version match ours. Do not follow these instructions on an earlier version of Windows; instead reach out to staff for help setting up your environment.
-
+If you are running an earlier version of Windows; do not proceed with the installation instructions. Stop here and update to a compatible OS version first. If you need help, reach out to staff.
 </div>
 
 ### Enable WSL with Ubuntu 16.04
