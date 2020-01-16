@@ -20,13 +20,11 @@ which is based on the ARMv6 architecture.
 
   * __Important:__ [Errata](http://elinux.org/BCM2835_datasheet_errata) for the above datasheet. Some of the issues are simple typos but there are places where the text is wrong or backwards, so keep the errata at hand to reconcile those.
 
-  * [GPIO Pad Control](http://www.scribd.com/doc/101830961/GPIO-Pads-Control2)
-
 * The ARM1176JFZ-S processor is documented in the 
-[Technical Reference Manual](http://infocenter.arm.com/help/topic/com.arm.doc.ddi0301h/DDI0301H_arm1176jzfs_r0p7_trm.pdf).  
+[Technical Reference Manual](/readings/arm1176.pdf).  
 
 * ARM1176JFZ-S processors use the ARMv6 architecture,
-which is documented in the [ARMv6 Architecture Manual](/readings/armv6.pdf). At 1000 pages, the full manual is quite a tome; this [excerpt](/readings/armisa.pdf) from the manual documents just the instruction set.
+which is documented in the [ARMv6 Architecture Manual](/readings/armv6.pdf). At 1000 pages, the full manual is quite a tome; here is an [excerpt for the instruction set](/readings/armisa.pdf).
 
 * ARM System-on-Chip Architecture (2nd Edition), Steve Furber. <https://www.amazon.com/dp/0201675196/>
 Steve Furber was the principal design of the first ARM processor.

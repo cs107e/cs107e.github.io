@@ -530,7 +530,7 @@ Feel free to add your own code annotations if that helps.
 
 Here are a few questions to test your knowledge.  To confirm your answers, you
 will have to read the [Broadcom peripheral
-manual](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2835/BCM2835-ARM-Peripherals.pdf),
+manual](/readings/BCM2835-ARM-Peripherals.pdf),
 or ask someone who knows the answer.
 
 -   What does the peripheral register with the address 0x20200034 return?
