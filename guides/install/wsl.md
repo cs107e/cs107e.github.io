@@ -16,7 +16,7 @@ These instructions are newly updated for Winter quarter 2020. We did our testing
 If your OS version is 1903 (or newer), you are good to go!
 
 {% include callout.html type='danger'%}
-If you are running an earlier version of Windows; do not proceed with the installation instructions. Stop here and update to a compatible OS version first. If you need help, reach out to staff.
+If you are running an earlier version of Windows; do not proceed with the installation instructions. Stop here and update to a compatible OS version first. If you need help, reach out to the staff.
 </div>
 
 ### Enable WSL with Ubuntu 16.04
