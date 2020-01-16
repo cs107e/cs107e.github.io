@@ -60,6 +60,9 @@ Each assignment is structured into a basic part and one or more proposed extensi
 
 Check out our website pages [assignments](/assignments/#faq) and [course policies](/policies) for more information on assignments, grading, lateness, and collaboration.
 
+#### YEAH! = Your Early Assignment Help
+Shannon will be leading a YEAH session for the assignment Thursday 3-4pm in Gates B21. Come join us and kickstart your work! We'll have a working version to demo and share best practices for success, highlight tricky details, warn of pitfalls to avoid, answer your questions, and more.
+
 ## Basic part: simple scan pattern
 
 This assignment involves modifying the blink program showed in class.
@@ -125,7 +128,7 @@ on for the same amount of time that a middle LED would be on). The scanning freq
 
 Here is a short video of our 8-LED scanner in action: 
 
-<iframe width="420" height="236" src="http://www.youtube-nocookie.com/embed/vhDcb7lxCF4?modestbranding=1&version=3&loop=1&playlist=vhDcb7lxCF4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="420" height="236" src="https://www.youtube-nocookie.com/embed/vhDcb7lxCF4?modestbranding=1&version=3&loop=1&playlist=vhDcb7lxCF4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Writing clean, readable assembly code is a challenge. Commenting is essential!  Be sure to choose good label names and add named constants using `.equ` to aid readability. You should write the program without any function calls (because we haven't taught you how to create and call functions in assembly language yet). Although you cannot use functions, you can still strive for clarity in your design.
 
