@@ -33,12 +33,12 @@ weeks:
     mon: /lectures/ASM/
     lab: /labs/lab1/
     assign: /assignments/assign1/
-    fri: /lectures/C1/
+    fri: /lectures/C_Control/
   -
-    mon: /lectures/C2/
+    mon: /lectures/C_Pointers/
     lab: /labs/lab2/
     assign: /assignments/assign2/
-    fri: /lectures/Functions/ 
+    fri: /lectures/C_Functions/ 
   -
     mon: /lectures/Serial/ 
     lab: /labs/lab3/
@@ -48,7 +48,7 @@ weeks:
     mon: /lectures/Memory/ 
     lab: /labs/lab4/
     assign: /assignments/assign4/
-    fri: /lectures/C-mastery/
+    fri: /lectures/C_Mastery/
   -
     mon: /lectures/Keyboard/
     lab: /labs/lab5/

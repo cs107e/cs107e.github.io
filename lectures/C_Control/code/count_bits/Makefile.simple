@@ -1,0 +1,11 @@
+# This very simple Makefile builds mine.bin
+# from fixed recipes
+
+mine.bin: mine.elf
+	arm-none-eabi-objcopy mine.elf -O binary mine.bin
+
+mine.elf: mine.o
+	arm-none-eabi-gcc -nostdlib -e main mine.o -o mine.elf
+
+mine.o: mine.c
+	arm-none-eabi-gcc -ffreestanding -c mine.c -o mine.o
