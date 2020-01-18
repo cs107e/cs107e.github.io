@@ -1,0 +1,13 @@
+---
+released: true
+permalink: /lectures/C_Pointers/
+title: C Pointers and Arrays
+readings: |
+    + __Note__:  Monday is a university holiday. To keep us on schedule, Julie will cover key content in bonus session in our regular Monday lecture slot. We will meet in Gates B12 instead of Lathrop 299. If you can't join in person, please watch screencast once posted.
+    + Before lecture, read [EssentialC](http://cslibrary.stanford.edu/101/EssentialC.pdf) chapters 3 (skip material on structures)
+      and 6 (skip material on the heap and memory management)
+      or K&amp;R 5.1-5.4.
+      C-strings are primitive compared to Java/C++ strings; take note of the manual effort required to use and pitfalls to avoid.
+    + Poul-Henning Kamp's essay on [The Most Expensive One-byte Mistake](https://queue.acm.org/detail.cfm?id=2010365). _Did Ken, Dennis, and Brian choose wrong with NUL-terminated text strings?_
+    + The screencast of the makeup lecture will be posted here Monday evening.
+---
