@@ -10,5 +10,5 @@ readings: |
       C-strings are primitive compared to Java/C++ strings; take note of the manual effort required to use and pitfalls to avoid.
     + Poul-Henning Kamp's essay on [The Most Expensive One-byte Mistake](https://queue.acm.org/detail.cfm?id=2010365). _Did Ken, Dennis, and Brian choose wrong with NUL-terminated text strings?_
     + C `volatile` can be subtle and tricky. See GeeksForGeeks advice on [correct use](https://www.geeksforgeeks.org/understanding-volatile-qualifier-c-set-1-introduction/) and John Regehr's blog on what [NOT to do](https://blog.regehr.org/archives/28) with volatile
-    + The screencast of the makeup lecture will be posted here Monday evening.
+    + Here is the [screencast](https://web.stanford.edu/class/cs107e/pointers.mov) I recorded of the makeup lecture.
 ---
