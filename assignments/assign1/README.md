@@ -184,7 +184,16 @@ Before starting on an extension, be sure you have first committed and pushed a w
 
     $ git checkout -b assign1-extension
 
-Commit and push your changes for the extension on this new branch. Implement the extension by modifying the `larson.s` file. DO NOT create any new files for the extension. 
+Commit and push your changes for the extension on this new branch. Implement the extension by modifying the `larson.s` file. DO NOT create any new files for the extension.
+
+*Note*
+When you create a new branch locally, you'll need to push that branch to your github repo online. This is a process called setting the "upstream" reference for this branch in git. In order to do this, the first time you push to your new branch, you'll need to use the following special push command after adding and commiting your changes
+
+    $ git push --set-upstream origin assign1-extension
+    
+After the first time you push to your new branch, you can just use the push command normally.
+
+    $ git push
 
 ## Submit and automated check
 Submit the finished version of your assignment by making a git "pull request"
