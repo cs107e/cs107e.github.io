@@ -13,7 +13,7 @@ __Before releasing lab1:__
 - [ ] Update firmware to latest from Broadcam
 - [ ] Review writeup/code/checkin questions (instructor)
 - [ ] Walk through (SL)
-- [ ] Followup on issues from previous quarter postmortem (issue #)
+- [ ] Followup on issues from previous quarter postmortem (issue #224)
 
 __To prep for lab1:__
 - [ ] Review tips recorded in private/staff_notes.md and private/answers.md

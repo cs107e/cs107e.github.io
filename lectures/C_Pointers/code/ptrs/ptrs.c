@@ -1,10 +1,11 @@
+// This buggy program tries to write to a bogus address
+// what happens if you run this program on a honsted system?
+// what happens on baremetal Pi?
 
-
-int main(int argc, char *argv[])
+int main(void)
 {
     int *my_ptr = (int *)0x20;
 
-    // what happens if access invalid address on baremetal? on hosted system?
     *my_ptr = 1;
     return 0;
 }
