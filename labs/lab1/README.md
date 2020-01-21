@@ -32,9 +32,9 @@ __To prep for lab1:__
 
 During this lab you will:
 
-1.  Learn how to cross-develop on your computer for the Raspberry Pi's ARM processor.
-2.  Learn how to use a breadboard with LEDs and buttons.
-3.  Learn how to download and run bare metal programs on the Raspberry Pi.
+- Learn how to cross-develop on your computer for the Raspberry Pi's ARM processor.
+- Learn how to use a breadboard with LEDs and buttons.
+- Learn how to download and run bare metal programs on the Raspberry Pi.
 
 ## How does lab work?
 
@@ -455,7 +455,8 @@ of 2.
     Now perform experiments to determine how many instructions per second the
     Raspberry Pi executes.
 
-### 9. Add a button! (optional)
+<A name="button"></A>
+### 9. Add a button (optional)
 
 This last part is optional.
 You do not need to use buttons for Assignment 1,
