@@ -361,14 +361,14 @@ replaced by labeled dots where you should connect jumpers from the GPIO pins on
 the Pi. For example, setting Pins 10 and 20 to high will turn on the top
 segment of the first digit.
 
-The finishing touch is to add a pushbutton on the left edge of the breadboard. The button is not connected into the display circuit. It will be wired to the power rail through a 10K pull-up resistor and connected to the GPIO pin 3 on your Raspberry Pi to be read as an input. Review the [button exercise from lab1](/labs/lab1#button) if you were not able to get to it last week.
+The finishing touch is to add a red pushbutton on the left edge of the breadboard to be the start button for the clock. The button is not connected into the display circuit. It will be wired to the power rail through a 10K pull-up resistor and connected to the GPIO pin 2 on your Raspberry Pi to be read as an input. Review the [button exercise from lab1](/labs/lab1#button) if you were not able to get to it last week.
 
 When you wire your breadboard, be sure to choose (or cut) wires of the proper length and arrange them neatly. Select different colors of wires to annotate what each is used for. If they're neat, it's easier to see if everything is set up correctly. Take your time and check your work. A little bit of care here will save you a lot of time later, because, when your system has a bug, the set of things that you have to check is much smaller.
 
 <img src="images/badgood.jpg" width="350">
 
 ---
-Here is a photo of Pat's completed breadboard. What a masterpiece! (Note the second button is optional and only used in the assignment extension.)
+Here is a photo of Pat's completed breadboard. What a masterpiece! (Note the second blue button is optional and only used in the assignment extension.)
 ![Wired breadboard with components](images/wire1.jpg)
 
 ## Check in
