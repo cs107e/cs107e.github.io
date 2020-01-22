@@ -131,7 +131,7 @@ An effective developer knows that testing your code goes hand-in-hand with writi
 
 The standard C library offers an `assert` macro for use as a simple diagnostic. Run the command `man assert` in your Terminal to read about the standard library version. The `assert` macro takes an expression that is expected to evaluate to true. If the expression is, in fact, true, then the assertion succeeds and the program continues on.  If the expression is false, the assertion fails which cause the program to print an error message and exit.
 
-Running bare metal means no standard libraries, and furthermore we don't have printf (yet!). To get something akin to `assert`, we have to cobble it up ourselves and given our limited resources, it will be rather primitive.  Our bare bones `assert` signals success and failure by controlling the red and green LEDs on the Raspberry Pi board.
+Running bare metal means no standard libraries, and furthermore we don't have printf (yet!). To get something akin to `assert`, we have to cobble it up ourselves and given our limited resources, it will be rather primitive.  There are two LEDs built onto the Raspberry Pi board that we will use to signal success and failure. One is a red LED labeled "PWR"; by default this LED is lit whenever the Pi is receiving power. There is also a green LED labeled "ACT" that we have used by the bootloader heartbeat.  Our bare bones `assert` is going to co-opt these LEDs for its own purposes and blink the red LED to report a failure and turn the green LED steady on to report total success. 
 
 Let's walk through an example that shows using assertions as rudimentary testing tool.
 
@@ -162,7 +162,7 @@ It's time to divide and conquer. Leave in the first half of the test cases and c
 test cases and re-running to narrow in on which specific cases fail.
 How many of the test cases pass? How many fail?  Which ones? Why?
 
-Organize the test results to identify the pattern to the failures. Use that information to find and fix the bug in `count_bits` so that it works correctly for all inputs. Note that a test case is only as good as you make it. An incorrect test case could make you think your code is working when it isn't, or make you think your code isn't working when it is &mdash; so, in addition to fixing `count_bits`, go through all the test cases and make sure they're checking for the correct results.
+Organize the test results to identify the pattern to the failures. Use that information to find and fix the bug in `count_bits` so that it works correctly for all inputs. Note that a test case is only as good as you make it. An incorrect test case could make you think your code is working when it isn't, or make you think your code isn't working when it is &mdash; so, in addition to fixing `count_bits`, go through all the test cases and make sure the test is properly constructed, i.e. properly asserts an expression that should be true.
 
 After fixing `count_bits` and any incorrect test cases, uncomment all test cases, rebuild, re-run, and bask in the glow of the green light of happiness!
 
@@ -171,7 +171,7 @@ After fixing `count_bits` and any incorrect test cases, uncomment all test cases
 Phew, typing out `rpi-install.py testing.bin` so many times was
 a chore! Add a recipe for
 `install` to the Makefile that will build and run
-the program with the single command `make install`.
+the program with the single command `make install`. Make sure that the dependencies for the install target are configured to trigger a rebuild of the program when needed.
 
 
 <a name="crossref"></a>
