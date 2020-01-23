@@ -121,4 +121,6 @@ user.name My Name
 user.email myemail@stanford.edu
 ```
 
+### Finished
+After following the above steps, you've configured your user account. Continue on to the [Final Checklist](../#steps) to confirm your entire environment.
 

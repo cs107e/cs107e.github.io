@@ -13,15 +13,15 @@ We peppered our instructions with ✔️__Check__ points that confirm your progr
 ### Overview
 You must configure your laptop with a development environment capable of writing and compiling programs to run on the Raspberry Pi. The development tools are unix-based. Mac OS and Linux natively support an appropriate environment, on Windows you must enable WSL (Windows Subsystem for Linux) and work in an Ubuntu instance running on top of Windows OS.
 
-Here is an overview of the installation steps.
+The installation steps are:
 
+<A name="steps"></A>
 1. Install developer tools:
     + `arm-none-eabi` cross-compile toolchain.  A _cross-compiler_ is a development toolchain that runs on one system (e.g., x86) and generates machine code for a different system (in this case, ARM). The toolchain includes the C compiler and other essential development tools (assembler, linker, debugger, and utilities).  
     + python3, package prerequisites, and console driver needed by the bootloader client `rpi-install.py`.
     + Choose the appropriate instructions for your OS
         +  [Install dev tools on MacOs](../install/mac)
         +  [Install dev tools on Windows](../install/wsl)
-
 1. Configure user account:
     + create a `cs107e_home` directory to store your class materials
     + configure shell and git environment
@@ -29,7 +29,7 @@ Here is an overview of the installation steps.
         + [Configure home/user](../install/userconfig)
 
 ### Final checklist
-After completion of installation, confirm your setup with this list.
+After completing above steps, use the list below to confirm your environment from top to bottom.
 
 #### arm-none-eabi toolchain
 ✔️__Check:__ confirm toolchain (ok if version is newer):

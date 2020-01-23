@@ -108,4 +108,6 @@ Note: Macs come with a version of python installed, but it is an older version (
     xmodem     0.4.5 
     ```
 
+### Finished
+After following the above steps, you've installed the development tools. Continue on to follow the instructions to [configure your user account](../#steps).
 
