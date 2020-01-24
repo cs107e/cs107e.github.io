@@ -3,7 +3,6 @@
 all : c_button.bin button.bin
 
 CFLAGS = -Og -g -Wall -std=c99 -ffreestanding
-LDFLAGS = -nostdlib -e main
 
 %.bin: %.o
 	arm-none-eabi-objcopy $< -O binary $@

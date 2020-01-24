@@ -1,32 +1,46 @@
-int result;
+#include "assert.h"
 
-int gauss(int n)
+int rec_fact(int n)
 {
-    int result = 0;
-    for (int i = 0; i < n; i++)
-        result += i;
+    if (n == 0) {
+        return 1;
+    } else {
+        return n*rec_fact(n-1);
+    }
+}
+
+int factorial(int n)
+{
+    int result = 1;
+    for (int i = n; i > 0; i--)
+        result *= i;
     return result;
 }
 
-int sum(int x, int y)
+int sum(int x, int y, int z)
 {
-    return x + y;
+    return x + y + z;
 }
 
-int abs(int v)
+int square(int v)
 {
-    return v < 0 ? -v : v;
+    return v * v;
 }
 
 int delta(int a, int b)
 {
-    return abs(a - b);
+    int diff = square(a) - square(b);
+    return diff * 2;
 }
 
-void main(void)
+int main(void)
 {
-    int age = 19, course = 107;
+    int x = sum(5, 11, 8);
+    int y = delta(3, x);
 
-    age = gauss(age + 3);
-    result = sum(age, course) + delta(age, course);
+    int i = factorial(5);
+    int r = rec_fact(5);
+    assert(i == r);
+
+    return y;
 }
