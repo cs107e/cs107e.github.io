@@ -24,7 +24,6 @@ static void sort(char *arr[], int n)
 static int get_and_echo(void)
 {        
     char ch = uart_getchar();
-    if (ch == '\r') ch = '\n';
     uart_putchar(ch);
     return ch;
 }
