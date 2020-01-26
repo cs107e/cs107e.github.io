@@ -53,13 +53,18 @@
 
 void pwm_init(void)
 {
+    //pwm_set_clock( F_OSC );
+    //pwm_set_mode( 0, PWM_MARKSPACE );
+    //pwm_set_fifo( 0, 0 );
+    //pwm_set_mode( 1, PWM_MARKSPACE );
+    //pwm_set_fifo( 1, 0 );
 }
 
 /*
- * pwm frequency in Hz = 19_200_000 Hz / pwmClock / pwmRange
+ * pwm frequency in Hz = 19 200 000 Hz / pwmClock / pwmRange
  */
 void pwm_set_clock(int freq) {
-    int timer = F_OSC; // only support F_OSC for now ...
+    int timer = F_OSC;
     int source;
 
     // 2^20 = 1048576
