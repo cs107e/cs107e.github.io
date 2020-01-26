@@ -6,7 +6,7 @@ const int pin = GPIO_PIN20;
 #define BAUD 9600
 #define DELAY (1000000/BAUD)
 
-void bit(int val)
+void putbit(int val)
 {
     gpio_write(pin, val);
     timer_delay_us(DELAY);
@@ -14,13 +14,13 @@ void bit(int val)
 
 void putchar(int c)
 {
-    bit(0); // start bit
+    putbit(0); // start bit
     // output 8-bits, lsb first
     for ( int i = 0; i < 8; i++ ) { 
-        bit(c & 0x1);
+        putbit(c & 0x1);
         c >>= 1;
     }
-    bit(1); // stop bit
+    putbit(1); // stop bit
     timer_delay_us(2 * DELAY);
 }
 

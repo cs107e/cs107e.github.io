@@ -13,8 +13,11 @@
 
 /*
  * Initialize the UART code module. The init function should be called
- * once before any calls to other functions. Note that the UART uses 
- * GPIO pins 14 (transmit) and 15 (receive).
+ * once before any calls to other functions in the uart module. The
+ * UART requires exclusive use of GPIO pins 14 (transmit) and 15 (receive). 
+ * It is possible, although rare, to call uart_init() more than once to 
+ * reset the UART state. A second call to uart_init discards any 
+ * pending data in send/receieve buffer.
  */
 void uart_init(void);
 
@@ -22,7 +25,7 @@ void uart_init(void);
  * Obtains the next input character from the serial port and returns it.
  * If receive buffer is empty, will block until next character is received.
  *
- * @return    the character read or EOF on error
+ * @return    the character read or EOF if error or at end of input
  */
 int uart_getchar(void);
 
@@ -31,7 +34,7 @@ int uart_getchar(void);
  * If send buffer is full, will block until space available.
  *
  * @param ch   the character to write to the serial port
- * @return     the character written or EOF on error
+ * @return     the character written or EOF if error
  */
 int uart_putchar(int ch);
 
@@ -44,5 +47,19 @@ void uart_flush(void);
  * Returns true if there is a character ready to be read, false otherwise.
  */
 bool uart_haschar(void);
+
+/*
+ * Outputs a string to the serial port by calling uart_putchar() 
+ * on each character.
+ *
+ * @param str  the string to output
+ * @return     the count of characters written or EOF if error
+ */
+int uart_putstring(const char *str);
+
+// Output EOT (end of transmission) to indicate uart communication finished
+#define EOT 4
+// EOF (end of file) is returned to indicate no more data to read
+#define EOF -1
 
 #endif
