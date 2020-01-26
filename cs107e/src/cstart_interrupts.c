@@ -24,7 +24,7 @@ extern void main(void);
 
 // The C function _cstart is called from the assembly in start.s
 
-void _cstart() {
+void _cstart(void) {
     int *bss = &__bss_start__;
     int *bss_end = &__bss_end__;
 

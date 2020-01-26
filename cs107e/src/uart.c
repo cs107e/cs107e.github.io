@@ -100,3 +100,12 @@ void uart_flush(void) {
 bool uart_haschar(void) {
     return (uart->lsr & MINI_UART_LSR_RX_READY);
 }
+
+int uart_putstring(const char *str) {
+    int n = 0;
+    while (str[n]) {
+        uart_putchar(str[n]);
+        n++;
+    }
+    return n;
+}
