@@ -78,9 +78,19 @@ void uart_init(void)
     uart->cntl = MINI_UART_CNTL_TX_ENABLE | MINI_UART_CNTL_RX_ENABLE;
 }
 
+// RE: line endings
+// canonial use is '\n' newline as sole line terminator (both read/write)
+// but connected terminal may expect to receive a CR-LF sequence from Pi
+// and may send a CR to Pi for return/enter key. art_getchar and uart_putchar
+// take care of converting internally so that client can simply 
+// send/receive \n
+
 int uart_getchar(void) {
     while (!(uart->lsr & MINI_UART_LSR_RX_READY)) ;
-    return uart->data & 0xFF;
+    int ch = uart->data & 0xFF;
+    if (ch == EOT) return EOF;      // convert EOT to EOF
+    if (ch == '\r') return '\n';    // convert CR to newline
+    return ch;
 }
 
 int uart_putchar(int ch) {

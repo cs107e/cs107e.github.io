@@ -25,7 +25,7 @@ void uart_init(void);
  * Obtains the next input character from the serial port and returns it.
  * If receive buffer is empty, will block until next character is received.
  *
- * @return    the character read or EOF on error
+ * @return    the character read or EOF if error or at end of input
  */
 int uart_getchar(void);
 
@@ -34,7 +34,7 @@ int uart_getchar(void);
  * If send buffer is full, will block until space available.
  *
  * @param ch   the character to write to the serial port
- * @return     the character written or EOF on error
+ * @return     the character written or EOF if error
  */
 int uart_putchar(int ch);
 
@@ -53,12 +53,13 @@ bool uart_haschar(void);
  * on each character.
  *
  * @param str  the string to output
- * @return     the count of characters written or EOF on error
+ * @return     the count of characters written or EOF if error
  */
 int uart_putstring(const char *str);
 
-// EOT character code used as the "end of transmission" marker
+// Output EOT (end of transmission) to indicate uart communication finished
 #define EOT 4
-
+// EOF (end of file) is returned to indicate no more data to read
+#define EOF -1
 
 #endif
