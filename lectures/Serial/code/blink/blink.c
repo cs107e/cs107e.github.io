@@ -3,7 +3,7 @@
 
 #define SECOND 1000
 
-const int pin = 20;
+const int pin = GPIO_PIN20;
 
 void main(void)
 {
