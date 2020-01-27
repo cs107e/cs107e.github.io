@@ -72,6 +72,7 @@ int main(void)
     strings();  
     struct_ptr();
     function_ptr();
-    printf("\nProgram %s completed.\n\04", __FILE__);
+    printf("\nProgram %s completed.\n", __FILE__);
+    uart_putchar(EOT);
     return 0;
 }

@@ -61,5 +61,5 @@ void main(void)
     printf("Read %d names.\n\nNow in sorted order:\n", n);
     for (int i = 0; i < n; i++)
         printf("%s\n", names[i]);
-    printf("\04");
+    uart_putchar(EOT);
 }
