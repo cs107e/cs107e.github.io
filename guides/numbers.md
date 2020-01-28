@@ -29,3 +29,8 @@ we recommend that you review the following materials:
 * Sparkfun tutorial on [Hexadecimal Numbers](https://learn.sparkfun.com/tutorials/hexadecimal)
 * Wikipedia entry for [Bitwise Operators](http://en.wikipedia.org/wiki/Bitwise_operations_in_C)
 
+------
+<small>Credit to: <http://cowbirdsinlove.com/43></small>
+![all your base](http://cowbirdsinlove.com/comics/base10[1].png)
+
+

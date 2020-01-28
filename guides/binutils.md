@@ -45,11 +45,7 @@ The most common use of `as` is as follows:
     $ as code.s -o code.o
 
 This command instructs the assembler to read assembly code from the input file `code.s` and to write the machine code to the output file `code.o`. If you do not include `-o code.o` then it will default to a output file named to
-`a.out`. If you do not include `code.s` it will default to taking its input from standard
-input. These two invocations are therefore equivalent:
-
-    $ cat code.s | as
-    $ as code.s -o a.out
+`a.out`. 
 
 Just as the input to `as` might not be a executable program, the output of `as` might
 not be executable. For example, a library is a set of functions that other programs can
@@ -69,14 +65,10 @@ library. When you compile a program that uses the library, you compile your prog
 into one or more object files, then link those against the library, producing a final
 executable.
 
-The linker operates by resolving *symbols*. Whenever your code creates or uses a name
-that is not on the stack (e.g., defines a function, defines a variable, declares a
-function and calls it), this creates a symbol. Some symbols, such as those your program
-defines, are resolved and exist. For example, when you define a variable `int a;`
-in global scope, this creates a symbol for `a`, which says at what memory address `a`
-resides. When you call a function `f()` that's defined in a library, this creates
-an unresolved symbol for `f`. When the linker links your program to the library,
-it sees that `f` is an unresolved symbol, sees that `f` is defined in the library,
+The linker operates by resolving *symbols*. The name of each of your functions and global variables is a symbol. Symbols come in two forms: a definition that associates a name with its data (e.g. initializing a global variable or the body of a function) and a declaration/use of that name.  There must be exactly one definition for a symbol, but there can be multiple declarations/use of the symbol. For example, when you define a variable `int a = 17;`
+in global scope, this creates a symbol for `a`, which establishes at what memory address `a`
+resides and sets its initial value to 17. Any use of the global `a` must be resolved to refer to this one copy of the variable. Similarly with a function named `f()`. There will be one definition of `f()` (perhaps in a library). Every other place where you call the function `f()` it generates an unresolved reference. It is the job of the linker to resolve all such references to use the one shared copy.  When the linker links your program,
+it sees that `f` is an unresolved symbol, sees where `f` is defined in the library,
 then fixes the binary code in your program so that when it calls `f` it jumps to
 where `f` exists.
 
@@ -192,12 +184,12 @@ looks for strings of at least 6 characters.
 
 ### `strip`
 
-Removes symbols from object files. Symbols indicate where in memory variables and functions reside, 
+Removes the symbol table from an object file. The symbol table has information about each symbol by name, including size, type, and address, 
 see `ld` above. By stripping out symbol tables and debug information, `strip` decreases the size of 
 object files.
 
 `strip` modifies the input file rather than creating a new, stripped output file. Compare the file 
-before and after you strip it using `nm` (above). You will find that the symbols have been removed. 
+before and after you strip it using `nm` (above). You will find that the symbol information has been removed. All of the code/data for the symbols remains in the binary, but there is no longer a "legend" that identifies which symbol is where.
 
 ### `objcopy`
 
@@ -221,15 +213,15 @@ Displays information about object files. To use `objdump`, you must specify at l
 options, which indicate what type of information you would like to view. There are many different options, 
 check out `man objdump` to see what it can show.
 
-A very useful option is the `-d` option, which allows you to view the assembly instructions 
-associated with the executable part of the binary file (`-d` is for disassemble):
+A very useful option is the `-d` option (`-d` is for disassemble), which allows you to view the assembly instructions 
+associated with the executable part of the binary file:
 
     $ objdump -d test.o
 
 ### `ar`
 
 Allows you to create, modify, and extract archives. Archives are single files holding 
-collections of other (usually binary) files, similar to a zip or tar file. Archives have a .a extension 
+collections of other (usually binary) files, similar to a zip or tar file. Archives are named with a `.a` extension 
 and are usually used to hold libraries. The linker (see `ld` above) is often used to link to functions 
 in these archive library files.
 

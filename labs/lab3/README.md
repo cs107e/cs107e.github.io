@@ -391,38 +391,27 @@ At this point, you should be able to answer the first [check in question](checki
 ### 2. Serial communication
 #### 2a) Loopback test
 
-First, insert the USB-serial into a USB port on your laptop.
+Your laptop communicates over a serial interface when sending a program to the bootloader. To understand what is going on, let's do a simple *loop back* test with your USB-serial adapter.
 
-Identify the `tty` device  for the USB-serial on your laptop. (`tty` stands for teletype)
+Insert the USB-serial adapter into a USB port on your laptop and identify the `tty` (teletype) device assigned to the port. A simple way is to have `rpi-install.py` find it for you; the path will be of the form `/dev/your-tty-device-here`.
 
-On a Mac, the tty device to `/dev/tty.SLAB_USBtoUART`. 
+    $ rpi-install.py any-binary-here
+    Found serial port: /dev/ttyS3
+    Sending...
 
-    $ ls /dev/tty.SLAB_USBtoUART
-    /dev/tty.SLAB_USBtoUART
+Disconnect the two jumpers between the RX and TX of the USB-serial adapter and the GPIO pins on the Pi.
 
-On Windows,the tty device is based on the driver's COM port. Open the app "Device Manager" and click the arrow to disclose the section labeled "Ports (COM & LPT)". 
-
-![com](images/COM.png)
-Look for the numbered COM port assigned to "Silicon Labs CP210x".  If the port is numbered N, the corresponding tty device is `/dev/ttySN`. In the screenshot above, the port is COM3, so the tty device is `/dev/ttyS3`.
-
-You have been using the USB-serial adapter 
-to download programs to the Pi. 
-To understand what is going on,
-let's do a simple *loop back* test.
-
-Remove the RX and TX jumpers connecting the USB-breakout board to the GPIO pins on the Pi.
-
-Next, connect TX to RX directly on the USB-breakout board.
-
-In loop back mode,
-the signals sent out on the TX pin are wired straight to the RX pin.Reading from the RX pin will read the characters sent over TX.
+Use a single jumper to connect TX to RX on the USB-serial adapter as shown below.
 
 ![loop back](images/loopback.jpg)
+
+In loop back mode,
+the signals sent out on the TX pin are wired straight to the RX pin. Reading from the RX pin will read the characters sent over TX.
 
 `screen` is a program used to communicate over a tty device. Open `screen` on your USB-serial tty device and establish a connection 
 at the baud rate of 115200. 
 
-    $ screen your-tty-device-from-above 115200
+    $ screen /dev/your-tty-device-here 115200
 
 {% include callout.html type="danger" %}
 On WSL, if screen fails due to a permissions error, try first executing screen as superuser (e.g. `sudo screen`). After doing that once, you can then use screen normally. 
@@ -433,12 +422,12 @@ in the upper left corner.
 Type some characters.  What happens?
 What happens if you type return on your keyboard?
 
-To exit screen, type `Control-a` followed by `k`.
+To close the connection, type `Control-a` followed by `k`.
 You should see the following message.
 
     Really kill this window? [y/n]
 
-Typing `y` returns to the shell.
+Type `y` to exit screen and return to the shell.
 
     [screen is terminating]
 
@@ -457,7 +446,7 @@ terminal.
 
 While you continue typing, have your partner gently unplug the jumper from the RX pin on your USB-serial and then re-connect it. What changes? Why does that happen?
 
-Use `Control-a` `k` to exit `screen`.
+Use `Control-a` `k` to exit screen.
 
 #### 2c) UART/printf test
 
@@ -484,7 +473,7 @@ The Makefile already includes the `-p` flag when invoking `rpi-install.py`, so `
 
     rpi-install.py: received EOT from Pi. Detaching.
 
-This program sends an EOT (end of transmission) character that tells rpi-install to close the communication channel. You can also use `Control-c` to manually close.
+This program sends an EOT (end of transmission) character that tells your laptop to close the communication channel. You can also type `Control-c` on your laptop to manually close.
 
 The function `uart_putstring` outputs a constant string, but what is really useful is the ability to output formatted strings, e.g. `printf`. For example, the call `printf("Today is %s %d\n", monthname, daynum)` 
 inserts the month string and day number into the output. To learn more about how to use printf, check out the standard library [printf documentation](http://www.tutorialspoint.com/c_standard_library/c_function_printf.htm).
