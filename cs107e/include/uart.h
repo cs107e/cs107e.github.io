@@ -15,9 +15,11 @@
  * Initialize the UART code module. The init function should be called
  * once before any calls to other functions in the uart module. The
  * UART requires exclusive use of GPIO pins 14 (transmit) and 15 (receive). 
- * It is possible, although rare, to call uart_init() more than once to 
- * reset the UART state. A second call to uart_init discards any 
- * pending data in send/receieve buffer.
+ * Once the uart is initialized and in use, your code should not
+ * muck with these two pins.
+ * It is possible, although rare, to call uart_init() again to
+ * reset the UART state. A re-initialization will discard any
+ * pending data in the send/receive buffer.
  */
 void uart_init(void);
 
