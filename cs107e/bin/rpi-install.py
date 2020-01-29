@@ -30,7 +30,7 @@ See below for where to set these IDs to match unit in use.
 
 """
 from __future__ import print_function
-import argparse, logging, os, platform, re, serial, subprocess, sys, time
+import argparse, errno, logging, os, platform, re, serial, subprocess, sys, time
 from serial.tools import list_ports
 from xmodem import XMODEM
 
@@ -57,7 +57,7 @@ class bcolors:
 
 def error(shortmsg, msg=""):
     sys.stderr.write("\n%s: %s\n" % (
-        sys.argv[0],
+        os.path.basename(sys.argv[0]),
         bcolors.FAILRED + shortmsg + bcolors.ENDC + "\n" + msg
     ))
     sys.exit(1)
@@ -87,34 +87,32 @@ def find_serial_port():
             portname = '/dev/ttyS' + match.group(1).decode('utf-8')
 
     if portname is not None:
-        printq('Found serial port:', bcolors.OKBLUE + portname + bcolors.ENDC)
         return portname
     else:
-        error("Couldn't find serial port", """
-I looked through the serial ports on your computer, and couldn't
-find any port associated with a CP2102 USB-to-serial adapter. Is
+        error("Could not find CP2102 serial device.", """
+I looked through the serial devices on this computer, and did not
+find a device associated with a CP2102 USB-to-serial adapter. Is
 your Pi plugged in?
 """)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="This script sends a binary file to the Raspberry Pi bootloader. Version %s" % VERSION)
 
-    parser.add_argument("port", help="serial port", nargs="?")
-    parser.add_argument("file", help="binary file to upload",
-                        type=argparse.FileType('rb'))
-    parser.add_argument('-v', help="verbose logging of serial activity",
-                        action="store_true")
-    parser.add_argument('-q', help="do not print while uploading",
-                        action="store_true")
-    parser.add_argument('-t', help="timeout for -p",
-                        action="store", type=int, default=-1)
-    parser.add_argument('-T', help="total timeout for -p (the total amount of time to listen, contrast to -t which specifies a timeout since last receiving a byte)",
-                        action="store", type=int, default=-1)
+    parser.add_argument('file', help="binary file to upload", type=argparse.FileType('rb'), nargs='?')
+    parser.add_argument('-d', help="serial device (e.g. /dev/ttyUSB0), otherwise search for CP2102 device", type=str, dest="port", metavar="device")
+    parser.add_argument('-v', help="verbose logging of serial activity", action="store_true")
+    parser.add_argument('-q', help=argparse.SUPPRESS, action="store_true")
+
+    timeout = parser.add_mutually_exclusive_group()
+    # -t specifies read imeout since last receiving a byte
+    timeout.add_argument('-t', help=argparse.SUPPRESS, action="store", type=int, default=-1)
+    # -T specifies total amount of time to read before closing channel
+    timeout.add_argument('-T', help=argparse.SUPPRESS, action="store", type=int, default=-1)
 
     after = parser.add_mutually_exclusive_group()
-    after.add_argument('-p', help="print output received from Pi after uploading",
+    after.add_argument('-p', help="open serial connection and print output received from Pi",
                        action="store_true")
-    after.add_argument('-s', help="open `screen` on the serial port after uploading",
+    after.add_argument('-s', help="start `screen` to send/receive with Pi",
                        action="store_true")
 
     args = parser.parse_args()
@@ -134,8 +132,10 @@ if __name__ == "__main__":
 
     if args.port:
         portname = args.port
+        printq('Using serial device:', bcolors.OKBLUE + portname + bcolors.ENDC)
     else:
         portname = find_serial_port()
+        printq('Found serial device:', bcolors.OKBLUE + portname + bcolors.ENDC)
 
     try:
         # if existing rpi screen is hanging onto port, terminate it now
@@ -161,11 +161,16 @@ if __name__ == "__main__":
         time.sleep(1)     # Wait for Pi to boot.
         printv("Done.")
 
-    except (OSError, serial.serialutil.SerialException):
-        error("The serial port `%s` is not available" % portname, """
-    Do you have a `screen` or `rpi-install.py` currently running that's
-    hanging onto that port?
-    """)
+    except (OSError, serial.serialutil.SerialException) as e:
+        if e.errno in [errno.EBUSY, errno.EWOULDBLOCK]:
+            error("The serial device `%s` is busy." % portname, """
+Do you have a `screen` or `rpi-install.py` currently active on that device?
+""")
+        else:
+            error("Unable to open serial device `%s`.\n%s." % (portname, str(e)))
+
+    if not args.file:   # if no file to send, report status of serial device and exit
+        sys.exit(0)
 
     stream = args.file
     printq("Sending `%s` (%d bytes): " % (stream.name, os.stat(stream.name).st_size), end='')
