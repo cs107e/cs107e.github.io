@@ -428,7 +428,7 @@ at the baud rate of 115200.
     $ screen /dev/your-tty-device-here 115200
 
 {% include callout.html type="danger" %}
-On WSL, if screen fails due to a permissions error, try first executing screen as superuser (e.g. `sudo screen`). After doing that once, you can then use screen normally. 
+On WSL, if screen fails due to a permissions error, first execute as superuser. The command `sudo screen -ls` should respond "No sockets found". After doing that once, you can then use screen normally. 
 </div>
 
 When screen opens, it clears your terminal and positions the cursor
