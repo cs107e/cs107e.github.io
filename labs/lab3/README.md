@@ -53,23 +53,36 @@ The debugger allows you to observe and manipulate a running program. Using this 
 #### 1a) Use `gdb` in simulation mode
 
 We will demonstrate `gdb` on a simple example program. 
-Change to the directory `lab3/code/simple` directory and review the program in `simple.c`. Build the program
-using `make`.
+Change to the directory `lab3/code/simple` directory and review the program in `simple.c`. 
 
-Note that is the ELF 
-file `simple.elf` that we use in conjunction with the gdb simulator, 
-not the raw `simple.bin` that we have been running on the actual Pi.
+Build the program using `make`. Note that is the ELF 
+file that we use in conjunction with the gdb simulator, 
+not the raw binary file that we have been running on the actual Pi.
 
 Run gdb on `simple.elf`. 
-(On Mac, you may get a warning about a missing Python gdb module; this is safe to ignore.)
+
 
 ```
 $ arm-none-eabi-gdb simple.elf
 GNU gdb (GDB) 7.8.1
 Copyright (C) 2014 Free Software Foundation, Inc.
-... blah blah blah ...
+       ... blah blah blah ...
++++ CS107E local .gdbinit successfully loaded +++
 (gdb) 
 ```
+
+When started, gdb displays several lines of output, unfortunately that chatter can obscure warnings or errors buried in there that may require attention.
+
+On Mac, you may get warnings about missing Python gdb modules; these warnings can be ignored. 
+
+On WSL, you may get a warning about "gdbinit auto-loading declined"; this situation requires action on your part to resolve. Follow these steps:
+- Use `quit` to exit gdb. 
+- Open the text file `~/.gdbinit` in your editor. Append the line below verbatim:
+
+        set auto-load safe-path /
+- Save the file and exit your editor. 
+- Run gdb again. The previous warning should be gone and instead you see the message "CS107E local .gdbinit successfully loaded" in its place.
+- You will only need to make this edit once, gdb is now configured for all time.
 
 Within `gdb`, connect to the simulator and load the program:
 
@@ -256,19 +269,21 @@ $5 = 0x80fc
 
 `gdb` has a very useful feature to auto-display the current value of an expression every time you single-step.
 This is done with the `display` command.
-The command `display/4wx $sp` will auto-display a sequence of 4 words (w) in hex (x) beginning at the memory location pointed by the current `sp`:
+The command `display/4wx $sp` sets up an auto-display expression for the sequence of 4 words (w) in hex (x) beginning at the memory location pointed by the current `sp`. gdb will re-display this expression after each gdb command.
 
     (gdb) display/4wx $sp
     1: x/4xw $sp
+    0x7ffffd8:  0x00000000  0x00000000  0x07fffffc  0x07fffff0
+    (gdb) step
     0x7ffffc8:  0x07ffffec  0x07ffffd8  0x000080fc  0x000080d0
 
-The values printed are the four values topmost on the stack. At the start of `diff`, a `push` instruction placed these four values onto the stack. Examine the disassembly for `diff` to see which four registers
+The values printed each time are the four values topmost on the stack. The line we stepped through above was the prolog of the `diff` function and a `push` instruction has just added four new values onto the stack. Examine the disassembly for `diff` to see which four registers
 are pushed. These registers correspond to the APCS "full frame".
 
 Because you used the `display` command, gdb will reevaluate and print that
 same expression after each gdb command. In this way, you can monitor the
 top of the stack as you step through the program. This is quite handy and
-much faster than typing `print` after each `next` or `step`.
+much faster than manually reissuing a `print` command after each `next` or `step`.
 
 Use `step` to proceed from here and watch the auto-display'ed stack contents to see what is happening to the values on the stop of the stack as you go in and out of the various function calls:
 
@@ -395,9 +410,8 @@ Your laptop communicates over a serial interface when sending a program to the b
 
 Insert the USB-serial adapter into a USB port on your laptop and identify the `tty` (teletype) device assigned to the port. A simple way is to have `rpi-install.py` find it for you; the path will be of the form `/dev/your-tty-device-here`.
 
-    $ rpi-install.py any-binary-here
+    $ rpi-install.py
     Found serial port: /dev/ttyS3
-    Sending...
 
 Disconnect the two jumpers between the RX and TX of the USB-serial adapter and the GPIO pins on the Pi.
 
