@@ -38,13 +38,25 @@ $ arm-none-eabi-as --version
 GNU assembler (GNU Binutils) 2.24
 Copyright 2013 Free Software Foundation, Inc.
 ```
+#### arm-none-eabi-gdb with simulator
+✔️__Check:__ start debugger and confirm ARM simulator is available:
+```
+$ arm-none-eabi-gdb
+GNU gdb (GDB) 7.8.1
+Copyright (C) 2014 Free Software Foundation, Inc.
+ .... blah blah blah ...
+(gdb) target sim
+Connected to the simulator.
+(gdb) quit
+```
+
 
 #### rpi-install.py
 ✔️__Check:__ confirm rpi-install.py version 1.1:
 
 ```
 $ rpi-install.py -h
-usage: rpi-install.py [-h] [-v] [-q] [-t T] [-T T] [-p | -s] [port] file
+usage: rpi-install.py [-h] [-d device] [-v]  [-p | -s] [file]
 
 This script sends a binary file to the Raspberry Pi bootloader. Version 1.1.
 ```
