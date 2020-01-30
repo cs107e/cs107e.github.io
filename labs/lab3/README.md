@@ -269,7 +269,7 @@ $5 = 0x80fc
 
 `gdb` has a very useful feature to auto-display the current value of an expression every time you single-step.
 This is done with the `display` command.
-The command `display/4wx $sp` sets up an auto-display expression for the sequence of 4 words (w) in hex (x) beginning at the memory location pointed by the current `sp`. gdb will re-display this expression after each gdb command.
+The command `display/4wx $sp` will auto-display a sequence of 4 words (w) in hex (x) beginning at the memory location pointed by the current `sp`. gdb will re-display that expression again after each gdb command.
 
     (gdb) display/4wx $sp
     1: x/4xw $sp
@@ -277,8 +277,8 @@ The command `display/4wx $sp` sets up an auto-display expression for the sequenc
     (gdb) step
     0x7ffffc8:  0x07ffffec  0x07ffffd8  0x000080fc  0x000080d0
 
-The values printed each time are the four values topmost on the stack. The line we stepped through above was the prolog of the `diff` function and a `push` instruction has just added four new values onto the stack. Examine the disassembly for `diff` to see which four registers
-are pushed. These registers correspond to the APCS "full frame".
+
+The values printed each time are the four values topmost on the stack. As you being executing in `diff`, a `push` instruction placed these four values onto the stack. Examine the disassembly for `diff` to see which four registers are pushed. These registers correspond to the APCS "full frame".
 
 Because you used the `display` command, gdb will reevaluate and print that
 same expression after each gdb command. In this way, you can monitor the

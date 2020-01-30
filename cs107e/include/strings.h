@@ -13,14 +13,14 @@ void *memset(void *s, int c, size_t n);
 
 /*
  * Copy `n` bytes from the memory area `src` to the memory area `dst`. If `dst`
- * and `src` overlap, behavior is undefined.
+ * and `src` overlap, the behavior is undefined.
  *
  * Returns its first argument: `dst`.
  */
 void *memcpy(void *dst, const void *src, size_t n);
 
 /*
- * Find the length of string `s`.
+ * Report the length of string `s`.
  *
  * Returns the number of characters that precede the null-terminator.
  */
@@ -48,7 +48,7 @@ int strcmp(const char *s1, const char *s2);
  * treated as invalid and stop the conversion.
  *
  * The argument `endptr` is an output parameter optionally used to  
- * communicate back to the caller what remains in `str` after having 
+ * communicate back to the caller what characters remain in `str` after having 
  * "consumed" the digit characters. A caller can pass NULL for `endptr`
  * if they do not need this information.
  *
@@ -68,8 +68,8 @@ unsigned int strtonum(const char *str, const char **endptr);
  * null-terminates `dst`.
  *
  * Returns the initial length of `dst` plus the length of `src`. This is 
- * equal to the number of characters it would have written to `dst` if there 
- * were space.
+ * equal to the number of characters that would have been written to `dst` if 
+ * there were space.
  */
 size_t strlcat(char *dst, const char *src, size_t maxsize);
 
