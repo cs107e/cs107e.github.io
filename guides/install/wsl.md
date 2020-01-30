@@ -32,6 +32,10 @@ Windows OS does not natively support the development tools used in this course. 
 
 We will use Ubuntu version 16.04 under WSL.
 
+{% include callout.html type='warning'%}
+**NOTE**: Ubuntu 18.04 does not support all of the software requirements for the course! Make sure you select Ubuntu 16.04 when installing your Ubuntu system!
+</div>
+
 1. Open the Microsoft Store app. Search for "Ubuntu", select `Ubuntu 16.04 LTS` and install it.
 1. Once it's done, launch the application. A terminal window will open that says "Installing, this may take a few minutes...".
 1. Once that command finishes, you'll be prompted to enter a new username and password for your Ubuntu account. You’ll need this name and password for administrator privileges, so be sure to remember it!
