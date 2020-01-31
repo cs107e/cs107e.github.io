@@ -1,4 +1,4 @@
-APPLICATION = blink
+NAME = blink
 MODULES = 
 
 CFLAGS = -Og -Wall -std=c99 -ffreestanding -I$(CS107E)/include
@@ -6,7 +6,7 @@ ASFLAGS = --warn --fatal-warnings
 LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib
 LDLIBS = -lpi
 
-all : $(APPLICATION).bin
+all : $(NAME).bin
 
 %.bin: %.elf
 	arm-none-eabi-objcopy $< -O binary $@

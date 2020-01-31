@@ -1,20 +1,18 @@
-APPLICATION = blink
-MODULES = timer.o gpio.o
+NAME = blink
+MODULES = 
 
-CFLAGS = -Og -Wall -std=c99 -ffreestanding
+CFLAGS = -Og -Wall -std=c99 -ffreestanding -I$(CS107E)/include
 ASFLAGS = --warn --fatal-warnings
-LDFLAGS = -nostdlib -T memmap
+LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib
+LDLIBS = -lpi
 
-all : $(APPLICATION).bin
+all : $(NAME).bin
 
 %.bin: %.elf
 	arm-none-eabi-objcopy $< -O binary $@
 
-%.elf: %.o libpi.a
-	arm-none-eabi-ld $(LDFLAGS) $^ -o $@
-
-libpi.a: $(MODULES) cstart.o start.o
-	arm-none-eabi-ar crf $@ $^
+%.elf: %.o start.o cstart.o
+	arm-none-eabi-ld $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
 %.o: %.c
 	arm-none-eabi-gcc $(CFLAGS) -c $< -o $@
@@ -40,5 +38,4 @@ clean:
 
 # include dependency info
 #  "-" suppresses errors
--include $(APPLICATION).d $(MODULES:.o=.d)
 

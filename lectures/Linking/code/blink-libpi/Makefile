@@ -1,11 +1,11 @@
-APPLICATION = blink
+NAME = blink
 MODULES = timer.o gpio.o
 
 CFLAGS = -Og -Wall -std=c99 -ffreestanding
 ASFLAGS = --warn --fatal-warnings
 LDFLAGS = -nostdlib -T memmap
 
-all : $(APPLICATION).bin
+all: $(NAME).bin
 
 %.bin: %.elf
 	arm-none-eabi-objcopy $< -O binary $@
