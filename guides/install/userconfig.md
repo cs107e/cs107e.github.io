@@ -34,6 +34,7 @@ bin/     etc/     extras/  include/ lib/     src/
 
 Note: If you're using WSL, now is a good time to open File Explorer on your new cS107e_home and and "Pin to Quick Access" to add it the sidebar for future use. See [accessing WSL files from Windows](../wsl/#files).
 
+<A name="env"></A>
 ### Edit shell configuration file
 Next, configure your shell environment to match where you stored cs107e_home.
 
