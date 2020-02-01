@@ -40,6 +40,7 @@ int strcmp(const char *s1, const char *s2);
  * value. If `str` begins with the prefix "0x", the characters of `str` will
  * be interpreted as hexadecimal digits (base 16); otherwise the characters
  * are interpreted as decimal digits (base 10). No other bases are supported.
+ * The hex letter digits are to be specified in lowercase.
  *
  * `strtonum` processes the characters of `str`, stopping at the first
  * character that is not a valid digit in the base or at the terminating
@@ -65,7 +66,7 @@ unsigned int strtonum(const char *str, const char **endptr);
 /*
  * Size-bounded string concatenation. Append the null-terminated string `src`
  * to the end of `dst`. Appends at most `maxsize - strlen(dst) - 1` bytes, and
- * null-terminates `dst`.
+ * null-terminates `dst`. If `dst` and `src` overlap, the behavior is undefined.
  *
  * Returns the initial length of `dst` plus the length of `src`. This is 
  * equal to the number of characters that would have been written to `dst` if 

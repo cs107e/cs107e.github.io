@@ -22,8 +22,8 @@
  *   %c    single character
  *   %s    string
  *   %d    signed decimal integer
- *   %x    unsigned hexadecimal integer
- *   %p    pointer (printed as an address)
+ *   %x    unsigned hexadecimal integer (hex letters in lowercase)
+ *   %p    pointer (printed as a hex address)
  *   %%    used to output a single percent character
  *
  * The %d and %x formats support an optional field width.
