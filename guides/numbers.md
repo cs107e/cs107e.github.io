@@ -21,6 +21,9 @@ Do you know the answers to the following questions?
 - Given a number `x`, what expression computes a new number `y`
   that is equal to `x` but with a zero in its least significant bit?
 
+Try your hand at these [exercises on base conversion and bitwise operations](https://web.stanford.edu/class/archive/cs/cs107/cs107.1186/lab1/practice.html) used for practice in the first lab of the regular CS107.
+
+
 If you don't know the answers to these questions,
 we recommend that you review the following materials:
 
@@ -28,6 +31,7 @@ we recommend that you review the following materials:
 * Wikipedia entry for [Binary Numbers](http://en.wikipedia.org/wiki/Binary_number)
 * Sparkfun tutorial on [Hexadecimal Numbers](https://learn.sparkfun.com/tutorials/hexadecimal)
 * Wikipedia entry for [Bitwise Operators](http://en.wikipedia.org/wiki/Bitwise_operations_in_C)
+* Play with the [Bitwise Explorer](https://mdrach.github.io/cs107-apps/), an visualizer for bitwise expressions written by CS107 TA Max Drach
 
 ------
 <small>Credit to: <http://cowbirdsinlove.com/43></small>
