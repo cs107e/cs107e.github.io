@@ -63,7 +63,6 @@ void main(void)
         sort(names, n);
         for (int i = 0; i < n; i++) {
             printf("[%d] = %p %s\n", i, names[i], names[i]);
-            free(names[i]);
         }
     }
 
