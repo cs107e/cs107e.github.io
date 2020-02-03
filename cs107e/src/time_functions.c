@@ -1,11 +1,7 @@
 // extra functions needed by libc
 
-#include<printf.h>
-#include<malloc.h>
-#include "sys/time.h"
-#include "time.h"
-
-char *strcpy(char * dst, const char * src);
+#include "printf.h"
+#include "time_functions.h"
 
 time_t time(time_t *tloc) {
     return 0;
@@ -23,9 +19,3 @@ int _gettimeofday( struct timeval *tv, void *tzvp ) {
     return 0;
 }
 
-// _sbrk just calls malloc, which is probably not grea
-// // _sbrk just calls malloc, which is probably not great...
-void *_sbrk (int nbytes) {
-    printf("called _sbrk...\n");
-    return malloc(nbytes);
-}

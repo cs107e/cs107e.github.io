@@ -31,11 +31,10 @@
  */
 
 #include <stdint.h>
-//#include <stdio.h>
-#include <strings.h>
-//#include <stdlib.h>
-#include <assert.h>
-#include <malloc.h>
+#include "strings.h"
+#include "assert.h"
+#include "malloc.h"
+#include "printf.h"
 
 #include "platform.h"
 #include "emmc.h"
