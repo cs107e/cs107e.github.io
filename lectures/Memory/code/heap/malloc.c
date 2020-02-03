@@ -1,7 +1,7 @@
 #include "malloc.h"
 
-// A simple "bump allocator" that 
-// just increments the heap segment to allocate space
+// Super simple "bump allocator"
+// calls sbrk to enlarge heap segment for each allocation
 // never recycles memory (free is a no-op)
 
 
@@ -10,16 +10,23 @@
 #define roundup(x,n) (((x)+((n)-1))&(~((n)-1)))
 
 
-extern int __bss_end__;
+// privately tracks address for heap_end
+// advances to accommodate requested number of bytes
+void *sbrk(int nbytes)
+{
+    extern int __bss_end__;
+    static void *heap_end = &__bss_end__;
 
-static void *heap_end = &__bss_end__;
+    void *prev_end = heap_end;
+    heap_end = (char *)heap_end + nbytes;
+    return prev_end;
+}
+
 
 void *malloc(size_t nbytes) 
 {
     nbytes = roundup(nbytes, 8);
-    void *alloc = heap_end;
-    heap_end = (char *)heap_end + nbytes;
-    return alloc;
+    return sbrk(nbytes);
 }
 
 void free(void *ptr) 

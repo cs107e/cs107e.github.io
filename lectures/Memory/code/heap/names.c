@@ -1,4 +1,3 @@
-#include "malloc.h"
 #include "printf.h"
 #include "strings.h"
 #include "uart.h"
@@ -23,23 +22,22 @@ static void sort(char *arr[], int n)
 
 static int get_and_echo(void)
 {        
-    char ch = uart_getchar();
-    uart_putchar(ch);
+    char ch = uart_getchar();   // read input from terminal
+    uart_putchar(ch);           // echo char to terminal
     return ch;
 }
 
 static char *read_line(void)
 {
-    size_t buflen = 128;
+    size_t buflen = 20;
     char buf[buflen];
-    int n;
 
-    for (n = 0; n < buflen - 1; n++) {
+    for (int i = 0; i < buflen - 1; i++) {
         char ch = get_and_echo();
-        buf[n] = (ch == '\n') ? '\0' : ch;
-        if (!buf[n]) break;
+        buf[i] = ch == '\n' ? '\0' : ch;
+        if (!buf[i]) break;
     }
-    return buf;
+    return buf; // compiler warning here, what's wrong?
 }
 
 
@@ -50,17 +48,24 @@ void main(void)
     char *names[10];
     int n;
 
-    printf("Enter names, one per line, END to quit\n");
-    for (n = 0; n < 10; n++) {
-        char *line = read_line();
-        if (strcmp(line, "END") == 0) break;
-        names[n] = line;
+    while (1) {
+        printf("\nEnter up to 10 names, one per line, END to quit\n");
+        for (n = 0; n < 10; n++) {
+            char *line = read_line();
+            if (strcmp(line, "END") == 0) break;
+            names[n] = line;
+        }
+        if (n == 0) break;
+        printf("Read %d names.\n", n);
+
+
+        printf("\nNow in sorted order:\n");
+        sort(names, n);
+        for (int i = 0; i < n; i++) {
+            printf("[%d] = %p %s\n", i, names[i], names[i]);
+            free(names[i]);
+        }
     }
 
-    sort(names, n);
-
-    printf("Read %d names.\n\nNow in sorted order:\n", n);
-    for (int i = 0; i < n; i++)
-        printf("%s\n", names[i]);
     uart_putchar(EOT);
 }
