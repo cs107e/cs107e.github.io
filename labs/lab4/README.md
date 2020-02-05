@@ -396,7 +396,7 @@ Compare your sketch to this [stack diagram for make_array](images/stack_makearra
 Change to the directory `lab4/code/heapclient` to begin your foray in heap allocation.
 So far we have stored our data either as local variables on the stack or global variables in the data segment. The functions `malloc` and `free`  offer another option, this one with more precise control of the size and lifetime and greater versatility at runtime.
 
-Study the program `string_main.c`. The `tokenize` function is used to 
+Study the program `heapclient.c`. The `tokenize` function is used to 
 dissect a string into a sequence of space-separated tokens. The function calls on the not-yet-implemented function `char *strndup(const char *src, size_t n)` to make a copy of each token. The intended behavior of `strndup` is to return a new string containing the first `n` characters of the `src` string.
 
 Talk over with your partner why it would not be correct for `strndup` to declare a local array variable in its stack frame to store the new string.  When a function exits, its stack frame is deallocated and the memory is recycled for use by the next function call.  What would be the consequence if `strndup` mistakenly returns a pointer to memory contained within its to-be-deallocated stack frame?
