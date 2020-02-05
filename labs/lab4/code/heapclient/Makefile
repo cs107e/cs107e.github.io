@@ -1,4 +1,4 @@
-NAME = string_main
+NAME = heapclient
 
 MY_MODULES = 
 
