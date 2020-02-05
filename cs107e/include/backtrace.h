@@ -4,36 +4,36 @@
 #include <stdint.h>
 
 /*
- * Functions for debugging backtraces.
+ * Functions for harvesting a debugging backtrace from the stack.
  *
  * Author: Julie Zelenski <zelenski@cs.stanford.edu>
  * Mon Feb  5 20:02:27 PST 2018
  */
 
-
 /* Type: frame_t
  * -------------
- * This struct stores the information for a caller function who has a
- * frame on the stack. 
+ * This struct stores the information for a function who has a frame on
+ * the current stack. 
  *
- * The `name` fields points to the string name of the function. That name is in
- * the text section with the instructions.  If the function name is not
- * available, the string will be "???".
+ * The `name` field is the name of the function as found by `name_of`.
  *
  * The `resume_addr` field is taken from saved lr in the callee. The saved lr
  * (sometimes referred to as "return address") is the address of the
  * instruction in the caller's sequence of instructions where control will
- * resume after the callee returns. 
+ * resume after the callee returns.  The `uintptr_t` type is an unsigned integer
+ * of the appropriate size to store an address. This type is used to hold
+ * an address that you intend to treat numerically.
  *
  * The `resume_offset` is the number of bytes from the start of the function to
  * the `resume_addr`. This offset represents how far control has advanced into
  * the caller function before it invoked the callee.
  */
 typedef struct {
-    char *name;
+    const char *name;
     uintptr_t resume_addr;
     int resume_offset;
 } frame_t;
+
 
 /* Function: backtrace
  * -------------------
@@ -71,5 +71,24 @@ void print_frames(frame_t f[], int n);
  * stack frames of currently executing program.
  */
 void print_backtrace(void);
+
+/* Function: name_of
+ * -----------------
+ * The argument to `name_of` is the numeric address in memory of the first
+ * instruction of a function and `name_of` returns the name of that
+ * function.
+ *
+ * When compiling with the `-mpoke-function-name` flag, each function's
+ * name is written into the text section alongside its instructions.
+ * `name_of` finds a function's name by looking in the appropriate
+ * location relative to the function's start address. The `uintptr_t` type 
+ * is an unsigned integer of the appropriate size to store an address. 
+ * This type is used to hold an address that you intend to treat numerically.
+ * 
+ * If no name is available for the given address, `name_of` returns 
+ * the constant string "???"
+ */
+const char *name_of(uintptr_t fn_start_addr);
+
 
 #endif
