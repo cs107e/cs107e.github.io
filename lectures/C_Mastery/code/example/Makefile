@@ -1,4 +1,4 @@
-APPLICATION = ptrs
+APPLICATION = example
 MY_MODULES =
 
 CFLAGS = -g -Og -I$(CS107E)/include -Wall -std=c99 -ffreestanding -Wpointer-arith -mapcs-frame -fno-omit-frame-pointer
@@ -38,5 +38,5 @@ clean:
 
 # This recipe is for a native executable on hosted environment
 # (not cross-compiled, not freestanding)
-native: ptrs.c
+native: example.c
 	clang -I$(CS107E)/include -g -Wall $< -o $@
