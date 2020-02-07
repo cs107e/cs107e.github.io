@@ -1,9 +1,12 @@
 NAME = blink
 MODULES = 
 
+CS107E = /Users/hanrahan/cs107e/cs107e.github.io/cs107e
+
 CFLAGS = -Og -Wall -std=c99 -ffreestanding -I$(CS107E)/include
 ASFLAGS = --warn --fatal-warnings
 LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib
+LDFLAGS += --trace-symbol gpio_init
 LDLIBS = -lpi
 
 all : $(NAME).bin

@@ -7,7 +7,7 @@ CFLAGS += --save-temps
 ASFLAGS = --warn --fatal-warnings
 
 LDFLAGS = -nostdlib -T memmap 
-#LDFLAGS += --trace-symbol gpio_init
+LDFLAGS += --trace-symbol gpio_init
 
 all : $(APPLICATION).bin
 
