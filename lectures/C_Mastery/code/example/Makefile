@@ -39,4 +39,4 @@ clean:
 # This recipe is for a native executable on hosted environment
 # (not cross-compiled, not freestanding)
 native: example.c
-	clang -I$(CS107E)/include -g -Wall $< -o $@
+	clang -I$(CS107E)/include -g -fno-stack-protector -Wall $< -o $@

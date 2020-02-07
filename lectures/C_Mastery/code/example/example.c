@@ -23,7 +23,7 @@ void censor(char *s, bool (*pred)(char))
 void function_ptr(void)
 {
     char s[] = "CS107e";
-    char t[] = "Segmentation Fault";
+    char t[] = "rox my sox";
 
     censor(s, isnum);
     printf("After censoring numbers: %s\n", s);
@@ -35,28 +35,39 @@ void function_ptr(void)
 void strings(void) 
 {
     char *a;
-    char *b = "happy";
-    char c[30];
+    char b[10];
+    char *c = "happy";
     char d[] = "dopey";
-    char *e = NULL;
-    char *all[] = {a, b, c, d, e};   
+    char e[] = {'g','r','u','m','p','y', '\0'};
+    char *f = NULL;
+    char *all[] = {a, b, c};
+    char matrix[2][10];
 
+    // write 'z', which of these memory locations are valid?
     a[0] = 'z';
-    b[0] = 'z';
+    b[0] = 'z'; 
     c[0] = 'z';
     d[0] = 'z';
     e[0] = 'z';
-    printf("a='%s' b='%s' c='%s' d='%s'\n", a, b, c, d);
+    f[0] = 'z';
+    all[1][1] = 'z';
+    matrix[1][1] = 'z';
+
+    printf("a='%s' b='%s' c='%s' d='%s' e='%s' f='%s'\n", a, b, c, d, e, f);
     printf("Are you %s now?\n", "happy");
     for (int i = 0; i < sizeof(all)/sizeof(*all); i++)
         printf("all[%d] = '%s'\n", i, all[i]);
+    for (int i = 0; i < sizeof(matrix)/sizeof(*matrix); i++)
+        printf("matrix[%d] = '%s'\n", i, matrix[i]);
+
 }
 
 
 int main(void)
 {
-    function_ptr();
+    printf("\nStarting program %s\n", __FILE__);
     strings();  
+    function_ptr();
     printf("\nProgram %s completed.\n\04", __FILE__);
     return 0;
 }
