@@ -4,7 +4,7 @@
 # only Main files need front matter, not partials
 ---
 
-$font-family-sans-serif:    Rubik, Arial, Helvetica, sans-serif;
+$font-family-sans-serif:    Lato, Arial, Helvetica, sans-serif;
 $font-family-monospace:     Inconsolata, Consolas, Menlo, monospace;
 $font-size-base:            15px;
 
@@ -29,7 +29,7 @@ h4 {
 }
 
 @import "bootstrap";
-@import url(https://fonts.googleapis.com/css?family=Inconsolata|Rubik);
+@import url("https://fonts.googleapis.com/css?family=Inconsolata|Lato:400,700,900");
 img {
     @include img-responsive();
 }
