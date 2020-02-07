@@ -12,8 +12,6 @@ permalink,title,released
 "/lectures/Arithmetic/","Computer Arithmetic, Signed and Unsigned",false
 "/lectures/Wrap/","Wrap",false
 "/lectures/Interrupts2/","Interrupts, cont'd",false
-"/lectures/Framebuffer/","Graphics and the framebuffer",false
 "/lectures/Performance/","Performance and Computer Architecture",false
-"/lectures/Keyboard/","Keyboards and the PS/2 Protocol",false
 "/lectures/Sound/","Sound",false
 "/lectures/Interrupts1/","Interrupts",false

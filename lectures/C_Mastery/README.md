@@ -12,7 +12,7 @@ readings: |
       + <https://github.com/dwelch67/raspberrypi>, David Welch baremetal examples
       + <https://opensource.apple.com>, Apple OpenSource
       + <https://directory.fsf.org/wiki/GNU>, Free Software Foundation (GNU)
-      + <https://www.musl-libc.org>, Musl C library
+      + <https://musl.libc.org>, Musl C library
     + The masters share their best practices in the book "Beautiful Code: Leading Programmers Explain How They Think" <https://www.amazon.com/dp/0596510047>
 
 ---
