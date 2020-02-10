@@ -15,7 +15,9 @@
 const int CLK = GPIO_PIN3;
 
 void wait_for_clock() {
+  // wait for CLK event
   while(gpio_check_event(CLK) == 0) {}
+  // must clear event
   gpio_clear_event(CLK);
 }
 
@@ -25,7 +27,9 @@ void main(void) {
     gpio_set_input(CLK);
     gpio_set_pullup(CLK);
 
+    // generate event on falling edge of clock
     gpio_enable_event_detection(CLK, GPIO_DETECT_FALLING_EDGE);
+
     while (1) {
         wait_for_clock();
         pi_led_toggle(PI_ACT_LED);

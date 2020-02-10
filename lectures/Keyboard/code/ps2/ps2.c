@@ -15,13 +15,14 @@ void main(void) {
     uart_init();
 
     gpio_set_input(CLK);
-    gpio_set_pullup(CLK);
+    gpio_set_pullup(CLK); // From gpioextra.h
 
     gpio_set_input(DATA);
     gpio_set_pullup(DATA);
 
     while (1) {
         for( int i = 0; i < 11; i++ ) {
+            // read DATA when clock is low
             wait_for_falling_clock_edge();
             uart_putchar(gpio_read(DATA) ? '1' : '0');
         }
