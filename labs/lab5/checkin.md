@@ -11,7 +11,7 @@ Each question below is a diagnostic question for each section of the
 lab. Try answering one after finishing each section to test your
 understanding.
 
-1. Back in lab1, we estimated how many instructions the Pi was executing (~20 million/second).  Today you measured the timing of PS/2 clock cycle.  Calculate roughly how many instructions can be executed by the Pi in that time. Does that budget allow you to execute a call to `printf` in between reading bits? Why or why not?
+1. Back in lab1, we estimated how many instructions the Pi was executing (~20 million/second).  Today you measured the timing of PS/2 clock cycle.  Calculate roughly how many instructions can be executed by the Pi in that time. Now consider a call to `printf` a 100-char format string. How many instructions would you estimate are executed to process each char and output to uart? Does your budget fit such a call to `printf` in between reading bits? Why or why not?
 
 2. What sequence of codes is sent when typing capital `A`?
 
