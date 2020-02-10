@@ -4,7 +4,7 @@
 #include "midi.h"
 
 #define MIDI_PIN GPIO_PIN25
-#define BAUD     32250
+#define BAUD     31250
 #define DELAY    (1000000 / BAUD)
 
 static unsigned int channel = 0;
