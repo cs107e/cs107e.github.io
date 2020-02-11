@@ -16,7 +16,7 @@ __Before releasing lab5:__
 - [ ] Update instructions/photos for non-Saleae analyzers, consider PulseView instead of Logic app?
 
 __To prep for lab5:__
-- [ ] Confirm there are sufficient number of working PS/2 keyboards to check out one to each student (Label each keyboard with number for tracking)
+- [ ] Confirm there are sufficient number of working PS/2 keyboards to check out one to each student (Label each keyboard with number for tracking). Add column to lab attendance to record keyboard number checked out to student.
 - [ ] Confirm there are 4-6 logic analyzers in lab cabinet, also 4-5 non-Inland keyboards to analyze
 - [ ] Print copies of PS/2 key code chart
 
@@ -105,7 +105,7 @@ Familiarize yourself with the hardware of the logic analyzer. It has a bank of p
 
 The Saleae analyzers have a custom wiring harness that plugs into the channel pins for channels 0 through 7. Each channel has a pair of jumpers; a colored one for signal, and black for ground.  The ground line for each channel is directly underneath its signal line. 
 
-The generic analyzers use an ordinary DuPont cable for jumpers. All 8 channels share one common ground pin. Even though the channels on the generic analyzers are numbered 1 through 8, we, and the Logic application, will refer through them as 0 through 7.
+The generic analyzers use an ordinary DuPont cable for jumpers. All channels share one common ground pin. Even though the label on the generic analyzer numbers the channels as 1-8, we, and the Logic application, will refer to them as channels 0-7.
 
 On the analyzer you are using, identify the pins/jumpers for channels 0 and 1 and the corresponding ground pin(s). You are going to connect these two channels to the CLK and DATA pins of a PS/2 keyboard.
 
