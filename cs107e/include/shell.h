@@ -1,6 +1,8 @@
 #ifndef SHELL_H
 #define SHELL_H
 
+#include <stddef.h>
+
 /*
  * Interface to the CS107E shell. You implement the beginnings
  * of your shell in assignment 5 and complete it in assignment 7.
@@ -79,7 +81,7 @@ int shell_evaluate(const char *line);
  * Main function of the shell module. Must be preceded by calls
  * to `shell_init` and `keyboard_init`.
  *
- * Enters a read-eval-print loop the repeatedly cycles `shell_readline`
+ * Enters a read-eval-print loop that repeatedly cycles between `shell_readline`
  * and `shell_evaluate`. This function never returns.
  */
 void shell_run(void);
