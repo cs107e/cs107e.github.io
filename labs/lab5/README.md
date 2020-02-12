@@ -18,7 +18,7 @@ __Before releasing lab5:__
 __To prep for lab5:__
 - [ ] Confirm there are sufficient number of working PS/2 keyboards to check out one to each student (Label each keyboard with number for tracking). Add column to lab attendance to record keyboard number checked out to student.
 - [ ] Confirm there are 4-6 logic analyzers in lab cabinet, also 4-5 non-Inland keyboards to analyze
-- [ ] Print copies of PS/2 key code chart
+- [ ] Print copies of PS/2 key code chart (assignments/assign5/images/scancode.gif)
 
 {% endcomment %}
 
@@ -46,7 +46,7 @@ To prepare for lab, do the following:
   web site.](https://www.saleae.com/downloads) This application visualizes the signals captured by the logic analyzer.
   You may also want to download the 
   [Logic user manual](http://downloads.saleae.com/Saleae+Users+Guide.pdf).
-- Review the [lecture slides from Monday](/lectures/Keyboard/slides.pdf) and this document detailing the [PS/2 protocol](http://www.burtonsys.com/ps2_chapweske.htm).
+- Review the [lecture slides from Monday](/lectures/Keyboard/slides.pdf) and this document detailing the [PS/2 protocol](https://web.archive.org/web/20180302005138/http://computer-engineering.org/ps2protocol/).
 
 ## Lab exercises
 
@@ -141,7 +141,7 @@ The Logic application provides protocol analyzers that can be applied to
 the captured data. Click the "+" button in the *Analyzers* pane and find the PS/2 protocol. Choose it and configure for CLK on channel 0 and DATA on channel 1. The captured data is now decoded according to the PS/2
 protocol and displays the hex values sent by the keyboard.
 
-Hover over the visualization of the PS/2 clock channel to see the signal timing data. How far apart is each falling clock edge? At what frequency is the PS/2 clock running?  Is the keyboard operating with the range dictated by the [spec](http://www.burtonsys.com/ps2_chapweske.htm)? 
+Hover over the visualization of the PS/2 clock channel to see the signal timing data. How far apart is each falling clock edge? At what frequency is the PS/2 clock running?  Is the keyboard operating with the range dictated by the [spec](https://web.archive.org/web/20180302005138/http://computer-engineering.org/ps2protocol/)? 
 
 You're ready to answer question 1 on the [check in list](checkin).
 
@@ -209,7 +209,7 @@ low), 8 data bits, a parity bit, and a stop bit.  To synchronize with the keyboa
 
 * In which order do the 8 data bits arrive? *Hint: if you're not sure, take a look at the signal you captured for the keyboard's data line with the logic analyzer, or look back at the PS/2 protocol documentation linked in the prelab.*
 
-Lastly, read the parity and stop bits. For the assignment, your driver will also validate the parity and stop bits, but it is okay to ignore these checks for lab. The function returns the byte composed of the 8 data bits.
+Lastly, read the parity and stop bits. For the assignment, your driver will validate these bits have the correct values, but for lab, just read the bits and assume they are correct. 
 
 If your `keyboard_read_scancode` is working correctly, then you should
 be able to build and run the application and see that it receives each scancode sent by the keyboard.
