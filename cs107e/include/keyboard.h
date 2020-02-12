@@ -25,12 +25,12 @@ typedef struct {
  * keys on the keyboard.
  */
 typedef enum {
-    KEYBOARD_MOD_SCROLL_LOCK = 1 << 0,
-    KEYBOARD_MOD_NUM_LOCK = 1 << 1,
-    KEYBOARD_MOD_CAPS_LOCK = 1 << 2,
-    KEYBOARD_MOD_SHIFT = 1 << 3,
-    KEYBOARD_MOD_ALT = 1 << 4,
-    KEYBOARD_MOD_CTRL = 1 << 5,
+    KEYBOARD_MOD_SHIFT = 1 << 0,
+    KEYBOARD_MOD_ALT = 1 << 1,
+    KEYBOARD_MOD_CTRL = 1 << 2,
+    KEYBOARD_MOD_CAPS_LOCK = 1 << 3,
+    KEYBOARD_MOD_SCROLL_LOCK = 1 << 4,
+    KEYBOARD_MOD_NUM_LOCK = 1 << 5,
 } keyboard_modifiers_t;
 
 typedef struct {
@@ -63,14 +63,15 @@ void keyboard_init(unsigned int clock_gpio, unsigned int data_gpio);
  * `keyboard_read_next`: Top level keyboard interface.
  *
  * This function reads (blocking) the next key typed on the keyboard.
- * The character returned reflects the current keyboard modifier settings
- * for shift and caps lock.
+ * The character returned reflects the current keyboard modifier settings.
  *
- * Characters returned that have value <= 0x7f '~' are printable Ascii
- * characters. Character values >= 0x90 are returned for those keys that are
- * are not associated with an Ascii character (e.g. arrow and function keys).
- * See the ps2_codes defined in ps2.h for constants used for those keys.
- * This function calls `keyboard_read_event`.
+ * Return values in the range 0 - 0x7f indicate the typed key is an ordinary
+ * Ascii character. For a typed key not associated with an Ascii character,
+ * such an arrow or function key, the function returns a value >= 0x90. The
+ * value assigned to each non-Ascii key is given in the list of `ps2_codes`
+ * in the `ps2.h` header file.
+ *
+ * This function calls `keyboard_read_event` to receive a key press event.
  */
 unsigned char keyboard_read_next(void);
 
@@ -78,14 +79,16 @@ unsigned char keyboard_read_next(void);
 /*
  * `keyboard_read_event`: Mid level keyboard interface.
  *
- * The function reads (blocking) the next key event from the keyboard.
- * Returns a `key_event_t` struct that represents the key event.  The
+ * The function reads (blocking) the next key event.
+ * Returns a `key_event_t` struct that represents the key event.
+ * A key event is a press or release of a single key. The returned
  * struct includes the key that was pressed or released and the state
- * of the modifier flags. If this event is a press or release of a
+ * of the modifier flags. If the event is a press or release of a
  * modifier key (CTRL, ALT, SHIFT, etc.), the modifiers field in the
  * returned event show the updated state of the modifiers after
  * incorporating this key event.
- * This function calls `keyboard_read_sequence` to read a scancode sequence.
+ *
+ * This function calls `keyboard_read_sequence` to read a sequence.
  */
 key_event_t keyboard_read_event(void);
 
@@ -100,6 +103,10 @@ key_event_t keyboard_read_event(void);
  *    1 byte:  ordinary key press
  *    2 bytes: ordinary key release or extended key press
  *    3 bytes: extended key release
+ *
+ * The `keycode` field of the returned key_action_t stores the last byte
+ * of the sequence. This keycode identifies the PS/2 key that was acted upon.
+ *
  * This function calls `keyboard_read_scancode` to read each scancode.
  */
 key_action_t keyboard_read_sequence(void);
@@ -111,9 +118,9 @@ key_action_t keyboard_read_sequence(void);
  * Read (blocking) a single scancode from the PS/2 keyboard.
  * Bits are read on the falling edge of the clock.
  *
- * Tries to read 11 bits: 1 start bit, 8 data bits, 1 parity bit, and 1 stop bit
+ * Reads 11 bits: 1 start bit, 8 data bits, 1 parity bit, and 1 stop bit
  *
- * Restarts the scancode if:
+ * Discards and restarts the scancode if:
  *   (lab5) The start bit is incorrect
  *   (assign5) or if parity or stop bit is incorrect
  *

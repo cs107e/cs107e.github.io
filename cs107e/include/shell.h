@@ -9,16 +9,14 @@
  * Last update: February 2019
  */
 
-typedef int (*formatted_fn_t)(const char *format, ...);
+typedef int (*formatted_fn_t)(const char *format, ...) __attribute__ ((format (printf, 1, 2)));
 
 /*
  * `shell_init`: Required initialization for shell
  *
- * Takes a *function pointer* `printf_fn` that is used
- * to configure where the shell directs its output.
- *
- * Arguments:
- *   * `printf_fn` - used for the formatted output
+ * One argument is a function pointer `print_fn`. The shell will call
+ * this function whenever it wants to output text.  By supplying
+ * a different function, you control how/where the output is displayed.
  *
  * Example usage:
  *   * `shell_init(printf)`
@@ -29,7 +27,8 @@ void shell_init(formatted_fn_t print_fn);
 /*
  * `shell_bell`: audio/visual beep
  *
- * Send Ascii BEL character '\a' over the uart. 
+ * Sends an Ascii BEL character '\a' over the uart. This gives
+ * an audio or visual beep depending on your terminal settings.
  * https://en.wikipedia.org/wiki/Bell_character
  */
 void shell_bell(void);
@@ -37,33 +36,37 @@ void shell_bell(void);
 /*
  * `shell_readline`: read function of shell read-eval-print loop
  *
- * Reads a single line of input from the user. Reads the characters typed on
- * the keyboard and stores them into `buf`. Reading stops when the user
- * types Return ('\n') or when `buf` is full (`bufsize` - 1), whichever
- * comes first. The contents written to `buf` are null-terminated. 
+ * Reads a single line of input from the keyboard.
+ *
+ * Reads characters typed on the keyboard and stores them into `buf`. 
+ * Reading stops when the user types Return ('\n') or when `buf` is 
+ * full (`bufsize` - 1), whichever comes first. A null-terminator is
+ * written to the end of the contents in `buf`.
  * The ending newline is discarded (not written to buf).
  *
  * When the user types backspace (\b):
  *   If there are any characters currently in the buffer, deletes the last one.
  *   Otherwise, calls `shell_bell`.
  */
-void shell_readline(char buf[], int bufsize);
+void shell_readline(char buf[], size_t bufsize);
 
 /*
  * `shell_evaluate`: eval function of shell read-eval-print loop
  *
- * Parses a line as follows:
- *   - If the line is empty/all space, do nothing
- *   - Otherwise, tokenize the line. A token is a sequence of non-space
- *     characters. There may be arbitrary whitespace in between tokens, 
- *.    as well as leading and trailing whitespace. Whitespace includes
- *     space, tab, and newline.
- *   - The first token is the command name.
- *   - Looks up the command function associated with the command name.
- *   - If no such command is found, prints an error:
+ * Parses line and execute command.
+ *
+ * Parsing proceeds as follows:
+ *   - Divide the line into an array of tokens. A token consists 
+ *     of a sequence of non-space chars.  Ignore/skip all whitespace 
+ *     in between tokens as well as leading and trailing whitespace. 
+ *     Whitespace includes space, tab, and newline.
+ *   - The first token is the name of the command to execute, the 
+ *     subsequent tokens are the arguments to the command.
+ * After parsing, execute the command:
+ *   - Find the function pointer associated with the command name.
+ *   - If no such command is found, give error:
  *           error: no such command 'binky'.
- *   - Otherwise, executes the command function, passing the rest of 
- *     the tokens as arguments.
+ *   - Otherwise, execute the function, passing array of arguments.
  *
  * Returns the result of the call to the command function, or -1 if no 
  * command was executed.
@@ -76,9 +79,8 @@ int shell_evaluate(const char *line);
  * Main function of the shell module. Must be preceded by calls
  * to `shell_init` and `keyboard_init`.
  *
- * Enters a read-eval-print loop built of out of `shell_readline`, 
- * `shell_evaluate`, and the `print_fn` argument to `shell_init`.
- * This function never returns.
+ * Enters a read-eval-print loop the repeatedly cycles `shell_readline`
+ * and `shell_evaluate`. This function never returns.
  */
 void shell_run(void);
 

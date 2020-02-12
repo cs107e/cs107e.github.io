@@ -34,7 +34,7 @@ void free(void *ptr);
 
 /* Function: realloc
  * -----------------
- * Changes the size of the memory block pointed to by `ptr` to 
+ * Changes the size of the memory block pointed to by `ptr` to at least
  * `new_size` bytes. The contents of the memory block are unchanged
  * from the start to the minimum of the old and new sizes. If
  * requested change in size cannot be accommodated in-place,
@@ -43,7 +43,7 @@ void free(void *ptr);
  * the previous allocation, and returns a pointer to the new memory.
  *
  * The `ptr` argument is expected to an address that was
- * previously return by malloc and has not yet been freed. 
+ * previously returned by malloc and has not yet been freed. 
  * If this precondition is not satisified, the behavior is undefined.
  *
  * The call realloc(NULL, size) is equivalent to malloc(size)

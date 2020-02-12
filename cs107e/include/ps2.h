@@ -3,16 +3,15 @@
 
 /* This module declares constants for interacting with a PS/2
  * keyboard, including a useful array that serves as a lookup table
- * to access information about the keys and their associated
- * characters.
+ * to access information about the keys and the characters they produce.
  *
- * Each entry in the array corresponds to one key on the keyboard.
- * Pressing a key generates a unique PS/2 scancode. The array is organized
- * in order of scancode. A scancode can be used as an index to
- * access the ASCII character associated with that key. The `other_ch`
- * is the shifted char or 0 if this key has no shifted char. For a key 
- * that is not associated with a printable character, its associated
- * char will  be represented by a code from the ps2_codes enumeration below.
+ * Each entry in the array corresponds to one physical key on the keyboard.
+ * Each key has an assigned PS/2 scancode. The array is organized
+ * in order of scancode. The scancode is used as an index to access
+ * the character produced by that key. The `other_ch` is the shifted
+ * char or 0 if this key's shifted char is same as unmodified. For the
+ * special keys (non-character), its associated char is a value >= 0x90
+ * from the ps2_codes enumeration below.
  *
  * You will use this interface in assignment 5 to implement a keyboard
  * driver.
