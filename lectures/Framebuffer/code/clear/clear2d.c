@@ -52,11 +52,13 @@ void main(void) {
     printf ("size (bytes): %d\n", (int)fb.size);
     printf ("pitch (bytes): %d\n", (int)fb.pitch);
 
-    unsigned pitch = fb.pitch / 4; // bytes to words
-    unsigned(*im)[pitch] = (unsigned(*)[pitch])fb.framebuffer;
+    unsigned int pitch = fb.pitch / 4; // pitch is in bytes, need pitch in words
+    unsigned int (*im)[pitch] = (unsigned(*)[pitch])fb.framebuffer;
     for (int y = 0; y < HEIGHT; y++) {
         for (int x = 0; x < pitch; x++) {
             im[y][x] = 0xff0000ff;
         }
     }
+
+    printf("%c", EOT);
 }

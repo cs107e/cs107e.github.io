@@ -39,11 +39,16 @@ int fb_init(void) {
 
     // send the request to the GPU using "mail"
     mailbox_write(MAILBOX_FRAMEBUFFER, (unsigned)&fb + GPU_NOCACHE);
+
+    // read the response from the GPU
     int err =  mailbox_read(MAILBOX_FRAMEBUFFER);
     return err;
 }
 
 void main(void) {
+    gpio_init();
+    uart_init();
+
     printf("requested physical size = (%d, %d)\n", WIDTH, HEIGHT);
     printf("requested virtual size = (%d, %d)\n", WIDTH, HEIGHT);
     printf("requested depth (bits) = %d\n", DEPTH);
@@ -59,5 +64,5 @@ void main(void) {
         fb.size, fb.height*fb.width*fb.depth/8);
     printf("pitch (number of bytes in a scanline)= %d (width*depth=%d)\n",
         fb.pitch, fb.width*fb.depth/8);
-    printf("%c", 0x04);
+    printf("%c", EOT);
 }

@@ -44,7 +44,7 @@ void main(void) {
     gpio_init();
     uart_init();
 
-    // DANGER - ignoring err
+    // BAD BOY, BAD BOY - ignoring err
     (void) fb_init();
 
     printf ("width (pixels): %d\n", (int)fb.width);
@@ -55,8 +55,10 @@ void main(void) {
 
     unsigned char *im = (unsigned char*)fb.framebuffer;
     // compute total number of bytes in the framebuffer
-    int n = fb.pitch * fb.height;
-    for (int i = 0; i < n; i++) {
+    unsigned int n = fb.pitch * fb.height;
+    for (unsigned int i = 0; i < n; i++) {
         *im++ = 127;
     }
+
+    printf("%c", EOT);
 }
