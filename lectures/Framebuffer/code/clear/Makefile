@@ -1,4 +1,5 @@
-NAME = clearc
+NAME = clear
+#NAME = clearc
 #NAME = cleari
 #NAME = clear2d
 

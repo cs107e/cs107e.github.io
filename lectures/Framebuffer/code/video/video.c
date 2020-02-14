@@ -40,4 +40,6 @@ void main(void) {
     if ((mp = property_get(TAG_GET_DEPTH))) {
         printf("%d bpp (bits per pixel)\n", mp->data.buffer_32[0]);
     }
+
+    printf("%c", 0x04);
 }

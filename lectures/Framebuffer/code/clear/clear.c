@@ -60,4 +60,6 @@ void main(void) {
     for (int i = 0; i < n; i++) { 
         *im++ = 0xff0000ff; // blue!!
     };
+
+    printf("%c", 0x04);
 }

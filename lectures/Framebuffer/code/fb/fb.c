@@ -59,4 +59,5 @@ void main(void) {
         fb.size, fb.height*fb.width*fb.depth/8);
     printf("pitch (number of bytes in a scanline)= %d (width*depth=%d)\n",
         fb.pitch, fb.width*fb.depth/8);
+    printf("%c", 0x04);
 }
