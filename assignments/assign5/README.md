@@ -224,11 +224,11 @@ Now that you have the command name and arguments, you're ready to evaluate it.
 
 + Look up the function pointer for the command by name. The command table associates a command name string with its function pointer.
     + If no matching command is found, output message `error: no such command 'binky'.`
-+ Call the function pointer, passing the command arguments.
++ Call the function pointer, passing the array of tokens and the count of tokens. The first element in the array is the command name, the subsequent elements are the arguments to the command.
 + The return value of the command is used as the return value for `shell_evaluate`.
 
 There is a command table started in `shell.c`. You will modify the table as you add commands. Each entry in the table is a `command_t` struct as defined in 
-[shell_commands.h](https://github.com/cs107e/cs107e.github.io/blob/master/cs107e/include/shell_commands.h). A command function pointer takes two arguments: `argv` is an array of `char *`, i.e. an array of strings, and `argc` is the count of elements in the  `argv` array. A command function returns an int to indicate success or failure. The result is 0 if the command executed successfully, or nonzero otherwise. 
+[shell_commands.h](https://github.com/cs107e/cs107e.github.io/blob/master/cs107e/include/shell_commands.h). A command function pointer takes two parameters: `argv` is an array of `char *`, i.e. an array of strings, and `argc` is the count of elements in the  `argv` array. A command function returns an int to indicate success or failure. The result is 0 if the command executed successfully, or nonzero otherwise. 
 
 Your shell has five commands:
 
