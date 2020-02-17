@@ -1,10 +1,22 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+/* 
+ * This typedef gives a nickname to the type of function pointer used as the
+ * a shell command.  A command_fn_t function has two parameters, the array
+ * of tokens and its count. The return value is of type int.
+ */
+typedef int (*command_fn_t)(int argc, const char *argv[]);
+
+/*
+ * This typedef defines the type for each entry in the command table.
+ * A command_t stores the info for one command, including one-word name,
+ * help description, and function pointer to execute the command.
+ */
 typedef struct _command_struct {
     char *name;
     char *description;
-    int (*fn)(int argc, const char *argv[]);
+    command_fn_t fn;
 } command_t;
 
 /*
