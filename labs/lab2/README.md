@@ -13,7 +13,6 @@ __Before releasing lab2:__
 - [ ] Review writeup/code/checkin questions (instructor)
 - [ ] Walk through (SL)
 - [ ] Followup on issues from previous quarter postmortem (issue #)
-          We used to do breadboard last in lab, now current first, consider switching back to other order?
 
 __To prep for lab2:__
 - [ ] See private/answers and private/staff_notes for advice saved from past

@@ -10,7 +10,7 @@ Task list to copy/paste when creating PR for this assign:
 __Before releasing assign3:__
 - [ ] Review writeup/starter code (instructor)
 - [ ] Review consistency/completeness of grading info published to students relative to grading tests used, consider changes clarity/ease of grading (TA)
-- [ ] Followup on issues from previous quarter postmortem (issue #201)
+- [ ] Followup on issues from previous quarter postmortem (issue #231)
 
 __To prep for assign3:__
 - [ ] 
