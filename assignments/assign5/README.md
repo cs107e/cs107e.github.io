@@ -124,7 +124,7 @@ The mid level routine `keyboard_read_event` processes key actions into key event
 
 The `modifiers` field of a `key_event_t` reports which modifier keys are in effect.  The state of all modifier keys is compactly represented using a _bit set_. The `keyboard_modifiers_t` enumeration type designates a particular bit for each modifier key.  If a bit is set in `modifiers`, this indicates the corresponding modifier key is currently held down or in the active state. If the bit is clear, it indicates the modifier is inactive. 
 
-The PS/2 protocol does not provide a way to ask the keyboard which modifiers are active, instead your driver must track the modifier state itself. A simple approach is a static variable in your keyboard module that you update in response to modifier key actions. The Shift, Control, and Alt modifiers are active iff the modifier key is currently down. Caps Lock operates differently in that its setting is "sticky". A press makes Caps Lock active and that persists until a subsequent press inverts the state.
+The PS/2 protocol does not provide a way to ask the keyboard which modifiers are active, instead your driver must track the modifier state itself. A simple approach is a static variable in your keyboard module that you update in response to modifier key events. The Shift, Control, and Alt modifiers are active iff the modifier key is currently down. Caps Lock operates differently in that its setting is "sticky". A press makes Caps Lock active and that persists until a subsequent press inverts the state.
 
 To identify which characters can be produced by a given key, we provide an array to use as a _lookup table_. Review the definition of the `ps2_keys` array in [ps2.c](https://github.com/cs107e/cs107e.github.io/blob/master/cs107e/src/ps2.c).  The array is indexed by scancode. The __A__ key on PS/2 keyboard generates scancode `0x1C`; array element `ps2_keys[0x1C]` holds the PS/2 key information for this key.
 
@@ -154,7 +154,7 @@ Typing a special key produces its designated value. These values are greater tha
 Press or release of a modifier key changes the event modifiers.  No character or code is produced.  The modifier keys are:
 - Shift, Caps Lock, Alt, Control
 
-A change in modifiers can affect the character produced by future typed keys. When the Shift modifier is active, `other_ch` is produced when typing a key that has an `other_ch` entry. If Caps Lock is active, `other_ch` is produced for only the alphabetic keys; digits and punctuation are unaffected by Caps Lock.
+A change in modifiers can affect the character produced by future typed keys. Our keyboard translation layer does not produce modified characters based on state of Alt or Control, only for Shift and Caps Lock. When the Shift modifier is active, `other_ch` is produced when typing a key that has an `other_ch` entry. If Caps Lock is active, `other_ch` is produced only for the alphabetic keys. Caps Lock has no effect on digits, punctuation, and other keys. If Shift and Caps Lock applied together, Shift "wins", e.g. `other_ch` is produced. (Caps Lock and Shift together do not invert letters to lowercase). 
 
 If you are using a Mac, Keyboard Viewer (accessible from menu bar) is a handy tool for visualizing the character produced for a given key combination. Try it out!
 If you are still unsure how to handle a particular case,
