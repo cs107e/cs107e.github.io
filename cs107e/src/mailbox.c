@@ -47,9 +47,8 @@ void mailbox_write(unsigned int channel, unsigned int addr)
     // wait until mailbox is not full ...
     while (mailbox->status & MAILBOX_FULL) ;
 
-    // add GPU_NOCACHE if needed so that the GPU does not cache the memory
-    if (addr < GPU_NOCACHE)
-        addr += GPU_NOCACHE;
+    // set GPU_NOCACHE bit so that the GPU does not cache the memory
+    addr |= GPU_NOCACHE;
 
     // addr is a multiple of 16, so the low 4 bits are zeros
     // 4-bit channel number is stuffed into those low bits

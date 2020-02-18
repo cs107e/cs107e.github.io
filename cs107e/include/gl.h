@@ -90,11 +90,13 @@ color_t gl_color(unsigned char r, unsigned char g, unsigned char b);
 void gl_clear(color_t c);
 
 /*
- * Swap the front and back buffers. The draw buffer is moved to the 
- * front (displayed) and the front buffer is moved to the back
- * (becomes the draw buffer).
+ * If in double-buffered mode, all gl drawing takes place off-screen
+ * and a call to `gl_swap_buffer` is required to bring the drawing on-screen.
+ * (Swap action exchanges the front and draw buffers of the virtual
+ * framebuffer).
  *
- * If not in double-buffer mode, this function has no effect.
+ * If not in double-buffer mode, all drawing takes place on-screen and
+ * the `gl_swap_buffer` function has no effect.
  */
 void gl_swap_buffer(void);
 
@@ -184,7 +186,7 @@ void gl_draw_rect(int x, int y, int w, int h, color_t c);
  * @param y2  the y location of vertex 2
  * @param c   the color of the line
  *
- * This function is not part of the basic requirements.
+ * This function is NOT part of the basic requirements.
  * You can leave this function unimplemented if not doing the extension.
  */
 void gl_draw_line(int x1, int y1, int x2, int y2, color_t c);
@@ -202,7 +204,7 @@ void gl_draw_line(int x1, int y1, int x2, int y2, color_t c);
  * @param y3  the y location of vertex 3
  * @param c   the color of the triangle
  *
- * This function is not part of the basic requirements.
+ * This function is NOT part of the basic requirements.
  * You can leave this function unimplemented if not doing the extension.
  */
 void gl_draw_triangle(int x1, int y1, int x2, int y2, int x3, int y3, color_t c);
