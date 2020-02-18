@@ -39,8 +39,8 @@ typedef enum {
  *
  * @param channel send the message to `channel`
  * @param addr    `addr` is the address of the message data to send. This address
- *                must be a multiple of 16 (i.e. lower 4 bits are 0). Normally 
- *                GPU_NOCACHE is added to that address so that the contents
+ *                must be a multiple of 16 (i.e. lower 4 bits are 0). 
+ *                GPU_NOCACHE will be added to the address so that the contents
  *                of the message is not cached by the GPU.
  */
 void mailbox_write(unsigned int channel, unsigned int addr);

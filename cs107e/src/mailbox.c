@@ -18,6 +18,9 @@
 // This bit is set in status register if nothing to read in mailbox
 #define MAILBOX_EMPTY  (1<<30)
 
+// This prevents the GPU and CPU from caching mailbox messages
+#define GPU_NOCACHE 0x40000000
+
 typedef struct {
     unsigned int read;
     unsigned int padding[3]; // note padding to skip 3 words
@@ -36,33 +39,34 @@ static volatile mailbox_t *mailbox = (volatile mailbox_t *)MAILBOX_BASE;
 void mailbox_write(unsigned int channel, unsigned int addr)
 {
     // mailbox has a maximum of 16 channels
-    if (channel >= MAILBOX_MAXCHANNEL) {
-        return;
-    }
+    if ( channel >= MAILBOX_MAXCHANNEL ) return;
 
-    // addresses must be aligned to 16
-    if (addr & 0xF) {
-        return;
-    }
+    // addr must be a multiple of 16
+    if ( addr & 0xF ) return;
 
-    while (mailbox->status & MAILBOX_FULL) ; // wait until space to write
+    // wait until mailbox is not full ...
+    while (mailbox->status & MAILBOX_FULL) ;
+
+    // add GPU_NOCACHE if needed so that the GPU does not cache the memory
+    if (addr < GPU_NOCACHE)
+        addr += GPU_NOCACHE;
 
     // addr is a multiple of 16, so the low 4 bits are zeros
     // 4-bit channel number is stuffed into those low bits
     mailbox->write = addr + channel;
 }
 
-unsigned int mailbox_read(unsigned int channel) 
+unsigned int mailbox_read(unsigned int channel)
 {
-    if (channel >= MAILBOX_MAXCHANNEL) {
-        return 1;
-    }
+    if ( channel >= MAILBOX_MAXCHANNEL ) return 1;
 
     while (1) {
-        while (mailbox->status & MAILBOX_EMPTY) ;   // wait until something to read
-        unsigned int ra = mailbox->read;
-        if ((ra & 0xF) == channel) { // if this message is for requested channel
-            return (ra >> 4);   // returned data is in the upper 28 bits
-        }
+        // wait until mailbox is not empty ...
+        while (mailbox->status & MAILBOX_EMPTY) ;
+        // read the data, low 4 bits are channel, upper 28 are result
+        unsigned int data = mailbox->read;
+        if ((data & 0xF) == channel)  // if this message is for our channel
+            return (data >> 4);
     }
+    return 1;
 }
