@@ -14,7 +14,7 @@
  * Date: Mar 23 2016
  */
 
-enum fb_mode { FB_SINGLEBUFFER = 0, FB_DOUBLEBUFFER = 1 };
+typedef enum { FB_SINGLEBUFFER = 0, FB_DOUBLEBUFFER = 1 } fb_mode_t;
 
 /*
  * Initialize the framebuffer.
@@ -26,8 +26,7 @@ enum fb_mode { FB_SINGLEBUFFER = 0, FB_DOUBLEBUFFER = 1 };
  *                      single buffered (FB_SINGLEBUFFER)
  *                      or double buffered (FB_DOUBLEBUFFER)
  */
-void fb_init(unsigned int width, unsigned int height, unsigned int depth,
-             unsigned int mode);
+void fb_init(unsigned int width, unsigned int height, unsigned int depth_in_bytes, fb_mode_t mode);
 
 /*
  * Get the current width in pixels of the framebuffer.
@@ -52,8 +51,8 @@ unsigned int fb_get_depth(void);
 
 /*
  * Get the current pitch in bytes of a single row of pixels in the framebuffer.
- * The pitch is nominally the width (pixels per row) multiplied by the depth 
- * (in bytes per pixel). However, the pitch may be greater than that if the
+ * The pitch is nominally the width (number of pixels per row) multiplied by 
+ * the depth in bytes per pixel. However, the pitch may be greater than that if the
  * GPU elects to add padding to the end of the row.
  *
  * @return    the pitch in bytes
@@ -67,10 +66,13 @@ unsigned int fb_get_pitch(void);
  * returned will not change as there is only one buffer in use.
  * In double buffering mode, the returned address differs based on 
  * which buffer is currently being used as the draw buffer.
+ * Note the address is returned as `void*`. Client should store into
+ * a properly typed pointer so as to access the pixel data according
+ * to their desired scheme (1-d, 2-d, etc.)
  *
  * @return    the address of the current draw buffer
  */
-unsigned char* fb_get_draw_buffer(void);
+void* fb_get_draw_buffer(void);
 
 /*
  * Swap the front and back buffers. The draw buffer is moved to the 

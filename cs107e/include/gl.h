@@ -17,7 +17,7 @@
 
 #include "fb.h"
 
-enum { GL_SINGLEBUFFER = FB_SINGLEBUFFER, GL_DOUBLEBUFFER = FB_DOUBLEBUFFER };
+typedef enum { GL_SINGLEBUFFER = FB_SINGLEBUFFER, GL_DOUBLEBUFFER = FB_DOUBLEBUFFER } gl_mode_t;
 
 /*
  * Initialize the graphic library. This function will call fb_init in turn 
@@ -30,7 +30,7 @@ enum { GL_SINGLEBUFFER = FB_SINGLEBUFFER, GL_DOUBLEBUFFER = FB_DOUBLEBUFFER };
  *                  single buffered (GL_SINGLEBUFFER)
  *                  or double buffered (GL_DOUBLEBUFFER)
  */
-void gl_init(unsigned int width, unsigned int height, unsigned int mode);
+void gl_init(unsigned int width, unsigned int height, gl_mode_t mode);
 
 /*
  * Get the current width in pixels of the framebuffer.
@@ -128,7 +128,7 @@ color_t gl_read_pixel(int x, int y);
  * @param x   the x location of the upper left corner of the character glyph
  * @param y   the y location of the upper left corner of the character glyph
  * @param ch  the character to be drawn, e.g. 'a'. If this character has no glyph
- *            in the current font, nothing is drawn(refer to font_get_char())
+ *            in the current font, nothing is drawn (refer to font_get_char())
  * @param c   the color of the character
  */
 void gl_draw_char(int x, int y, int ch, color_t c);

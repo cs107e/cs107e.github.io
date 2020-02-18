@@ -12,10 +12,10 @@
 
 #define MAILBOX_BASE     0x2000B880
 
-// This bit is set in status register if no space to write to mailbox queue
+// This bit is set in status register if no space to write to mailbox
 #define MAILBOX_FULL   (1<<31)
 
-// This bit is set in status register if nothing to read in mailbox queue
+// This bit is set in status register if nothing to read in mailbox
 #define MAILBOX_EMPTY  (1<<30)
 
 typedef struct {

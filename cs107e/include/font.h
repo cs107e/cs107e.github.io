@@ -61,6 +61,9 @@ size_t font_get_size(void);
 
 /*          
  * Fill in the image of character `ch` into the buffer `buf`.
+ * `buf` is an array of bytes of length width * height (see
+ * font_get_size(). Each 'on' pixel has value 0xff, 'off' pixel has 
+ * value 0x0.
  *              
  * @param ch    the requested character
  * @param buf   the buffer in which to place the image of the character.

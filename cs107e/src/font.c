@@ -1,18 +1,80 @@
+/*
+ * Access to font pixel data stored as a bitmap.
+ *
+ * Author: Philip Levis <pal@cs.stanford.edu>
+ * Last modified: 3/17/16
+ */
+
 #include "font.h"
+
+static const font_t font_default;
+static const font_t *g_font = &font_default;
+
+void font_set_font(font_t *f)
+{
+    g_font = f;
+}
+
+const font_t *font_get_font(void)
+{
+    return g_font;
+}
+
+size_t font_get_height(void) 
+{
+    return g_font->char_height;
+}
+
+size_t font_get_width(void) 
+{
+    return g_font->char_width;
+}
+
+size_t font_get_size(void) 
+{
+    return font_get_width() * font_get_height();
+}
+
+/* Extract pixels for requested character from font bitmap.
+ * Translate bitmap form into array of bytes, one byte per pixel.
+ * Use 0xff byte for on pixel, 0x0 for off pixel.
+ */
+bool font_get_char(char ch, unsigned char buf[], size_t buflen) 
+{
+    if ((ch != ' ' && (ch < g_font->first_char || ch > g_font->last_char)) || (buflen != font_get_size()))
+        return false;
+
+     if (ch == ' ') { // Handle space as special case, return all-off image
+        for (int i = 0; i < buflen; i++) {
+            buf[i] = 0;
+        }
+    } else {
+        int index = 0;
+        int nbits_in_row = (g_font->last_char - g_font->first_char + 1)*font_get_width();
+        int x_offset = (ch - g_font->first_char);
+        for (int y = 0; y < font_get_height(); y++) {
+            for (int x = 0; x < font_get_width(); x++) {
+                int bit_index = y*nbits_in_row + x_offset*font_get_width() + x;
+                int bit_start = bit_index / 8;
+                int bit_offset = bit_index % 8;
+                // extract single bit for this pixel from bitmap
+                int val = g_font->pixel_data[bit_start] & (1 << (7 - bit_offset));
+                // use 0xff for on pixel, 0x0 for off pixel
+                buf[index++] = val != 0 ? 0xFF : 0x00;
+            }
+        }
+    }
+    return true;
+}
 
 /*
  * Apple II font stored as a bitmap.
  * Each character is 14 bits wide and 16 bits tall (long story
- * about some C conversion), which is then transformed to a 14x16
- * 32-bit image. Black pixels in the image are 0x00000000, white
- * pixels are 0xFFFFFFFF.
+ * about some C conversion).
  *
  * Generated from a screenshot of the original font, turned into
  * a 32-bit color C structure with GIMP, then turned into a bitmap
  * C structure with a simple C program.
- *
- * Author: Philip Levis <pal@cs.stanford.edu>
- * Last modified: 3/17/16
  */
 static const font_t font_default = {
     .first_char = 0x21, .last_char = 0x7F,
@@ -353,65 +415,3 @@ static const font_t font_default = {
     0x00, 0x00, 0x00, 0x00 }
 };
 
-static const font_t *g_font = &font_default;
-
-void font_set_font(font_t *f)
-{
-    g_font = f;
-}
-
-const font_t *font_get_font(void)
-{
-    return g_font;
-}
-
-size_t font_get_height(void) 
-{
-    return g_font->char_height;
-}
-
-size_t font_get_width(void) 
-{
-    return g_font->char_width;
-}
-
-/* The total number of bytes needed to store a character
-   image. This is equal to height * width. */
-size_t font_get_size(void) 
-{
-    return font_get_width() * font_get_height();
-}
-
-/* Fill in the image of character `ch` into the buffer `buf`.
-   Returns true or false result to indicate success or failure.
-   Failure is when `buflen` does not equal the value
-   returned by font_get_size(), used as a basic sanity
-   check, or if the character is out of the displayable range.
-   If this function returns true, buf is filled with a width*height
-   image of the pixel, i.e., a char[height][width] array. */
-
-bool font_get_char(char ch, unsigned char buf[], size_t buflen) 
-{
-    if ((ch != ' ' && (ch < g_font->first_char || ch > g_font->last_char)) || (buflen != font_get_size()))
-        return false;
-
-     if (ch == ' ') { // Handle space as special case, all-black pixel image
-        for (int i = 0; i < buflen; i++) {
-            buf[i] = 0;
-        }
-    } else {
-        int index = 0;
-        int nbits_in_row = (g_font->last_char - g_font->first_char + 1)*font_get_width();
-        int x_offset = (ch - g_font->first_char);
-        for (int y = 0; y < font_get_height(); y++) {
-            for (int x = 0; x < font_get_width(); x++) {
-                int bit_index = y*nbits_in_row + x_offset*font_get_width() + x;
-                int bit_start = bit_index / 8;
-                int bit_offset = bit_index % 8;
-                int val = g_font->pixel_data[bit_start] & (1 << (7 - bit_offset));
-                buf[index++] = val != 0 ? 0xFF : 0x00;
-            }
-        }
-    }
-    return true;
-}
