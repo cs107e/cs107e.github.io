@@ -30,7 +30,7 @@ See below for where to set these IDs to match unit in use.
 
 """
 from __future__ import print_function
-import argparse, errno, logging, os, platform, re, serial, subprocess, sys, time
+import argparse, errno, logging, os, platform, re, select, serial, subprocess, sys, time
 from serial.tools import list_ports
 from xmodem import XMODEM
 
@@ -222,6 +222,9 @@ You should probably restart the Pi, since you interrupted it mid-load.
                     printq("\nrpi-install.py: ran for a total of %d seconds. Detaching." % args.T)
                     break
 
+                if select.select([sys.stdin,],[],[],0.0)[0]:  # user has typed something on stdin
+                    sys.stdin.readline()  # consume input and discard
+                    print(bcolors.FAILRED + "Huh? Did you intend to type that on your PS/2 keyboard?" + bcolors.ENDC)
                 c = getc(1)
                 if c == b'\x04':   # End of transmission.
                     printq("\nrpi-install.py: received EOT from Pi. Detaching.")
@@ -231,6 +234,9 @@ You should probably restart the Pi, since you interrupted it mid-load.
 
                 print(c.decode('ascii', 'replace'), end='')
                 sys.stdout.flush()
+        except KeyboardInterrupt:
+            printq("\nrpi-install.py: received Ctrl-C from user. Detaching.")
+            sys.exit(0)
         except Exception as ex:
             print(ex)
             pass
