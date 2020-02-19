@@ -243,7 +243,7 @@ Group the 8 bits from the first byte and 6 bits from the second into the 14-bit 
 
 * Talk with your neighbor: why does pixel_data have size `95 * 14 * 16 / 8`?
 
-Look carefully at the function `font_get_char()` in `font.c` which copies a single character
+Look carefully at the function `font_get_char()` in [font.c](https://github.com/cs107e/cs107e.github.io/blob/master/cs107e/src/font.c) which copies a single character
 from the font image into a buffer.  Read this function carefully,
 since you will use it in the next assignment.
 
