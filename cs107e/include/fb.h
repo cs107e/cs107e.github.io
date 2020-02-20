@@ -60,14 +60,17 @@ unsigned int fb_get_depth(void);
 unsigned int fb_get_pitch(void);
 
 /*
- * Get the start address of the portion of the framebuffer being used
- * as the draw (back) buffer. The address is the start of an array of size
- * pitch*height bytes.  If in single buffering mode, the address
- * returned will not change as there is only one buffer in use.
- * In double buffering mode, the address returned is for the current
- * draw (back) buffer. Draw to this off-screen buffer and 
- * when finished, call `fb_swap_buffer` to exchange the front
- * and back buffers and bring drawing onscreen. 
+ * Get the start address of the framebuffer memory into which the
+ * client can draw pixels.  The address returned is the start of an 
+ * array of size pitch*height bytes.
+ * If in single buffering mode, there is only one buffer in use, so the 
+ * returned address does not change.  The client draws to that one buffer,
+ * and each update is immediately displayed.
+ * In double buffering mode, the address returned is for the draw (back)
+ * buffer which is currently off-screen. The client draws to 
+ * this buffer and when ready, calls `fb_swap_buffer` to exchange the front
+ * and back buffers. The swap brings the drawing on-screen in one
+ * smooth update.
  *
  * Note the address is returned as `void*`. Client should store into
  * a properly typed pointer so as to access the pixel data according
@@ -79,8 +82,8 @@ void* fb_get_draw_buffer(void);
 
 /*
  * Swap the front and back buffers. The draw buffer is moved to the 
- * front (displayed) and the front buffer is moved to the back
- * (becomes the draw buffer).
+ * front (contents displayed) and the front buffer is moved to the back
+ * (becomes the draw buffer, contents off-screen).
  *
  * If not in double buffering mode, this function has no effect.
  */
