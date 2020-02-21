@@ -3,7 +3,7 @@
 @
 @ Author:      Philip Levis
 @ Author:      Julie Zelenski
-@ Last update: 2/20/19
+@ Last update: 2/20/20
 
 @ Enable/disable interrupts.
 @
@@ -33,37 +33,37 @@ interrupts_global_disable:
     msr cpsr_c, r0
     bx lr
 
-        
+.global _RPI_INTERRUPT_VECTOR_BASE
+    _RPI_INTERRUPT_VECTOR_BASE:     .word   0
+
 .global _vectors
 .global _vectors_end
 
 @ Vector table has entries for each of the eight exceptions
 @ Bounces to absolute destination address accessed via pc-relative label
 _vectors:
-    ldr pc, _abort_asm
-    ldr pc, _abort_asm
-    ldr pc, _abort_asm
-    ldr pc, _abort_asm
-    ldr pc, _abort_asm
-    ldr pc, _abort_asm
-    ldr pc, _interrupt_asm
-    ldr pc, _abort_asm
+    ldr pc, abort_addr
+    ldr pc, abort_addr
+    ldr pc, abort_addr
+    ldr pc, abort_addr
+    ldr pc, abort_addr
+    ldr pc, abort_addr
+    ldr pc, interrupt_addr
+    ldr pc, abort_addr
     
-    _abort_asm:                   .word abort_asm
-    _interrupt_asm:               .word interrupt_asm
+    abort_addr:                   .word abort_asm
+    interrupt_addr:               .word interrupt_asm
 
 _vectors_end:
 
 abort_asm:
-    mov sp, #0x4000                  @ set up stack on the fly
-    bl pi_abort
+    mov   sp, #0x4000               @ init stack
+    bl    pi_abort                  @ pi_abort does not return
 
 interrupt_asm:
+    mov   sp, #0x8000               @ init stack for interrupt mode
     sub   lr, lr, #4                @ compute return address
     push  {r0-r3, r12, lr}          @ save registers
     mov   r0, lr                    @ pass old pc as argument
     bl    interrupt_vector          @ call C function
     ldm   sp!, {r0-r3, r12, pc}^    @ return, ^ to change mode + restore cpsr
-
-.global _RPI_INTERRUPT_VECTOR_BASE
-    _RPI_INTERRUPT_VECTOR_BASE:     .word   0

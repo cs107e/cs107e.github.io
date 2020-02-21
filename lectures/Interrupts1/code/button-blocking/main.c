@@ -1,38 +1,40 @@
+#include "console.h"
+#include "echo.h"
 #include "gpio.h"
 #include "gpioextra.h"
-#include "console.h"
+
 
 #define BUTTON_GPIO GPIO_PIN21
-#define NROWS 5
-#define NCOLS 20
+#define NROWS 12
+#define NCOLS 28
 
-static int count = 0;
+static int gCount = 0;
 
-static void wait_for_button(void)
+static void wait_for_press(void)
 {
     while (gpio_read(BUTTON_GPIO) == 0) ;
     while (gpio_read(BUTTON_GPIO) == 1) ;
-    count++;
+    gCount++;
 }
 
-static void update_screen(void)
+static void update_screen()
 {
     console_clear();
-    for (int r = 0; r < NROWS*NCOLS/3; r++)
-        console_printf("%d ", count);
+    console_printf("Count of button presses\n");
+    for (int r = 0; r < NROWS*NCOLS/8; r++) {
+        console_printf("%3d ", gCount);
+    }
 }
 
 void main(void) 
 {
     gpio_init();
     gpio_set_input(BUTTON_GPIO);
-    gpio_set_pullup(BUTTON_GPIO);
-
     console_init(NROWS, NCOLS);
-    console_printf("Click button...");
 
     while (1) {
-        wait_for_button();
+        console_printf("\n\nWaiting for button click...\n");
+        wait_for_press();
         update_screen();
     }
 }
