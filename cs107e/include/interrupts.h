@@ -126,6 +126,6 @@ enum interrupt_basic {
     INTERRUPTS_BASIC_END
 };
 
-void interrupt_vector(unsigned int pc);
+void interrupt_dispatch(unsigned int pc);
 
 #endif

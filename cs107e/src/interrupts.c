@@ -115,7 +115,7 @@ void interrupts_attach_handler(handler_fn_t fn, unsigned int source)
     nHandlers++;
 }
 
-void interrupt_vector(unsigned int pc)
+void interrupt_dispatch(unsigned int pc)
 {
     for (int i = 0; i < nHandlers; i++) {
         // if handler is for pending event, give it a chance to process
@@ -124,3 +124,15 @@ void interrupt_vector(unsigned int pc)
             return;
     }
 }
+
+#if 0
+Gcc can generate asm for interrupt handler, too. Interesting to compare to
+hand-written version.
+
+void sample_vector(void) __attribute__ ((interrupt ("IRQ")));
+
+void sample_vector(void)
+{
+    interrupt_dispatch(0);
+}
+#endif

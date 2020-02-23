@@ -21,16 +21,16 @@
 
 .global interrupts_global_enable
 interrupts_global_enable:
-    mrs r0, cpsr
+    mrs r0, cpsr        @ copy cpsr value to regular register
     bic r0, r0, #0x80   @ clear I=0 enables IRQ interrupts
-    msr cpsr_c, r0
+    msr cpsr_c, r0      @ copy back, control bits only
     bx lr
 
 .global interrupts_global_disable
 interrupts_global_disable:
-    mrs r0, cpsr
+    mrs r0, cpsr        @ copy cpsr value to regular register
     orr r0, r0, #0x80   @ set I=1 disables IRQ interrupts
-    msr cpsr_c, r0
+    msr cpsr_c, r0      @ copy back, control bits only
     bx lr
 
 .global _RPI_INTERRUPT_VECTOR_BASE
@@ -62,8 +62,10 @@ abort_asm:
 
 interrupt_asm:
     mov   sp, #0x8000               @ init stack for interrupt mode
-    sub   lr, lr, #4                @ compute return address
-    push  {r0-r3, r12, lr}          @ save registers
-    mov   r0, lr                    @ pass old pc as argument
-    bl    interrupt_vector          @ call C function
-    ldm   sp!, {r0-r3, r12, pc}^    @ return, ^ to change mode + restore cpsr
+    sub   lr, lr, #4                @ compute resume addr from old pc
+    push  {r0-r12, lr}              @ save all registers (overkill, but simple & correct)
+    mov   r0, lr                    @ pass resume addr as argument to dispatch
+    bl    interrupt_dispatch        @ call C function
+    ldm   sp!, {r0-r12, pc}^        @ return from interrupt mode
+	                                @ restore saved regs (note pc = lr/resume addr)
+	                                @ The ^ changes mode & restores cpsr
