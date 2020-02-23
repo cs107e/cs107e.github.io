@@ -2,6 +2,7 @@
 extern int __bss_start__, __bss_end__;
 
 extern void main(void);
+void _cstart(void);
 
 // The C function _cstart is called from the assembly in start.s
 // _cstart zeroes out the BSS section and then calls main.

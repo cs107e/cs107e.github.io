@@ -1,5 +1,5 @@
-@ Assembly code for interrupt vector table and safely setting up
-@ execution in interrupt context on the Rapsberry Pi in CS107E.
+@ Assembly code for interrupt vector table and functions
+@ to enable/disable IRQ interrupts on the Rapsberry Pi in CS107E.
 @
 @ Author:      Philip Levis
 @ Author:      Julie Zelenski
@@ -33,13 +33,14 @@ interrupts_global_disable:
     msr cpsr_c, r0      @ copy back, control bits only
     bx lr
 
+@ destination address for vector table (0)
 .global _RPI_INTERRUPT_VECTOR_BASE
     _RPI_INTERRUPT_VECTOR_BASE:     .word   0
 
 .global _vectors
 .global _vectors_end
 
-@ Vector table has entries for each of the eight exceptions
+@ Vector table has one instruction for each of the eight exceptions
 @ Bounces to absolute destination address accessed via pc-relative label
 _vectors:
     ldr pc, abort_addr
@@ -66,6 +67,6 @@ interrupt_asm:
     push  {r0-r12, lr}              @ save all registers (overkill, but simple & correct)
     mov   r0, lr                    @ pass resume addr as argument to dispatch
     bl    interrupt_dispatch        @ call C function
-    ldm   sp!, {r0-r12, pc}^        @ return from interrupt mode
-	                                @ restore saved regs (note pc = lr/resume addr)
-	                                @ The ^ changes mode & restores cpsr
+    ldm   sp!, {r0-r12, pc}^        @ leave interrupt mode
+	                                @ restore saved regs, pc restored to lr (resume addr)
+	                                @ The ^ changes to previous mode, restores cpsr

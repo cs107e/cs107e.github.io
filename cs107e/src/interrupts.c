@@ -39,7 +39,7 @@ void interrupts_init(void)
 {
     // disable interrupt generation system-wide
     interrupts_global_disable();
-    // set interrupt flags to disable all sources
+    // disable all sources
     interrupt->disable_basic = 0xffffffff;
     interrupt->disable[0] = 0xffffffff;
     interrupt->disable[1] = 0xffffffff;
@@ -58,7 +58,7 @@ void interrupts_init(void)
 }
 
 // verify vector table correctly installed, i.e. interrupts_init() was
-// called and table entries are not corrupted
+// called and IRQ table entry is not corrupted
 static bool vector_table_is_installed(void)
 {
     const int IRQ_INDEX = 6;
@@ -74,7 +74,7 @@ static bool is_basic(unsigned int irq_source)
 // these IRQ sources are shared between CPU and GPU
 static bool is_shared(unsigned int irq_source)
 {
-    return irq_source >= INTERRUPTS_FIRST && irq_source < INTERRUPTS_END;
+    return irq_source >= INTERRUPTS_SHARED_FIRST && irq_source < INTERRUPTS_SHARED_END;
 }
 
 static void enable_source(unsigned int irq_source)
@@ -89,7 +89,7 @@ static void enable_source(unsigned int irq_source)
     }
 }
 
-static int source_is_pending(unsigned int irq_source)
+static bool source_is_pending(unsigned int irq_source)
 {
     if (is_basic(irq_source)) {
         unsigned int shift = irq_source - INTERRUPTS_BASIC_BASE;
@@ -109,25 +109,29 @@ void interrupts_attach_handler(handler_fn_t fn, unsigned int source)
     assert(vector_table_is_installed());
     assert(nHandlers < MAX_HANDLERS);
 
-    enable_source(source);
     handlers[nHandlers].irq_source = source;
     handlers[nHandlers].fn = fn;
     nHandlers++;
+    enable_source(source);
 }
 
 void interrupt_dispatch(unsigned int pc)
 {
     for (int i = 0; i < nHandlers; i++) {
-        // if handler is for pending event, give it a chance to process
-        // stop at first handler that returns true (i.e. handled event)
-        if (source_is_pending(handlers[i].irq_source) && handlers[i].fn(pc))     
+        // find handlers for pending event, give each a chance
+        // dispatch stops at first handler that processes it
+        // handler must return true and have cleared event (no longer pending)
+        if (source_is_pending(handlers[i].irq_source) && handlers[i].fn(pc)
+             && !source_is_pending(handlers[i].irq_source)) {
             return;
+        }
     }
 }
 
 #if 0
-Gcc can generate asm for interrupt handler, too. Interesting to compare to
-hand-written version.
+Add gcc interrupt attribute to generate function with
+prolog/epilog suitable for use as IRQ vector.
+How does this differ from our hand-written version?
 
 void sample_vector(void) __attribute__ ((interrupt ("IRQ")));
 
@@ -135,4 +139,11 @@ void sample_vector(void)
 {
     interrupt_dispatch(0);
 }
+
+00000008 <sample_vector>:
+   8:    sub lr, lr, #4
+   c:    push    {r0, r1, r2, r3, ip, lr}
+  10:    mov r0, #0
+  14:    bl  0 <interrupt_dispatch>
+  18:    ldm sp!, {r0, r1, r2, r3, ip, pc}^
 #endif
