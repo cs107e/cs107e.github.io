@@ -26,8 +26,10 @@ abort_asm:
 
 interrupt_asm:
     mov   sp, #0x8000               @ init stack for interrupt mode
-    sub   lr, lr, #4                @ compute return address
-    push  {r0-r3, r12, lr}          @ save registers
-    mov   r0, lr                    @ pass old pc as argument
-    bl    interrupt_vector          @ call C function
-    ldm   sp!, {r0-r3, r12, pc}^    @ return, ^ to change mode + restore cpsr
+    sub   lr, lr, #4                @ compute resume addr from old pc
+    push  {r0-r12, lr}              @ save all registers (overkill, but simple & correct)
+    mov   r0, lr                    @ pass resume addr as argument to dispatch
+    bl    interrupt_dispatch        @ call C function
+    ldm   sp!, {r0-r12, pc}^        @ return from interrupt mode
+                                    @ restore saved regs (note pc = lr/resume addr)
+                                    @ The ^ changes mode & restores cpsr
