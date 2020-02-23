@@ -24,7 +24,7 @@ __To prep for lab5:__
 
 *Lab written by Philip Levis, updated by Pat Hanrahan*
 
-## Learning goals
+## Goals
 
 In your next assignment, you will write a PS/2 keyboard driver for your Pi. The goal of this lab is to set up the
 keyboard so that you can immediately start on the assignment.

@@ -39,8 +39,9 @@ void interrupts_global_enable(void);
  * `interrupts_global_disable`
  *
  * Turns off all interrupts system-wide. No interrupts will be generated. 
- * Does not clear attached handlers/sources, just suspends interrupt generation.
- * Use `interrupts_global_enable` to resume generating interrupts.
+ * Does not remove/disable attached handlers/sources, just temporarily
+ * suspends interrupt generation. Use `interrupts_global_enable` to 
+ * resume generating interrupts.
  */
 void interrupts_global_disable(void);
 
@@ -71,18 +72,22 @@ typedef bool (*handler_fn_t)(unsigned int);
  * If requested source is invalid, makes no changes to handlers.
  *
  * It is supported to attach more than one handler for a given source.
- * This is needed because multiple inputs (e.g. set of gpio's) may
+ * This is needed because events on multiple inputs (e.g. set of gpio's) may
  * generate interrupts on the same source. 
- * When an interrupt is received, it is dispatched to the appropriate
- * handler for processing. If there is more than one handler attached
- * to this source, cycles through one by one, stopping at first
- * to process it. It is the responsibility of the client's handler
- * function to check whether the event is of the specific sort it
- * can process. If so, the handler should process and clear the event and
- * return true to indicate the interrupt has been handled and no
- * further processing is needed. If the handler does not process this
- * interrupt, it should do nothing and return false. The interrupt
- * will then be passed along to the other handlers.
+ *
+ * How interrupts are dispatched to the attached handler:
+ * When an interrupt is received, the dispatch function cycles through
+ * the attached handlers one by one, stopping after first that processes it.
+ * It is the responsibility of the client's handler function to check 
+ * whether the event is of the specific sort it can process. If so, 
+ * the handler should process and clear the event and return true to 
+ * indicate the interrupt has been handled and no further processing is 
+ * needed. If the handler does not process this interrupt, it should do 
+ * nothing and return false; dispatch will pass along to other handlers.
+ * Dispatch raises an assert if return value from the handler
+ * doesn't match whether event was cleared, i.e. if handler returns true,
+ * it should have cleared the event and if handler returns false, the
+ * event should not have been cleared.
  *
  * The handlers are called in sequence, according to the order in
  * which they were attached. Dispatch stops at the first handler that
@@ -126,6 +131,5 @@ enum interrupt_source {
  *           enabled as they will interfere with the GPU operation."
  */
 
-void interrupt_dispatch(unsigned int pc);
 
 #endif

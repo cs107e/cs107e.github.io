@@ -127,9 +127,12 @@ void interrupt_dispatch(unsigned int pc);
 void interrupt_dispatch(unsigned int pc)
 {
     for (int i = 0; i < nHandlers; i++) {
-        // find handler for pending event, give a chance to process
-        // if handler returns true, vefify that it cleared event (no longer pending)
-        // dispatch stops once processed, otherwise keep looking
+        // check handler for pending source, give a chance to process
+        // if handler returns true and cleared event (no longer pending)
+        // interrupt has been processed, and dispatch stops here
+        // otherwise try other attached handlers to process it
+        // assert if handler return value doesn't match cleared status
+        // (this is common client oversight that creates difficult bugs)
         if (is_pending(handlers[i].irq_source)) {
             bool handled = handlers[i].fn(pc);
             bool cleared = !is_pending(handlers[i].irq_source);
