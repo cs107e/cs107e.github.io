@@ -89,7 +89,9 @@ static void enable_source(unsigned int irq_source)
     }
 }
 
-static bool source_is_pending(unsigned int irq_source)
+// returnes true if there is a pending event for the given source, false otherwise
+// each source assigned a particular bit in one of the pending registers
+static bool is_pending(unsigned int irq_source)
 {
     if (is_basic(irq_source)) {
         unsigned int shift = irq_source - INTERRUPTS_BASIC_BASE;
@@ -115,15 +117,24 @@ void interrupts_attach_handler(handler_fn_t fn, unsigned int source)
     enable_source(source);
 }
 
+
+// The dispatch function must be extern as it is called from another module
+// (interrupts_asm.s). However, it not otherwise intended as a public 
+// function and is not declared or documented in the interface.
+void interrupt_dispatch(unsigned int pc);
+
+
 void interrupt_dispatch(unsigned int pc)
 {
     for (int i = 0; i < nHandlers; i++) {
-        // find handlers for pending event, give each a chance
-        // dispatch stops at first handler that processes it
-        // handler must return true and have cleared event (no longer pending)
-        if (source_is_pending(handlers[i].irq_source) && handlers[i].fn(pc)
-             && !source_is_pending(handlers[i].irq_source)) {
-            return;
+        // find handler for pending event, give a chance to process
+        // if handler returns true, vefify that it cleared event (no longer pending)
+        // dispatch stops once processed, otherwise keep looking
+        if (is_pending(handlers[i].irq_source)) {
+            bool handled = handlers[i].fn(pc);
+            bool cleared = !is_pending(handlers[i].irq_source);
+            if (handled && cleared) return;
+            assert(handled == cleared && "handler return value should match cleared status");
         }
     }
 }
