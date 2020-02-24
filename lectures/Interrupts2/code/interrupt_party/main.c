@@ -6,16 +6,16 @@
 #include "keyboard.h"
 #include "printf.h"
 #include "uart.h"
-
+void console_cycle_color(void);
 #define BUTTON GPIO_PIN21
-#define LED GPIO_PIN20
+
 
 static volatile int elapsed;
 
 static bool button_pressed(unsigned int pc)
 {
     if (gpio_check_and_clear_event(BUTTON)) {
-        gpio_write(LED, gpio_read(BUTTON) == 0); // led on == button down
+        console_cycle_color();
         return true;
     }
     return false;
@@ -45,11 +45,9 @@ static bool clock_edge(unsigned int pc)
 
 void configure_button(void)
 {
-    gpio_set_output(LED);
     gpio_set_input(BUTTON);
     gpio_set_pullup(BUTTON);
     gpio_enable_event_detection(BUTTON, GPIO_DETECT_FALLING_EDGE);
-    gpio_enable_event_detection(BUTTON, GPIO_DETECT_RISING_EDGE);
     interrupts_attach_handler(button_pressed, INTERRUPTS_GPIO3);
 }
 
@@ -74,7 +72,7 @@ void main(void)
 {
     gpio_init();
     uart_init();
-    console_init(10, 20);
+    console_init(1, 9);
     interrupts_init();
 
     configure_button();
@@ -87,7 +85,7 @@ void main(void)
     while (1) {
         if (last != elapsed) {
             console_clear();
-            console_printf("%02d:%02d", elapsed/60, elapsed % 60);
+            console_printf("  %02d:%02d", elapsed/60, elapsed % 60);
             last = elapsed;
         }
     }
