@@ -60,7 +60,7 @@ To prepare for this lab, please do the following:
 
 First things first: get some snack and pair up with a buddy and introduce yourself. Congratulate each other on completing your first assignment! Bring up the [check-in](checkin) questions to ponder as you work through lab. There are four exercises today and we recommend that you spend no more than 20 minutes each on the first three, reserving the second hour of lab for the breadboarding task. You should leave lab with a solid start on the hardware setup needed for your next assignment.
 
-### 1. C to assembly (7:00-7:20)
+### 1. C to assembly (20 min)
 
 Compilers are truly an engineering marvel. Converting a C program into a fitting use of assembly instructions, registers, and memory necessitates both technical mastery and a fair bit of artistry. From here forward in the course, you'll hand over to the compiler the task of writing assembly, but you will continue to grow your fluency reading and understanding assembly. For this exercise, you will observe and pay tribute to the handiwork of the compiler.
 
@@ -84,7 +84,7 @@ The Compiler Explorer is great fun for a quick interactive exploration; you can 
 A good way to learn how a system works is by trying
 things. Curious about a particular C construct is translated to assembly? Wonder about the effect of changing the compiler optimization level? Try it out and see. Let your curiosity be your guide!
 
-### 2. Makefiles (7:20 - 7:40)
+### 2. Makefiles (20 min)
 
 Change to the directory `lab2/code/makefiles` and view the C version of the blink program and its simple Makefile, reproduced below:
 
@@ -124,7 +124,7 @@ that if that file changes, then the target is stale and must be rebuilt)
 
 You should be able to answer the [make check-in question](checkin) now.
 
-### 3. Testing (7:40 - 8:00)
+### 3. Testing (20 min)
 
 An effective developer knows that testing your code goes hand-in-hand with writing it. The better your tests and more timely your efforts, the sooner you will find your bugs and the easier your debugging will be. To help you grow this important skill, upcoming assignments will include a required testing component along with our guidance on testing structure and strategies..
 
@@ -174,7 +174,7 @@ the program with the single command `make install`. Make sure that the dependenc
 
 
 <a name="crossref"></a>
-### 4. Wire up display breadboard (8:00 - 9:00)
+### 4. Wire up display breadboard (60 min)
 
 The second half of the lab period is devoted to wiring up the breadboard circuit needed for Assignment 2, a clock implemented on a 4-digit 7-segment display.
 

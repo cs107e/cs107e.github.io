@@ -9,7 +9,7 @@ all : $(NAME).bin
 %.bin: %.elf
 	arm-none-eabi-objcopy $< -O binary $@
 
-%.elf: %.o start.o cstart.o
+%.elf: %.o
 	arm-none-eabi-gcc $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 %.o: %.c
@@ -22,7 +22,7 @@ all : $(NAME).bin
 	arm-none-eabi-objdump --no-show-raw-insn -d $< > $@
 
 install: $(NAME).bin
-	rpi-install.py $<
+	rpi-install.py -p $<
 
 clean:
 	rm -f *.o *.bin *.elf *.list *~
