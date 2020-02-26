@@ -98,8 +98,8 @@ There are several steps to configuring and enabling interrupts:
 
 - Modify `configure_button` to enable detection of falling edge events. Consult the header [gpioextra.h](https://github.com/cs107e/cs107e.github.io/blob/master/cs107e/include/gpioextra.h) for documentation on the function `gpio_enable_event_detection`.
 - Define a new handler callback function that checks whether the button has a pending event and if so, processes and clears the event. Review the functions in `gpioextra.h `for checking and clearing the event status. For now, use `printf("!")` to process.
-- Call `interrupts_attach_handler` to attach your handler function to the interrupt source for gpio events `INTERRUPTS_GPIO3`
-- In `main`, call `interrupts_init` to initialize the interrupts module and once ready to go, call `interrupts_global_enable` to turn on interrupt generation.
+- In `main`, call `interrupts_init` to initialize the interrupts module and call `interrupts_attach_handler` to attach your handler function to the interrupt source for gpio events `INTERRUPTS_GPIO3`
+- After all is ready, `main` calls `interrupts_global_enable` to turn on interrupt generation.
 
 Talk this over with your tablemates and ensure that you understand what each step does and why it's necessary. 
 
