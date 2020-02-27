@@ -46,7 +46,7 @@ This work completes the transformation of your Raspberry Pi into a standalone co
 
 ## Looking ahead: final project
 
-It's also time to start planning for your final project. The [project writeup](/assignments/project) has the full schedule of dates to get on your calendar. The first step is forming teams. Let us know you're going to partner with using this [Google form](https://docs.google.com/forms/d/e/1FAIpQLSdJ9iKbXPDn7J8q0O-EVg3ihsTR9pB9C5L52gx_PXp-ER2nUw/viewform?usp=sf_link). Please submit the form by __Monday March 2nd__.
+It's also time to start planning for your final project. The [project writeup](/assignments/project/) has the full schedule of dates to get on your calendar. The first step is forming teams. Let us know you're going to partner with using this [Google form](https://docs.google.com/forms/d/e/1FAIpQLSdJ9iKbXPDn7J8q0O-EVg3ihsTR9pB9C5L52gx_PXp-ER2nUw/viewform?usp=sf_link). Please submit the form by __Monday March 2nd__.
 
 ## Get starter files
 Change to the `cs107e.github.io` repository in your `cs107e_home` and do a `git pull` to ensure your courseware files are up to date.
