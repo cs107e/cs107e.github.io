@@ -12,10 +12,10 @@ all : $(NAME).elf $(NAME)_buggy.elf $(NAME).list $(NAME)_buggy.list
 %.bin: %.elf
 	arm-none-eabi-objcopy $< -O binary $@
 
-%.elf: %.o $(MY_MODULES) start.o cstart.o
+%.elf: %.o $(MY_MODULES) 
 	arm-none-eabi-gcc $(LDFLAGS) $^ $(LDLIBS) -o $@
 
-%_buggy.elf: %.o $(BUGGY_MODULES) start.o cstart.o
+%_buggy.elf: %.o $(BUGGY_MODULES) 
 		arm-none-eabi-gcc $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 %.o: %.c

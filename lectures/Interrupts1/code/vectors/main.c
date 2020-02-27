@@ -1,7 +1,7 @@
 #include "printf.h"
 #include "uart.h"
 
-void interrupt_vector(unsigned int pc)
+void interrupt_dispatch(unsigned int pc)
 {
 }
 

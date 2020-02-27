@@ -85,7 +85,11 @@ Remember, the code in an interrupt handler should be simple and streamlined. Thi
 can be so hard. A complex `printf` in your handler would likely cause you to miss a closely-following event and could lead you on a wild goose chase to find the "bug" that caused it.
 
 ### 2) Gather a PS/2 scancode
-The falling edge of PS/2 clock edge indicates that now is the time to grab a bit from the PS/2 data line.  Change `clock_edge` to read from the PS/2 data line and based on the value read, output `uart_putchar('0')` or `uart_putchar('1')` instead of a hash char. Build and run the test program . The output should show the 11 bits in the packet sent by the keyboard.
+The falling edge of PS/2 clock edge indicates that now is the time to grab a bit from the PS/2 data line.  
+
+![ps2 clock](images/ps2.png)
+
+Change `clock_edge` to read from the PS/2 data line and based on the value read, output `uart_putchar('0')` or `uart_putchar('1')` instead of a hash char. Build and run the test program . The output should show the 11 bits in the packet sent by the keyboard.
 
 Now edit `clock_edge` to gather those 11 bits as they arrive to form a scancode. Be sure to re-purpose your earlier code that implements the logic to synchronize on the start bit and 
 verify the parity and stop bits.
