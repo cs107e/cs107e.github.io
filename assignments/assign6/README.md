@@ -155,7 +155,7 @@ The `console_printf` function operates similarly to `printf` and uses your `vsnp
 - `\n` : newline (move cursor down to first column of next row)
 - `\f` : form feed (clear contents and move cursor to home position in upper left)
 
-As it makes changes to the text contents, the console needs to updates the display to match. You can make an incremental update as part of processing each character or postpone into a single refresh after processing a string of characters.
+As it makes changes to the text contents, the console needs to update the display to match. You can make an incremental update as part of processing each character or postpone into a single refresh after processing a string of characters.
 
 The console should also handle the operations for:
 - Horizontal wrapping: if there are too many characters to fit on the current row, automatically wrap the overflow to the next row. It is a nice touch for backspace to correctly on a wrapped row, but we won't test this specific case in grading.
