@@ -328,7 +328,7 @@ Reflecting on where you started, it has been an impressive journey. Take stock o
 
 Bring these skills into the final project, mix with your creativity and initiative, and something fabulous will surely result. We're looking forward to it!
 
-![mine](images/yoda.gif)
+![yoda](images/yoda.gif)
 
 
 `
