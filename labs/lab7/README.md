@@ -15,7 +15,7 @@ __Before releasing lab7:__
 - [ ] Followup on issues from previous quarter postmortem (issue #)
 
 __To prep for lab7:__
-- [ ] 
+- [ ] Ensure monitor/cable per pair avail in lab
 
 {% endcomment %}
 
@@ -30,7 +30,7 @@ During this lab you will:
 - Review the support code for interrupts on the Pi.
 - Write code to handle button presses using GPIO event interrupts.
 - Optimize a screen redraw function (and enjoy the adrenaline rush!)
-- Brainstorm possibilities for achieving world domination with an awesome bare-metal Raspberry Pi final project.
+- Brainstorm possibilities for achieving world domination with your awesome bare-metal Raspberry Pi final project.
 
 ## Prelab preparation
 To prepare for lab, do the following:
@@ -61,7 +61,7 @@ Challenge one another to understand each and every line of this code.  After you
 
 +  The supervisor stack is located at `0x8000000` and configured as one of the first instructions executed in `_start`. Where is the interrupt stack located and when it is configured?  A different approach would be to configure the interrupt stack at program start along with the supervisor stack, but doing so then would require temporarily changing to interrupt mode -- why is that switch needed?
 
-+  How is a function "attached" as a handler for an interrupt source? If multiple handlers are attached to the same source, how does the dispatch operation determine which one processes the interrupt? What is the consequence if no handler is found to process an event? Why does the dispatcher assert that the handler return value matches the event cleared status?  What client oversight is this attempting to defend against?
++  How is a function "attached" as a handler for an interrupt source? If multiple handlers are attached to the same source, how does the dispatch operation determine which one processes the interrupt? What is the consequence if no handler is found to process it? 
 
 #### 2) Set up a button circuit (15 min)
 
@@ -86,7 +86,7 @@ Compile and run the program. Press the button and you get a printed `+` and the 
 
 1. If you click the button multiple times in quick succession, some of the presses are missed. You get neither a printed `+` nor a screen redraw. Why does that happen?
 
-You'll note that redrawing the screen is glacially slow. If we sped that up (which we will do later in this lab!), it would cause us to miss fewer events, but that's not a complete fix. An approach based on "polling" has compromises in design awkwardness and wasted cycles. Rather than having to repeatedly check the button state, let's ask the CPU to nudge us when a button event occurs. Interrupts to the rescue!
+You'll note that redrawing the screen is glacially slow. If we sped that up (which we will do later in this lab!), it would cause us to miss fewer events, but that's not a satisfying fix architecturally. Rather than having to continually read the button state and risk missing an event by not checking at the correct moment, let's ask the CPU to nudge us when a button event occurs. Interrupts to the rescue!
 
 #### 3) Write an interrupt handler (30 min)
 
@@ -107,15 +107,14 @@ Compile and run the program. As before, the loop main appears to be continuously
 
 Let's change `main` instead to only redraw in response to a button press. 
 
-Coordination across regular and interrupt code can be done using global state.  Declare a global variable `static int gCount` to count the number of presses. Edit the handler function to increment `gCount` and print the count along with the `!`. Edit the loop in `main` to compare the current value of `gCount` to the last known value, and only redraw whenever it has updated.
+Coordination across regular and interrupt code can be done using global state. Declare a global variable `static int gCount` to count the number of presses. Edit the handler function to increment `gCount` and print the count along with the `!`. Edit the loop in `main` to compare the current value of `gCount` to the last known value, and only redraw whenever it has updated.
 
-Compile and run your program. Confirm that each button press is individually detected and counted (including multiple events from a noisy switch).
+Compile and run the program. Confirm that each button press is individually detected and counted, including multiple events from a noisy switch.
 
 1. The variable `gCount` must be declared `volatile`. Why? Can the compiler tell,
 by looking at only this file, how control flows between main and the interrupt handler? Will the compiler generate different code if `volatile` than without it? Will the program behave differently? Test it both ways and find out!
 
-
-Now, edit your handler to comment out the step that clears the event and have the handler return false. Compile and run the program and see how this changes the behavior. What changes and why?
+Now, edit your handler to comment out the step that clears the event. Compile and run the program and see how this changes the behavior. What changes and why?
 
 When you're done, discuss and answer the following questions with your 
 neighbors.
@@ -130,16 +129,16 @@ neighbors.
 
 Look carefully at the output printed by the program and you'll note that although every event is detected and counted, the number of redraw iterations is not one-to-one with those updates because the value of `gCount` can update multiple times between checks. 
 
-To track all updates and process each one by one, we can use a queue to communicate between the interrupt handler and `main`. The handler will enqueue each update to the queue and the main will dequeue to read them from the queue. In this way, we will never miss an update coming from the interrupt handler.
+To track all updates and process each one by one, we can use a queue to communicate between the interrupt handler and `main`. The handler will enqueue each update to the queue and the main will dequeue to read them from the queue. Because the queue stores every individual update posted by the interrupt handler, we can be sure that we never miss one.
 
 How to rework the code:
 
 - Review the [ringbuffer.h](https://github.com/cs107e/cs107e.github.io/blob/master/cs107e/include/ringbuffer.h) header file and [ringbuffer.c](https://github.com/cs107e/cs107e.github.io/blob/master/cs107e/src/ringbuffer.c) source for documentation on the ring buffer queue. This ADT maintains a simple queue of integer values implemented as a ring buffer.
 - Declare a global variable of type `rb_t *rb` and edit `main` to initialize `rb` with a call to `rb_new`.  
 - Edit the handler to store the updated counter's value into the queue with a call to `rb_enqueue`.
-- Edit `main` to retrieve an update from the queue with a call to `rb_dequeue`.(This is used in place of the previous code that read the global variable and compared to previous value to detect update).
+- Edit `main` to retrieve an update from the queue with a call to `rb_dequeue`. This replaces the previous code that read the global variable and compared to previous value to detect update.
 
-Make the above changes and rebuild and run the program. It should now redraw the screen once for each button press in one-to-one correspondence.
+Make the above changes and rebuild and run the program. It should now redraw the screen once for each button press in one-to-one correspondence, including patiently processing a backlog of redraws from a sequences of fast presses.
 
 When you're done, take a moment to verify your understanding:
 
@@ -150,7 +149,7 @@ When you're done, take a moment to verify your understanding:
 
 ### Project brainstorm and team speed-dating (20 minutes)
 
-Visit our [project gallery](https://cs107e.github.io/project_gallery/) to see a sampling of projects from our past students. We are __so so proud__ of the creations of our past students -- impressive, inventive, and fun! You'll get started in earnest on the project next week, but we set aside a little time in this week's lab for a group discussion to preview the general guidelines and kindle your creativity about possible directions you could take in your project. If you have questions about the project arrangements or are curious about any of our past projects, please ask us for more info, we love to talk about the neat work we've seen our students do. If you have ideas already fomenting, share with the group to find synergy and connect with possible teammates. Project teams are typically pairs, more rarely solo or trios.
+Visit our [project gallery](https://cs107e.github.io/project_gallery/) to see a sampling of projects from our past students. We are __so so proud__ of the creations of our past students -- impressive, inventive, and fun! You'll get started in earnest on the project next week, but we set aside a little time in this week's lab for a group discussion to preview the general guidelines and kindle your creativity about possible directions you could take in your project. If you have questions about the project arrangements or are curious about any of our past projects, please ask us for more info, we love to talk about the neat work we've seen our students do. If you have ideas already fomenting, share with the group to find synergy and connect with possible teammates. Project teams are most typically pairs, although occasionally we have had solo or trios.
 
 ### Need for speed (20 min)
 
@@ -171,14 +170,12 @@ redraw0 function!*
 Take a stepwise approach, so you can measure the effect of a given
 modification in isolation:
 
-1. **Duplicate the previous function and tweak it.** For example, make a copy of `redraw0` and rename it `redraw1` before proceeding. Make a small change to the code that you think will impact performance.
+1. **Duplicate the previous function and tweak it.** For example, make a copy of `redraw0` and rename it `redraw1`. Make a small change to the code in `redraw1` that you think will impact performance.
 
 2. Make a rough prediction about the expected effect on runtime.
 
-3. Now run and time the new version to see whether your intuition matches
-   the observed reality. Where the results surprise you, examine the
-   generated assembly to see if you can figure out why there is a different
-   effect than you expected.
+3. Build and run the new version to see whether the observed timing matches your intuition. Where the results surprise you, try to figure out why the effect is different than expected. Poke around in the
+   generated assembly or ask us questions.
 
 Repeat this process, each time advancing from the best version so far and
 making another small change.
@@ -196,7 +193,7 @@ rebuild and re-run. What difference do you observe between `-O0`, `-Og`, `-O2` a
 contribute a cost: are there ways to change the function so that it does the 
 same work with fewer instructions? Take a look at the assembly in `speed.list` to see where
 the effort is going. It takes just a few instructions to write a pixel but each loop iteration adds the overhead cost to increment, compare, branch. How could you change the loop to issue fewer of these
-overhead instructions?
+overhead instructions and focus more on doing the meaty work of writing pixels?
 
 How big of an improvement were you able to make overall? Where did you get the biggest bank for your buck?
 
