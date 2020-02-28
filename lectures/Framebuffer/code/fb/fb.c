@@ -26,8 +26,10 @@ const int DEPTH = 32;
 
 int fb_init(void) {
     // write these values to the GPU
-    fb.width = fb.virtual_width = WIDTH;
-    fb.height = fb.virtual_height = HEIGHT;
+    fb.width = 1600;
+    fb.height = 1200;
+    fb.virtual_width = WIDTH;
+    fb.virtual_height = HEIGHT;
     fb.depth = DEPTH;
     fb.x_offset = 0;
     fb.y_offset = 0;

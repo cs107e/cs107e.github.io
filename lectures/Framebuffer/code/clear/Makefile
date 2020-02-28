@@ -1,6 +1,6 @@
-NAME = clearc
+#NAME = clearc
 #NAME = cleari
-#NAME = clear2d
+NAME = clear2d
 
 CFLAGS = -I$(CS107E)/include -g -Wall -Og -std=c99 -ffreestanding
 LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib

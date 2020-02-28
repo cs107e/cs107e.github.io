@@ -24,3 +24,6 @@ void _cstart(void)
     *GPIO_FSEL4 = (*GPIO_FSEL4 & ~(7 << 21)) | (1 << 21);
     *GPIO_SET1 = 1 << 15;
 }
+
+int width = 512;
+char p[512];
