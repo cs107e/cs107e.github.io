@@ -219,10 +219,10 @@ and copy your finished `libmypi.a` in as well. Add the starter file `mouse.c` to
 Make sure you can build and run the "Hello, world" application right
 now.
 
-Your first job is to write a driver for a PS/2 mouse. Read these pages on the
+Your first job is to write a driver for a PS/2 mouse. There is a box of PS/2 mice on the shelf in the B21 lab room. Borrow a mouse from us while working on the extension, but please return  it to us when done. Read these pages on the
 [PS/2 protocol](https://web.archive.org/web/20180124072221/http://www.computer-engineering.org/ps2protocol/) and
 [PS/2 mouse specifically](https://web.archive.org/web/20171214135004/http://www.computer-engineering.org/ps2mouse/)
-for details on how to talk to a mouse. Connect the power/ground/clock/data pins from the PS/2 plug on your mouse to your Pi.
+for details on how to talk to a mouse. Connect the power/ground/clock/data pins from the PS/2 plug on the mouse to your Pi.
 
 The functions `mouse_read_scancode` and `clock_edge` are the near-identical twins to the parallel functions in keyboard, the only change being to use the GPIO pins for mouse clock and data GPIO pins instead of keyboard. The mouse `clock_edge` gathers data bits and enqueues a scancode to a ring buffer to be dequeued by `mouse_read_scancode`, same as you did for keyboard.
 
