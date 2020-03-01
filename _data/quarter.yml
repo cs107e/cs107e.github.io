@@ -65,10 +65,10 @@ weeks:
     assign: /assignments/assign7/
     fri: /lectures/Sensors/
   -
-    mon: /lectures/Arithmetic/
+    mon: /lectures/SystemDesign/
     lab: /labs/projectlab1/
     assign: /assignments/project/
-    fri: /lectures/Performance/
+    fri: /lectures/Arithmetic/
   -
     mon: /lectures/Wrap/ 
     lab: /labs/projectlab2/
