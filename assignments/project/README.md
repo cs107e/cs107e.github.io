@@ -76,61 +76,50 @@ As part of your final submission, edit the `README.md` file of your repository f
 
 If your project was influenced by ideas or work of other people, please attribute those contributions in the writeup. In particular, if incorporating code from others, you must reference where you got the code, and what changes you made. It should be clear what you did, and what others did. Your project will be primarily evaluated on the portion of the work that is original.
 
+#### Grading
+Our rubric for evaluating final projects considers two major areas and one bonus:
+
++  __Challenge/Technical Achievement__.
+    This category evaluates the ambitiousness of the project and its goals. Our basic expectation is a project scope and level of effort roughly on par with the full console system. This was ~6 weeks of steady work for one person, and earned you a wealth of knowledge and an awesome `libmypi` code base. This puts you in prime position to start from there and achieve something equally cool with two people over 2.5 weeks. A project typically extends from and builds on the work you have done thus far. Learning new things, researching novel hardware, mastering advanced software techniques, digging in to overcome obstacles, and otherwise meeting additional challenges are all examples of efforts that will be further recognized in this category.
+      
++ __Execution__.
+    This category evaluates the team’s execution on delivering on the project's goals. Our basic expectation is that the core functionality is operational and able to give a successful demo at the project session. Your further efforts to develop a fully complete set of features, add a high level of polish, design a system that is pleasing to use, build in robustness, and so on will be acknowledged as going above and beyond in the execution category. Execution success is highly correlated with strong teamwork, so your upfront investment in thoughtful planning, time management, and good engineering practice will pay off here.
+
++ __Originality/Artistry__.
+    Although you can have a successful project that reproduces the work of another, we want to nudge you toward attempting a project that is uniquely your own, that mixes your interests and inspirations in imaginative ways or builds something particularly delightful or purposeful to you. We round out the project evaluation with a small nod to its creativity and a reward for your efforts to bring beauty, purpose, joy, elegance, inspiration, or fun to the task.
+
 ### Additional resources
 
 In addition to going further with the components you have already used in the course, you are welcome to explore additional hardware and software for your project. Here are some resources you may want to check into.
 
 - #### Sensors
 
-  We have a number of
-  [different hardware sensors](sensors)
-  which you could use for your project; they're available for you to
-  check out in lab. Let us know if you'd like to use one of them.
+    We have a number of [different hardware sensors](sensors)
+    which you could use for your project; they're available for you to
+    check out in lab. Let us know if you'd like to use one of them.
 
 - #### Part suppliers
 
-  Here are some good vendors for electronics hardware.
+    Here are some good vendors for electronics hardware.
 
-  * [Jameco](https://www.jameco.com/) 
-  has a great selection of electronic parts.
-  They are also located in Burlingame near SFO. 
-  If you place an online order, parts will generally arrive the next day via US mail.
-  If you have a car, 
-  you can also drive there and pick up parts same day at the Will Call desk.
+    * [Jameco](https://www.jameco.com/) has a great selection of electronic parts. They are also located in Burlingame near SFO. 
+    If you place an online order, parts will generally arrive the next day via US mail. If you have a car, you can also drive there and pick up parts same day at the Will Call desk.
 
-  * [Pololu](https://www.pololu.com/) has a wide selection of parts for robotics,
-  including sensors and motor drivers.
-  They also document their parts very well.
+    * [Pololu](https://www.pololu.com/) has a wide selection of parts for robotics, including sensors and motor drivers. They also document their parts very well.
 
-  * [Adafruit](https://www.adafruit.com/)
-  Limor Fried has founded a company that caters
-  to makers of all types.
-  Besides building great products,
-  they also provide extensive tutorials and learning guides on their web site.
+    * [Adafruit](https://www.adafruit.com/) Limor Fried has founded a company that caters to makers of all types. Besides building great products, they also provide extensive tutorials and learning guides on their web site.
 
-  * [Sparkfun](https://www.sparkfun.com/) is another great source for hobbyist electronics.
+    * [Sparkfun](https://www.sparkfun.com/) is another great source for hobbyist electronics.
 
-  * Visit 
-  [lab64](https://ee.stanford.edu/news/lab64), the EE department's Maker Space located in the basement of the Packard building. This workspace has a variety of tools (oscilloscope, soldering stations, 3-D printer, and more) and a store stocked with basic electronic parts such as transistors, op-amps, etc.
+    * Visit [lab64](https://ee.stanford.edu/news/lab64), the EE department's Maker Space located in the basement of the Packard building. This workspace has a variety of tools (oscilloscope, soldering stations, 3-D printer, and more) and a store stocked with basic electronic parts such as transistors, op-amps, etc.
 
 
 - #### Support code
-  The directory [cs107e/src](https://github.com/cs107e/cs107e.github.io/blob/master/cs107e/src) contains source code for the support modules from `libpi` and extra modules for `libpiextra`.
+    The directory [cs107e/src](https://github.com/cs107e/cs107e.github.io/blob/master/cs107e/src) contains source code for the support modules from `libpi` and extra modules for `libpiextra`.
 
-  The Raspberry Pi has on-board SPI and I2C controllers, which you can use to
-  communicate with many kinds of sensors and devices that speak those protocols.
-  For example, if you need to read analog input, we have an analog-to-digital
-  converter, the MCP3008, which would communicate over a SPI interface with your Pi.
-  You are welcome to write your own SPI or I2C driver for your device as part of your
-  project. However, if 
-  you would like to use an existing implementation, `libpiextra` contains the modules `i2c` and `spi` that
-  you may use (make sure to cite that you used these implementations).
+    The Raspberry Pi has on-board SPI and I2C controllers, which you can use to communicate with many kinds of sensors and devices that speak those protocols. For example, if you need to read analog input, we have an analog-to-digital converter, the MCP3008, which would communicate over a SPI interface with your Pi. You are welcome to write your own SPI or I2C driver for your device as part of your project. However, if  you would like to use an existing implementation, `libpiextra` contains the modules `i2c` and `spi` that you may use (make sure to cite that you used these implementations).
 
-  `libpiextra` also contains an experimental filesystem interface
-  which you can use to interact with the files on the SD card. This enables you to
-  do operating-system-like things, such as run programs off the card,
-  or store large data files without having to copy them over the
-  bootloader every time, or save documents.
+    `libpiextra` also contains an experimental filesystem interface which you can use to interact with the files on the SD card. This enables you to do operating-system-like things, such as run programs off the card, or store large data files without having to copy them over the bootloader every time, or save documents.
 
 
 ### Suggestions and inspirations
