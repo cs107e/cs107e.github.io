@@ -149,10 +149,10 @@ void sample_vector(void)
     interrupt_dispatch(0);
 }
 
-00000008 <sample_vector>:
-   8:    sub lr, lr, #4
-   c:    push    {r0, r1, r2, r3, ip, lr}
-  10:    mov r0, #0
-  14:    bl  0 <interrupt_dispatch>
-  18:    ldm sp!, {r0, r1, r2, r3, ip, pc}^
+<sample_vector>:
+    sub lr, lr, #4
+    push    {r0, r1, r2, r3, ip, lr}
+    mov r0, #0
+    bl  0 <interrupt_dispatch>
+    ldm sp!, {r0, r1, r2, r3, ip, pc}^
 #endif

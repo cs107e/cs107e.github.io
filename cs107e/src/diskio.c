@@ -8,7 +8,6 @@
 /*-----------------------------------------------------------------------*/
 
 #include <sys/stat.h>
-#include <sys/time.h>
 
 #include "emmc.h"
 #ifdef HAVE_USPI
@@ -257,7 +256,21 @@ DRESULT disk_ioctl (
     return RES_PARERR;
 }
 
+
+
+time_t time(time_t *tloc) {
+    return 0;
+}
+
+struct tm * localtime(const time_t *clock) {
+    static struct tm _tm;
+    return &_tm;
+}
+
+
 #if !_FS_READONLY && !_FS_NORTC
+DWORD get_fattime (void);
+
 DWORD get_fattime (void)
 {
     time_t now = time(NULL);
@@ -271,3 +284,4 @@ DWORD get_fattime (void)
            | ((DWORD)ltm->tm_sec >> 1);
 }
 #endif
+

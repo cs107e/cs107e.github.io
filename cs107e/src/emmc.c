@@ -465,7 +465,7 @@ static inline uint32_t byte_swap(uint32_t in)
 #endif // __GNUC__
 
 /* Power off the SD card */
-static void sd_power_off()
+static void sd_power_off(void)
 {
 	uint32_t control0 = mmio_read(EMMC_BASE + EMMC_CONTROL0);
 	control0 &= ~(1 << 8);	// Set SD Bus Power bit off in Power Control Register
@@ -473,7 +473,7 @@ static void sd_power_off()
 }
 
 /* Get the current base clock rate in Hz */
-static uint32_t sd_get_base_clock_hz()
+static uint32_t sd_get_base_clock_hz(void)
 {
     uint32_t base_clock;
 #if SDHCI_IMPLEMENTATION == SDHCI_IMPLEMENTATION_GENERIC
@@ -530,7 +530,7 @@ static uint32_t sd_get_base_clock_hz()
 }
 
 #if SDHCI_IMPLEMENTATION == SDHCI_IMPLEMENTATION_BCM_2708
-static int bcm_2708_power_off()
+static int bcm_2708_power_off(void)
 {
 	uint32_t mb_addr = 0x40007000;		// 0x7000 in L2 cache coherent mode
 	volatile uint32_t *mailbuffer = (uint32_t *)mb_addr;
@@ -579,7 +579,7 @@ static int bcm_2708_power_off()
 	return 0;
 }
 
-static int bcm_2708_power_on()
+static int bcm_2708_power_on(void)
 {
 	uint32_t mb_addr = 0x40007000;		// 0x7000 in L2 cache coherent mode
 	volatile uint32_t *mailbuffer = (uint32_t *)mb_addr;
@@ -628,7 +628,7 @@ static int bcm_2708_power_on()
 	return 0;
 }
 
-static int bcm_2708_power_cycle()
+static int bcm_2708_power_cycle(void)
 {
 	if(bcm_2708_power_off() < 0)
 		return -1;
@@ -757,7 +757,7 @@ static int sd_switch_clock_rate(uint32_t base_clock, uint32_t target_rate)
 }
 
 // Reset the CMD line
-static int sd_reset_cmd()
+static int sd_reset_cmd(void)
 {
     uint32_t control1 = mmio_read(EMMC_BASE + EMMC_CONTROL1);
 	control1 |= SD_RESET_CMD;
@@ -772,7 +772,7 @@ static int sd_reset_cmd()
 }
 
 // Reset the CMD line
-static int sd_reset_dat()
+static int sd_reset_dat(void)
 {
     uint32_t control1 = mmio_read(EMMC_BASE + EMMC_CONTROL1);
 	control1 |= SD_RESET_DAT;
@@ -2132,12 +2132,3 @@ size_t sd_write(uint8_t *buf, size_t buf_size, uint32_t block_no)
 	return buf_size;
 }
 
-size_t sd_get_block_size()
-{
-    return emmc_dev.bd.block_size;
-}
-
-size_t sd_get_num_blocks()
-{
-    return emmc_dev.bd.num_blocks;
-}

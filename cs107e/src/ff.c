@@ -121,9 +121,10 @@
 
 #include "ff.h"			/* Declarations of FatFs API */
 #include "diskio.h"		/* Declarations of disk I/O functions */
+#include "malloc.h"
 
-
-
+#define ff_memalloc malloc
+#define ff_memfree free
 
 /*--------------------------------------------------------------------------
 
@@ -854,7 +855,7 @@ FRESULT sync_fs (	/* FR_OK: successful, FR_DISK_ERR: failed */
 /*-----------------------------------------------------------------------*/
 /* Hidden API for hacks and disk tools */
 
-DWORD clust2sect (	/* !=0: Sector number, 0: Failed - invalid cluster# */
+static DWORD clust2sect (	/* !=0: Sector number, 0: Failed - invalid cluster# */
 	FATFS* fs,		/* File system object */
 	DWORD clst		/* Cluster# to be converted */
 )
@@ -872,7 +873,7 @@ DWORD clust2sect (	/* !=0: Sector number, 0: Failed - invalid cluster# */
 /*-----------------------------------------------------------------------*/
 /* Hidden API for hacks and disk tools */
 
-DWORD get_fat (	/* 0xFFFFFFFF:Disk error, 1:Internal error, 2..0x0FFFFFFF:Cluster status */
+static DWORD get_fat (	/* 0xFFFFFFFF:Disk error, 1:Internal error, 2..0x0FFFFFFF:Cluster status */
 	FATFS* fs,	/* File system object */
 	DWORD clst	/* FAT item index (cluster#) to get the value */
 )
@@ -927,7 +928,7 @@ DWORD get_fat (	/* 0xFFFFFFFF:Disk error, 1:Internal error, 2..0x0FFFFFFF:Cluste
 /* Hidden API for hacks and disk tools */
 
 #if !_FS_READONLY
-FRESULT put_fat (
+static FRESULT put_fat (
 	FATFS* fs,	/* File system object */
 	DWORD clst,	/* FAT item index (cluster#) to be set */
 	DWORD val	/* New value to mark the cluster */
