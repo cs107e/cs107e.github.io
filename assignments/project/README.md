@@ -77,7 +77,7 @@ As part of your final submission, edit the `README.md` file of your repository f
 If your project was influenced by ideas or work of other people, please attribute those contributions in the writeup. In particular, if incorporating code from others, you must reference where you got the code, and what changes you made. It should be clear what you did, and what others did. Your project will be primarily evaluated on the portion of the work that is original.
 
 #### Grading
-Our rubric for evaluating final projects considers two major areas and one bonus:
+Our rubric for evaluating final projects considers two major areas and one bonus opportunity:
 
 +  __Challenge/Technical Achievement__.
     This category evaluates the ambitiousness of the project and its goals. Our basic expectation is a project scope and level of effort roughly on par with the full console system. This was ~6 weeks of steady work for one person, and earned you a wealth of knowledge and an awesome `libmypi` code base. This puts you in prime position to start from there and achieve something equally cool with two people over 2.5 weeks. A project typically extends from and builds on the work you have done thus far. Learning new things, researching novel hardware, mastering advanced software techniques, digging in to overcome obstacles, and otherwise meeting additional challenges are all examples of efforts that will be further recognized in this category.
@@ -115,11 +115,17 @@ In addition to going further with the components you have already used in the co
 
 
 - #### Support code
-    The directory [cs107e/src](https://github.com/cs107e/cs107e.github.io/blob/master/cs107e/src) contains source code for the support modules from `libpi` and extra modules for `libpiextra`.
+    The [$CS107E/src](https://github.com/cs107e/cs107e.github.io/blob/master/cs107e/src) directory contains source code for the support modules from `libpi` and modules from the libraries `libpiextra` and `libpisd`
 
-    The Raspberry Pi has on-board SPI and I2C controllers, which you can use to communicate with many kinds of sensors and devices that speak those protocols. For example, if you need to read analog input, we have an analog-to-digital converter, the MCP3008, which would communicate over a SPI interface with your Pi. You are welcome to write your own SPI or I2C driver for your device as part of your project. However, if  you would like to use an existing implementation, `libpiextra` contains the modules `i2c` and `spi` that you may use (make sure to cite that you used these implementations).
+    The Raspberry Pi has on-board SPI and I2C controllers, which you can use to communicate with many kinds of sensors and devices that speak those protocols. For example, if you need to read analog input, we have an analog-to-digital converter, the MCP3008, which would communicate over a SPI interface with your Pi. You are welcome to write your own SPI or I2C driver for your device as part of your project. However, if you would like to use an existing implementation, `libpiextra` contains the modules `i2c` and `spi` that you may use (make sure to cite that you used these implementations).
 
-    `libpiextra` also contains an experimental filesystem interface which you can use to interact with the files on the SD card. This enables you to do operating-system-like things, such as run programs off the card, or store large data files without having to copy them over the bootloader every time, or save documents.
+    `libpisd` offers an experimental filesystem interface which you can use to access the files on the SD card. This enables you to do operating-system-like things, such as run programs off the card, or store large data files without having to copy them over the bootloader every time, or save documents. Read more about it in the [sd library guide](/guides/extras/sd_library).
+    
+   The [$CS107E/examples](https://github.com/cs107e/cs107e.github.io/blob/master/cs107e/examples) directory contains some sample programs in source code that might be useful to review/adopt (use of armtimer, audio, neopixels, etc.).
+
+   The [$CS107E/extras](https://github.com/cs107e/cs107e.github.io/blob/master/cs107e/extras) is code contributed by former students that might serve as model or inspiration for some part of your project. The code was part of a successful past project, but other than that, we don't have a lot of information.  If choosing to adopt any of this code, understand there may have unresolved bugs/issues and code may require adjustments to match our current interfaces as they have changed over time.  
+
+   You are welcome to use these resources in your project, but please be sure to cite these contributions. Your project will be primarily evaluated on the portion of the work that is original.
 
 
 ### Suggestions and inspirations
@@ -134,6 +140,7 @@ Some sites to check out:
 + [Adafruit blog](http://adafruit.com/blog)
 + [Instructables](http://instructables.com)
 + [Hackster](http://hackster.io)
++ Everything done by [Mark Rober](https://www.youtube.com/MarkRober) does is crazy-awesome
 
 #### Games
 
