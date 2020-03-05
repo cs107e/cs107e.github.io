@@ -13,17 +13,11 @@ corresponding `uart_getchar()`.
 
 Use the following steps to setup the Arduino development environment:
 
-1. Get two ESP-32 devices. This library works for the following Hiletgo devices from Amazon.com (2x for $21.98):
+1. Get two ESP-32 devices. This library works for the following Hiletgo devices from Amazon.com (2x for $21.98):[ESP32 on Amazon.com](https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z/ref=sr_1_2_sspa)
 
-    <a href="https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z/ref=sr_1_2_sspa">ESP32 on Amazon.com</a>
+2. Download our [esp32.zip](/guides/extras/esp32.zip) file and unzip.
 
-2. Download the `esp32.zip` file from the course website, and unzip:
-
-   <a href="/guides/esp32/esp32.zip">esp32.zip</a>
-
-3. Download and install the Arduino IDE for your computer:
-
-    <a href="https://www.arduino.cc/en/Main/Software">Arduino Download link</a>
+3. Download and install the Arduino IDE for your computer: [Arduino Download link](https://www.arduino.cc/en/Main/Software)
     
     On a Mac, copy the IDE program to your `/Applications` folder, and then run it once to install. Then quit the application.
 
@@ -33,9 +27,7 @@ Use the following steps to setup the Arduino development environment:
 
    `QueueList`
 
-5. Open up the Arduino application again. Follow the instructions at the following website to install the ESP32 library (under "Testing the Installation", choose the `Node32s` board):
-
-    <a href="https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-mac-and-linux-instructions/">Install ESP32 on Arduino</a>
+5. Open up the Arduino application again. Follow the instructions at the following website to install the ESP32 library (under "Testing the Installation", choose the `Node32s` board): [Install ESP32 on Arduino](https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-mac-and-linux-instructions/)
 
 6. In the Arduino application, open the `Websocket_server.ino` program from the zip folder. In the program, change the `ssid` variable near the top of the program to be your team name (or another unique WiFi name). You may also change the password for better security.
 
@@ -49,7 +41,7 @@ Use the following steps to setup the Arduino development environment:
 
 11. To test the second ESP32, re-connect your first ESP32. The second ESP32 should find the new WiFi network and automatically connect to the second ESP32, and the blue LED on both devices should turn on to indicate that they are ready to transmit over UART.
 
-For further testing, you can connect two USB serial connectors (as used in class) to the ESP32s on pins 4 and 5 (labeled `P4` and `P5` on the ESP32 devices), and you can run the screen program on both in separate windows. You will also need Keep in mind that you will have multiple `/dev/tty.SLAB_USBtoUART` devices and will need to choose between them. E.g.,
+For further testing, you can connect two USB-serial connectors to the ESP32s on pins 4 and 5 (labeled `P4` and `P5` on the ESP32 devices), and you can run the screen program on both in separate windows. Keep in mind that you will have multiple `/dev/tty.SLAB_USBtoUART` devices and will need to choose between them. E.g.,
 
     screen /dev/tty.SLAB_USBtoUART12 115200
     screen /dev/tty.SLAB_USBtoUART 115200

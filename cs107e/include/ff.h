@@ -199,7 +199,7 @@ typedef enum {
 	FR_INVALID_PARAMETER	/* (19) Given parameter is invalid */
 } FRESULT;
 
-
+const char *ff_err_msg(FRESULT result);
 
 /*--------------------------------------------------------------*/
 /* FatFs module application interface                           */

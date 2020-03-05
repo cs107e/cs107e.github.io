@@ -8,17 +8,11 @@ This tutorial describes how to set up a rudimentary web page on an ESP-32.
 
 Use the following steps to setup the Arduino development environment:
 
-1. Get one ESP-32 arduino device. This library works for the following Hiletgo devices from Amazon.com (2x for $21.98):
+1. Get one ESP-32 arduino device. This library works for the following Hiletgo devices from Amazon.com (2x for $21.98): [ESP32 on Amazon.com](https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z/ref=sr_1_2_sspa)
 
-    <a href="https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z/ref=sr_1_2_sspa">ESP32 on Amazon.com</a>
+2. Download our [esp32.zip](/guides/extras/esp32.zip) file and unzip.
 
-2. Download the `esp32.zip` file from the course website, and unzip:
-
-    <a href="/guides/esp32/esp32.zip">esp32.zip</a>
-
-3. Download and install the Arduino IDE for your computer:
-
-    <a href="https://www.arduino.cc/en/Main/Software">Arduino Download link</a>
+3. Download and install the Arduino IDE for your computer: [Arduino Download link](https://www.arduino.cc/en/Main/Software)
     
     On a Mac, copy the IDE program to your `/Applications` folder, and then run it once to install. Then quit the application.
 
@@ -28,9 +22,7 @@ Use the following steps to setup the Arduino development environment:
 
    `QueueList`
 
-5. Open up the Arduino application again. Follow the instructions at the following website to install the ESP32 library (under "Testing the Installation", choose the `Node32s` board):
-
-<a href="https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-mac-and-linux-instructions/">Install ESP32 on Arduino</a>
+5. Open up the Arduino application again. Follow the instructions at the following website to install the ESP32 library (under "Testing the Installation", choose the `Node32s` board):[Install ESP32 on Arduino](https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-mac-and-linux-instructions/)
 
 6. In the Arduino application, open the `MIDI_web_example.ino` program from the zip folder. In the program, change the `ssid` variable near the top of the program to be your team name (or another unique WiFi name). You may also change the password for better security.
 
@@ -42,4 +34,4 @@ Use the following steps to setup the Arduino development environment:
 
 10. At this point, you should be able to connect to the WiFi network you named in step (6). Once you connect from a device, go to the web page `192.168.4.1` and you should see the web page that says, "Play some notes!"
 
-If you want to load a web page from your SD card, you can use the `ff` library, which is described in a different guide.
+If you want to load a web page from your SD card, you can use the sd library, which is described in a [different guide](../sd_library/).

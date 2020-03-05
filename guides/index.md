@@ -30,4 +30,8 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 - [binutils](binutils)
 
 ### Extras
-- [Using Arduino ESP32 for Pi wireless connectivity](esp32/)
+These resources have not been thoroughly vetted, but were successfully used Fall 2019.
+
+- Reading/writing files on the [Raspberry Pi's SD card](extras/sd_library)
+- Using 2 ESP-32 devices to build a [Uart Wifi bridge](extras/uart-wifi-bridge) between 2 Raspberry Pis
+- Using ESP-32 to [serve a web page](extras/webpage)
