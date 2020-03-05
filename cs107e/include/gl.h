@@ -68,6 +68,9 @@ typedef unsigned int color_t;
 #define GL_MAGENTA 0xFFFF00FF
 #define GL_YELLOW  0xFFFFFF00
 #define GL_AMBER   0xFFFFBF00
+#define GL_ORANGE  0xFFFF3F00
+#define GL_PURPLE  0xFF7F00FF
+#define GL_INDIGO  0xFF1F00FF
 
 /*
  * Returns a color composed of the specified red, green, and
