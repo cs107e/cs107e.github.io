@@ -3,7 +3,7 @@ released: true
 permalink: /lectures/Arithmetic/
 title: Computer Arithmetic
 readings: |
-    Representation of numbers, signed and unsigned types, conversion.
+    Representation of signed and unsigned numbers, types and type conversion.
 ---
 
 

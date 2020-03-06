@@ -2,9 +2,9 @@ Type of result of a binary operation between mixed types
 
 gdb> ptype i8 -- prints type of an object
 gdb> whatis i8 + u8 -- prints result type of an expression
-gdb> source i8.gdb
+gdb> source i8.gdb -- execute commands in file
 
-% arm-none-eabi-gdb --commands=~/.gdbinit.arm  types.exe
+% arm-none-eabi-gdb types.elf
 gdb> break main
 gdb> run
 gdb> ptype i32
