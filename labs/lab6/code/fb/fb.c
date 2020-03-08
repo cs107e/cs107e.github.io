@@ -1,3 +1,4 @@
+#include "assert.h"
 #include "fb.h"
 #include "mailbox.h"
 #include "printf.h"
@@ -12,7 +13,7 @@ typedef struct {
     unsigned int bit_depth;   // number of bits per pixel
     unsigned int x_offset;    // x of the upper left corner of the virtual fb
     unsigned int y_offset;    // y of the upper left corner of the virtual fb
-    unsigned int framebuffer; // pointer to the start of the framebuffer
+    void *framebuffer;        // pointer to the start of the framebuffer
     unsigned int total_bytes; // total number of bytes in the framebuffer
 } fb_config_t;
 
@@ -38,18 +39,14 @@ void fb_init(unsigned int width, unsigned int height, unsigned int depth_in_byte
 
     // Send address of fb struct to the GPU as message
     mailbox_write(MAILBOX_FRAMEBUFFER, (unsigned int)&fb);
-    unsigned int result = mailbox_read(MAILBOX_FRAMEBUFFER);
+    assert(mailbox_read(MAILBOX_FRAMEBUFFER) == 0); // confirm successful config
 
-    if (result != 0) {
-        printf("Framebuffer failed to configure!\n");
-    } else {
-        printf("Framebuffer successfully configured.\n");
-        printf("physical size = %d x %d\n", fb.width , fb.height);
-        printf("virtual size = %d x %d\n", fb.virtual_width , fb.virtual_height);
-        printf("depth = %d bits\n", fb.bit_depth );
-        printf("pitch = %d bytes per row \n", fb.pitch );
-        printf("total bytes = %d\n", fb.total_bytes );
-        printf("buffer address = 0x%08x\n", fb.framebuffer );
-    }
+    printf("Framebuffer successfully configured.\n");
+    printf("physical size = %d x %d\n", fb.width , fb.height);
+    printf("virtual size = %d x %d\n", fb.virtual_width , fb.virtual_height);
+    printf("depth = %d bits\n", fb.bit_depth );
+    printf("pitch = %d bytes per row \n", fb.pitch );
+    printf("total bytes = %d\n", fb.total_bytes );
+    printf("buffer address = %p\n", fb.framebuffer );
 }
 

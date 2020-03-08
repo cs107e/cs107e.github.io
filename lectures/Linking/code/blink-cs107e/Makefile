@@ -1,9 +1,6 @@
 NAME = blink
-MODULES = 
 
-CS107E = /Users/hanrahan/cs107e/cs107e.github.io/cs107e
-
-CFLAGS = -Og -Wall -std=c99 -ffreestanding -I$(CS107E)/include
+CFLAGS = -I$(CS107E)/include -g -Wall -Og -std=c99 -ffreestanding
 ASFLAGS = --warn --fatal-warnings
 LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib
 LDFLAGS += --trace-symbol gpio_init
@@ -14,7 +11,7 @@ all : $(NAME).bin
 %.bin: %.elf
 	arm-none-eabi-objcopy $< -O binary $@
 
-%.elf: %.o $(MODULES) cstart.o start.o
+%.elf: %.o cstart.o start.o
 	arm-none-eabi-ld $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 %.o: %.c
@@ -27,13 +24,8 @@ install: $(APPLICATION).bin
 	rpi-install.py $<
 
 clean:
-	rm -f *.bin *.elf *.o *.list *~ 
+	rm -f *.o *.bin *.elf *.list *~
 
 .PHONY: all clean install
+.PRECIOUS: %.elf %.o
 
-.PRECIOUS: %.o %.elf
-
-# empty recipe used to disable built-in rules for native build
-%:%.c
-%:%.o
-%:%.s

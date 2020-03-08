@@ -6,7 +6,7 @@
 
 NAME = count
 
-CFLAGS = -Og -g -Wall -std=c99 -ffreestanding
+CFLAGS = -g -Wall -Og -std=c99 -ffreestanding
 LDFLAGS = -nostdlib -e main
 
 all : $(NAME).bin

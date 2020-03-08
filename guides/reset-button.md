@@ -7,6 +7,10 @@ toc: true
 
 Tired of repeatedly unplugging and replugging your USB-serial adapter to reset your Pi? Read on to learn how to solder a new header that accesses the Pi's processor reset pin. Connect a hardware or software switch to the new header and then resetting your Pi is as simple as flipping the switch.  Handy!
 
+{% include callout.html type="warning" %}
+**New to soldering?** Start with this [excellent tutorial](https://sites.google.com/stanford.edu/soldering-internal/learning), written by PhD student Max Holliday from the Stanford EE maker space [Lab64](http://lab64.stanford.edu).
+</div>
+
 ### Solder RUN header
 In the photo below, look for the red circle around two contacts labeled `RUN`. The RUN contact is connected to the reset pin on the processor. Pulling this pin low will reset the Pi.
 

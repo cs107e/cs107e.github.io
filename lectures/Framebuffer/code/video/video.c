@@ -41,5 +41,5 @@ void main(void) {
         printf("%d bpp (bits per pixel)\n", mp->data.buffer_32[0]);
     }
 
-    printf("%c", EOT);
+    uart_putchar(EOT);
 }

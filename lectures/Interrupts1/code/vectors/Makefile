@@ -6,7 +6,6 @@ CFLAGS = -I$(CS107E)/include -g -Wall -Og -std=c99 -ffreestanding
 LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib
 LDLIBS = -lpi
 
-
 all : $(NAME).elf $(NAME)_buggy.elf $(NAME).list $(NAME)_buggy.list
 
 %.bin: %.elf
@@ -40,5 +39,3 @@ clean:
 
 .PRECIOUS: %.elf %.o
 
-%:%.c
-%:%.o

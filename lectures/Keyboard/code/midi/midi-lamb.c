@@ -55,7 +55,7 @@ press_t notes[] = {
 };
   
 
-void main() {
+void main(void) {
   timer_init();
   gpio_init();
   midi_init();

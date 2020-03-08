@@ -1,8 +1,10 @@
-CFLAGS = -g -Wall -Og -std=c99  -mapcs-frame -fno-omit-frame-pointer -ffreestanding -I$(CS107E)/include
+NAME = example
+
+CFLAGS = -I$(CS107E)/include -g -Wall -Og -std=c99 -ffreestanding -mapcs-frame -fno-omit-frame-pointer
 LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib
 LDLIBS = -lpi
 
-all : example.bin
+all : $(NAME).bin
 
 %.bin: %.elf
 	arm-none-eabi-objcopy $< -O binary $@
@@ -14,10 +16,10 @@ all : example.bin
 	arm-none-eabi-gcc $(CFLAGS) -c $< -o $@
 
 %.o: %.s
-	arm-none-eabi-as $< -o $@
+	arm-none-eabi-as $(ASFLAGS) $< -o $@
 
 %.list: %.o
-	arm-none-eabi-objdump -d --no-show-raw-insn $< > $@
+	arm-none-eabi-objdump --no-show-raw-insn -d $< > $@
 
 install: $(NAME).bin
 	rpi-install.py $<
@@ -25,6 +27,5 @@ install: $(NAME).bin
 clean:
 	rm -f *.o *.bin *.elf *.list *~
 
-.PHONY: all clean
-
-.PRECIOUS: %.o %.elf
+.PHONY: all clean install
+.PRECIOUS: %.elf %.o

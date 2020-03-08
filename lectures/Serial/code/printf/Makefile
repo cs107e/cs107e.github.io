@@ -1,7 +1,6 @@
 NAME = beers
 
-CS107E = ../../../../cs107e
-CFLAGS = -I$(CS107E)/include -g -Wall -Og -std=c99 -ffreestanding 
+CFLAGS = -I$(CS107E)/include -g -Wall -Og -std=c99 -ffreestanding
 LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib
 LDLIBS = -lpi
 
@@ -17,10 +16,10 @@ all : $(NAME).bin
 	arm-none-eabi-gcc $(CFLAGS) -c $< -o $@
 
 %.o: %.s
-	arm-none-eabi-as $< -o $@
+	arm-none-eabi-as $(ASFLAGS) $< -o $@
 
 %.list: %.o
-	arm-none-eabi-objdump -d --no-show-raw-insn $< > $@
+	arm-none-eabi-objdump --no-show-raw-insn -d $< > $@
 
 install: $(NAME).bin
 	rpi-install.py -p $<
@@ -28,6 +27,6 @@ install: $(NAME).bin
 clean:
 	rm -f *.o *.bin *.elf *.list *~
 
-.PHONY: all clean
+.PHONY: all clean install
+.PRECIOUS: %.elf %.o
 
-.PRECIOUS: %.o %.elf

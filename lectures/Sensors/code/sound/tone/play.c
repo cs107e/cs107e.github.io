@@ -13,8 +13,6 @@ void main (void)
 
     pwm_init();
     pwm_set_clock( F_AUDIO );
-
-    //tone( NOTE_A4 );
     
     while( 1 ) {
         tone( NOTE_A4 );
@@ -22,5 +20,4 @@ void main (void)
         tone( NOTE_C4 );
         timer_delay_ms( 1000 );
     }
-    while(1) ;
 }

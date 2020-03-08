@@ -1,7 +1,6 @@
 NAME = blink
-MODULES = 
 
-CFLAGS = -Og -Wall -std=c99 -ffreestanding -I$(CS107E)/include
+CFLAGS = -I$(CS107E)/include -g -Wall -Og -std=c99 -ffreestanding
 ASFLAGS = --warn --fatal-warnings
 LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib
 LDLIBS = -lpi
@@ -12,7 +11,7 @@ all : $(NAME).bin
 	arm-none-eabi-objcopy $< -O binary $@
 
 %.elf: %.o start.o cstart.o
-	arm-none-eabi-ld $(LDFLAGS) $^ -o $@ $(LDLIBS)
+	arm-none-eabi-ld $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 %.o: %.c
 	arm-none-eabi-gcc $(CFLAGS) -c $< -o $@
@@ -28,13 +27,8 @@ clean:
 	rm -f *.a *.o *.d *.bin *.elf *.list *~ 
 
 .PHONY: all clean install
+.PRECIOUS: %.elf %.o
 
-.PRECIOUS: %.o %.elf
-
-# empty recipe used to disable built-in rules for native build
-%:%.c
-%:%.o
-%:%.s
 
 # include dependency info
 #  "-" suppresses errors

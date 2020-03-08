@@ -2,9 +2,9 @@ NAME = scan
 
 MY_MODULES = keyboard.o
 
-CFLAGS = -I$(CS107E)/include -g -Wall -Og -std=c99 -ffreestanding
+CFLAGS = -I$(CS107E)/include -g -Wall -Og -std=c99 -ffreestanding -mapcs-frame -fno-omit-frame-pointer
 LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib
-LDLIBS = -lpi
+LDLIBS = -lpi -lgcc
 
 
 all : $(NAME).bin $(MY_MODULES)
@@ -12,7 +12,7 @@ all : $(NAME).bin $(MY_MODULES)
 %.bin: %.elf
 	arm-none-eabi-objcopy $< -O binary $@
 
-%.elf: %.o $(MY_MODULES) start.o cstart.o
+%.elf: %.o $(MY_MODULES)
 	arm-none-eabi-gcc $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 %.o: %.c
@@ -31,9 +31,9 @@ clean:
 	rm -f *.o *.bin *.elf *.list *~
 
 .PHONY: all clean install
-
 .PRECIOUS: %.elf %.o
 
+# empty recipe used to disable built-in rules for native build
 %:%.c
 %:%.o
 

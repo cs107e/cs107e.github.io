@@ -1,7 +1,7 @@
 APPLICATION = names
 MY_MODULES = malloc.o
 
-CFLAGS = -g -Og -I$(CS107E)/include -Wall -std=c99 -ffreestanding -Wpointer-arith
+CFLAGS = -I$(CS107E)/include -g -Wall -Og -std=c99 -ffreestanding -Wpointer-arith
 LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib
 LDLIBS = -lpi -lgcc
 
@@ -17,22 +17,17 @@ all : $(APPLICATION).bin
 	arm-none-eabi-gcc $(CFLAGS) -c $< -o $@
 
 %.o: %.s
-	arm-none-eabi-as $< -o $@
+	arm-none-eabi-as $(ASFLAGS) $< -o $@
+
+%.list: %.o
+	arm-none-eabi-objdump --no-show-raw-insn -d $< > $@
 
 install: $(APPLICATION).bin
 	rpi-install.py -s $<
 
-debug: $(APPLICATION).elf
-	arm-none-eabi-gdb -q $<
-
 clean:
-	rm -f *.o *.i *.bin *.elf *.list *~
+	rm -f *.o *.bin *.elf *.list *~
 
 .PHONY: all clean install
+.PRECIOUS: %.elf %.o
 
-.PRECIOUS: %.o %.elf
-
-# empty recipe used to disable built-in rules for native build
-%:%.c
-%:%.o
-%:%.s

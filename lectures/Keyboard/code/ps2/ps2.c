@@ -5,12 +5,14 @@
 const int CLK = GPIO_PIN3;
 const int DATA = GPIO_PIN4;
 
-void wait_for_falling_clock_edge() {
+void wait_for_falling_clock_edge(void) 
+{
   while(gpio_read(CLK) == 0) {}
   while(gpio_read(CLK) == 1) {}
 }
 
-void main(void) {
+void main(void)
+{
     gpio_init();
     uart_init();
 

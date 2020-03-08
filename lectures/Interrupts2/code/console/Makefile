@@ -28,8 +28,5 @@ clean:
 	rm -f *.o *.bin *.elf *.list *~
 
 .PHONY: all clean install
-
 .PRECIOUS: %.elf %.o
 
-%:%.c
-%:%.o

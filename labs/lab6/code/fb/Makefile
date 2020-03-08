@@ -1,9 +1,9 @@
 NAME = main
 MODULES = fb.o mailbox.o
 
-CFLAGS = -I$(CS107E)/include -g -Wall -O2 -std=c99 -ffreestanding
+CFLAGS = -I$(CS107E)/include -g -Wall -O2 -std=c99 -ffreestanding -mapcs-frame -fno-omit-frame-pointer
 LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib
-LDLIBS = -lpi
+LDLIBS = -lpi -lgcc
 
 # The `(OBJECTS:.o=-not-volatile.o)` is notation for: wherever you see something
 # in OBJECTS that matches the pattern *.o, replace that with *-not-volatile.o.
@@ -16,7 +16,7 @@ all : $(NAME).bin mailbox.list mailbox-not-volatile.list
 %.bin: %.elf
 	arm-none-eabi-objcopy $< -O binary $@
 
-%.elf: %.o start.o cstart.o $(MODULES)
+%.elf: %.o $(MODULES)
 	arm-none-eabi-gcc $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 %.o: %.c
@@ -41,9 +41,9 @@ clean:
 	rm -f *.o *.bin *.elf *.list *~
 
 .PHONY: all clean install
-
 .PRECIOUS: %.elf %.o
 
+# empty recipe used to disable built-in rules for native build
 %:%.c
 %:%.o
 

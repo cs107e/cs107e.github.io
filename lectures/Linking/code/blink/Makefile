@@ -1,7 +1,7 @@
 APPLICATION = blink
 MODULES = timer.o gpio.o
 
-CFLAGS = -Og -Wall -std=c99 -ffreestanding
+CFLAGS = -g -Wall -Og -std=c99 -ffreestanding
 CFLAGS += --save-temps
 
 ASFLAGS = --warn --fatal-warnings
@@ -33,10 +33,5 @@ clean:
 	rm -f *.o *.i *.bin *.elf *.list *~ blink.s cstart.s gpio.s timer.s 
 
 .PHONY: all clean install
+.PRECIOUS: %.elf %.o
 
-.PRECIOUS: %.o %.elf
-
-# empty recipe used to disable built-in rules for native build
-%:%.c
-%:%.o
-%:%.s

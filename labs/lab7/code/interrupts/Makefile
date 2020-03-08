@@ -1,6 +1,6 @@
 NAME = button
 
-CFLAGS = -I$(CS107E)/include -g -Wall -O2 -std=c99 -ffreestanding
+CFLAGS = -I$(CS107E)/include -g -Wall -O2 -std=c99 -ffreestanding -mapcs-frame -fno-omit-frame-pointer
 LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib
 LDLIBS = -lpi -lgcc
 
@@ -29,9 +29,9 @@ clean:
 	rm -f *.o *.bin *.elf *.list *~
 
 .PHONY: all clean install
-
 .PRECIOUS: %.elf %.o
 
+# empty recipe used to disable built-in rules for native build
 %:%.c
 %:%.o
 

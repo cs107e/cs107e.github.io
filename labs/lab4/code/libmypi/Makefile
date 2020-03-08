@@ -5,7 +5,6 @@ CFLAGS = -I$(CS107E)/include -g -Wall -Og -std=c99 -ffreestanding -mapcs-frame -
 LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib -L.
 LDLIBS = -lmypi
 
-
 all : libmypi.a $(NAME).bin
 
 libmypi.a: $(LIBRARY_MODULES)

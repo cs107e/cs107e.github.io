@@ -14,8 +14,8 @@ typedef int (*command_fn_t)(int argc, const char *argv[]);
  * help description, and function pointer to execute the command.
  */
 typedef struct _command_struct {
-    char *name;
-    char *description;
+    const char *name;
+    const char *description;
     command_fn_t fn;
 } command_t;
 

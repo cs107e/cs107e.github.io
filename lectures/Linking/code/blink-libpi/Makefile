@@ -1,7 +1,7 @@
 NAME = blink
 MODULES = timer.o gpio.o
 
-CFLAGS = -Og -Wall -std=c99 -ffreestanding
+CFLAGS = -g -Wall -Og -std=c99 -ffreestanding
 ASFLAGS = --warn --fatal-warnings
 LDFLAGS = -nostdlib -T memmap
 
@@ -30,9 +30,5 @@ clean:
 
 .PHONY: all clean install
 
-.PRECIOUS: %.o %.elf
+.PRECIOUS: %.elf %.o
 
-# empty recipe used to disable built-in rules for native build
-%:%.c
-%:%.o
-%:%.s

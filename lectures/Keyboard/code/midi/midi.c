@@ -9,7 +9,7 @@
 
 static unsigned int channel = 0;
 
-void midi_init() {
+void midi_init(void) {
   gpio_set_output(MIDI_PIN);
   gpio_write(MIDI_PIN, 1);
   //gpio_set_pulldown(MIDI_PIN);

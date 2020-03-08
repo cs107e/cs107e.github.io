@@ -1,18 +1,15 @@
-#NAME = clearc
-#NAME = cleari
-NAME = clear2d
+NAME = clear
 
 CFLAGS = -I$(CS107E)/include -g -Wall -Og -std=c99 -ffreestanding
 LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib
-LDLIBS = -lpiextra -lpi -lgcc
-
+LDLIBS = -lpi -lgcc
 
 all : $(NAME).bin
 
 %.bin: %.elf
 	arm-none-eabi-objcopy $< -O binary $@
 
-%.elf: %.o start.o cstart.o
+%.elf: %.o
 	arm-none-eabi-gcc $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 %.o: %.c
@@ -31,8 +28,5 @@ clean:
 	rm -f *.o *.bin *.elf *.list *~
 
 .PHONY: all clean install
-
 .PRECIOUS: %.elf %.o
 
-%:%.c
-%:%.o

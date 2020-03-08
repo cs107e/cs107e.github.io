@@ -14,7 +14,7 @@
 
 const int CLK = GPIO_PIN3;
 
-void wait_for_clock() {
+void wait_for_clock(void) {
   // wait for CLK event
   while(gpio_check_event(CLK) == 0) {}
   // must clear event

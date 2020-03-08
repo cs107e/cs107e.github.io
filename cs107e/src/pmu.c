@@ -22,7 +22,7 @@ int event1 = ARMV6_EVENT_NOP ;
 //
 // Return NULL if the event identifier is not valid.
 //
-static char* lookup_event(int event) {
+static const char* lookup_event(int event) {
     switch (event) {
         case ARMV6_EVENT_ICACHE_MISS :
             return ("Instruction cache miss") ;

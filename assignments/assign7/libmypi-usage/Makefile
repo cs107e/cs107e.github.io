@@ -1,7 +1,7 @@
 NAME = main
 OBJECTS =
 
-CFLAGS = -I$(CS107E)/include -g -Wall -Og -std=c99 -ffreestanding 
+CFLAGS = -I$(CS107E)/include -g -Wall -Og -std=c99 -ffreestanding
 CFLAGS += -mapcs-frame -fno-omit-frame-pointer -mpoke-function-name -Wpointer-arith
 LDFLAGS = -nostdlib -T memmap -L. -L$(CS107E)/lib
 LDLIBS  = -lmypi -lpi -lgcc
@@ -21,7 +21,7 @@ all : $(NAME).bin
 	arm-none-eabi-as $(ASFLAGS) $< -o $@
 
 %.list: %.o
-	arm-none-eabi-objdump  --no-show-raw-insn -d $< > $@
+	arm-none-eabi-objdump --no-show-raw-insn -d $< > $@
 
 install: $(NAME).bin
 	rpi-install.py -p $<
@@ -30,7 +30,6 @@ clean:
 	rm -f *.o *.bin *.elf *.list *~
 
 .PHONY: all clean install
-
 .PRECIOUS: %.o %.elf
 
 # empty recipe used to disable built-in rules for native build

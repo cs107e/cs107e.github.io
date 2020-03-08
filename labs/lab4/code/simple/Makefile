@@ -4,7 +4,6 @@ CFLAGS = -I$(CS107E)/include -g -Wall -Og -std=c99 -ffreestanding -mapcs-frame -
 LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib
 LDLIBS = 
 
-
 all : $(NAME).bin
 
 %.bin: %.elf
@@ -29,8 +28,11 @@ clean:
 	rm -f *.o *.bin *.elf *.list *~
 
 .PHONY: all clean install
-
 .PRECIOUS: %.elf %.o
+
+# empty recipe used to disable built-in rules for native build
+%:%.c
+%:%.o
 
 define CS107E_ERROR_MESSAGE
 ERROR - CS107E environment variable is not set.

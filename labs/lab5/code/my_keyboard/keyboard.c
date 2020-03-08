@@ -21,6 +21,7 @@ static int read_bit(void)
     // falling edge on clock triggers read 
     // wait until clock reads high, then wait until clock reads low
     // now read data
+    return -1; // TODO
 }
 
 unsigned char keyboard_read_scancode(void) 

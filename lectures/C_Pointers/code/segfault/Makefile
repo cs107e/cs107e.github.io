@@ -1,4 +1,4 @@
-CFLAGS = -Og -g -Wall -std=c99 -ffreestanding
+CFLAGS = -g -Wall -Og -std=c99 -ffreestanding
 LDFLAGS = -nostdlib -e main
 
 all: bogus.bin bogus
@@ -7,7 +7,7 @@ all: bogus.bin bogus
 	arm-none-eabi-objcopy $< -O binary $@
 
 %.elf: %.o
-	arm-none-eabi-gcc $(LDFLAGS) $< -o $@
+	arm-none-eabi-gcc $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 %.o: %.c
 	arm-none-eabi-gcc $(CFLAGS) -c $< -o $@
@@ -26,4 +26,6 @@ list: bogus.o bogus
 	clang -g -Wall $< -o $@
 
 clean: 
-	rm -rf *.bin *.o *.list bogus *.dSYM
+	rm -rf *.o *.bin *.elf *.list *~ bogus *.dSYM
+
+.PHONY: all clean install list

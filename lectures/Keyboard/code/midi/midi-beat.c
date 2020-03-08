@@ -25,7 +25,7 @@ uint8_t beats[] = {
   BEATS_CLAP
 };
 
-void main() {
+void main(void) {
   timer_init();
   gpio_init();
   midi_init();

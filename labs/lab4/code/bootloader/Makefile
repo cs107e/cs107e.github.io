@@ -17,17 +17,20 @@ all : bootloader.bin
 	arm-none-eabi-as $(ASFLAGS) $< -o $@
 
 %.list: %.o
-	arm-none-eabi-objdump -d --no-show-raw-insn $< > $@
+	arm-none-eabi-objdump --no-show-raw-insn -d $< > $@
 
-installsd : bootloader.bin
+installsd: bootloader.bin
 	cp bootloader.bin /Volumes/PIBOOT/kernel.img
 
-clean :
+clean:
 	rm -f *.o *.bin *.elf *.list *~
 
-.PHONY: all clean
-
+.PHONY: all clean installsd
 .PRECIOUS: %.elf %.o
+
+# empty recipe used to disable built-in rules for native build
+%:%.c
+%:%.o
 
 define CS107E_ERROR_MESSAGE
 ERROR - CS107E environment variable is not set.

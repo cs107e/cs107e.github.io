@@ -20,8 +20,7 @@ all : $(NAME).bin
 	arm-none-eabi-as $(ASFLAGS) $< -o $@
 
 clean:
-	rm -f *.bin *.elf *.o *.list *~
+	rm -f *.o *.bin *.elf *.list *~
 
 .PHONY: all clean install
-
-.PRECIOUS: %.o %.elf
+.PRECIOUS: %.elf %.o
