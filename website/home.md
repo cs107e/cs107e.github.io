@@ -14,8 +14,9 @@ CS107E is __Computer Systems from the Ground Up__. Read more about the course [h
 #### Quick links
 {% comment %} Removed after first week
 - Please read the [FAQ](http://cs107e.stanford.edu) for answers to common questions about the course. We expect to have more interested students than capacity. To be considered, you must attend the first lecture and submit the interest questionnaire.
+-Our class discussion form is hosted on [Piazza]({{ site.data.quarter.forum }}). We will post all announcements on Piazza and you can ask and answer questions there.   
 {% endcomment %}
-- Our class discussion form is hosted on [Piazza]({{ site.data.quarter.forum }}). We will post all announcements on Piazza and you can ask and answer questions there.   
+- __March 9, 2020__: We will continue in entirely virtual/remote format from here to end of quarter (See [Piazza post](https://piazza.com/class/k2fwoyb4dmni1?cid=248) for logistics) Keep an eye on Piazza forum for updates and stay in touch. Above all, take care to be safe and well. 
 
 </div>
 <div class="col-xs-7" markdown="1">
