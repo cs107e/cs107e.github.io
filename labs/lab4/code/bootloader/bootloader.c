@@ -1,22 +1,23 @@
-/* Bootloader for CS107E Winter 2018.
- * Author: Julie Zelenski, Jan 2018
+/* 
+ * Bootloader for CS107E
+ * Author: Julie Zelenski, updated Mar 2020
  * Based on original bootloader03 by dwelch + Dawson rewrites
  */
+
 #include "pi.h"
 #include "timer.h"
 #include "uart.h"
 
 enum { 
-    SOH = 0x01,
-    ACK = 0x06,
-    NAK = 0x15,
-//    EOT = 0x04,    // defined in uart
+    SOH = 0x01,     // Start of heading
+    ACK = 0x06,     // Acknowledge (positive)
+    NAK = 0x15,     // Acknowledge (negative)
     PAYLOAD_SIZE = 128,
     TIMEOUT = -1,
-    ARMBASE = 0x8000
 };
 
-void BRANCHTO ( unsigned int );
+static void * const ARMBASE = (void *)0x8000;
+void BRANCHTO ( void * );
 
 static void flash_heartbeat(void)
 {
@@ -26,66 +27,60 @@ static void flash_heartbeat(void)
     }
 }
 
-static void wait_for_transmit(void)
-{
-    while (1) {
-        timer_delay_ms(500);
-        if (uart_haschar()) return;
-        flash_heartbeat();
-        uart_putchar(NAK);    
-    }
-}
-
-#define HALF_SEC 50000
-
-static unsigned int wait_for_byte(void)
+static int receive_byte(void)
 {
     unsigned t0 = timer_get_ticks();
-    while (!uart_haschar()) {
-        if ((timer_get_ticks() - t0) >= HALF_SEC) 
+
+    while (1) {
+        if (uart_haschar()) 
+            return uart_recv();
+        if ((timer_get_ticks() - t0) >= 1000000) // one sec
             return TIMEOUT;
     }
-    return uart_getchar();
 }
 
-static void receive_program(void) 
+static bool receive_packet(unsigned char *dst, int expected_seq)
+{
+    unsigned char seq = receive_byte();
+    unsigned char seq_inv = receive_byte();
+    unsigned char cksum = 0;
+    for (int i = 0; i < PAYLOAD_SIZE; i++) {
+        int b = receive_byte();
+        if (b == TIMEOUT) return false;
+        *(dst + i) = b;
+        cksum += b;
+    }
+    unsigned char last = receive_byte();
+    return ((seq == expected_seq) && (seq_inv == (0xFF - seq)) && (last == cksum));
+}
+
+static void receive_loop(void) 
 {
     unsigned char seqnum = 1;
-    unsigned char *addr = (unsigned char *)ARMBASE;
-    int nerrors = 0;
+    unsigned char *addr = ARMBASE;
 
-    pi_led_on(PI_ACT_LED);
-    while (nerrors < 5) {
-        unsigned char b = wait_for_byte();
-        
-        if (b == EOT) {
-            pi_led_off(PI_ACT_LED);
+    while (1) {
+        int b = receive_byte();
+
+        if (b == TIMEOUT) {
+            flash_heartbeat();
+            uart_send(NAK);
+            addr = ARMBASE;
+            seqnum = 1;
+        } else if (b == SOH) {
+            bool success = receive_packet(addr, seqnum);
+            if (success) {
+                uart_send(ACK);
+                addr += PAYLOAD_SIZE;
+                seqnum++;
+           } else {
+                uart_send(NAK);
+            }
+        } else if (b == EOT) {
             uart_putchar(ACK);
             timer_delay_ms(500);
             BRANCHTO(ARMBASE);
             return; // NOTREACHED
-        }
-        if (b != SOH 
-              || wait_for_byte() != seqnum 
-              || wait_for_byte() != (0xFF - seqnum)) {
-            uart_putchar(NAK);
-            ++nerrors;
-            continue;  
-        }
-        unsigned char cksum = 0;
-        for (int i = 0; i < PAYLOAD_SIZE; i++) {
-            if ((b = wait_for_byte()) == TIMEOUT) return;
-            cksum += b;
-            *(addr+i) = b;
-        }
-        if (wait_for_byte() != cksum) {
-            uart_putchar(NAK);
-            ++nerrors;
-        } else {
-            uart_putchar(ACK);
-            addr += PAYLOAD_SIZE;
-            ++seqnum;
-            nerrors = 0;
         }
     }
 }
@@ -93,8 +88,5 @@ static void receive_program(void)
 void bootloader_main(void) 
 {
     uart_init();
-    while (1) {
-        wait_for_transmit();
-        receive_program();
-    }
-}	
+    receive_loop();
+}   

@@ -78,40 +78,54 @@ void uart_init(void)
     uart->cntl = MINI_UART_CNTL_TX_ENABLE | MINI_UART_CNTL_RX_ENABLE;
 }
 
+unsigned char uart_recv(void)
+{
+    while (!uart_haschar()) ; // wait for char to arrive
+    return uart->data & 0xFF;
+}
+
+void uart_send(unsigned char byte)
+{
+    while (!(uart->lsr & MINI_UART_LSR_TX_EMPTY)) ;
+    uart->data = byte & 0xFF;
+}
+
+void uart_flush(void)
+{
+    while (!(uart->lsr & MINI_UART_LSR_TX_EMPTY)) ;
+}
+
+bool uart_haschar(void)
+{
+    return (uart->lsr & MINI_UART_LSR_RX_READY);
+}
+
 // RE: line endings
 // canonial use is '\n' newline as sole line terminator (both read/write)
 // but connected terminal may expect to receive a CR-LF sequence from Pi
-// and may send a CR to Pi for return/enter key. art_getchar and uart_putchar
-// take care of converting internally so that client can simply 
-// send/receive \n
+// and may send a CR to Pi for return/enter key. uart_getchar and uart_putchar
+// internally convert chars, client can simply send/receive newline
+// Use uart_send/uart_recv to send/receive raw byte, no conversion
 
-int uart_getchar(void) {
-    while (!(uart->lsr & MINI_UART_LSR_RX_READY)) ;
-    int ch = uart->data & 0xFF;
+int uart_getchar(void)
+{
+    int ch = uart_recv();
     if (ch == EOT) return EOF;      // convert EOT to EOF
     if (ch == '\r') return '\n';    // convert CR to newline
     return ch;
 }
 
-int uart_putchar(int ch) {
+int uart_putchar(int ch)
+{
     // convert newline to CR LF sequence by inserting CR
     if (ch == '\n') {
-        uart_putchar('\r');
+        uart_send('\r');
     }
-    while (!(uart->lsr & MINI_UART_LSR_TX_EMPTY)) ;
-    uart->data = ch;
+    uart_send(ch);
     return ch;
 }
-
-void uart_flush(void) {
-    while (!(uart->lsr & MINI_UART_LSR_TX_EMPTY)) ;
-}
-
-bool uart_haschar(void) {
-    return (uart->lsr & MINI_UART_LSR_RX_READY);
-}
-
-int uart_putstring(const char *str) {
+int uart_putstring(const char *str)
+{
     int n = 0;
     while (str[n]) {
         uart_putchar(str[n]);
@@ -119,3 +133,5 @@ int uart_putstring(const char *str) {
     }
     return n;
 }
+
+

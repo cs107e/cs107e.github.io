@@ -10,6 +10,11 @@
  * Date: Jan 24, 2016
  */
 
+enum {
+    EOT = 4,  // Output end of transmission to indicate uart communication complete
+    EOF = -1  // Receive end of file when no more data to read
+
+};
 
 /*
  * Initialize the UART code module. The init function should be called
@@ -36,7 +41,7 @@ int uart_getchar(void);
  * If send buffer is full, will block until space available.
  *
  * @param ch   the character to write to the serial port
- * @return     the character written or EOF if error
+ * @return     the character written
  */
 int uart_putchar(int ch);
 
@@ -59,9 +64,25 @@ bool uart_haschar(void);
  */
 int uart_putstring(const char *str);
 
-// Output EOT (end of transmission) to indicate uart communication finished
-#define EOT 4
-// EOF (end of file) is returned to indicate no more data to read
-#define EOF -1
+/*
+ * Outputs raw byte to the serial port. uart_send outputs the raw byte 
+ * with no translation (unlike uart_putchar which adds processing for
+ * converting end-of-line markers). To send text character, use 
+ * uart_putchar; if raw binary data, use uart_send.
+ *
+ * @param byte   the byte to write to the serial port
+ */
+void uart_send(unsigned char byte);
+
+/*
+ * Obtain raw byte from the serial port. uart_recv returns the raw
+ * byte with no translation (unlike uart_getchar which adds processing
+ * for converting end-of-line and end-of-file markers). To read text
+ * character, use uart_getchar; if raw binary data, use uart_recv.
+ *
+ * @return   the byte read from the serial port
+ */
+unsigned char uart_recv(void);
+
 
 #endif
