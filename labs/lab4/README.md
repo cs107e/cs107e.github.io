@@ -210,35 +210,45 @@ David Welch, the person most
 responsible for figuring out how to write bare metal programs on the Raspberry
 Pi. If it wasn't for [his great work](https://github.com/dwelch67/raspberrypi), we would not be offering this course!
 
+#### Xmodem file transfer protocol
 Your laptop and the bootloader communicate over the serial line via the Raspberry Pi's UART. They use a simple file transfer protocol called XMODEM. In the jargon of XMODEM, your laptop initiates the transfer and acts as the _transmitter_; the bootloader acts as the _receiver_.
+
+
+
+![xmodem image](images/xmodem.svg){: width="50%" style="float:right;"}
+
+To send a file, the transmitter follows these steps:
+
+1. Wait for `NAK` from receiver that indicates readiness to start transfer.
+1. Send `SOH`, the control character for _start of heading_ to indicate the start of a new packet.
+1. Send sequence number. The first packet is numbered 1 and 
+   the sequence number is incremented for each subsequent packet.
+1. Send complement of sequence number.
+1. Send packet payload, 128 bytes.
+1. Send packet checksum (sum of all bytes in payload mod 256).
+1. Read response from receiver.
+    - If `NAK`, re-transmit same packet.
+    - If `ACK`, advance to next packet.
+1. Repeat steps 2-7 for each packet. End with `EOT` (end of transmission), wait for `ACK` from receiver.
+
+The receiver performs the inverse of the actions of the transmitter:
+
+1. Read a packet from sender:
+    - SOH
+    - Sequence number, complement
+    - Payload data
+    - Checksum
+1. Validate packet fields (correct number, complement, checksum)
+     - If all valid, respond with `ACK`, advance to next packet
+     - If not, respond with `NAK` and receive same packet again.
+1. Repeat steps 1-2 for each packet. 
+1. When `EOT` received, respond with `ACK` to complete the operation.
 
 #### Transmit: `rpi-install.py`
 
-The  `rpi-install.py` is a Python script that runs on your laptop and transmits a binary program to the waiting bootloader.
+`rpi-install.py` is a Python script that runs on your laptop and transmits a binary program to the waiting bootloader.
 
-![xmodem image](images/xmodem.jpg)
-
-The transmitter reads the binary file and sends 
-the file contents chunked into a sequence of 128-byte packets. Here is the algorithm
-used in the transmitter:
-
-1. Start the transmission by sending an `SOH` byte, which has value
-   `0x01`. `SOH` is a _control character_ which stands for _start of heading_;
-   it indicates the start of a new packet.
-
-2. Send the packet sequence number as a byte. The first packet is numbered 1 and 
-   the sequence number is incremented for each subsequent packet.
-
-3. Send the bitwise complement of the packet sequence number as a byte.
-
-4. Send the next 128 bytes of data. (one packet's worth)
-
-5. Send the checksum of the packet as a byte. The checksum is computed by summing all bytes in the packet (mod 256).
-
-6. Repeat steps 1-5 for each packet. When all 
-   packets have been sent, send an `EOT` byte. `EOT` stands for _end of transmission_ and has value `0x04`.
-
-`rpi-install.py` is the transmitter that runs on your laptop.  It is written as python script, which allows it to be compatible with any OS with proper python support. Given the handy python libraries to abstract away the details of the XMODEM protocol-handling, the script code doesn't show the nitty-gritty of the send/receive mechanics. In fact, the bulk of the script is goop used to identify where to contact the CP2102 driver on different platforms. Read over the script for yourself by browsing [rpi-install.py in our courseware repo](https://github.com/cs107e/cs107e.github.io/tree/master/cs107e/bin/rpi-install.py) or using this command in your terminal:
+It is written as python script and is compatible with any OS with proper python support. Given the handy python libraries to abstract away the details of the XMODEM protocol-handling, the script doesn't expose the internals of the send/receive mechanics. In fact, the bulk of the script is goop used to find the CP2102 driver device for different platforms. Read over the script for yourself by browsing [rpi-install.py in our courseware repo](https://github.com/cs107e/cs107e.github.io/tree/master/cs107e/bin/rpi-install.py) or using this command in your terminal:
 ```
 $ cat `which rpi-install.py`
 ```
@@ -256,61 +266,7 @@ This creates a hole in memory
 The bootloader loads your program into that hole.
 Why can't the bootloader code also be placed at 0x8000?
 
-Now let's look at the algorithm used to receive the XMODEM
-protocol, as implemented in the file `bootloader.c`.
-This program, which runs on the Raspberry Pi, is the receiver.
-
-It receives a program following these steps:
-
-1. **Wait for a SOH (start of heading) byte**
-
-2. **Read packet number**
-
-   The first block must be packet number 1.
-   After a packet is successfully received, the packet number is incremented
-   for the subsequent packet.
-   If the receiver sees a packet with the wrong or out-of-sequence packet number,
-   the receiver sends the control character `NAK`, for
-   negative acknowledge, to the transmitter.
-
-3. **Check that the complement of the packet number is correct**
-
-   The receiver verifies that the complement is consistent with the packet number. If mismatched, the receiver sends a `NAK` to the transmitter.
-
-   What C operations are used to compute the complement of the sequence number? 
-
-4. **Read payload while updating checksum**
-
-   Read the 128 bytes comprising the payload of the packet. Each payload byte is copied to memory.
-   Add each byte into the checksum calculation.
-   The checksum is formed by adding together (mod 256) all the bytes in the packet.
-
-   Look at the code which computes the checksum in the bootloader.
-   Suppose the transmitter sends 128 bytes,
-   where the 1st byte is 1, the 2nd byte is 2, and so on, until
-   we get to 128th byte which has the value 128.
-   What is the value of the checksum in this case?
-
-5. **Depending on checksum, send ACK or NAK**
-
-   After 128 bytes have been read,
-   read the checksum byte sent by the transmitter.
-   Compare that checksum
-   with the calculated checksum.
-   If they match, send an `ACK` (acknowledge) to the transmitter;
-   If mismatched, send a `NAK` (negative acknowledge) to the transmitter.
-
-6. **Check for EOT (end of transition) byte**
-
-   Upon receipt of an `EOT` byte, the receiver knows the transmission is complete.
-   Send an `ACK`,
-   and then jump to the memory location where the program was loaded
-
-Here is a flowchart of the transmit/receive activity:
-
-   ![bootloader diagram](images/bootloader.jpg)
-
-Go over the bootloader code in detail with your labmates. Start by tracing the operation when everything goes as planned without errors, then consider what happens when things go awry.
+The `bootloader.c` file contains the C code to perform the receiver side of the XMODEM protocol. Go over the bootloader code in detail with your labmates. Start by tracing the operation when everything goes as planned without errors, then consider what happens when things go awry.
 
 Here are some questions to frame your discussion:
 
@@ -321,10 +277,10 @@ Here are some questions to frame your discussion:
 - How will the bootloader respond if you unplug the USB-serial in the middle of transmission?
 
 With your table group, mark up the paper copy of the bootloader source to add comments documenting its operation. Divide it up, something like:
-- One person documents normal operation and explains how to "read" what bootloader is doing by watching the green LED 
-- Another studies checksum calculation, how error is detected and need for re-transmit requested 
-- Another reviews handling for timeout, dropped connection, and install canceled
-- Someone brave can read David Welch's [bootloader program](https://github.com/dwelch67/raspberrypi/blob/master/bootloader03/bootloader03.c) and try to confirm our version is a faithful rewrite
+- One person documents normal operation and explains how to "read" what bootloader is doing by watching the green LED.
+- Another studies checksum calculation, how errors are detected and how retry/retransmit is accomplished.
+- Another reviews handling for timeout, dropped connection, and when the user cancels the operation using Control-C.
+- Someone brave can read David Welch's [bootloader03.c](https://github.com/dwelch67/raspberrypi/blob/master/bootloader03/bootloader03.c) and try to confirm our version is a faithful rewrite.
 
 Have each person jot down notes and then explain their part to the group. **Collate your group's notes and marked up source and hand to the CA.**
 
