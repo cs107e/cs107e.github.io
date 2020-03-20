@@ -213,36 +213,36 @@ Pi. If it wasn't for [his great work](https://github.com/dwelch67/raspberrypi), 
 #### Xmodem file transfer protocol
 Your laptop and the bootloader communicate over the serial line via the Raspberry Pi's UART. They use a simple file transfer protocol called XMODEM. In the jargon of XMODEM, your laptop initiates the transfer and acts as the _transmitter_; the bootloader acts as the _receiver_.
 
+The transmitter divides the data from the file into chunks of 128 bytes and sends each chunk in its own _packet_.  The payload data of a packet is introduced by a three-byte header and followed by a single CRC checksum byte; each packet comprises 132 bytes in total. The transmitter and receiver synchronize after each packet to decide whether to move on to the next packet or re-try due to a transmission error.
 
-
-![xmodem image](images/xmodem.svg){: width="50%" style="float:right;"}
+![xmodem protocol](images/xmodem.svg){: width="50%" style="float:right;"}
 
 To send a file, the transmitter follows these steps:
 
-1. Wait for `NAK` from receiver that indicates readiness to start transfer.
-1. Send `SOH`, the control character for _start of heading_ to indicate the start of a new packet.
-1. Send sequence number. The first packet is numbered 1 and 
-   the sequence number is incremented for each subsequent packet.
-1. Send complement of sequence number.
-1. Send packet payload, 128 bytes.
-1. Send packet checksum (sum of all bytes in payload mod 256).
-1. Read response from receiver.
+1. Wait for `NAK` from receiver.
+2. Send 132-byte packet consisting of:
+  - `SOH`, control character for _start of heading_ indicates start of a new packet.
+  - Sequence number. First packet is numbered 1 and 
+   the number increments from there; wraps to 0 after 255.
+  - Complement of sequence number.
+  - Payload, 128 bytes.
+  - Checksum (sum all payload bytes mod 256).
+3. Read response from receiver:
     - If `NAK`, re-transmit same packet.
     - If `ACK`, advance to next packet.
-1. Repeat steps 2-7 for each packet. End with `EOT` (end of transmission), wait for `ACK` from receiver.
+4. Repeat steps 2-3 for each packet. 
+5. Send `EOT` (end of transmission), wait for `ACK`.
 
 The receiver performs the inverse of the actions of the transmitter:
 
-1. Read a packet from sender:
-    - SOH
-    - Sequence number, complement
-    - Payload data
-    - Checksum
-1. Validate packet fields (correct number, complement, checksum)
-     - If all valid, respond with `ACK`, advance to next packet
+1. Send `NAK` to indicate readiness.
+2. Read 132-byte packet consisting of:
+    - `SOH`, sequence number, complement, payload, checksum
+3. Validate packet fields (start, sequence number, complement, checksum)
+     - If all valid, respond with `ACK`, advance to next packet.
      - If not, respond with `NAK` and receive same packet again.
-1. Repeat steps 1-2 for each packet. 
-1. When `EOT` received, respond with `ACK` to complete the operation.
+4. Repeat steps 2-3 for each packet. 
+5. When `EOT` received, respond with `ACK` to complete the operation.
 
 #### Transmit: `rpi-install.py`
 
