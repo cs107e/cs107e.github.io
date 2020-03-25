@@ -21,3 +21,4 @@ plugins:
 error_mode: warn
 strict_variables: true
 strict_filters: true
+livereload: true

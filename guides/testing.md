@@ -1,7 +1,9 @@
 ---
-permalink: /tests/
 title: Test Strategy
 ---
+
+*Written by Pat Hanrahan*
+
 
 If you become a software engineer, people will rely on your software.
 Bugs in software can be dangerous or even deadly. Users do not enjoy

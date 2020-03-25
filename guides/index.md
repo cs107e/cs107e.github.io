@@ -28,6 +28,7 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 - [Using gdb in simulation mode](gdb)
 - [TravisCI (continuous integration)](ci)
 - [binutils](binutils)
+- [Testing strategy](testing)
 
 ### Extras
 These resources have not been thoroughly vetted, but were successfully used Fall 2019.
