@@ -102,7 +102,7 @@ resistors on your breadboard that drive segments A through G. GPIO 20 controls s
 1 through 4. GPIO 10 controls the first digit, GPIO 11 the second digit, and so on.
     - Connect GPIO 2 to the red start button. The start button should be connected to the power rail through a 10K pull-up resistor; making the default state high. Pressing the button grounds the circuit, pulling the reading low.
 - At this point if you output 3.3V on GPIO 20 and 3.3V on GPIO 10, you should turn on segment A of digit 1. Hooray!
-- Snap a photo of your finished hardware setup and commit the image file to your repo. We want to see your beautiful handiwork!
+- Snap a photo of your finished hardware setup, add the photo to your repo with the name `board`, and commit the image file to your repo. We want to see your beautiful handiwork!
 
 ![clock connected](images/clock_connected.jpg){: width="80%"}
 Here's a photo of our clock breadboard connected to the Raspberry Pi. We selected jumper colors in a repeating pattern (yellow-green-blue-violet) to help identify which connection is which.

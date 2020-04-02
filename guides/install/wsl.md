@@ -33,7 +33,7 @@ Windows OS does not natively support the development tools used in this course. 
 We will use Ubuntu version 16.04 under WSL.
 
 {% include callout.html type='warning'%}
-**NOTE**: Ubuntu 18.04 does not support all of the software requirements for the course! Make sure you select Ubuntu 16.04 when installing your Ubuntu system!
+**NOTE**: Ubuntu 18.04 does not support all of the software requirements for the course! Make sure you select the Ubuntu 16.04 application when installing your Ubuntu system!
 </div>
 
 1. Open the Microsoft Store app. Search for "Ubuntu", select `Ubuntu 16.04 LTS` and install it.
