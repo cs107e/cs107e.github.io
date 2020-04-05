@@ -1,9 +1,0 @@
-# Git will not track these file types
-
-*.o
-*.bin
-*.bin.extra
-*.elf
-*.list
-*.text
-*.d

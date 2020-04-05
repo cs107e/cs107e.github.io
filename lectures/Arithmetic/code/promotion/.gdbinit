@@ -1,2 +1,0 @@
-target sim
-load
