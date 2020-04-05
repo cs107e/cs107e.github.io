@@ -16,11 +16,11 @@ CS107 is the third course in Stanford's introductory programming sequence.
 The CS106A/B courses provide students with a solid foundation in programming methodology and abstractions, and CS107 follows on to develop the skills needed to build
 computer systems. 
 
-__CS107e: Computer Systems from the Ground Up__ is an experimental variant of CS107 that teaches the fundamental concepts of
+__CS107e: Computer Systems from the Ground Up__ is a variant of CS107 that teaches the fundamental concepts of
 computer systems through bare metal programming on the Raspberry Pi. Bare metal
 programming means you will not run an operating system on the Raspberry Pi and
 will make minimal use of libraries. This course also serves as an
-introduction to embedded systems.The course will start with the microprocessor and move up to
+introduction to embedded systems. The course starts with the microprocessor and moves up to
 the C programming language, without skipping anything in between. The goal is
 to build a solid understanding of all aspects of how modern computers execute
 programs and how program development tools work.
@@ -54,7 +54,7 @@ For information about the differences between CS107 and CS107e,
 check out this [FAQ](https://web.stanford.edu/class/cs107e/).
 
 #### History
-CS107e is an experiment in creating a new approach to introducing students to computer systems. It is the brainchild of __Pat Hanrahan__; the course owes its very existence to Pat's inspiration and travail, along with the heroic contributions of the multi-talented __Isabel Bush__, the Lead TA in the first offerings of the course. __Phil Levis__, __Dawson Engler__, __Julie Zelenski__, and __Chris Gregg__ have contributed to the cause as instructors and we've have enjoyed superb student collaborators: __Anna__, __Ashwin__, __Eric__, __Jane__, __Jennifer__, __Lenny__, __Matt__, __Michelle__, __Mihir__, __Natasha__, __Ngoc__, __Omar__, __Peter__, __Sean__, __Sergio__, __Shannon__ and __Will__. The tireless efforts of the TAs to support student learning have earned boundless praise from our students.
+CS107e is a new approach to introducing students to computer systems in the Stanford curriculum. It is the brainchild of __Pat Hanrahan__; the course owes its very existence to Pat's inspiration and travail, along with the heroic contributions of the multi-talented __Isabel Bush__, the Lead TA in the first offerings of the course. __Phil Levis__, __Dawson Engler__, __Julie Zelenski__, and __Chris Gregg__ have contributed to the cause as instructors and we've have enjoyed superb student collaborators: __Anna__, __Ashwin__, __Eric__, __Jane__, __Jennifer__, __Lenny__, __Matt__, __Michelle__, __Mihir__, __Natasha__, __Ngoc__, __Omar__, __Peter__, __Sean__, __Sergio__, __Shannon__ and __Will__. The tireless efforts of the TAs to support student learning have earned boundless praise from our students.
 A huge shout-out to __David Welch__, the person most
 responsible for figuring out how to write bare metal programs on the Raspberry
 Pi. If it wasn't for David [sharing his great work](https://github.com/dwelch67/raspberrypi), we would not be offering this course!

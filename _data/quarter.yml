@@ -1,30 +1,26 @@
 # This is the data file to edit when setting up a new quarter
 # The home page and schedule will be generated using these settings
 ---
-name: Winter 2020
+name: Spring 2020
 instructors: 
-    - name: Pat Hanrahan
-      img: /_assets/pat.png
-    - name: Julie Zelenski
-      img: /_assets/julie.jpg
+    - name: Philip Levis
+      img: /_assets/phil.png
 cas:
     - name: Sean Konz
       img: /_assets/sean.png
     - name: Peter McEvoy
       img: /_assets/peter.png
 sls: 
-    - name: Mihir Garimella
-      img: /_assets/mihir.png
-    - name: Shannon Yan
-      img: /_assets/shannon.jpg
-lectures: Mon and Fri 11:30am-12:50pm in Lathrop 299
-labs: Tue or Wed 7-9pm in Gates B21
-forum: 'https://piazza.com/stanford/winter2020/cs107e'
+    - name: Jane Lange 
+      img: /_assets/jane.png
+lectures: Mon and Fri 3:00-4:20pm (PDT) on Zoom
+labs: Wed 1-3pm, 3-5pm, 5-7pm (PDT) on Zoom
+forum: 'https://piazza.com/stanford/spring2020/cs107e'
 weeks:
     # start is date of first lecture (a Monday)
     # due date-time is for assign1 (will assume weekly repeat thereafter)
-  - start_date: "2020-01-06"
-    assign1_duedate: "2020-01-21 6:00 PM"
+  - start_date: "2020-04-06"
+    assign1_duedate: "2020-04-21 6:00 PM"
     mon: /lectures/Intro/
     lab: No lab in first week
     assign: /assignments/assign0/
@@ -55,23 +51,23 @@ weeks:
     assign: /assignments/assign5/
     fri: /lectures/Framebuffer/
   -
-    mon: President's Day Holiday
+    mon: /lectures/Interrupts1/ 
     lab: /labs/lab6/
     assign: /assignments/assign6/
-    fri: /lectures/Interrupts1/
+    fri: /lectures/Interrupts2/
   -
-    mon: /lectures/Interrupts2/ 
+    mon: Memorial Day Holiday
     lab: /labs/lab7/
     assign: /assignments/assign7/
-    fri: /lectures/Sensors/
+    fri: Guest Lecture
   -
-    mon: /lectures/SystemDesign/
+    mon: /lectures/Sensors/
     lab: /labs/projectlab1/
     assign: /assignments/project/
     fri: /lectures/Arithmetic/
   -
-    mon: Lecture canceled (no further in-person meetings this quarter)
+    mon: /lectures/SystemDesign 
     lab: /labs/projectlab2/
-    fri: No lecture (payback for attending on MLK, thank you!)
+    fri: /lectures/Wrap
   -
-    project_due: "2020-03-20"
+    project_due: "2020-06-10"
