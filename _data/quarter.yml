@@ -66,8 +66,8 @@ weeks:
     assign: /assignments/project/
     fri: /lectures/Arithmetic/
   -
-    mon: /lectures/SystemDesign/ 
-    lab: /labs/projectlab2/
-    fri: /lectures/Wrap/
+    mon: /lectures/Wrap/ 
+    lab: Project due
+    fri: No class
   -
     project_due: "2020-06-10"
