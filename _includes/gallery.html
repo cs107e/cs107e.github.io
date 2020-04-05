@@ -5,7 +5,7 @@
 {% assign all_staff = site.data.quarter.instructors | concat: site.data.quarter.cas | concat: site.data.quarter.sls %}
 {% for who in all_staff %} 
     <div class="col-xs-2">
-        <img class="img-circle center-block" src="{{ who.img }}" style="max-height: 100px;">
+        <img class="img-circle center-block" src="{{ who.img }}" style="max-height: 150px;">
         <p class="text-center">{{ who.name | split: ' ' | first }}</p>
     </div>
 {% endfor %}
