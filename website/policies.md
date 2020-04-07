@@ -46,8 +46,7 @@ The rules:
     and before {{ time }} of the next day is one day late, and so on. We use the
     timestamp of your final git commit as the time of submission.
 
-2.  You are given **4 "grace days"** (self-granted extensions) which you can
-    use to give yourself extra time without penalty.
+2.  You are given **4 "grace days"** (self-granted extensions) which you can use to give yourself extra time without penalty. HOWEVER, you may only use **Two "grace days" on any single assignment**.
 
 3.  Instructor-granted extensions are only considered **after all grace days
     are used** and only given in exceptional situations.
@@ -57,7 +56,7 @@ The rules:
     even if they are late.
 
 5.  Late submissions (penalty or not) are not accepted after the hard deadline,
-    which is **4 days past the original due date,** but may be restricted to
+    which is **6pm PST on the Friday after the assignment is due** but may be restricted to
     fewer days on a per-assignment basis.
 
 6.  The final project must be submitted on time.
