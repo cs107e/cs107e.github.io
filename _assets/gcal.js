@@ -19,8 +19,7 @@ $().ready(function() {
     var url = base + options;
 
     var b21 = '7hiop9tvins97kal7flob282e8@group.calendar.google.com';
-    //var ours = 'cs.stanford.edu_nhpcljcvd03ub5s8rkf14o3vig@group.calendar.google.com';
-    var ours = 'stanford.edu_k65r8be9oe9u9s3rdo5kdv9m6k@group.calendar.google.com';
+    var ours = 'cs.stanford.edu_nhpcljcvd03ub5s8rkf14o3vig@group.calendar.google.com';
 
     var request1 = $.getJSON(url.replace('WHICH', b21));
     var request2 = $.getJSON(url.replace('WHICH', ours));
