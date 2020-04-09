@@ -29,7 +29,7 @@ Note: For those running WSL on Windows, be sure that you are in the Ubuntu shell
 
 ```
 $ ls ~/cs107e_home/cs107e.github.io/cs107e/
-bin/     etc/     extras/  include/ lib/     src/
+bin/    examples/   extras/     include/    lib/    sample_build/   src/
 ```
 
 Note: If you're using WSL, now is a good time to open File Explorer on your new cS107e_home and and "Pin to Quick Access" to add it the sidebar for future use. See [accessing WSL files from Windows](../wsl/#files).
