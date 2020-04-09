@@ -3,7 +3,7 @@ released: true
 permalink: /assignments/assign0/
 title: 'Assignment 0: Choose Lab Section, Learn Git'
 toc: true
-duedate: 2020-01-12 9:00 PM
+duedate: 2020-04-14 8:00 PM
 ---
 
 {% comment %}
