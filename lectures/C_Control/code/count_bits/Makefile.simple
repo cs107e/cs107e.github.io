@@ -1,0 +1,12 @@
+# This very simple Makefile builds mine.bin
+# using fixed recipes
+
+mine.bin: mine.s
+	arm-none-eabi-as mine.s -o mine.o
+	arm-none-eabi-objcopy mine.o -O binary mine.bin
+
+install: mine.bin
+	rpi-install.py mine.bin
+
+clean:
+	rm *.o *.bin
