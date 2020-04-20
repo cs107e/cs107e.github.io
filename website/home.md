@@ -11,11 +11,12 @@ CS107E is __Computer Systems from the Ground Up__. Read more about the course [h
 <div class="row">
 <div class="col-xs-5" markdown="1">
 
-#### Quick links
+#### Announcements
 {% comment %} Removed after first week
 - Please read the [FAQ](http://cs107e.stanford.edu) for answers to common questions about the course. We expect to have more interested students than capacity. To be considered, you must attend the first lecture and submit the interest questionnaire.
 -Our class discussion form is hosted on [Piazza]({{ site.data.quarter.forum }}). We will post all announcements on Piazza and you can ask and answer questions there.   
 {% endcomment %}
+- __April 19, 2020__: Remember that this week's lab needs some extra supplies: solid core wire (24 AWG or thinner), wire snips, pliers, and a wire stripper. If you don't have them yet please get them before lab.
 - __April 5, 2020__: We're looking forward to seeing you all in class tomorrow! 
 
 
