@@ -1,20 +1,29 @@
-static volatile unsigned int *FSEL1 =  (unsigned int *)0x20200004;
-static volatile unsigned int *FSEL2 =  (unsigned int *)0x20200008;
-static volatile unsigned int *SET0  =  (unsigned int *)0x2020001c;
-static volatile unsigned int *CLR0  =  (unsigned int *)0x20200028;
-static volatile unsigned int *LEV0  =  (unsigned int *)0x20200034;
+// Make volatile to allow optimizations on
+static unsigned int *FSEL1 =  (unsigned int *)0x20200004;
+static unsigned int *FSEL2 =  (unsigned int *)0x20200008;
+static unsigned int *SET0  =  (unsigned int *)0x2020001c;
+static unsigned int *CLR0  =  (unsigned int *)0x20200028;
+static unsigned int *LEV0  =  (unsigned int *)0x20200034;
 
-void main(void)
-{
-   *FSEL1 = 0;  // configure GPIO 10 for input
-   *FSEL2 = 1;  // configure GPIO 20 for output
-   int bit_10 = 1 << 10;
-   int bit_20 = 1 << 20;
+void main(void) {
+    const unsigned int bit_10 = 1 << 10;
+    const unsigned int bit_20 = 1 << 20;
 
-   while (1) {
-        if ((*LEV0 & bit_10) == 0)  // if button pressed, input is low
-            *SET0 = bit_20;    // set GPIO 20
-        else
-            *CLR0 = bit_20;    // clear GPIO 20
-   }
+    *FSEL1 = 0; // bit 10-19 are input
+    *FSEL2 = 1; // bit 20 an output
+
+    while (1) {
+	// Wait until GPIO 10 is low (button press)
+	while ((*LEV0 & bit_10) != 0) ;
+
+	// Set GPIO 20 high (LED on)
+	*SET0 = bit_20;
+
+	// Wait until GPIO 10 is high (button release)
+	while ((*LEV0 & bit_10) == 0) ;
+
+	// Set GPIO 20 low (LED off)
+	*CLR0 = bit_20;
+    }
+
 }
