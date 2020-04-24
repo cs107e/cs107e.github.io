@@ -1,7 +1,7 @@
 .equ DELAY, 0x3F0000
 
 ldr r0, FSEL2   // configure GPIO 20 for output
-mov r1, #1
+mov r1, #(1<<0)
 str r1, [r0]
 
 mov r1, #(1<<20)  // bit 20
