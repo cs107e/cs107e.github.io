@@ -22,5 +22,4 @@ permalink,title,released
 "/lectures/SystemDesign/","System Design and Computer Architecture",false
 "/lectures/Framebuffer/","Graphics and the framebuffer",false
 "/lectures/Keyboard/","Keyboards and the PS/2 Protocol",false
-"/lectures/Serial/","Communication and the Serial Protocol",false
 "/lectures/Interrupts1/","Interrupts",false
