@@ -21,8 +21,8 @@ and to do something creative with your Raspberry Pi. We hope you find the projec
 
 ### Project schedule and deliverables
 
-You have over two weeks to complete the project. 
-Please take note of these important milestones and deliverables in the project schedule:
+You have just under two weeks to complete the project. 
+We will update this page with more scheduling details as the end of the quarter approaches.
 
 #### Team formation and initial idea due __6pm Saturday May 9__
 
@@ -43,22 +43,24 @@ identifiable part of the project.
 Each project team has a budget of $20 per person for hardware. 
 
 The "default" project is
-a version of [Flappy Bird]() called "Rappi Bird." You control a bird moving through a randomly
+a version of [Flappy Bird](https://en.wikipedia.org/wiki/Flappy_Bird) called "Rappi Bird." You control a bird moving through a randomly
 generated level by hitting a button. The project involves handling I/O (button presses), graphics,
 and learning how to import sprites (e.g., the picture of your bird) into your C program. Optional
 extensions will include music, better graphics, or whatever strikes your fancy. Our expectation
-is that the basic version it will be 8-10 hours of work. If you would like to do the default
+is that the basic version it will be 8-10 hours of work per person for a two-person group. If you 
+would like to do the default
 project, when you submit your project idea you can just say Rappi Bird or Default Project.
 
 Submit your project idea and team on this 
-[Google form](https://forms.gle/phxnovNsQCMHtoQn7)
+[Google form](https://forms.gle/phxnovNsQCMHtoQn7).
 We will create a shared repository for your team.
 
 #### Grading
 Our rubric for evaluating final projects considers two major areas and one bonus opportunity:
 
 +  __Challenge/Technical Achievement__.
-    This category evaluates the ambitiousness of the project and its goals. Our basic expectation is a project scope and level of effort roughly on par with the full console system. This was ~6 weeks of steady work for one person, and earned you a wealth of knowledge and an awesome `libmypi` code base. This puts you in prime position to start from there and achieve something equally cool with two people over 2.5 weeks. A project typically extends from and builds on the work you have done thus far. Learning new things, researching novel hardware, mastering advanced software techniques, digging in to overcome obstacles, and otherwise meeting additional challenges are all examples of efforts that will be further recognized in this category.
+    This category evaluates the ambitiousness of the project and its goals. 
+Console was ~6 weeks of steady work for one person, and earned you a wealth of knowledge and an awesome `libmypi` code base. This puts you in prime position to start from there and achieve something substiantial with two people over 2 weeks. A project typically extends from and builds on the work you have done thus far. Learning new things, researching novel hardware, mastering advanced software techniques, digging in to overcome obstacles, and otherwise meeting additional challenges are all examples of efforts that will be further recognized in this category.
       
 + __Execution__.
     This category evaluates the team’s execution on delivering on the project's goals. Our basic expectation is that the core functionality is operational and able to give a successful demo at the project session. Your further efforts to develop a fully complete set of features, add a high level of polish, design a system that is pleasing to use, build in robustness, and so on will be acknowledged as going above and beyond in the execution category. Execution success is highly correlated with strong teamwork, so your upfront investment in thoughtful planning, time management, and good engineering practice will pay off here.
