@@ -111,7 +111,7 @@ Our convention uses white for clock and yellow for data. Add a white jumper conn
 
 You must also ground the channels on the logic analyzer. Identify the appropriate ground pin(s) for channels 0 and 1 and use jumpers to connect them to ground pins on your Raspberry Pi. There may be a separate ground per channel or one shared ground, depending on the model of logic analyzer you are using.
 
-You need to supply power to your keyboard.  Connect the GND and VCC jumpers from your keyboard connector to 5V and GND pins on your Raspberry Pi.
+You need to supply power to your keyboard.  Connect the VCC and GND jumpers from your keyboard connector to 5V and GND pins on your Raspberry Pi.
 
 Lastly, connect the USB cable from the logic analyzer to a USB port on your laptop.
 
