@@ -36,7 +36,7 @@ void main(void)
     gpio_enable_event_detection(BUTTON_GPIO, GPIO_DETECT_FALLING_EDGE);
 
     interrupts_init();
-    interrupts_attach_handler(button_pressed, INTERRUPTS_GPIO3);
+    interrupts_register_handler(INTERRUPTS_GPIO3, button_pressed);
     interrupts_global_enable();
 
     console_init(NROWS, NCOLS);
