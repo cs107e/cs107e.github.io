@@ -24,7 +24,7 @@
  *    - all interrupt sources are off
  *    - interrupts are globally disabled
  *
- * Note that this function does not deregister existing handlers.
+ * Note that this function does _not_ deregister existing handlers.
  * This is so that if an interrupting-using module calls 
  * `interrupts_init` then installs a handler, a subsequent
  * `interrupts_init` by another, unrelated module will not erase
@@ -110,6 +110,8 @@ typedef bool (*handler_fn_t)(unsigned int);
  *     INTERRUPTS_GPIO3 for gpio interrupts (source shared by all gpios)
  *     INTERRUPTS_BASIC_ARM_TIMER_IRQ  for armtimer interrupts
  *
+ * Note that calling this function does _not_ enable the interrupt!
+ * you need to do that separately.
  */
 handler_fn_t interrupts_register_handler(unsigned int source, handler_fn_t fn);
 
