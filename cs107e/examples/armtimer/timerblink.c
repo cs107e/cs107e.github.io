@@ -22,7 +22,8 @@ void main(void)
     armtimer_init(1000000); // 1s
     armtimer_enable();
     armtimer_enable_interrupts();
-    interrupts_attach_handler(alarm, INTERRUPTS_BASIC_ARM_TIMER_IRQ);
+    interrupts_register_handler(INTERRUPTS_BASIC_ARM_TIMER_IRQ, alarm);
+    interrupts_enable_source(INTERRUPTS_BASIC_ARM_TIMER_IRQ);
     interrupts_global_enable(); 
 
 	int nflips = 0;

@@ -22,7 +22,7 @@ all : $(NAME).bin
 	arm-none-eabi-objdump -d $< > $@
 
 install: $(NAME).bin
-	rpi-install.py $(NAME).bin
+	rpi-install.py -p $(NAME).bin
 
 clean:
 	rm -f *.o *.bin *.elf *.list
