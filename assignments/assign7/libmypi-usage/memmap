@@ -1,0 +1,10 @@
+SECTIONS
+{
+    .text 0x8000 :  { start.o(.text*)  *(.text*) }
+    .data :         { *(.data*) }
+    .rodata :       { *(.rodata*) }
+
+    __bss_start__ = .;
+    .bss :          { *(.bss*)  *(COMMON) }
+    __bss_end__ = ALIGN(8);
+}
