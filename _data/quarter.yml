@@ -64,7 +64,7 @@ weeks:
     mon: /lectures/ArithmeticAndSensors/
     lab: /labs/projectlab1/
     assign: /assignments/project/
-    fri: /lectures/Arithmetic/
+    fri: Guest Lecture
   -
     mon: /lectures/Wrap/ 
     lab: Project due
