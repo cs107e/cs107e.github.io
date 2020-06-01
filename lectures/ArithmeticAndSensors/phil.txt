@@ -1,0 +1,5 @@
+This lectures takes half of Arithmetic and half of Sensors and
+sticks them together. It's from Spring 2020 when the shortened
+quarter meant we had less time, which combined with some rescheduling
+meant we couldn't do both.
+
