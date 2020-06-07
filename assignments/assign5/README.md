@@ -266,7 +266,7 @@ The additional commands you are to implement are:
 
 + **reboot**
 
-    This command restarts your Pi by calling the `pi_reboot` function from the `pi` module of `libpi`. See ya back at the bootloader!
+    This command restarts your Pi by first sending an EOT (end of transmission) over the UART, then calling the `pi_reboot` function from the `pi` module of `libpi`. See ya back at the bootloader!
 
 + **peek**
 
