@@ -1,8 +1,10 @@
 # This is the data file to edit when setting up a new quarter
 # The home page and schedule will be generated using these settings
 ---
-name: Spring 2020
+name: Autumn 2020
 instructors: 
+    - name: Christos Kozyrakis
+      img: /_assets/christos.jpg
     - name: Philip Levis
       img: /_assets/phil.png
 cas:
@@ -11,16 +13,16 @@ cas:
     - name: Peter McEvoy
       img: /_assets/peter.png
 sls: 
-    - name: Jane Lange 
-      img: /_assets/jane.png
-lectures: Mon and Fri 3:00-4:20pm (PDT) on Zoom
-labs: Wed 1-3pm, 3-5pm, 5-7pm (PDT) on Zoom
-forum: 'https://piazza.com/stanford/spring2020/cs107e'
+    - name: Liana Keesing
+      img: /_assets
+lectures: Mon and Fri 2:30-3:50pm (PT) on Zoom
+labs: Wed 1-3pm, 3-5pm, 5-7pm (PT) on Zoom
+forum: 'https://piazza.com/stanford/fall2020/cs107e'
 weeks:
     # start is date of first lecture (a Monday)
     # due date-time is for assign1 (will assume weekly repeat thereafter)
-  - start_date: "2020-04-06"
-    assign1_duedate: "2020-04-21 8:00 PM"
+  - start_date: "2020-09-14"
+    assign1_duedate: "2020-09-30 8:00 PM"
     mon: /lectures/Intro/
     lab: No lab in first week
     assign: /assignments/assign0/
@@ -70,4 +72,4 @@ weeks:
     lab: Project due
     fri: No class
   -
-    project_due: "2020-06-10"
+    project_due: "2020-11-20"
