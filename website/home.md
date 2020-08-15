@@ -6,7 +6,17 @@ layout: dashboard
 
 ### Welcome to the {{ site.data.quarter.name }} offering of CS107E!
 
-CS107E is __Computer Systems from the Ground Up__. Read more about the course [here](/about/).
+CS107E is __Computer Systems from the Ground Up__. You can read [a summary of the course, its material, and history](/about/)
+or a [discussion on its similarities and differences with CS107](http://cs107e.stanford.edu).
+
+To take CS107E in the Fall of 2020, you must [pre-apply with this form](https://forms.gle/SwzXd6LcmHq65HSx6).
+Please complete this form by 11:59PM PDT on September 1, 2020, if you would like to take the course. We will send out 
+notifications of who is accepted into the course by September 4th. We require this early approval process because
+we have to send Raspberry Pi kits to everyone and have them arrive before the quarter starts.
+
+CS107E will be taught entirely remotely. Based on our experiences with what succeeded in Spring quarter, labs are 
+group of 10 or so students who are randomly grouped into breakouts of 2-3 students. As the quarter progresses,
+students can start to request lab partners for the breakouts.
 
 <div class="row">
 <div class="col-xs-5" markdown="1">
@@ -16,9 +26,7 @@ CS107E is __Computer Systems from the Ground Up__. Read more about the course [h
 - Please read the [FAQ](http://cs107e.stanford.edu) for answers to common questions about the course. We expect to have more interested students than capacity. To be considered, you must attend the first lecture and submit the interest questionnaire.
 -Our class discussion form is hosted on [Piazza]({{ site.data.quarter.forum }}). We will post all announcements on Piazza and you can ask and answer questions there.   
 {% endcomment %}
-- __May 4, 2020__: It's time to start thinking about [final projects](http://cs107e.github.io/assignments/project/)! We're getting this started early to make sure you have enough time to get any hardware you might need, given all of the shipping delays. Your first milestone is this Saturday, in which you submit your project idea and group. Please read [the handout](http://cs107e.github.io/assignments/project/) for more information.
-- __April 19, 2020__: Remember that this week's lab needs some extra supplies: solid core wire (24 AWG or thinner), wire snips, pliers, and a wire stripper. If you don't have them yet please get them before lab.
-- __April 5, 2020__: We're looking forward to seeing you all in class tomorrow! 
+- __August 15, 2020__: We're collecting all the materials for the kits in 2020 and starting to put them together. Phil's home has big boxes of Raspberry Pis, breadboards, and other components.
 
 
 </div>
