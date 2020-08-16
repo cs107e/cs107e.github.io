@@ -15,7 +15,7 @@ notifications of who is accepted into the course by September 4th. We require th
 we have to send Raspberry Pi kits to everyone and have them arrive before the quarter starts.
 
 CS107E will be taught entirely remotely. Based on our experiences with what succeeded in Spring quarter, labs are 
-group of 10 or so students who are randomly grouped into breakouts of 2-3 students. As the quarter progresses,
+groups of 10 or so students who are randomly grouped into breakouts of 2-3 students. As the quarter progresses,
 students can start to request lab partners for the breakouts.
 
 <div class="row">
