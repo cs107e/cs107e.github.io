@@ -14,7 +14,7 @@ cas:
       img: /_assets/peter.png
 sls: 
     - name: Liana Keesing
-      img: /_assets
+      img: /_assets/liana.jpg
 lectures: Mon and Fri 2:30-3:50pm (PT) on Zoom
 labs: Wed 1-3pm, 3-5pm, 5-7pm (PT) on Zoom
 forum: 'https://piazza.com/stanford/fall2020/cs107e'
