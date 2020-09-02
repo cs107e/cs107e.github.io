@@ -1,0 +1,7 @@
+Hi! Replace EVERYTHING in this file with one of the following choices depending
+on whether you've received your lab kit or not. 
+
+Your submitted file should contain only and exactly one of these lines:
+
+I have my kit.
+I don't have my kit.
