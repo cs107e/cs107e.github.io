@@ -1,6 +1,6 @@
 ---
 released: false
-permalink: /assignments/assign3/
+permalink: /assignments/specifications/assign3/
 title: 'Assignment 3: Implement a String Formatting Library'
 toc: true
 ---

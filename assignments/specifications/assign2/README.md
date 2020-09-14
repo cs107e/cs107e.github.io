@@ -1,6 +1,6 @@
 ---
 released: false
-permalink: /assignments/assign2/
+permalink: /assignments/specifications/assign2/
 title: 'Assignment 2: Implement a Clock'
 toc: true
 ---

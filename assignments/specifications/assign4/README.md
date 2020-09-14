@@ -1,6 +1,6 @@
 ---
 released: false
-permalink: /assignments/assign4/
+permalink: /assignments/specifications/assign4/
 title: 'Assignment 4: Backtrace and Malloc'
 toc: true
 ---

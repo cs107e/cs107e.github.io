@@ -1,6 +1,6 @@
 ---
 released: false
-permalink: /assignments/assign7/
+permalink: /assignments/specifications/assign7/
 title: 'Assignment 7: System Monitor with Interrupts'
 toc: true
 ---

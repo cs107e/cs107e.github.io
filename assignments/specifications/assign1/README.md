@@ -1,6 +1,6 @@
 ---
 released: false
-permalink: /assignments/assign1/
+permalink: /assignments/specifications/assign1/
 title: 'Assignment 1: Implement a Larson Scanner'
 toc: true
 ---
