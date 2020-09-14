@@ -1,6 +1,6 @@
 ---
 released: false
-permalink: /assignments/project/
+permalink: /project/specification/
 title: 'Final Project'
 toc: true
 ---
