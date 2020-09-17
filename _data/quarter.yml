@@ -25,47 +25,47 @@ weeks:
     assign1_duedate: "2020-09-30 8:00 PM"
     mon: /lectures/Intro/
     lab: No lab in first week
-    assign: /assignments/assign0/
+    assign: /assignments/specifications/assign0/
     fri: /lectures/ARM/
   - 
     mon: /lectures/ASM/
     lab: /labs/lab1/
-    assign: /assignments/assign1/
+    assign: /assignments/specifications/assign1/
     fri: /lectures/C_Control/
   -
     mon: /lectures/C_Pointers/
     lab: /labs/lab2/
-    assign: /assignments/assign2/
+    assign: /assignment/specifications/assign2/
     fri: /lectures/C_Functions/ 
   -
     mon: /lectures/Serial/ 
     lab: /labs/lab3/
-    assign: /assignments/assign3/
+    assign: /assignments/specifications/assign3/
     fri: /lectures/Linking/
   -
     mon: /lectures/Memory/ 
     lab: /labs/lab4/
-    assign: /assignments/assign4/
+    assign: /assignments/specifications/assign4/
     fri: /lectures/C_Mastery/
   -
     mon: /lectures/Keyboard/
     lab: /labs/lab5/
-    assign: /assignments/assign5/
+    assign: /assignments/specifications/assign5/
     fri: /lectures/Framebuffer/
   -
     mon: /lectures/Interrupts1/ 
     lab: /labs/lab6/
-    assign: /assignments/assign6/
+    assign: /assignments/specifications/assign6/
     fri: /lectures/Interrupts2/
   -
     mon: Memorial Day Holiday
     lab: /labs/lab7/
-    assign: /assignments/assign7/
+    assign: /assignments/specifications/assign7/
     fri: lectures/MakingEngineering
   -
     mon: /lectures/ArithmeticAndSensors/
     lab: /labs/projectlab1/
-    assign: /assignments/project/
+    assign: /project/specification/
     fri: Guest Lecture
   -
     mon: /lectures/Wrap/ 
