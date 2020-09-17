@@ -47,7 +47,7 @@ you complete peace of mind during the development process since you know that
 anything that you've committed can still be easily accessed.
 
 ## How does Git work?
-We've established that Git give you access to the editing history of your
+We've established that Git gives you access to the editing history of your
 project. But how does it do this? Well, the first step is to create what's
 called a _repository_ (repo for short), which is a fancy name for a project managed by Git. As a
 way of illustrating this, let's create a project (represented by the directory
@@ -75,6 +75,8 @@ files.
 $ echo "1" > file1.txt
 $ echo "2" > file2.txt
 $ ls 
+$ cat file1.txt
+$ cat file2.txt
 ```
 
 We now have two files, `file1.txt` and `file2.txt` in our repo. Let's see if Git
@@ -102,7 +104,7 @@ change to Git's memory.
 
 Let's go ahead and commit the first file that we created. (As an aside, we can
 use `git commit` instead of `git commit -m "<some message>". `git commit` will
-simply send us into vim to enter the commit message.)
+simply send us into vim or some other text editor to enter the commit message.)
 
 ```
 $ git add file1.txt
@@ -139,18 +141,39 @@ store the repository that we just created. For demonstration purposes, we'll
 assume that your GitHub account already has a repo named `dummy` created, which
 can be found at `git@github.com:<your-username>/dummy.git`.
 
+In Git terminology, the version of the repo living on your computer (the one you 
+created with `git init`) is called the local copy, and the version living on GitHub's
+servers is called the remote copy. 
+
+In order to add the work in our local repo to our remote repo, we first need to 
+assign a shorter name to the URL of the remote repo, the one that is hosted by 
+GitHub. We'll use the name `origin`, since this remote repo will be the "origin" 
+of your code. 
+
 ```
 $ git remote add origin git@github.com:<your-username>/dummy.git
+```
+
+Now that we've set up a shorter name for our URL, we can create a new branch on
+our remote repo and push our local changes to it.
+
+```
 $ git push --set-upstream origin master
 ```
 
-`file1.txt` and `file2.txt` should now both show up in GitHub under your `dummy`
-repo. In Git terminology, the version of the repo living on your computer (the
-one you created with `git init`) is called the local copy, and the version
-living on GitHub's servers is called the remote copy. We started with just a
-local copy, and we created a remote copy by specifying the URL of the remote
-(using `git remote add origin`). We then _pushed_ all of the work that we've done
-on our local copy to the remote copy using `git push`. 
+What we're doing here is pushing our local commits (the ones that we made with
+`git commit ...`) onto the branch `master` in the remote repo represented by the 
+name `origin` (`git@github.com:<your-username>/dummy.git` in this case). In future
+pushes to the `master` branch of `origin`, we will be able to simply do `git
+push` instead of `git push --set-upstream origin master`. The latter, longer
+version is necessary when the branch that we're pushing from our local repo doesn't
+yet exist on our remote repo.
+
+That was a lot, but fortunately `file1.txt` and `file2.txt` should now both show 
+up in GitHub under your `dummy` repo. We started with just a local copy, and we 
+created a remote copy by specifying the URL of the remote (using `git remote add 
+origin`). We then _pushed_ all of the work that we've done on our local copy to 
+the remote copy using `git push`. 
 
 Getting back to our friend who wants to see our work: she can _pull_ our work
 from the remote copy of the repo, the one hosted on GitHub. To do so, she'll use
@@ -168,6 +191,7 @@ push it to the remote copy.
 
 ```
 $ echo "3" > file3.txt
+$ cat file3.txt
 $ git add file3.txt
 $ git commit -m "create file3.txt"
 $ git push
@@ -191,7 +215,7 @@ takes a long time to understand; the longer I use it, the more I learn about it.
 If you're interested in learning more, here are some useful resources:
 - (Hacker Noon)[https://hackernoon.com/understanding-git-fcffd87c15a3]: another
   introductory guide to Git.
-- Git man pages: the official documentation for Git. They can be accessed
+- Git man (short for manual) pages: the official documentation for Git. They can be accessed
   through the command line via `man git-<command>` or `git <command> --help`.
   For example, to see the man page for `git add`, you can use either `man
   git-add` or `git add --help`. The man pages can be difficult to understand at
@@ -203,4 +227,5 @@ Also, please please please ask the teaching staff questions as they come up.
 It's often times much easier to explain a Git concept verbally than it is to write
 down an explanation. Finally, take solace in the fact that the rest of the
 teaching staff and I have all faced the daunting learning curve of Git before.
-We've managed just fine, and so will you. 
+We've managed just fine, and so will you. (This is coming from someone who
+struggled in CS 106A.) 
