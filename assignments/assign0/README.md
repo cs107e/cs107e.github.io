@@ -102,7 +102,7 @@ the local and remote copies of your repo. We did so by hooking up your local
 repo to `assignments-mirror`, which we aliased (think, nicknamed) to `starter-code`, and to your
 assignments repo, which we aliased to `origin`.
 
-{% include callout.html type="info" }
+{% include callout.html type="info" %}
 You can always get the latest tweaks to the starter code via `git
 pull starter-code master`.
 </div>
