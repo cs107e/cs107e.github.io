@@ -1,5 +1,5 @@
 ---
-permalink: /assignments/specifications/
+permalink: /assignments/
 title: Assignments
 ---
 ### List of assignments

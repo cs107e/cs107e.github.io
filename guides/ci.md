@@ -28,7 +28,7 @@ pull request (which you might want to make early -- you can always push more
 commits to it) to see the TravisCI results page from testing your latest
 solution.
 
-<img title="Pull request page." src="/assignments/specifications/assign0/images/07-pull-request.png" width="800">
+<img title="Pull request page." src="/assignments/assign0/images/07-pull-request.png" width="800">
 
 You can also click the icon next to a commit to see the results of a Travis
 build. This icon will show a red "x" for a build failure, a yellow circle for a

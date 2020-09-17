@@ -1,6 +1,6 @@
 ---
 released: true
-permalink: /assignments/specifications/assign0/
+permalink: /assignments/assign0/
 title: 'Assignment 0: Choose Lab Section, Learn Git'
 toc: true
 duedate: 2020-09-22 11:59 PM
