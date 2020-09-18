@@ -1,6 +1,6 @@
 ---
 released: false
-permalink: /project/specification/
+permalink: /project/
 title: 'Final Project'
 toc: true
 ---

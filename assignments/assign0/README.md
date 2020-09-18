@@ -54,6 +54,7 @@ out to the course staff for help before starting the assignment.
 ## Steps
 
 ### 1. Accept GitHub invitation
+
 Our course repositories will be hosted on GitHub. You will download assignment 
 starter files from GitHub and upload your completed work to GitHub for grading.
 
@@ -66,7 +67,47 @@ repo](https://github.com/cs107e/assignments-mirror.git) and another invitation
 for read-write access to your personal assignments repo. Once you receive and
 accept both invitations, you're ready to proceed.
 
-### 2. Get assignment starter files
+
+### 2. Set up SSH key
+
+In order to access the starter code, you'll need set up an SSH key on your
+GitHub account. An SSH key is simply a way for GitHub to authenticate that you
+are who you say you are. To create an SSH key, enter the following at the
+command line:
+
+```
+$ ssh-keygen -t rsa -b 4096 -C "<your_email>"
+```
+
+After you press enter, you'll be prompted to choose an alternate name for your
+key. Skip this by pressing enter again. Next, you'll be prompted to enter a
+passphrase for a key. If you want no passphrase, press enter. Otherwise, enter
+your passphrase. Keep in mind that you'll need to enter your passphrase
+everytime you push to or pull from GitHub if you choose to add a passphrase.
+
+Let's verify that you created the key correctly:
+
+```
+$ ls ~/.ssh/
+```
+
+You should see two files: `id_rsa` and `id_rsa.pub`. SSH uses public-key
+cryptography, which requires a private key and a public key. `id_rsa` is your
+private key and should never be shared. `id_rsa.pub` is your public key and can
+(and should) be shared.
+
+Now that you've created your SSH key, you need to add it to GitHub. To do so,
+follow [these
+instructions](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account).
+Note that if you're using macOS, you can replace step 1 with the following
+command to copy your public key to your clipboard:
+
+```
+$ cat ~/.ssh/id_rsa.pub | pbcopy
+```
+
+
+### 3. Get assignment starter files
 
 **Note**: For the rest of this writeup, **where you see
 `[YOUR-GITHUB-USERNAME]`, replace with your actual GitHub username**.
@@ -107,14 +148,8 @@ You can always get the latest tweaks to the starter code via `git
 pull starter-code master`.
 </div>
 
-{% include callout.html type="warning" %}
-**NOTE**: You may have to enter your GitHub username and password to authorize
-access to your GitHub account. To avoid having to supply these credentials every
-time, see [instructions for connecting to GitHub using SSH](https://help.github.com/articles/connecting-to-github-with-ssh/).
-</div>
 
-
-### 3. Create an assignment branch
+### 4. Create an assignment branch
 
 To begin work on an assignment, you must first switch to the appropriate branch. 
 We name all assignment branches using the same convention: `assignN` where N is 
@@ -134,7 +169,7 @@ $ git branch
 the branches in our local repo and adds a star next to the branch that we're
 currently on (`assign0-basic` in this case).
 
-### 4. Record your lab preference
+### 5. Record your lab preference
 
 To get practice with adding and commiting a file with Git, go ahead and open up
 `lab.txt` and edit its contents so that it displays the following information:
@@ -145,7 +180,7 @@ To get practice with adding and commiting a file with Git, go ahead and open up
 
 Save and quit the file. 
 
-### 5. Commit your change locally and push it to remote
+### 6. Commit your change locally and push it to remote
 
 Once you confirm that Git has detected that you changed `lab.txt`, go ahead and 
 add, commit (save to local repo), and push it (update remote repo):
@@ -188,7 +223,7 @@ changes for a specific assignment branch, switch to the branch by selecting it f
 
 <img title="Changing to another branch." src="images/03-change-branch.png" width="400">
 
-### 6. Answer background questions
+### 7. Answer background questions
 Create a file called `background.txt` that contains answers to the following
 questions. Please ensure that your responses are clearly labeled (i.e. we know 
 what question it correspond too) and reasonably organized.
@@ -214,7 +249,7 @@ origin assign0-basic` since you've already created the `assign0-basic` branch in
 the remote repo; `git push` will suffice.
 </div>
 
-### 7. Create a pull request (submission)
+### 8. Create a pull request (submission)
 
 In this course, assignment submission is done using GitHub's _pull request_
 feature.  Pull requests provide a summary view of changes made to the code as
