@@ -27,8 +27,8 @@ students can start to request lab partners for the breakouts.
 -Our class discussion form is hosted on [Piazza]({{ site.data.quarter.forum }}). We will post all announcements on Piazza and you can ask and answer questions there.   
 {% endcomment %}
 - __August 15, 2020__: We're collecting all the materials for the kits in 2020 and starting to put them together. Phil's home has big boxes of Raspberry Pis, breadboards, and other components.
-
-
+- __September 15, 2020__: It was good to see all of you in the first day of class! Assignments are released on Wednesdays and are due on Tuesday. Assignment 0 will be released on Wednesday, September 16th and is due Tuesday, September 22nd.
+- __September 20, 2020__: Labs start this week! If you have not received your kit by Tuesday night, please still show up to lab. We will have you team up with someone to understand the lab as they go through it with their equipment.
 </div>
 <div class="col-xs-7" markdown="1">
 #### Upcoming events
