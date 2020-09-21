@@ -1,0 +1,12 @@
+# assemble sub.s to make an 'object file' add.o
+arm-none-eabi-as sub.s -o sub.o
+
+# convert the object file to a binary file
+arm-none-eabi-objcopy sub.o -O binary sub.bin
+
+# how big is the binary file? 4 bytes
+ls -l sub.bin
+
+# print a hexdump of the binary
+hexdump sub.bin
+
