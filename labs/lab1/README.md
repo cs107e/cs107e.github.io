@@ -129,7 +129,9 @@ go!
 
 ### 2. Inventory your kit
 
-You will receive your CS107e Raspberry Pi kit when you arrive at lab.
+You should have received your CS107e Raspberry Pi kit by the start of lab.
+If you have not received your kit yet, then be sure to team up
+with someone who has and you can go over the parts and the Pi together.
 Take a moment to identify all your parts and compare to the [kit inventory](/guides/bom/) to ensure your kit is complete.
 
 (Recall that a [resistor](https://learn.sparkfun.com/tutorials/resistors)'s band colors tell its resistance: in this case,
