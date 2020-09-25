@@ -1,0 +1,45 @@
+// Some C examples to try out 
+// in Compiler Explorer https://godbolt.org
+
+int main(void)
+{
+    unsigned int val = 0x3a;
+    int count = 0;
+
+    while (val != 0) {
+        if (val & 1) count++;
+        val = val >> 1;
+    }
+    return count;
+}
+
+int global;
+
+void main(void)
+{
+    global += 5;
+}
+
+int binky(int arg)
+{
+    int result = arg + 13;
+    result = result * arg;
+    return result;
+}
+
+int winky(int arg)
+{
+    if (arg == 0)
+        arg++;
+    else
+        arg--;
+    return arg;
+}
+
+int pinky(int arg)
+{
+    int result = 1;
+    for (int i = 0; i < arg; i++)
+        result *= i;
+    return result;
+}
