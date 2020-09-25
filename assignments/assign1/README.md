@@ -134,7 +134,7 @@ the following:
 ```
 $ cd ~/cs107e_home/assignments
 $ ls
-$ ln -sf $(pwd)/makefiles/assign1.makefile $(pwd)/Makefiles
+$ ln -sf $(pwd)/makefiles/assign1.makefile $(pwd)/Makefile
 $ ls -l 
 ```
 
