@@ -35,7 +35,7 @@ weeks:
   -
     mon: /lectures/C_Pointers/
     lab: /labs/lab2/
-    assign: /assignment/assign2/
+    assign: /assignments/assign2/
     fri: /lectures/C_Functions/ 
   -
     mon: /lectures/Serial/ 
