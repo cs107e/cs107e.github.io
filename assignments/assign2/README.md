@@ -2,7 +2,7 @@
 released: true
 permalink: /assignments/assign2/
 title: 'Assignment 2: Implement a Clock'
-toc: false
+toc: true
 ---
 {% comment %}
 Task list to copy/paste when creating PR for this assignment:
