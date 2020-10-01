@@ -104,7 +104,7 @@ functions. However, you can add your own private helper functions by declaring t
 functions at the top of the C file with the `static` keyword to make them only accessible
 to the implementation. 
 
-{% include callout.html type="info %}
+{% include callout.html type="info" %}
 The module header files don't live in your assignments repo, and so you might be
 wondering where they all are. If you examine the `$CS107E/include` directory,
 you'll see all of the module header files for all of the assignments, plus a few
