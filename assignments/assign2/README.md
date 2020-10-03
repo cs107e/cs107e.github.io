@@ -61,7 +61,7 @@ $ ln -sf $(pwd)/makefiles/assign2.makefile $(pwd)/Makefile
 $ ls -l Makefile
 ```
 
-Skim through `src/lib/gpio.c`, `src/lib/clock.c`, and `src/apps/clock.c` to get
+Skim through `src/lib/gpio.c`, `src/lib/timer.c`, and `src/apps/clock.c` to get
 a sense of what you'll be implementing this week. Also take a look at the [magic files](#magic)
 in `src/boot` if you'd like: `memmap`, `start.s`, `cstart.c`. These three files are
 necessary for bare metal C programs, and we'll take a look at them in an upcoming
