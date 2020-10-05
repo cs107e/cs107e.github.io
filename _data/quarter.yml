@@ -58,12 +58,12 @@ weeks:
     assign: /assignments/assign6/
     fri: /lectures/Interrupts2/
   -
-    mon: Memorial Day Holiday
+    mon: /lectures/Sensors/
     lab: /labs/lab7/
     assign: /assignments/assign7/
-    fri: lectures/MakingEngineering
+    fri: /lectures/Arithmetic/
   -
-    mon: /lectures/ArithmeticAndSensors/
+    mon: lectures/MakingEngineering
     lab: /labs/projectlab1/
     assign: /project/specification/
     fri: Guest Lecture
