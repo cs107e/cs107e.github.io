@@ -48,69 +48,6 @@ Find a buddy (or two) to join up in a breakout room with. Show off your clock
 breadboards to each other. Pull up the [check in questions](checkin). You're 
 ready to go!
 
-### 0. Merging assignment 1 branches into master
-
-Let's start with a little house-keeping: since assignment 1 grades have been released,
-we can now merge in the assignment branches (assign1-basic and assign1-extension)
-into the master branch of your assignments repo. Doing so will ensure that all of your graded
-assignment code lives in a single place. As you continue to submit and receive grades for 
-assignments, you'll continue to merge your assignment branches into master. By the end of the 
-quarter, your master branch will contain all of the assignment code that you've written over 
-the course of the quarter! We know that git can be an intimidating tool to learn at first,
-which is why we want to walk you through the process here in lab so that we can answer questions
-that arise.
-
-To start, switch to your assignments repo and checkout and update the master branch:
-```
-$ cd ~/cs107e_home/assignments
-$ git checkout master
-$ git pull
-```
-
-Now, merge in the assign1-basic branch:
-```
-$ git merge assign1-basic
-$ git push
-```
-
-If prompted to enter a commit message for the merge in vim, press `:x` to use the default
-merge commit message.
-
-If the merge succeeded (i.e. no merge conflicts arose), then you can delete the local branch:
-```
-$ git branch -d assign1-basic
-```
-
-Now, the assign1-basic branch no longer exists locally (i.e. in your copy of your repo on your
-computer) but it still exists remotely. To confirm that it still does exist remotely, pull up your
-repo on [GitHub](https://github.com/cs107e) and click on the branches drop-down menu. After doing so, 
-you can delete the remote branch:
-```
-$ git push origin --delete assign1-basic
-```
-
-Again, head back to GitHub and confirm that the remote branch was successfully deleted.
-
-Merging the assign1-extension branch (if you have one) follows the same steps as above except for that
-it requires a preprocessing step at the beginning. In both the basic and extension portions of the assignment,
-you modified `src/apps/larson.s`. If you merge the assign1-extension branch into master after merging the assign1-basic
-branch, you'll overwrite your basic version of the assignment. To avoid this, we'll rename `src/apps/larson.s` to 
-`src/apps/larson_ext.s` after checking out the assign1-extension branch:
-```
-$ git checkout assign1-extension
-$ mv src/apps/larson.s src/apps/larson_ext.s
-$ git add --all
-$ git commit -m "rename extension larson.s"
-$ git checkout master
-$ git merge assign1-extension
-$ git push
-```
-
-Confirm that you have `src/apps/larson.s` and `src/apps/larson_ext.s` on the master branch. Once you've confirmed this, you can go
-ahead and delete the assign1-extension branch by repeating the delete process that you carried out for the assign1-basic branch.
-
-And that's it! You've successfully merged all of your hard work on assignment 1 into your master branch.
-
 ### 1. Debugging with gdb
 
 The goal of the first exercise 
