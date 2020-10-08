@@ -58,19 +58,6 @@ can save you hours of debugging time later.
 
 We have many quarters of experience helping students succeed on this assignment, and we know it's within your ability! But please, please, please follow our recommendations so you complete successfully and also have an enjoyable journey.
 
-## Merge assignment 2 branches
-
-If you haven't done so already, merge your assignment 2 branches into the master
-branch. This will ensure that your completed versions of `src/lib/gpio.c` and 
-`src/lib/timer.c` make it into your assignment 3 branches. 
-
-The easiest way to merge your branches is to go to your assignment 2 pull
-request(s) on GitHub and click the green "merge" button. Once you merge, you can
-safely delete the branch using the "delete branch" button.
-
-An alternative way is to merge through the command line. If you're interested in
-doing so, please ask a question on Piazza.
-
 ## Get starter files
 
 To ensure that your courseware files are up to date, do a pull in the `cs107e.github.io`
@@ -90,22 +77,23 @@ $ git checkout master
 $ git pull starter-code master
 ```
 
-Now create your `assign3-basic` branch and create the `Makefile` symlink.
+Now create your `assign3-basic` branch, merge in your work from `assign2-basic`,
+and create the `Makefile` symlink.
 
 ```
 $ git checkout -b assign3-basic
+$ git merge assign2-basic
 $ ls -l Makefile
 $ ln -sf $(pwd)/makefiles/assign3.makefile $(pwd)/Makefile
 $ ls -l Makefile
 ```
 
-Since you merged the assignment 2 branches into `master` before creating the
-`assign3-basic` branch, `assign3-basic` contains the `src/lib/gpio.c` and 
-`src/lib/timer.c` files that you submitted for assignment 2. You have the option
-of building on your own code as you move forward or switching out your modules for 
-our library versions. Which modules of yours are used and which of ours is controlled 
-by the setting `MY_MODULES` in the Makefile. Read the `Makefile` for information
-on how to configure this setting.
+Since you merged `assign2-basic` into `assign3-basic`, `assign3-basic` contains
+the `src/lib/gpio.c` and `src/lib/timer.c` files that you submitted for
+assigment 2. You have the option of building on your own code as you move forward
+or switching out your modules for our library versions. Which modules of yours are
+used and which of ours is controlled by the setting `MY_MODULES` in the Makefile.
+Read the `Makefile` for information on how to configure this setting.
 
 The starter code contains the files `src/lib/printf.c` and `src/lib/strings.c`, a
 sample application `src/apps/print_pinout.c` and the test program 
