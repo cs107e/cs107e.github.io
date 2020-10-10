@@ -65,7 +65,7 @@ weeks:
   -
     mon: lectures/MakingEngineering
     lab: /labs/projectlab1/
-    assign: /project/specification/
+    assign: /project/
     fri: Guest Lecture
   -
     mon: /lectures/Wrap/ 
