@@ -1,5 +1,5 @@
 ---
-released: false
+released: true
 permalink: /project/
 title: 'Final Project'
 toc: true
@@ -24,7 +24,7 @@ and to do something creative with your Raspberry Pi. We hope you find the projec
 You have just under two weeks to complete the project. 
 We will update this page with more scheduling details as the end of the quarter approaches.
 
-#### Team formation and initial idea due __6pm Saturday October 17__
+#### Team formation and initial idea due __6pm Saturday October 24__
 
 Form a team of 1 to 3 people. We've observed that a 2-person team works out the best, so that is our recommendation. If you have a project in mind that would be better run as a solo effort or requires a team of 3, that's ok too, but you may want to talk it through with us to understand the tradeoffs and challenges for the different arrangements.
 
@@ -75,7 +75,8 @@ In addition to going further with the components you have already used in the co
 - #### Sensors
 
 We will send each of you a small sensor kit, something similar to 
-(this)[https://smile.amazon.com/Aokin-Sensor-Module-Arduino-Raspberry/dp/B07KJYR8K1/ref=sr_1_4?dchild=1&keywords=raspberry+pi+sensor+kit&qid=1602369442&sr=8-4]. If the sensors you need and are not encompassed by this kit, 
+[this](https://smile.amazon.com/HiLetgo-Sensors-Assortment-Raspberry-Projects/dp/B01N5910XS/ref=sr_1_10?dchild=1&keywords=pi+sensor+kit&qid=1602370312&sr=8-10).
+If the sensors you need and are not encompassed by this kit, 
 please let us know. Instead of sending you this kit, you can purchase your 
 own parts and have them reimbursed.
 
