@@ -41,6 +41,7 @@ The initial proposal should include:
 identifiable part of the project.
 
 Each project team has a budget of $20 per person for hardware. 
+We will send each student a small sensor kit, something similar to [this](https://smile.amazon.com/HiLetgo-Sensors-Assortment-Raspberry-Projects/dp/B01N5910XS/ref=sr_1_10?dchild=1&keywords=pi+sensor+kit&qid=1602370312&sr=8-10).  If the sensors you need and are not encompassed by this kit, please let us know. Instead of sending you this kit, you can purchase your own parts and have them reimbursed.
 
 The "default" project is
 a version of [Flappy Bird](https://en.wikipedia.org/wiki/Flappy_Bird) called "Rappi Bird." You control a bird moving through a randomly
