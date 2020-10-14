@@ -1,0 +1,128 @@
+<html>
+<style type='text/css'>
+    table 
+    { font-family: Inconsolata, Consolas, Menlo, monospace;
+      font-size: 9pt;
+      border-collapse: collapse;
+    }
+    th {
+       padding: 4px;
+       margin: 0;
+       background-color: #cccccc;
+       border-bottom: 1px black solid;
+    }
+    th:nth-child(5) {
+        text-align: left;
+    }
+    td {
+       padding: 1px 10px 1px 10px;
+       margin: 0;
+    }
+    tr.gap td {
+        height: 30px;
+        background: linear-gradient(left, white 30%, #8b0 70%);
+    }
+    tr.gap td:nth-child(3) {
+        background: linear-gradient(gray, white, gray);
+    }
+    td:nth-child(2) {
+       text-align: right;
+       padding-right: 2px;
+    }
+    td:nth-child(3) {
+       border: 1px solid black;
+    }
+    td:nth-child(4) {
+       font-style: italic;
+    }
+    td:nth-child(1) {
+        font-weight: bold;
+        text-align: right;
+        padding-right: 0px;
+    }
+    tr.stackframe1line td:nth-child(4), tr.stackframe2line td:nth-child(4), tr.stackframe3line td:nth-child(4), tr.stackframe4line td:nth-child(4) {
+       border-top: 1px solid black;
+    }
+    tr.stackframe2 td:nth-child(3), tr.stackframe2line td:nth-child(3) {
+        background-color:#ffccff;
+    }
+    tr.stackframe3 td:nth-child(3), tr.stackframe3line td:nth-child(3) {
+        background-color:#ccffcc;
+    }
+    tr.stackframe1 td:nth-child(3), tr.stackframe1line td:nth-child(3) {
+        background-color:#ccffff;
+    }
+    tr.stackframe4 td:nth-child(3), tr.stackframe4line td:nth-child(3) {
+        background-color:#ffffcc;
+    }
+    tr.stack td:nth-child(3), tr.stackline td:nth-child(3) {
+        background-color:#FFFF66;
+    }
+    tr.bss td:nth-child(3) {
+        background-color:#66CCFF;
+    }
+    tr.rodata td:nth-child(3) {
+        background-color:#66FF66;
+    }
+    tr.data td:nth-child(3){
+        background-color:#FF6666;
+    }
+    tr.text td:nth-child(3) {
+        background-color:#ffcc99;
+    }
+  </style>
+<tt>Diagram of simple.elf, stopped in factorial (simple.c:10)</tt>
+<table><tr><th>&nbsp;</th><th>Address</th><th>Contents</th><th>&nbsp;</th><th>decoded</th></tr>
+<tr class=stackframe2line><td></td><td>[0x7fffffc]</td><td>00 00 81 30</td><td>saved pc</td><td>_cstart frame</td></tr>
+<tr class=stackframe2><td></td><td>[0x7fffff8]</td><td>00 00 80 0c</td><td>saved lr</td><td></td></tr>
+<tr class=stackframe2><td></td><td>[0x7fffff4]</td><td>08 00 00 00</td><td>saved sp</td><td></td></tr>
+<tr class=stackframe2><td></td><td>[0x7fffff0]</td><td>00 00 00 00</td><td>saved fp</td><td></td></tr>
+<tr class=stackframe3line><td></td><td>[0x7ffffec]</td><td>00 00 80 f0</td><td>saved pc</td><td>main frame</td></tr>
+<tr class=stackframe3><td></td><td>[0x7ffffe8]</td><td>00 00 81 54</td><td>saved lr</td><td></td></tr>
+<tr class=stackframe3><td></td><td>[0x7ffffe4]</td><td>07 ff ff f0</td><td>saved sp</td><td></td></tr>
+<tr class=stackframe3><td></td><td>[0x7ffffe0]</td><td>07 ff ff fc</td><td>saved fp</td><td></td></tr>
+<tr class=stackframe3><td></td><td>[0x7ffffdc]</td><td>00 00 00 00</td><td>saved r5</td><td></td></tr>
+<tr class=stackframe3><td></td><td>[0x7ffffd8]</td><td>00 00 00 00</td><td>saved r4</td><td></td></tr>
+<tr class=stackframe4line><td></td><td>[0x7ffffd4]</td><td>00 00 80 3c</td><td>saved pc</td><td>factorial frame</td></tr>
+<tr class=stackframe4><td></td><td>[0x7ffffd0]</td><td>00 00 81 08</td><td>saved lr</td><td></td></tr>
+<tr class=stackframe4><td></td><td>[0x7ffffcc]</td><td>07 ff ff d8</td><td>saved sp</td><td></td></tr>
+<tr class=stackframe4><td></td><td>[0x7ffffc8]</td><td>07 ff ff ec</td><td>saved fp</td><td></td></tr>
+<tr class=stackframe4><td></td><td>[0x7ffffc4]</td><td>00 00 00 00</td><td>saved r4</td><td></td></tr>
+<tr class=stackframe4><td></td><td>[0x7ffffc0]</td><td>00 00 81 88</td><td>saved r3</td><td></td></tr>
+<tr class=stackframe1line><td></td><td>[0x7ffffbc]</td><td>00 00 80 3c</td><td>saved pc</td><td>factorial frame</td></tr>
+<tr class=stackframe1><td></td><td>[0x7ffffb8]</td><td>00 00 80 50</td><td>saved lr</td><td></td></tr>
+<tr class=stackframe1><td></td><td>[0x7ffffb4]</td><td>07 ff ff c0</td><td>saved sp</td><td></td></tr>
+<tr class=stackframe1><td></td><td>[0x7ffffb0]</td><td>07 ff ff d4</td><td>saved fp</td><td></td></tr>
+<tr class=stackframe1><td></td><td>[0x7ffffac]</td><td>00 00 00 07</td><td>saved r4</td><td></td></tr>
+<tr class=stackframe1><td></td><td>[0x7ffffa8]</td><td>00 00 81 88</td><td>saved r3</td><td></td></tr>
+<tr class=stackframe2line><td></td><td>[0x7ffffa4]</td><td>00 00 80 3c</td><td>saved pc</td><td>factorial frame</td></tr>
+<tr class=stackframe2><td></td><td>[0x7ffffa0]</td><td>00 00 80 50</td><td>saved lr</td><td></td></tr>
+<tr class=stackframe2><td></td><td>[0x7ffff9c]</td><td>07 ff ff a8</td><td>saved sp</td><td></td></tr>
+<tr class=stackframe2><td></td><td>[0x7ffff98]</td><td>07 ff ff bc</td><td>saved fp</td><td></td></tr>
+<tr class=stackframe2><td></td><td>[0x7ffff94]</td><td>00 00 00 06</td><td>saved r4</td><td></td></tr>
+<tr class=stackframe2><td></td><td>[0x7ffff90]</td><td>00 00 81 88</td><td>saved r3</td><td></td></tr>
+<tr class=stackframe3line><td></td><td>[0x7ffff8c]</td><td>00 00 80 3c</td><td>saved pc</td><td>factorial frame</td></tr>
+<tr class=stackframe3><td></td><td>[0x7ffff88]</td><td>00 00 80 50</td><td>saved lr</td><td></td></tr>
+<tr class=stackframe3><td></td><td>[0x7ffff84]</td><td>07 ff ff 90</td><td>saved sp</td><td></td></tr>
+<tr class=stackframe3><td></td><td>[0x7ffff80]</td><td>07 ff ff a4</td><td>saved fp</td><td></td></tr>
+<tr class=stackframe3><td></td><td>[0x7ffff7c]</td><td>00 00 00 05</td><td>saved r4</td><td></td></tr>
+<tr class=stackframe3><td></td><td>[0x7ffff78]</td><td>00 00 81 88</td><td>saved r3</td><td></td></tr>
+<tr class=stackframe4line><td></td><td>[0x7ffff74]</td><td>00 00 80 3c</td><td>saved pc</td><td>factorial frame</td></tr>
+<tr class=stackframe4><td></td><td>[0x7ffff70]</td><td>00 00 80 50</td><td>saved lr</td><td></td></tr>
+<tr class=stackframe4><td></td><td>[0x7ffff6c]</td><td>07 ff ff 78</td><td>saved sp</td><td></td></tr>
+<tr class=stackframe4><td></td><td>[0x7ffff68]</td><td>07 ff ff 8c</td><td>saved fp</td><td></td></tr>
+<tr class=stackframe4><td></td><td>[0x7ffff64]</td><td>00 00 00 04</td><td>saved r4</td><td></td></tr>
+<tr class=stackframe4><td></td><td>[0x7ffff60]</td><td>00 00 81 88</td><td>saved r3</td><td></td></tr>
+<tr class=stackframe1line><td></td><td>[0x7ffff5c]</td><td>00 00 80 3c</td><td>saved pc</td><td>factorial frame</td></tr>
+<tr class=stackframe1><td></td><td>[0x7ffff58]</td><td>00 00 80 50</td><td>saved lr</td><td></td></tr>
+<tr class=stackframe1><td></td><td>[0x7ffff54]</td><td>07 ff ff 60</td><td>saved sp</td><td></td></tr>
+<tr class=stackframe1><td></td><td>[0x7ffff50]</td><td>07 ff ff 74</td><td>saved fp</td><td></td></tr>
+<tr class=stackframe1><td></td><td>[0x7ffff4c]</td><td>00 00 00 03</td><td>saved r4</td><td></td></tr>
+<tr class=stackframe1><td></td><td>[0x7ffff48]</td><td>00 00 81 88</td><td>saved r3</td><td></td></tr>
+<tr class=stackframe2line><td>fp =></td><td>[0x7ffff44]</td><td>00 00 80 3c</td><td>saved pc</td><td>factorial frame</td></tr>
+<tr class=stackframe2><td></td><td>[0x7ffff40]</td><td>00 00 80 50</td><td>saved lr</td><td></td></tr>
+<tr class=stackframe2><td></td><td>[0x7ffff3c]</td><td>07 ff ff 48</td><td>saved sp</td><td></td></tr>
+<tr class=stackframe2><td></td><td>[0x7ffff38]</td><td>07 ff ff 5c</td><td>saved fp</td><td></td></tr>
+<tr class=stackframe2><td></td><td>[0x7ffff34]</td><td>00 00 00 02</td><td>saved r4</td><td></td></tr>
+<tr class=stackframe2><td>sp =></td><td>[0x7ffff30]</td><td>00 00 81 88</td><td>saved r3</td><td></td></tr>
+</table></html>
