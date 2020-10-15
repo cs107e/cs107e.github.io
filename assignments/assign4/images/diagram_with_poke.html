@@ -1,0 +1,213 @@
+<html>
+<style type='text/css'>
+    table 
+    { font-family: Inconsolata, Consolas, Menlo, monospace;
+      font-size: 9pt;
+      border-collapse: collapse;
+    }
+    th {
+       padding: 4px;
+       margin: 0;
+       background-color: #cccccc;
+       border-bottom: 1px black solid;
+    }
+    th:nth-child(5) {
+        text-align: left;
+    }
+    td {
+       padding: 1px 10px 1px 10px;
+       margin: 0;
+    }
+    tr.gap td {
+        height: 30px;
+        background: linear-gradient(left, white 30%, #8b0 70%);
+    }
+    tr.gap td:nth-child(3) {
+        background: linear-gradient(gray, white, gray);
+    }
+    td:nth-child(2) {
+       text-align: right;
+       padding-right: 2px;
+    }
+    td:nth-child(3) {
+       border: 1px solid black;
+    }
+    td:nth-child(4) {
+       font-style: italic;
+    }
+    td:nth-child(1) {
+        font-weight: bold;
+        text-align: right;
+        padding-right: 0px;
+    }
+    tr.stackframe1line td:nth-child(4), tr.stackframe2line td:nth-child(4), tr.stackframe3line td:nth-child(4), tr.stackframe4line td:nth-child(4) {
+       border-top: 1px solid black;
+    }
+    tr.stackframe2 td:nth-child(3), tr.stackframe2line td:nth-child(3) {
+        background-color:#ffccff;
+    }
+    tr.stackframe3 td:nth-child(3), tr.stackframe3line td:nth-child(3) {
+        background-color:#ccffcc;
+    }
+    tr.stackframe1 td:nth-child(3), tr.stackframe1line td:nth-child(3) {
+        background-color:#ccffff;
+    }
+    tr.stackframe4 td:nth-child(3), tr.stackframe4line td:nth-child(3) {
+        background-color:#ffffcc;
+    }
+    tr.stack td:nth-child(3), tr.stackline td:nth-child(3) {
+        background-color:#FFFF66;
+    }
+    tr.bss td:nth-child(3) {
+        background-color:#66CCFF;
+    }
+    tr.rodata td:nth-child(3) {
+        background-color:#66FF66;
+    }
+    tr.data td:nth-child(3){
+        background-color:#FF6666;
+    }
+    tr.text td:nth-child(3) {
+        background-color:#ffcc99;
+    }
+  </style>
+<tt>Diagram of simple.elf, stopped in abs (simple.c:5)</tt>
+<table><tr><th>&nbsp;</th><th>Address</th><th>Contents</th><th>&nbsp;</th><th>decoded</th></tr>
+<tr class=stackframe2line><td></td><td>[0x7fffffc]</td><td>00 00 81 7c</td><td>saved pc</td><td>_cstart frame</td></tr>
+<tr class=stackframe2><td></td><td>[0x7fffff8]</td><td>00 00 80 0c</td><td>saved lr</td><td></td></tr>
+<tr class=stackframe2><td></td><td>[0x7fffff4]</td><td>08 00 00 00</td><td>saved sp</td><td></td></tr>
+<tr class=stackframe2><td></td><td>[0x7fffff0]</td><td>00 00 00 00</td><td>saved fp</td><td></td></tr>
+<tr class=stackframe3line><td></td><td>[0x7ffffec]</td><td>00 00 81 30</td><td>saved pc</td><td>main frame</td></tr>
+<tr class=stackframe3><td></td><td>[0x7ffffe8]</td><td>00 00 81 a0</td><td>saved lr</td><td></td></tr>
+<tr class=stackframe3><td></td><td>[0x7ffffe4]</td><td>07 ff ff f0</td><td>saved sp</td><td></td></tr>
+<tr class=stackframe3><td></td><td>[0x7ffffe0]</td><td>07 ff ff fc</td><td>saved fp</td><td></td></tr>
+<tr class=stackframe3><td></td><td>[0x7ffffdc]</td><td>00 00 00 00</td><td>saved r5</td><td></td></tr>
+<tr class=stackframe3><td></td><td>[0x7ffffd8]</td><td>00 00 00 00</td><td>saved r4</td><td></td></tr>
+<tr class=stackframe4line><td></td><td>[0x7ffffd4]</td><td>00 00 81 04</td><td>saved pc</td><td>diff frame</td></tr>
+<tr class=stackframe4><td></td><td>[0x7ffffd0]</td><td>00 00 81 3c</td><td>saved lr</td><td></td></tr>
+<tr class=stackframe4><td></td><td>[0x7ffffcc]</td><td>07 ff ff d8</td><td>saved sp</td><td></td></tr>
+<tr class=stackframe4><td></td><td>[0x7ffffc8]</td><td>07 ff ff ec</td><td>saved fp</td><td></td></tr>
+<tr class=stackframe1line><td>fp =></td><td>[0x7ffffc4]</td><td>00 00 80 24</td><td>saved pc</td><td>abs frame</td></tr>
+<tr class=stackframe1><td></td><td>[0x7ffffc0]</td><td>00 00 81 0c</td><td>saved lr</td><td></td></tr>
+<tr class=stackframe1><td></td><td>[0x7ffffbc]</td><td>07 ff ff c8</td><td>saved sp</td><td></td></tr>
+<tr class=stackframe1><td>sp =></td><td>[0x7ffffb8]</td><td>07 ff ff d4</td><td>saved fp</td><td></td></tr>
+<tr class=gap><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr class=text><td></td><td>[   0x81d4]</td><td>00 00 00 00</td><td></td><td>\0\0\0\0</td></tr>
+<tr class=text><td></td><td>[   0x81d0]</td><td>20 20 00 00</td><td>&lt;_cstart+96&gt;</td><td>.word	0x20200000</td></tr>
+<tr class=text><td></td><td>[   0x81cc]</td><td>00 00 81 d8</td><td>&lt;_cstart+92&gt;</td><td>.word	0x81d8</td></tr>
+<tr class=text><td></td><td>[   0x81c8]</td><td>00 00 81 d4</td><td>&lt;_cstart+88&gt;</td><td>.word	0x81d4</td></tr>
+<tr class=text><td></td><td>[   0x81c4]</td><td>e1 2f ff 1e</td><td>&lt;_cstart+84&gt;</td><td>bx	lr</td></tr>
+<tr class=text><td></td><td>[   0x81c0]</td><td>e8 9d 68 00</td><td>&lt;_cstart+80&gt;</td><td>ldm	sp, {fp, sp, lr}</td></tr>
+<tr class=text><td></td><td>[   0x81bc]</td><td>e2 4b d0 0c</td><td>&lt;_cstart+76&gt;</td><td>sub	sp, fp, #12</td></tr>
+<tr class=text><td></td><td>[   0x81b8]</td><td>e5 83 20 20</td><td>&lt;_cstart+72&gt;</td><td>str	r2, [r3, #32]</td></tr>
+<tr class=text><td></td><td>[   0x81b4]</td><td>e3 a0 29 02</td><td>&lt;_cstart+68&gt;</td><td>mov	r2, #32768	</td></tr>
+<tr class=text><td></td><td>[   0x81b0]</td><td>e5 83 20 10</td><td>&lt;_cstart+64&gt;</td><td>str	r2, [r3, #16]</td></tr>
+<tr class=text><td></td><td>[   0x81ac]</td><td>e3 82 26 02</td><td>&lt;_cstart+60&gt;</td><td>orr	r2, r2, #2097152	</td></tr>
+<tr class=text><td></td><td>[   0x81a8]</td><td>e3 c2 26 0e</td><td>&lt;_cstart+56&gt;</td><td>bic	r2, r2, #14680064	</td></tr>
+<tr class=text><td></td><td>[   0x81a4]</td><td>e5 93 20 10</td><td>&lt;_cstart+52&gt;</td><td>ldr	r2, [r3, #16]</td></tr>
+<tr class=text><td></td><td>[   0x81a0]</td><td>e5 9f 30 28</td><td>&lt;_cstart+48&gt;</td><td>ldr	r3, [pc, #40]	</td></tr>
+<tr class=text><td></td><td>[   0x819c]</td><td>eb ff ff e0</td><td>&lt;_cstart+44&gt;</td><td>bl	0x8124 &lt;main&gt;</td></tr>
+<tr class=text><td></td><td>[   0x8198]</td><td>3a ff ff fb</td><td>&lt;_cstart+40&gt;</td><td>bcc	0x818c &lt;_cstart+28&gt;</td></tr>
+<tr class=text><td></td><td>[   0x8194]</td><td>e1 53 00 02</td><td>&lt;_cstart+36&gt;</td><td>cmp	r3, r2</td></tr>
+<tr class=text><td></td><td>[   0x8190]</td><td>e2 83 30 04</td><td>&lt;_cstart+32&gt;</td><td>add	r3, r3, #4</td></tr>
+<tr class=text><td></td><td>[   0x818c]</td><td>e5 83 10 00</td><td>&lt;_cstart+28&gt;</td><td>str	r1, [r3]</td></tr>
+<tr class=text><td></td><td>[   0x8188]</td><td>ea 00 00 01</td><td>&lt;_cstart+24&gt;</td><td>b	0x8194 &lt;_cstart+36&gt;</td></tr>
+<tr class=text><td></td><td>[   0x8184]</td><td>e3 a0 10 00</td><td>&lt;_cstart+20&gt;</td><td>mov	r1, #0</td></tr>
+<tr class=text><td></td><td>[   0x8180]</td><td>e5 9f 20 44</td><td>&lt;_cstart+16&gt;</td><td>ldr	r2, [pc, #68]	</td></tr>
+<tr class=text><td></td><td>[   0x817c]</td><td>e5 9f 30 44</td><td>&lt;_cstart+12&gt;</td><td>ldr	r3, [pc, #68]	</td></tr>
+<tr class=text><td></td><td>[   0x8178]</td><td>e2 4c b0 04</td><td>&lt;_cstart+8&gt;</td><td>sub	fp, r12, #4</td></tr>
+<tr class=text><td></td><td>[   0x8174]</td><td>e9 2d d8 00</td><td>&lt;_cstart+4&gt;</td><td>push	{fp, r12, lr, pc}</td></tr>
+<tr class=text><td></td><td>[   0x8170]</td><td>e1 a0 c0 0d</td><td>&lt;_cstart+0&gt;</td><td>mov	r12, sp</td></tr>
+<tr class=text><td></td><td>[   0x816c]</td><td>ff 00 00 08</td><td></td><td>\8\0\0\ff</td></tr>
+<tr class=text><td></td><td>[   0x8168]</td><td>00 74 72 61</td><td></td><td>art\0</td></tr>
+<tr class=text><td></td><td>[   0x8164]</td><td>74 73 63 5f</td><td></td><td>_cst</td></tr>
+<tr class=text><td></td><td>[   0x8160]</td><td>e1 2f ff 1e</td><td>&lt;main+60&gt;</td><td>bx	lr</td></tr>
+<tr class=text><td></td><td>[   0x815c]</td><td>e8 9d 68 30</td><td>&lt;main+56&gt;</td><td>ldm	sp, {r4, r5, fp, sp, lr}</td></tr>
+<tr class=text><td></td><td>[   0x8158]</td><td>e2 4b d0 14</td><td>&lt;main+52&gt;</td><td>sub	sp, fp, #20</td></tr>
+<tr class=text><td></td><td>[   0x8154]</td><td>e0 84 00 00</td><td>&lt;main+48&gt;</td><td>add	r0, r4, r0</td></tr>
+<tr class=text><td></td><td>[   0x8150]</td><td>e0 85 40 04</td><td>&lt;main+44&gt;</td><td>add	r4, r5, r4</td></tr>
+<tr class=text><td></td><td>[   0x814c]</td><td>eb ff ff cf</td><td>&lt;main+40&gt;</td><td>bl	0x8090 &lt;make_array&gt;</td></tr>
+<tr class=text><td></td><td>[   0x8148]</td><td>e1 a0 40 00</td><td>&lt;main+36&gt;</td><td>mov	r4, r0</td></tr>
+<tr class=text><td></td><td>[   0x8144]</td><td>eb ff ff bf</td><td>&lt;main+32&gt;</td><td>bl	0x8048 &lt;factorial&gt;</td></tr>
+<tr class=text><td></td><td>[   0x8140]</td><td>e3 a0 00 07</td><td>&lt;main+28&gt;</td><td>mov	r0, #7</td></tr>
+<tr class=text><td></td><td>[   0x813c]</td><td>e1 a0 50 00</td><td>&lt;main+24&gt;</td><td>mov	r5, r0</td></tr>
+<tr class=text><td></td><td>[   0x8138]</td><td>eb ff ff ee</td><td>&lt;main+20&gt;</td><td>bl	0x80f8 &lt;diff&gt;</td></tr>
+<tr class=text><td></td><td>[   0x8134]</td><td>e3 a0 10 6b</td><td>&lt;main+16&gt;</td><td>mov	r1, #107	</td></tr>
+<tr class=text><td></td><td>[   0x8130]</td><td>e3 a0 00 21</td><td>&lt;main+12&gt;</td><td>mov	r0, #33	</td></tr>
+<tr class=text><td></td><td>[   0x812c]</td><td>e2 4c b0 04</td><td>&lt;main+8&gt;</td><td>sub	fp, r12, #4</td></tr>
+<tr class=text><td></td><td>[   0x8128]</td><td>e9 2d d8 30</td><td>&lt;main+4&gt;</td><td>push	{r4, r5, fp, r12, lr, pc}</td></tr>
+<tr class=text><td></td><td>[   0x8124]</td><td>e1 a0 c0 0d</td><td>&lt;main+0&gt;</td><td>mov	r12, sp</td></tr>
+<tr class=text><td></td><td>[   0x8120]</td><td>ff 00 00 08</td><td></td><td>\8\0\0\ff</td></tr>
+<tr class=text><td></td><td>[   0x811c]</td><td>00 00 00 00</td><td></td><td>\0\0\0\0</td></tr>
+<tr class=text><td></td><td>[   0x8118]</td><td>6e 69 61 6d</td><td></td><td>main</td></tr>
+<tr class=text><td></td><td>[   0x8114]</td><td>e1 2f ff 1e</td><td>&lt;diff+28&gt;</td><td>bx	lr</td></tr>
+<tr class=text><td></td><td>[   0x8110]</td><td>e8 9d 68 00</td><td>&lt;diff+24&gt;</td><td>ldm	sp, {fp, sp, lr}</td></tr>
+<tr class=text><td></td><td>[   0x810c]</td><td>e2 4b d0 0c</td><td>&lt;diff+20&gt;</td><td>sub	sp, fp, #12</td></tr>
+<tr class=text><td></td><td>[   0x8108]</td><td>eb ff ff c2</td><td>&lt;diff+16&gt;</td><td>bl	0x8018 &lt;abs&gt;</td></tr>
+<tr class=text><td></td><td>[   0x8104]</td><td>e0 61 00 00</td><td>&lt;diff+12&gt;</td><td>rsb	r0, r1, r0</td></tr>
+<tr class=text><td></td><td>[   0x8100]</td><td>e2 4c b0 04</td><td>&lt;diff+8&gt;</td><td>sub	fp, r12, #4</td></tr>
+<tr class=text><td></td><td>[   0x80fc]</td><td>e9 2d d8 00</td><td>&lt;diff+4&gt;</td><td>push	{fp, r12, lr, pc}</td></tr>
+<tr class=text><td></td><td>[   0x80f8]</td><td>e1 a0 c0 0d</td><td>&lt;diff+0&gt;</td><td>mov	r12, sp</td></tr>
+<tr class=text><td></td><td>[   0x80f4]</td><td>ff 00 00 08</td><td></td><td>\8\0\0\ff</td></tr>
+<tr class=text><td></td><td>[   0x80f0]</td><td>00 00 00 00</td><td></td><td>\0\0\0\0</td></tr>
+<tr class=text><td></td><td>[   0x80ec]</td><td>66 66 69 64</td><td></td><td>diff</td></tr>
+<tr class=text><td></td><td>[   0x80e8]</td><td>e1 2f ff 1e</td><td>&lt;make_array+88&gt;</td><td>bx	lr</td></tr>
+<tr class=text><td></td><td>[   0x80e4]</td><td>e8 9d 68 00</td><td>&lt;make_array+84&gt;</td><td>ldm	sp, {fp, sp, lr}</td></tr>
+<tr class=text><td></td><td>[   0x80e0]</td><td>e2 4b d0 0c</td><td>&lt;make_array+80&gt;</td><td>sub	sp, fp, #12</td></tr>
+<tr class=text><td></td><td>[   0x80dc]</td><td>eb ff ff cd</td><td>&lt;make_array+76&gt;</td><td>bl	0x8018 &lt;abs&gt;</td></tr>
+<tr class=text><td></td><td>[   0x80d8]</td><td>e5 1b 00 18</td><td>&lt;make_array+72&gt;</td><td>ldr	r0, [fp, #-24]</td></tr>
+<tr class=text><td></td><td>[   0x80d4]</td><td>da ff ff f5</td><td>&lt;make_array+68&gt;</td><td>ble	0x80b0 &lt;make_array+32&gt;</td></tr>
+<tr class=text><td></td><td>[   0x80d0]</td><td>e3 53 00 04</td><td>&lt;make_array+64&gt;</td><td>cmp	r3, #4</td></tr>
+<tr class=text><td></td><td>[   0x80cc]</td><td>e1 a0 30 02</td><td>&lt;make_array+60&gt;</td><td>mov	r3, r2</td></tr>
+<tr class=text><td></td><td>[   0x80c8]</td><td>e5 03 10 18</td><td>&lt;make_array+56&gt;</td><td>str	r1, [r3, #-24]</td></tr>
+<tr class=text><td></td><td>[   0x80c4]</td><td>e0 80 31 02</td><td>&lt;make_array+52&gt;</td><td>add	r3, r0, r2, lsl #2</td></tr>
+<tr class=text><td></td><td>[   0x80c0]</td><td>e2 81 10 02</td><td>&lt;make_array+48&gt;</td><td>add	r1, r1, #2</td></tr>
+<tr class=text><td></td><td>[   0x80bc]</td><td>e5 13 10 18</td><td>&lt;make_array+44&gt;</td><td>ldr	r1, [r3, #-24]</td></tr>
+<tr class=text><td></td><td>[   0x80b8]</td><td>e0 80 31 03</td><td>&lt;make_array+40&gt;</td><td>add	r3, r0, r3, lsl #2</td></tr>
+<tr class=text><td></td><td>[   0x80b4]</td><td>e2 4b 00 0c</td><td>&lt;make_array+36&gt;</td><td>sub	r0, fp, #12</td></tr>
+<tr class=text><td></td><td>[   0x80b0]</td><td>e2 83 20 01</td><td>&lt;make_array+32&gt;</td><td>add	r2, r3, #1</td></tr>
+<tr class=text><td></td><td>[   0x80ac]</td><td>ea 00 00 07</td><td>&lt;make_array+28&gt;</td><td>b	0x80d0 &lt;make_array+64&gt;</td></tr>
+<tr class=text><td></td><td>[   0x80a8]</td><td>e3 a0 30 00</td><td>&lt;make_array+24&gt;</td><td>mov	r3, #0</td></tr>
+<tr class=text><td></td><td>[   0x80a4]</td><td>e5 0b 30 24</td><td>&lt;make_array+20&gt;</td><td>str	r3, [fp, #-36]	</td></tr>
+<tr class=text><td></td><td>[   0x80a0]</td><td>e3 a0 30 01</td><td>&lt;make_array+16&gt;</td><td>mov	r3, #1</td></tr>
+<tr class=text><td></td><td>[   0x809c]</td><td>e2 4d d0 18</td><td>&lt;make_array+12&gt;</td><td>sub	sp, sp, #24</td></tr>
+<tr class=text><td></td><td>[   0x8098]</td><td>e2 4c b0 04</td><td>&lt;make_array+8&gt;</td><td>sub	fp, r12, #4</td></tr>
+<tr class=text><td></td><td>[   0x8094]</td><td>e9 2d d8 00</td><td>&lt;make_array+4&gt;</td><td>push	{fp, r12, lr, pc}</td></tr>
+<tr class=text><td></td><td>[   0x8090]</td><td>e1 a0 c0 0d</td><td>&lt;make_array+0&gt;</td><td>mov	r12, sp</td></tr>
+<tr class=text><td></td><td>[   0x808c]</td><td>ff 00 00 0c</td><td></td><td>\c\0\0\ff</td></tr>
+<tr class=text><td></td><td>[   0x8088]</td><td>00 00 79 61</td><td></td><td>ay\0\0</td></tr>
+<tr class=text><td></td><td>[   0x8084]</td><td>72 72 61 5f</td><td></td><td>_arr</td></tr>
+<tr class=text><td></td><td>[   0x8080]</td><td>65 6b 61 6d</td><td></td><td>make</td></tr>
+<tr class=text><td></td><td>[   0x807c]</td><td>e1 2f ff 1e</td><td>&lt;factorial+52&gt;</td><td>bx	lr</td></tr>
+<tr class=text><td></td><td>[   0x8078]</td><td>e8 9d 68 18</td><td>&lt;factorial+48&gt;</td><td>ldm	sp, {r3, r4, fp, sp, lr}</td></tr>
+<tr class=text><td></td><td>[   0x8074]</td><td>e2 4b d0 14</td><td>&lt;factorial+44&gt;</td><td>sub	sp, fp, #20</td></tr>
+<tr class=text><td></td><td>[   0x8070]</td><td>e3 a0 00 01</td><td>&lt;factorial+40&gt;</td><td>mov	r0, #1</td></tr>
+<tr class=text><td></td><td>[   0x806c]</td><td>ea 00 00 00</td><td>&lt;factorial+36&gt;</td><td>b	0x8074 &lt;factorial+44&gt;</td></tr>
+<tr class=text><td></td><td>[   0x8068]</td><td>e0 00 00 94</td><td>&lt;factorial+32&gt;</td><td>mul	r0, r4, r0</td></tr>
+<tr class=text><td></td><td>[   0x8064]</td><td>eb ff ff f7</td><td>&lt;factorial+28&gt;</td><td>bl	0x8048 &lt;factorial&gt;</td></tr>
+<tr class=text><td></td><td>[   0x8060]</td><td>e2 40 00 01</td><td>&lt;factorial+24&gt;</td><td>sub	r0, r0, #1</td></tr>
+<tr class=text><td></td><td>[   0x805c]</td><td>da 00 00 03</td><td>&lt;factorial+20&gt;</td><td>ble	0x8070 &lt;factorial+40&gt;</td></tr>
+<tr class=text><td></td><td>[   0x8058]</td><td>e3 50 00 01</td><td>&lt;factorial+16&gt;</td><td>cmp	r0, #1</td></tr>
+<tr class=text><td></td><td>[   0x8054]</td><td>e1 a0 40 00</td><td>&lt;factorial+12&gt;</td><td>mov	r4, r0</td></tr>
+<tr class=text><td></td><td>[   0x8050]</td><td>e2 4c b0 04</td><td>&lt;factorial+8&gt;</td><td>sub	fp, r12, #4</td></tr>
+<tr class=text><td></td><td>[   0x804c]</td><td>e9 2d d8 18</td><td>&lt;factorial+4&gt;</td><td>push	{r3, r4, fp, r12, lr, pc}</td></tr>
+<tr class=text><td></td><td>[   0x8048]</td><td>e1 a0 c0 0d</td><td>&lt;factorial+0&gt;</td><td>mov	r12, sp</td></tr>
+<tr class=text><td></td><td>[   0x8044]</td><td>ff 00 00 0c</td><td></td><td>\c\0\0\ff</td></tr>
+<tr class=text><td></td><td>[   0x8040]</td><td>00 00 00 6c</td><td></td><td>l\0\0\0</td></tr>
+<tr class=text><td></td><td>[   0x803c]</td><td>61 69 72 6f</td><td></td><td>oria</td></tr>
+<tr class=text><td></td><td>[   0x8038]</td><td>74 63 61 66</td><td></td><td>fact</td></tr>
+<tr class=text><td></td><td>[   0x8034]</td><td>e1 2f ff 1e</td><td>&lt;abs+28&gt;</td><td>bx	lr</td></tr>
+<tr class=text><td></td><td>[   0x8030]</td><td>e8 9d 68 00</td><td>&lt;abs+24&gt;</td><td>ldm	sp, {fp, sp, lr}</td></tr>
+<tr class=text><td></td><td>[   0x802c]</td><td>e2 4b d0 0c</td><td>&lt;abs+20&gt;</td><td>sub	sp, fp, #12</td></tr>
+<tr class=text><td></td><td>[   0x8028]</td><td>b2 60 00 00</td><td>&lt;abs+16&gt;</td><td>rsblt	r0, r0, #0</td></tr>
+<tr class=text><td>pc =></td><td>[   0x8024]</td><td>e3 50 00 00</td><td>&lt;abs+12&gt;</td><td>cmp	r0, #0</td></tr>
+<tr class=text><td></td><td>[   0x8020]</td><td>e2 4c b0 04</td><td>&lt;abs+8&gt;</td><td>sub	fp, r12, #4</td></tr>
+<tr class=text><td></td><td>[   0x801c]</td><td>e9 2d d8 00</td><td>&lt;abs+4&gt;</td><td>push	{fp, r12, lr, pc}</td></tr>
+<tr class=text><td></td><td>[   0x8018]</td><td>e1 a0 c0 0d</td><td>&lt;abs+0&gt;</td><td>mov	r12, sp</td></tr>
+<tr class=text><td></td><td>[   0x8014]</td><td>ff 00 00 04</td><td></td><td>\4\0\0\ff</td></tr>
+<tr class=text><td></td><td>[   0x8010]</td><td>00 73 62 61</td><td></td><td>abs\0</td></tr>
+<tr class=text><td></td><td>[   0x800c]</td><td>ea ff ff fe</td><td>&lt;hang+0&gt;</td><td>b	0x800c &lt;hang&gt;</td></tr>
+<tr class=text><td></td><td>[   0x8008]</td><td>eb 00 00 58</td><td>&lt;_start+8&gt;</td><td>bl	0x8170 &lt;_cstart&gt;</td></tr>
+<tr class=text><td></td><td>[   0x8004]</td><td>e3 a0 b0 00</td><td>&lt;_start+4&gt;</td><td>mov	fp, #0</td></tr>
+<tr class=text><td></td><td>[   0x8000]</td><td>e3 a0 d3 02</td><td>&lt;_start+0&gt;</td><td>mov	sp, #134217728	</td></tr>
+</table></html>
