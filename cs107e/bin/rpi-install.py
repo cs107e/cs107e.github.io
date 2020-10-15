@@ -220,7 +220,7 @@ You should probably restart the Pi, since you interrupted it mid-load.
                     break
                 if args.T != -1 and time.time() - initial_comm > args.T:
                     printq("\nrpi-install.py: ran for a total of %d seconds. Detaching." % args.T)
-                    sys.exit(124) # Return timeout code for autograder
+                    break
                 #  grade scripts invoke -T, don't print this message during autograde
                 if args.T == -1 and select.select([sys.stdin,],[],[],0.0)[0]:  # user has typed something on stdin
                     sys.stdin.readline()  # consume input and discard
