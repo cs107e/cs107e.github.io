@@ -58,18 +58,18 @@ weeks:
     assign: /assignments/assign6/
     fri: /lectures/Interrupts2/
   -
-    mon: /lectures/Sensors/
+    mon: Guest Lecture, Mark Horowitz
     lab: /labs/lab7/
     assign: /assignments/assign7/
     fri: /lectures/Arithmetic/
   -
-    mon: lectures/MakingEngineering
+    mon: lectures/Arithmetic
     lab: /labs/projectlab1/
     assign: /project/
-    fri: Guest Lecture
+    fri: lectures/MakingEngineering
   -
     mon: /lectures/Wrap/ 
-    lab: Project due
+    lab: Projects
     fri: No class
   -
     project_due: "2020-11-20"
