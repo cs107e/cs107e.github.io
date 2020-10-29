@@ -79,8 +79,8 @@ Here are the files of interest for this week:
   sample application to test your shell.
 
 The `make install` target of the Makefile builds and runs the sample application
-`src/apps/uart_shell.bin`. The `make test` target builds and runs the test program 
-`src/tests/test_keyboard.bin`. With no argument, `make` will build both, but not run. 
+`src/apps/uart_shell.c`. The `make test` target builds and runs the test program 
+`src/tests/test_keyboard.c`. With no argument, `make` will build both, but not run. 
 
 ## Basic part
 
