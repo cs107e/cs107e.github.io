@@ -70,10 +70,10 @@ Now create your `assign5-basic` branch, merge in your work from `assign4-basic`,
 and create the `Makefile` symlink.
 
 ```
-$ git checkout -b assign5-basic
-$ git merge assign4-basic
+$ git checkout -b assign6-basic
+$ git merge assign5-basic
 $ ls -l Makefile
-$ ln -sf $(pwd)/makefiles/assign5.makefile $(pwd)/Makefile
+$ ln -sf $(pwd)/makefiles/assign6.makefile $(pwd)/Makefile
 ```
 
 If aiming to achieve the full system bonus in assignment 7, be sure that you are
