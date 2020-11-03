@@ -65,12 +65,15 @@ unsigned int strtonum(const char *str, const char **endptr);
 
 /*
  * Size-bounded string concatenation. Append the null-terminated string `src`
- * to the end of `dst`. Appends at most `maxsize - strlen(dst) - 1` bytes, and
- * null-terminates `dst`. If `dst` and `src` overlap, the behavior is undefined.
+ * to the end of `dst`. `dst` may or may not be null terminated. If `dst` is
+ * null terminated, `strlcat` appends at most `maxsize - strlen(dst) - 1` bytes, and
+ * null-terminates `dst`. If `dst` is not null terminated, `strlcat` writes
+ * nothing to `dst`. If `dst` and `src` overlap, the behavior is undefined.
  *
  * Returns the initial length of `dst` plus the length of `src`. This is 
- * equal to the number of characters that would have been written to `dst` if 
- * there were space.
+ * equal to the final size of `dst` if there were space to write all of
+ * `src`. If `dst` is not null terminated, this is equal to `maxsize
+ * + strlen(src)`.
  */
 size_t strlcat(char *dst, const char *src, size_t maxsize);
 
