@@ -61,12 +61,12 @@ weeks:
     mon: Guest Lecture, Mark Horowitz
     lab: /labs/lab7/
     assign: /assignments/assign7/
-    fri: /lectures/Arithmetic/
+    fri: /lectures/MakingEngineering/
   -
-    mon: lectures/Arithmetic
+    mon: /lectures/Arithmetic
     lab: /labs/projectlab1/
     assign: /project/
-    fri: lectures/MakingEngineering
+    fri: Christos, computer architecture today
   -
     mon: /lectures/Wrap/ 
     lab: Projects
