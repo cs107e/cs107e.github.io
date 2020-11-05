@@ -179,7 +179,7 @@ only from exception
 modes.](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0068b/ch02s08s01.html)
 So, for example, if you wanted to load registers `r0`, `r8`, and `pc`
 from the stack and return to your previous execution context, you'd
-use the instruction `ldm sp! {r0, r8, sp}^`.
+use the instruction `ldm sp! {r0, r8, pc}^`.
 
 Once you've written your `interrupt_asm` function, go to the lecture
 slides for Interrupts and look at the code there. Is your code the same?
