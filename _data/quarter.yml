@@ -63,7 +63,7 @@ weeks:
     assign: /assignments/assign7/
     fri: /lectures/MakingEngineering/
   -
-    mon: /lectures/Arithmetic
+    mon: /lectures/Arithmetic/
     lab: /labs/projectlab1/
     assign: /project/
     fri: Christos, computer architecture today
