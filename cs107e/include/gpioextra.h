@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 /*
- * Functions for controlling extra features of 
+ * Functions for controlling extra features of
  * Raspberry Pi GPIO: event detection and pull state.
  *
  * Author: Pat Hanrahan <hanrahan@cs.stanford.edu>
@@ -46,15 +46,15 @@ void gpio_disable_event_detection(unsigned int pin, unsigned int event);
 bool gpio_get_event_detection(unsigned int pin, unsigned int event);
 
 /*
- * Disables detection of all GPIO events for GPIO pin number `pin`. 
+ * Disables detection of all GPIO events for GPIO pin number `pin`.
  *
  * If `pin` is invalid, does nothing.
  */
 void gpio_disable_all_event_detection(unsigned int pin);
 
 /*
- * Returns the event status for GPIO pin number `pin`. 
- * The event status is true if an event has been detected for `pin` 
+ * Returns the event status for GPIO pin number `pin`.
+ * The event status is true if an event has been detected for `pin`
  * and the event has not been cleared, status is false otherwise.
  *
  * If `pin` is invalid, returns false.
@@ -64,7 +64,7 @@ bool gpio_check_event(unsigned int pin);
 /*
  * Clears the event status for GPIO pin number `pin`. Note that if the
  * event detected is high or low level and the level is still high or low,
- * clearing the event makes no change in event status.  The event 
+ * clearing the event makes no change in event status.  The event
  * status remains true as long as the high or low level is in effect.
  *
  * If `pin` is invalid, does nothing.
@@ -81,10 +81,10 @@ bool gpio_check_and_clear_event(unsigned int pin);
 
 /*
  * The functions below control the pull state of a GPIO pin via its
- * internal resistor. Setting the pull state is useful for when you 
- * have an input pin that would otherwise be floating. A pin configured 
- * to pull-up defaults to 1. If configured to pull-down defaults to 0. 
- * The Broadcom manual says pull state of a pin cannot be queried, 
+ * internal resistor. Setting the pull state is useful for when you
+ * have an input pin that would otherwise be floating. A pin configured
+ * to pull-up defaults to 1. If configured to pull-down defaults to 0.
+ * The Broadcom manual says pull state of a pin cannot be queried,
  * so you have to remember what state you have configured. The manual
  * is also unclear about when the pull state is reset (may not be on
  * restart, but is after power down?). Best to reset yourself to be

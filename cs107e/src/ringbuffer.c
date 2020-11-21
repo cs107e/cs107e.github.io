@@ -13,7 +13,7 @@
 #define LENGTH 256
 
 /*
- * A ring buffer is represented using a struct containing a fixed-size array 
+ * A ring buffer is represented using a struct containing a fixed-size array
  * and head and tail fields, which are indexes into the entries[] array.
  * head is the index of the frontmost element (head advances during dequeue)
  * tail is the index of the next position to use (tail advances during enqueue)
@@ -25,34 +25,32 @@
 
 struct ringbuffer {
     int entries[LENGTH];
-    unsigned int head, tail; 
+    unsigned int head, tail;
 };
 
 
-rb_t *rb_new(void) 
-{
+rb_t *rb_new(void) {
     rb_t *rb = malloc(sizeof(struct ringbuffer));
     rb->head = rb->tail = 0;
     return rb;
 }
 
-bool rb_empty(rb_t *rb) 
-{
+bool rb_empty(rb_t *rb) {
     return rb->head == rb->tail;
 }
 
-bool rb_full(rb_t *rb) 
-{
+bool rb_full(rb_t *rb) {
     return (rb->tail + 1) % LENGTH == rb->head;
 }
 
 /*
- * Note: enqueue is called by writer. enqueue advances rb->tail, 
+ * Note: enqueue is called by writer. enqueue advances rb->tail,
  * no changes to rb->head.  This design allows safe concurrent access.
  */
-bool rb_enqueue(rb_t *rb, int elem) 
-{
-    if (rb_full(rb)) return false;
+bool rb_enqueue(rb_t *rb, int elem) {
+    if (rb_full(rb)) {
+        return false;
+    }
 
     rb->entries[rb->tail] = elem;
     rb->tail = (rb->tail + 1) % LENGTH;
@@ -63,9 +61,10 @@ bool rb_enqueue(rb_t *rb, int elem)
  * Note: dequeue is called by reader. dequeue advances rb->head,
  * no changes to rb->tail. This design allows safe concurrent access.
  */
-bool rb_dequeue(rb_t *rb, int *p_elem)
-{
-    if (rb_empty(rb)) return false;
+bool rb_dequeue(rb_t *rb, int *p_elem) {
+    if (rb_empty(rb)) {
+        return false;
+    }
 
     *p_elem = rb->entries[rb->head];
     rb->head = (rb->head + 1) % LENGTH;

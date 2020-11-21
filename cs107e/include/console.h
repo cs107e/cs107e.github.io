@@ -39,7 +39,7 @@ void console_clear(void);
  *
  * @return the number of characters written to the console
  */
-int console_printf(const char *format, ...) __attribute__ ((format (printf, 1, 2)));
+int console_printf(const char *format, ...) __attribute__((format(printf, 1, 2)));
 
 
 #endif

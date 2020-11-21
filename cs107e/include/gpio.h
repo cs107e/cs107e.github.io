@@ -87,7 +87,7 @@ enum {
 /*
  * These enumerated values establish symbolic names for each of the
  * available GPIO pin functions. Each pin function corresponds to
- * a particular "mode" of operation.  For example, setting a pin's 
+ * a particular "mode" of operation.  For example, setting a pin's
  * function to GPIO_FUNC_INPUT configures the pin to be used as an input.
  */
 enum {
@@ -147,7 +147,7 @@ void gpio_set_output(unsigned int pin);
  * Settings for other pins should be unchanged.
  *
  * @param pin   the GPIO pin number to set or clear
- * @param val   1 to set pin to high, 0 to clear pin 
+ * @param val   1 to set pin to high, 0 to clear pin
  *
  * If `pin` is invalid, does nothing.
  */

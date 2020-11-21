@@ -20,7 +20,7 @@ typedef struct {
     unsigned char keycode;
 } key_action_t;
 
-/* 
+/*
  * These bit flags are used for the state of the various modifier
  * keys on the keyboard.
  */
@@ -83,10 +83,13 @@ unsigned char keyboard_read_next(void);
  * Returns a `key_event_t` struct that represents the key event.
  * A key event is a press or release of a single key. The returned
  * struct includes the key that was pressed or released and the state
- * of the modifier flags. If the event is a press or release of a
- * modifier key (CTRL, ALT, SHIFT, etc.), the modifiers field in the
- * returned event show the updated state of the modifiers after
- * incorporating this key event.
+ * of the modifier flags.
+ * 
+ * Returned key events do not include modifier keys. Pressing shift,
+ * for example, will not result in a key event being returned, but if a key
+ * that does produce a key event (e.g., 'a') is pressed before the shift
+ * is released, `keyboard_read_event` will return an event for this
+ * key with the shift modifier set.
  *
  * This function calls `keyboard_read_sequence` to read a sequence.
  */
@@ -133,7 +136,7 @@ unsigned char keyboard_read_scancode(void);
 /*
  * `keyboard_use_interrupts`
  *
- * Change keyboard from default polling behavior to instead configure interrupts 
+ * Change keyboard from default polling behavior to instead configure interrupts
  * for gpio events. After setting keyboard to use interrupts, client must
  * also globally enable interrupts at system level.
  */

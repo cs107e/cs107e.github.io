@@ -1,8 +1,7 @@
 #include "rand.h"
 
 // From http://stackoverflow.com/questions/1167253/implementation-of-rand
-unsigned int rand(void) 
-{
+unsigned int rand(void) {
     static unsigned int z1 = 12345, z2 = 12345, z3 = 12345, z4 = 12345;
     unsigned int b;
 

@@ -4,11 +4,11 @@
 /*
  * Functions for a simple bare metal Raspberry Pi graphics library
  * that draws pixels, text, lines, triangles, and rectangles. Builds
- * on the lower-level framebuffer library fb.[ch] for framebuffer 
+ * on the lower-level framebuffer library fb.[ch] for framebuffer
  * access and configuration; trying to use both fb and gl
  * simultaneously is discouraged.
  *
- * You implement this module in assignment 6 (text and rectangles are 
+ * You implement this module in assignment 6 (text and rectangles are
  * required, lines and triangles are an extension).
  *
  * Author: Philip Levis <pal@cs.stanford.edu>
@@ -20,7 +20,7 @@
 typedef enum { GL_SINGLEBUFFER = FB_SINGLEBUFFER, GL_DOUBLEBUFFER = FB_DOUBLEBUFFER } gl_mode_t;
 
 /*
- * Initialize the graphic library. This function will call fb_init in turn 
+ * Initialize the graphic library. This function will call fb_init in turn
  * to initialize the framebuffer. The framebuffer will be initialzed to
  * 4-byte depth (32 bits per pixel).
  *
@@ -167,7 +167,7 @@ unsigned int gl_get_char_width(void);
 
 /*
  * Draw a filled rectangle at location x,y with size w,h filled with color c.
- * All pixels in the rectangle that lie within the bounds of the 
+ * All pixels in the rectangle that lie within the bounds of the
  * framebuffer are drawn. Any pixel that lies outside is clipped (i.e. not drawn).
  *
  * @param x  the x location of the upper left corner of the rectangle

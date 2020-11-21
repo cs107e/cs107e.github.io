@@ -13,7 +13,7 @@
 /* Type: frame_t
  * -------------
  * This struct stores the information for a function who has a frame on
- * the current stack. 
+ * the current stack.
  *
  * The `name` field is the name of the function as found by `name_of`.
  *
@@ -38,16 +38,16 @@ typedef struct {
 /* Function: backtrace
  * -------------------
  * backtrace() gathers a backtrace for the calling program and writes the
- * call stack information into the array pointed to by `f`. 
+ * call stack information into the array pointed to by `f`.
  *
  * A backtrace is the sequence of currently active function calls. Each element
- * in the array `f` is of type `frame_t` (struct described above). Each struct 
- * represents a caller who has a frame on the stack. 
+ * in the array `f` is of type `frame_t` (struct described above). Each struct
+ * represents a caller who has a frame on the stack.
  *
  * The `max_frames` argument specifies the maximum number of frames that can be
  * stored in the array f.  If the backtrace contains more than `max_frames`,
  * then the information for only the `max_frames` most recent function calls
- * are stored in the array `f`. 
+ * are stored in the array `f`.
  *
  * The return value of the function is the number of frames written to `f`.
  */
@@ -81,11 +81,11 @@ void print_backtrace(void);
  * When compiling with the `-mpoke-function-name` flag, each function's
  * name is written into the text section alongside its instructions.
  * `name_of` finds a function's name by looking in the appropriate
- * location relative to the function's start address. The `uintptr_t` type 
- * is an unsigned integer of the appropriate size to store an address. 
+ * location relative to the function's start address. The `uintptr_t` type
+ * is an unsigned integer of the appropriate size to store an address.
  * This type is used to hold an address that you intend to treat numerically.
- * 
- * If no name is available for the given address, `name_of` returns 
+ *
+ * If no name is available for the given address, `name_of` returns
  * the constant string "???"
  */
 const char *name_of(uintptr_t fn_start_addr);

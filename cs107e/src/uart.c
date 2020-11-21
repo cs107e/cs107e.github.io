@@ -47,16 +47,15 @@ static volatile struct UART *uart = (struct UART*) MINI_UART_BASE;
 
 /* Key detail from the Broadcom Peripherals data sheet p.10
  *
- * GPIO pins should be set up first the before enabling the UART. 
- * The UART core is build to emulate 16550 behaviour. 
+ * GPIO pins should be set up first the before enabling the UART.
+ * The UART core is build to emulate 16550 behaviour.
  * So when it is enabled any data at the inputs will immediately be received .
- * If the UART1_RX line is low (because the GPIO pins have not been set-up yet) 
+ * If the UART1_RX line is low (because the GPIO pins have not been set-up yet)
  * that will be seen as a start bit and the UART will start receiving 0x00-characters.
  * [...] The result will be that the FIFO is full and overflowing in no time flat.
  */
 
-void uart_init(void) 
-{
+void uart_init(void) {
     gpio_set_function(GPIO_TX, GPIO_FUNC_ALT5);
     gpio_set_function(GPIO_RX, GPIO_FUNC_ALT5);
 
@@ -78,25 +77,21 @@ void uart_init(void)
     uart->cntl = MINI_UART_CNTL_TX_ENABLE | MINI_UART_CNTL_RX_ENABLE;
 }
 
-unsigned char uart_recv(void)
-{
+unsigned char uart_recv(void) {
     while (!uart_haschar()) ; // wait for char to arrive
     return uart->data & 0xFF;
 }
 
-void uart_send(unsigned char byte)
-{
+void uart_send(unsigned char byte) {
     while (!(uart->lsr & MINI_UART_LSR_TX_EMPTY)) ;
     uart->data = byte & 0xFF;
 }
 
-void uart_flush(void)
-{
+void uart_flush(void) {
     while (!(uart->lsr & MINI_UART_LSR_TX_EMPTY)) ;
 }
 
-bool uart_haschar(void)
-{
+bool uart_haschar(void) {
     return (uart->lsr & MINI_UART_LSR_RX_READY);
 }
 
@@ -107,16 +102,18 @@ bool uart_haschar(void)
 // internally convert chars, client can simply send/receive newline
 // Use uart_send/uart_recv to send/receive raw byte, no conversion
 
-int uart_getchar(void)
-{
+int uart_getchar(void) {
     int ch = uart_recv();
-    if (ch == EOT) return EOF;      // convert EOT to EOF
-    if (ch == '\r') return '\n';    // convert CR to newline
+    if (ch == EOT) {
+        return EOF;    // convert EOT to EOF
+    }
+    if (ch == '\r') {
+        return '\n';    // convert CR to newline
+    }
     return ch;
 }
 
-int uart_putchar(int ch)
-{
+int uart_putchar(int ch) {
     // convert newline to CR LF sequence by inserting CR
     if (ch == '\n') {
         uart_send('\r');
@@ -124,8 +121,7 @@ int uart_putchar(int ch)
     uart_send(ch);
     return ch;
 }
-int uart_putstring(const char *str)
-{
+int uart_putstring(const char *str) {
     int n = 0;
     while (str[n]) {
         uart_putchar(str[n]);

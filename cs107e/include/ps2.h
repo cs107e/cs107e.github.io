@@ -2,23 +2,24 @@
 #define PS2_H
 
 /* This module declares constants for interacting with a PS/2
- * keyboard, including a useful array that serves as a lookup table
+ * keyboard, including an array that serves as a lookup table
  * to access information about the keys and the characters they produce.
  *
  * Each entry in the array corresponds to one physical key on the keyboard.
  * Each key has an assigned PS/2 scancode. The array is organized
  * in order of scancode. The scancode is used as an index to access
- * the character produced by that key. The `other_ch` is the shifted
- * char or 0 if this key's shifted char is same as unmodified. For the
+ * the character produced by that key.  For the
  * special keys (non-character), its associated char is a value >= 0x90
- * from the ps2_codes enumeration below.
+ * from the ps2_codes enumeration below. The `other_ch` is the key
+ * when shift is applied: for some key it is the same as `ch`.  
  *
- * You will use this interface in assignment 5 to implement a keyboard
+ * You use this interface in assignment 5 to implement a keyboard
  * driver.
  *
  * Author: Julie Zelenski <zelenski@cs.stanford.edu>
- * Date:   February 2018
- */ 
+ * Author: Philip Levis <pal@cs.stanford.edu>
+ * Date:   Novembner 2020 
+ */
 
 typedef struct {
     unsigned char ch;
@@ -34,7 +35,7 @@ enum ps2_codes {
     PS2_KEY_NONE = 0,
     PS2_CODE_RELEASE = 0xF0,
     PS2_CODE_EXTENDED = 0xE0,
-    PS2_KEY_SHIFT = 0x90,   
+    PS2_KEY_SHIFT = 0x90,
     PS2_KEY_ALT,    // values assigned in increasing sequence from here
     PS2_KEY_CTRL,
     PS2_KEY_CAPS_LOCK,

@@ -10,8 +10,7 @@
 #include <stdint.h>
 #include "timer.h"
 
-void pi_reboot(void) 
-{
+void pi_reboot(void) {
     static const int PM_RSTC = 0x2010001c;
     static const int PM_WDOG = 0x20100024;
     static const int PM_PASSWORD = 0x5a000000;
@@ -32,8 +31,7 @@ void pi_reboot(void)
         ;
 }
 
-void pi_abort(void) 
-{
+void pi_abort(void) {
     gpio_set_output(PI_PWR_LED);
     while (1) {  // Infinite loop, flash the red PWR LED
         pi_led_toggle(PI_PWR_LED);
@@ -41,23 +39,26 @@ void pi_abort(void)
     }
 }
 
-void pi_led_on(int led) 
-{
-    if (led != PI_ACT_LED && led != PI_PWR_LED) return;
+void pi_led_on(int led) {
+    if (led != PI_ACT_LED && led != PI_PWR_LED) {
+        return;
+    }
     gpio_set_output(led);
     gpio_write(led, 1);
 }
 
-void pi_led_off(int led) 
-{
-    if (led != PI_ACT_LED && led != PI_PWR_LED) return;
+void pi_led_off(int led) {
+    if (led != PI_ACT_LED && led != PI_PWR_LED) {
+        return;
+    }
     gpio_set_output(led);
     gpio_write(led, 0);
 }
 
-void pi_led_toggle(int led)
-{
-    if (led != PI_ACT_LED && led != PI_PWR_LED) return;
+void pi_led_toggle(int led) {
+    if (led != PI_ACT_LED && led != PI_PWR_LED) {
+        return;
+    }
     gpio_set_output(led);
     gpio_write(led, !gpio_read(led));
 }

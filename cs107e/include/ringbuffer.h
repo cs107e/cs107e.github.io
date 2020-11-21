@@ -17,7 +17,7 @@
 
 typedef volatile struct ringbuffer rb_t;
 
-/* 
+/*
  * Initializes a new empty ring buffer and returns a pointer to it.
  *
  * @return  pointer to the new ring buffer or NULL if cannot satisfy request.
@@ -30,11 +30,11 @@ typedef volatile struct ringbuffer rb_t;
  * other libpi modules. This _new pattern allows a user to have multiple ring
  * buffers, like objects in Java. It also means that users of this
  * module don't need to know the implementation details (like size) of rb_t,
- * since they just keep a pointer. 
+ * since they just keep a pointer.
  */
 rb_t *rb_new(void);
 
-/* 
+/*
  * Check if a ring buffer is currently empty.
  *
  * @param   `rb` the ring buffer to check
@@ -42,9 +42,9 @@ rb_t *rb_new(void);
  */
 bool rb_empty(rb_t *rb);
 
-/* 
+/*
  * Check if a ring buffer is currently full. When full, existing
- * elements must first be dequeued before further elements can 
+ * elements must first be dequeued before further elements can
  * be enqueued.
  *
  * @param   `rb` the ring buffer to check
@@ -62,11 +62,11 @@ bool rb_full(rb_t *rb);
  */
 bool rb_enqueue(rb_t *rb, int elem);
 
-/* 
+/*
  * If the ring buffer is not empty, remove frontmost element,
  * store into *p_elem, and return true.  p_elem should be the address
  * of a valid memory location into which to store the dequeued value.
- * If the ring buffer is empty, no changes are made to either the ring 
+ * If the ring buffer is empty, no changes are made to either the ring
  * buffer or *p_elem and the return value is false.
  *
  * @param    `rb` the ring buffer to dequeue from

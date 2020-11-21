@@ -20,12 +20,12 @@
 /*
  * `gpio_interrupts_init`
  *
- * Initialize the GPIO interrupt modules. The init function must be 
+ * Initialize the GPIO interrupt modules. The init function must be
  * called before any calls to other functions in this module.
  * The init function configures gpio interrupts to a clean state.
  * This function registers a handler for GPIO interrupts, which it
  * uses to call handlers on a per-pin basis.
- * 
+ *
  */
 void gpio_interrupts_init(void);
 
@@ -43,14 +43,14 @@ void gpio_interrupts_enable(void);
  */
 void gpio_interrupts_disable(void);
 
-/* 
+/*
  * `interrupts_register_handler`
  *
  * Register a handler function to a given GPIO pin. Each pin
  * source can have one handler: further dispatch should be invoked by
  * the handler itself. Whether or not a particular pin will
  * generate interrupts is specified by the events system,
- * defined in `gpioextra.h`. 
+ * defined in `gpioextra.h`.
  *
  * Asserts if failed to install handler (e.g., the pin is invalid).
  * Pins are defined in `gpio.h`.

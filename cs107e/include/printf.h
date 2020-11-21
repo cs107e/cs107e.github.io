@@ -10,12 +10,12 @@
 #include <stdarg.h>
 #include <stddef.h>
 
-/* These three functions from the printf family construct a 
+/* These three functions from the printf family construct a
  * formatted output from an input format string and arguments.
- * All three functions accept format strings specified using the same 
+ * All three functions accept format strings specified using the same
  * kind of conversions, but differ slightly in how the function is
  * called or what it does with the output string, e.g., whether it is
- * sent to the Raspberry Pi UART (printf) or written into the 
+ * sent to the Raspberry Pi UART (printf) or written into the
  * client's buffer (snprintf, vsnprintf).
  *
  * The supported format conversions are
@@ -27,45 +27,45 @@
  *   %%    used to output a single percent character
  *
  * The %d and %x formats support an optional field width.
- * 
+ *
  * The fancier printf features (padding with spaces, justification
  * left/right, precision, etc.) are not supported.
- * All format conversions other than the supported ones listed above 
- * are considered invalid. The function's behavior for an invalid 
+ * All format conversions other than the supported ones listed above
+ * are considered invalid. The function's behavior for an invalid
  * format conversion is undefined.
  */
 
-/* 
+/*
  * Constructs a formatted output string from an input string and arguments.
  *
  * `buf` is the destination where output string is to be written
  * `bufsize` is the size of `buf`, output string will be truncated
  * if necessary to fit
  * `format` string may contain ordinary characters (copied to `buf` as-is)
- * and/or format conversions (written to `buf` after converting next 
+ * and/or format conversions (written to `buf` after converting next
  * argument to string).
  *
- * Returns total number of characters written if entire formatted string 
- * fits in `buf`; otherwise returns the number of characters it would 
+ * Returns total number of characters written if entire formatted string
+ * fits in `buf`; otherwise returns the number of characters it would
  * have written if there were space.
  */
 int vsnprintf(char *buf, size_t bufsize, const char *format, va_list args);
 
-/* 
+/*
  * Constructs a formatted output string from an input string and arguments.
  *
  * `buf` is the destination where output string is to be written
  * `bufsize` is the size of `buf`, output string will be truncated
  * if necessary to fit
  * `format` string may contain ordinary characters (copied to `buf` as-is)
- * and/or format conversions (written to `buf` after converting next 
+ * and/or format conversions (written to `buf` after converting next
  * argument to string).
  *
- * Returns total number of characters written if entire formatted string 
- * fits in `buf`; otherwise returns the number of characters it would 
+ * Returns total number of characters written if entire formatted string
+ * fits in `buf`; otherwise returns the number of characters it would
  * have written if there were space.
  */
-int snprintf(char *buf, size_t bufsize, const char *format, ...) __attribute__ ((format (printf, 3, 4)));
+int snprintf(char *buf, size_t bufsize, const char *format, ...) __attribute__((format(printf, 3, 4)));
 
 /*
  * Constructs a formatted output string from an input string and arguments,
@@ -76,6 +76,6 @@ int snprintf(char *buf, size_t bufsize, const char *format, ...) __attribute__ (
  *
  * Returns the number of characters written to UART.
  */
-int printf(const char *format, ...) __attribute__ ((format (printf, 1, 2)));
+int printf(const char *format, ...) __attribute__((format(printf, 1, 2)));
 
 #endif

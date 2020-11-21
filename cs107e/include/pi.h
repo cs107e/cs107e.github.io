@@ -4,8 +4,8 @@
 /*
  * Utility functions for Raspberry Pi.
  *
- * Authors: Pat Hanrahan <hanrahan@cs.stanford.edu>, 
- *          Philip Levis <pal@cs.stanford.edu>, 
+ * Authors: Pat Hanrahan <hanrahan@cs.stanford.edu>,
+ *          Philip Levis <pal@cs.stanford.edu>,
  *          Julie Zelenski <zelenski@cs.stanford.edu>
  */
 

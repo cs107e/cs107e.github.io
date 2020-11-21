@@ -22,7 +22,7 @@ typedef enum { FB_SINGLEBUFFER = 0, FB_DOUBLEBUFFER = 1 } fb_mode_t;
  * @param width  the requested width in pixels of the framebuffer
  * @param height the requested height in pixels of the framebuffer
  * @param depth  the requested depth in bytes of each pixel
- * @param mode   whether the framebuffer should be 
+ * @param mode   whether the framebuffer should be
  *                      single buffered (FB_SINGLEBUFFER)
  *                      or double buffered (FB_DOUBLEBUFFER)
  */
@@ -51,7 +51,7 @@ unsigned int fb_get_depth(void);
 
 /*
  * Get the current pitch in bytes of a single row of pixels in the framebuffer.
- * The pitch is nominally the width (number of pixels per row) multiplied by 
+ * The pitch is nominally the width (number of pixels per row) multiplied by
  * the depth in bytes per pixel. However, the pitch may be greater than that if the
  * GPU elects to add padding to the end of the row.
  *
@@ -61,13 +61,13 @@ unsigned int fb_get_pitch(void);
 
 /*
  * Get the start address of the framebuffer memory into which the
- * client can draw pixels.  The address returned is the start of an 
+ * client can draw pixels.  The address returned is the start of an
  * array of size pitch*height bytes.
- * If in single buffering mode, there is only one buffer in use, so the 
+ * If in single buffering mode, there is only one buffer in use, so the
  * returned address does not change.  The client draws to that one buffer,
  * and each update is immediately displayed.
  * In double buffering mode, the address returned is for the draw (back)
- * buffer which is currently off-screen. The client draws to 
+ * buffer which is currently off-screen. The client draws to
  * this buffer and when ready, calls `fb_swap_buffer` to exchange the front
  * and back buffers. The swap brings the drawing on-screen in one
  * smooth update.
@@ -81,7 +81,7 @@ unsigned int fb_get_pitch(void);
 void* fb_get_draw_buffer(void);
 
 /*
- * Swap the front and back buffers. The draw buffer is moved to the 
+ * Swap the front and back buffers. The draw buffer is moved to the
  * front (contents displayed) and the front buffer is moved to the back
  * (becomes the draw buffer, contents off-screen).
  *

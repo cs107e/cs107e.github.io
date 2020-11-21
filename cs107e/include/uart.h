@@ -19,7 +19,7 @@ enum {
 /*
  * Initialize the UART code module. The init function should be called
  * once before any calls to other functions in the uart module. The
- * UART requires exclusive use of GPIO pins 14 (transmit) and 15 (receive). 
+ * UART requires exclusive use of GPIO pins 14 (transmit) and 15 (receive).
  * Once the uart is initialized and in use, your code should not
  * muck with these two pins.
  * It is possible, although rare, to call uart_init() again to
@@ -56,7 +56,7 @@ void uart_flush(void);
 bool uart_haschar(void);
 
 /*
- * Outputs a string to the serial port by calling uart_putchar() 
+ * Outputs a string to the serial port by calling uart_putchar()
  * on each character.
  *
  * @param str  the string to output
@@ -65,9 +65,9 @@ bool uart_haschar(void);
 int uart_putstring(const char *str);
 
 /*
- * Outputs raw byte to the serial port. uart_send outputs the raw byte 
+ * Outputs raw byte to the serial port. uart_send outputs the raw byte
  * with no translation (unlike uart_putchar which adds processing for
- * converting end-of-line markers). To send text character, use 
+ * converting end-of-line markers). To send text character, use
  * uart_putchar; if raw binary data, use uart_send.
  *
  * @param byte   the byte to write to the serial port

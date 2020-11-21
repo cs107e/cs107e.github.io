@@ -16,11 +16,11 @@
  */
 #define MAILBOX_MAXCHANNEL 16
 
-/*  
+/*
  * These constants define mailbox channels. Messages can be sent on
- * these channels. The only channel we use in this course is the 
+ * these channels. The only channel we use in this course is the
  * MAILBOX_FRAMEBUFFER channel.
- */ 
+ */
 typedef enum {
     MAILBOX_POWER_MANAGEMENT = 0,
     MAILBOX_FRAMEBUFFER,
@@ -39,7 +39,7 @@ typedef enum {
  *
  * @param channel send the message to `channel`
  * @param addr    `addr` is the address of the message data to send. This address
- *                must be a multiple of 16 (i.e. lower 4 bits are 0). 
+ *                must be a multiple of 16 (i.e. lower 4 bits are 0).
  *                GPU_NOCACHE will be added to the address so that the contents
  *                of the message is not cached by the GPU.
  */
@@ -47,7 +47,7 @@ void mailbox_write(unsigned int channel, unsigned int addr);
 
 /*
  * Receive a mailbox message for `channel`.
- * 
+ *
  * @param channel  receive a message on `channel`
  * @return         the data in the message received
  *

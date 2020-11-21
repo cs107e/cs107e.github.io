@@ -12,13 +12,13 @@
  */
 
 
-/* 
+/*
  * This typedef gives a nickname to the type of function pointer used as the
  * the shell output function.  A formatted_fn_t function has one fixed
  * parameter (format string) and variable arguments to follow. The return
- * value is of type int. 
+ * value is of type int.
  */
-typedef int (*formatted_fn_t)(const char *format, ...) __attribute__ ((format (printf, 1, 2)));
+typedef int (*formatted_fn_t)(const char *format, ...) __attribute__((format(printf, 1, 2)));
 
 /*
  * `shell_init`: Required initialization for shell
@@ -47,8 +47,8 @@ void shell_bell(void);
  *
  * Reads a single line of input from the keyboard.
  *
- * Reads characters typed on the keyboard and stores them into `buf`. 
- * Reading stops when the user types Return ('\n') or when `buf` is 
+ * Reads characters typed on the keyboard and stores them into `buf`.
+ * Reading stops when the user types Return ('\n') or when `buf` is
  * full (`bufsize` - 1), whichever comes first. A null-terminator is
  * written to the end of the contents in `buf`.
  * The ending newline is discarded (not written to buf).
@@ -65,11 +65,11 @@ void shell_readline(char buf[], size_t bufsize);
  * Parses line and execute command.
  *
  * Parsing proceeds as follows:
- *   - Divide the line into an array of tokens. A token consists 
- *     of a sequence of non-space chars.  Ignore/skip all whitespace 
- *     in between tokens as well as leading and trailing whitespace. 
+ *   - Divide the line into an array of tokens. A token consists
+ *     of a sequence of non-space chars.  Ignore/skip all whitespace
+ *     in between tokens as well as leading and trailing whitespace.
  *     Whitespace includes space, tab, and newline.
- *   - The first token is the name of the command to execute, the 
+ *   - The first token is the name of the command to execute, the
  *     subsequent tokens are the arguments to the command.
  * After parsing, execute the command:
  *   - Find the function pointer associated with the command name.
@@ -77,12 +77,12 @@ void shell_readline(char buf[], size_t bufsize);
  *           error: no such command 'binky'.
  *   - Otherwise, execute the function, passing array of arguments.
  *
- * Returns the result of the call to the command function, or -1 if no 
+ * Returns the result of the call to the command function, or -1 if no
  * command was executed.
  */
 int shell_evaluate(const char *line);
 
-/* 
+/*
  * `shell_run`: Top level shell interface.
  *
  * Main function of the shell module. Must be preceded by calls

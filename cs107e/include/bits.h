@@ -11,7 +11,7 @@
  * Last updated:   February 2020
  */
 
-/* 
+/*
  * Returns the number of leading zeroes in val. Returns 32 if
  * no bits are set. 0x80000000 will return 0, while 0x1 will
  * return 31.

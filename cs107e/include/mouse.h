@@ -28,7 +28,7 @@ typedef struct {
  *
  * The mouse must first be initialized before any mouse events can be read.
  * The first and second arguments identify which GPIO pins to use for the
- * PS/2 clock and data lines, respectively. 
+ * PS/2 clock and data lines, respectively.
  * Returns true if able to initialize mouse, false otherwise.
  */
 bool mouse_init(unsigned int clock_gpio, unsigned int data_gpio);
@@ -39,9 +39,9 @@ bool mouse_init(unsigned int clock_gpio, unsigned int data_gpio);
  * The function reads (blocking) the next event from the mouse.
  * Returns a `mouse_event_t` struct that represents the mouse event.  The
  * struct includes the relative change in x and y (dx, dy fields). A delta
- * value will be in range +/- 255, the x_overflow/y_overflow fields are true 
- * if actual value of dx/dy exceeded +/- 255.  The left/middle/right fields 
- * give the state of the mouse buttons. Each field is true if the corresponding 
+ * value will be in range +/- 255, the x_overflow/y_overflow fields are true
+ * if actual value of dx/dy exceeded +/- 255.  The left/middle/right fields
+ * give the state of the mouse buttons. Each field is true if the corresponding
  * mouse button is down, false otherwise.
  */
 mouse_event_t mouse_read_event(void);

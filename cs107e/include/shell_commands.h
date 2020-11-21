@@ -1,7 +1,7 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
-/* 
+/*
  * This typedef gives a nickname to the type of function pointer used as the
  * a shell command.  A command_fn_t function has two parameters, the array
  * of tokens and its count. The return value is of type int.
@@ -31,7 +31,7 @@ int cmd_echo(int argc, const char *argv[]);
  * cmd_help
  * ========
  *
- * When called without arguments: 
+ * When called without arguments:
  *   Prints a list of all available commands and their descriptions.
  *
  * Example:
@@ -72,7 +72,7 @@ int cmd_reboot(int argc, const char* argv[]);
  * Usage: peek [addresss]
  *
  * Prints the contents (4 bytes) of memory at address.
- * If address argument is prefixed with 0x, it is interpreted as hex, 
+ * If address argument is prefixed with 0x, it is interpreted as hex,
  * otherwise interpreted as decimal. Address must be 4-byte aligned.
  *
  * Example:
@@ -98,7 +98,7 @@ int cmd_peek(int argc, const char* argv[]);
  * Usage: poke [adress] [value]
  *
  * Stores `value` into the memory at `address`.
- * If a numeric argument is prefixed with 0x, it is interpreted as hex, 
+ * If a numeric argument is prefixed with 0x, it is interpreted as hex,
  * otherwise interpreted as decimal. Address must be 4-byte aligned.
  *
  * Example:
