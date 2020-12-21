@@ -17,7 +17,14 @@ static size_t strlen(const char *str)
 
 static char *strcpy(char *dst, const char *src)
 {
-    // Your turn -- implement strcpy!
+    // TODO: Your turn -- implement strcpy!
+    if (dst == NULL || src == NULL ) {
+        return NULL;
+    }
+    int string_length = strlen(src);
+    for (int i = 0; i <= string_length; i++) {
+        dst[i] = src[i];
+    }
     return dst;
 }
 
@@ -38,7 +45,7 @@ void test_strcpy(const char *orig)
     int len = strlen(orig);
     char buf[len + 1]; // plus one for terminator
 
-    char *copy = strcpy(buf, orig);  
+    char *copy = strcpy(buf, orig);
     for (int i = 0; i <= len; i++) // compare letter by letter
         assert(copy[i] == orig[i]);
 }
@@ -60,7 +67,7 @@ void stress_test_strlen(void)
 {
     assert(bogus_strlen_calls("purple") == 7);
 }
-  
+
 int sketchy_strcpy_call(const char *orig)
 {
     // what "should" happen if orig is longer than 8? what *does* happen?
@@ -81,9 +88,9 @@ void main(void)
     uart_init();
 
     test_strlen();
-    //test_strcpy("CS107e rocks");
+    test_strcpy("CS107e rocks");
     //stress_test_strlen();
     //stress_test_strcpy();
-    
+
     uart_putchar(EOT);
 }
