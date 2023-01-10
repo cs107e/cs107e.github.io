@@ -13,7 +13,7 @@ Task list to copy/paste when creating PR for this lab:
 __Before releasing lab0:__
 - [ ] Review writeup/code/checkin questions (instructor)
 - [ ] Walk through (SL)
-- [ ] Followup on issues from previous quarter postmortem (issue #375 and #385)
+- [ ] Followup on issues from previous quarter postmortem ()
 
 __To prep for lab0:__
 - [ ] Review tips recorded in private/staff_notes.md and private/answers.md
@@ -116,7 +116,7 @@ you should have a `lab0` folder containing an `editors` subfolder that holds two
 ### 3. Command line practice
 Over the course of CS107E, you'll get comfortable navigating the command line. To start, read through and follow all the steps in our [Unix Command Line Guide](/guides/unix).
 
-> __Pro tip: pay attention to command responses__ As you experiment with various commands, take care to comprehend each response as you go. If you mistype or misapply a command, the command will fail. If not reading carefully, you might overlook the error message because it is unhelpfully phrased or buried in other long-winded chatter from the tool.
+> __Pro tip: pay attention to command responses__ As you explore, you may be trying commands copied from our guides or found in a tutorial. Rather than enter commands blindly, try to understand the intention of a command and its expected response. If you mistype or misuse the command, the action will fail or be applied incorrectly. Be sure to read each response carefully so you don't overlook the error message or bad outcome even when it is unhelpfully phrased or buried in other long-winded chatter. If you need help interpreting unix-speak, grab a staff member!
 {: .callout-warning}
 
 While that guide covers the basics, here's a couple more tricks to speed up your workflow. Practice using these---you'll be amazed at how much they boost your productivity!
