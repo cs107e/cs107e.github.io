@@ -1,0 +1,22 @@
+# Top-level information about course
+id: CS107e
+title: Computer Systems From the Ground Up
+quarter: Winter 2023
+instructors:
+  - name: Pat Hanrahan
+    img: /_assets/img/pat.png
+  - name: Julie Zelenski
+    img: /_assets/img/julie.jpg
+cas:
+  - name: Maria Paula Fernandez
+    img: /_assets/img/maria.png
+  - name: Keegan Mehall
+    img: /_assets/img/keegan.jpg
+sls:
+  - name: Liana Keesing
+    img: /_assets/img/liana.jpg
+  - name: Anna Mistele
+    img: /_assets/img/anna.jpg
+lecture_schedule: Mon and Fri 10:30am - 12pm
+lab_schedule: Tue 6:30-8:30pm and Wed 6:30-8:30pm
+forum: https://edstem.org/us/courses/32043/discussion/

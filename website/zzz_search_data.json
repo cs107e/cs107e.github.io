@@ -1,0 +1,43 @@
+---
+layout: null
+permalink: /search_data.json
+hidden_from_search: true
+regenerate: true
+# force regenerate this on every rebuild (even incremental)
+---
+{
+  {% for p in site.pages %}
+    {%- assign skip = false %}
+    {%- unless p contains "title" and p.title != null %}{% assign skip = true %}{% endunless %}
+    {%- if p.url contains "/lectures/" %}{% assign skip = true %}{% endif %}
+    {%-  unless site.data.search.exclude contains p.name or p.hidden_from_search or skip %}
+      "{{ p.url | slugify }}":
+      {
+        "url" : {{ p.url | relative_url | jsonify }},
+        "pretty" : {{ p.title | jsonify }},
+        "content" : {{ p.content | strip_html | append: "elfin" | jsonify }}
+      }, {% endunless %}
+  {% endfor %}
+    "dummy": { "url" : "/", "pretty" : "Oops", "content" : "" }
+}
+
+
+{% comment %}
+JDZ 12/13/2020
+Renamed to zzz_search
+to force this file to be rendered last, after all other pages have rendered content
+(this is a hack, instead use jekyll post-render hook)
+
+
+{% assign good_suffixes = ".cpp .txt" | split:" " %}
+{% for p in site.static_files %}
+  {%- if site.data.search.static_ext_includes contains p.extname -%}
+    "{{ p.path | slugify }}":
+    {
+      "url" : {{ p.path | relative_url | jsonify }},
+      "pretty" : {{ p.path | jsonify }},
+      "content"  : {{ p.path | read_text | jsonify }}
+    }, {%- endif -%}
+{% endfor %}
+
+{% endcomment %}

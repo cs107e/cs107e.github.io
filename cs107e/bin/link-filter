@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# JZ Mar 20022 placeholder for now
+# idea to filter stderr of ld to produce less crummy error messages
+
+exec "$@" 2> >(sed -e 's/^.*ld:/arm-none-eabi-ld/g' >&2)

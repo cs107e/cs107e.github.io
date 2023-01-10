@@ -1,0 +1,6 @@
+file=AKWF_violin_0001
+
+# resample from 600 to 256 samples
+sox -R $file.wav resampled.wav repeat 2 speed 2.34375 rate trim 256s 256s
+python convert.py resampled.wav > $file.h
+rm resampled.wav

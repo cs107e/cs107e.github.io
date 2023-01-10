@@ -1,0 +1,18 @@
+# Dashboard home page
+tools:
+  - title: Forum
+    icon: ed.png
+    link: https://edstem.org/us/courses/21299/discussion/
+      #  - title: OhYay
+      #    icon: ohyay.png
+      #    link: http://ohyay.co/s/stanford-cs107e
+  - title: Github
+    icon: github.png
+    link: http://github.com/cs107e
+      #  - title: Canvas
+      #   icon: canvas.png
+      #   link: https://canvas.stanford.edu/courses/130524/external_tools/3367
+      #  - title: Slack
+      #   links: http://cs107e-win21.slack.com/ssb/redirect
+      #   link: slack://app?team=cs107e-win21
+      #   icon: slack.png
