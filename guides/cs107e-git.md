@@ -1,7 +1,7 @@
 ---
 title: "Guide: Git workflow for CS107e"
 toc: true
-quarterprefix: winter23
+quarterprefix: winter22
 ---
 
 _Written by Maria Paula Hernandez, incorporating material from past documents_. 
