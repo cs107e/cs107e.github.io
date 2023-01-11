@@ -41,8 +41,8 @@ The following instructions are used to configure your local `mycode` repo.  Do t
     $ ssh-keygen -t rsa -b 4096 -C "<your_email>"
     ```
 
-    After you press enter, you'll be prompted to choose an alternate name for your
-    key. Skip this by pressing enter again. Next, you'll be prompted to enter a
+    After you press enter, you'll be prompted to choose a filename in which to save your
+    key. Accept the default by pressing enter. Next, you'll be prompted to enter a
     passphrase for a key. If you want no passphrase, press enter. Otherwise, enter
     your passphrase. If you choose to add a passphrase, you must enter that passphrase each time you push to or pull from GitHub .
 
