@@ -140,7 +140,7 @@ repo and nothing more.
     following commands:
 
     ```console
-    $ git pull --allow-unrelated-histories starter-code lab0-starter
+    $ git pull --allow-unrelated-histories start-code lab0-starter
     $ ls
     ```
 
