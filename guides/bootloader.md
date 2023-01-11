@@ -67,10 +67,14 @@ to the TX GPIO on the Pi's header.
 The blue wire connects the TX header pin
 to the Pi's RX GPIO. 
 
-![Console cable](../images/bootloader.cable.jpg)
+![USB-serial to Pi connections](../images/bootloader.cable.jpg)
 
-Note that the pins on your USB-serial
+The above photo is the USB-serial version we are using in Winter Quarter 2023. The pins on your USB-serial
 may be in different positions or have different label names. Don't just follow the picture blindly!
+
+For example, here are a few other USB-serial variants (click to enlarge):
+![V1](../images/usb-serial-v1.jpg){: .w-25 .zoom} ![V2](../images/usb-serial-v2.jpg){: .w-25 .zoom}  ![V3](../images/usb-serial-v3.jpg){: .w-25 .zoom}
+
 
 ## Load and run a program
 The `rpi-run.py` script sends a binary file from your laptop to the bootloader. Change to the firmware directory and send the blink program:
@@ -115,3 +119,5 @@ If you are having bootloader trouble, work through this checklist to find and re
 	 vice versa.
 	- If your jumper cables have become stressed/worn, try replacing them with fresh ones.
 
+
+##
