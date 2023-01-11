@@ -90,7 +90,7 @@ To prepare, please do the following __before__ coming to this lab:
 <a name="step1"></a>
 
 ### 1. Confirm install of development tools
-Run through the __Final check steps__ at the end of the [installation guide](/guides/install) to verify that the needed tools are installed and your environment is correctly configured. Check-in with us to confirm all is well. [^1]
+Run through the __Final check steps__ at the end of the [installation guide](/guides/install#finalcheck) to verify that the needed tools are installed and your environment is correctly configured. Check-in with us to confirm all is well. [^1]
 
 ### 2. Set up your local `mycode` repository
 In this course, we use git repositories to share code between you and us.
@@ -210,7 +210,7 @@ verify your understanding and help with any unresolved issues.
 
 The four points we'd like you to check in with us for this lab are listed below:
 
-[^1]: Have you installed the development tools and confirmed each of the check steps?
+[^1]: Have you installed the development tools and confirmed each of the [final check](/guides/install#finalcheck) steps of the install guide?
 
 [^2]: Confirm you have successfully configured your local `mycode` repo and were able to pull starter code.
 

@@ -8,7 +8,7 @@ _Written by Maria Paula Hernandez, incorporating material from past documents_.
 
 In this course, we use git repositories to share code between you and us. 
 These repositories are hosted on GitHub. You will use git commands such as `git pull`
-to access starter code and `git pull` to submit your work. You can read more about
+to access starter code and `git push` to submit your work. You can read more about
 the general use of `git` in [our git guide](/guides/git). In this document, we go through the
 details of the `mycode` repo and the specific workflow to access starter code and submit your work.
 

@@ -22,6 +22,7 @@ Follow the installation instructions for your OS
 + [Install on macOS](../install/mac)
 + [Install on Windows WSL](../install/wsl)
 
+<a name="finalcheck"></a>
 ## Final check steps
 After completing the installation instructions, use these final check steps below to confirm your environment from top to bottom.
 
