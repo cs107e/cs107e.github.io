@@ -189,7 +189,7 @@ You don't need to commit or submit lab code to be graded. The staff will review 
 
 <a name="assign-workflow"></a>
 ## Assignment workflow
-### Get assignment starter code
+### Pull assignment starter code
 
 When starting a new assignment, do a `git pull` in your `cs107e.github.io` repository to ensure your courseware files are up to date.
 
@@ -198,7 +198,7 @@ $ cd $CS107E
 $ git pull
 ```
 
-Update your local `mycode` repo by checking out the `dev` branch and pulling the assignment starter files from the remote (change assignX to assign1, assign2, as appropriate):
+Update your local `mycode` repo by checking out the `dev` branch and pulling the assignment starter files from the remote (change assignX to assign1, assign2, etc. as appropriate):
 
 ```console
 $ cd ~/cs107e_home/mycode
@@ -216,22 +216,21 @@ make regular git commits to record a snapshot of your work and track your progre
 saved in your local repo. You can follow up with a `git push` to synch those changes with your remote
 repo. You can consider your remote repo as a sort of "offsite backup".
 
-The commands below add a changed file to the staging index, commit staged changes (save to local repo), and push the commit to GitHub (update remote repo):
-
+To see the current state of your repo, use the `git status` command. It will indicate which files have been modified, which changes are "staged" (ready to be commmitted) and whether the local and remote repos are currently in synch.
 ```console
 $ git status
 ```
-The `git status` command will show you the files you have edited locally that have 
-not yet been pushed to your remote repo. Now, let's add two edited files to the staging index
-using `git add`, then commit and push those changes.
+
+The commands below show how to add a changed file to the staging index, commit staged changes (save snapshot to local repo), and push the commit to GitHub (update remote repo):
 
 ```console
-$ git add filename.c other.c
+$ git add filename.c
 $ git commit -m "Short but descriptive message about the changes you are committing"
 $ git push
 ```
 
-Note: using the command `git add .` will add all changed files in the repo to the staging index.
+The command `git add .` can be used as a
+shorthand for adding all changed files to the staging index rather than adding individual files by name.
 
 You can use `git log` to view the history of commits in your local repo. When
 you enter the log, you can exit out by pressing "q" on your keyboard.
@@ -239,13 +238,6 @@ you enter the log, you can exit out by pressing "q" on your keyboard.
 ```console
 $ git log
 ```
-
-Also note that you can add multiple files (also called staging) and commit their
-changes as a single commit. This is important because you don't ever want your code
-to be in an inconsistent or bad state. For example, if you add a new file that
-another file references, you want to put those two changes together in a single
-commit; the file shouldn't be there if it isn't referenced, and you don't want
-code to reference a file that doesn't exist.
 
 Each commit that you make records a snapshot of your work. You can use these
 snapshots to review your progress, compare versions, or identify and undo an
@@ -263,6 +255,7 @@ that you write detailed commit messages.**
 > important messages about the state of your repo.
 > {: .callout-info}
 
+You can view the contents of your remote repo by browsing it on GitHub.
 **Note:** GitHub will show commits for the `master` branch by default. To see activity
 on the `dev` branch, switch to it by selecting from the drop-down menu :
 
@@ -270,33 +263,33 @@ on the `dev` branch, switch to it by selecting from the drop-down menu :
 
 ### Assignment tags
 
-In order to grade your assignments, we'll run tests on your submission to verify that it works as
-expected. You indicate which commit you want us to test by applying a tag.  
+When grading your work, we'll run tests on your submission to verify its functionality. You indicate which commit you want us to test by applying a tag.
 In Git, a _tag_ is simply a way of giving a name to a particular commit. We'll
 also use this tag to determine your submission time. The submission time recorded
 will correspond to the time you pushed the tag commit.
-Create a tag to identify which commit if your submission by doing the following:
+
+Create a tag to identify which commit if your submission by doing the following (be sure to replace `assignX` with `assign0`, `assign1`, etc. as appropriate)
 
 ```console
 $ git tag assignX-submit
 $ git push --tags
 ```
 
-A submission tag should always be of the format `assignX-submit`
-where X is the particular assignment number. Now, go to your repo on GitHub and
-verify that your newly created tag shows up in the "Tags" section of the branches
+A submission tag is of the format `assignX-submit`
+where X is the particular assignment number. You can verify that your tag
+was successful by browsing your repo on GitHub and
+confirming that your newly created tag shows up in the "Tags" section of the branches
 dropdown menu.
 
-If after making your initial tag, you need to commit additional changes to include with
-your submission, you can move the tag to a later commit with the following command 
+If you need to update your previously tagged submission with additional changes, you can move the tag to a different commit with the following command
 (note that you need to push `--force` when moving a tag that already exists).
 
 ```console
-$ git tag -f assignx-submit
+$ git tag -f assignX-submit
 $ git push --tags --force
 ```
 
-Additionally, if you complete the assignment extension, mark the tag `assignX-extension`
+If you complete one of the extensions for the assignment, add the tag `assignX-extension`
 on the commit containing the code for the extension. Your extension commit can be the 
 same commit as your basic functionality, or it can be a different one. We use the extension
 tag to identify which submissions have attempted the extension. If there is no extension
@@ -356,7 +349,7 @@ on your submissions.
 If you need to update your submission, simply edit your files, commit, re-tag with `assignX-submit`, and push to add
 it to the pull request. There is no need to make another pull request.
 
-### Assignment submission
+### Assignment checklist
 
 This guide contains a lot of information. Here is a checklist to follow when 
 you are submitting your assignments. 
@@ -365,10 +358,8 @@ To submit an assignment:
 1. Ensure all of your code is committed and pushed (see [Assignment commit](#assignment-commit))
 1. Tag with `assignX-submit` and, if applicable, `assignX-extension` (see [Assignment tags](#assignment-tags))
 1. Ensure you have an open Pull Request (see [Assignment pull request](#assignment-pull-request)) 
-1. If you have already made a submission, but wish to make another,
-    you may replace your previous submission. Edit your code, commit your changes, move your
-    tags to this new commit, and push. You do not need to change your open Pull Request.
-1. You can confirm what you have submitted by browsing your remote repo on GitHub. Choose `assignX-submit` tag from the dropdown menu to review the submitted files and their contents.
+1. If you want to replace a previous submission, move the submit tag to the updated commit and force push. You do not need to change your open Pull Request.
+1. You can confirm which files you submitted by browsing your remote repo on GitHub. Choose `assignX-submit` tag from the dropdown menu to review the submitted files and their contents.
 
 After receiving our grading feedback, you will have the opportunity to submit fixes
  and request a re-test of open issues. To submit fixes for re-test:
