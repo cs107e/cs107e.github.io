@@ -22,5 +22,5 @@ arm-none-eabi-size add.o
 
 # print a hexdump of the binary
 # hexdump add.bin
-xxd -g 1 add.bin
+xxd -g 1 add.bin:
 
