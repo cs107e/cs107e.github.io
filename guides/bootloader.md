@@ -67,7 +67,7 @@ to the TX GPIO on the Pi's header.
 The blue wire connects the TX header pin
 to the Pi's RX GPIO. 
 
-![USB-serial to Pi connections](../images/bootloader.cable.jpg)
+![USB-serial to Pi connections](../images/usb-serial-bootloader.jpg)
 
 The above photo is the USB-serial version we are using in Winter Quarter 2023. The pins on your USB-serial
 may be in different positions or have different label names. Don't just follow the picture blindly!

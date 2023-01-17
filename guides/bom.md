@@ -15,18 +15,17 @@ Each student is given a CS107e parts kit containing the materials needed for the
     + need only tiny capacity (< 1GB), we buy minimum size we can find
     + be sure manufacturer has known good quality control (cheap unreliable cards are no bargain)
 - a __CP2102 USB-to-serial__ breakout board <https://www.taydaelectronics.com/cp2102-serial-converter-usb-2-0-to-ttl-uart-ftdi.html>
+- a 4-digit __7-segment display__ (common cathode) <http://www.lanpade.com/7-segment-led-dot-matrix/5461as.html>
 - a full-sized __breadboard__ <https://www.jameco.com/z/WBU-202-R-Jameco-Valuepro-830-Point-Solderless-Breadboard-6-5-x-2-125-_20723.html>
     + Jameco is solid! (cheaper breadboards can have flaky connection points)
 - __jumpers__ (5-25 of each kind) <https://www.aliexpress.com/item/32891879068.html>
-    -  __female-female__ (short, 10cm) and (long, 20cm)
-    -  __female-male__ (long, 20cm)
-    -  __male-male__ jumpers, various lengths
+    -  __female-female__ (10 cm)
+    -  __female-male__ (10 cm)
 - a __mini-box__ containing these small components:
     - __resistors__ ([how resistance is encoded in band color](https://learn.sparkfun.com/tutorials/resistors#decoding-resistor-markings),  [color code calculator](https://www.digikey.com/en/resources/conversion-calculators/conversion-calculator-resistor-color-code))
         - twenty __1K resistors__ (for leds, 4-digit display, transistors) <https://www.taydaelectronics.com/resistors/1k-ohm-1-2w-5-carbon-film-resistor.html>
         - four __10K resistors__ (for push buttons) <https://www.taydaelectronics.com/10k-ohm-1-2w-5-carbon-film-resistor.html>
     - eight __LEDs__ <https://www.taydaelectronics.com/catalogsearch/result/?q=led+5mm+ultra+bright>
-    - a 4-digit __7-segment display__ (common cathode) <http://www.lanpade.com/7-segment-led-dot-matrix/5461as.html>
     - four tactile __pushbuttons__ <https://www.taydaelectronics.com/electromechanical/switches-key-pad/tact-switch/tact-switch-12-12mm-7-3mm-through-hole-spst-no-4-pins.html>
     - four __caps__ for the pushbuttons (we give 1 each of 4 different colors): [blue](https://www.taydaelectronics.com/electromechanical/switches-key-pad/tact-switch/round-tactile-push-button-cap-blue-color.html), [yellow](https://www.taydaelectronics.com/electromechanical/switches-key-pad/tact-switch/round-tactile-push-button-cap-yellow-color.html), [red](https://www.taydaelectronics.com/electromechanical/switches-key-pad/tact-switch/round-tactile-push-button-cap-red-color.html), [green](https://www.taydaelectronics.com/electromechanical/switches-key-pad/tact-switch/round-tactile-push-button-cap-green-color.html)
     - four 2N3904 __transistors__ (BJTs) <https://www.taydaelectronics.com/2n3904-npn-general-propose-transistor.html>
@@ -43,8 +42,10 @@ Doing the labs also requires a few hand tools and supplies, which will have avai
 Hand tools and supplies for breadboarding:
 
 - wire __stripper__, needlenose __pliers__, and angled __cutter__
-    (recommendations in our [guide to hand tools](/guides/handtools))
+    (if you wish to buy your own, see recommendations in our [guide to hand tools](/guides/handtools))
 - solid core __wire__, 22-24 AWG
+-  __male-male__ jumpers, various lengths
+- multimeter
 
 For keyboard lab:
 
@@ -58,8 +59,6 @@ For keyboard lab:
 For graphics lab:
 - any __display__ (monitor, tv, projector) that accepts HDMI input
 - __HDMI cable__
-
-
 
 ## Sources for parts
 
