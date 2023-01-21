@@ -12,7 +12,7 @@ Task list to copy/paste when creating PR:
 
 - [ ] Review writeup/starter code (instructor)
 - [ ] Review consistency/completeness of grading info published to students relative to grading tests used, consider changes clarity/ease of grading (TA)
-- [ ] Followup on issues from previous quarter postmortem (issue #)
+- [ ] Followup on issues from previous quarter postmortem (issue #467)
 
 **To prep for assign1:**
 

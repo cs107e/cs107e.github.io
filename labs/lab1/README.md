@@ -20,7 +20,8 @@ __To prep for lab1:__
 - [ ] Review tips recorded in private/staff_notes.md and private/answers.md
 - [ ] Confirm installation instructions are up-to-date
 - [ ] Forum announcement for students to bring adapter if their laptop doesn't have USB-A port A (e.g. recent Macs)
-- [ ] Confirm lab cabinet has SD card readers for various computers
+- [ ] Confirm multimeters have fresh batteries
+- [ ] Confirm lab cabinet has SD card readers and spare C-to-A adaptors
 - [ ] Prepare some SD cards with bootloader in case students can't prep their own
 - [ ] Bring blank labels and pens -- students make name tag and decorate kit box
 
