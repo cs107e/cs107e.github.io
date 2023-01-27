@@ -237,7 +237,7 @@ To enable execution of this file add
 ... blah blah blah ...
 ```
 
-This indicates that your is configured to disallow auto-loading. If starting gdb in a directory containing a local `./.gdbinit` when auto-loading is disallowed, gdb prints message "auto-loading has been declined" to alert you that the config file is being ignored. Here is how to edit your user config file to allow auto-loading:
+This indicates that gdb is configured to disallow auto-loading. If auto-loading is disallowed and you start gdb in a directory that contains a `.gdbinit` file, gdb prints message "auto-loading has been declined" to alert you that the local `gdbinit` file is being ignored. Here is how to edit your user config file to allow auto-loading:
 
 - Open your user config file `~/.gdbinit` in an editor. If file doesn't yet exist, you will need to create it. 
 - Append this line verbatim:

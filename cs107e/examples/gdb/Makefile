@@ -1,6 +1,6 @@
 APPLICATION = program
 
-CFLAGS = -I$(CS107E)/include -g -Wall -O0 -std=c99 -ffreestanding
+CFLAGS = -I$(CS107E)/include -g -Wall -Og -std=c99 -ffreestanding
 LDFLAGS = -nostdlib -T memmap -L$(CS107E)/lib
 LDLIBS = -lpi -lgcc
 
