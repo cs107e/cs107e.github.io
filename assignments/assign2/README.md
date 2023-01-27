@@ -180,9 +180,25 @@ If type is qualified as `volatile`, the compiler cannot make that assumption and
 Note that `volatile` is not something to throw about willy-nilly. Apply it thoughtfully and intentionally to those specific data values that need to be treated in this special manner. Extraneous use of `volatile` can be misleading and will reduce performance as it disallows the compiler from making optimizations. Review the recommended readings on volatile from C Pointers lecture on the [Schedule page](/schedule#C_Pointers).
 {: .callout-info}
 
-### 2. Wire up and test clock hardware
+### 2. Implement and test timer module
 
-Next turn your attention to the hardware your clock display.
+When implementing the clock, we'll need to determine the passage of time.
+Thankfully, the Raspberry Pi includes a "system timer". The system timer is an on-board peripheral that is initialized to zero when the Pi powers up and is continuously incremented once every microsecond behind the scenes.
+
+Chapter 12 of the [Broadcom BCM2835 Peripherals Manual](/readings/BCM2835-ARM-Peripherals.pdf#page=172)
+contains the documentation for the system timer peripheral. For this module, we only use the lower 32-bits of the system timer. Don't forget that
+we use [ARM physical addresses](/readings/BCM2835-ARM-Peripherals.pdf#page=6), not bus addresses (0x7E... for peripherals), so you'll need to change the 0x7E... prefix in any peripheral address to 0x20.
+
+The `timer` module provides functions that access the system timer. Read the header file `timer.h` to view the function declarations and module documentation. Review the provided code for the module implementation in `timer.c`.
+
+You have only one task for the `timer` module which is to implement the function `timer_get_ticks` to read the current system tick count. This one-liner will be a piece of cake for your now-experienced bare metal self!
+
+Uncomment the call `test_timer()` in `test_gpio_timer.c`. Use `make test`
+to build and run the test program. Verify the given tests succeed and then consider what additional tests are needed for the timer module (there may not be much; it is a pretty simple module). Once both the gpio and timer modules are passing all of your tests, you're ready to tackle the clock application.
+
+### 3. Wire up and test clock hardware
+
+Next turn your attention to the hardware for your clock display.
 
 <A name="clock_spec"></a>
 
@@ -206,13 +222,13 @@ Next turn your attention to the hardware your clock display.
   We selected jumper colors in a repeating pattern (yellow-green-blue-violet) to help identify which connection is which.
   ![clock connected](images/clock_connected.jpg){: .zoom}
 
-After wiring up your breadboard, you want to test all those connections and your shiny new gpio module is just what you need. In the `test_gpio_timer.c` there is a `test_breadboard` function. This test calls your gpio functions to configure the pins, turns on all segments for all digits, waits for a button press, and then turns all off. Uncomment the call to `test_breadboard` and use `make test` to build and run the test program and visually confirm the operation of your display and fix any missed connections. Give yourself a pat on the back for your marvelous gpio module -- imagine how much harder it would be to manually test each of these connections!
+After wiring up your breadboard, you want to test all those connections and your shiny new gpio and timer modules are just what you need. In the `test_gpio_timer.c` there is a `test_breadboard` function. This test calls your gpio functions to configure the pins, and goes into a loop which flashes the segments one by one, exiting the loop when the button is pressed. Uncomment the call to `test_breadboard` and use `make test` to build and run the test program and visually confirm the operation of your display and fix any missed connections. Give yourself a pat on the back for your marvelous gpio module -- imagine how much harder it would be to manually test each of these connections!
 
 Snap a photo of your finished hardware setup, copy the file to the `assign2` directory in your repo. Add and commit the file to include it with your submission. We want to see your beautiful handiwork!
 
-### 3. Display a digit
+### 4. Display a digit
 
-You are now ready to start on the clock application.
+You are now ready to start on the software for clock application.
 
 In `clock.c`, create an array of 16 elements, one for each hexadecimal value between 0 and 15. Each array element should
 be a byte (8-bits). C has no `byte` type, but `unsigned char` suffices. Bit 0 (the least significant) will represent segment A, bit 1
@@ -225,21 +241,7 @@ Create bit patterns for all the digits 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D,
 Write a function that display a single digit and call it from the `main()` function of `clock.c`. Verify that your bit patterns are correct by displaying each digit value from `0` to `F` and visually confirming.
 Use `make run` to build and run your clock application.
 
-### 4. Implement and test timer module
 
-When implementing the clock, we'll need to determine the passage of time.
-Thankfully, the Raspberry Pi includes a "system timer". The system timer is an on-board peripheral that is initialized to zero when the Pi powers up and is continuously incremented once every microsecond behind the scenes.
-
-Chapter 12 of the [Broadcom BCM2835 Peripherals Manual](/readings/BCM2835-ARM-Peripherals.pdf#page=172)
-contains the documentation for the system timer peripheral. For this module, we only use the lower 32-bits of the system timer. Don't forget that
-we use [ARM physical addresses](/readings/BCM2835-ARM-Peripherals.pdf#page=6), not bus addresses (0x7E... for peripherals), so you'll need to change the 0x7E... prefix in any peripheral address to 0x20.
-
-The `timer` module provides functions that access the system timer. Read the header file `timer.h` to view the function declarations and module documentation. Review the provided code for the module implementation in `timer.c`.
-
-You have only one task for the `timer` module which is to implement the function `timer_get_ticks` to read the current system tick count. This one-liner will be a piece of cake for your now-experienced bare metal self!
-
-Uncomment the call `test_timer()` in `test_gpio_timer.c`. Use `make test`
-to build and run the test program. Verify the given tests succeed and then consider what additional tests are needed for the timer module (there may not be much; it is a pretty simple module). Once both the gpio and timer modules are passing all of your tests, you're ready to tackle the rest of the clock application.
 
 ### 5. Write display refresh loop
 
