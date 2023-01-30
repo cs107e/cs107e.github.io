@@ -27,9 +27,9 @@ weeks:
     mon: /lectures/Memory/
     lab: /labs/lab4/
     assign: /assignments/assign4/
-    fri: /lectures/Keyboard/
+    fri: /lectures/C_Mastery/
   -
-    mon: /lectures/C_Mastery/
+    mon: /lectures/Keyboard/
     lab: /labs/lab5/
     assign: /assignments/assign5/
     fri: /lectures/Framebuffer/
