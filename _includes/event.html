@@ -16,6 +16,8 @@
 {% else %}
 
 <B>{{ front_matter.title }}</B>
+{% assign anchor = include.plink | split:'/' | last %}
+<a id="{{anchor}}"></a>
 
 {% assign resource_path = front_matter.path | split:'/' | pop | join:'/' %}
 {% assign criteria = "file.path contains '" | append: resource_path | append: "'" %}
