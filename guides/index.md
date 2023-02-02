@@ -24,6 +24,7 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 - [Using the bootloader](bootloader)
 - [Reset the Pi without unplugging](reset-button)
 - [Interacting with GPIO pins](gpio)
+- [Bitmasking](bitmasking)
 
 ## Development tools/process
 - [Git workflow used for CS107e labs/assignment code](cs107e-git)
