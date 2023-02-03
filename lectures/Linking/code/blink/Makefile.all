@@ -1,0 +1,15 @@
+APPLICATION = blink
+MODULES = timer.c gpio.c
+
+CFLAGS = -Og -Wall -std=c99 -ffreestanding
+ASFLAGS = --warn --fatal-warnings
+LDFLAGS = -nostdlib -T memmap 
+
+all : $(APPLICATION).bin
+
+%.bin: %.c $(MODULES) start.o cstart.c
+	arm-none-eabi-gcc $(LDFLAGS) $(CFLAGS) $^ -o $*.elf
+	arm-none-eabi-objcopy $*.elf -O binary $@
+
+%.o: %.s
+	arm-none-eabi-as $(ASFLAGS) $< -o $@
