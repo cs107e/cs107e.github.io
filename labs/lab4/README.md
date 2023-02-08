@@ -73,15 +73,15 @@ Breakpoint 1, main () at example.c:5
 
 The [starting memory diagram](images/stack_example.html) shows the state of memory up to the point where `main` was called. What is shown in the diagram should match the observations you make in gdb. Here are some key details to study:
 - In the memory diagram, addresses `0x8000` to `0x80ac` are the text section, containing binary-encoded instructions. The `pc` points to address `0x802c` which corresponds to the first instruction of `main`. The program is stopped before executing that instruction.
-    - The gdb `x` command ("examine memory") can be used to display contents of memory as though it were an array.  Try `x/30i 0x8000`. This command prints 30 instructions (`30i`) starting at address `0x8000` (beginnning of text section). Confirm that instructions printed in gdb match the contents shown in the memory diagram.
+    - The gdb `x` command ("examine memory") can be used to display contents of memory as though it were an array.  Try `x/30i 0x8000`. This command prints 30 instructions (`30i`) starting at address `0x8000` (beginnning of text section). Confirm that the instructions printed in gdb match the contents shown in the memory diagram.
     - `print $pc` to see value of `pc` register. Confirm that `pc` corresponds to the first instruction of `main` where the program is stopped.
-- The stack was placed at address `0x800000` and grows downward as new values are pushed.  At this point in execution, the stack contains just one stack frame, for the function `_cstart`. That frame occupies memory addresses `0x7fffffc`- `0x7fffff0`. The `fp/r11` register points to the first value pushed in the frame (address `0x7fffffc`) and the `sp` register points to the last value pushed (address `0x7fffff0`).
-    - Try examine `x/4wx $sp` to display next four words in hex (`4wx`) starting from `sp`. This shows the topmost 4 words on the stack -- neat!
+- The stack pointer was initialized to address `0x800000` and grows downward as new values are pushed.  Where the program is stopped, the stack contains just one stack frame for the function `_cstart`. That frame occupies memory addresses `0x7fffffc`- `0x7fffff0`. The `fp/r11` register points to the first value pushed in the frame (address `0x7fffffc`) and the `sp` register points to the last value pushed (address `0x7fffff0`).
+    - Try examine `x/4wx $sp` to display four words in hex (`4wx`) starting from address `sp`. This command shows the topmost 4 words on the stack -- neat!
 
 
 #### gdb commands to single step by assembly instruction
 You have previously used the gdb `step` command to execute a single C statement, today you'll be using the low-level `stepi` command to execute a single assembly instruction.
-The gdb `display` command can be used to set up an expression to be auto-printed after each command. One handy command to try right now is `display/i $pc` to auto-print the instruction at `$pc` (e.g. next instruction to be executed).
+The gdb `display` command can be used to set up an expression to be auto-printed after each command. One handy command to try right now is `display/i $pc` to auto-print the instruction at `$pc`. Thus, as you single-step, gdb will auto-print the next instruction to be executed.
 
 ```console?prompt=(gdb)
 (gdb) display/i $pc
@@ -89,7 +89,7 @@ The gdb `display` command can be used to set up an expression to be auto-printed
 ```
 
 #### Trace function prolog
-Use `disassemble main` to see its assembly instructions:
+Use `disassemble main` to view its assembly instructions:
 
 ```console?prompt=(gdb)
 (gdb) disassemble main
@@ -108,7 +108,7 @@ End of assembler dump.
 ```
 The first three instructions set up the APCS frame. These instructions are called the function _prolog_.  The final three instructions are the function _epilog_, which tear down the frame. The prolog and epilog are standardized across all functions. The instructions in the middle are the _body_ of the function and they differ based on the function's specific operation.
 
-We want you to carefully trace the three instructions in the function prolog to understand how they setup the ACPS frame. Have your printed memory diagram on hand and as you trace, manually update the diagram to add the stack frame for `main`. Use gdb to single-step and print/examine updated values of registers/memory and confirm that values match your expectation. Ask questions and discuss with your labmates to help one another get the full picture.
+We want you to carefully trace the three instructions in the function prolog to understand how the ACPS frame is set up. Have your printed memory diagram on hand and as you trace, manually update the diagram to add the stack frame for `main`. As you work it out by hand, you can also gdb to single-step and print/examine updated values of registers/memory and confirm that values match your expectation. Ask questions and discuss with your labmates to help one another get the full picture.
 
 Here is a walkthrough of the prolog instructions:
 
@@ -117,18 +117,23 @@ Here is a walkthrough of the prolog instructions:
      - This dance appears roundabout, but is unavoidable. Do you have a guess why? (Hint: trying to use value of `sp` at the same time a push instruction is changing `sp` seems problematic...)
      - What is the value of `sp` at this point in execution?
 2. `push {r11, r12, lr, pc}`
-    - A push instruction copies mutiple registers to the stack, processing them in order from right to left. pc is pushed first, then lr, then r12, then r11.
+    - A push instruction copies mutiple registers to the stack, processing them in order from right to left: pc is pushed first, then lr, then r12, then r11.
     - Every APCS stack frame starts with these same four saved registers.
     - `saved pc`
-        - Recall that pc when instruction is executing has advanced +8 because of fetch-decode-execute pipeline. The saved pc is an address in the text segment -- which function is this address contained in?
+        - Recall if instruction Y resides at memory address X, when executing instruction Y, the value of the pc will be X+8 because of fetch-decode-execute pipeline.
+        - The saved pc is an address in the text segment.  In your memory diagram, write in that value and draw an arrow that points to that address. Which function is this address contained in? What is the offset of the saved pc from this function's first instruction?
+        - Why might it be useful for the frame to contain a saved copy of pc? What does this value tell you about the currently executing function?
     - `saved lr`
-        - What is the value of the lr at this point? What does it represent? The saved lr is an address in the text segment. Which function is this address contained in?
+        - What is the value of the lr at this point? What is the lr used for?
+        - Write in the value for lr and draw an arrow to that address. The saved lr is an address in the text segment. Which function is this address contained in? What is the meaning of that value relative to the currently executing function?
+        - Why might it be useful for the frame to contain a saved copy of lr? What does it tell you about where the function was called from?
     - `saved r12`
-        - value in r12 is a copy of sp, think of this as representing `saved sp`
-        - The saved sp is an address in the stack. Where in the stack does this address point to?
+        - value in r12 is a copy of sp, think of this as representing `saved sp`.
+        - The saved sp is an address in the stack. Where in the stack does this address point to? Write in the value and draw an arrow to that address.
     - `saved r11`
         - `fp` is the symbolic name for register `r11`. Most tools accept either name as synonym, but in gdb, you must use the name `r11`.
         - The saved r11/fp is an address in the stack. Where in the stack does this address point to?
+        - Why might it be useful for the frame to contain a saved copy of fp? How can this be used as part of a backtrace operation?
     - After executing the push instruction, to what location does `sp` now point?
 3. `sub r11, r12, #4, 0`
     - The final instruction of the prolog sets `r11/fp` to "anchor" the frame.
@@ -138,7 +143,7 @@ The next few instructions of `main` set values for two parameters and make a cal
 
 Having traced the frame setup twice, hopefully you are starting to get a feel for how the stack operates. Each function has same starting sequence: push the same four registers and anchor the fp.
 
-Your completed memory diagram is a roadmap to the program's use of memory and how the stack is managed. The diagram contains a lot of details, but if you take the time to closely inspect it, you will gain a more complete understanding of the relationship between the contents of memory, registers, and the executing program.  Go over it with your tablemates and ask questions of each other to help solidify your understanding. Check in with us and show off your diagram![^1]
+Compare your memory diagram with your tablemates. Ask questions of each other and resolve any discrepancies. We want everyone to have a rock solid undertanding of how a stack frame is laid out and what each of the values mean. Check in with us to confirm your understanding. [^1]
 
 #### Function epilog
 The final three instructions of `combine` are the function _epilog_. These instructions tear down the stack frame and restore caller-owned registers before returning to the caller. You can think of the epilog simply as an abstraction that "reverses" the operations that were done in the prolog, i.e. stack returned to starting state and registers restored to values they had at function entry.
@@ -183,16 +188,18 @@ int make_array(void) {
 0x000080d8 <+52>:   bx  lr
 ```
 
-Look at the assembly for `make_array` and sketch a diagram of its stack frame.
+Look at the assembly for `make_array` and do a quick sketch of its stack frame.
 
 - After the instructions for the standard prolog, which instruction makes space for the array local variable?
 - How are the contents for the array initialized (or not)?
 - If the code erroneously wrote to an index past the end of a stack-allocated array, what data would be corrupted?  What kind of consequence might result from this error?
 - If the code erroneously returned the address of a stack-allocated array, what might happen when the caller try to access the memory at that address?
 
+Writing outside the bounds of a stack-allocated array can be a devastating error.  The array is located in stack memory nearby to the saved values for key registers such as `sp` and `lr`.  Writing past the array can overwrite these precious saved values which then causes execution to "teleport" to a completely nonsensical place. Even writing a single extra byte is too far when the array immediately abuts a critical saved value. Ouch! Stack corruption can be an utterly mystifying experience the first time you encounter it. Knowing how the stack housekeeping is managed should give you helpful insights into recognizing the problem and debugging it.
 
 #### Solving a stack mystery
-Your newfound understanding of how the stack is managed is a neat superpower that you can now test out. Here is the [mystery diagram](images/stack_mystery.html) of the `mystery.c` program stopped somewhere else in its execution. In this diagram, the stack is not annotated with labels and color-coded frames as before. The stack memory looks to be a inscrutable jumble of hex numbers.  However, the current value of `fp` and `sp` are marked. How can you use these anchors to get a foothold to the stack frame of the currently executing function? How can you then work backwards from there to the frame of the caller and its caller and so on? Manually unwind and annotate the stack memory with labels to identify each stack frame and its contents. You have just produced your first backtrace!
+
+Your newfound understanding of how the stack is managed is a neat superpower that you can now test out. Here is the [mystery diagram](images/stack_mystery.html) of a program stopped somewhere else in its execution. In this diagram, the stack is not annotated with labels and color-coded frames as before. The stack memory looks to be a inscrutable jumble of hex numbers.  However, the current value of `fp` and `sp` are marked. How can you use these anchors to get a foothold to the stack frame of the currently executing function? How can you then work backwards from there to the frame of the caller and its caller and so on? Manually unwind and annotate the stack memory with labels to identify each stack frame and its contents. You have just produced your first backtrace!
 
 ### 2. Heap
 
