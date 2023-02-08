@@ -4,6 +4,7 @@
     { font-family: Inconsolata, Consolas, Menlo, monospace;
       font-size: 15pt;
       border-collapse: collapse;
+      width: 100%;
     }
     th {
        padding: 4px;
@@ -25,21 +26,27 @@
     tr.gap td:nth-child(3) {
         background: linear-gradient(gray, white, gray);
     }
+    td:nth-child(1) {
+        font-weight: bold;
+        text-align: right;
+        padding-right: 0px;
+        min-width: 5ch;
+    }
     td:nth-child(2) {
        text-align: right;
        padding-right: 2px;
     }
     td:nth-child(3) {
        border: 1px solid black;
+       min-width: 11ch;
     }
     td:nth-child(4) {
        font-style: italic;
     }
-    td:nth-child(1) {
-        font-weight: bold;
-        text-align: right;
-        padding-right: 0px;
+    td:nth-child(5) {
+       width: 100%;
     }
+
     tr.stackframe1line td:nth-child(4), tr.stackframe2line td:nth-child(4), tr.stackframe3line td:nth-child(4), tr.stackframe4line td:nth-child(4) {
        border-top: 1px solid black;
     }
