@@ -111,7 +111,7 @@ unsigned int strtonum(const char *str, const char **endptr);
  * the behavior is undefined.
  *
  * The function result is the initial length of `dst` plus the length of
- * `src`, i.e. the final size of `dst` if there were space to append
+ * `src`, i.e. the final length of `dst` if there were space to append
  * all of `src`.
  *
  * If there is no null terminator within the first `dstsize` characters of
@@ -122,7 +122,7 @@ unsigned int strtonum(const char *str, const char **endptr);
  * @param dst       destination buffer containing null-terminated string
  * @param str       null-terminated string to append to destination
  * @param dstsize   size of the dst buffer
- * @return          final size of dst if there were space to append all of src
+ * @return          final length of dst if there were space to append all of src
  */
 size_t strlcat(char *dst, const char *src, size_t dstsize);
 
