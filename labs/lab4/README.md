@@ -156,7 +156,7 @@ If you are curious about the details, here is a walkthrough of how the epilog in
     - This `ldm` instruction reads three words in memory starting at `sp` and copies those values into the registers `r11`, `sp`, and `lr`.  This restores those three registers to the value they had at time of function entry.
     - The prolog pushed four registers, but only three registers are being restored (all but `pc`).  Why is it important to __not__ restore the value of the `pc` to the value it had on entry?
     - How the saved registers are removed from the stack is quite subtle. Because it is not using `pop`, there is no auto adjustment of `sp`.  However, the `ldm` will load `sp` with the saved value it had at time of function entry, thus restoring `sp` to where it started and effectively removing any values that were pushed.  Tricky!
-3. ` bx  lr`
+3. `bx  lr`
     - branch exchange returns control to the caller and resumes at the instruction at the lr address.
 
 
