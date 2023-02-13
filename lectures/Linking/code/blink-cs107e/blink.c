@@ -1,10 +1,6 @@
 #include "gpio.h"
 #include "timer.h"
 
-void gpio_init()
-{
-}
-
 void main() {
 
   gpio_init();

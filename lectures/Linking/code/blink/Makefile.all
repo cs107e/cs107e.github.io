@@ -1,7 +1,7 @@
 APPLICATION = blink
 MODULES = timer.c gpio.c
 
-CFLAGS = -Og -Wall -std=c99 -ffreestanding
+CFLAGS = -O2 -Wall -std=c99 -ffreestanding
 ASFLAGS = --warn --fatal-warnings
 LDFLAGS = -nostdlib -T memmap 
 
