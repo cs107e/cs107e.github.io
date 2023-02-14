@@ -79,7 +79,7 @@ $ git pull --allow-unrelated-histories starter-code lab5-starter
 
 ### 1. Install PS/2 plug (10m)
 
-We will distribute a keyboard kit to each of you. The kit includes a keyboard, logic analyzer, and PS/2 plug and circuit board designed for use on a breadboard.
+We will distribute a keyboard kit to you. The kit includes a keyboard, logic analyzer, and PS/2 plug and circuit board.
 (Click photo to show each full screen).
 - __PS/2 keyboard__ (including __USB-to-PS/2 adapter__, which will be hot glued the cord of your keyboard)
     ![keyboard](images/v7keyboard.png){: .zoom .w-50}
@@ -88,20 +88,19 @@ We will distribute a keyboard kit to each of you. The kit includes a keyboard, l
 - __PS/2 plug board__
     ![plugboard](images/plugboard.png){: .zoom .w-25}
 
-These supplies are yours to use, but you must return them at the end of the quarter. Please take care of them!
-
+These supplies are lent to you, you must return them at the end of the quarter. Please take care of them!
 
 Most modern keyboards use the Universal Serial Bus (USB). As you
-heard in lecture, the USB protocol is quite complicated: a typical USB keyboard driver is 2,000 lines of code.
-Instead, we will write a driver with a PS/2
-keyboard, which uses a simple serial protocol that is easy to decode.  The PS/2
+heard in lecture, the USB protocol is quite complicated: a typical USB keyboard driver is 2,000 lines of code -- ouch!
+In this course, we instead use the older PS/2
+keyboard because it has a simple serial protocol that is easy to decode.  The PS/2
 keyboard appeared on the original IBM PC.  Computers have long since stopped
 including a PS/2 port as standard equipment so we will wire a direct connection
 from the PS/2 plug board to the GPIO pins on the Raspberry Pi.
 
-The keyboards we use in this class are USB keyboards that can also operate in PS/2 mode.  The keyboard has
-a wired USB connector with a USB-to-PS/2 adapter. We used hot melt
-glue to permanently attach the adapter, so it acts as a wired PS/2 connector.
+Finding genuine PS/2 keyboards has become somewhat of an archaeological expedition. In this course, we use a specific USB keyboard that is dually capable of operating in PS/2 mode.  The keyboard has
+a wired USB connector and a USB-to-PS/2 adapter. We used hot melt
+glue to permanently attach that adapter, so the keyboard acts as a wired PS/2 keyboard.
 
 There are two common PS/2 devices: a keyboard and a mouse.  A PS/2
 plug is a 6-pin
@@ -115,20 +114,21 @@ carry VCC, GND, DATA and CLK.
 ![PS/2 6-pin mini-din pinout](images/minidin.png)
 
 Grab your PS/2 plug board. Flip it over to see the four-pin header that
-sticks out from the bottom of the circuit board. Those pins
-are connected to the pins in the PS/2 port through small traces on the board.
+sticks out from the bottom of the circuit board. Those header pins connect
+to the male pins in the PS/2 plug through small traces. Look at the
+board and find those traces. The CLK, DATA, and GND traces are on one side of the board
+and the 5V trace is on the opposite side.
 
-Seat the plug board into your breadboard. Each of the four pins
-should be on a different row (mis-orienting the PS/2 plug
-board is a common mistake; if the four pins are all in the same row, they are all be connected what is not what you want!).
+Place the plug board into your breadboard so that each of the four pins
+is on a different row. Be careful not to mis-orient the board; if the four pins are all in the same row, they are all connected together, which is not what you want!
 
 You will use female-to-male
 jumpers to make a connection to each of the four breadboard rows.
-Follow these color conventions when choosing jumpers: red for
+Follow these color conventions for the jumpers: red for
 5V, black for GND, white for CLK, and yellow for DATA.
 
-You need to supply power to your keyboard.  Choose two female-to-male jumpers, one red and one black.
-Connect one end of the red jumper to a 5V pin on your Raspberry Pi and the other end to the 5V row in your breadboard.
+First, supply power to your keyboard. Choose two female-to-male jumpers, one red and one black.
+Connect the female end of the red jumper to a 5V pin on your Raspberry Pi and the male end to the 5V row in your breadboard.
 Similarly, use a black jumper to connect a GND pin on your Pi to the GND row.
 
 ### 2. Use a logic analyzer to visualize keyboard signals (20m)
@@ -146,26 +146,26 @@ of the logic analyzer to your laptop supply power and read data.
 Choose two female-to-male jumpers, one white and one yellow.
 Read
 the label on the analyzer to learn the pin layout and identify which pins correspond to channels 0 and 1.
-Connect one end of the white jumper to channel 0
-on your analyzer and the other end to the CLK row on your breadboard.
+Connect the female end of the white jumper to channel 0
+on your analyzer and the male end to the CLK row on your breadboard.
 Similarly, use the yellow jumper to connect channel 1 to the DATA row.
 
-In the photo below, the four jumpers from left to right are power (red), ground (black), white (CLK), and yellow (DATA).
-Power and ground are connected to your Pi. CLK and DATA are connected to channels 0 and 1 of the logic analyzer.
+In the photo below, the four jumpers from left to right are power (red), ground (black), CLK (white), and DATA (yellow).
+The power and ground connect to your Pi. The CLK and DATA are connected to channels 0 and 1 of the logic analyzer.
 
 ![wire order](images/connector_wiring.jpg){: .zoom .w-25}
 
-Choose another two female-to-male jumpers, one white and one yellow. Add the second white jumper to the CLK row and a second yellow jumper to the DATA row. Leave the other jumper ends unconnected for now.
+Choose another two female-to-male jumpers, one white and one yellow. Connect the male end of the second white jumper to the CLK row and the second yellow jumper to the DATA row. Leave the female jumper ends unconnected.
 We will connect these later, but it's easier to get them into the breadboard now.
 
 You must also ground the logic analyzer. Voltage is relative: when looking at a signal, all you can tell is its difference from a
-reference, which in this case is the ground provided by the Pi. If you don't
+reference, which in this case should be the ground provided by the Pi. If you don't
 connect the logic analyzer to the Pi's ground, then it will be measuring voltage against whatever happens to be
 on the pins, which can act as tiny antennae. Identify
-the ground pin on the analyzer and use a black jumper to connect it to a 
-ground pin on your Raspberry Pi. Depending on the model of logic analyzer you are using, there may be one shared ground for all channels or a separate ground per channel which each require their own ground.
+the ground pin on the analyzer and use a female-to-female black jumper to connect it to a
+ground pin on your Raspberry Pi. Depending on the model of logic analyzer you are using, there may be one shared ground for all channels or a separate ground per channel.
 
-This is what it looks like when the keyboard is wired up to the logic analyzer.
+This is what it looks like when the plug board is wired up to the logic analyzer.
 
 ![wired up](images/connector_analyzer.jpg){: .zoom .w-75}
 ![wired up](images/connector_analyzer_spaced.jpg){: .zoom .w-75}
@@ -179,14 +179,14 @@ preparation. When the logic analyzer is unconnected, the start-up screen is simi
 
 Connect the USB cable from the mini-USB port on the logic analyzer to an open USB-A port on your laptop. If your laptop doesn't have an open USB-A port or requires an additional USB-A to C adapter, pair up with your neighbor and pool your resources to get a single setup working on one laptop that you can both observe.
 
-Once you connect the logic analyzer to your laptop, the Logic 2 screen will change to this:
+When you connect the logic analyzer to your laptop, the Logic 2 screen will change to this:
 
 ![Logic2 Connected](images/Logic2_devicesettings.png)
 
 Find the sample rate control; it is labeled something like `24 M/s`. Click on the control and adjust the sample rate down to `1 M/s` (1 million samples per second is plenty, attempting to sample at a higher rates can sometimes produce errors).
 
 In the upper right corner is a green button with the white "Play" triangle. Click this button
-to start reading the signal. Type a few keys on the PS/2 keyboard and hit the red "Stop" button to stop reading.
+to start reading the signal. Type a few keys on the PS/2 keyboard and then click the red "Stop" button to stop reading.
 The application records and visualizes activity on channels 0 and 1. 
 You can zoom in and out and pan left and right to see the details
 of the captured signal. You should see the characteristic pattern of the PS/2
@@ -195,9 +195,9 @@ protocol.
 The Logic 2 application provides protocol analyzers that can be applied to
 the captured data. Along the right side, find the hexagon labeled `1F` . Click this button to
 display the *Analyzers* pane. Click the `+` in upper right to access the list
-of analyzers and choose the PS/2 protocol analyzer. Configure it for CLK on
+of analyzers and choose the PS/2 protocol analyzer. Configure CLK on
 channel 0 and DATA on channel 1. The captured data is now decoded according to
-the PS/2 protocol and displays the scancodes sent by the keyboard.
+the PS/2 protocol and interprets the sampled signal as scancodes.
 
 ![Logic 2 PS/2 Analyzer](images/Logic2_ps2analyzer.png)
 
@@ -211,13 +211,12 @@ You're ready to answer the first check-in question[^1].
 ### 3. Run keyboard test (20m)
 
 You're now ready to try reading the keyboard signals on the Pi.
-Earlier you added a second white and second yellow jumper to your breadboard rows,
-now connect the loose jumper ends to your Raspberry Pi.
+Earlier you added a second white and second yellow jumper to your breadboard rows, connect the female ends to your Raspberry Pi now.
 The white jumper (CLK) connects to GPIO 3 and the yellow jumper (DATA) to GPIO 4.
 
-Having two separate jumpers on CLK and DATA (one connected to the logic analyzer, the other connected to your Pi)
+Having two connections for each of CLK and DATA (one connected to the logic analyzer, the other connected to your Pi)
 lets you simultaneously receive the data at your Pi and look at the scancodes
-on the logic analyzer, so during debugging you can compare what your Pi thinks
+on the logic analyzer. This is very useful during debugging as you can compare what your Pi thinks
 it's receiving with the ground truth of what the logic analyzer sees.
 
 Here is what the connections to the Pi look like:
@@ -236,8 +235,8 @@ received. If you aren't getting events, check your wiring.
 
 Note that scancodes are not ASCII characters. Instead, these values relate to
 the physical placement of the key on the keyboard.  Inside the keyboard,
-there's a 2D matrix of wires that generates the scancode bits. It is the
-keyboard driver that will implement the logic to lookup that code and generate
+there's a 2D matrix of wires that generates the scancode for a given key. In the
+keyboard driver, you will implement the logic to lookup that scancode and generate
 the appropriate ASCII character. 
 
 Each key press and key release is reported as a distinct action. Press a key;
@@ -252,13 +251,12 @@ release the key.  Press and hold `z`and watch for the repeat events to start
 firing. About how long does it seem to take for auto-repeat to kick in? At
 about what rate does it seem to generate auto-repeat events?  
 
-Type some single letters to observe the codes for press, release, and
-auto-repeat.  Then try typing modifier keys like Shift and Alt. Try pressing
-more than one key at a time. 
+Press and hold one key, then press and hold another without releasing the first. Which key repeats? What happens when you release that key? Try those same actions on your laptop's keyboard, does it behave the same way?
 
-* What sequence of codes do you see when typing (capital) `A`? What does this
-  tell you about what will be required for your keyboard driver to handle the
-  Shift or Control keys?  
+Type single keys to observe the scancodes for press, release, and
+auto-repeat.  Then try typing modifier keys like Shift and Alt, singularly and in conjunction
+with other keys. Does shift being pressed changed what scancode is sent by a letter key? What about
+caps lock? Observe the sequence of scancodes to suss out what functionality is provided by the keyboard hardware and what features are to be implemented in the keyboard driver software.
 
 You're ready for the second check-in question [^2]
 
@@ -267,30 +265,29 @@ You're ready for the second check-in question [^2]
 </style>
 
 > __Side note on N-key rollover__
-- The PS/2 protocol reports a key action with an individual scancode. If the user simultaneously presses N keys on a PS/2 keyboard, the keyboard should report this state by sending N scancodes, i.e., there is no limit on the number of key actions that can be detected and reported.  In contrast, the USB protocol asks the keyboard for the current state and the keyboard's answer is limited to reporting at most 6 pressed keys, i.e., USB is constrained to 6-key rollover. Try observing this on your laptop keyboard (which is likely USB). Open your editor or use the Mac "Keyboard Viewer" to visualize (In Preferences->Keyboard, enable "Show keyboard and emoji view in menu bar", then choose "Open Keyboard Viewer" from input menu). Hold down one letter, then two, and so on, and you'll reach a point at which no further key presses are detected.
-- While the PS/2 protocol has no limitations and in theory allows full N-key rollover, in practice, the internal wiring of many PS/2 keyboards shares circuitry among keys rather than wiring each key independently. As a result, as you hold down more and more keys on your PS/2 keyboard, you'll likely reach a point where additional keys are mis-detected. Try it now on your PS/2 keyboard. How many simultaneous keys can your keyboard reliably detect?
+- The PS/2 protocol reports each key action as a separate scancode. If the user simultaneously presses N keys, a PS/2 keyboard sends N scancodes, one for each key. In contrast, the USB protocol operates by asking the keyboard for the current state and the keyboard's answer is limited to reporting at most 6 pressed keys, i.e., USB is constrained to 6-key rollover. Try observing this on your laptop keyboard (which is likely USB). Open your editor or use the Mac "Keyboard Viewer" to visualize (In Preferences->Keyboard, enable "Show keyboard and emoji view in menu bar", then choose "Open Keyboard Viewer" from input menu). Hold down one letter, then two, and so on, and you'll reach a point at which no further key presses are detected.
+- While the PS/2 protocol has no limitations and in theory allows full N-key rollover, in practice, the internal wiring of many PS/2 keyboards shares circuitry among keys rather than wiring each key independently. As a result, as you hold down more and more keys on your PS/2 keyboard, you'll likely reach a point where additional keys are mis-detected. Try it now on your PS/2 keyboard. How many simultaneous keys can your PS/2 keyboard reliably detect? What happens when you go past that limit?
 - Here is a good explanation from Microsoft Research on [N-key rollover and keyboard circuitry](http://web.archive.org/web/20180112133411/https://www.microsoft.com/appliedsciences/content/projects/AntiGhostingExplained.aspx) if you want to learn more.
 {: .callout-info .sidebar}
 
 ### 4. Implement ps2_read (40m)
 
-In this lab exercise, you will get a start on writing your keyboard
-driver. We want you to do this in lab because it touches on both
-hardware and software, so it can be tricky to debug; it helps to
-have staff around! Once this is working, it's all software, which is typically smoother sailing.
+In this lab exercise, you will get a start on writing the keyboard
+driver that will be a part of your next assignment. We want you to do this task in lab because working at the intersection of hardware and software requires a specialized kind of debugging (logic analyzer, etc.) which can be tricky; it helps to
+have staff around! Once this is working, the rest of the keyboard driver is software, and back to your regular debugging approach of print statements and gdb.
 
 Change to the directory `lab5/my_keyboard`. This is the
 same application as `lab5/keyboard_test`, except that rather than
-using the reference implementation, you are going to write your own code to
+using the reference implementation, you will write your own code to
 read a scancode.
 
 [Browse the headers](/header) for ps2.h and keyboard.h to review the module
 documentation. The `ps2` module manages the low-level communication with a PS/2
 device. The `keyboard` module layers on the ps2 module to interpret scancodes
-into typed keys. During lab, you will implement initial versions of the
-functions `ps2_read` in `ps2.c`.
+into typed keys. During lab, you will implement an initial version of the
+function `ps2_read`.
 
-Open `ps2.c` in your text editor. The function `ps2_new` has already been
+Open `ps2.c` in your editor. The function `ps2_new` has already been
 written for you.  This function configures a new PS/2 device for the specified
 clock and data gpio. In the library modules we have seen thus far, we have used
 global variables to store data that is shared across the module. A single set
@@ -302,21 +299,18 @@ new `malloc` . The rest of the function is setting the clock and data GPIOs as
 inputs and enabling the internal pull-up resistor so these pins default to
 high, as expected in the PS/2 protocol.
 
-The function `ps2_read` reads the individual bits that make up a scancode. We
-want you to write this function here in lab as a start on your next assignment.
-
-Before reading each bit from the data line, a PS/2 device must first wait for
-the falling edge on the clock line. You will need to repeatedly do these tasks
-and rather than replicate code, we suggest you define a private helper function
-`read_bit`. The helper waits until observes the transition from high to low on
+Once you understand the given code in `ps2.c` you are to implement the function `ps2_read`
+to read the bits that make up a scancode. The basic operation is to wait for
+the falling edge on the clock line and then read a bit from the data line.
+You will need to do this 11 times for a scancode, but rather than duplicate that code 11 times,
+we suggest you define a private helper function `read_bit`. The helper waits until observes the transition from high to low on
 the clock line and then reads a bit from the data line. Unifying repeated code
 into a shared helper aids readability and maintainability; this is a good habit
 to adopt. 
 
 > If you need a refresher on how to correctly wait for a clock edge, take a
 > look at the [Keyboard lecture ps2 sample
-> code](/lectures/Keyboard/code/ps2/ps2.c). This application prints out
-> the raw bits of a scan code.
+> code](/lectures/Keyboard/code/ps2/ps2.c).
 {: .callout-info}
 
 A scancode transmission consists of 11 bits: a start bit (always low), 8 data
@@ -330,18 +324,18 @@ read the 8 data bits.
   logic analyzer, or look back at the PS/2 protocol documentation linked in the
   prelab.*
 
-Lastly, read the parity and stop bits. For the assignment, your driver will
+The last two bis are the parity and stop bits. For the assignment, your driver will
 validate these bits have the correct values, but for lab, just read the bits
 and assume they are correct. 
 
-If you're having trouble reading in the bits correctly, compare what your code
-is reporting with the bits you see with the logic analyzer: run your program,
+If you're having trouble reading in the bits correctly, debug by comparing the bits
+your code is seeing with the signals seen by the logic analyzer: run your program,
 start the logic analyzer, and type one key. Being able to simultaneously see
-exactly what bits are send *and* how your Pi interprets them is extremely
+exactly what signals are sent *and* how your Pi interprets them is extremely
 useful: it's like gdb for the pins!
 
 > __Disconnecting logic analyzer__
-Your current wiring has two sets of jumpers for each of CLK and DATA that share the keyboard signals to the Pi and the logic analyzer both.
+The wiring we have you do in lab has four jumpers for CLK and DATA: one pair to send the keyboard signals to the Pi and another to share with the logic analyzer.
 The essential connection is between the keyboard and the Pi; the connection to the logic analyzer is just for debugging. Once you have debugged your keyboard driver, you may want to disconnect the logic analyzer to de-clutter.
 {: .callout-warning}
 
@@ -357,7 +351,11 @@ identically to the `keyboard_test` version you tested in Step 3. If you run
 into any snags, please be sure to get help from us now so that you'll be able
 to hit the ground running on the assignment. Show us your working code! [^4]
 
-### 5. Bootloader (30m)
+### 5. Code reading: bootloader (30m)
+One great way to deepen your understanding of programming and computer systems is to read
+and review code written by others. For this exercise, we want you to examine the
+code for a program that is very near and dear to you this quarter: the bootloader.
+
 The _bootloader_ is the program that runs on the Raspberry Pi that waits to
 receive a program from your laptop and then executes it.  Back in lab 1, you
 downloaded `bootloader.bin` from the firmware folder and copied it to your SD
@@ -450,7 +448,9 @@ Why can't the bootloader code also be placed at 0x8000?
 The `bootloader.c` file contains the C code to perform the receiver side of the
 XMODEM protocol. Go over the bootloader code in detail with your tablemates.
 Start by tracing the operation when everything goes as planned without errors,
-then consider what happens when things go awry.
+then consider what happens when things go awry. We intentionally removed most of the
+comments from our code. We want you to add back in the critical information
+to help the reader understand and follow the program's operation.
 
 Here are some questions to frame your discussion:
 
@@ -473,6 +473,7 @@ With your group, annotate the bootloader source with comments documenting its op
 - Someone brave can read David Welch's
   [bootloader03.c](https://github.com/dwelch67/raspberrypi/blob/master/bootloader03/bootloader03.c)
   and try to confirm our version is a faithful rewrite. Which of these two versions would you rather maintain?
+- When reviewing your part of the code, reflect on the style/readability. What design choices seem to be good ones? How could it be improved?
 
 Have each person jot down notes and then explain their part to the group.
 **Collate your group's notes and annotated bootloader code and show to the
@@ -495,4 +496,4 @@ Before you leave, confirm you have a working `keyboard_read_scancode` and take y
 
 [^5]: Hand in your group's annotated copy of `bootloader.c`.
 
-[^6]: Take your entire keyboard kit (keyboard, plug board, logic analyzer) with you. This equipment is on loan to you. Please take care of it and return at the end of quarter.
+[^6]: Take your entire keyboard kit (keyboard, plug board, logic analyzer) with you. This equipment is on loan to you. Please take care of it, you must return these parts to us at the end of quarter.
