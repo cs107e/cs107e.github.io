@@ -79,12 +79,10 @@ $ git pull --allow-unrelated-histories starter-code lab5-starter
 
 ### 1. Install PS/2 plug (10m)
 
-We will distribute a keyboard kit to you. The kit includes a keyboard, logic analyzer, and PS/2 plug and circuit board.
+We will distribute a keyboard kit to you, which includes a keyboard and PS/2 plug and circuit board.
 (Click photo to show each full screen).
-- __PS/2 keyboard__ (including __USB-to-PS/2 adapter__, which will be hot glued the cord of your keyboard)
+- __PS/2 keyboard__ (including __USB-to-PS/2 adapter__ perma-attached with glue to cable)
     ![keyboard](images/v7keyboard.png){: .zoom .w-50}
-- __Logic analyzer__ 
-    ![hiletgo](images/hiletgo.png){: .zoom .w-25}
 - __PS/2 plug board__
     ![plugboard](images/plugboard.png){: .zoom .w-25}
 
@@ -134,7 +132,7 @@ Similarly, use a black jumper to connect a GND pin on your Pi to the GND row.
 ### 2. Use a logic analyzer to visualize keyboard signals (20m)
 
 We're going to use a logic analyzer to examine the signals sent by the keyboard.  Familiarize yourself with the hardware of the logic analyzer.
-Please remember to give back your logic analyzers at the end of lab. DO NOT keep them! 
+Please remember to return your logic analyzer to us at the end of lab. DO NOT keep them!
 
 ![logic analyzer](images/logic_analyzer.jpg){: .zoom .w-25}
 
@@ -337,7 +335,7 @@ useful: it's like gdb for the pins!
 
 > __Disconnecting logic analyzer__
 The wiring we have you do in lab has four jumpers for CLK and DATA: one pair to send the keyboard signals to the Pi and another to share with the logic analyzer.
-The essential connection is between the keyboard and the Pi; the connection to the logic analyzer is just for debugging. Once you have debugged your keyboard driver, you may want to disconnect the logic analyzer to de-clutter.
+The essential connection is between the keyboard and the Pi; the connection to the logic analyzer is just for debugging. Once past debugging, you can remove those jumpers and return the logic analyzer to us. We keep them in lab if you need to borrow one again in future.
 {: .callout-warning}
 
 The function `keyboard_read_scancode` in `keyboard.c` simply calls `ps2_read`
@@ -480,11 +478,10 @@ Have each person jot down notes and then explain their part to the group.
 **Collate your group's notes and annotated bootloader code and show to the
 CA.**[^5]
 
-## Reminder: Give back your logic analyzer now!
 
 ## Check in with TA
 
-Before you leave, confirm you have a working `keyboard_read_scancode` and take your keyboard kit[^6] home.
+Before you leave, confirm you have working code for `keyboard_read_scancode`, __return logic analyzer and usb cable__, and take home your keyboard kit[^6].
 
 [^1]: The PS/2 clock frequency must be in the range 10 to 16.7 kHz. To be within spec, what should time period between falling clock edges be? When you measured using the logic analyzer, what time period did you observe? Write down this number, you will need it for a later check-in question .
 
@@ -498,4 +495,4 @@ Before you leave, confirm you have a working `keyboard_read_scancode` and take y
 
 [^5]: Hand in your group's annotated copy of `bootloader.c`.
 
-[^6]: Take your entire keyboard kit (keyboard, plug board, logic analyzer) with you. This equipment is on loan to you. Please take care of it, you must return these parts to us at the end of quarter.
+[^6]:  Take your keyboard and plug board with you. This equipment is on loan to you. Please take care of it, you must return these parts to us at the end of quarter.
