@@ -134,6 +134,7 @@ Similarly, use a black jumper to connect a GND pin on your Pi to the GND row.
 ### 2. Use a logic analyzer to visualize keyboard signals (20m)
 
 We're going to use a logic analyzer to examine the signals sent by the keyboard.  Familiarize yourself with the hardware of the logic analyzer.
+Please remember to give back your logic analyzers at the end of lab. DO NOT keep them! 
 
 ![logic analyzer](images/logic_analyzer.jpg){: .zoom .w-25}
 
@@ -479,6 +480,7 @@ Have each person jot down notes and then explain their part to the group.
 **Collate your group's notes and annotated bootloader code and show to the
 CA.**[^5]
 
+## Reminder: Give back your logic analyzer now!
 
 ## Check in with TA
 
