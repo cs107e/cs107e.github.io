@@ -9,11 +9,22 @@
  *
  * Author: Julie Zelenski <zelenski@cs.stanford.edu>
  *
- * Last edited Feb 2021
+ * Last edited Feb 2023
  */
 
 #include <stdbool.h>
 
+/*
+ * Type: `ps2_device_t`
+ *
+ * This typedef gives a nickname to the struct that will be used to represent a
+ * single PS2 device. The internal details of the struct (e.g. type and names
+ * of struct fields) will be given in the file ps2.c; those details are private
+ * to the implementation and not shared in the public interface.
+ * Clients of the ps2 module are not privy to the details of ps2_device_t,
+ * nor should they be. A client simply holds on to the pointer returned by
+ * `ps2_new` and sends that pointer as an argument to `ps2_read`.
+ */
 typedef struct ps2_device ps2_device_t;
 
 /*
@@ -26,11 +37,12 @@ typedef struct ps2_device ps2_device_t;
  *
  *     ps2_device_t *dev = ps2_new(KEYBOARD_CLK, KEYBOARD_DATA);
  *
- * Notice that this interface is slightly different from the _init exposed by
- * other libpi modules. The _new pattern allows a client to create multiple PS2
- * devices, such as one for a keyboard and another for a mouse. It also means
- * that clients of this module don't need to know the implementation details
- * (like size) of ps2_device_t, since they just keep a pointer.
+ * Notice that this interface is different from the module_init exposed by
+ * other libpi modules. The new operation can be called more than once
+ * in order to create multiple PS2 devices, such as one for a keyboard and
+ * another for a mouse. When calling ps2_new, the client saves the
+ * returned pointer to use as argument in when calling ps2_read.
+ * This is how the client indicates which PS2 device is to be read.
  *
  * @param clock_gpio    the gpio pin number connected to the clock line of the PS2 device
  * @param data_gpio     the gpio pin number connected to the data line of the PS2 device
@@ -71,7 +83,7 @@ unsigned char ps2_read(ps2_device_t *dev);
  *
  * Write a command scancode to the specifed PS2 device.
  * You do not need to implement this function unless you are
- * doing the mouse extension.
+ * doing the mouse extension for assign7.
  *
  * @param dev       PS2 device to which to write
  * @param command   scancode to write

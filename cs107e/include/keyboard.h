@@ -12,28 +12,47 @@
  * Author: Philip Levis <pal@cs.stanford.edu>
  * Author: Julie Zelenski <zelenski@cs.stanford.edu>
  *
- * Last updated:   February 2019
+ * Last updated:   February 2023
  */
 
+/*
+ * Type: `key_action_t`
+ *
+ * This struct represents a single action on a PS2 key.
+ * The action is either a press or release of the specified key
+ * (identified by its keycode).
+ */
 typedef struct {
     enum { KEY_PRESS, KEY_RELEASE } what;
     unsigned char keycode;
 } key_action_t;
 
 /*
- * These bit flags are used for the state of the various modifier
- * keys on the keyboard.
+ * Type: `keyboard_modifiers_t`
+ *
+ * This enum type represents the state of the modifier keys.
+ * A single bit flag is used for each modifier. The bits
+ * taken together as a bitset indicate the state of all modifier keys.
+ * A bit can be set/clear/read within the bitset by using the individual
+ * bit flag as a mask.
+ * The required modifiers are Shift, Alt, Control, and Caps Lock.
  */
 typedef enum {
     KEYBOARD_MOD_SHIFT = 1 << 0,
     KEYBOARD_MOD_ALT = 1 << 1,
     KEYBOARD_MOD_CTRL = 1 << 2,
     KEYBOARD_MOD_CAPS_LOCK = 1 << 3,
-     // scroll and num lock listed for completeness, not implemented for assign5 basic
+     // scroll and num lock listed for completeness, NOT implemented for assign5 basic
     KEYBOARD_MOD_SCROLL_LOCK = 1 << 4,
     KEYBOARD_MOD_NUM_LOCK = 1 << 5,
 } keyboard_modifiers_t;
 
+/*
+ * Type: `key_event_t`
+ *
+ * This struct represents a single key event, which packages
+ * the raw key action with additional data about keyboard state.
+ */
 typedef struct {
     key_action_t action;                // see struct declared above
     ps2_key_t key;                      // entry taken from ps2_keys table (see ps2_keys.h)
@@ -65,7 +84,7 @@ void keyboard_init(unsigned int clock_gpio, unsigned int data_gpio);
  * Return values in the range 0 - 0x7f indicate the typed key is an ordinary
  * Ascii character. For a typed key not associated with an Ascii character,
  * such an arrow or function key, the function returns a value >= 0x90. The
- * value assigned to each non-Ascii key is given in the list of `ps2_codes`
+ * value assigned to each non-Ascii key is given in the list of `ps2_special_chars`
  * in the `ps2_keys.h` header file.
  *
  * This function calls `keyboard_read_event` to receive a key press event.
