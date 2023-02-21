@@ -627,7 +627,7 @@ Our highest priority tests will focus on the core features for this assignment:
   - shell
     - user-entered input
     - handling of backspace
-        - will not test: backspace through tab character
+        - will not test: backspace through tab character (tab is converted to variable number of spaces behind your back, you don't need to account for this)
     - parse and execute command
 
 The additional tests of lower priority will examine less critical features, edge cases, and robustness. Make sure you thoroughly tested for a variety of scenarios!
