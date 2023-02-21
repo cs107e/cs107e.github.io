@@ -421,7 +421,7 @@ Your shell has five commands:
 Be sure to carefully review the documentation in [shell_commands.h](/header#shell_commands). This header
 file gives example use of each command, including the required error handling and expected output.
 
-The starter code provides a working implementation of `cmd_echo as an example. The `echo` command simply prints its arguments:
+The starter code provides a working implementation of `cmd_echo` as an example. The `echo` command simply prints its arguments:
 
 ```console?prompt=Pi>
 Pi> echo Hello, world!
