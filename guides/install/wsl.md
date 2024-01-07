@@ -30,9 +30,10 @@ Windows OS does not natively support the development tools used in this course. 
 
 ### Enable and Install Ubuntu on the WSL Windows feature
 
-1. Open PowerShell or Windows Command Prompt in administrator mode by right-clicking and selecting "Run as administrator", enter the wsl --install command below, then restart your machine.
+1. Open PowerShell or Windows Command Prompt in administrator mode by right-clicking and selecting "Run as administrator", enter the install commands below, then restart your machine.
 
     ```powershell
+    wsl --set-default-version 1
     wsl --install -d Ubuntu-22.04
     ```
 
@@ -59,15 +60,19 @@ Release:        22.04
 Codename:       jammy
 $ powershell.exe "wsl --list --verbose"
   NAME              STATE       VERSION
- *Ubuntu-22.04      Running     2
+ *Ubuntu-22.04      Running     1
 ```
-{%- comment %}
-NOTE: WSL2 now supports serial ports
-TODO: see if we need https://github.com/dorssel/usbipd-win
 The rightmost column of the last command reports the version of WSL. It is critical that you are using WSL version 1, not 2, as serial port support is not available in WSL2.
+If you see a version 2, you can switch to version 1 by running the command below in PowerShell or Windows Command Prompt in administrator mode:
+```powershell
+wsl --set-version Ubuntu-22.04 1
+```
+
+{%- comment %}
+Kenny January 2024: According to https://github.com/dorssel/usbipd-win, WSL2 now supports serial ports but leaving it at WSL1 for now because I am yet to test it out.
 {%- endcomment %}
 
-You now have an up-to-date version of Ubuntu running in WSL2 on top of your Windows OS.
+You now have an up-to-date version of Ubuntu running in WSL1 on top of your Windows OS.
 
 <a name="files"></a>
 ### Accessing WSL files from Windows
@@ -104,6 +109,7 @@ update the output of apt list
 $ apt list gcc-riscv64-unknown-elf
 Listing... Done
 gcc-riscv64-unknown-elf/jammy,now 10.2.0-0ubuntu1-107e amd64 [installed, local]
+
 $ riscv64-unknown-elf-gcc --version
 riscv64-unknown-elf-gcc () 10.2.0
 Copyright (C) 2020 Free Software Foundation, Inc.
@@ -112,6 +118,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 arm-none-eabi-gcc (15:9-20190q4-0ubuntu1) 9.2.1 20191024 [ARM/arm-9-branch revision]
 ```
 
+{%- comment %}
 ## Install Python3 and packages
 
 The `rpi-run.py` script will be used to send programs from your computer to the Pi. This script uses python3 and two support packages. Run the commands below in your WSL terminal to install these components.
@@ -159,6 +166,8 @@ REMINDER: newer universal driver not compatible with WSL, keep using the older 6
 {%- endcomment %}
 1. Run the appropriate installer exe and follow the prompts to completion.
 
+{%- endcomment %}
+
 {% comment %}
 Removed this check step as driver does not show up until it has been loaded. Leave this information here for trouble-shooting.
 
@@ -172,6 +181,7 @@ Removed this check step as driver does not show up until it has been loaded. Lea
 {% endcomment %}
 
 {% comment %}
+Kenny January 2024: Commenting out driver install instructions with move to Mango Pi
 Sean April 2020, We had a few students that were having trouble with the driver, and were getting a "could not find CP2102 device" error. I'm adding the driver install instructions back now since the redundancy doesn't seem to break anything.
 
 Julie Jan 2020,Windows 10 should be plug-and-play, will automatically download/install driver. I tested on brand new machine and confirmed it worked as advertised. Commenting out the above instructions for manual install from SiLabs, but will leave here in case we later find we need to revive them
