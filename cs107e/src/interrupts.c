@@ -7,7 +7,7 @@
 
 #include "interrupts.h"
 #include "assert.h"
-#include "csr.h"
+#include "_csr_private.h"
 #include "mango.h"
 #include "printf.h"
 

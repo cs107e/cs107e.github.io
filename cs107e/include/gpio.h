@@ -110,9 +110,9 @@ void gpio_write(gpio_id_t pin, int val);
  *
  * The GPIO pins are organized into six groups: PB PC PD PE PF PG
  * (These are called "ports" in the user manual)
- * The pins within a group are indexed by number starting from 0. Each group has
- * a differing number of pins. For example, the PB group compromised 13 pins
- * indexed from PB0 to PB12. The PC group has 8 pins, from PC0 to PC7.
+ * The pins within a group are indexed by number starting from 0. Each 
+ * group has a differing number of pins. For example, the PB group has 
+ * 13 pins indexed from PB0 to PB12. The PC group has 8 pins PC0 to PC7.
  *
  * Values are assigned to each pin id in such a way to use a single hex constant
  * that mashes together the group and pin index as shown below
