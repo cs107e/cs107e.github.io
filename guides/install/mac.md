@@ -58,6 +58,7 @@ This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
 
+{%- comment %}
 ## Install python3 and packages
 The `rpi-run.py` script will be used to send programs from your computer to the Pi. This script requires installation of python3 and two support modules.
 
@@ -106,4 +107,10 @@ $ kextfind -B -si silabs -report -b -loadable
 CFBundleIdentifier  Loadable
 com.silabs.driver.CP210xVCPDriver   yes
 ```
+{%- endcomment %}
+
+{%- comment %}
+Kenny January 2024: Removing Python and the CP2012 driver section as it is no longer needed with our move to the Mango Pi.
+{%- endcomment %}
+
 {% include_relative userconfig.md %}

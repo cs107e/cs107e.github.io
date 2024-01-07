@@ -19,7 +19,7 @@ After you have installed the development tools,  follow the steps below to confi
 {% include checkstep.html content="confirm directory contents" %}
 ```console
 $ ls ~/cs107e_home/cs107e.github.io/cs107e/bin
-pinout     rpi-run.py
+blink-actled.bin    pinout.py     mango-run
 ```
 
 Note: If you're using WSL, now is a good time to open File Explorer on your `cs107e_home` directory and "Pin to Quick Access" to add it the sidebar for future use. See [accessing WSL files from Windows](../wsl/#files).

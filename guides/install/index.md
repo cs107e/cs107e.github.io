@@ -42,11 +42,17 @@ Connected to the simulator.
 
 {% include checkstep.html content="confirm __rpi-run.py__ version 2.3" %}
 ```console
-$ rpi-run.py -h
-usage: rpi-run.py [-h] [-d device] [-v]  [-p | -s] [file]
-This script sends a binary file to the Raspberry Pi bootloader. Version 2.3
+./mango-run
+Usage: ./mango-run <binary-file>
+
+  Simple script to run a program on the Mango Pi using xfel as bootloader.
+  (xfel ddr d1, xfel write, xfel exec)
+
+xfel version
+ERROR: Can't found any FEL device
 ```
 
+{%- comment %}
 {% include checkstep.html content="confirm __CP2102 driver__" %}
 If you have your [CP2012 USB-serial breakout board](/guides/bom), plug it into a USB port on your computer and confirm it can be found. 
 ```console
@@ -54,3 +60,4 @@ $ rpi-run.py
 Found serial device: /dev/ttyS3
 ```
 The reported device name can vary, e.g. `/dev/cu.usbserial` or `/dev/cu.SLAB_USBtoUART` and others.
+{%- endcomment %}
