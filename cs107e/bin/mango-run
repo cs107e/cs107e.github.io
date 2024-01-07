@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# Simple script to run program on Mango Pi via xfel bootloader
+#
+# Author: Julie Zelenski <zelenski@cs.stanford.edu>
+
+faint="\033[2m"
+norm="\033[0m"
+red="\033[31m"
+
+execute() {
+    echo -e "$faint$@$norm"
+    output=$("$@" 2>&1)
+    if [ $? -eq 0 ]; then
+        echo -e "$faint$output$norm"
+    else
+        echo -e "$red$output$norm"
+        exit 1
+    fi
+ }
+
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <binary-file>"
+    echo
+    echo "  Simple script to run a program on the Mango Pi using xfel as bootloader. "
+    echo "  (xfel ddr d1, xfel write, xfel exec)"
+    echo
+    execute xfel version
+    exit 1
+fi
+
+execute xfel ddr d1
+execute xfel write 0x40000000 "$1"
+execute xfel exec  0x40000000

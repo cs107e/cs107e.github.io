@@ -1,0 +1,5 @@
+# Configuration for site search
+exclude: [robots.txt, sitemap.xml, 404.html, site.scss, site.css.map]
+# static files are generally ignored (pdf, json, css)
+# whitelist those extension with text contents
+static_ext_includes: [".txt", ".cpp"]

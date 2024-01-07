@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/_assets/style/site.css" rel="stylesheet">
+    <link href="/_assets/img/favicon.png" rel="icon" type="image/png">
+    <script src="https://kit.fontawesome.com/9006c49789.js" crossorigin="anonymous"></script>
+    <!-- jQuery library -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
+    <title>CS107E {% if page.title %}{{ page.title }}{% endif %}</title>
+  </head>
+
+<body>
+  {% include navbar.html %}
+  <div class="container">
+    {{ content }}
+  </div>
+  {% include footer.html %}
+</body>
+
+<!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+</html>
