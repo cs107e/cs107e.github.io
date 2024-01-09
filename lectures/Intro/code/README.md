@@ -1,6 +1,6 @@
 # RISC-V instructions
 
-Try pasting these instructions intor [Ripes visualizer](https://ripes.me/)
+Try pasting these instructions into the [Ripes visualizer](https://ripes.me/)
 
 ```
 # li pseudoinstruction, look at executable code to see actual instructions
@@ -20,4 +20,4 @@ addi a2,a2,45
 addi a2,a2,-1  # no subi
 andi a2,a2,0xf
 ori a2,a2,0xf
-``
+```
