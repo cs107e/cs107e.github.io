@@ -83,6 +83,10 @@ To prepare, please do the following __before__ coming to this lab:
 
 ## Lab exercises
 
+Coming soon to a Gates B07 near you!
+
+{%- comment %}
+
 <a name="step1"></a>
 
 ### 1. Set up your local `mycode` repository
@@ -228,6 +232,8 @@ The four points we'd like you to check in with us for this lab are listed below:
 [^3]: Do you feel comfortable with simple command-line tasks, basic use of your editor, and know where to go to learn more?
 
 [^4]: You have explored the course website and know how to navigate and find information.
+
+{%- endcomment %}
 
 <style>
     .footnote:before {
