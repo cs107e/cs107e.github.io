@@ -1,7 +1,23 @@
-Two demos shown in lecture.
+# RISC-V instructions
 
-add - assembly of the instruction add r0, r1, r2
-on - turn on an LED connected to GPIO 20
+Try pasting these instructions intor [Ripes visualizer](https://ripes.me/)
 
-xfel write32 0x02000030 0x1
-xfel write32 0x02000040 0x1
+```
+# li pseudoinstruction, look at executable code to see actual instructions
+li a0,5
+li a1,6
+
+# rtype: 2 sources both regs
+add a2,a1,a0
+sub a2,a1,a0
+and a2,a1,a0
+or a2,a1,a0
+xor a2,a1,a0
+
+# itype: 1 source reg, 1 source 12-bit immediate (constant)
+
+addi a2,a2,45
+addi a2,a2,-1  # no subi
+andi a2,a2,0xf
+ori a2,a2,0xf
+``
