@@ -83,7 +83,7 @@ To prepare, please do the following __before__ coming to this lab:
 
 ## Lab exercises
 
-Coming soon to a Gates B07 near you!
+Coming soon to a Gates B02 near you!
 
 {%- comment %}
 
