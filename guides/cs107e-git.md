@@ -1,151 +1,19 @@
 ---
 title: "Guide: Git workflow for CS107e"
 toc: true
-quarterprefix: winter22
+quarterprefix: winter24
 attribution: Written by Maria Paula Hernandez, incorporating work of past TAs
 ---
 
 In this course, we use git repositories to share code between you and us. 
 These repositories are hosted on GitHub. You will use git commands such as `git pull`
 to access starter code and `git push` to submit your work. You can read more about
-the general use of `git` in [our git guide](/guides/git). In this document, we go through the
-details of the `mycode` repo and the specific workflow to access starter code and submit your work.
+the general use of `git` in [our git guide](/guides/git). To set up the `mycode` repo used in this course, check out [our git workflow setup guide](/guides/cs107e-git-setup).
 
-## Configure local `mycode` repo
-Each student has their own `mycode` repo, which manages all of the code for the coures assignments and labs.
+In this document, we walk through the specific workflow to access the starter code and submit your work.
 
-On GitHub, we create a personal repository for each student within our CS107e organization. This repo will be named `https://github.com/cs107e/{{page.quarterprefix}}-[YOUR-GITHUB-USERNAME]`, where [YOUR-GITHUB-USERNAME] is replaced with your actual github username.
-
-Your personal repository that resides on GitHub 
-is your __remote__ mycode repo. It will be connected to 
-the __local__ mycode repo on your computer where you will work on your code.
-
-After we have set up your remote repo on GitHub, you will connect it to the local repo on your computer where you will do your work.
-
-The following instructions are used to configure your local `mycode` repo.  Do these steps __once__
- at the beginning of the course. Be sure to ask for help if you run into any snags.
-
-### Step 1: Accept GitHub invitations
-
-- You should have received two email invitations from GitHub: an invitation for read-only access to the starter code repo <https://github.com/cs107e/code-mirror.git> and another invitation for read-write access to your personal repo `{{page.quarterprefix}}-[YOUR-GITHUB-USERNAME]`. Once you receive and accept both invitations, you're ready to proceed.
-
-### Step 2: Create SSH key and add to GitHub account
-
-- To streamline interacting with GitHub from the command line, you'll need to add an SSH
-    key on your GitHub account. An SSH key is a way to authenticate
-    that you are who you say you are. To create an SSH key, enter the following
-    command in your shell:
-
-    ```console
-    $ ssh-keygen -t rsa -b 4096 -C "<your_email>"
-    ```
-
-    After you press enter, you'll be prompted to choose a filename in which to save your
-    key. Accept the default by pressing enter. Next, you'll be prompted to enter a
-    passphrase for a key. If you want no passphrase, press enter. Otherwise, enter
-    your passphrase. If you choose to add a passphrase, you must enter that passphrase each time you push to or pull from GitHub .
-
-    Confirm the key has been created by looking for the key files in your `.ssh` directory:
-
-    ```console
-    $ ls ~/.ssh/
-    ```
-
-    You should see two files: `id_rsa` and `id_rsa.pub`. SSH uses public-key
-    cryptography, which requires a private key and a public key. `id_rsa` is your
-    private key and should never be shared. `id_rsa.pub` is your public key and can
-    (and should) be shared.
-
-    Now follow [these instructions](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) to add your SSH key to your GitHub account.
-
-
-### Step 3: Clone repo
-
-> **Note** In any commands below that reference `[YOUR-GITHUB-USERNAME]`, be sure replace with your __actual GitHub username__.
+> **Note** This guide assumes that you've already set up your `mycode` repo and development environment using the [Git workflow setup guide](cs107e-git-setup).
 {: .callout-warning}
-
-In your browser, visit the page
-`https://github.com/cs107e/{{page.quarterprefix}}-[YOUR-GITHUB-USERNAME]` to see the contents of your remote repo.
-It should have only a single file: `README.md`, which lists the name of your
-repo and nothing more.
-
-- After accepting the GitHub invitation and setting up your SSH key, you can make a local clone of your repo. 
-   This is a copy of the remote repo that lives locally on your computer.
-   We recommend that you store your repo in the parent directory `cs107e_home` that you made during the install process.
-   Execute the following terminal commands to make your local `mycode` repo.
-
-    ```console
-    $ cd ~/cs107e_home
-    $ git clone git@github.com:cs107e/{{page.quarterprefix}}-[YOUR-GITHUB-USERNAME].git mycode
-    ```
-
-    Change to your repo and use `ls` confirm the files match those you see when browsing your remote repo on GitHub.
-
-    ```console
-    $ cd mycode
-    $ ls
-    $ cat README.md
-    ```
-
-### Step 4: Create `dev` branch (local and remote)
-
-- The `master` branch in your repo is write-protected which means
-    that you will not be able to directly modify this branch on GitHub. Instead, you'll do your work
-    on a separate `dev` branch. To create this
-    branch, change to your repo and execute the
-    following commands:
-
-    ```console
-    $ cd ~/cs107e_home/mycode
-    $ git branch
-    $ git checkout -b dev
-    $ git branch
-    ```
-
-    When you execute the first `git branch` command, notice how there is only a single
-    branch listed: `master` and there is an asterisk next to `master`. This asterisk
-    identifies which is the currently checked out branch. When you run the second
-    `git branch` command, you should have two branches (`master` and `dev`) and the
-    asterisk is now next to `dev`.
-
-    The new `dev` branch you created only exists in your local repo; next you will 
-    connect it to a new remote branch of the same name. Use `git branch` to confirm that you are on the
-    `dev` branch and execute the following command:
-
-    ```console
-    $ git push --set-upstream origin dev
-    ```
-
-    If you return to your GitHub repo in your browser, you should now find a `dev` branch in the branches dropdown menu.
-
-### Step 5: Add starter-code remote
-
-- Now you will configure your local repo to have an additional remote connection to the starter code repo so that it can synchronize with it. Execute the following commands to add a `starter-code` on the `code-mirror` repository for which you early accepted the invitation.
-
-    ```console
-    $ git remote -v
-    $ git remote add starter-code git@github.com:cs107e/code-mirror.git
-    $ git remote -v
-    ```
-
-    When executing the first `git remote -v` command, you should have only a single
-    remote: `origin`. `origin` is a shorthand way of referring to your remote repo
-    on GitHub. The `git remote add` command adds a second remote. This second remote
-    is `starter-code`, which is a shorthand way of referring to the starter code
-    repo on GitHub. The second `git remote -v` should show you both remotes:
-    `origin` and `starter-code` and the URLs that they represent.
-
-    To get the starter files for `lab0`, verify that you're on the `dev` branch and execute the
-    following commands:
-
-    ```console
-    $ git pull --allow-unrelated-histories starter-code lab0-starter
-    $ ls
-    ```
-
-    When pulling new files, the `git pull` command may open your editor and display the message 
-    "Merge branch 'labX-starter' into dev". 
-    Confirm the merge by saving and exiting the editor.
 
 ## Organization of the `mycode` repo
 Your `mycode` repo is organized by lab and assignment. Pulling the starter files for
@@ -155,7 +23,7 @@ associated starter code.
 ```console
 $ cd ~/cs107e_home/mycode
 $ ls
-assign0/   assign2/    assign4/    lab1/       lab3/       mylib/
+assign0/   assign2/    assign4/    lab1/       lab3/       cs107e/
 assign1/   assign3/    lab0/       lab2/       lab4/
 $ ls assign1
 Makefile    larson.s
@@ -166,18 +34,12 @@ you are currently working on. Within that subfolder, you edit files, build and r
 
 ## Lab workflow
 
-When starting a new lab, do a `git pull` in your `cs107e.github.io` repository to ensure your courseware files are up to date.
-
-```console
-$ cd $CS107E
-$ git pull
-```
-Update your local `mycode` repo by checking out the `dev` branch and pulling the lab starter files from the remote (change labX to lab1, lab2, as appropriate):
+When starting a new lab, update your local `mycode` repo by checking out the `dev` branch and pulling the lab starter files from the remote (change labX to lab1, lab2, as appropriate):
 
 ```console
 $ cd ~/cs107e_home/mycode
 $ git checkout dev
-$ git pull --allow-unrelated-histories starter-code labX-starter
+$ git pull starter-code labX-starter
 ```
 
 After these commands, your repo is on `dev` branch and all files are up to date. `cd` to the `labX` folder and use `ls` to see the new files.
@@ -187,22 +49,18 @@ After these commands, your repo is on `dev` branch and all files are up to date.
 You don't need to commit or submit lab code to be graded. The staff will review your code during lab and check off your participation. 
 
 <a name="assign-workflow"></a>
+
 ## Assignment workflow
+Here are the steps to start, work on, and submit an assignment.
+
 ### Pull assignment starter code
 
-When starting a new assignment, do a `git pull` in your `cs107e.github.io` repository to ensure your courseware files are up to date.
-
-```console
-$ cd $CS107E
-$ git pull
-```
-
-Update your local `mycode` repo by checking out the `dev` branch and pulling the assignment starter files from the remote (change assignX to assign1, assign2, etc. as appropriate):
+When starting a new assignment, update your local `mycode` repo by checking out the `dev` branch and pulling the assignment starter files from the remote (change assignX to assign1, assign2, etc. as appropriate):
 
 ```console
 $ cd ~/cs107e_home/mycode
 $ git checkout dev
-$ git pull --allow-unrelated-histories starter-code assignX-starter
+$ git pull starter-code assignX-starter
 ```
 
 After these commands, your repo is on `dev` branch and all files are up to date. `cd` to the `assignX` folder and use `ls` to see the new files.
@@ -214,6 +72,9 @@ You will work on your assignments in your local `mycode` repo. As you edit, we r
 make regular git commits to record a snapshot of your work and track your progress. Each commit is
 saved in your local repo. You can follow up with a `git push` to sync those changes with your remote
 repo. You can consider your remote repo as a sort of "offsite backup".
+
+> **Note** Everyone commits and pushes their code at different rates, but we highly encourage you to commit __early and often__. Any time you make a change that you'd be upset to lose, make sure you commit your code (usually, this is at least once an hour, often more frequently). Any time you put away your laptop, we highly encourage you to push your code as well, since you'll be grateful to have a backup if something happens to your computer!
+{: .callout-warning}
 
 To see the current state of your repo, use the `git status` command. It will indicate which files have been modified, which changes are "staged" (ready to be commmitted) and whether the local and remote repos are currently in sync.
 ```console
@@ -248,15 +109,16 @@ commit, the more opportunities you will have to restore previous working states
 without losing as much work. **We recommend that you commit early and often and
 that you write detailed commit messages.**
 
-> Git command responses can sometimes look cryptic and scary. DON'T BE SCARED!!!
-> Git is your friend :). Reading all the responses from git messages will help
+> Git command responses can sometimes look cryptic and scary. DON'T BE SCARED!
+> The worst thing you can do is just ignore the responses altogether, especially when you get warnings and errors.
+> Git is your friend :) Reading all the responses will help
 > you understand the commands your running, and prevent you from missing
-> important messages about the state of your repo.
+> important messages about the state of your repo. 
 > {: .callout-info}
 
 You can view the contents of your remote repo by browsing it on GitHub.
 **Note:** GitHub will show commits for the `master` branch by default. To see activity
-on the `dev` branch, switch to it by selecting from the drop-down menu :
+on the `dev` branch, switch to it by selecting from the drop-down menu:
 
 ![Github change to another branch](../images/github-change-branch.png){: .zoom .w-75}
 
@@ -398,7 +260,7 @@ We will do one re-test run per week on all repos with updated retest tags.
 We communicate the re-test results by updating your repo 'Issues' and logs folder
 to show which issues are now closed by your fixes. 
 
-Note that not all code is eligible for re-test. 
+**Note that not all code is eligible for re-test.**
 
 Code that is eligible for re-test: 
 - Core functionality for assignments 2-7. 

@@ -7,16 +7,14 @@ The installation guide assumes basic knowledge of the UNIX command line (opening
 prepared for CS107 students.
 
 ## Overview
-You must configure your laptop with an environment suitable for developing programs to run on the Mango Pi. These development tools are unix-based. Mac OS and Linux natively support an appropriate environment, on Windows you will enable WSL (Windows Subsystem for Linux) and work in an Ubuntu instance running on top of Windows OS.
+You must configure your laptop with an environment suitable for developing programs to run on the Mango Pi. These development tools are unix-based. Mac OS and Linux natively support an appropriate environment, on Windows you will enable WSL (Windows Subsystem for Linux) and work in an Ubuntu instance running on top of Windows OS. If you're running Windows, make sure you've already done that with the [WSL setup guide](../wsl-setup).
 
 <A name="installchecklist"></A>
 The installation steps are:
 
 - Install `riscv64-unknown-elf` cross-compile toolchain.
     A _cross-compiler_ is a development toolchain that runs on one system (e.g., x86) and generates machine code for a different system (in this case, RISC-V). The toolchain includes the C compiler and other essential development tools (assembler, linker, debugger, and utilities).
-- Install python3, package prerequisites, and CP2102 console driver needed by the bootloader client `rpi-run.py`.
-- Create a `cs107e_home` directory to store your class materials
-- Configure shell and git environment
+- Install `xfel`, our communication client for sending binaries to the Mango Pi (for Mac, this step is actually rolled into the toolchain installation, as you'll see in the steps).
 
 Follow the installation instructions for your OS
 + [Install on macOS](../install/mac)

@@ -1,5 +1,5 @@
 ---
-title: 'Guide: Install on macOS'
+title: 'Guide: Install Toolchain on macOS'
 toc: true
 ---
 
@@ -20,12 +20,12 @@ manager](https://en.wikipedia.org/wiki/Package_manager) for OS X.
 
 If you already use Homebrew, skip to the next section; otherwise follow these steps.
 
-1.  Homebrew requires the Xcode command line tools. Install these by running the command below.
+- Homebrew requires the Xcode command line tools. Install these by running the command below.
     ```console
     $ xcode-select --install
     ```
 
-2.  Install Homebrew by running the command below.
+- Install Homebrew by running the command below.
     ```console
     $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     ```
@@ -40,7 +40,7 @@ Fine if your version number is newer.
 ## Install riscv-unknown-elf toolchain
 We use a cross-compiler toolchain to compile programs for the Mango Pi.
 
-1. Install our custom brew formula containing the cross-compile tools.
+- Install our custom brew formula containing the cross-compile tools.
     ```console
     $ brew install cs107e/cs107e/riscv-gnu-toolchain-13
     ```
@@ -58,59 +58,42 @@ This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
 
+## Install xfel
+Xfel was installed as part of the toolchain installation. You can confirm that it is installed by running the command below.
+
 {%- comment %}
 ## Install python3 and packages
 The `rpi-run.py` script will be used to send programs from your computer to the Pi. This script requires installation of python3 and two support modules.
+{% include checkstep.html content="confirm xfel" %}
 
-Note: macOs have a version of python pre-installed, but it is an older version (version 2) which is nearing end of life. You need python version 3. If you previously have installed python3, skip step 1 below.
-
-1. Install python3. Python installers are available from <https://www.python.org/downloads/mac-osx/>. Choose the latest stable Python 3 release and download its macOS 64-bit installer. Open the downloaded pkg file and follow the instructions to install python3.
-
-2. Install the pyserial and xmodem packages for python3:
-
-    ```console
-    $ python3 -m pip install pyserial xmodem
-    ```
-
-{% include checkstep.html content="confirm python3 and packages pyserial and xmodem" %}
 ```console
-$ python3 --version
-python 3.9.1
-$ python3 -m pip show pyserial xmodem
-Name: pyserial
-Version: 3.5
-...
----
-Name: xmodem
-Version: 0.4.6
-...
+$ xfel
+
+xfel(v1.3.2) - https://github.com/xboot/xfel
+usage:
+    xfel version                                        - Show chip version
+    xfel hexdump <address> <length>                     - Dumps memory region in hex
+    xfel dump <address> <length>                        - Binary memory dump to stdout
+    xfel read32 <address>                               - Read 32-bits value from device memory
+    xfel write32 <address> <value>                      - Write 32-bits value to device memory
+    xfel read <address> <length> <file>                 - Read memory to file
+    xfel write <address> <file>                         - Write file to memory
+    xfel exec <address>                                 - Call function address
+    xfel reset                                          - Reset device using watchdog
+    xfel sid                                            - Show sid information
+    xfel jtag                                           - Enable jtag debug
+    xfel ddr [type]                                     - Initial ddr controller with optional type
+    xfel sign <public-key> <private-key> <file>         - Generate ecdsa256 signature file for sha256 of sid
+    xfel spinor                                         - Detect spi nor flash
+    xfel spinor erase <address> <length>                - Erase spi nor flash
+    xfel spinor read <address> <length> <file>          - Read spi nor flash to file
+    xfel spinor write <address> <file>                  - Write file to spi nor flash
+    xfel spinand                                        - Detect spi nand flash
+    xfel spinand erase <address> <length>               - Erase spi nand flash
+    xfel spinand read <address> <length> <file>         - Read spi nand flash to file
+    xfel spinand write <address> <file>                 - Write file to spi nand flash
+    xfel spinand splwrite <split-size> <address> <file> - Write file to spi nand flash with split support
+    xfel extra [...]                                    - The extra commands
 ```
-Your versions may be slightly newer (higher numbers). That's fine!
 
-## Install CP2012 console driver
-The console driver enables the bootloader client to communicate with the Pi over the USB-serial device.
-
-> __Is your macOS version Big Sur, Monterey or newer?__ Check "About This Mac" to confirm. If your macOS version is >= 11.16, you should have CP2102 support out of the box. Skip over this section and do not install the Silicon Labs CP2102 driver.
-{: .callout-warning}
-
-1. Download the CP2012 driver. The drivers are available on the Silicon Labs [CP210x Downloads page](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers). Select the "Downloads" tab and find the link for the "CP210x VCP Mac OSX Driver" and download the zip file. Open the zip to decompress into the dmg file `SiLabsUSBDriverDisk.dmg`. Open the dmg file to mount the volume named `Silicon Labs VCP Driver Install Disk`.
-
-2. On the mounted volume, find the file named
-    `Install CP2010x VCP Driver`. Open this file to launch the
-    installer. Follow its instructions to install the driver.
-
-3. If your system raises a "System Extension Blocked" alert, you must take additional action to enable the driver. Open `System Preferences` and choose the `Security & Privacy` option. On the `General` tab, find the message indicating that "Silicon Laboratories Inc" has been blocked and click `Allow` to unblock it. Restart your computer for this change to take effect.
-
-{% include checkstep.html content="confirm CP2102 driver is installed and loadable" %}
-```console
-$ kextfind -B -si silabs -report -b -loadable
-CFBundleIdentifier  Loadable
-com.silabs.driver.CP210xVCPDriver   yes
-```
-{%- endcomment %}
-
-{%- comment %}
-Kenny January 2024: Removing Python and the CP2012 driver section as it is no longer needed with our move to the Mango Pi.
-{%- endcomment %}
-
-{% include_relative userconfig.md %}
+## Installation complete
