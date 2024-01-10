@@ -52,6 +52,12 @@ Usage: /Users/julie/cs107e_home/mycode/cs107e/bin/mango-run <binary-file>
   Simple script to run a program on the Mango Pi using xfel as bootloader.
   (xfel ddr d1, xfel write, xfel exec)
 
-xfel version
-ERROR: Can't found any FEL device
+$ xfel version
+ERROR: Can't found any FEL device.
 ```
+> NOTE: At this point, you might see The following error instead, that's okay
+```
+Assertion failed: (count > 0), function main, file main.c, line 60.
+fish: Job 1, 'xfel version' terminated by signal SIGABRT (Abort)
+```
+{: .callout-warning}
