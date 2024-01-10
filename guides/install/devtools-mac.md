@@ -95,4 +95,4 @@ usage:
 
 ## Installation complete
 
-Nice job! Head back to the [main installation guide](index.md) to do one last set of checks.
+Nice job! Head back to the [main installation guide](../devtools) to do one last set of checks.

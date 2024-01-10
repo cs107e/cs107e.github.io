@@ -15,7 +15,7 @@ These are the instructions for setting up a development environment using the Wi
 You may need to restart your computer a few times throughout this process, so it’s a good idea to save all work before starting so you can restart when prompted.
 
 ## Requirements
-> __Got WSL?__ By now you should already have installed WSL, if you don't, please first follow the [WSL installation guide](../../wsl-setup) first and then come back here to install the developer tools.
+> __Got WSL?__ By now you should already have installed WSL, if you don't, please first follow the [WSL installation guide](../wsl-setup) first and then come back here to install the developer tools.
 {: .callout-warning}
 
 Run the commands below in your WSL terminal to confirm that you are running an appropriate version of Ubuntu and WSL. 
@@ -149,4 +149,4 @@ Here are the steps:
 
 ## Installation complete
 
-Yay! If you made it this far, you should feel so proud! Head back to the [main installation guide](index.md) to do one last set of checks.
+Yay! If you made it this far, you should feel so proud! Head back to the [main installation guide](../devtools) to do one last set of checks.

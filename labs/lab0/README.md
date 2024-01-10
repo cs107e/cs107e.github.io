@@ -77,7 +77,7 @@ To prepare, please do the following __before__ coming to this lab:
 2. Check out these CS107 guides on using the `emacs` or `vim` text editor:
     - [emacs](https://cs107.stanford.edu/resources/emacs.html)
     - [vim](https://cs107.stanford.edu/resources/vim.html)
-3. **If you run Windows**, follow this [WSL setup guide](/guides/wsl-setup) to install WSL and Ubuntu on your system:
+3. **If you run Windows**, follow this [WSL setup guide](/guides/install/wsl-setup) to install WSL and Ubuntu on your system:
     - The download/install takes some time, please try to complete before lab on reliable wifi!
     - If you hit a snag, bring the issues to lab and we can help you resolve.
 
@@ -105,7 +105,7 @@ If you run into any trouble in setting up git, grab a staff member for help reso
 you should have a `lab0` folder containing an `editors` subfolder that holds two text files. [^2]
 
 ### 2. Install the development tools
-Head over to the [toolchain installation guide](/guides/install) and run through the process of installing your toolchain---note that the steps will depend on whether you're running on a Mac or WSL.
+Head over to the [toolchain installation guide](/guides/install/devtools) and run through the process of installing your toolchain---note that the steps will depend on whether you're running on a Mac or WSL.
 
 Make sure that once you've finished, you run through the __final check steps__ at the end of the [installation guide](/guides/install#finalcheck) to verify that the needed tools are installed and your environment is correctly configured. Check-in with us to confirm all is well. [^1]
 
