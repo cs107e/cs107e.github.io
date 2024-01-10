@@ -16,8 +16,12 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 - Recommendations for [hand tools](handtools)
 
 ## Installation
-- [Installing WSL](wsl-setup) (Windows users only)
-- [Installing the developer tools](install) on your computer
+- [Install WSL](install/wsl-setup) (Windows users only)
+- [Setup of git and mycode repo](setup-mycode-repo)
+- [Install developer tools](install/devtools) (riscv toolchain and xfel)
+{% comment %}
+- [Install CP2102 driver and minicom](install/serial.md) for serial communication over uart
+{% endcomment %}
 
 ## Mango Pi
 - [Powering the Mango Pi](power)
@@ -30,7 +34,6 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 - [One page of RISC-V](riscv-onepage)
 
 ## Development tools/process
-- [Setup of mycode repo](setup-mycode-repo), used for all CS107e code
 - The [git workflow used for labs and assignments](cs107e-git) in CS107e
 - [Using `git` for version control](git)
 - [Bare metal programming using `gcc`](gcc)

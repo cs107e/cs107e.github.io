@@ -17,14 +17,14 @@ The installation steps are:
 - Install `xfel`, our communication client for sending binaries to the Mango Pi (for Mac, this step is actually rolled into the toolchain installation, as you'll see in the steps).
 
 Follow the installation instructions for your OS
-+ [Install on macOS](../install/mac)
-+ [Install on Windows WSL](../install/wsl)
++ [Install on macOS](../devtools-mac)
++ [Install on Windows WSL](../devtools-wsl)
 
 <a name="finalcheck"></a>
 ## Final check steps
-After completing the installation instructions, use these final check steps below to confirm your environment from top to bottom.
+After completing the installation instructions, use these final check steps below to confirm your developer tools.
 
-{% include checkstep.html content="confirm $CS107E, cross-compile build and debugger __with simulator__" %}
+{% include checkstep.html content="confirm $CS107E, cross-compile build and debugger" %}
 ```console?prompt=(gdb),$
 $ cd $CS107E/sample_build
 $ make clean && make all
@@ -38,10 +38,10 @@ Connected to the simulator.
 (gdb) quit
 ```
 
-{% include checkstep.html content="confirm __rpi-run.py__ version 2.3" %}
+{% include checkstep.html content="confirm __mango-run__ and __xfel__" %}
 ```console
-./mango-run
-Usage: ./mango-run <binary-file>
+$ mango-run
+Usage: /Users/julie/cs107e_home/mycode/cs107e/bin/mango-run <binary-file>
 
   Simple script to run a program on the Mango Pi using xfel as bootloader.
   (xfel ddr d1, xfel write, xfel exec)
@@ -49,13 +49,3 @@ Usage: ./mango-run <binary-file>
 xfel version
 ERROR: Can't found any FEL device
 ```
-
-{%- comment %}
-{% include checkstep.html content="confirm __CP2102 driver__" %}
-If you have your [CP2012 USB-serial breakout board](/guides/bom), plug it into a USB port on your computer and confirm it can be found. 
-```console
-$ rpi-run.py
-Found serial device: /dev/ttyS3
-```
-The reported device name can vary, e.g. `/dev/cu.usbserial` or `/dev/cu.SLAB_USBtoUART` and others.
-{%- endcomment %}

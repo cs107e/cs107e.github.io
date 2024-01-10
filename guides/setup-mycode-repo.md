@@ -23,7 +23,7 @@ Follow the steps below to set up your `mycode` repo.
 
 ### Step 1: Accept GitHub invitations
 
-You should have received two email invitations from GitHub: an invitation for read-only access to the starter code repo <https://github.com/cs107e/code-mirror.git> and another invitation for read-write access to your personal repo `{{page.quarterprefix}}-[YOUR-GITHUB-USERNAME]`. Once you receive and accept both invitations, you're ready to proceed.
+You should have received two email invitations from GitHub: an invitation for read-only access to the code mirror repo <https://github.com/cs107e/code-mirror.git> and another invitation for read-write access to your personal repo `{{page.quarterprefix}}-[YOUR-GITHUB-USERNAME]`. Once you receive and accept both invitations, you're ready to proceed.
 
 ### Step 2: Create SSH key and add to GitHub account
 
@@ -141,26 +141,26 @@ $ git push --set-upstream origin dev
 
 If you return to your GitHub repo in your browser, you should now find a `dev` branch in the branches dropdown menu.
 
-### Step 7: Add starter-code remote
+### Step 7: Add code-mirror remote
 
-Now you will configure your local repo to have an additional remote connection to the starter code repo so that it can synchronize with it. Execute the following commands to add the remote `code-mirror` repository for which you early accepted the invitation.
+Now you will configure your local repo to have an additional remote connection to the code mirror repo. The `code-mirror` repo is where we place the starter code for labs and assignments. Execute the following commands to add the remote `code-mirror` repository for which you ealier accepted the invitation.
 
 ```console
 $ git remote -v
-$ git remote add starter-code git@github.com:cs107e/code-mirror.git
+$ git remote add code-mirror git@github.com:cs107e/code-mirror.git
 $ git remote -v
 ```
 
 When executing the first `git remote -v` command, you should have only a single
 remote: `origin`. `origin` is a shorthand way of referring to your remote repo
 on GitHub. The `git remote add` command adds a second remote. This second remote
-is `starter-code`, which is a shorthand way of referring to the starter code
+is `code-mirror`, which is a shorthand way of referring to the code mirror
 repo on GitHub. The second `git remote -v` should show you both remotes:
-`origin` and `starter-code` and the URLs that they represent.
+`origin` and `code-mirror` and the URLs that they represent.
 
-Before we move on, we actually need to pull some code from the `starter-code` remote repo. If you look at <https://github.com/cs107e/code-mirror> (which we call `starter-code`), you'll see that it contains a folder called `cs107e`. That folder, if you look inside, contains a number of folders (like `bin`, `include`, and `src`) filled with files. Those files will serve as the base code for CS107e, and the code you write will sometimes reference those files (for example, all the `.h` files you'll reference in this class are located in the `include` folder). To update your local `mycode` repo to include the `cs107e` folder, use the following command:
+Before we move on, we actually need to pull some code from the `code-mirror` remote repo. If you look at <https://github.com/cs107e/code-mirror> (which we call `code-mirror`), you'll see that it contains a folder called `cs107e`. That folder, if you look inside, contains a number of folders (like `bin`, `include`, and `src`) filled with files. Those files will serve as the base code for CS107e, and the code you write will sometimes reference those files (for example, all the `.h` files you'll reference in this class are located in the `include` folder). To update your local `mycode` repo to include the `cs107e` folder, use the following command:
 ```console
-$ git pull starter-code master
+$ git pull code-mirror master
 ```
 {% include checkstep.html content="confirm the cs107e folder is on your local machine" %}
 ```console

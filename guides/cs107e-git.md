@@ -39,7 +39,7 @@ When starting a new lab, update your local `mycode` repo by checking out the `de
 ```console
 $ cd ~/cs107e_home/mycode
 $ git checkout dev
-$ git pull starter-code labX-starter
+$ git pull code-mirror labX-starter
 ```
 
 After these commands, your repo is on `dev` branch and all files are up to date. `cd` to the `labX` folder and use `ls` to see the new files.
@@ -60,7 +60,7 @@ When starting a new assignment, update your local `mycode` repo by checking out 
 ```console
 $ cd ~/cs107e_home/mycode
 $ git checkout dev
-$ git pull starter-code assignX-starter
+$ git pull code-mirror assignX-starter
 ```
 
 After these commands, your repo is on `dev` branch and all files are up to date. `cd` to the `assignX` folder and use `ls` to see the new files.

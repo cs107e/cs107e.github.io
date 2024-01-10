@@ -1,5 +1,5 @@
 ---
-title: 'Guide: Install Toolchain on macOS'
+title: 'Guide: Install developer tools on macOS'
 toc: true
 ---
 
@@ -61,10 +61,6 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ## Install xfel
 Xfel was installed as part of the toolchain installation. You can confirm that it is installed by running the command below.
 
-{%- comment %}
-## Install python3 and packages
-The `rpi-run.py` script will be used to send programs from your computer to the Pi. This script requires installation of python3 and two support modules.
-{%- endcomment %}
 {% include checkstep.html content="confirm xfel" %}
 
 ```console

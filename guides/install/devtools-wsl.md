@@ -1,5 +1,5 @@
 ---
-title: 'Guide: Install Toolchain on Windows WSL'
+title: 'Guide: Install developer tools on Windows WSL'
 toc: true
 ---
 
@@ -15,7 +15,8 @@ These are the instructions for setting up a development environment using the Wi
 You may need to restart your computer a few times throughout this process, so it’s a good idea to save all work before starting so you can restart when prompted.
 
 ## Requirements
-By now you should have WSL up and running on your device, if you don't, please follow the [WSL installation guide](../../wsl-setup) to get started. 
+> __Got WSL?__ By now you should already have installed WSL, if you don't, please first follow the [WSL installation guide](../../wsl-setup) first and then come back here to install the developer tools.
+{: .callout-warning}
 
 Run the commands below in your WSL terminal to confirm that you are running an appropriate version of Ubuntu and WSL. 
 

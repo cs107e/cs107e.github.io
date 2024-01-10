@@ -16,7 +16,7 @@ Find the usb-serial in your parts kit. One end has a USB-A connector and the oth
 
 The square IC in the center of the board is the CP2102 chip converts from a usb interface to a serial interface. You will need a CP2102 driver on your laptop.  Depending on the hardware and OS version, your laptop may have a pre-installed driver, otherwise you will need to install the driver yourself.
 
-> __Do you need to install a CP2102 driver?__ This was covered in the installation instructions. If you skipped this step, do it now. See section "CP2102 driver" in the [installation guide](/guides/install) for your OS.
+> __Got CP2102 driver?__ This was covered in the installation instructions. If you skipped this step, do it now. See section "CP2102 driver" in the [serial installation guide](/guides/serial).
 {: .callout-warning}
 
 ## Connect usb-serial to Pi

@@ -17,7 +17,7 @@ You may need to restart your computer a few times throughout this process, so it
 ## Requirements
 Confirm that you are running an appropriate version of Windows 11. To find the version number, type `winver` into the start menu search bar and run the command. A panel appears that reports the version information as shown in this screenshot:
 
-![Window Version 22H2](install/images/win11ver.png)
+![Window Version 22H2](../images/win11ver.png)
 {: .w-75}
 
 When we updated our installation instructions for Winter Quarter 2024, we tested on __Version 22H2__ of Windows 11 and recommend that your version match ours.
