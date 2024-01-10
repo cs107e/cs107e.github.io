@@ -33,6 +33,14 @@ $ powershell.exe "wsl --list --verbose"
  *Ubuntu-22.04      Running     1
 ```
 
+> If you've reached this point, give Kenny a shout so he can help you out with the next steps.
+{: .callout-warning}
+## Install some prerequisites
+```console
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo apt install make emacs libgcc-s1 libgmp10 libisl23 libmpc3 libmpfr6 libstdc++6 zlib1g locales
+````
 ## Install riscv-unknown-elf toolchain
 
 We use a cross-compiler toolchain to compile programs for the Mango Pi. Run the commands below in your WSL terminal to install the toolchain.
@@ -41,8 +49,8 @@ We use a cross-compiler toolchain to compile programs for the Mango Pi. Run the 
     ```console
     $ mkdir tmp-debs && cd tmp-debs
     $ wget https://github.com/cs107e/homebrew-cs107e/raw/master/DebPackages/libc6_2.37-13_amd64.deb
+    $ wget http://ftp.us.debian.org/debian/pool/main/libz/libzstd/libzstd1_1.5.4+dfsg2-5_amd64.deb
     $ wget https://github.com/cs107e/homebrew-cs107e/raw/master/DebPackages/binutils-riscv64-unknown-elf_2.41-4+6_amd64.deb
-    $ https://github.com/cs107e/homebrew-cs107e/raw/master/DebPackages/libisl23_0.26-3+b2_amd64.deb
     $ wget https://github.com/cs107e/homebrew-cs107e/raw/master/DebPackages/gcc-riscv64-unknown-elf_12.2.0-14+11+b1_amd64.deb
 
     ```
@@ -53,7 +61,7 @@ NOTE: The first command is to check your current directory. If you are not in th
    ```console
    $ pwd
    $ sudo dpkg -i --auto-deconfigure --force-depends libc6_2.37-13_amd64.deb 
-   $ sudo dpkg -i --force-depends libisl23_0.26-3+b2_amd64.deb
+   $ sudo dpkg -i --force-depends libzstd1_1.5.4+dfsg2-5_amd64.deb
    $ sudo dpkg -i --force-depends binutils-riscv64-unknown-elf_2.41-4+6_amd64.deb 
    $ sudo dpkg -i --force-depends gcc-riscv64-unknown-elf_12.2.0-14+11+b1_amd64.deb
    ```
