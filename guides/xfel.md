@@ -24,7 +24,7 @@ BootROM is a small piece of read-only/write-protected memory embedded in the pro
 
 The `xfel` tool runs on your laptop and communicates with the bootloader.
 
-> __Got xfel?__ You should have installed `xfel` as part of installing the developer tools.  If you skipped this step, do it now. See section __xfel__ in the [installation guide](/guides/install) for your OS.
+> __Got xfel?__ You should have installed `xfel` as part of installing the developer tools.  If you skipped this step, do it now. See section __xfel__ in the [installation guide](/guides/install/devtools) for your OS.
 {: .callout-warning}
 
 ## Connect through OTG

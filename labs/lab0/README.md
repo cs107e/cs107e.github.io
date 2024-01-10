@@ -102,21 +102,21 @@ $ git checkout dev
 $ git pull code-mirror lab0-starter
 ```
 If you run into any trouble in setting up git, grab a staff member for help resolving. After pulling the starter files into your repo,
-you should have a `lab0` folder containing an `editors` subfolder that holds two text files. [^2]
+you should have a `lab0` folder containing two text files. [^2]
 
 ### 2. Install the development tools
 Head over to the [toolchain installation guide](/guides/install/devtools) and run through the process of installing your toolchain---note that the steps will depend on whether you're running on a Mac or WSL.
 
-Make sure that once you've finished, you run through the __final check steps__ at the end of the [installation guide](/guides/install#finalcheck) to verify that the needed tools are installed and your environment is correctly configured. Check-in with us to confirm all is well. [^1]
+Make sure that once you've finished, you run through the __final check steps__ at the end of the [installation guide](/guides/install/devtools#finalcheck) to verify that the needed tools are installed and your environment is correctly configured. Check-in with us to confirm all is well. [^1]
 
-{% include checkstep.html content="confirm $CS107E, cross-compile build and debugger __with simulator__" %}
+{% include checkstep.html content="confirm $CS107E, cross-compile build and debugger" %}
 ```console?prompt=(gdb),$
 $ cd $CS107E/sample_build
 $ make clean && make all
 rm -f *.o *.bin *.elf *.list *~
 riscv64-unknown-elf-gcc ... blah blah blah ...
 $ riscv64-unknown-elf-gdb hello.elf
-GNU gdb (GDB) 9.2
+GNU gdb (GDB) 12.1
 ... blah blah blah ...
 (gdb) target sim
 Connected to the simulator.
@@ -220,7 +220,7 @@ verify your understanding and help with any unresolved issues.
 
 The four points we'd like you to check in with us for this lab are listed below:
 
-[^1]: Have you installed the development tools and confirmed each of the [final check](/guides/install#finalcheck) steps of the install guide?
+[^1]: Have you installed the development tools and confirmed each of the [final check](/guides/install/devtools#finalcheck) steps of the install guide?
 
 [^2]: Confirm you have successfully configured your local `mycode` repo and were able to pull starter code.
 
