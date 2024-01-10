@@ -24,12 +24,17 @@ Follow the installation instructions for your OS
 ## Final check steps
 After completing the installation instructions, use these final check steps below to confirm your developer tools.
 
-{% include checkstep.html content="confirm $CS107E, cross-compile build and debugger" %}
-```console?prompt=(gdb),$
+{% include checkstep.html content="confirm $CS107E, cross-compile build" %}
+```console
 $ cd $CS107E/sample_build
 $ make clean && make all
 rm -f *.o *.bin *.elf *.list *~
 riscv64-unknown-elf-gcc ... blah blah blah ...
+```
+
+{%- comment %}
+NOTE: Removing GDB From instructions until we figure out how to use it in 13.2
+```console?prompt=(gdb),$
 $ riscv64-unknown-elf-gdb hello.elf
 GNU gdb (GDB) 9.2
 ... blah blah blah ...
@@ -37,6 +42,7 @@ GNU gdb (GDB) 9.2
 Connected to the simulator.
 (gdb) quit
 ```
+{%- endcomment %}
 
 {% include checkstep.html content="confirm __mango-run__ and __xfel__" %}
 ```console
