@@ -55,6 +55,6 @@ void free(void *ptr);
  * @param nbytes    the number of bytes to extend the segment end by
  * @return          address of previous end of segment (before enlarge)
  */
-void *sbrk(int nbytes);
+void *sbrk(size_t nbytes);
 
 #endif
