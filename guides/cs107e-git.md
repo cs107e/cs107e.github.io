@@ -16,9 +16,7 @@ In this document, we walk through the specific workflow to access the starter co
 {: .callout-warning}
 
 ## Organization of the `mycode` repo
-Your `mycode` repo is organized by lab and assignment. Pulling the starter files for
-a lab or assignment will add a subdirectory named `labX` or `assignX` that contains the
-associated starter code. 
+Your `mycode` repo is organized by lab and assignment. There will be one folder for each lab (named `lab0`, `lab1`, and so on) and one folder for each assignment (named `assign0`, `assign1`, ...). Each of these folders contains the code and files specific to the named lab or assignment. There is also a folder named `cs107e` containing tools, header and library files that are used throughout the course.
 
 ```console
 $ cd ~/cs107e_home/mycode
@@ -32,9 +30,12 @@ Makefile    larson.s
 Your typical workflow will be to change to the subfolder for the particular lab or assignment 
 you are currently working on. Within that subfolder, you edit files, build and run your code, make git commits, and so on.
 
+In the instructions for the workflows we give below, we use `assignX` or `labX` as a generic
+placeholder. When you issue the command, be sure to use the specific name for the assign or lab you intend to work on, e.g. `assign1` or `lab2`.
+
 ## Lab workflow
 
-When starting a new lab, update your local `mycode` repo by checking out the `dev` branch and pulling the lab starter files from the remote (change labX to lab1, lab2, as appropriate):
+When starting a new lab, update your local `mycode` repo by checking out the `dev` branch and pulling the lab starter files from the remote (change `labX` to `lab1`, `lab2`, as appropriate):
 
 ```console
 $ cd ~/cs107e_home/mycode
@@ -42,11 +43,11 @@ $ git checkout dev
 $ git pull code-mirror labX-starter
 ```
 
+(The `git pull` command may open up your editor and display the message `Merge branch labX-starter into dev`. Confirm the merge by saving and exiting the editor.)
+
 After these commands, your repo is on `dev` branch and all files are up to date. `cd` to the `labX` folder and use `ls` to see the new files.
 
-(Note: the `git pull` command may open up your editor and display the message "Merge branch 'labX-starter' into dev". Confirm the merge by saving and exiting the editor.)
-
-You don't need to commit or submit lab code to be graded. The staff will review your code during lab and check off your participation. 
+You don't need to commit or submit lab code to be graded. The staff will review your work during lab and check off your participation.
 
 <a name="assign-workflow"></a>
 
@@ -55,7 +56,7 @@ Here are the steps to start, work on, and submit an assignment.
 
 ### Pull assignment starter code
 
-When starting a new assignment, update your local `mycode` repo by checking out the `dev` branch and pulling the assignment starter files from the remote (change assignX to assign1, assign2, etc. as appropriate):
+When starting a new assignment, update your local `mycode` repo by checking out the `dev` branch and pulling the assignment starter files from the remote (change `assignX` to `assign1`, `assign2`, etc. as appropriate):
 
 ```console
 $ cd ~/cs107e_home/mycode
@@ -63,9 +64,9 @@ $ git checkout dev
 $ git pull code-mirror assignX-starter
 ```
 
-After these commands, your repo is on `dev` branch and all files are up to date. `cd` to the `assignX` folder and use `ls` to see the new files.
+(The `git pull` command may open up your editor and display the message `Merge branch assignX-starter into dev`. Confirm the merge by saving and exiting the editor.)
 
-(Note: the `git pull` command may open up your editor and display the message "Merge branch 'assignX-starter' into dev". Confirm the merge by saving and exiting the editor.)
+After these commands, your repo is on `dev` branch and all files are up to date. `cd` to the `assignX` folder and use `ls` to see the new files.
 
 ### Assignment commit
 You will work on your assignments in your local `mycode` repo. As you edit, we recommend that you
@@ -104,8 +105,8 @@ snapshots to review your progress, compare versions, or identify and undo an
 unfortunate change. Establishing good commit practices gives you the ability to
 navigate the history of code changes, as well as providing the opportunity to
 revert to previous versions. Sometimes you may find that you want to revert to
-a commit before a set a changes that introduced a bug in your code. The more you
-commit, the more opportunities you will have to restore previous working states
+a commit before some code changes that introduced a bug. The more frequently you
+commit, the more opportunities you have to restore previous working states
 without losing as much work. **We recommend that you commit early and often and
 that you write detailed commit messages.**
 
@@ -125,11 +126,11 @@ on the `dev` branch, switch to it by selecting from the drop-down menu:
 ### Assignment tags
 
 When grading your work, we'll run tests on your submission to verify its functionality. You indicate which commit you want us to test by applying a tag.
-In Git, a _tag_ is simply a way of giving a name to a particular commit. We'll
+A _tag_ is simply a way of giving a name to a particular commit. We'll
 also use this tag to determine your submission time. The submission time recorded
 will correspond to the time you pushed the tag commit.
 
-Create a tag to identify which commit if your submission by doing the following (be sure to replace `assignX` with `assign0`, `assign1`, etc. as appropriate)
+Create a tag to identify your assignment submission by doing the following (be sure to replace `assignX` with `assign0`, `assign1`, etc. as appropriate)
 
 ```console
 $ git tag assignX-submit
@@ -137,9 +138,9 @@ $ git push --tags
 ```
 
 A submission tag is of the format `assignX-submit`
-where X is the particular assignment number. You can verify that your tag
+where `X` is the particular assignment number. You can verify that your tag
 was successful by browsing your repo on GitHub and
-confirming that your newly created tag shows up in the "Tags" section of the branches
+confirming that your newly created tag shows up in the __Tags__ section of the branches
 dropdown menu.
 
 If you need to update your previously tagged submission with additional changes, you can move the tag to a different commit with the following command
@@ -151,7 +152,7 @@ $ git push --tags --force
 ```
 
 If you complete one of the extensions for the assignment, add the tag `assignX-extension`
-on the commit containing the code for the extension. Your extension commit can be the 
+on the commit containing the code for the extension. Your extension commit can be tagged on
 same commit as your basic functionality, or it can be a different one. We use the extension
 tag to identify which submissions have attempted the extension. If there is no extension
 tag, we will not test/grade it and will assume the extension was not attempted.
@@ -167,14 +168,12 @@ well as a section for comments where course instructors will be providing
 feedback.
 
 The pull request model is used by many modern software projects to promote good
-practices when working in a distributed development environment. The typical
-flow starts with a base branch (often called _master_) that reflects the master
-copy of the code. Feature development or bug fixing occurs by creating a new
-_branch_ where changes are made. Once you're confident that the code in your
-branch is polished, tested, and working well, you can ask other people to merge
-the commits in your branch into _master_ by making a _pull request_. You've
-pushed commits to your branch, you're now asking other people to pull those
-commits into master. Team members use the pull request to review the
+practices when working in a distributed development environment. The usual
+flow starts with a base branch (typically named _master_ or _main_) that reflects the mainline
+version of the code. Feature development or bug fixing occurs by creating a new
+_branch_ where changes are made. After you have confirmed that the code in your
+branch is working correctly and have finished testing and polishing, you ask other people to approve
+the commits from your branch by making a _pull request_.  Team members respond on the pull request to review the
 proposed changes and provide comments. When a team member approves the pull request,
 GitHub automatically merges the commits back into the base branch.
 
@@ -184,21 +183,17 @@ grade your assignments. If you accidentally close the pull request, just make
 sure to open a new one following the steps below. 
 
 View the contents of your remote repository on the web at `https://github.com/cs107e/{{page.quarterprefix}}-[YOUR-GITHUB-USERNAME]`.
-Switch to the branch `dev` by selecting it from the "Branch" drop-down
+Switch to the branch `dev` by selecting it from the __Branch__ drop-down
 menu.
 
-Click 'Contribute', then 'Open pull request'. 
+Click __Contribute__, then __Open pull request__.
 
 ![Github open pull request](../images/github-open-pr.png){: .zoom .w-75}
 
-Now you will see text entry boxes for describing the pull request, followed by
-a list of the commits that you have made and a line-by-line comparison (`diff`)
-of the changed files.
-
-In the title field, enter "Submission pull request" and leave the comment description blank. 
+In the title field, enter "Submission pull request" and leave the comment description text area blank.
 ![Github create pull request](../images/github-create-pr.png){: .zoom .w-75}
 
-Click 'Create pull request', which will submit the pull request and take you to
+Click the button __Create pull request__, which will submit the pull request and take you to
 a page to view it:
 
 ![Github view pull request](../images/github-view-pr.png){: .zoom .w-75}
@@ -208,7 +203,7 @@ the initial submission. This page will also be used by the grader to provide fee
 on your submissions.
 
 If you need to update your submission, simply edit your files, commit, re-tag with `assignX-submit`, and push to add
-it to the pull request. There is no need to make another pull request.
+it to the pull request. You do not need to make another pull request.
 
 ### Assignment checklist
 
@@ -217,7 +212,7 @@ you are submitting your assignments.
 
 To submit an assignment:
 1. Ensure all of your code is committed and pushed (see [Assignment commit](#assignment-commit))
-1. Tag with `assignX-submit` and, if applicable, `assignX-extension` (see [Assignment tags](#assignment-tags))
+1. Tag with `assignX-submit` and, if applicable, `assignX-extension` (see [Assignment tags](#assignment-tags)) and tags are pushed.
 1. Ensure you have an open Pull Request (see [Assignment pull request](#assignment-pull-request)) 
 1. If you want to replace a previous submission, move the submit tag to the updated commit and force push. You do not need to change your open Pull Request.
 1. You can confirm which files you submitted by browsing your remote repo on GitHub. Choose `assignX-submit` tag from the dropdown menu to review the submitted files and their contents.
@@ -236,10 +231,10 @@ To evaluate functionality, we run your code through a sequence of automated test
 and report any bugs found by posting 
 issues on your remote Github repository. 
 See the `Issues` tab for a list of your open issues (bugs). Each issue has
-a link to the log files. The 'student' log file is the output generated when running
-your code and the 'staff' log file is the output generated by our staff solution.  Comparing the staff 
+a link to the log files. The `student` log file is the output generated when running
+your code and the `staff` log file is the output generated by our staff solution.  Comparing the staff
 output to your own will give you insight as to why your code failed the test. 
-As you fix your bugs and submit your debugged code, the issues will be closed in the 'Issues' 
+As you fix your bugs and submit your debugged code, the issues will be closed in the __Issues__
 tab and the logs will disappear from your logs folder. Your goal will be to close all 
 high priority issues. Below we discuss the process for submitting your code for re-testing after 
 fixing bugs. 
@@ -247,8 +242,8 @@ fixing bugs.
 Feedback on __quality__ (code style and tests)
 
 To evaluate quality, the grader reviews your code and test coverage. To read the grader comments,
-view your submission pull request on the 'Pull Requests' tab of your remote Github repo. The grader
-comments will be added on the 'Conversation' tab.
+view your submission pull request on the __Pull Requests__ tab of your remote Github repo. The grader
+comments will be added on the __Conversation__ tab.
 
 ### Assignment bug fixes/re-test
 
@@ -256,8 +251,8 @@ After receiving our grading feedback, you may resubmit bug fixes to resolve
 open issues. To request a re-test after making fixes, tag the commit with `assignX-retest`.
 You may do this as multiple times as you make further changes, simply keep moving the
 `assignX-retest` tag to the commit that you want re-tested. 
-We will do one re-test run per week on all repos with updated retest tags.
-We communicate the re-test results by updating your repo 'Issues' and logs folder
+We will try to run one re-test run per week on all repos with updated retest tags.
+We communicate the re-test results by updating your repo __Issues__ and logs folder
 to show which issues are now closed by your fixes. 
 
 **Note that not all code is eligible for re-test.**
