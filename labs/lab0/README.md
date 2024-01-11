@@ -115,6 +115,9 @@ $ cd $CS107E/sample_build
 $ make clean && make all
 rm -f *.o *.bin *.elf *.list *~
 riscv64-unknown-elf-gcc ... blah blah blah ...
+```
+{% comment %}
+```
 $ riscv64-unknown-elf-gdb hello.elf
 GNU gdb (GDB) 12.1
 ... blah blah blah ...
@@ -122,6 +125,7 @@ GNU gdb (GDB) 12.1
 Connected to the simulator.
 (gdb) quit
 ```
+{% endcomment %}
 
 ### 3. Command line practice
 Over the course of CS107E, you'll get comfortable navigating the command line. To start, read through and follow all the steps in our [Unix Command Line Guide](/guides/unix).
