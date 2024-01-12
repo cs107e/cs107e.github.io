@@ -8,7 +8,7 @@ attribution: Written by Maria Paula Hernandez, incorporating work of past TAs
 In this course, we use git repositories to share code between you and us. 
 These repositories are hosted on GitHub. You will use git commands such as `git pull`
 to access starter code and `git push` to submit your work. You can read more about
-the general use of `git` in [our git guide](/guides/git). To set up the `mycode` repo used in this course, check out [our git workflow setup guide](/guides/cs107e-git-setup).
+the general use of `git` in [our git guide](/guides/git). To set up the `mycode` repo used in this course, check out [our git workflow setup guide](/guides/setup-mycode-repo).
 
 In this document, we walk through the specific workflow to access the starter code and submit your work.
 
