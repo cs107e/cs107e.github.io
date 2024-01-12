@@ -1,17 +1,18 @@
 ---
 title: One page of RISC-V
+attribution: Prepared by Julie Zelenski
 ---
 
 <style>
-    .arm td:nth-child(3), .reg td:nth-child(1) {
+
+    .insn td:nth-child(3), .reg td:nth-child(1), .reg td:nth-child(2), .pseudo td:nth-child(2), .pseudo td:nth-child(3) {
         font-weight: 500;
         font-family: Inconsolata, Consolas, Menlo, monospace;
         color: #B52741;
     }
-    .arm td:nth-child(1)  {
+    .insn td:nth-child(1), .pseudo td:nth-child(1) {
         font-weight: 700;
-    }
-    .arm {
+    .insn {
         margin-bottom: 2rem;
     }
     thead {
@@ -20,130 +21,103 @@ title: One page of RISC-V
 </style>
 
 
-Very brief summary of RISC-V instructions. Our [Resources](/resources#riscv-assembly) page has links to more complete tutorials and readings about RISC-V assembly.
+Below is a brief summary of common RISC-V instructions. See the [Resources](/resources#riscv-assembly) page for links to more complete tutorials and readings about RISC-V assembly. We particularly like Eric Engheim's RISC-V cheatsheet:
 
-_Coming soon..._
-{% comment %}
+<a href="http://blog.translusion.com/images/posts/RISC-V-cheatsheet-RV32I-4-3.pdf">
+![](../images/riscv-cheatsheet.png){: .border .mx-auto .w-25}
+</a>
+
 ## Registers
-There are 32 registers `x0` to `x31`. Most are general-use, a few are dedicated for particular purpose.  Registers designed as "scratch" (r0-3, r12) are callee-owned, the remainder are caller-owner.
+There are 32 registers indexed from `x0` to `x31`. Each register has an alias that aids as mnemonic for the register's intended use. We will typically refer to registers by alias name.
 
-| Register |  Purpose
-|:--------|:------|
-| x0  | function param 1, function return, scratch
-| x1  | param 2, scratch |
-| x2  | param 3, scratch |
-| x3  | param 4, scratch |
-| x4 - r10 | |
-| x11  | Frame pointer (`fp`) |
-| x12  | Intraprocedural scratch  (`ip`) |
-| x13  | Stack pointer (`sp`) |
-| x14  | Link register (`lr`) |
-| x15  | Program counter (`pc`) |
-| x16  | function param 1, function return, scratch
-| x17  | param 2, scratch |
-| x18 | param 3, scratch |
-| x19 | param 4, scratch |
-| x20- r10 | |
-| x28  | Frame pointer (`fp`) |
-| x29  | Intraprocedural scratch  (`ip`) |
-| x30  | Stack pointer (`sp`) |
-| x31  | Link register (`lr`) |
-| x31  | Program counter (`pc`) |
-
+| Register |  Alias | Purpose
+|:--------|:------|:------|
+| x0  | zero | fixed zero value
+| x1  | ra | return address
+| x2  | sp | stack pointer
+| x3  | gp | global pointer
+| x4  | tp | thread pointer
+| x5  | t0 | temporary
+| x6  | t1 | temporary
+| x7  | t2 | temporary
+| x8  | s0/fp | saved by callee, frame pointer
+| x9  | s1 | saved by callee
+| x10 | a0 | function argument 1, function return value
+| x11 | a1 | function argument 2
+| x12 | a2 | function argument 3
+| x13 | a3 | function argument 4
+| x14 | a4 | function argument 5
+| x15 | a5 | function argument 6
+| x16 | a6 | function argument 7
+| x17 | a7 | function argument 8
+| x18 | s2 | saved by callee
+| x19 | s3 | saved by callee
+| x20 | s4 | saved by callee
+| x21 | s5 | saved by callee
+| x22 | s6 | saved by callee
+| x23 | s7 | saved by callee
+| x24 | s8 | saved by callee
+| x25 | s9 | saved by callee
+| x26 | s10 | saved by callee
+| x27 | s11 | saved by callee
+| x28 | t3 | temporary
+| x29 | t4 | temporary
+| x30 | t5 | temporary
+| x31 | t6 | temporary
 {: .table .table-sm .table-striped .reg }
 
 ## Common instructions
 
+`rd`: destination register, `rs`: source register, `imm`: immediate value (constant)
+
 | Opcode | Instruction |  Syntax | Notes |
 |:--------|:------|:--------|
-||||_Data Processing instructions_ |
-|:--------|:-------|:--------|
-| ADD | Add     | ADD dest, op1, op2 |
-| ADC | Add with Carry |ADC dest, op1, op2 |
-| SUB | Subtract | SUB dest, op1, op2 |
-| SBC | Subtract with Carry |SBC dest, op1, op2 |
-| RSB |  Reverse Subtract |  RSB dest, op1, op2 |
-| RSC | Reverse Subtract with Carry| RSC dest, op1, op2 |
-| AND | Bitwise And |AND dest, op1, op2 |
-| EOR | Bitwise Exclusive Or | EOR dest, op1, op2 |
-| BIC | Bitwise Clear| BIC dest, op1, op2 |
-| ORR | Bitwise Or |ORR dest, op1, op2 |
-| CMP | Compare | CMP op1, op2 | op1 - op2 (next 4 insns set flags, discard result)
-| CMN | Compare Negated |CMN op1, op2 | op1 + op2
-| TST | Test | TST op1, op2 | op1 & op2 
-| TEQ | Test Equals | TEQ op1, op2 | op1 ^ op2
-| MOV | Move | MOV dest, op2 |
-| MVN | Move Negated | MVN dest, op2 | bitwise inverse
-|---------|
-| | | |
-| LDR | Load Register | LDR dest, [src] | 
-| STR | Store Register | STR src, [dest] | Minor anomaly:  src register listed first
-|B|Branch  | B target|
-|BL| Branch and link | BL target |  Function call
-|BX| Branch exchange | BX lr | Function return
-{: .table .table-sm .table-striped .arm }
+||__ALU instructions (R-type)__
+| ADD | Add     | ADD rd,rs1,rs2
+| SUB | Subtract | SUB rd,rs1,rs2
+| AND | Bitwise and |AND rd,rs1,rs2
+| OR | Bitwise or | OR rd,rs1,rs2
+| XOR | Bitwise exclusive or | XOR rd,rs1,rs2
+| SLL | Shift left logical | SLL rd,rs1,rs2
+| SRL | Shift right logical | SRL rd,rs1,rs2
+| SRA | Shift right arithmetic | SRA rd,rs1,rs2
+|| __ALU (I-type)__ |
+| ADDI | Add immediate     | ADDI rd,rs,imm12
+| ANDI | And immediate | ANDI rd,rs,imm12
+| ORI | Or immediate | ORI rd,rs,imm12
+| XORI | Xor immediate| XORI rd,rs,imm12
+| SLLI | Shift left logical immediate | SLLI rd,rs,imm12
+| SRLI | Shift right logical immediate | SRLI rd,rs,imm12
+| SRAI | Shift right arithmetic immediate | SRAI rd,rs,imm12
+||__Branch instructions__
+|BEQ| Branch equal  | BEQ rs1,rs2,imm12 | target = PC + imm12 (e.g. PC-relative)
+|BNE| Branch not equal  | BNE rs1,rs2,imm12
+|BGE| Branch greater or equal  | BGE rs1,rs2,imm12
+|BLT| Branch less than  | BLT rs1,rs2,imm12
+|JAL| Jump and link | JAL rd,imm20
+|JALR| Jump and link register |  JALR rd,imm12(rs)
+||__Load/store instructions__ | |   suffixes D=double-word, H=half-word B=byte
+| LW | Load word | LW rd,imm12(rs)
+| SW | Store word | SW rs,imm12(rd)
+{: .table .table-sm .table-striped .insn }
 
+## Pseudo instructions
+These are accepted by the assembler as a convenience and converted into actual instruction(s).
 
-- __Op2 accepts an immediate value__. In the data processing instructions, `dest` and `op1` can only refer to a register, but `op2` accepts an immediate value encodable in a 8-bit value with 4-bit rotate. (Here is a neat exploration of what can be encoded under those constraints: <https://alisdair.mcdiarmid.org/arm-immediate-value-encoding>). For those of you pondering the need for both `SUB` and `RSB`, consider the impact of the asymmetry between `op1` and `op2` on the non-commutative subtract operation.
-```
-SUB r1, r1, #3
-RSB r1, r1, #3
-```
+| Mnemonic | Example | Translation | Notes |
+|:--------|:------|:--------|:--------|
+|LI |LI rd,imm32 | LUI rd,imm[31:12]    ADDI rd,rd,imm[11:0] | Load 32-bit imm (2 insns)
+|MV|MV rd,rs | ADDI rd,zero,rs | Copy register
+|NOT|NOT rd,rs | XORI rd,rs,-1 | Bitwise inverse
+|NEG|NEG rd,rs | SUB rd,zero,rs | Arithmetic negation
+|J|J imm20| JAL zero,imm20 | Unconditional jump
+|CALL|CALL imm20| JALR ra,ra,imm20 | Function call
+|RET|RET| JALR zero,0(ra) | Function return
+{: .table .table-sm .table-striped .pseudo }
 
+## More?
+This page is just the highlights. Refer to the [RISC-V specification](/readings/riscv-spec-20191213.pdf) for information on:
+- control and status registers `CSR`
+- extensions (multiply/divide, compressed, atomic, vector)
+- floating point
 
-- __Use of barrel shifter on op2__.  Another distinction for `op2` of the data processing instructions is that the barrel shifter can be used to first shift or rotate this operand's value. For example, in the instruction below, `r3` is left shifted 5 positions before being added to `r2`.
-```
-ADD r1, r2, r3, LSL #5
-```
-
-    The available barrel shifter operations for `op2` are below. Here is nice explanation of the effect of each <http://www.davespace.co.uk/arm/introduction-to-arm/barrel-shifter.html>.
-
-    | LSL | Logical Shift Left | op2, LSL #Imm | |
-    | LSR | Logical Shift Right  | op2, LSR #Imm | |
-    | ASR | Arithmetic Shift Right  | op2, ASR #Imm | |
-    | ROR | Rotate Right   |op2, ROR #Imm | |
-    | RRX | Rotate Right and Extend  | op2, RRX #Imm | |
-    {: .table .table-sm .table-striped .arm}
-
-    ARM does not have separate shift/rotate instructions; `LSL` `LSR` `ASR` are implemented as use of barrel shifter on op2.
-
-    To read more about the ARM _Flexible second operand_, see <https://developer.arm.com/documentation/dui0552/a/the-cortex-m3-instruction-set/about-the-instruction-descriptions/flexible-second-operand>
-
-## Conditional execution
-- __Condition codes__. The ARM has four condition codes  `Z` `N` `C` and `V` that each store a 1-bit state. The codes are set as a side effect of the Compare and Test instructions and can be optionally set by any data processing instruction by adding the `S` suffix (`XOR` -> `XORS`).
-
-    |Z | Zero 
-    |N | Negative
-    |V | Overflow 
-    |C | Carry
-    {: .table .table-sm .table-striped}
-
-- __Conditional execution__. Adding a condition suffix to instruction opcode, e.g. (`ADD` -> `ADDEQ`) causes the instruction to execute only if the specified condition is met, otherwise the instruction is skipped.  For an instruction specified with no suffix, `AL` is assumed. 
-
-    | Condition | Opcode|  Execute if:  |
-    |:--------|:-------|:--------|
-    |EQ |Equal | Z
-    |NE |Not equal | !Z
-    |CS/HS |Carry set / unsigned higher or same | C
-    |CC/LO | Carry clear / unsigned lower| !C
-    |MI |Minus / negative | N
-    |PL |Plus / positive or zero | !N
-    |VS |Overflow | V
-    |VC |No overflow | !V
-    |HI |Unsigned higher| C and !Z
-    |LS |Unsigned lower or same | !C or Z
-    |GE |Signed greater than or equal |N == V
-    |LT |Signed less than | N != V
-    |GT |Signed greater than | !Z and (N == V)
-    |LE |Signed less than or equal | Z or (N != V)
-    |AL |Always (unconditional)| always
-    {: .table .table-sm .table-striped .arm}
-
-## More
-This page is just the highlights -- there is much more! 
-Refer to the [ARM manual](/readings/armisa.pdf) for information on:
-- pre/post-index address modes
-- `LDM` and `STM`, multiple load/store
-- the `CPSR` special register and instructions `msr` and `mrs`
-
-{% endcomment %}

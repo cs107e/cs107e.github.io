@@ -7,9 +7,9 @@ weeks:
     mon: /lectures/Intro/
     lab: /labs/lab0/
     assign: /assignments/assign0/
-    fri: /lectures/RISC-V/
+    fri: /lectures/Assembly/
   -
-    mon: /lectures/Assembly/
+    mon: MLK Jr Day (no lecture)
     lab: /labs/lab1/
     assign: /assignments/assign1/
     fri: /lectures/C_Control/
@@ -34,7 +34,7 @@ weeks:
     assign: /assignments/assign5/
     fri: /lectures/Framebuffer/
   -
-    mon: Presidents Day
+    mon: Presidents Day (no lecture)
     lab: /labs/lab6/
     assign: /assignments/assign6/
     fri: /lectures/Interrupts1/
