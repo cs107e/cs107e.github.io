@@ -26,9 +26,8 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 ## Mango Pi
 - [Powering the Mango Pi](power)
 - [Using `xfel` as a bootloader](xfel)
-- [Serial communication over uart](uart)
 - [Reference card with pinout](refcard) (printed copy in your kit)
-- [Interacting with GPIO pins](gpio)
+- [Serial communication over uart](uart)
 
 ## Risc-V
 - [One page of RISC-V](riscv-onepage)
@@ -38,7 +37,7 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 - [Using `git` for version control](git)
 - [Bare metal programming using `gcc`](gcc)
 - [`make` and `Makefiles`](make)
-- [Using `gdb` in simulation mode](gdb)
+{%- comment %}- [Using `gdb` in simulation mode](gdb){% endcomment %}
 - [Binary utilities (`binutils`)](binutils)
 - [Advice on software testing](testing)
 
