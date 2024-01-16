@@ -41,8 +41,7 @@ To prepare, please do the following before coming to lab:
 
 1. Organize supplies to bring with you:
     - Bring your __laptop__, ideally with full charge.
-    - In this week's lab, we will distribute your [parts kit](/guides/bom). The components are packed in a handy plastic box for convenient carrying. You will bring your parts kit to every lab.
-    -  If you have access to a __multimeter__, bring it along.
+    - If you have access to a __multimeter__, bring it along.
 1. Reading to do ahead of lab:
     - Read this SparkFun tutorial on [using a breadboard](https://learn.sparkfun.com/tutorials/how-to-use-a-breadboard). Pay special attention to the section labeled "Anatomy of a Breadboard" to learn about the internal connections.
     - Please review our course guides on:
@@ -69,7 +68,7 @@ Your repo should be on the `dev` branch and there is a new subfolder named `lab1
 You will receive your parts kit when you arrive at lab. Open it up and check it out!
 Unwrap and discard any packaging. Identify what each component is and compare to the [kit inventory](/guides/bom/) to ensure your kit is complete. If you are missing any parts, ask us for replacements.
 
-Decorate a sticker with your name as a label for your kit so you and your box will stay united.
+The components are packed in a handy plastic box for convenient carrying. Decorate a sticker with your name as a label for your kit so you and your box will stay united.  Plan to bring your complete parts kit with you to every lab.
 
 ### 2. Power up your Pi and use `xfel` to converse
 Start with our course guides to acquaint with your new BFF.

@@ -109,8 +109,8 @@ function showMessage(text) {
 $().ready(function() {
     let today = new Date(Date.now());
     today.setHours(0); // include all events from today (even if already past)
-    // read events from today through next 9 days
-    const ndays = 9;
+    // read events from today through next 8 days
+    const ndays = 8;
     const dayms = 1000*60*60*24; // convert to ms
     const span = '&timeMin=' + today.toISOString() + '&timeMax=' + new Date(today.getTime() + ndays*dayms).toISOString();
     const options = '&singleEvents=true&orderBy=startTime&sortorder=ascending' + span;
