@@ -28,6 +28,9 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 - [Using `xfel` as a bootloader](xfel)
 - [Reference card with pinout](refcard) (printed copy in your kit)
 - [Serial communication over uart](uart)
+- [Meet your GPIO pins](MeetYourGPIOPins.pdf)
+- [Program your GPIO pins](ProgramYourGPIOPins.pdf)
+
 
 ## Risc-V
 - [One page of RISC-V](riscv-onepage)
