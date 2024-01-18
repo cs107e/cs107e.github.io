@@ -186,7 +186,7 @@ How would you dim an LED? Your challenge for the assignment extension is to
 implement a scanner with LEDs aesthetically dimmed
 in a way that would please Glen Larson.
 
-The extension should have a central, full-brightness led that scans back and back just as
+The extension has 8 LEDs. There is a central, full-brightness LED that scans back and back just as
 in the core version, but you should visibly dim the
 neighbors of that central light as it moves. Aim for a look similar to
 the
