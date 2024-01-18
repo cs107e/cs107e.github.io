@@ -128,14 +128,14 @@ implementation strategies, testing, and debugging. Some examples:
 
 - __Receiving help from an AI acting IFF in the role of "ethical tutor"__{: .text-warning }
 
-    Use of AI tools (e.g. ChatGPT, CoPilot) is restricted to the kind of help that could be provided by a ethically-minded tutor. A good tutor can answers questions about your confusions, can provide clarification, can walk you through an example, can direct you to additional information, and so on. A tutor is acting as a sounding board for your own understanding and guiding without overly leading. If you used an AI as a tutor, you should cite the assistance you received. Note that a properly-trained tutor doesn't write code for you nor does it point out your bugs or tell you how to rewrite your code. Such uses are disallowed.
+    Use of AI tools (e.g. ChatGPT, CoPilot) is restricted to the kind of help that could be provided by a ethically-minded tutor. A good tutor can answers questions about your confusions, can provide clarification, can walk you through an example, can direct you to additional information, and so on. A tutor is acting as a sounding board for your own understanding and guiding without overly leading. If you used an AI as a tutor, you should cite the assistance you received. **Note that a properly-trained tutor doesn't write code for you nor does it point out your bugs or tell you how to rewrite your code.** Such uses are disallowed.
 
 #### What is an appropriate citation?
 
 A citation should be specific, complete, and truthful. Clearly identify the source of the help/discussion (person's
 name, book title, URL), describe the nature and extent of the
 assistance, and indicate how it influenced
-your submission.
+your submission. Put your citations either in a `README.md` or as comments in your code, either at the top of the file or next to the function/line for which you received help.
 
 ### Assistance that is NOT allowed
 
