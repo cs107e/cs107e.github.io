@@ -22,8 +22,9 @@ so you will soon become familiar with the common structure.
 ```makefile
 NAME = blink
 
-CFLAGS = -g -Wall -Og -ffreestanding
-LDFLAGS = -nostdlib
+ARCH = -march=rv64imac -mabi=lp64
+CFLAGS  = $(ARCH) -g -Og -I$$CS107E/include -Wall -ffreestanding
+LDFLAGS = $(ARCH) -nostdlib -L$$CS107E/lib -T memmap
 
 all: $(NAME).bin
  
@@ -40,7 +41,7 @@ all: $(NAME).bin
 	riscv64-unknown-elf-objdump -d $< > $@
 
 run: $(NAME).bin
-	rpi-run.py $<
+	mango-run $<
 
 clean:
 	rm -f *.o *.elf *.bin *.list
@@ -57,7 +58,7 @@ Here is an example of a very simple hard-coded Makefile containing three targets
 all: button.bin
 
 button.bin: button.c
-	riscv64-unknown-elf-gcc -Og -g -Wall -ffreestanding -c button.c -o button.o
+	riscv64-unknown-elf-gcc -ffreestanding -c button.c -o button.o
 	riscv64-unknown-elf-gcc -nostdlib button.o -o button.elf
 	riscv64-unknown-elf-objcopy button.elf -O binary button.bin
     
@@ -75,7 +76,7 @@ indicates that `button.bin` is required to make `all`. In other words, to make `
 This brings us to the next rule for `button.bin`:
 ```makefile
 button.bin: button.c
-	riscv64-unknown-elf-gcc -Og -g -Wall -ffreestanding -c button.c -o button.o
+	riscv64-unknown-elf-gcc -ffreestanding -c button.c -o button.o
 	riscv64-unknown-elf-gcc -nostdlib button.o -o button.elf
 	riscv64-unknown-elf-objcopy button.elf -O binary button.bin
 ```
@@ -83,11 +84,9 @@ The ingredients (dependencies on the right-hand-side) are needed as the starting
 
 We could add a comment to explain the additional flags included when invoking the compiler. Lines starting with `#` are treated as comments.
 ```makefile
-# Compiler flags used:
-#  -Og             generate optimized code designed for debugging
-#  -g              add debugging information
-#  -Wall           give warnings about *all* issues
-#  -ffreestanding  generate code assuming no operating system
+# Build flag used:
+#  -ffreestanding  generate code assuming environment is unhosted
+#  -nostdlib       no link with standard libraries
 ```
 
 The final rule indicates what should happen when we `make clean`; the recipe for the clean target removes any previous build products so the next compile starts fresh.
@@ -108,7 +107,7 @@ After repeatedly copy-pasting the example Makefile to create a version for a new
 
 ```makefile
 NAME = blink
-CFLAGS  = -Og -g -Wall -ffreestanding
+CFLAGS  = -ffreestanding
 LDFLAGS = -nostdlib
 
 all: $(NAME).bin
@@ -164,9 +163,7 @@ For further convenience, we can add a rule for the `run` target. We use this tar
 ```makefile
 # The run target uploads a freshly made binary image to the xfel bootloader
 run: $(NAME).bin
-	xfel ddr d1
-	xfel write 0x40000000 $<
-	xfel exec  0x40000000
+	mango-run $<
 ```
 
 With that finishing touch, you have a general Makefile that can be easily re-purposed for other projects. Now that you know that a Makefile is just a cookbook that culminates in the tasty program you wish to create, you're ready to add your favorite recipes and bon appetit!
