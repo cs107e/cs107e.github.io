@@ -9,7 +9,7 @@
  * Author: Julie Zelenski <zelenski@cs.stanford.edu>
  */
 
-#define TICKS_PER_USEC 24 // 24 ticks are equal to one microsecond
+#define TICKS_PER_USEC 24 // 24 ticks counted per one microsecond
 
 /*
  * `timer_init`
@@ -23,8 +23,8 @@ void timer_init(void);
 /*
  * `timer_get_ticks`
  *
- * Returns the current system tick count. The tick count is set to
- * zero at boot and increments at constant rate 24Mhz until the
+ * Returns the current system tick count. The tick count is initialized
+ * to zero at boot and increments at constant rate 24Mhz until the
  * processor resets.
  *
  * @return  system tick count

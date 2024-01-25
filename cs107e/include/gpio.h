@@ -43,8 +43,8 @@ bool gpio_id_is_valid(gpio_id_t pin);
 /*
  * `gpio_set_function`
  *
- * Set a GPIO function for GPIO with id `pin`. Settings for other pins
- * should be unchanged.
+ * Set a GPIO function for GPIO with id `pin`. The configuration for
+ * pins other than `pin` should not be changed.
  *
  * @param pin       the id of the GPIO pin
  * @param function  the GPIO function to set for the pin
@@ -94,12 +94,12 @@ int gpio_read(gpio_id_t pin);
  *
  * Set value of GPIO with id `pin` to high (1) or low (0).
  * This function assumes the pin is already in output mode.
- * Settings for other pins should be unchanged.
+ * Values for pins other than `pin` should not be changed.
  *
  * @param pin   the id of the GPIO pin
  * @param val   1 to set pin high, 0 to set pin low
  *
- * If `pin` or `val` is not valid, does nothing.
+ * If `pin` is not valid, does nothing.
  */
 void gpio_write(gpio_id_t pin, int val);
 
