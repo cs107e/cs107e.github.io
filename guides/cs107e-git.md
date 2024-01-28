@@ -177,17 +177,15 @@ the commits from your branch by making a _pull request_.  Team members respond o
 proposed changes and provide comments. When a team member approves the pull request,
 GitHub automatically merges the commits back into the base branch.
 
-You will only have to make a pull request once. After you confirm you have done 
-it in this assignment, it will remain open throughout the quarter and allow us to 
-grade your assignments. If you accidentally close the pull request, just make 
-sure to open a new one following the steps below. 
+__You will only need to make one pull request__. You will open a pull request for your
+first submission and it will remain open throughout the quarter. You will not need
+to make an other pull request. If you accidentally close your previous pull request, just open a new one following the steps below.
 
-View the contents of your remote repository on the web at `https://github.com/cs107e/{{page.quarterprefix}}-[YOUR-GITHUB-USERNAME]`.
+To open a new pull request: View the contents of your remote repository on the web at `https://github.com/cs107e/{{page.quarterprefix}}-[YOUR-GITHUB-USERNAME]`.
 Switch to the branch `dev` by selecting it from the __Branch__ drop-down
-menu.
+menu. (Reminder: there will not be an option to open another pull request if there is already one open for this branch)
 
 Click __Contribute__, then __Open pull request__.
-
 ![Github open pull request](../images/github-open-pr.png){: .zoom .w-75}
 
 In the title field, enter "Submission pull request" and leave the comment description text area blank.
@@ -213,7 +211,7 @@ you are submitting your assignments.
 To submit an assignment:
 1. Ensure all of your code is committed and pushed (see [Assignment commit](#assignment-commit))
 1. Tag with `assignX-submit` and, if applicable, `assignX-extension` (see [Assignment tags](#assignment-tags)) and tags are pushed.
-1. Ensure you have an open Pull Request (see [Assignment pull request](#assignment-pull-request)) 
+1. Confirm your Pull Request is open (see [Assignment pull request](#assignment-pull-request))
 1. If you want to replace a previous submission, move the submit tag to the updated commit and force push. You do not need to change your open Pull Request.
 1. You can confirm which files you submitted by browsing your remote repo on GitHub. Choose `assignX-submit` tag from the dropdown menu to review the submitted files and their contents.
 
@@ -221,7 +219,7 @@ After receiving our grading feedback, you will have the opportunity to submit fi
  and request a re-test of open issues. To submit fixes for re-test:
 1. Ensure all of your code is committed and pushed. 
 2. Tag with `assignX-retest`
-3. Ensure you have an open Pull Request.  
+3. Confirm your Pull Request is open.
 
 ### Assignment grading feedback
 
