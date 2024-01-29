@@ -65,14 +65,14 @@ const void *disassemble_name_to_addr(const char *name);
 const char *disassemble_addr_to_name(const void *addr, int *p_offset);
 
 /*
- * `disassemble_is_valid_text`
+ * `disassemble_is_valid_insn`
  *
- * Return true if address is valid text. An address is valid if it lies within
+ * Return num bytes in insn if valid. An insn ddress is valid if it lies within
  * the text section and contents at addr can be decoded as an instruction.
  *
  * @param addr      address of instruction
- * @return          true if addr is valid text, false otherwise
+ * @return          2 or 4 if addr is valid text, 0 otherwise
  */
-bool disassemble_is_valid_text(const void *addr);
+int disassemble_is_valid_insn(const void *addr);
 
 #endif

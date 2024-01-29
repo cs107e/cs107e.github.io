@@ -100,7 +100,7 @@ NAME = blink_actled
 
 ARCH = -march=rv64im -mabi=lp64
 CFLAGS = $(ARCH) -g -Og -Wall -ffreestanding
-LDFLAGS = $(ARCH) -nostdlib -e main
+LDFLAGS = -nostdlib -e main
 
 all: $(NAME).bin
 

@@ -22,9 +22,9 @@ so you will soon become familiar with the common structure.
 ```makefile
 NAME = blink
 
-ARCH = -march=rv64imac -mabi=lp64
+ARCH    = -march=rv64im -mabi=lp64
 CFLAGS  = $(ARCH) -g -Og -I$$CS107E/include -Wall -ffreestanding
-LDFLAGS = $(ARCH) -nostdlib -L$$CS107E/lib -T memmap
+LDFLAGS = -nostdlib -L$$CS107E/lib -T memmap.ld
 
 all: $(NAME).bin
  
@@ -37,14 +37,11 @@ all: $(NAME).bin
 %.o: %.c
 	riscv64-unknown-elf-gcc $(CFLAGS) -c $< -o $@
 
-%.list: %.o
-	riscv64-unknown-elf-objdump -d $< > $@
-
 run: $(NAME).bin
 	mango-run $<
 
 clean:
-	rm -f *.o *.elf *.bin *.list
+	rm -f *.o *.elf *.bin
 ```
 
 This Makefile may look a bit cryptic at first! Let's try breaking it down step by step.

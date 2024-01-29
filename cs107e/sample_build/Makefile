@@ -1,10 +1,10 @@
 PROGRAM = hello.bin
 
-ARCH = -march=rv64imac -mabi=lp64
+ARCH    = -march=rv64im -mabi=lp64
 ASFLAGS = $(ARCH)
-CFLAGS 	= $(ARCH) -g -Og -I$$CS107E/include -Wall -ffreestanding
-LDFLAGS = $(ARCH) -nostdlib -L$$CS107E/lib -T memmap
-LDLIBS 	= -lmango -lgcc
+CFLAGS  = $(ARCH) -g -Og -I$$CS107E/include -Wall -ffreestanding
+LDFLAGS = -nostdlib -L$$CS107E/lib -T memmap.ld
+LDLIBS  = -lmango -lmango_gcc
 
 all : $(PROGRAM)
 
@@ -21,7 +21,7 @@ all : $(PROGRAM)
 	riscv64-unknown-elf-as $(ASFLAGS) $< -o $@
 
 %.list: %.o
-	riscv64-unknown-elf-objdump --no-show-raw-insn -d $< > $@
+	riscv64-unknown-elf-objdump $(OBJDUMP_FLAGS) $<
 
 run: $(PROGRAM)
 	mango-run $<
@@ -32,3 +32,4 @@ clean:
 .PHONY: all clean run
 .PRECIOUS: %.elf %.o
 
+OBJDUMP_FLAGS = -d --no-show-raw-insn --no-addresses --disassembler-color=terminal --visualize-jumps

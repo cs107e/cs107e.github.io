@@ -15,8 +15,8 @@
 typedef union {
     struct {
         uint32_t priority[1024];    // only first 256 in use
-        uint32_t pending[1024];     // only first 9 in use
-        uint32_t enable[1024];      // only first 9 in use
+        uint32_t pending[1024];     // only first 8 in use
+        uint32_t enable[1024];      // only first 8 in use
     } regs;
 } source_t;
 
@@ -50,17 +50,42 @@ static struct {
     .plic =    PLIC_BASE,
 };
 
+
+static const char *description(unsigned int cause) {
+    static const char *table[] = {
+        "Instruction address misaligned",
+        "Instruction access fault",
+        "Illegal instruction",
+        "Breakpoint",
+        "Load address misaligned",
+        "Load access fault",
+        "Store/AMO address misaligned",
+        "Store/AMO access fault",
+        "Environment call from U-mode",
+        "Environment call from S-mode",
+        "Reserved (10)",
+        "Environment call from M-mode",
+        "Instruction page fault",
+        "Load page fault",
+        "Reserved (14)",
+        "Store/AMO page fault",
+    };
+    int n = sizeof(table)/sizeof(*table);
+    return (cause < n ? table[cause] : "Unknown");
+}
+
 //  gcc attribute will generate prologue/epilogue appropriate for machine interrupt
 __attribute__((interrupt("machine"))) static void interrupt_dispatch(void) {
     uint64_t external_interrupt = ((1L << 63) | 11);
     if (CSR_READ(mcause) != external_interrupt) {
-        error("TRAP: mcause %lx mip %lx, mepc %lx mtval %lx\n", CSR_READ(mcause), CSR_READ(mip), CSR_READ(mepc), CSR_READ(mtval));
+        unsigned int cause = CSR_READ(mcause);
+        error("EXCEPTION: mcause %x (%s) mip %lx, mepc %lx mtval %lx\n", cause, description(cause), CSR_READ(mip), CSR_READ(mepc), CSR_READ(mtval));
     }
     uint32_t source = module.plic->regs.claim; // read claim register start processing
     if (module.handlers[source].fn) {
         module.handlers[source].fn(CSR_READ(mepc), module.handlers[source].aux_data);
     } else {
-        error("UNHANDLED external interrupt on source %d\n", source);
+        error("INTERRUPT UNHANDLED: external interrupt on source %d\n", source);
     }
     module.plic->regs.claim = source;   // write claim register to complete
 }
@@ -73,11 +98,11 @@ void interrupts_init(void) {
     module.plic->regs.ctrl = 0; // machine mode only
     module.plic->regs.threshhold = 0; // accept interrupts of any priority
     CSR_WRITE(mtvec, &interrupt_dispatch);
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 8; i++) {
         module.sources->regs.pending[i] = 0;
         module.sources->regs.enable[i] = 0;
     }
-    for (int i = 0; i < N_SOURCES; ++i) {
+    for (int i = 0; i < N_SOURCES; i++) {
         module.sources->regs.priority[i] = 0;
         module.handlers[i].fn = NULL;
         module.plic->regs.claim = i; // complete any pending request
@@ -101,7 +126,7 @@ static bool is_valid_source(int source) {
 }
 
 void interrupts_register_handler(int source, handlerfn_t fn, void *aux_data) {
-#warning need separation between register handler and enable/disable interrupt source
+#warning TODO need separation between register handler and enable/disable interrupt source
     confirm_interrupts_initialized(__func__);
     if (!is_valid_source(source)) error("%d is not a valid interrupt source", source);
     if (fn == NULL) error("cannot register NULL handler");

@@ -6,24 +6,19 @@
  */
 
 #include "mango.h"
-
-// linker memmap places these symbols at start/end of bss
-extern char __bss_start__, __bss_end__;
+#include "strings.h"
 
 extern void main(void);
 void _cstart(void);
 
 // The C function _cstart is called from the assembly in start.s
-// _cstart zeroes out the BSS section and then calls main.
+// _cstart zeroes out the BSS section and then calls the main function
 void _cstart(void) {
-    char *bss = &__bss_start__;
-    char *bss_end = &__bss_end__;
-
-    while (bss < bss_end) {
-        *bss++ = 0;
-    }
+    // linker script memmap.ld places symbols to mark bss boundaries
+    extern char __bss_start, __bss_end;
+    memset(&__bss_start, 0, &__bss_end - &__bss_start);
 
     mango_actled(LED_ON);   // turn on blue onboard LED while executing main
     main();
-    mango_reboot();         // reset the Pi if completed main() successfully
+    mango_reboot();         // reset the Pi if main() completed successfully
 }
