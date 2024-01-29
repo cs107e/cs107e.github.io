@@ -19,9 +19,7 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 - [Install WSL](install/wsl-setup) (Windows users only)
 - [Setup of git and mycode repo](setup-mycode-repo)
 - [Install developer tools](install/devtools) (riscv toolchain and xfel)
-{% comment %}
-- [Install CP2102 driver and minicom](install/serial.md) for serial communication over uart
-{% endcomment %}
+- [Install CP2102 driver](install/cp2102) and [Minicom](install/minicom) for USB-serial device
 
 ## Mango Pi
 - [Powering the Mango Pi](power)

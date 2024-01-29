@@ -14,9 +14,9 @@ You will use a CP2102 USB to serial breakout board (hereafter referred to as jus
 Find the usb-serial in your parts kit. One end has a USB-A connector and the other end has a 5-pin or 6-pin header. You will plug the USB-A into a usb port on your laptop and wire up jumpers from the usb-serial header pins to the uart on your Pi.
 ![usb-serial](../images/uart-usb-serial.jpg){: .w-50 .zoom}
 
-The square IC in the center of the board is the CP2102 chip converts from a usb interface to a serial interface. You will need a CP2102 driver on your laptop.  Depending on the hardware and OS version, your laptop may have a pre-installed driver, otherwise you will need to install the driver yourself.
+The square IC in the center of the board is the CP2102 chip converts from a usb interface to a serial interface. You will need a CP2102 driver on your laptop.
 
-> __Got CP2102 driver?__ This was covered in the installation instructions. If you skipped this step, do it now. See section "CP2102 driver" in the [serial installation guide](/guides/serial).
+> __Got CP2102 driver?__  Depending on the hardware and OS version, your laptop may have a pre-installed driver, otherwise you will need to manually install the CP2102 driver.  See [CP2102 installation guide](/guides/install/cp2102) for more info.
 {: .callout-warning}
 
 ## Connect usb-serial to Pi
@@ -44,9 +44,13 @@ Here are some of the other usb-serial variants we have used at times (click to e
 
 Once you have verified that your connections are correct, plug the usb-serial into your laptop or usb hub and then power up the Pi. You now have a serial connection!
 
-## Using minicom
+## Commnication over tty: minicom
 
-`minicom` is a program used to communicate over a tty device.
+There are a number of programs that support communication with a tty device (`screen`, `tio`, `cutecom`, `putty`, etc.) If you don't have a favorite that you are already comfortable with, we recommend `minicom` as a simple option with nice features.
+
+> __Got minicom?__  See guide for instructions on how to [install minicom](/guides/install/minicom).
+{: .callout-warning}
+
 
 For uart communication to succeed, the transmitter and receiver must agree on the voltage level, baud rate, use of start, parity, and stop bits, and so on. In this course, we will be using these settings:
 - peripheral `UART0`
