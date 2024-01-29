@@ -72,7 +72,6 @@ static struct {
 
 // not published for now, used to do testing of alternate uarts
 void uart_reinit_custom(int, gpio_id_t, gpio_id_t, unsigned int);
-static void confirm_uart_initialized(const char *) ;
 
 void uart_reinit_custom(int uart_id, gpio_id_t tx, gpio_id_t rx, unsigned int gpio_fn) {
     if (module.uart) {  // shut down previous if active
@@ -129,38 +128,38 @@ void uart_reinit_custom(int uart_id, gpio_id_t tx, gpio_id_t rx, unsigned int gp
 }
 
 void uart_init(void) {
-    confirm_uart_initialized(NULL);
+    if (module.uart != NULL) error("uart_init() should be called only once.");
     // default to UART0 on pins PB8+9
     uart_reinit_custom(0, GPIO_PB8, GPIO_PB9, GPIO_FN_ALT6);
-    uart_send('\f');          // form feed to clear screen
+    uart_putstring("\n\n\n\n");
 }
 
 void uart_use_interrupts(handlerfn_t handler, void *client_data) {
-    confirm_uart_initialized(__func__);
+    if (module.uart == NULL) error("uart_init() has not been called!\n");
     int interrupt_source = INTERRUPT_SOURCE_UART0 + module.config.index;
     interrupts_register_handler(interrupt_source, handler, client_data);
     module.uart->regs.ier = 1;    // enable interrupts
 }
 
 unsigned char uart_recv(void) {
-    confirm_uart_initialized(__func__);
+    if (module.uart == NULL) error("uart_init() has not been called!\n");
     while (!uart_haschar()) ; // wait for char to arrive
     return module.uart->regs.rbr & 0xFF;
 }
 
 void uart_send(unsigned char byte) {
-    confirm_uart_initialized(__func__);
+    if (module.uart == NULL) error("uart_init() has not been called!\n");
     while ((module.uart->regs.usr & USR_TX_NOT_FULL) == 0) ;
     module.uart->regs.thr = byte & 0xFF;
 }
 
 void uart_flush(void) {
-    confirm_uart_initialized(__func__);
+    if (module.uart == NULL) error("uart_init() has not been called!\n");
     while ((module.uart->regs.usr & USR_BUSY) != 0) ;
 }
 
 bool uart_haschar(void) {
-    confirm_uart_initialized(__func__);
+    if (module.uart == NULL) error("uart_init() has not been called!\n");
     return (module.uart->regs.usr & USR_RX_NOT_EMPTY) != 0;
 }
 
@@ -172,7 +171,7 @@ bool uart_haschar(void) {
 // Use uart_send/uart_recv to send/receive raw byte, no conversion
 
 int uart_getchar(void) {
-    confirm_uart_initialized(__func__);
+    if (module.uart == NULL) error("uart_init() has not been called!\n");
     int ch = uart_recv();
     if (ch == '\r') {
         return '\n';    // convert CR to newline
@@ -181,7 +180,7 @@ int uart_getchar(void) {
 }
 
 int uart_putchar(int ch) {
-    confirm_uart_initialized(__func__);
+    if (module.uart == NULL) error("uart_init() has not been called!\n");
     // convert newline to CR LF sequence by inserting CR
     if (ch == '\n') {
         uart_send('\r');
@@ -191,7 +190,7 @@ int uart_putchar(int ch) {
 }
 
 int uart_putstring(const char *str) {
-    confirm_uart_initialized(__func__);
+    if (module.uart == NULL) error("uart_init() has not been called!\n");
     int n = 0;
     while (str[n]) {
         uart_putchar(str[n++]);
@@ -199,15 +198,17 @@ int uart_putstring(const char *str) {
     return n;
 }
 
-static void confirm_uart_initialized(const char *fn_name) {
-    if (module.uart != NULL && fn_name == NULL) {
-        error("uart_init() must be called only once");
-    } else if (module.uart == NULL && fn_name != NULL) {
+void uart_start_error(void) {
+    if (module.uart == NULL) {
         // if uart_init has not been called, there is no serial connection to read/write
         // All calls to uart operations are dead ends (that means no printf/assert!)
         // Force a call to uart_init here to enable reporting of problem
         // (otherwise lack of output is ultra mysterious)
         uart_reinit_custom(0, GPIO_PB8, GPIO_PB9, GPIO_FN_ALT6);
-        error("uart_init() must be called before using %s()", fn_name);
     }
+    uart_putstring("\033[31;1m"); // red-bold
+}
+
+void uart_end_error(void) {
+    uart_putstring("\033[0m\n"); // normal
 }

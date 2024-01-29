@@ -18,23 +18,23 @@
 #define assert(EXPR) \
     do { \
         if (!(EXPR)) { \
-            uart_putstring("\033[31;1m"); \
+            uart_start_error(); \
             uart_putstring("File " __FILE__ ", line " AS_STRING(__LINE__) ", in function "); \
             uart_putstring(__func__); \
             uart_putstring("() : Assertion '" #EXPR "' failed.\n"); \
-            uart_putstring("\033[0m\n"); \
+            uart_end_error(); \
             mango_abort(); \
         } \
     } while (0);
 
 #define error(...) \
     do { \
-        uart_putstring("\033[31;1m"); \
+        uart_start_error(); \
         uart_putstring("File " __FILE__ ", line " AS_STRING(__LINE__) ", in function "); \
         uart_putstring(__func__); \
         uart_putstring("()\nERROR: "); \
         printf(__VA_ARGS__); \
-        uart_putstring("\033[0m\n"); \
+        uart_end_error(); \
         mango_abort(); \
     } while (0);
 

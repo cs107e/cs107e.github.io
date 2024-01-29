@@ -105,4 +105,14 @@ unsigned char uart_recv(void);
  */
 void uart_use_interrupts(handlerfn_t handler, void *client_data);
 
+/*
+ * `uart_start_error`,`uart_end_error`
+ *
+ * Output ANSI color code for red+bold on start error, restore to
+ * normal on end error. Used by assert/error to highlight error
+ * messages.
+ */
+void uart_start_error(void);
+void uart_end_error(void);
+
 #endif
