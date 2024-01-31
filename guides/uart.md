@@ -48,21 +48,15 @@ Once you have verified that your connections are correct, plug the usb-serial in
 
 There are a number of programs that support communication with a tty device (`screen`, `tio`, `cutecom`, `putty`, etc.) If you don't have a favorite that you are already comfortable with, we recommend `minicom` as a simple option with nice features.
 
-> __Got minicom?__  See guide for instructions on how to [install minicom](/guides/install/minicom).
+> __Got minicom?__  See guide on how to [install and configure minicom](/guides/install/minicom).
 {: .callout-warning}
 
 
-For uart communication to succeed, the transmitter and receiver must agree on the voltage level, baud rate, use of start, parity, and stop bits, and so on. In this course, we will be using these settings:
+For uart communication to succeed, the transmitter and receiver must agree on device, baud rate, use of start, parity, and stop bits, and so on. In this course, we will be using these settings:
 - peripheral `UART0`
 - transmit on `GPIO PB8`, receive on `GPIO PB9`
 - baud rate 115200 bps
 - 1 start bit, 8 data bits, no parity bit, 1 stop bit ("8N1" for short)
-
->__TODO__ Instructions for minicom settings, how to find device (pyserial can do it, but that's heavy weight)
-> Mac get via brew, Windows?
->config for 8N1, 152000, default device, colors, yellow bg
-> confirm crlf settings, vt100 termcap
->{: .callout-danger}
 
 <a name="troubleshooting"></a>
 ## Troubleshooting 
