@@ -41,7 +41,7 @@ DESCRIPTION
 You can invoke minicom with flags that indicate the settings to use, such as which serial device to connect to, baud rate and protocol, and so on:
 
 ```console 
-$ minicom -D /dev/cu.usbserial-0001 -w -c on -b 115200
+$ minicom -D /dev/YOUR_DEVICE_PATH -w -c on -b 115200
 ```
 
 The above command connects to a particular device path and sets `-w` for line wrapping
@@ -107,19 +107,10 @@ Grab your USB-serial adapter and a female-female jumper to test out minicom now.
 
 ![loop back](/labs/lab3/images/loopback.jpg){: .zoom}
 
-In loop back mode, the signals sent out on the TX pin are wired straight to the RX pin. Reading from the RX pin will read the characters sent over TX.
-
+Now start minicom and type characters in the minicom window to see that they are echoed back.
 ```console
-$ minicom -D /dev/your-tty-device-here -b 115200
+$ minicom -D /dev/YOUR_DEVICE_PATH -b 115200
 ```
-
-When minicom opens, it clears your terminal and positions the cursor in the upper left corner.
-Type some characters.  What happens?
-
-Gently disconnect one end of the loopback jumper. Type more characters. Where are the characters going now?
-
-Reconnect the jumper and type again.
-
-It feels like typing a character on the keyboard should be an entitlement to seeing it drawn on the screen, but in fact, the minicom (or other terminal) program running on your laptop is necessary glue in this case. It observes the typed character, sends it out over the serial TX line, while listening on the serial RX line and echoing what it receives. In loop back mode, minicom happens to only be talking to itself, but it doesn't "know" this. If you disconnect the loopback jumper, no characters are echoed.
+In loop back mode, the signals sent out on the TX pin are wired straight to the RX pin. Reading from the RX pin will read the characters sent over TX.
 
 When you connect the TX and RX to the Mango Pi, minicom is bridging the communication from your laptop to the Pi and back. Minicom sends what you type to the Pi and displays what is received from the Pi. Neat!
