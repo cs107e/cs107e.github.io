@@ -36,7 +36,7 @@ DESCRIPTION
        ...
 ```
 
-## Recommended settings
+## Configuring minicom
 
 You can invoke minicom with flags that indicate the settings to use, such as which serial device to connect to, baud rate and protocol, and so on:
 
@@ -96,3 +96,27 @@ In the `Screen and keyboard` settings, you can change the background and foregro
 
 After making the changes you want, select `Save setup as dfl` in the top-level menu. This will save the current settings as your default configuration.  Exit from mincom. In the future, simply invoke `minicom` and it will configure to your chosen defaults, no flags needed!
 
+Another recommendation is create a separate window/tab to run minicom and always keep it running. No need to exit and restart minicom. When you disconnect or cut power to your Pi, minicom will temporarily pause (it shows a message about "lost connection"). When your Pi resets, minicom will automatically reconnect and resume communication.
+
+## Loopback test
+
+Grab your USB-serial adapter and a female-female jumper to test out minicom now. Directly connect TX to RX on the USB-serial adapter in loop back mode, as shown in this photo:
+
+![loop back](/labs/lab3/images/loopback.jpg){: .zoom}
+
+In loop back mode, the signals sent out on the TX pin are wired straight to the RX pin. Reading from the RX pin will read the characters sent over TX.
+
+```console
+$ minicom -D /dev/your-tty-device-here -b 115200
+```
+
+When minicom opens, it clears your terminal and positions the cursor in the upper left corner.
+Type some characters.  What happens?
+
+Gently disconnect one end of the loopback jumper. Type more characters. Where are the characters going now?
+
+Reconnect the jumper and type again.
+
+It feels like typing a character on the keyboard should be an entitlement to seeing it drawn on the screen, but in fact, the minicom (or other terminal) program running on your laptop is necessary glue in this case. It observes the typed character, sends it out over the serial TX line, while listening on the serial RX line and echoing what it receives. In loop back mode, minicom happens to only be talking to itself, but it doesn't "know" this. If you disconnect the loopback jumper, no characters are echoed.
+
+When you connect the TX and RX to the Mango Pi, minicom is bridging the communication from your laptop to the Pi and back. Minicom sends what you type to the Pi and displays what is received from the Pi. Neat!
