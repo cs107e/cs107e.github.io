@@ -24,7 +24,7 @@ if [ ! -z $DEV ]; then
 else
     echo "Could not find CP2102 serial device."
     echo "I looked through the serial devices on this computer, and did not"
-    echo "find a device associated with a CP2102 USB-to-serial adapter. Is"
-    echo "your Pi plugged in?"
+    echo "find a device associated with a CP2102 USB-serial adapter. Is"
+    echo "your USB-serial adapter plugged in?"
     exit 1
 fi
