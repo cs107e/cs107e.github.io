@@ -55,9 +55,11 @@ Usage: /Users/julie/cs107e_home/mycode/cs107e/bin/mango-run <binary-file>
 $ xfel version
 ERROR: Can't found any FEL device.
 ```
-> NOTE: At this point, you might see The following error instead, that's okay
-```
+> __got abort?__ If you run `xfel` when there are no USB devices connected to your laptop, rather than report a helpful error about not finding anything to talk to, `xfel` drops an unceremonious assert (see below). Re-connecting your Pi should fix it. If not, change to a different USB port on your laptop to jigger things, or if USB just seems wedged, restart your laptop.
+{: .callout-danger}
+
+```console
 Assertion failed: (count > 0), function main, file main.c, line 60.
 fish: Job 1, 'xfel version' terminated by signal SIGABRT (Abort)
 ```
-{: .callout-warning}
+
