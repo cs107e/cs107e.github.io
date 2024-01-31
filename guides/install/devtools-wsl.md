@@ -52,7 +52,6 @@ We use a cross-compiler toolchain to compile programs for the Mango Pi. Run the 
     $ wget http://ftp.us.debian.org/debian/pool/main/libz/libzstd/libzstd1_1.5.4+dfsg2-5_amd64.deb
     $ wget https://github.com/cs107e/homebrew-cs107e/raw/master/DebPackages/binutils-riscv64-unknown-elf_2.41-4+6_amd64.deb
     $ wget https://github.com/cs107e/homebrew-cs107e/raw/master/DebPackages/gcc-riscv64-unknown-elf_12.2.0-14+11+b1_amd64.deb
-
     ```
 
 2. Install the packages.

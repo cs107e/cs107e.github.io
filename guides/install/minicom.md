@@ -47,6 +47,9 @@ $ minicom -D /dev/cu.usbserial-0001 -w -c on -b 115200
 The above command connects to a particular device path and sets `-w` for line wrapping
 `-c on` to turn on terminal colors, and `-b 115200` sets the baud rate to 115200 baud.
 
+You can use the [find-dev.sh script](/guides/install/cp2102#find-dev) to get the device path
+for your CP2102 device.
+
 Rather that have to type all these flags each time, you can configure these as the default minicom settings.
 To access the minicom settings, enter this command
 ```console
