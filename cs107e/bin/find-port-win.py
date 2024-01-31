@@ -31,6 +31,7 @@ def error(msg, code=1):
 # /dev/ttyUSB0 for Linux, etc.
 # Instead find port by matching device with vendor/product id of our CP2102 board
 def find_serial_port():
+    portname = None
     # Device IDs aren't available in WSL. In this case, we do the search through PowerShell and map the output to the Linux device name
     if platform.system() == "Linux" and "Microsoft" in platform.release():
         ps_cmd = ['powershell.exe', '(Get-WmiObject -query "SELECT * FROM Win32_PnPEntity" | ' +
@@ -50,6 +51,7 @@ def find_serial_port():
 
 def find_serial_port_alt():
     # Device IDs aren't available in WSL. In this case, we do the search through PowerShell and map the output to the Linux device name
+    portname = None
     if platform.system() == "Linux" and "Microsoft" in platform.release():
         ps_cmd = ['powershell.exe', 'Get-CimInstance -Class Win32_SerialPort | Select-Object Name']
         output = subprocess.check_output(ps_cmd).strip()
