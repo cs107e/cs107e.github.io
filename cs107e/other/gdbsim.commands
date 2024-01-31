@@ -1,5 +1,53 @@
 echo \033[33mAuto-loading commands from $CS107E/other/gdbsim.commands... \033[0m \n
 
+define uart-reroute
+set breakpoint pending on
+b uart_putchar
+commands
+silent
+printf "%c", $a0
+return
+cont
+end
+end
+
+document uart-reroute
+set breakpoint on uart_putchar and re-route to local echo
+end
+
+define delay-reroute
+set breakpoint pending on
+b timer_delay_us
+commands
+silent
+return
+cont
+end
+b timer_delay_ms
+commands
+silent
+return
+cont
+end
+b timer_delay
+commands
+silent
+return
+cont
+end
+end
+
+define timer-reroute
+set breakpoint pending on
+b timer_get_ticks
+commands
+printf "\n\rSim Error: no CSRs available on simulator.\n\n"
+end
+end
+
+# Execute default commands below for all programs
+uart-reroute
+timer-reroute
 target sim
 sim memory-region 0x40000000,0x20000000
 load
