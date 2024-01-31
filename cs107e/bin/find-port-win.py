@@ -31,17 +31,8 @@ def error(msg, code=1):
 # /dev/ttyUSB0 for Linux, etc.
 # Instead find port by matching device with vendor/product id of our CP2102 board
 def find_serial_port():
-    portname = None
-    try:
-        # pyserial 2.6 in the VM has a bug where grep is case-sensitive.
-        # It also requires us to use [0] instead of .device on the result
-        # to get the serial device path.
-        portname = None #next(list_ports.grep(r'(?i)VID:PID=%s:%s' % (SERIAL_VID, SERIAL_PID)))[0]
-    except StopIteration:
-        pass
-
     # Device IDs aren't available in WSL. In this case, we do the search through PowerShell and map the output to the Linux device name
-    if portname is None and platform.system() == "Linux" and "Microsoft" in platform.release():
+    if platform.system() == "Linux" and "Microsoft" in platform.release():
         ps_cmd = ['powershell.exe', '(Get-WmiObject -query "SELECT * FROM Win32_PnPEntity" | ' +
                   'Where-Object {$_.DeviceID -like "*VID_%s&PID_%s*"}).Name' % (SERIAL_VID, SERIAL_PID)]
         output = subprocess.check_output(ps_cmd).strip()
@@ -57,7 +48,24 @@ def find_serial_port():
               "find a device associated with a CP2102 USB-to-serial adapter. Is\n"
               "your Pi plugged in?")
 
+def find_serial_port_alt():
+    # Device IDs aren't available in WSL. In this case, we do the search through PowerShell and map the output to the Linux device name
+    if platform.system() == "Linux" and "Microsoft" in platform.release():
+        ps_cmd = ['powershell.exe', 'Get-CimInstance -Class Win32_SerialPort | Select-Object Name']
+        output = subprocess.check_output(ps_cmd).strip()
+        match = re.search(rb'\(COM(\d+)\)', output)
+        if match:
+            portname = '/dev/ttyS' + match.group(1).decode('utf-8')
+
+    if portname is not None:
+        return portname
+    else:
+        error("Could not find CP2102 serial device.\n"
+              "I looked through the serial devices on this computer, and did not\n"
+              "find a device associated with a CP2102 USB-to-serial adapter. Is\n"
+              "your Pi plugged in?")
+
 if __name__ == "__main__":
-    portname = find_serial_port()
+    portname = find_serial_port_alt()
     print(portname)
     sys.exit(0)
