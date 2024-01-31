@@ -63,7 +63,6 @@ $ git checkout dev
 $ git pull code-mirror lab3-starter
 ```
 
-
 ### 1. Serial communication
 
 #### 1a) Connect usb-serial
@@ -142,16 +141,23 @@ to send characters from the Pi's TX pin.
 
 ```console
 $ make run
-Found serial device: /dev/cu.SLAB_USBtoUART
-Sending `hello.bin` (1128 bytes): .........
-Successfully sent!
+$ make run
+mango-run hello.bin
+xfel ddr d1
+Initial ddr controller succeeded
+xfel write 0x40000000 hello.bin
+100% [================================================] 132.055 KB, 341.767 KB/s
+xfel exec 0x40000000
+```
+Over in your minicom window, you should see this output:
+
+```
 hello, laptop
 hello, laptop
 hello, laptop
 hello, laptop
 hello, laptop
 We <3 printf!
-
 ```
 
 The function `uart_putstring` can be used to output a string constant, but what is much more useful is the ability to output formatted strings, e.g. `printf`. For example, the call `printf("Today is %s %d\n", monthname, daynum)` 
@@ -533,31 +539,26 @@ You can also test a program by running within gdb in simulation mode. Let's try 
 
 #### Debug strlen
 
-Edit `strlen` to intentionally plant a bug, such as changing the function to always return `7`. This will cause test failures in `test_strlen`. Use `make run` to build the program and run on the Pi and you get the flashing red LED that indicates a failed assert.
+Edit `strlen` to intentionally plant a bug, such as changing the function to always return `7`. This will cause test failures in `test_strlen`. Use `make run` to build the program and run on the Pi and you get the flashing LED that indicates a failed assert.
 
-Let's learn how that failed assert is presented under the debugger. Get the buggy program under gdb and run it. There is no flashing red light; the simulator is not talking to your Pi nor its peripherals. Your Pi doesn't even need to be connected! 
+Let's learn how that failed assert is presented under the debugger. Get the buggy program under gdb and run it. There is no flashing light; the simulator is not talking to your Pi nor its peripherals. Your Pi doesn't even need to be connected!
 
 What do you see in gdb? There is some output about a failed assertion and then the program appears to be stuck. Type `Control-c` to interrupt the program and use `backtrace` to see where the program is stopped.
 
 ```console?prompt=(gdb)
-File cstrings.c, line 32: Assertion 'strlen("green") == 5' failed.
-^C
-Program received signal SIGINT, Interrupt.
-0x000084e8 in timer_delay_us (usecs=usecs@entry=200000) at timer.c:15
-15  timer.c: No such file or directory.
-(gdb) backtrace
-#0  0x000084e8 in timer_delay_us (usecs=usecs@entry=200000) at timer.c:15
-#1  0x00008530 in timer_delay_ms (msecs=msecs@entry=200) at timer.c:19
-#2  0x00008454 in pi_abort () at pi.c:43
-#3  0x000080ac in test_strlen () at cstrings.c:32
-#4  0x00008268 in main () at cstrings.c:69
+[31;1mFile cstrings.c, line 27, in function test_strlen() : Assertion 'strlen("green") == 5' failed.
+[0m
 
+Breakpoint 2, mango_abort () at reference/mango.c:55
+55  reference/mango.c: No such file or directory.
+
+Reached mango_abort(), program had failed assertion.
 ```
 
-A-ha! When an assert fails, it calls `pi_abort` to flash the red light. The above backtrace tells you that the program is waiting in the delay loop within `pi_abort`.  Given the simulator does not emulate the timer or GPIO peripherals, `pi_abort` behaves as a no-action infinite loop. By looking further into the backtrace, we learn that the failed assertion occurred on line 32 of the `cstrings.c` file (or some nearby line number, depending on how long your `strcpy` implementation was). Use `list` to see that code now:
+A-ha! When an assert fails, it calls `mango_abort` to blink the blue light.  Given the simulator does not emulate the timer or GPIO peripherals, `mango_abort` behaves as a no-action infinite loop. By looking further into the backtrace, we learn that the failed assertion occurred on line 27 of the `cstrings.c` file (or some nearby line number, depending on how long your `strcpy` implementation was). Use `list` to see that code now:
 
 ```console?prompt=(gdb)
-(gdb) list cstrings.c:30
+(gdb) list cstrings.c:27
 27 
 28 void test_strlen(void)
 29 {
@@ -578,14 +579,14 @@ Restore `strlen` to its correct implementation, rebuild and run again under the 
 
 Learn to recognize these two common situations: 
 + a successful run to completion that is waiting in `hang`
-+ a failed assert in `pi_abort` attempting to flash a non-existent red LED
++ a failed assert in `mango_abort` attempting to flash a non-existent blue LED
 
 #### Debug bogus_strlen_calls
 
 Both `strlen` and `strcpy` have been shown to work correctly for valid calls. We are now going to do a little exploration into what happens 
 for calls that misuse the functions.
 
-Review the code in the aptly-named `bogus_strlen_calls` function. 
+Review the code in the aptly-named `bogus_XXX` functions.
 Get together with your tablemates and look at the three "bogus" calls.
 For each consider __why__ it is invalid: what is improper about the C-string that is being passed as the argument?
 
@@ -594,9 +595,7 @@ due to laziness -- it's actually not possible for `strlen` to verify that its ar
 not necessarily a pointer to a string -- it could be just a pointer
 to a single character. Furthermore the address might not have a char pointee  at all -- it could be an int stored there or the address might be completely invalid or contents uninitialized. The C language does not have a reliable means to determine the validity of a pointer and reject the bad ones.
 
-Uncomment the call to `stress_test_strlen` in `main()`. Rebuild the program and run it under gdb. Single step through the call to
-`bogus_strlen_calls` and print the value returned from each of the
-bad calls. Is the result what you anticipated?  What did you learn from this about the
+Uncomment the call to one of the bonus functions in `main()`. Rebuild the program and run it under gdb. Single step through the call and print the value returned by the bad call. Is the result what you anticipated?  What did you learn from this about the
 observed consequences of reading uninitialized or invalid memory? Confirm you understanding with this check-in question[^3]
 
 #### The dangers of C-strings
@@ -640,7 +639,7 @@ void process_request(struct request *request) {
   read_file(filename); 
 }
 ```
-
+{% comment %}
 #### Differences under simulation
 It is important to be aware of the discrepancies you may observe when comparing the behavior of a program running on the Pi versus running under the gdb simulator. Read the section titled [Differences due to simulation](/guides/gdb/#differences-due-to-simulation) in our gdb guide to be introduced to some of the issues you may run into.
 
@@ -655,6 +654,7 @@ Now load the same program into gdb simulator using `make debug`. If you run this
 Type `Control-c` to stop the program. Without exiting gdb, use `run` to run the program for a second time. How does this output compare to the previous run? Re-run the program a few more times in gdb until you understand the pattern. What have you learned about how the simulator handles the state of memory between runs? How does this compare to what happens to the state of memory when you reset the actual Pi and re-run the program?
 
 The gdb simulator is a powerful addition to your toolbox, but it is important to understand its limitations and differences from an actual Pi. [^4]
+{% endcomment %}
 
 ## Check in with TA
 
@@ -666,5 +666,6 @@ Answer these questions that probe on topics from the lab and review your answers
 
 [^3]: On a hosted system, executing an incorrect call to `strlen` (e.g. argument is an invalid address or unterminated string) can result in a runtime error (crash/halt). But when running bare metal on the Pi, every call to `strlen` (whether well-formed or not) will complete "successfully" and return a value. Explain the difference in behavior. What will be the return value for an erroneous call?
 
+{% comment %}
 [^4]: Running a program under the gdb simulator is not be a perfect match to running on the actual Pi. A particularly frustrating situation can come from a program that exhibits a bug running on the Pi, but appears to run correctly under the simulator or work on a first run in gdb but not a subsequent. What underlying difference(s) between the simulator and real thing might contribute to this kind of inconsistency?
-
+{% endcomment %}
