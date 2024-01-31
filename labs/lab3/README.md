@@ -171,7 +171,6 @@ Open `hello.c` in your text editor and edit the `main` function to try out `prin
 
 Reset your Pi, and run `make run` again to see your program's output. How does the hex value stored in `PB_CFG0` change after changing the pin functions?
 
-{% comment %}
 ### 2. Debugging with gdb
 
 This first exercise  is to practice using the `gdb` debugger in RISC-V simulation mode.
