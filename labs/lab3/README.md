@@ -47,9 +47,6 @@ These exercises are useful preparation for your next assignment which is to impl
 To prepare for lab, do the following:
 
 1. Read our [guide to using gdb in simulation mode](/guides/gdb). Print out a copy of the [gdb reference card](/readings/gdb-refcard.pdf) to have on hand.
-{% comment %}
-1. Read Sections 1, 2, 3.6 (up to but not including 3.6.2), 4 of [Medical Devices: The Therac-25](http://sunnyday.mit.edu/papers/therac.pdf). This famous paper describes a series of software bugs in a medical device that resulted in several patient fatalities. These accidents were an important milestone that proved the ethical need for rigorous testing and sometimes formal verification of software. It also greatly motivates research subfields on these topics.
-{% endcomment %}
 
 ## Lab exercises
 
@@ -66,67 +63,50 @@ $ git pull code-mirror lab3-starter
 ### 1. Serial communication
 
 #### 1a) Connect usb-serial
-Find the usb-serial breakout in your parts kit and follow the instructions in the [uart guide](/guides/uart) to make a serial connection between your laptop and the Mango Pi (install CP2102 driver and minicom if necessary).
+Find the usb-serial breakout in your parts kit and follow the instructions in the [uart guide](/guides/uart) to make a serial connection between your laptop and the Mango Pi.
 
-#### 1a) Loopback test
+#### 1b) Loopback test
 
-Confirm let's do a simple *loop back* test with your USB-serial adapter.
-
-Insert the USB-serial adapter into a USB port on your laptop and identify which `tty` (teletype) device is assigned to the port. To find the tty device you can use the command `ls /dev > in.txt` then unplug your pi and run the command `ls /dev > out.txt` then finally diff the two files you created to print out the device info `diff in.txt out.txt`. This looks like 
-```console
-$ ls /dev > in.txt 
-$ ls /dev > out.txt 
-$ diff in.txt out.txt
-16d15
-< cu.usbserial-0001
-196d194
-< tty.usbserial-0001
-```
-
-where the `tty.usbserial-0001` is the relevant tty device we want. 
-
-Disconnect the two jumpers between the RX and TX of the USB-serial adapter and the TX and RX GPIO pins on the Pi.
-
-Use a single jumper to connect TX to RX on the USB-serial adapter in loop back mode, as shown in this photo:
+Grab your USB-serial adapter and a female-female jumper to do a loopback test. Directly connect TX to RX on the USB-serial adapter in loop back mode, as shown in this photo:
 
 ![loop back](images/loopback.jpg){: .zoom}
 
-In loop back mode,
-the signals sent out on the TX pin are wired straight to the RX pin. Reading from the RX pin will read the characters sent over TX.
+In loop back mode, the signals sent out on the TX pin are wired straight to the RX pin. Reading from the RX pin will read the characters sent over TX.
 
-`minicom` is a program used to communicate over a tty device. Open `minicom` on your USB-serial tty device and establish a connection
-at the baud rate of 115200. 
+Insert the USB-serial adapter into a USB port on your laptop and identify the device path using our [find-dev.sh](/guides/install/cp2102#find-dev) script.
+
+`minicom` is a program used to communicate over a serial device. Use this command to start `minicom` on your device path and establish a connection at 115200 baud.
 
 ```console
-$ minicom -D /dev/your-tty-device-here -b 115200
+$ minicom -D /dev/YOUR_DEVICE_PATH -b 115200
 ```
 
-When minicom opens, it clears your terminal and positions the cursor
-in the upper left corner.
-Type some characters.  What happens?
-What happens if you type return on your keyboard?
+When minicom opens, it clears your terminal and positions the cursor in the upper left corner.
+Characters that you type in the minicom window should be echoed. Try manually sending a line feed `LF` by typing `control-j` and a carriage return `CR` by typing `control-m`. What is the difference in behavior of `LF` versus `CR`? When you hit the enter/return key on your keyboard, does it seem to send a `LF`, a `CR`, or both?
 
-To exit minicom, type `Esc-z` (the "escape" key is referred to as "meta" in the minicom documentration)
-and choose `x` from the menu.
+Keep typing while have your neighbor reaches over and gently disconnects one end of the loopback jumper. Where are the characters going now?
 
-#### 1b) Echo test
+Reconnect the jumper and type some more.  Your characters are echoed again.
+
+It may feel like typing a character on the keyboard comes with an entitlement to seeing it drawn on the screen, but in fact, the minicom (or other terminal) program running on your laptop is necessary glue to bridging that communication. Minicom observes the typed character, sends it out over the serial TX line, and is listening on the serial RX line and echoing what it receives. In loop back mode, minicom happens to only be talking to itself, but it doesn't "know" this. If you disconnect the loopback jumper, no characters are echoed. Answer this check-in question[^2]
+
+When you connect the TX and RX to the Mango Pi, minicom is bridging the communication from your laptop to the Pi and back. Minicom sends what you type to the Pi and displays what is received from the Pi. Neat!
+
+You can exit minicom by typing `Esc-z` (the "escape" key is referred to as "meta" in the minicom documentation)
+and choose `x` from the menu. However, you probably don't want to do a lot of quitting and restarting of minicom. Instead, open a separate window/tab for minicom and keep minicom running at all times. In your other terminal window(s), you will be issuing commands, editing, building, etc. while the minicom window maintains an open communication channel with the Pi. When you power-cycle or set your Pi, the minicom window will report it temporarily has no connected, but will reestablish communicated with the device when reconnected.
+
+#### 1c) UART/printf test
 
 Re-connect the TX/RX jumpers between the USB-serial and the Pi. Remember the RX of the USB-serial connects to the TX of the Pi, and vice versa (the connections are __not__ TX-TX and RX-RX).
 
-Change to the directory `lab3/echo` and build the program. 
-
 Have `minicom` open and talking to your Pi now, this provides a 2-way channel that allows your laptop to send and recieve data with the Pi. 
 
-Initialize your dramm by entering the following command in another terminal (not your minicom window), and see what is printed!
+Initialize the dram by entering the following command in your terminal (not your minicom window), and see what is printed in your minicom window!
 
 ```console
 $ xfel ddr d1
 ```
-Reset your pi, now in your terminal, in the lab3 echo folder `make run`, this will send the echo.bin program to the pi as well as initialize the dram. As you type in the minicom window, your characters are being sent to the program running on the Pi and the output from the Pi is echoed back to your terminal. 
-
-While you continue typing, have your partner gently unplug the jumper from the RX pin on your USB-serial and then re-connect it. What changes? Why does that happen? Answer this check-in question[^2]
-
-#### 1c) UART/printf test
+Interesting! When FEL is running, it sends some diagnostic log messages on the serial line and only now are we keeping the channel open to hear what it's saying.
 
 Change to the directory `lab3/uart-printf`.
 
@@ -163,7 +143,7 @@ We <3 printf!
 The function `uart_putstring` can be used to output a string constant, but what is much more useful is the ability to output formatted strings, e.g. `printf`. For example, the call `printf("Today is %s %d\n", monthname, daynum)` 
 inserts the month string and day number into the output. To learn more about how to use printf, check out the standard library [printf documentation](http://www.tutorialspoint.com/c_standard_library/c_function_printf.htm).
 
-In Assignment 3, you will implement your own version of `printf`.  With a working `printf`, your programs will be able to report on their state and super-charge your debugging. What a big improvement over trying to communicate everything via just two measly LEDs!
+In Assignment 3, you will implement your own version of `printf`.  With a working `printf`, your programs will be able to report on their state and super-charge your debugging. What a big improvement over trying to communicate everything using only LEDs!
 
 Open `hello.c` in your text editor and edit the `main` function to try out `printf`:
 
@@ -179,7 +159,43 @@ Reset your Pi, and run `make run` again to see your program's output. How does t
 
 ### 2. Debugging with gdb
 
-This first exercise  is to practice using the `gdb` debugger in RISC-V simulation mode.
+#### 2a)  Install gdb
+Hot off the presses, we have freshly-patched RISC-V gdb debugger for you to install. Major thanks to Michael Chang for his help in finding and fixing the crucial bug!
+
+If you run macOS, your instructions are:
+```console
+$ brew update
+$ brew reinstall riscv-gnu-toolchain-13
+```
+{: .console-mac }
+
+If you are on WSL, your instructions are:
+```console
+$ sudo apt install gdb
+$ wget https://mchang.stanford.edu/riscv64-unknown-elf-gdb.tar.gz
+$ sudo tar -C /opt -xvf riscv64-unknown-elf-gdb.tar.gz
+$ sudo ln -s /opt/riscv64-unknown-elf-gdb/bin/riscv64-unknown-elf-gdb /usr/local/bin
+```
+{: .console-ubuntu }
+
+For either, run the following to confirm your debugger is up and running.
+
+{% include checkstep.html content="confirm gdb" %}
+```console?prompt=(gdb),$
+$ riscv64-unknown-elf-gdb
+GNU gdb (GDB) 13.2
+Copyright (C) 2023 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+... blah blah blah ...
+(gdb) target sim
+Connected to the simulator.
+(gdb) sim trace
+(gdb) quit
+```
+
+#### 2b) Use `gdb` in simulation mode
+
+This exercise is to practice using the `gdb` debugger in RISC-V simulation mode.
 A debugger allows you to observe and manipulate a running program and its program state.
 Running a debugger on a bare-metal system is challenging, so we instead will use
  `gdb` on our local computer to test our program running in simulation and revert to simple use of
@@ -191,7 +207,7 @@ or in the hands of an expert, a factor of 100. It gives you complete
 visibility into a program: if you know where to look, you can find out
 exactly what is happening and what your bug is. Mastering the debugger is just
 as important as mastering your editor and compiler.
-#### 2a) Use `gdb` in simulation mode
+
 
 We will demonstrate `gdb` on a simple example program. 
 Change to the directory `lab3/simple` directory and review the program in `simple.c`. 
@@ -206,8 +222,6 @@ Manually start the debugging use the command `riscv64-unknown-elf-gdb simple.elf
 ```console
 $ riscv64-unknown-elf-gdb simple.elf
 GNU gdb (GDB) 13.2
-Copyright (C) 2023 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 ... blah blah blah
 Reading symbols from simple.elf...
 (gdb) 
@@ -227,17 +241,20 @@ Transfer rate: 2912 bits in <1 sec.
 ```
 The commands to configure the simulator are always necessary when you enter gdb, so we made a gdb command file `gdbsim.commands` that contains these commands and specify this file to be auto-loaded when you use the `make debug` target. Enter `quit` to exit gdb and return to the terminal.  Now use `make debug` to reenter the debugger with the setup commands already auto-executed. The simulator is already connected and the program loaded.
 
-```console
+```console?prompt=(gdb)
 $ make debug
-riscv64-unknown-elf-gdb -q --command=gdbsim.commands simple.elf
+riscv64-unknown-elf-gdb -q --command=CS107E/other/gdbsim.commands simple.elf
 Reading symbols from simple.elf...
-Auto-loading commands from gdbsim.commands...
+Auto-loading commands from CS107E/other/gdbsim.commands...
+Function "uart_putchar" not defined.
+Breakpoint 1 (uart_putchar) pending.
+Function "mango_abort" not defined.
+Breakpoint 2 (mango_abort) pending.
 Connected to the simulator.
 Loading section .text, size 0x140 lma 40000000
 Loading section .eh_frame, size 0x2c lma 40000140
 Start address 40000000
 Transfer rate: 2912 bits in <1 sec.
-Breakpoint 1 at 0x40000010
 (gdb)
 ```
 Use `start` to begin executing the program and stop at the beginning of main
@@ -344,8 +361,8 @@ When debugging a function, a common workflow is to
   1. If the next line of code is a call to a subroutine and you suspect the problem could be inside that call, use `step` to drop down into it.  If you `next` through a call and realize that you wish you had used `step` instead, use `run` to start over from the beginning and get another chance.
   1. Recursively apply rules 2-3 until you find the bug.
 
-<a name="2b"></a>
-#### 2b) Use `gdb` to access stack frames
+<a name="2c"></a>
+#### 2c) Use `gdb` to access stack frames
 There are gdb commands that allow you to trace function calls and view stack frames.  Let's try them out!
 
 Use `delete` to delete any existing breakpoints and set a breakpoint at the `abs` function:
@@ -621,8 +638,7 @@ functions are put on the stack: `filename` is an array of 128 bytes on the stack
 
 Talk with your neighbor: what happens if `request->filename` is longer than 128 characters?
 What will the call to `strcpy` do?
-How might this cause software to fail or act unpredictably? If this code existed in a device
-such as the Therac-25, could it cause a serious failure? It's useful to note that that
+How might this cause software to fail or act unpredictably? If this code existed in a critical context, could it cause a serious failure? It's useful to note that that
 [the git codebase (source code for the git program itself) bans the use of `strcpy`](https://github.com/git/git/blob/master/banned.h). Instead, you always are supposed to use `strncpy`, which has an explicit maximum
 length for copying. E.g., this code would be OK:
 
