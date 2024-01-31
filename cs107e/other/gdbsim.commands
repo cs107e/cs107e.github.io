@@ -15,39 +15,17 @@ document uart-reroute
 set breakpoint on uart_putchar and re-route to local echo
 end
 
-define delay-reroute
+define abort-reroute
 set breakpoint pending on
-b timer_delay_us
+b mango_abort
 commands
-silent
-return
-cont
-end
-b timer_delay_ms
-commands
-silent
-return
-cont
-end
-b timer_delay
-commands
-silent
-return
-cont
-end
-end
-
-define timer-reroute
-set breakpoint pending on
-b timer_get_ticks
-commands
-printf "\n\rSim Error: no CSRs available on simulator.\n\n"
+printf "\n\rReached mango_abort(), program had failed assertion.\n\n"
 end
 end
 
 # Execute default commands below for all programs
 uart-reroute
-timer-reroute
+abort-reroute
 target sim
 sim memory-region 0x40000000,0x20000000
 load
