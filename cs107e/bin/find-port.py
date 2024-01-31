@@ -16,40 +16,14 @@ from __future__ import print_function
 import platform, re, serial, subprocess, sys
 from serial.tools import list_ports
 
-# See VERSION numbering above
-VERSION = "2.3"
-
 # Set the vendor and product ID of the serial unit.
 # The CP2102 units used during years 2018 - 2022 all have
 # vendor ID 0x10C4 and product ID 0xEA60.
 SERIAL_VID = "10C4"
 SERIAL_PID = "EA60"
 
-# From https://stackoverflow.com/questions/287871/print-in-terminal-with-colors-using-python
-# Plus Julie's suggestion to push bold and color together.
-class bcolors:
-    RED = '\033[31m'
-    BLUE = '\033[34m'
-    GREEN = '\033[32m'
-    BOLD = '\033[1m'
-    OKBLUE = BOLD + BLUE
-    OKGREEN = BOLD + GREEN
-    FAILRED = BOLD + RED
-    ENDC = '\033[0m'
-
-# if stdout is not a terminal, don't output color codes, set them to empty string
-if not sys.stdout.isatty():
-    [setattr(bcolors, v,'') for v in vars(bcolors) if not v.startswith('_')]
-
-# Added code to communicate exit status
-class exitcode:
-    OK = 0
-    SERIAL_ERROR = 5
-
-def error(shortmsg, explanation="", code=1):
-    sys.stderr.write(f"\n{bcolors.FAILRED}{shortmsg}{bcolors.ENDC}")
-    # only output long-winded explanation at terminal
-    if sys.stderr.isatty(): sys.stderr.write(f"\n\n{explanation}\n")
+def error(msg, code=1):
+    sys.stderr.write(f"{msg}")
     sys.exit(code)
 
 # We used to just have a preset list --
@@ -79,14 +53,12 @@ def find_serial_port():
     if portname is not None:
         return portname
     else:
-        error("Could not find CP2102 serial device.",
+        error("Could not find CP2102 serial device.\n"
               "I looked through the serial devices on this computer, and did not\n"
               "find a device associated with a CP2102 USB-to-serial adapter. Is\n"
-              "your Pi plugged in?",
-              code=exitcode.SERIAL_ERROR)
+              "your Pi plugged in?")
 
 if __name__ == "__main__":
     portname = find_serial_port()
-    print('Found serial device:', bcolors.OKBLUE + portname + bcolors.ENDC)
-
-    sys.exit(exitcode.OK)  #
+    print(portname)
+    sys.exit(0)
