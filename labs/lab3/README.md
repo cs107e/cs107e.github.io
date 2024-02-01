@@ -570,6 +570,10 @@ Breakpoint 2, mango_abort () at reference/mango.c:55
 55  reference/mango.c: No such file or directory.
 
 Reached mango_abort(), program had failed assertion.
+(gdb) backtrace
+#0  mango_abort () at reference/mango.c:55
+#1  0x000000004000027c in test_strlen () at cstrings.c:27
+#2  0x0000000040000454 in main () at cstrings.c:63
 ```
 
 A-ha! When an assert fails, it calls `mango_abort` to blink the blue light.  Given the simulator does not emulate the timer or GPIO peripherals, `mango_abort` behaves as a no-action infinite loop. By looking further into the backtrace, we learn that the failed assertion occurred on line 27 of the `cstrings.c` file (or some nearby line number, depending on how long your `strcpy` implementation was). Use `list` to see that code now:
@@ -588,14 +592,14 @@ A-ha! When an assert fails, it calls `mango_abort` to blink the blue light.  Giv
 
 This allows us to pinpoint exactly which assert failed (rather than have to comment-in-and-out tests one by one to find it). Hooray for gdb!
 
-Restore `strlen` to its correct implementation, rebuild and run again under the debugger. All tests should pass. As expected, there is no blinking light from the simulator, but once again the program appears stuck. Type `Control-c` to interrupt the program and use `backtrace` to see what's going on. What evidence confirms that the program successfully ran to completion?
+Restore `strlen` to its correct implementation, rebuild and run again under the debugger. All tests should pass. As expected, there is no blinking light from the simulator, but once again the program seems to have stopped. Type `Control-c` to interrupt the program and use `backtrace` to see what's going on. What evidence confirms that the program successfully ran to completion?
 
 
 > __Tip__ Typing `Control-c` will interrupt the executing program and return control to the debugger. `backtrace` will show where the program was executing when it was interrupted. 
 {: .callout-info}
 
 Learn to recognize these two common situations: 
-+ a successful run to completion that is waiting in `hang`
++ a successful run to completion that is waiting at end of `cstart/start` (or possibly `mango_reboot`)
 + a failed assert in `mango_abort` attempting to flash a non-existent blue LED
 
 #### Debug bogus_strlen_calls

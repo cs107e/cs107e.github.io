@@ -11,21 +11,75 @@ cont
 end
 end
 
-document uart-reroute
-set breakpoint on uart_putchar and re-route to local echo
+define timer-reroute
+b timer_get_ticks
+commands
+silent
+echo \033[31;1m\n\rReached timer_get_ticks(), no CSRs implemented in simulator.\n\033[0m
+set $can_continue = 0
+end
 end
 
 define abort-reroute
-set breakpoint pending on
 b mango_abort
 commands
-printf "\n\rReached mango_abort(), program had failed assertion.\n\n"
+silent
+echo \033[31;1m\n\rReached mango_abort(), program had failed assertion.\n\033[0m
+set $can_continue = 0
 end
 end
 
-# Execute default commands below for all programs
+define reboot-reroute
+b mango_reboot
+commands
+silent
+echo \033[32m\n\rReached mango_reboot(), program main() successfully completed.\n\033[0m
+set $can_continue = 0
+end
+end
+
+define do-reroute
+set breakpoint pending on
 uart-reroute
 abort-reroute
+reboot-reroute
+timer-reroute
+end
+
+define stop-if-cannot-continue
+if $can_continue == 0
+kill
+end
+end
+
+define hook-stop
+set $single_step = 1
+end
+
+define hook-run
+set $can_continue = 1
+end
+
+define hook-start
+set $can_continue = 1
+end
+
+define hook-continue
+stop-if-cannot-continue
+end
+
+define hook-next
+stop-if-cannot-continue
+end
+
+define hook-step
+stop-if-cannot-continue
+end
+
+# Execute default commands below for all programs
+set confirm off
 target sim
 sim memory-region 0x40000000,0x20000000
+#sim trace
 load
+do-reroute

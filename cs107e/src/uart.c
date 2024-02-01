@@ -128,7 +128,10 @@ void uart_reinit_custom(int uart_id, gpio_id_t tx, gpio_id_t rx, unsigned int gp
 }
 
 void uart_init(void) {
-    if (module.uart != NULL) error("uart_init() should be called only once.");
+    static bool initialized = false;
+    if (initialized) error("uart_init() should be called only once.");
+    initialized = true;
+    module.uart = NULL;
     // default to UART0 on pins PB8+9
     uart_reinit_custom(0, GPIO_PB8, GPIO_PB9, GPIO_FN_ALT6);
     uart_putstring("\n\n\n\n");
