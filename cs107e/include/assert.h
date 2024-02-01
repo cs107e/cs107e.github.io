@@ -27,13 +27,13 @@
         } \
     } while (0);
 
-#define error(...) \
+#define error(STR) \
     do { \
         uart_start_error(); \
         uart_putstring("File " __FILE__ ", line " AS_STRING(__LINE__) ", in function "); \
         uart_putstring(__func__); \
         uart_putstring("()\nERROR: "); \
-        printf(__VA_ARGS__); \
+        uart_putstring(STR); \
         uart_end_error(); \
         mango_abort(); \
     } while (0);

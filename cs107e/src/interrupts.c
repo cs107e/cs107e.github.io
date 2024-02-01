@@ -79,21 +79,21 @@ __attribute__((interrupt("machine"))) static void interrupt_dispatch(void) {
     uint64_t external_interrupt = ((1L << 63) | 11);
     if (CSR_READ(mcause) != external_interrupt) {
         unsigned int cause = CSR_READ(mcause);
-        error("EXCEPTION: mcause %x (%s) mip %lx, mepc %lx mtval %lx\n", cause, description(cause), CSR_READ(mip), CSR_READ(mepc), CSR_READ(mtval));
+        printf("Exception trap raised, mcause %x (%s) mip %lx, mepc %lx mtval %lx\n", cause, description(cause), CSR_READ(mip), CSR_READ(mepc), CSR_READ(mtval));
+        error("EXCEPTION TRAP");
     }
     uint32_t source = module.plic->regs.claim; // read claim register start processing
     if (module.handlers[source].fn) {
         module.handlers[source].fn(CSR_READ(mepc), module.handlers[source].aux_data);
     } else {
-        error("INTERRUPT UNHANDLED: external interrupt on source %d\n", source);
+        printf("External interrupt on source %d\n", source);
+        error("UNHANDLED INTERRUPT");
     }
     module.plic->regs.claim = source;   // write claim register to complete
 }
 
-static void confirm_interrupts_initialized(const char *);
-
 void interrupts_init(void) {
-    confirm_interrupts_initialized(NULL);
+    if (module.initialized) error("interrupts_init() must be called only once");
     interrupts_global_disable();
     module.plic->regs.ctrl = 0; // machine mode only
     module.plic->regs.threshhold = 0; // accept interrupts of any priority
@@ -111,7 +111,7 @@ void interrupts_init(void) {
 }
 
 void interrupts_global_enable(void) {
-    confirm_interrupts_initialized(__func__);
+    if (!module.initialized) error("interrupts_init() has not been called!\n");
     CSR_SET_BIT(mstatus, 1 << 3); // global enable machine mode interrupts MIP mstatus bit[3]
     CSR_SET_BIT(mie, 1 << 11); // enable machine mode external interrupts MEIP mie bit[11]
 }
@@ -127,8 +127,8 @@ static bool is_valid_source(int source) {
 
 void interrupts_register_handler(int source, handlerfn_t fn, void *aux_data) {
 #warning TODO need separation between register handler and enable/disable interrupt source
-    confirm_interrupts_initialized(__func__);
-    if (!is_valid_source(source)) error("%d is not a valid interrupt source", source);
+    if (!module.initialized) error("interrupts_init() has not been called!\n");
+    if (!is_valid_source(source)) error("request to register handler for invalid interrupt source");
     if (fn == NULL) error("cannot register NULL handler");
     module.handlers[source].fn = fn;
     module.handlers[source].aux_data = aux_data;
@@ -139,8 +139,8 @@ void interrupts_register_handler(int source, handlerfn_t fn, void *aux_data) {
 }
 
 void interrupts_remove_handler(int source) {
-    confirm_interrupts_initialized(__func__);
-    if (!is_valid_source(source)) error("%d is not a valid interrupt source", source);
+    if (!module.initialized) error("interrupts_init() has not been called!\n");
+    if (!is_valid_source(source)) error("request to remove handler from invalid interrupt source");
     module.handlers[source].fn = NULL;
     module.handlers[source].aux_data = NULL;
     int bank = source / 32;
@@ -149,10 +149,3 @@ void interrupts_remove_handler(int source) {
     module.sources->regs.enable[bank] &= ~(1 << shift);
 }
 
-static void confirm_interrupts_initialized(const char *fn_name) {
-    if (module.initialized && fn_name == NULL) {
-        error("interrupts_init() must be called only once");
-    } else if (!module.initialized && fn_name != NULL) {
-        error("interrupts_init() must be called before using %s()", fn_name);
-    }
-}
