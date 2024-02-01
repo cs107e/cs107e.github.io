@@ -3,9 +3,7 @@ title: "Guide: Using GDB in Simulation Mode"
 toc: true
 attribution: Written by Julie Zelenski
 ---
-_Coming soon..._
 
-{% comment %}
 The GDB debugger is a superb tool for observing and manipulating a
 running program. Becoming facile with a full-featured debugger such as
 `gdb` adds a critical superpower to your effectiveness as a software engineer. 
@@ -147,7 +145,7 @@ The above information tells you that the program is stopped in `hang` which is c
 
 It's important to note that running under the simulator is not the same as running on the actual Pi.
 The simulator does not model the peripherals such as GPIO or timer. For example,
-the blink program we studied early in the quarter drives an LED connected to GPIO 20. If you run this program in the
+the blink program we studied early in the quarter drives an LED connected to GPIO PB0. If you run this program in the
 simulator, the LED will not light. The simulator is not talking to your
  Pi (you won't even need your Pi to be plugged in), nor is the simulator doing
 anything special when your program accesses the memory locations for the memory-mapped peripherals. You can step through the blink program under the simulator and examine the state, but the code that attempts to control the peripherals is a no-op -- no LED will light, the timer does not increment.
@@ -202,10 +200,9 @@ Here is a list of useful `gdb` commands. Many command names can be abbreviated. 
 
 
 <p></p>
-## Using .gdbinit configuration files
+## Using gdb command files
 
-A `.gdbinit` file is used to set a startup sequence for gdb that can be used to configure the debugger or automate common actions. For example, I find it annoying that gdb asks for confirmation on many commands and does not remember command history by default.  I put the following in a `.gdbinit` configuration file 
-in my home directory to fix that:
+A gdb command file is used to set a startup sequence for gdb that can be used to configure the debugger or automate common actions. For example, I find it annoying that gdb asks for confirmation on many commands and does not remember command history by default.  I put the following in a command file named `.gdbinit` in my home directory:
 
 ```console
 $ cat ~/.gdbinit 
@@ -260,4 +257,3 @@ programming journal: [Breakpoint Tricks](https://web.stanford.edu/class/archive/
 and [gdb's Greatest Hits](https://web.stanford.edu/class/archive/cs/cs107/cs107.1186/resources/gdb_coredump2.pdf). 
 - Last but not least, the full online gdb manual tells all: 
 [http://sourceware.org/gdb/current/onlinedocs/gdb/index.html](http://sourceware.org/gdb/current/onlinedocs/gdb/index.html).
-{% endcomment %}
