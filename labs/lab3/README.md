@@ -88,12 +88,14 @@ Keep typing while have your neighbor reaches over and gently disconnects one end
 
 Reconnect the jumper and type some more.  Your characters are echoed again.
 
-It may feel like typing a character on the keyboard comes with an entitlement to seeing it drawn on the screen, but in fact, the minicom (or other terminal) program running on your laptop is necessary glue to bridging that communication. Minicom observes the typed character, sends it out over the serial TX line, and is listening on the serial RX line and echoing what it receives. In loop back mode, minicom happens to only be talking to itself, but it doesn't "know" this. If you disconnect the loopback jumper, no characters are echoed. Answer this check-in question[^2]
+It may feel like typing a character on the keyboard comes with an entitlement to seeing it drawn on the screen, but in fact, the minicom (or other terminal) program running on your laptop is necessary glue to bridging that communication. Minicom observes the typed character, sends it out over the serial TX line, and is listening on the serial RX line and echoing what it receives. In loop back mode, minicom happens to only be talking to itself, but it doesn't "know" this. If you disconnect the loopback jumper, no characters are echoed. You are ready to answer this check-in question. [^2]
 
 When you connect the TX and RX to the Mango Pi, minicom is bridging the communication from your laptop to the Pi and back. Minicom sends what you type to the Pi and displays what is received from the Pi. Neat!
 
+(Fun aside for the curious: scoot your computer next to a buddy and use jumpers to connect the TX of your CP2102 to the RX of their CP2102 and vice versa. Now what happens when you type in your minicom window?)
+
 You can exit minicom by typing `Esc-z` (the "escape" key is referred to as "meta" in the minicom documentation)
-and choose `x` from the menu. However, you probably don't want to do a lot of quitting and restarting of minicom. Instead, open a separate window/tab for minicom and keep minicom running at all times. In your other terminal window(s), you will be issuing commands, editing, building, etc. while the minicom window maintains an open communication channel with the Pi. When you power-cycle or set your Pi, the minicom window will report it temporarily has no connected, but will reestablish communicated with the device when reconnected.
+and choose `x` from the menu. However, you probably don't want to do a lot of quitting and restarting of minicom. Instead, open a separate terminal window for minicom and keep minicom running at all times. In your other terminal window(s), you will be issuing commands, editing, building, etc. while the minicom window maintains an open communication channel with the Pi. When you power-cycle or set your Pi, the minicom window will report it temporarily has no connected, but will reestablish communicated with the device when reconnected.
 
 #### 1c) UART/printf test
 
