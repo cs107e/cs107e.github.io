@@ -167,6 +167,7 @@ Hot off the presses, we have freshly-patched RISC-V gdb debugger for you to inst
 If you run macOS, your instructions are:
 ```console
 $ brew update
+$ rm -rf $(brew --cache)
 $ brew reinstall riscv-gnu-toolchain-13
 ```
 {: .console-mac }
