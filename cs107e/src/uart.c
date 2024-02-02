@@ -119,7 +119,6 @@ void uart_reinit_custom(int uart_id, gpio_id_t tx, gpio_id_t rx, unsigned int gp
     uint8_t parity = 0b0;   // no parity
     uint8_t stop = 0b0;     // 1 stop
     uint8_t settings = (parity << 3) | (stop << 2) | (data << 0);
-    while (module.uart->regs.usr & USR_BUSY) ; // wait until uart not busy
     // clear low 4 bits, replace with settings 8-n-1
     module.uart->regs.lcr = (module.uart->regs.lcr & ~0b1111) | settings;
 
