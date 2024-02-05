@@ -77,6 +77,8 @@ stop-if-cannot-continue
 end
 
 # Execute default commands below for all programs
+set backtrace past-main
+set $can_continue = 1
 set confirm off
 target sim
 sim memory-region 0x40000000,0x20000000
