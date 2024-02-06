@@ -9,8 +9,13 @@
 
 .globl _start
 _start:
-    lui     sp,0x60      # init stack at 0x60000000 (grows down)
+.cfi_startproc
+.cfi_undefined ra           # to help gdb understand stack end
+
+    li      fp,0
+    lui     sp,0x60000      # init stack at 0x60000000 (grows down)
     call    main
 
 hang: j hang
-
+nop
+.cfi_endproc

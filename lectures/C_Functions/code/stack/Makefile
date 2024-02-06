@@ -6,7 +6,7 @@ all: $(NAME).bin
 ARCH 	= -march=rv64im -mabi=lp64
 ASFLAGS = $(ARCH)
 CFLAGS 	= $(ARCH) -g -Og -Wall -ffreestanding -fno-omit-frame-pointer
-LDFLAGS = $(ARCH) -nostdlib #-T memmap
+LDFLAGS = -nostdlib -L$$CS107E/lib -T memmap.ld
 LDLIBS 	=
 
 %.bin: %.elf
@@ -27,6 +27,9 @@ LDLIBS 	=
 run: $(NAME).bin
 	mango-run $<
 
+debug: $(NAME).elf
+	riscv64-unknown-elf-gdb $(GDB_FLAGS) $<
+
 # Remove all build products
 clean:
 	rm -f *.o *.bin *.elf *.list
@@ -35,3 +38,4 @@ clean:
 .PRECIOUS: %.elf %.o
 
 OBJDUMP_FLAGS = --no-show-raw-insn --no-addresses --disassembler-color=terminal --visualize-jumps
+GDB_FLAGS = -q --command=$$CS107E/other/gdbsim.commands
