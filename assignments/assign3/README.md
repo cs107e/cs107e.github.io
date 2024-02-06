@@ -426,7 +426,7 @@ The extension is to add a new custom formatting code to your shiny new `printf` 
 
 Let's break down the R-type, used for three-register ALU instructions. Each register is encoded as its 5-bit numeric index (0 to 31). An R-type instruction encodes 3 registers: one for the destination and two source registers. The opcode bits identify the class of instruction and the funct7 and funct3 bits identify the specific ALU operation variant (add, sub, shift, etc).
 
-In lecture, you played the role of _assembler_ by translating an instruction  such as  `add r3, r4, r5` into `00f706b3`. The reverse process is a _disassembler_  which picks apart the bits of the encoded instruction `00f706b3` to produce the output `add r3, r4, r5`.
+In lecture, you played the role of _assembler_ by translating an instruction  such as  `add a3,a4,a5` into `00f706b3`. The reverse process is a _disassembler_  which picks apart the bits of the encoded instruction `00f706b3` to produce the output `add a3,a4,a5`.
 
 Use the custom formatting code `%pI` which expects a corresponding argument of "pointer to instruction". There is no "instruction" type in C; use a pointee type of `unsigned int` to read a binary-encoded instruction from memory. The instructions for the currently executing program are stored in memory as well. If you print the instruction at the program start address and move upwards in memory, you can disassemble the entire program!
 
@@ -441,8 +441,8 @@ printf("Encoded instruction %x disassembles to %pI\n", *first, first);
 ```
 The output of the above code is:
 ```console?prompt=none
-Encoded instruction 00f706b3 disassembles to add r3, r4, r5
-Encoded instruction fe010113 disassembles to addi sp,sp,-32
+Encoded instruction 00f706b3 disassembles to add a3,a4,a5
+Encoded instruction fe010113 disassembles to addi sp,sp,-16
 ```
 
 You _could_ use your bit-masking superpowers to pick apart an encoded instruction but a simpler way is to define a C bitfield. In the starter file `printf.c` we included some code that demonstrates sample use of a bitfield to get you started.
