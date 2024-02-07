@@ -36,7 +36,7 @@ During this lab you will:
 To prepare for lab, do the following: 
 
 - Review the [recap of stack frames](/lectures/Memory/stack_notes) in readings for Monday's lecture.
-- Skim the code we will study for the [stack](code/stack/example.c) and [heap](code/heapclient/heapclient.c) exercises.
+
 
 ## Lab exercises
 <a name="stack"></a>
