@@ -1,3 +1,0 @@
-# allow track libraries and bin within cs107e
-!*.a
-!*.bin
