@@ -436,8 +436,8 @@ Here is a sample use of `%pI`:
 unsigned int add = 0x00f706b3;              // manual binary-encoded instruction
 unsigned int *first = (unsigned int*)main;  // address of instruction in memory for function main()
 
-printf("Encoded instruction %x disassembles to %pI\n", add, &add);
-printf("Encoded instruction %x disassembles to %pI\n", *first, first);
+printf("Encoded instruction %08x disassembles to %pI\n", add, &add);
+printf("Encoded instruction %08x disassembles to %pI\n", *first, first);
 ```
 The output of the above code is:
 ```console?prompt=none
@@ -450,7 +450,7 @@ You _could_ use your bit-masking superpowers to pick apart an encoded instructio
 To learn more about the instruction encoding, refer to the [RISC-V ISA Manual](/readings/riscv-spec-20191213.pdf#page=34). This neat [online encoder/decoder](https://luplab.gitlab.io/rvcodecjs/#q=fe010113&abi=true&isa=RV64I) is fun way to learn more!
 
 
-Your extension should be capable of decoding the common R-type and I-type instructions. The RISC-V ISA has a remarkably regular encoding, so you can catch a good chunk of all instructions with just a few cases. If you want to get fancier, decoding S and B-type instructions will teach you much about how relative addressing works. Don't worry about making special cases for oddballs. For any instructions you don't decode, simply print the encoded value. Make sure that the output of your disassembler has the format `instr dst, op1, op2`.
+Your extension should be capable of decoding the common R-type and I-type instructions. The RISC-V ISA has a remarkably regular encoding, so you can catch a good chunk of all instructions with just a few cases. If you want to get fancier, decoding S and B-type instructions will teach you much about how relative addressing works. Don't worry about making special cases for oddballs. For any instructions you don't decode, simply print the encoded value. As much as possible, try to match the output given by the standard disassembly tools (i.e. `riscv64-unknown-elf-objdump -d` or gdb `disassemble` command).
 
 There is a unit test in the `test_strings_printf.c` that demonstrates sample disassemble use.  To see how good a job your disassembler is doing, compare your output to the result from gdb's tools.  In `gdb`, you can disassemble the single instruction at an address with the `x/i` command or dump a sequence of instructions using the `disassemble` command:
 
