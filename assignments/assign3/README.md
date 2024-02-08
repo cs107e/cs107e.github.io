@@ -69,6 +69,8 @@ In the `assign3` directory, you will find these files:
 - `Makefile`: rules to build pinout application (`make run`) and unit test program (`make test`). Also a `make debug` target that runs the unit test program under `gdb`.
 - `README.md`: edit this text file to communicate with us about your submission
 
+<a name=mymodules></a>
+
 The `make run` target builds and runs the sample application
 `print_pinout.bin`. You will likely only use this target at the very end as a final test of your completed work. The `make test` target builds and run the test program
 `test_strings_printf.bin`. This test program is where you will add all of your unit tests. You will make heavy use of this target. You can run the debugger in simulation mode on the test program using the target `make debug`.
@@ -77,7 +79,6 @@ The `make run` target builds and runs the sample application
 .small { font-size:small }
 </style>
 
-<a name=mymodules></a>
 > __Use of MY_MODULE_SOURCES in Makefile__
 Each week as you move forward, you have the option of building on your own code from the previous assignments. Open `Makefile` in `assign3` and read the comment which explains `MY_MODULE_SOURCES`.  The default setting will list only the library modules for the current assignment. If you edit `MY_MODULE_SOURCES` to add the library modules you completed previously (e.g. `gpio.c` and `timer.c`), your programs will now build using your code for those modules instead of the reference. Using your previous modules as you move forward will further test your code and give you a jumpstart on earning the full system bonus awarded to a final assignment that uses all of your modules and none of the reference. If you encounter a problem using a previous module, you can remove it from `MY_MODULE_SOURCES` to instead use the reference version until you have a chance to resolve the underlying issue.
 {: .callout-info .small}
