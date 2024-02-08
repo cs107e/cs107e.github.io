@@ -27,6 +27,7 @@ typedef struct {
  * symbol data into parameter `*p_symbol`.
  *
  * @param name      name of function to search for
+ * @param p_symbol  pointer to where to store symbol data
  * @return          true if found, false otherwise
  */
 bool symtab_symbol_for_name(const char *name, symbol_t *p_symbol);
@@ -38,6 +39,7 @@ bool symtab_symbol_for_name(const char *name, symbol_t *p_symbol);
  * symbol data into parameter `*p_symbol`.
  *
  * @param addr      address to search for
+ * @param p_symbol  pointer to where to store symbol data
  * @return          true if found, false otherwise
  */
 bool symtab_symbol_for_addr(uintptr_t addr, symbol_t *p_symbol);

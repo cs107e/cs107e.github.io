@@ -36,7 +36,7 @@ pre {
 }
 </style>
 
-{% assign filenames = "ccu.c,cstart.c,font.c,hdmi.c,interrupts.c,mango.c,ps2_keys.c,rand.c,ringbuffer.c,start.s,uart.c" | split: ',' %}
+{% assign filenames = "cstart.c,font.c,hdmi.c,interrupts.c,mango.c,ps2_keys.c,rand.c,ringbuffer.c,start.s,uart.c" | split: ',' %}
 
 <div class="row flex-row">
 <div class="nav nav-pills flex-column sidenav">

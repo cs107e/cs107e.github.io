@@ -108,15 +108,9 @@ or library search path entries you add.
 Displays the symbol table of a binary file. It takes one or more file names as parameters and outputs their symbol tables in a format like this:
 ```console
 $ nm file.o
-  00010074 B __bss_end__
+  00010074 B __bss_end
   00010070 B __bss_start
-  00010070 B __bss_start__
-  00010070 T __data_start
-  00010074 B __end__
-  00010074 B _bss_end__
-  00010070 T _edata
-  00010074 B _end
-  00080000 N _stack
+  00010070 T _text_end
            U _start
   00010070 B a
   00008040 T f
