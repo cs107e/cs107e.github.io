@@ -165,7 +165,7 @@ Below we offer our suggestions for a step-by-step plan  of the tasks before you.
     Make sure you understand what each line in the bump allocator is doing. Your allocator will be significantly more complicated, so it is best to start from a solid foundation. Here are some self-test questions to work through to verify your understanding:
    
     + Trace the given code for `sbrk`. You will use this code as-is and it is important that you understand exactly what this function does for you and how to use it.
-    + Where does the heap segment start in memory? Where does it end?  Review our linker script `$CS107E/lib/memmap.ld` to see how the symbols `__heap_start` and `__heap_end` are configured.
+    + Where does the heap segment start in memory? Where does it end?  Review our linker script `$CS107E/lib/memmap.ld` to see how the symbols `__heap_start` and `__heap_max` are configured.
     + What is the return value of a call to `sbrk`? How does `sbrk` enlarge the available memory? What is the limit on how much it can grow and why is that limit needed? What happens if you attempt to advance `sbrk` beyond that limit?
     + The given code casts the `void *` pointer to `(char *)` before doing pointer arithmetic. What does this typecast do and why is it needed?
     + When servicing a request for `malloc(5)`, how much space is actually reserved by the bump allocator? 
