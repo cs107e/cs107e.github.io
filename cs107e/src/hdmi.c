@@ -1,12 +1,12 @@
 /*
- *
- * This module configures the HDMI display
+ * This module configures the HDMI hardware
  * Written to drive Synopsis DesignWare HDMI TX controller using in AW D1.
+ * Uses TCONTV peripheral of AW D1 to stream pixels to HDMI
  * 
  * Support for classic resolutions: 1080p, 720p, SVGA
  * 
  * Author: Julie Zelenski <zelenski@cs.stanford.edu>
- * July 2023
+ * Updated: Feb 2024
  */
 
 #include "hdmi.h"
@@ -14,40 +14,161 @@
 #include "assert.h"
 #include "ccu.h"
 #include "printf.h"
+#include <stdbool.h>
 #include "timer.h"
 
+typedef union {
+    struct {
+        uint8_t invidconf;          // V and H sync polarity bits 5&6, data enble input polarity bit 4, HDMI mode bit 3
+        uint8_t inhactv[2];         // count of horiz active pixels
+        uint8_t inhblank[2];        // count of horiz blank pixels
+        uint8_t invactv[2];         // count of vert active lines
+        uint8_t invblank;           // count of vert blank lines
+        uint8_t hsyncindelay[2];    // count of pixel clock cycles from non-active edge to last valid period
+        uint8_t hsyncinwidth[2];    // count of pixel clock cycles
+        uint8_t vsyncindelay;       // count of hsync pulses from non-active edge to last valid period
+        uint8_t vsyncinwidth;       // count of hsync pulses
+        uint8_t infreq[3];          // these fields used for debugging
+        uint8_t ctrldur;            // control period minimum duration (min 12 pixel clock cycles)
+        uint8_t exctrldur;          // extended control period minimum duration (min 32 pixel clock cycles)
+        uint8_t exctrlspac;         // extended control period maximum spacing (max 50 msec)
+        uint8_t chpream[3];         // bits to fill channel data lines not used to transmit the preamble
+    } regs;
+} hdmi_frame_composer_t;
+
+typedef union {
+    struct {
+        uint8_t sfrdiv;
+        uint8_t clkdis;         // clock domain disable
+        uint8_t fswrstz;
+        uint8_t opctrl;
+        uint8_t flowctrl;
+     } regs;
+} hdmi_main_controller_t;
+
+typedef union {
+    struct {
+        uint32_t setup;
+        uint32_t reserved[6];
+        uint32_t port_sel;
+        uint32_t gate;
+    } regs;
+} tcon_top_t;
+
+typedef union {
+    struct {
+        uint32_t gtcl;
+        uint32_t reserved[15];
+        uint32_t src_ctl;
+        uint32_t reservedB[19];
+        uint32_t ctl;
+        // next 6 regs are named basic0-basic5 in doc
+        struct { uint32_t height:16, width:16; } dimensions[3];
+        struct { uint32_t bp:16, total:16; } htiming, vtiming;
+        struct { uint32_t vert:16, horiz:16; } sync;
+    } regs;
+} tcon_tv_t;
+
+
 struct display_timing {
+    hdmi_resolution_id_t id;
     struct {
         uint32_t pixels, front_porch, sync_pulse, back_porch;
     } horiz, vert;
     uint32_t pixel_clock_hz;
-    uint32_t pll_m, pll_n; // dividers for PLLVideo0
-    uint32_t tcon_n, tcon_m; // dividers for TCONTV
-    uint32_t de_m; // divider for DE clock
+    uint32_t pll_m, pll_n;      // dividers for PLLVideo0
+    uint32_t tcon_n, tcon_m;    // dividers for TCONTV
+    uint32_t de_m;              // divider for DE clock
 };
 
-static struct {
-    struct display_timing hdmi;
-} module;
+#define HDMI_FC   ((hdmi_frame_composer_t *)0x5501000)
+#define HDMI_MC  ((hdmi_main_controller_t *)0x5504000)
+#define TCON_TOP             ((tcon_top_t *)0x5460000)
+#define TCON_TV               ((tcon_tv_t *)0x5470000)
 
-// use fixed common timings (should use edid to get from monitor instead?)
-static bool select_resolution(hdmi_resolution_t res) {
-    static const struct display_timing 
-                        //     {horiz}                 {vert}     pixel rate, pll_m, pll_n, tcon_n, tcon_m
-          hdmi_1080p =  { {1920,  88,  44, 148}, {1080, 4, 5, 36}, 148500000, 0x62, 1, 0, 1, 3},
-          hdmi_hd =     { {1280, 110,  40, 220},  {720, 5, 5, 20},  74250000, 0x62, 1, 0, 3, 3}, 
-          hdmi_svga =   {  {800,  40, 128,  88},  {600, 1, 4, 23},  40000000, 0x13, 0, 0, 2, 0};
-    switch(res) {
-        case HDMI_1080P:  module.hdmi = hdmi_1080p; return true;
-        case HDMI_HD:     module.hdmi = hdmi_hd;    return true;
-        case HDMI_SVGA:   module.hdmi = hdmi_svga;  return true;
-        default:          return false;
+_Static_assert(&(HDMI_FC->regs.invblank)  ==  (uint8_t *)0x5501007, "hdmi fc invblank reg must be at address 0x5501007");
+_Static_assert(&(HDMI_MC->regs.clkdis)    ==  (uint8_t *)0x5504001, "hdmi mc clkdis reg must be at address 0x5504001");
+_Static_assert(&(TCON_TOP->regs.port_sel) == (uint32_t *)0x546001c, "tcon top port_sel reg must be at address 0x546001c");
+_Static_assert(&(TCON_TV->regs.src_ctl)   == (uint32_t *)0x5470040, "tcon tv src_ctl eg must be at address 0x5470040");
+
+static struct {
+    volatile hdmi_frame_composer_t *hdmi_fc;
+    volatile hdmi_main_controller_t *hdmi_mc;
+    volatile tcon_top_t *tcon_top;
+    volatile tcon_tv_t *tcon_tv;
+    struct display_timing config;
+}  module = {
+     .hdmi_fc  = HDMI_FC,
+     .hdmi_mc  = HDMI_MC,
+     .tcon_top = TCON_TOP,
+     .tcon_tv  = TCON_TV,
+};
+
+// using fixed standard timings (should use edid to negotiate with monitor instead?)
+static const struct display_timing avail_resolutions[] = {
+           //     {horiz}                {vert}            pixel rate, pll_m, pll_n, tcon_n, tcon_m, de_m
+    {HDMI_1080P,  {1920,  88,  44, 148}, {1080, 4, 5, 36}, 148500000, 0x62, 1, 0, 1, 3},
+    {HDMI_HD,     {1280, 110,  40, 220}, { 720, 5, 5, 20},  74250000, 0x62, 1, 0, 3, 3},
+    {HDMI_SVGA,   { 800,  40, 128,  88}, { 600, 1, 4, 23},  40000000, 0x13, 0, 0, 2, 0},
+    {HDMI_INVALID, {0}}
+};
+
+static bool select_resolution(hdmi_resolution_id_t id);
+static void enable_display_clocks(void);
+static void hdmi_controller_init(void);
+static void tcon_init(void);
+static int sun20i_d1_hdmi_phy_config(void);
+
+void hdmi_init(hdmi_resolution_id_t id) {
+    if (!select_resolution(id)) {
+        error("Unable to init hdmi, resolution id is invalid!\n");
     }
+    enable_display_clocks();
+    hdmi_controller_init();
+    tcon_init();
+
+    // possible to call hdmi_init again to change resolution
+    // but must init PHY exactly once
+    // (does not need re-init for change in resolution
+    // and in fact re-init will cause problems)
+    static bool phy_initialized = false;
+    if (!phy_initialized) {
+        sun20i_d1_hdmi_phy_config();
+        phy_initialized = true;
+    }
+}
+
+static bool select_resolution(hdmi_resolution_id_t id) {
+   for (int i = 0; avail_resolutions[i].id != HDMI_INVALID; i++) {
+        if (avail_resolutions[i].id == id) {
+            module.config = avail_resolutions[i];
+            return true;
+        }
+    }
+    return false;
+}
+
+hdmi_resolution_id_t hdmi_best_match(int width, int height) {
+    hdmi_resolution_id_t chosen = HDMI_INVALID;
+    // resolutions listed in order from largest to smallest, choose "tightest" (i.e. smallest that fits)
+    for (int i = 0; avail_resolutions[i].id != HDMI_INVALID; i++) {
+        if (width <= avail_resolutions[i].horiz.pixels && height <= avail_resolutions[i].vert.pixels) {
+            chosen = avail_resolutions[i].id;
+        }
+    }
+    return chosen;
+}
+
+int hdmi_get_screen_width(void) {
+    return module.config.horiz.pixels;
+}
+int hdmi_get_screen_height(void) {
+    return module.config.vert.pixels;
 }
 
 // enable all clocks needed for HDMI+TCON+DE2
 static void enable_display_clocks(void) {
-    ccu_enable_pll(CCU_PLL_VIDEO0_CTRL_REG, module.hdmi.pll_m, module.hdmi.pll_n);
+    ccu_enable_pll(CCU_PLL_VIDEO0_CTRL_REG, module.config.pll_m, module.config.pll_n);
     // hdmi clock, both sub and main (bits 16 and 17)
     ccu_enable_bus_clk(CCU_HDMI_BGR_REG, 1 << 0, (1 << 16)|(1 << 17) );
     ccu_write(CCU_HDMI_24M_CLK_REG, 1 << 31); 
@@ -56,128 +177,14 @@ static void enable_display_clocks(void) {
     // tcon tv clock
     ccu_enable_bus_clk(CCU_TCONTV_BGR_REG, 1 << 0, 1 << 16);
     uint32_t src = 0; 	// source 00 = PLLVideo0(1x)
-    uint32_t N_FACTOR = module.hdmi.tcon_n, M_FACTOR = module.hdmi.tcon_m;
-    assert(N_FACTOR <= 0x3 && M_FACTOR <= 0xf);
+    uint32_t N_FACTOR = module.config.tcon_n, M_FACTOR = module.config.tcon_m;
     // bits: ena @[31], src @[25:24] N @[9:8] M @[3:0]
     ccu_write(CCU_TCONTV_CLK_REG, (1 << 31) | (src << 24) | (N_FACTOR << 8) | (M_FACTOR << 0));
     // de clock
     ccu_enable_bus_clk(CCU_DE_BGR_REG, 1 << 0, 1 << 16);
     src = 1; // src 01 = PLLVideo0(4x)
-    M_FACTOR = module.hdmi.de_m; // de spec says 250 Mhz
+    M_FACTOR = module.config.de_m; // de spec says 250 Mhz
     ccu_write(CCU_DE_CLK_REG, (1 << 31) | (src << 24) | (M_FACTOR << 0));
-}
-
-int hdmi_get_screen_width(void) {
-    return module.hdmi.horiz.pixels;
-}
-int hdmi_get_screen_height(void) {
-    return module.hdmi.vert.pixels;
-}
-
-void de_set_active_framebuffer(void *addr) {
-    de_ui_ch1->layer[0].attr_ctrl &= ~(1 << 4); // disable fill
-    uintptr_t full_address = (uintptr_t)addr;
-    uint32_t low_addr = full_address & 0xffffffff;
-    assert((uintptr_t)low_addr == full_address); // confirm address fits in 32 bits
-    de_ui_ch1->layer[0].top_laddr = low_addr;
-}
-
-// From DE2 docs:
-// UI scaler supports 1/16x downscale to 32x upscale
-// horizontal scaler is 16-phase 4-tap anti-aliasing filter
-// vertical scaler is 16-phase linear filter
-
-static int scale_factor(int in, int out) {
-    return ((in * 32) + out - 1)/out; // round up to nearest 32nd (minimum scale for DE2)
-}
-
-static int compute_scale_step(int in_width, int in_height, int screen_width, int screen_height, int *p_out_width, int *p_out_height) {
-    int horiz_f = scale_factor(in_width, screen_width);
-    int vert_f = scale_factor(in_height, screen_height);
-    // force square pixels, use larger of two scale factors
-    int scale_f = (horiz_f > vert_f) ? horiz_f : vert_f;  // in 32nds
-    *p_out_width = (in_width*32)/scale_f;
-    *p_out_height = (in_height*32)/scale_f;
-    return scale_f << 15; // scale factor stored as x.15 fixed point (only 5 bits of fraction used tho')
-}
-
-void de_config_framebuffer(int fb_width, int fb_height) {
-    struct de_size fb_size = {.width= fb_width - 1, .height= fb_height - 1};
-
-    de_ui_ch1->overlay_size = fb_size;
-    de_ui_ch1->layer[0].size = fb_size;
-    de_ui_ch1->layer[0].pitch_nbytes = fb_width * 4; // 4 bytes (32 bits) per pixel
-
-    // when size of framebuffer not same as hdmi resolution, employ ui scaler
-    int screen_width = module.hdmi.horiz.pixels, screen_height = module.hdmi.vert.pixels;
-    if (!screen_width || !screen_height) printf("TEMPORARY: no hdmi_init() before fb_init() \n");
-    assert(fb_width <= screen_width && fb_height <= screen_height); // fb must fit on screen
-
-    int output_width, output_height;
-    int step = compute_scale_step(fb_width, fb_height, screen_width, screen_height, &output_width, &output_height);
-    int margin_x = (screen_width - output_width)/2;
-    int margin_y = (screen_height - output_height)/2;
-    de_bld0->pipe[1].offset = (margin_y << 16) | margin_x; // position in center
-
-    if (output_width == fb_width && output_height == fb_height) {
-        de_scaler->ctrl = 0;    // disable scaler
-        de_bld0->pipe[1].input_size = fb_size; //  ui layer is direct input to blender pipe 1
-    } else {
-        de_scaler->ctrl = 1;    // enable scaler
-        de_scaler->horiz_step = de_scaler->vert_step = step;
-        struct de_size scaler_output_size = {.width= output_width - 1, .height= output_height - 1};
-        de_scaler->input_size = fb_size; // ui layer is input to scaler
-        de_scaler->output_size = scaler_output_size;
-        de_bld0->pipe[1].input_size = scaler_output_size; // scaler output is input to blender pipe 1
-
-        // UI scaler works line by line, array of coeff controls of 4-tap blend within line (horiz)
-        // below I am setting coeffs to 0,0,0,64 to replicate right pixel of each 4-tap (hard cutoff)
-        // note that vert is fixed linear scale of taps without configurable control (fuzzy instead of crisp...)
-        // if this ends being unacceptable, could switch to video scaler which has controls for both horiz and vert
-        for (int i = 0; i < 16; i++) de_scaler->horiz_coeff[i] = 0x40;
-        de_scaler->ctrl |= (1 << 4); // apply coefficients
-    }
-}
-
-// Simplest possible init of DE2 to init and config mixer/blender/ui layer
-// Key references:
-//      DisplayEngine 2.0 spec https://linux-sunxi.org/images/7/7b/Allwinner_DE2.0_Spec_V1.0.pdf
-//      https://linux-sunxi.org/DE2_Register_Guide
-static void de2_init(void) {
-    // top-level reset
-    de->ahb_reset = de->sclk_gate = de->hclk_gate = 1;  // 1 to ungate mixer0
-
-    // config for hdmi full screen resolution
-    struct de_size full_screen = {.width= module.hdmi.horiz.pixels - 1, .height= module.hdmi.vert.pixels - 1};
-
-    // config mixer0 (blender)
-    de_mixer0->glb_ctl = 1; // enable mixer 0
-    #warning TODO TEMPORARY: setting blender background to magenta
-    printf("TEMPORARY: setting blender background to magenta\n");
-    de_bld0->background_color = 0xff00ff;
-    de_mixer0->glb_size = full_screen;
-    de_bld0->output_size = full_screen;
-
-    // config pipe1, route for first ui layer (ch1)
-    uint32_t pipe_index = 1;
-    de_bld0->pipe_ctrl = ((1 << pipe_index) << 8); // enable pipe 1
-    de_bld0->pipe[pipe_index].input_size = full_screen;
-    de_bld0->route = 0x3210; // channels 0-3, each ch route to same-index pipe
-
-    // config first ui layer (ch1)
-    uint32_t format = 4; // XRGB_8888
-    // default alpha @[24], top-addr-only @[23] no premul @[16] format @[8] enable fill @[4] use global alpha @[1] enable @[0]
-    uint32_t features = (0xff << 24) | (0 << 23) | (0 << 16) | (format << 8) | (1 << 4)  | (1 << 1) | (1 << 0);
-    de_ui_ch1->layer[0].attr_ctrl = features;
-    de_ui_ch1->layer[0].size = full_screen;
-    de_ui_ch1->layer[0].offset = 0; // @ top left corner
-    de_ui_ch1->layer[0].pitch_nbytes = module.hdmi.horiz.pixels * 4; // 4 bytes (32 bits) per pixel
-    #warning TODO TEMPORARY: setting ui layer background to yellow
-    printf("TEMPORARY: setting ui layer background to yellow\n");
-    de_ui_ch1->layer[0].fill_color = 0xffff00;
-    de_ui_ch1->overlay_size = full_screen;
-
-    de_scaler->ctrl = 0;    // disable scaler
 }
 
 // HDMI controller registers must be written in 8-bit chunks
@@ -194,87 +201,67 @@ static void hdmi_controller_init(void) {
 
     // frame controller
     // V and H sync polarity bits 5&6, data enble input polarity bit 4, HDMI mode bit 3    
-    hdmi_fc->invidconf = (1<<6) | (1<<5) | (1<<4); // no HDMI (bit 3) to work with older DVI monitors
+    module.hdmi_fc->regs.invidconf = (1<<6) | (1<<5) | (1<<4); // no HDMI (bit 3) to work with older DVI monitors
 
-    hdmi_write_short(hdmi_fc->inhactv, module.hdmi.horiz.pixels);
-    hdmi_write_short(hdmi_fc->inhblank, BLANKING(module.hdmi.horiz));
-    hdmi_write_short(hdmi_fc->hsyncindelay, module.hdmi.horiz.front_porch);
-    hdmi_write_short(hdmi_fc->hsyncinwidth, module.hdmi.horiz.sync_pulse);
-    hdmi_write_short(hdmi_fc->invactv, module.hdmi.vert.pixels);
-    hdmi_fc->invblank = BLANKING(module.hdmi.vert);
-    hdmi_fc->vsyncindelay = module.hdmi.vert.front_porch;
-    hdmi_fc->vsyncinwidth = module.hdmi.vert.sync_pulse;
+    hdmi_write_short(module.hdmi_fc->regs.inhactv, module.config.horiz.pixels);
+    hdmi_write_short(module.hdmi_fc->regs.inhblank, BLANKING(module.config.horiz));
+    hdmi_write_short(module.hdmi_fc->regs.hsyncindelay, module.config.horiz.front_porch);
+    hdmi_write_short(module.hdmi_fc->regs.hsyncinwidth, module.config.horiz.sync_pulse);
+    hdmi_write_short(module.hdmi_fc->regs.invactv, module.config.vert.pixels);
+    module.hdmi_fc->regs.invblank = BLANKING(module.config.vert);
+    module.hdmi_fc->regs.vsyncindelay = module.config.vert.front_porch;
+    module.hdmi_fc->regs.vsyncinwidth = module.config.vert.sync_pulse;
 
-    hdmi_fc->ctrldur = 12; 	// spacing set at minimums
-    hdmi_fc->exctrldur = 32;    // values from linux bridge driver
-    hdmi_fc->exctrlspac = 1; 
-    hdmi_fc->chpream[0] = 0x0b;
-    hdmi_fc->chpream[1] = 0x16;
-    hdmi_fc->chpream[2] = 0x21;
+    module.hdmi_fc->regs.ctrldur = 12; 	// spacing set at minimums
+    module.hdmi_fc->regs.exctrldur = 32;    // values from linux bridge driver
+    module.hdmi_fc->regs.exctrlspac = 1;
+    module.hdmi_fc->regs.chpream[0] = 0x0b;
+    module.hdmi_fc->regs.chpream[1] = 0x16;
+    module.hdmi_fc->regs.chpream[2] = 0x21;
 
     // main controller
-    hdmi_mc->clkdis = 0x7c; // enable pixel+tdms clock (disable others)
+    module.hdmi_mc->regs.clkdis = 0x7c; // enable pixel+tdms clock (disable others)
 }
 
 static void tcon_init(void) {
-    tcon_tv->gtcl = (1 << 31);    // tcon_tv global enable @[31]
+    module.tcon_tv->regs.gtcl = (1 << 31);    // tcon_tv global enable @[31]
     // vertical video start delay is computed by excluding vertical front
     // porch value from total vertical timings
     // See https://lkml.iu.edu/hypermail/linux/kernel/1910.0/06574.html
-    uint32_t start_delay = TOTAL(module.hdmi.vert) - (module.hdmi.vert.pixels + module.hdmi.vert.front_porch) - 1;
-    tcon_tv->ctl = (1 << 31) | (start_delay << 4); // enable tv @[31], delay @[8-4] (@[1] set for blue test data)
+    uint32_t start_delay = TOTAL(module.config.vert) - (module.config.vert.pixels + module.config.vert.front_porch) - 1;
+    module.tcon_tv->regs.ctl = (1 << 31) | (start_delay << 4); // enable tv @[31], delay @[8-4] (@[1] set for blue test data)
 
     // [0] input resolution, [1] upscaled resolution, [2] output resolution
     for (int i = 0; i < 3; i++) {
-        tcon_tv->dimensions[i].width = module.hdmi.horiz.pixels - 1;
-        tcon_tv->dimensions[i].height = module.hdmi.vert.pixels - 1;
+        module.tcon_tv->regs.dimensions[i].width = module.config.horiz.pixels - 1;
+        module.tcon_tv->regs.dimensions[i].height = module.config.vert.pixels - 1;
     };
-    tcon_tv->htiming.total = TOTAL(module.hdmi.horiz) - 1;
-    tcon_tv->htiming.bp = module.hdmi.horiz.sync_pulse + module.hdmi.horiz.back_porch - 1;
-    tcon_tv->vtiming.total = 2 * TOTAL(module.hdmi.vert);
-    tcon_tv->vtiming.bp = module.hdmi.vert.sync_pulse + module.hdmi.vert.back_porch - 1;
-    tcon_tv->sync.horiz = module.hdmi.horiz.sync_pulse - 1;
-    tcon_tv->sync.vert = module.hdmi.vert.sync_pulse - 1;
+    module.tcon_tv->regs.htiming.total = TOTAL(module.config.horiz) - 1;
+    module.tcon_tv->regs.htiming.bp = module.config.horiz.sync_pulse + module.config.horiz.back_porch - 1;
+    module.tcon_tv->regs.vtiming.total = 2 * TOTAL(module.config.vert);
+    module.tcon_tv->regs.vtiming.bp = module.config.vert.sync_pulse + module.config.vert.back_porch - 1;
+    module.tcon_tv->regs.sync.horiz = module.config.horiz.sync_pulse - 1;
+    module.tcon_tv->regs.sync.vert = module.config.vert.sync_pulse - 1;
     
     // configure tcon_top mux and select tcon tv
     // clear state, config for hdmi, enable
-    tcon_top->gate &= ~((0xf << 28) | (0xf << 20)); // clear bits @[31-28], [23-20]
-    tcon_top->gate |= (0x1 << 28) | (0x1 << 20); // from Linux
-    tcon_top->port_sel &= ~((0x3 << 4) | (0x3 << 0)); // clear bits @[5-4], @[1-0]
-    tcon_top->port_sel |= (2 << 0); // config mixer0 -> tcon_tv
-}
-
-static int sun20i_d1_hdmi_phy_config(void);
-
-void hdmi_init(hdmi_resolution_t res) {
-    // init phy only once (does not need re-init for change in
-    // resolution, re-init can cause problems... )
-    static bool phy_initialized = false;
-
-    bool resolution_ok = select_resolution(res);
-    assert(resolution_ok);
-    enable_display_clocks();
-    hdmi_controller_init();
-    tcon_init();
-    if (!phy_initialized) {
-        sun20i_d1_hdmi_phy_config(); // config PHY
-        phy_initialized = true;
-    }
-    de2_init();
+    module.tcon_top->regs.gate &= ~((0xf << 28) | (0xf << 20)); // clear bits @[31-28], [23-20]
+    module.tcon_top->regs.gate |= (0x1 << 28) | (0x1 << 20); // from Linux
+    module.tcon_top->regs.port_sel &= ~((0x3 << 4) | (0x3 << 0)); // clear bits @[5-4], @[1-0]
+    module.tcon_top->regs.port_sel |= (2 << 0); // config mixer0 -> tcon_tv
 }
 
 /*
  * Code below drives the HDMI PHY used on the Allwinner D1 SoC. The
  * PHY is responsible for low-level HDMI clock and timing signals.
  * The PHY used for the D1 is custom design by Allwinner. Sadly there 
- * seems to be zero documentation for it. I took code from the 
- * BSP and linux kernel driver as a starting point and adapted it
- * to fit our needs.
- * 
+ * seems to be zero documentation for it. I got the code below from the
+ * BSP and linux kernel driver.
+ *
  * juliez July 2023
  */
 
-// Code below taken from linux-sunxi kernel driver
+// Everything from here down was taken near-verbatim from linux-sunxi kernel driver
 // https://github.com/smaeul/linux/blob/d1/all/drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c
 
 #define AW_PHY_TIMEOUT 1000

@@ -10,15 +10,13 @@
 typedef enum  {
     HDMI_1080P,
     HDMI_HD,
-    HDMI_SVGA
-} hdmi_resolution_t;
+    HDMI_SVGA,
+    HDMI_INVALID
+} hdmi_resolution_id_t;
 
-void hdmi_init(hdmi_resolution_t r);
+void hdmi_init(hdmi_resolution_id_t r);
+hdmi_resolution_id_t hdmi_best_match(int width, int height);
 int hdmi_get_screen_width(void);
 int hdmi_get_screen_height(void);
-
-// API hack for now, need to tweak hdmi/de/fb relationship
-void de_config_framebuffer(int width, int height);
-void de_set_active_framebuffer(void *addr);
 
 #endif
