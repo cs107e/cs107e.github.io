@@ -201,7 +201,7 @@ Below we offer our suggestions for a step-by-step plan  of the tasks before you.
    
    For each block, print the payload address and size and status. You might also elect to print the payload data. If so, we recommend abbreviating by perhaps displaying only the first 16 bytes. If you instead print out every single byte, the output can become overwhelming for larger heaps. 
    
-   Use the `trace_heap()` test in `test_backtrace_malloc.c` to try out `heap_dump`. You can add calls to `heap_dump()` wherever desired to get a visual dump of your heap contents for debugging. If you inspect the dump and see that your heap is in a corrupted state, add calls to dump earlier in the sequence and try to pinpoint the exact operation where your heap went from good to bad. Having an inside view of what's going on inside your heap is an invaluable aid for debugging.
+   Use the `test_heap_dump()` test in `test_backtrace_malloc.c` to try out `heap_dump`. You can add calls to `heap_dump()` wherever desired to get a visual dump of your heap contents for debugging. If you inspect the dump and see that your heap is in a corrupted state, add calls to dump earlier in the sequence and try to pinpoint the exact operation where your heap went from good to bad. Having an inside view of what's going on inside your heap is an invaluable aid for debugging.
 
    What you print in `heap_dump` will not be graded. This debugging function is yours to use as you see fit, but the more help it provides to you, the better off you will be. 
 
