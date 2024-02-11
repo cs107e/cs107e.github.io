@@ -263,6 +263,10 @@ There are a number of details you will need to investigate for yourself to do th
 - How might you send the symbol data to the Pi and where should place in the Pi's memory so that your symtab module can find it?
 - How will you access the symbol data within your program running on Pi and use it provide labels to backtrace?
 
+> __Warning: you are entering wild uncharted territory__ In the past, our symbol table used the wacky ARM-specific [mpoke-function-name](https://gcc.gnu.org/onlinedocs/gcc-4.1.2/gcc/ARM-Options.html#index-mpoke_002dfunction_002dname-753) to write function names directly into the text section.  I was hopeful about getting `objdump --stabs` to dump out the data in raw format, but riscv-gcc will not play along (stabs being too ancient). You could try throwing unix processing hacks at the output from readelf or manually dig around in the elf file  (either on your laptop before sending or write full elf to Pi and have Pi do the digging?). See [explanation](elf) I gave to 107 students when doing a similar task.
+{: .callout-warning}
+
+
 With access to the symbol data, you can implement the functions in `symtab.c` module to provide the friendly labels needed for a human-readable backtrace:
 
 ```console?prompt=(gdb)
