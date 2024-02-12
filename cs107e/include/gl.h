@@ -20,7 +20,7 @@ typedef enum {
 gl_mode_t;
 
 /*
- * `gl_init` : Required initialized for graphics library
+ * `gl_init` : Required initialization for graphics library
  *
  * Initialize the graphic library. This function will call `fb_init` in turn
  * to initialize the framebuffer. The framebuffer will be initialzed to

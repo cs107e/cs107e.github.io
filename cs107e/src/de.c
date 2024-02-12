@@ -1,5 +1,5 @@
 /*
- * Breaking out DisplayEngine from HDMI
+ * Module to control DisplayEngine 2.0 peripheral on Mango Pi
  * 
  * Author: Julie Zelenski <zelenski@cs.stanford.edu>
  * Feb 2024
@@ -7,7 +7,6 @@
 
 #include "de.h"
 #include "assert.h"
-#include "hdmi.h"
 #include "printf.h"
 
 // Display Engine 2.0
@@ -49,7 +48,7 @@ typedef union {
             uint32_t reserved;
         } pipe[4];
         // not sure re: # of pipes? (D1 manual says 4 in one place and 2 in another)
-        // we are currently only using pipe1
+        // we are currently only using pipe [1]
         uint32_t reserved[15];
         uint32_t route;
         uint32_t premultiply;
@@ -105,16 +104,16 @@ typedef union {
 
 _Static_assert(&(DE_BASE->regs.de2tcon_mux)    == (uint32_t *)0x5000010, "de de2tcon_mux reg must be at address 0x5000010");
 _Static_assert(&(DE_MIXER0->regs.glb_dbuffer)  == (uint32_t *)0x5100008, "de mixer0 glb_dbuffer reg must be at address 0x5100008");
-_Static_assert(&(DE_BLD0->regs.pipe[0].offset) == (uint32_t *)0x510100c, "de blender0 pipe[0] offset reg must be at address 0x510100c");
+_Static_assert(&(DE_BLD0->regs.pipe[1].offset) == (uint32_t *)0x510101c, "de blender0 pipe[1] offset reg must be at address 0x510101c");
 _Static_assert(&(DE_UI_CH1->regs.top_haddr)    == (uint32_t *)0x5103080, "de ui ch1 topaddr reg must be at address 0x5103080");
 _Static_assert(&(DE_SCALER->regs.horiz_step)   == (uint32_t *)0x5140088, "de scaler horiz step reg must be at address 0x5140088");
 
 static struct {
     volatile de_t *de;
-    volatile de_mixer_t *de_mixer0;
-    volatile de_blender_t *de_bld0;
-    volatile de_ui_t *de_ui_ch1;
-    volatile de_scaler_t *de_scaler;
+    volatile de_mixer_t * de_mixer0;
+    volatile de_blender_t * de_bld0;
+    volatile de_ui_t * de_ui_ch1;
+    volatile de_scaler_t * de_scaler;
 } const module = {
      .de        = DE_BASE,
      .de_mixer0 = DE_MIXER0,
@@ -123,51 +122,80 @@ static struct {
      .de_scaler = DE_SCALER,
 };
 
-static void configure_for_fb_requested_size(int fb_width, int fb_height);
+static void de_config_mixer0(de_size_t full_screen);
+static void de_config_blender0(de_size_t full_screen);
+static void de_config_ui_ch1(de_size_t fb_size, de_size_t full_screen);
+static void de_config_ui_scaler(de_size_t fb_size, de_size_t full_screen);
 
-// Simplest possible init of DE2 to init and config mixer/blender/ui layer
+// Simplest possible init of DE2 to config for dispay of single framebuffer
 // Key references:
 //      DisplayEngine 2.0 spec https://linux-sunxi.org/images/7/7b/Allwinner_DE2.0_Spec_V1.0.pdf
 //      https://linux-sunxi.org/DE2_Register_Guide
-void de_init(int width, int height) {
-    hdmi_resolution_id_t id = hdmi_best_match(width, height);
-    hdmi_init(id);
-
-    // top-level reset
+void de_init(int fb_width, int fb_height, int screen_width, int screen_height) {
+    // top-level reset, ungate clocks
     module.de->regs.ahb_reset = module.de->regs.sclk_gate = module.de->regs.hclk_gate = 1;  // 1 to ungate mixer0
 
-    // config for hdmi full screen resolution
-    de_size_t full_screen = {.width= hdmi_get_screen_width() - 1, .height= hdmi_get_screen_height() - 1};
+    if (fb_width > screen_width || fb_height > screen_height)
+        error("de_init(): requested framebuffer size does not fit on screen");
 
-    // config mixer0 (blender)
+   // de_size_t registers are slightly wacky: actual width/height = (stored value + 1)
+    de_size_t full_screen = {.width= screen_width-1, .height= screen_height-1};
+    de_size_t fb_size = {.width= fb_width-1, .height= fb_height-1};
+
+    de_config_mixer0(full_screen);
+    de_config_blender0(full_screen);
+    de_config_ui_ch1(fb_size, full_screen);
+}
+
+void de_set_active_framebuffer(void *addr) {
+    module.de_ui_ch1->regs.layer[0].attr_ctrl &= ~(1 << 4); // disable fill
+    uintptr_t full_address = (uintptr_t)addr;
+    uint32_t low_addr = full_address & 0xffffffff;
+    assert((uintptr_t)low_addr == full_address); // confirm address fits in 32 bits
+    module.de_ui_ch1->regs.layer[0].top_laddr = low_addr;
+}
+
+// DE Mixer block is a pipeline: framebuffer(s) -> overlay channel(s) -> (optional scaler) -> blender -> output to TCON
+// Mixer-0 more full featured (1 video channel, 3 UI overlay)
+// Mixer-1 only has 1 video + 1 UI
+static void de_config_mixer0(de_size_t full_screen) {
     module.de_mixer0->regs.glb_ctl = 1; // enable mixer 0
-    #warning TODO TEMPORARY: setting blender background to magenta
-    printf("TEMPORARY: setting blender background to magenta\n");
-    module.de_bld0->regs.background_color = 0xff00ff;
     module.de_mixer0->regs.glb_size = full_screen;
+}
+
+// DE Blender pairwise composites 2 overlay channels together. Three separate blenders allow blending 4 channels.
+// We use only blender 0 with single UI channel.
+static void de_config_blender0(de_size_t full_screen) {
+    // #warning TODO TEMPORARY: setting blender background to magenta
+    // printf("TEMPORARY: setting blender background to magenta\n");
+    // module.de_bld0->regs.background_color = 0xff00ff;
     module.de_bld0->regs.output_size = full_screen;
-
-    // config pipe1, route for first ui layer (ch1)
-    uint32_t pipe_index = 1;
-    module.de_bld0->regs.pipe_ctrl = ((1 << pipe_index) << 8); // enable pipe 1
+    uint32_t pipe_index = 1;  // use pipe index 1, route for first ui layer (ch1)
+    module.de_bld0->regs.pipe_ctrl = ((1 << pipe_index) << 8); // enable pipe index 1
     module.de_bld0->regs.pipe[pipe_index].input_size = full_screen;
-    module.de_bld0->regs.route = 0x3210; // channels 0-3, each channel route to pipe at same index
+    module.de_bld0->regs.route = 0x3210; // channels 0-3, each channel routed to pipe at corresponding index
+}
 
-    // config first ui layer (ch1)
-    uint32_t format = 4; // XRGB_8888
+enum format_t
+   { ARGB_8888 = 0x0, ABGR_8888 = 0x1, RGBA_8888 = 0x2, BGRA_8888 = 0x3,
+     XRGB_8888 = 0x4, XBGR_8888 = 0x5, RGBX_8888 = 0x6, BGRX_8888 = 0x7,
+      RGB_888  = 0x8,  BGR_888  = 0x9,  RGB_565  = 0xa,  BGR_565  = 0xb,
+     ARGB_4444 = 0xc, ABGR_4444 = 0xd, RGBA_4444 = 0xe, BGRA_4444 = 0xf };
+
+// DE UI Overlay represents a single framebuffer. Mixer0 has three UI overlay channels, we use only channel 1.
+// An optional UI scaler can be used to up/downscale from framebuffer input on route to blender.
+static void de_config_ui_ch1(de_size_t fb_size, de_size_t full_screen) {
     // default alpha @[24], top-addr-only @[23] no premul @[16] format @[8] enable fill @[4] use global alpha @[1] enable @[0]
-    uint32_t features = (0xff << 24) | (0 << 23) | (0 << 16) | (format << 8) | (1 << 4)  | (1 << 1) | (1 << 0);
+    uint32_t features = (0xff << 24) | (0 << 23) | (0 << 16) | (XRGB_8888 << 8) | (1 << 4)  | (1 << 1) | (1 << 0);
     module.de_ui_ch1->regs.layer[0].attr_ctrl = features;
-    module.de_ui_ch1->regs.layer[0].size = full_screen;
-    module.de_ui_ch1->regs.layer[0].offset = 0; // @ top left corner
-    module.de_ui_ch1->regs.layer[0].pitch_nbytes = hdmi_get_screen_width() * 4; // 4 bytes (32 bits) per pixel
-    #warning TODO TEMPORARY: setting ui layer background to yellow
-    printf("TEMPORARY: setting ui layer background to yellow\n");
-    module.de_ui_ch1->regs.layer[0].fill_color = 0xffff00;
-    module.de_ui_ch1->regs.overlay_size = full_screen;
-    module.de_scaler->regs.ctrl = 0;    // disable scaler
-
-    configure_for_fb_requested_size(width, height);   // will center on screen and apply scaler if necessary
+    module.de_ui_ch1->regs.layer[0].size = fb_size;
+    module.de_ui_ch1->regs.layer[0].offset = 0; // position @ top left corner of output
+    module.de_ui_ch1->regs.layer[0].pitch_nbytes = (fb_size.width+1) * 4; // 4 bytes (32 bits) per pixel
+    module.de_ui_ch1->regs.overlay_size = fb_size;
+    // #warning TODO TEMPORARY: setting ui layer background to yellow
+    // printf("TEMPORARY: setting ui layer background to yellow\n");
+    // module.de_ui_ch1->regs.layer[0].fill_color = 0xffff00;
+    de_config_ui_scaler(fb_size, full_screen);   // will center on screen and apply scaler if necessary
 }
 
 // From DE2 docs:
@@ -175,44 +203,43 @@ void de_init(int width, int height) {
 // horizontal scaler is 16-phase 4-tap anti-aliasing filter
 // vertical scaler is 16-phase linear filter
 
+// return ratio in/out as count of 32nds (round up)
 static int scale_factor(int in, int out) {
     return ((in * 32) + out - 1)/out; // round up to nearest 32nd (minimum scale for DE2)
 }
 
-static int compute_scale_step(int in_width, int in_height, int screen_width, int screen_height, int *p_out_width, int *p_out_height) {
-    int horiz_f = scale_factor(in_width, screen_width);
-    int vert_f = scale_factor(in_height, screen_height);
+static int compute_scale_step(de_size_t fb_size, de_size_t full_screen, de_size_t *p_scaled_size, unsigned int *p_offset) {
+    int screen_width = full_screen.width+1;
+    int screen_height = full_screen.height+1;
+    int fb_width = fb_size.width+1;
+    int fb_height = fb_size.height+1;
+
+    int horiz_f = scale_factor(fb_width, screen_width);
+    int vert_f = scale_factor(fb_height, screen_height);
     // force square pixels, use larger of two scale factors
     int scale_f = (horiz_f > vert_f) ? horiz_f : vert_f;  // in 32nds
-    *p_out_width = (in_width*32)/scale_f;
-    *p_out_height = (in_height*32)/scale_f;
+    int output_width = (fb_width*32)/scale_f;
+    int output_height = (fb_height*32)/scale_f;
+    *p_scaled_size = (de_size_t){.width= output_width - 1, .height= output_height - 1};
+    int margin_x = (screen_width - output_width)/2;
+    int margin_y = (screen_height - output_height)/2;
+    *p_offset = (margin_y << 16) | margin_x; // position in center
     return scale_f << 15; // scale factor stored as x.15 fixed point (only 5 bits of fraction used tho')
 }
 
-static void configure_for_fb_requested_size(int fb_width, int fb_height) {
-    de_size_t fb_size = {.width= fb_width - 1, .height= fb_height - 1};
-
-    module.de_ui_ch1->regs.overlay_size = fb_size;
-    module.de_ui_ch1->regs.layer[0].size = fb_size;
-    module.de_ui_ch1->regs.layer[0].pitch_nbytes = fb_width * 4; // 4 bytes (32 bits) per pixel
-
-    // when fb size != hdmi resolution, employ ui scaler
-    int screen_width = hdmi_get_screen_width(), screen_height = hdmi_get_screen_height();
-    assert(fb_width <= screen_width && fb_height <= screen_height); // fb must fit on screen
-
-    int output_width, output_height;
-    int step = compute_scale_step(fb_width, fb_height, screen_width, screen_height, &output_width, &output_height);
-    int margin_x = (screen_width - output_width)/2;
-    int margin_y = (screen_height - output_height)/2;
-    module.de_bld0->regs.pipe[1].offset = (margin_y << 16) | margin_x; // position in center
-
-    if (output_width == fb_width && output_height == fb_height) {
+// DE UI Scaler used to upscale a framebuffer before feeding into blender pipe
+// scaler used when frame buffer size is < 1/2 of screen size
+static void de_config_ui_scaler(de_size_t fb_size, de_size_t full_screen) {
+    de_size_t scaler_output_size;
+    uint32_t center_offset;
+    int step = compute_scale_step(fb_size, full_screen, &scaler_output_size, &center_offset);
+    module.de_bld0->regs.pipe[1].offset = center_offset; // position in center
+    if (step == 0x20) {
         module.de_scaler->regs.ctrl = 0;    // disable scaler
         module.de_bld0->regs.pipe[1].input_size = fb_size; //  ui layer is direct input to blender pipe 1
     } else {
         module.de_scaler->regs.ctrl = 1;    // enable scaler
         module.de_scaler->regs.horiz_step = module.de_scaler->regs.vert_step = step;
-        de_size_t scaler_output_size = {.width= output_width - 1, .height= output_height - 1};
         module.de_scaler->regs.input_size = fb_size; // ui layer is input to scaler
         module.de_scaler->regs.output_size = scaler_output_size;
         module.de_bld0->regs.pipe[1].input_size = scaler_output_size; // scaler output is input to blender pipe 1
@@ -224,12 +251,4 @@ static void configure_for_fb_requested_size(int fb_width, int fb_height) {
         for (int i = 0; i < 16; i++) module.de_scaler->regs.horiz_coeff[i] = 0x40;
         module.de_scaler->regs.ctrl |= (1 << 4); // apply coefficients
     }
-}
-
-void de_set_active_framebuffer(void *addr) {
-    module.de_ui_ch1->regs.layer[0].attr_ctrl &= ~(1 << 4); // disable fill
-    uintptr_t full_address = (uintptr_t)addr;
-    uint32_t low_addr = full_address & 0xffffffff;
-    assert((uintptr_t)low_addr == full_address); // confirm address fits in 32 bits
-    module.de_ui_ch1->regs.layer[0].top_laddr = low_addr;
 }

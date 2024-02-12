@@ -92,16 +92,17 @@ _Static_assert(&(TCON_TOP->regs.port_sel) == (uint32_t *)0x546001c, "tcon top po
 _Static_assert(&(TCON_TV->regs.src_ctl)   == (uint32_t *)0x5470040, "tcon tv src_ctl eg must be at address 0x5470040");
 
 static struct {
-    volatile hdmi_frame_composer_t *hdmi_fc;
-    volatile hdmi_main_controller_t *hdmi_mc;
-    volatile tcon_top_t *tcon_top;
-    volatile tcon_tv_t *tcon_tv;
+    volatile hdmi_frame_composer_t * const hdmi_fc;
+    volatile hdmi_main_controller_t * const hdmi_mc;
+    volatile tcon_top_t * const tcon_top;
+    volatile tcon_tv_t * const tcon_tv;
     struct display_timing config;
 }  module = {
      .hdmi_fc  = HDMI_FC,
      .hdmi_mc  = HDMI_MC,
      .tcon_top = TCON_TOP,
      .tcon_tv  = TCON_TV,
+     .config.id = HDMI_INVALID,
 };
 
 // using fixed standard timings (should use edid to negotiate with monitor instead?)
@@ -160,9 +161,11 @@ hdmi_resolution_id_t hdmi_best_match(int width, int height) {
 }
 
 int hdmi_get_screen_width(void) {
+    if (module.config.id == HDMI_INVALID) error("Must call hdmi_init before using hdmi_get_screen_width()");
     return module.config.horiz.pixels;
 }
 int hdmi_get_screen_height(void) {
+    if (module.config.id == HDMI_INVALID) error("Must call hdmi_init before using hdmi_get_screen_height()");
     return module.config.vert.pixels;
 }
 

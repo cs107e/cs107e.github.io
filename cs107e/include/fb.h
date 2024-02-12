@@ -14,7 +14,7 @@
 typedef enum { FB_SINGLEBUFFER = 0, FB_DOUBLEBUFFER = 1 } fb_mode_t;
 
 /*
- * `fb_init` : Required initialized for framebuffer
+ * `fb_init` : Required initialization for framebuffer
  *
  * Initialize the framebuffer.
  *
