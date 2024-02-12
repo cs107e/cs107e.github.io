@@ -33,16 +33,12 @@ typedef struct {
  * taken together as a bitset indicate the state of all modifier keys.
  * A bit can be set/clear/read within the bitset by using the individual
  * bit flag as a mask.
- * The required modifiers are Shift, Alt, Control, and Caps Lock.
  */
 typedef enum {
     KEYBOARD_MOD_SHIFT = 1 << 0,
     KEYBOARD_MOD_ALT = 1 << 1,
     KEYBOARD_MOD_CTRL = 1 << 2,
     KEYBOARD_MOD_CAPS_LOCK = 1 << 3,
-     // scroll and num lock listed for completeness, NOT implemented for assign5 basic
-    KEYBOARD_MOD_SCROLL_LOCK = 1 << 4,
-    KEYBOARD_MOD_NUM_LOCK = 1 << 5,
 } keyboard_modifiers_t;
 
 /*
