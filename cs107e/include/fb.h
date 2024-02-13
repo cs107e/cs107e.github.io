@@ -20,16 +20,18 @@ typedef enum { FB_SINGLEBUFFER = 0, FB_DOUBLEBUFFER = 1 } fb_mode_t;
  *
  * @param width  the requested width in pixels of the framebuffer
  * @param height the requested height in pixels of the framebuffer
- * @param depth  the requested depth in bytes of each pixel
  * @param mode   whether the framebuffer should be
  *                      single buffered (FB_SINGLEBUFFER)
  *                      or double buffered (FB_DOUBLEBUFFER)
  *
- * If the requested configuration can be successfully accommodated, the
+ * The depth of the framebuffer is always 4 bytes; ech pixel is
+ * 32-bit value in format BGRA.
+ *
+ * If the requested size can be successfully accommodated, the
  * function returns normally. Otherwise on error, the function raises
  * a failed assert.
  */
-void fb_init(int width, int height, int depth_in_bytes, fb_mode_t mode);
+void fb_init(int width, int height, fb_mode_t mode);
 
 /*
  * `fb_get_width`
@@ -53,28 +55,18 @@ int fb_get_height(void);
  * `fb_get_depth`
  *
  * Get the current depth in bytes of a single pixel.
+ * In our case, depth is always 4.
  *
  * @return    the depth in bytes
  */
 int fb_get_depth(void);
 
 /*
- * `fb_get_pitch`
- *
- * Get the current pitch in bytes of a single row of pixels in the framebuffer.
- * The pitch is the width (number of pixels per row) multiplied by
- * the depth in bytes per pixel.
- *
- * @return    the pitch in bytes
- */
-int fb_get_pitch(void);
-
-/*
  * `fb_get_draw_buffer`
  *
  * Get the start address of the framebuffer memory into which the
  * client can draw pixels.  The address returned is the start of an
- * array of size pitch*height bytes.
+ * array of bytes of capacity width*height*depth.
  *
  * If in single buffering mode, there is only one buffer in use, so the
  * returned address does not change. That buffer is on-screen at all

@@ -23,8 +23,7 @@ gl_mode_t;
  * `gl_init` : Required initialization for graphics library
  *
  * Initialize the graphic library. This function will call `fb_init` in turn
- * to initialize the framebuffer. The framebuffer will be initialzed to
- * 4-byte depth (32 bits per pixel).
+ * to initialize the framebuffer.
  *
  * @param width  the requested width in pixels of the framebuffer
  * @param height the requested height in pixels of the framebuffer

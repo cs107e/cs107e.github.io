@@ -2,17 +2,21 @@
 #include "gpio_extra.h"
 #include "uart.h"
 
-const gpio_id_t CLK = GPIO_PG12;
-const gpio_id_t DATA = GPIO_PB7;
+static const gpio_id_t CLK = GPIO_PG12;
+static const gpio_id_t DATA = GPIO_PB7;
 
-void wait_for_falling_clock_edge(void)
-{
-    while(gpio_read(CLK) == 0) {}
-    while(gpio_read(CLK) == 1) {}
+static void wait_for_falling_clock_edge(void) {
+    while (gpio_read(CLK) == 0) {}
+    while (gpio_read(CLK) == 1) {}
 }
 
-void main(void)
-{
+static int read_bit(void) {
+    wait_for_falling_clock_edge();
+    // read DATA when clock is low
+    return gpio_read(DATA);
+}
+
+void main(void) {
     gpio_init();
     uart_init();
 
@@ -23,10 +27,9 @@ void main(void)
     gpio_set_pullup(DATA);
 
     while (1) {
-        for( int i = 0; i < 11; i++ ) {
-            // read DATA when clock is low
-            wait_for_falling_clock_edge();
-            uart_putchar(gpio_read(DATA) ? '1' : '0');
+        for (int i = 0; i < 11; i++) {
+            int bit = read_bit();
+            uart_putchar(bit + '0');
         }
         uart_putchar('\n');
     }
