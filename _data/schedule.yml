@@ -45,9 +45,9 @@ weeks:
     fri: /lectures/Sensors/
   -
     lab: /labs/projectlab1/
-    mon: TBA
+    mon: /lectures/Arithmetic/
     assign: /project/
-    fri: /lectures/Arithmetic/
+    fri: "Special guest: Pat Hanrahan"
   - 
     lab: /labs/projectlab2/
     mon: TBA
