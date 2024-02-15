@@ -75,6 +75,23 @@ int cmd_echo(int argc, const char *argv[]);
 int cmd_help(int argc, const char *argv[]);
 
 /*
+ * `cmd_clear`
+ *
+ * Usage: clear
+ * Description: clear screen (if your terminal supports it)
+ *
+ * Example:
+ *   Pi> clear
+ *
+ * Ignores all arguments. Sends a formfeed \f character to your terminal.
+ * A terminal program such as minicom that supports formfeed will
+ * respond by clearing the screen and putting cursor in the upper row.
+ * If your terminal does not support formfeed, cmd_clear will
+ * have no effect. The function returns 0 in all cases.
+ */
+int cmd_clear(int argc, const char *argv[]);
+
+/*
  * `cmd_reboot`
  *
  * Usage: reboot
