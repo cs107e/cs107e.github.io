@@ -118,8 +118,8 @@ int cmd_reboot(int argc, const char *argv[]);
  * If address is missing or invalid, prints an error message.
  *
  * Examples:
- *   Pi> peek 0
- *   0x00000000:  e59ff030
+ *   Pi> peek 0x40000000
+ *   0x40000000:  30047073
  *   Pi> peek
  *   error: peek expects 1 argument [addr]
  *   Pi> peek fred
@@ -143,10 +143,10 @@ int cmd_peek(int argc, const char *argv[]);
  * If address or value is missing or invalid, prints an error message.
  *
  * Examples:
- *   Pi> poke 0x8000 3
- *   Pi> peek 0x8000
- *   0x00008000:  00000003
- *   Pi> poke 0x8000
+ *   Pi> poke 0x40000000 3
+ *   Pi> peek 0x40000000
+ *   0x40000000:  00000003
+ *   Pi> poke 0x40000000
  *   error: poke expects 2 arguments [addr] and [val]
  *   Pi> poke bob 3
  *   error: poke cannot convert 'bob'
