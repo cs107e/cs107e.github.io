@@ -13,6 +13,11 @@
 #include "gpio.h"
 #include "ps2_keys.h"
 
+
+// gpio pins for connecting keyboard clock/data lines
+#define KEYBOARD_CLOCK GPIO_PG12
+#define KEYBOARD_DATA GPIO_PB7
+
 /*
  * Type: `key_action_t`
  *
@@ -53,8 +58,6 @@ typedef struct {
     keyboard_modifiers_t modifiers;     // modifiers in effect, composed of above bit flags
 } key_event_t;
 
-#define KEYBOARD_CLOCK GPIO_PG12
-#define KEYBOARD_DATA GPIO_PB7
 
 /*
  * `keyboard_init`: Required initialization for keyboard.

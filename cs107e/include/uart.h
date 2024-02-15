@@ -10,6 +10,10 @@
 #include <stdbool.h>
 #include "interrupts.h"
 
+// gpio pins for connecting uart TX/RX lines
+#define UART_TX_GPIO GPIO_PB8
+#define UART_RX_GPIO GPIO_PB9
+
 /*
  * `uart_init`: Required initialization for module
  *

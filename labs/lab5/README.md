@@ -192,10 +192,11 @@ You're ready to answer the first check-in question[^1].
 ### 3. Run keyboard test
 
 You're now ready to try reading the keyboard signals on the Pi.
-Earlier you added additional white and yellow jumpers to your breadboard rows, connect the female ends to your Pi now.
-The white jumper (CLK) connects to PG12 and the yellow jumper (DATA) to PB7. Find the corresponding header pins on the Mango Pi [pinout](/guides/refcard).
+Earlier you added additional white and yellow jumpers to your breadboard rows, now you will connect the female ends to your Pi.
 
-Fanning out two connections from keyboard CLK and DATA (one to the logic analyzer, the other to your Pi)
+Review the keyboard module interface [keyboard.h](https://cs107e.github.io/header#keyboard) to see which gpio pins to use for the keyboard clock and data lines. The white jumper (CLK) connects to `KEYBOARD_CLOCK` (`PG12`) and the yellow jumper (DATA) to `KEYBOARD_DATA` (`PB7`). Find the corresponding header pins on the Mango Pi [pinout](/guides/refcard).
+
+Fanning out two connections from the PS/2 plug (one to the logic analyzer, the other to your Pi)
 allows your Pi to receive the data while simultaneously capturing the same signal
 on the logic analyzer. This is useful during debugging as you can compare what your Pi thinks
 it's receiving with the ground truth of what the logic analyzer sees.

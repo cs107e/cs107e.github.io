@@ -12,6 +12,10 @@
 #include "gpio.h"
 #include <stdbool.h>
 
+// gpio pins for connecting mouse clock/data lines
+#define MOUSE_CLOCK GPIO_PD21
+#define MOUSE_DATA GPIO_PD22
+
 /*
  * Each event corresponds to a particular user action with
  * mouse (press/release button, move/drag). This enum
@@ -36,8 +40,6 @@ typedef struct {
     bool left, middle, right;
 } mouse_event_t;
 
-#define MOUSE_CLOCK GPIO_PD21
-#define MOUSE_DATA GPIO_PD22
 
 /*
  * `mouse_init`: Required initialization for mouse.
