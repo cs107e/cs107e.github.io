@@ -39,6 +39,7 @@ During this lab you will:
 ## Prelab preparation
 To prepare for lab, do the following: 
 
+- Bring sure to bring your full parts kit, including your breadbaord.
 - We will be using the Saleae `Logic 2` application to visualize the signals
   captured by the logic analyzer. Saleae <http://saleae.com> is a company known
   for its high-quality logic analyzers and software.  Here is the page with
