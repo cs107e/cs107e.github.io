@@ -7,7 +7,7 @@
 
 #include "de.h"
 #include "assert.h"
-#include "printf.h"
+#include "timer.h"
 
 // Display Engine 2.0
 
@@ -153,6 +153,7 @@ void de_set_active_framebuffer(void *addr) {
     uint32_t low_addr = full_address & 0xffffffff;
     assert((uintptr_t)low_addr == full_address); // confirm address fits in 32 bits
     module.de_ui_ch1->regs.layer[0].top_laddr = low_addr;
+    timer_delay_ms(50);  // resync delay
 }
 
 // DE Mixer block is a pipeline: framebuffer(s) -> overlay channel(s) -> (optional scaler) -> blender -> output to TCON
@@ -167,7 +168,6 @@ static void de_config_mixer0(de_size_t full_screen) {
 // We use only blender 0 with single UI channel.
 static void de_config_blender0(de_size_t full_screen) {
     // #warning TODO TEMPORARY: setting blender background to magenta
-    // printf("TEMPORARY: setting blender background to magenta\n");
     // module.de_bld0->regs.background_color = 0xff00ff;
     module.de_bld0->regs.output_size = full_screen;
     uint32_t pipe_index = 1;  // use pipe index 1, route for first ui layer (ch1)
@@ -193,7 +193,6 @@ static void de_config_ui_ch1(de_size_t fb_size, de_size_t full_screen) {
     module.de_ui_ch1->regs.layer[0].pitch_nbytes = (fb_size.width+1) * 4; // 4 bytes (32 bits) per pixel
     module.de_ui_ch1->regs.overlay_size = fb_size;
     // #warning TODO TEMPORARY: setting ui layer background to yellow
-    // printf("TEMPORARY: setting ui layer background to yellow\n");
     // module.de_ui_ch1->regs.layer[0].fill_color = 0xffff00;
     de_config_ui_scaler(fb_size, full_screen);   // will center on screen and apply scaler if necessary
 }
@@ -233,8 +232,9 @@ static void de_config_ui_scaler(de_size_t fb_size, de_size_t full_screen) {
     de_size_t scaler_output_size;
     uint32_t center_offset;
     int step = compute_scale_step(fb_size, full_screen, &scaler_output_size, &center_offset);
+
     module.de_bld0->regs.pipe[1].offset = center_offset; // position in center
-    if (step == 0x20) {
+    if (step == 0x100000) {
         module.de_scaler->regs.ctrl = 0;    // disable scaler
         module.de_bld0->regs.pipe[1].input_size = fb_size; //  ui layer is direct input to blender pipe 1
     } else {
