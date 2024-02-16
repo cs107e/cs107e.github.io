@@ -112,8 +112,9 @@ int cmd_reboot(int argc, const char *argv[]);
  * Usage: peek [addr]
  * Description: print contents of memory at address
  *
- * Retrieve 4-byte value at memory address and print it.
- * If address is prefixed with 0x, it is interpreted as hex,
+ * Retrieve 4-byte value at memory address and print it as an
+ * unsigned hex value, e.g. %08x.
+ * If the address argument is prefixed with 0x, it is interpreted as hex,
  * otherwise interpreted as decimal. Address must be 4-byte aligned.
  * If address is missing or invalid, prints an error message.
  *

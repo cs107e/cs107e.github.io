@@ -444,13 +444,15 @@ Pi> help please
 error: no such command 'please'
     ```
 
+    (Side note: The reference shell makes the help usage and description line up in neat columns by adding a specific count of leading spaces in the string constants. This is not required, just something we did because we are fussy. The output comparison we use in grading ignorse whitespace, so no worries if your spacing is different. )
+
 + **reboot**
 
     The `reboot` command resets your Pi. It calls the `mango_reboot` function from the `mango` module of `libmango` to do a software reset. See ya back at the bootloader!
 
 + **peek**
 
-    The `peek` command prints the 4-byte value stored at memory address `addr`. 
+    The `peek` command prints the 4-byte value stored at memory address `addr` as an unsigned hex value in format  `%08x`.
 
     Below we use `peek` to read  address `0x40000000`, the memory location of the start of the text section. The first instruction of `_start` is encoded as `30047073`.
 
