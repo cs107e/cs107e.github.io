@@ -575,7 +575,7 @@ cs107e rocks
   3 history
     ```
 
-    Implement the up and down arrow keys to access commands from the history. Typing the up arrow key changes the current line to display the command from the history that is previous to the one on the current line. Typing a down array changes the current line to display the command that ran _after_ the one on the current line, or whatever the user had typed until he/she typed up. Use the `shell_beep` when the user tries to move beyond either end of the history.
+    Implement the up and down arrow keys to access commands from the history. Typing the up arrow key changes the current line to display the command from the history that is previous to the one on the current line. Typing a down arrow changes the current line to display the command that ran _after_ the one on the current line, or whatever the user had typed until he/she typed up. Use the `shell_beep` when the user tries to move beyond either end of the history.
 
     What other history features might be handy? `!!` to repeat the last command? `!ze` to repeat the most recent command matching the specified prefix `ze`?
 
