@@ -73,6 +73,9 @@ void shell_bell(void);
  * characters than fit in `buf` (`bufsize` - 1), those excess characters
  * are rejected (call `shell_bell`) and not written to `buf`.  A
  * null-terminator is written to the end of the contents in `buf`.
+ * The basic shell discards any non-ASCII characters (i.e. ch > 0x7f).
+ * If doing the extension, some of these non-ASCII codes are implemented
+ * by the shell to access features for line editing and command history.
  *
  * When the user types backspace (\b):
  *   If there are any characters currently in the buffer, deletes the last one.

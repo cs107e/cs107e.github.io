@@ -355,7 +355,7 @@ on the graphical console instead of writing to the uart — nifty!
 
 #### 2)  Read line
 
-`shell_readline` calls `module.shell_read` to read a character entered by the user and gathers the line of input into a buffer. The user indicates the end of the line by typing Return (`\n`).
+`shell_readline` calls `module.shell_read` to read a character entered by the user and gathers the line of input into a buffer. The user indicates the end of the line by typing Return (`\n`). `shell_readline` only gathers valid characters in the buffer, e.g. ASCII `ch <= 0x7f`.  The shell discard keys typed by the user that do not produce an ASCII character (function keys, escape).
 
 Handling backspace adds a slight twist. When the user types Backspace (`\b`),
 the shell should delete the last character typed on the current line.  Removing it
