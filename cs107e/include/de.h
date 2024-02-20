@@ -17,8 +17,8 @@
  * via hdmi_init(). If the requested fb dimensions do not fit on the
  * screen, an error is raised.
  *
- * @param fb_width      framebuffer width in pixels
- * @param fb_height     requested height in pixels of the framebuffer
+ * @param fb_width      width of framebuffer in pixels
+ * @param fb_height     height of framebuffer in pixels
  * @param screen_width  width of hdmi screen in pixels
  * @param screen_height height of hdmi screen in pixels
  */
@@ -27,11 +27,11 @@ void de_init(int fb_width, int fb_height, int screen_width, int screen_height);
 /*
  * `de_set_active_framebuffer` :
  *
- * Change screen to show contents of specified framebuffer.
+ * Change screen to show contents of framebuffer memory at `addr`.
  * Framebuffer is assumed to be valid memory of size/shape matching how
  * DE was configured during de_init().
  *
- * @param addr      base address of framebuffer to display to screen
+ * @param addr      base address of framebuffer to display
  */
 void de_set_active_framebuffer(void *addr);
 

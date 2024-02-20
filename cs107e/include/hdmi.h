@@ -45,7 +45,7 @@ hdmi_resolution_id_t hdmi_best_match(int width, int height);
 /*
  * `hdmi_get_screen_width`
  *
- * Get the width of HDMI output screen in pixels.
+ * Get the width of screen in pixels.
  *
  * @return    the width in pixels
  */
@@ -54,7 +54,7 @@ int hdmi_get_screen_width(void);
 /*
  * `hdmi_get_screen_height`
  *
- * Get the height of HDMI output screen in pixels.
+ * Get the height of screen in pixels.
  *
  * @return    the height in pixels
  */
