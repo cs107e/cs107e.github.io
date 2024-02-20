@@ -35,7 +35,7 @@ During this lab you will:
 ## Prelab preparation
 To prepare for lab, do the following: 
 
-- Bring your Mango Pi and complete parts kit to lab. You will not need your PS/2 keyboard for lab6, but will use it for assign6.
+- Bring your Mango Pi and complete parts kit to lab. You will not need your PS/2 keyboard for lab6, it can stay home. (You will use the keyboard for assign6 though)
 - Lab6 and assign6 use an HDMI display. This can be any computer monitor, tv, or projector that accepts HDMI input.
     - Our lab room has about a dozen monitors that you can use. You are welcome to come to lab anytime to use them. Please do not remove the cables or monitors, these must remain in lab for all to share.
     - You can also work using an HDMI-capable display that you have access to. We have confirmed our hardware support code on a smattering of monitors, but lurking bugs and corner cases may have yet to surface. Please let us know if you run into trouble and we can help diagnose.
