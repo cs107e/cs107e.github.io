@@ -27,9 +27,9 @@ typedef enum { FB_SINGLEBUFFER = 0, FB_DOUBLEBUFFER = 1 } fb_mode_t;
  * The depth of the framebuffer is always 4 bytes; ech pixel is
  * 32-bit value in format BGRA.
  *
- * If the requested size can be successfully accommodated, the
- * function returns normally. Otherwise on error, the function raises
- * a failed assert.
+ * If the requested size can be successfully accommodated by the underlying
+ * hardware, the function returns normally. Otherwise an assert will be raised
+ * within de/hdmi to report the problem.
  */
 void fb_init(int width, int height, fb_mode_t mode);
 
