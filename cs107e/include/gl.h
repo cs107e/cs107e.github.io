@@ -30,6 +30,8 @@ gl_mode_t;
  * @param mode   whether the framebuffer should be
  *                  single buffered (GL_SINGLEBUFFER)
  *                  or double buffered (GL_DOUBLEBUFFER)
+ *
+ * A subsequent call to gl_init after the first does a reinitialization.
  */
 void gl_init(int width, int height, gl_mode_t mode);
 

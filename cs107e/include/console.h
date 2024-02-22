@@ -22,6 +22,8 @@
  * @param ncols       the requested number of columns in characters
  * @param foreground  foreground color used for text
  * @param background  background color
+ *
+ * A subsequent call to console_init after the first does a reinitialization.
  */
 void console_init(int nrows, int ncols, color_t foreground, color_t background);
 

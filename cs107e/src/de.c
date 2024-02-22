@@ -153,7 +153,7 @@ void de_set_active_framebuffer(void *addr) {
     uint32_t low_addr = full_address & 0xffffffff;
     assert((uintptr_t)low_addr == full_address); // confirm address fits in 32 bits
     module.de_ui_ch1->regs.layer[0].top_laddr = low_addr;
-    timer_delay_ms(50);  // resync delay
+    timer_delay_ms(10);  // resync delay
 }
 
 // DE Mixer block is a pipeline: framebuffer(s) -> overlay channel(s) -> (optional scaler) -> blender -> output to TCON
@@ -217,6 +217,10 @@ static int compute_scale_step(de_size_t fb_size, de_size_t full_screen, de_size_
     int vert_f = scale_factor(fb_height, screen_height);
     // force square pixels, use larger of two scale factors
     int scale_f = (horiz_f > vert_f) ? horiz_f : vert_f;  // in 32nds
+    // JDZ: for now, only apply scaling if at least 2x (scale to partial pixels has poor result)
+    // otherwise do not scale, center orig rect on screen as-is
+    // revisit later, consider whether to use video scaler instead
+    if (scale_f > 16) scale_f = 32;
     int output_width = (fb_width*32)/scale_f;
     int output_height = (fb_height*32)/scale_f;
     *p_scaled_size = (de_size_t){.width= output_width - 1, .height= output_height - 1};
@@ -232,13 +236,13 @@ static void de_config_ui_scaler(de_size_t fb_size, de_size_t full_screen) {
     de_size_t scaler_output_size;
     uint32_t center_offset;
     int step = compute_scale_step(fb_size, full_screen, &scaler_output_size, &center_offset);
-
     module.de_bld0->regs.pipe[1].offset = center_offset; // position in center
     if (step == 0x100000) {
         module.de_scaler->regs.ctrl = 0;    // disable scaler
         module.de_bld0->regs.pipe[1].input_size = fb_size; //  ui layer is direct input to blender pipe 1
     } else {
         module.de_scaler->regs.ctrl = 1;    // enable scaler
+        module.de_scaler->regs.horiz_phase = 1 << 20;   // correct for first pixel
         module.de_scaler->regs.horiz_step = module.de_scaler->regs.vert_step = step;
         module.de_scaler->regs.input_size = fb_size; // ui layer is input to scaler
         module.de_scaler->regs.output_size = scaler_output_size;

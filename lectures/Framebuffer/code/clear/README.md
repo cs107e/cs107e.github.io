@@ -1,5 +1,5 @@
-Show how to clear the frame buffer using a 1D array or a 2D array.
+Show how to clear the framebuffer memory accessing using different array layout
 
-clearc.c - represent as a 1D array of unsigned char's
-cleari.c - represent as a 1D array of unsigned int's
-clear2d.c - represent as a 2D array of unsigned int's
+- `clear_char_by_char`: access as 1D array of unsigned char's
+- `clear_int_by_int`: access a 1D array of unsigned int's
+- `clear_2d`:  access a 2D array of unsigned int's
