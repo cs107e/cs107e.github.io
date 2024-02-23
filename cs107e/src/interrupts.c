@@ -14,8 +14,6 @@ unsigned long get_mip(void);
 unsigned long get_mcause(void);
 unsigned long get_mtval(void);
 void set_mtvec(void *);
-void enable_mstatus_mie(void);
-void disable_mstatus_mie(void);
 
 // structs defined to match layout of hardware registers
 typedef union {
@@ -101,7 +99,7 @@ __attribute__((interrupt("machine"))) static void trap_handler(void) {
 
 void interrupts_init(void) {
     if (module.initialized) error("interrupts_init() must be called only once");
-    disable_mstatus_mie();
+    interrupts_global_disable();
     module.plic->regs.ctrl = 0; // machine mode only
     module.plic->regs.threshhold = 0; // accept interrupts of any priority
     set_mtvec(trap_handler);
