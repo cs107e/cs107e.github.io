@@ -150,12 +150,12 @@ the exercises of [Lab 6](/labs/lab6).
 
 When accessing the pixel data, be mindful that C does __no
 bounds-checking__ on array indexes. If you write to an index outside the array bounds, you step on other neighboring memory with
-various sad consequences to follow. You must take care to
-access only valid memory! A call to `gl_draw_pixel` should ignore a request to draw at an x,y location that is outside the framebuffer bounds.
-If asked to draw a rectangle that is partially/fully out of bounds, `gl_draw_rect` should clip to draw only those pixels that are in bounds.
-One way to enforce clipping is iterate over all locations and call `gl_draw_pixel` for each and depend on `gl_draw_pxiel` to discard/ignore the invalid ones. This simple
+various sad consequences to follow. Take care to
+access only valid memory! Your public functions must also vet locations requested by the client and clip drawing as necessary. For example, a call to `gl_draw_pixel` should ignore a request to draw at an x,y location that is outside the framebuffer bounds.
+If asked to draw a rectangle that is partially/fully out of bounds, `gl_draw_rect` should clip the drawing to only those pixels that are in bounds.
+One way for `gl_draw_rect` to enforce clipping is iterate over all locations and call the public function `gl_draw_pixel` for each and depend on `gl_draw_pxiel` to discard/ignore the invalid ones. This simple
 approach is easy to get correct, but can be slow because of the
-repeated checks. The faster alternative is to first compute the clipped bounds (i.e. by intersecting requested rectangle with framebuffer bounds) and then draw only those pixels that are now known to be in bounds.
+repeated checks. The faster alternative for `gl_draw_rect` is to first compute the clipped bounds (i.e. by intersecting requested rectangle with framebuffer bounds) and then directly set only those pixels that are now known to be in bounds.
 
 Time to test! The `test_gl_console.c` test program defines a
 simple `test_gl` to get you started. The provided tests are quite basic, you will need to supplement with additional tests to confirm the full range of functionality. One possibility is to rig up
