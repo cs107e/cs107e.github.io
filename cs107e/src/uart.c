@@ -138,9 +138,10 @@ void uart_init(void) {
 
 void uart_use_interrupts(handlerfn_t handler, void *client_data) {
     if (module.uart == NULL) error("uart_init() has not been called!\n");
-    int interrupt_source = INTERRUPT_SOURCE_UART0 + module.config.index;
-    interrupts_register_handler(interrupt_source, handler, client_data);
-    module.uart->regs.ier = 1;    // enable interrupts
+    interrupt_source_t src = INTERRUPT_SOURCE_UART0 + module.config.index;
+    interrupts_register_handler(src, handler, client_data); // install handler
+    interrupts_enable_source(src);  // turn on source
+    module.uart->regs.ier = 1;      // enable interrupts in uart peripheral
 }
 
 unsigned char uart_recv(void) {

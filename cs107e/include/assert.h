@@ -9,7 +9,6 @@
  */
 
 #include "mango.h"
-#include "printf.h"
 #include "uart.h"
 
 #define STRINGIFY_IMPL(x) #x

@@ -39,23 +39,11 @@ void hstimer_enable(void);
 void hstimer_disable(void);
 
 /*
- * `hstimer_clear_interrupt`
+ * `hstimer_interrupt_clear`
  *
  * Clear any pending hstimer interrupt.
  * Will restart count if hstimer is enabled.
  */
-void hstimer_clear_interrupt(void);
-
-/*
- * `hstimer_interrupt_is_pending`
- *
- * Check whether an hstimer interrupt has been generated and
- * not yet cleared.
- *
- * @return      true if interrupt generated and not yet cleared
- *              false otherwise
- */
-bool hstimer_interrupt_is_pending(void);
-
+void hstimer_interrupt_clear(void);
 
 #endif

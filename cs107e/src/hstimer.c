@@ -8,13 +8,6 @@
 #include <stdint.h>
 #include "ccu.h"
 
-/* From docs:
-    HSTimer0 is a 56-bit counter. The interval value consists of two parts:
-    HS_TMR0_INTV_VALUE_LO acts as the bit[31:0] and
-    HS_TMR0_INTV_VALUE_HI acts as the bit[55:32].
-    To read or write the interval value, HS_TMR0_INTV_LO_REG should be done before HS_TMR0_INTV_HI_REG.
- */
-
 // structs defined to match layout of hardware registers
 typedef union {
     struct {
@@ -49,10 +42,15 @@ static struct {
     .timers = TIMER_BASE,
 };
 
+/* From docs:
+    HSTimer0 is a 56-bit counter. The interval value consists of two parts:
+    HS_TMR0_INTV_VALUE_LO acts as the bit[31:0] and
+    HS_TMR0_INTV_VALUE_HI acts as the bit[55:32].
+    To read or write the interval value, HS_TMR0_INTV_LO_REG should be done before HS_TMR0_INTV_HI_REG.
+ */
 void hstimer_init(int usecs) {
-    // clock up peripheral
-    ccu_enable_bus_clk(CCU_HSTIMER_BGR_REG, 1 << 0, 1 << 16);
-    module.timers[0].regs.ctrl = (0 << 7) | (0 << 4);  // config for normal mode, periodic (not one-shot), prescale = 2^0
+    ccu_enable_bus_clk(CCU_HSTIMER_BGR_REG, 1 << 0, 1 << 16);   // clock up peripheral
+    module.timers[0].regs.ctrl = (0 << 7) | (0 << 4);  // config for normal mode, periodic (not one-shot), prescale = 2^0, disabled
     uint64_t count = (usecs * ccu_ahb0_frequency())/(1000*1000); // calculate count based on clock frequency
     module.timers[0].regs.intv_lo = count & 0xffffffff; // must set low before high (see docs note above)
     module.timers[0].regs.intv_hi = count >> 32;
@@ -68,10 +66,6 @@ void hstimer_disable(void) {
     module.timers[0].regs.ctrl &= ~1; // disable will pause countdown
 }
 
-void hstimer_clear_interrupt(void) {
-    module.interrupt->regs.irq_stas = 1;
-}
-
-bool hstimer_interrupt_is_pending(void) {
-    return module.interrupt->regs.irq_stas & 1;
+void hstimer_interrupt_clear(void) {
+    module.interrupt->regs.irq_stas = 1; // write 1 to clear
 }

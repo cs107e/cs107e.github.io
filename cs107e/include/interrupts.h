@@ -9,12 +9,16 @@
 
 #include <stdint.h>
 
+typedef enum _interrupt_sources interrupt_source_t;
+
+
 /*
  * `interrupts_init`: Required initialization for interrupts
  *
- * Initialize interrupts and configures to a clean state.
+ * Initialize interrupts module and configure to a clean state.
+ * After init, the state of the interrupt system will be:
  *
- *    - dispatch hanlder is installed at mtvec
+ *    - top-level trap handler installed and active
  *    - all interrupt sources are disabled
  *    - interrupts are globally disabled
  *
@@ -31,20 +35,45 @@ void interrupts_init(void);
 /*
  * `interrupts_global_enable`
  *
- * Turns on interrupts system-wide. An interrupt generated on
- * an interrupt source that is enabled will call the registered handler.
+ * Turn on interrupts system-wide. An interrupt generated on an
+ * interrupt source that is enabled will call the registered handler.
  */
 void interrupts_global_enable(void);
 
 /*
  * `interrupts_global_disable`
  *
- * Turns off interrupts system-wide. No interrupts will be generated.
+ * Turn off interrupts system-wide. No interrupts will be generated.
  * Does not remove registered handlers or disable interrupt sources,
- * only temporarily suspends interrupt generation. Call
- * `interrupts_global_enable` to resume generating interrupts.
+ * only temporarily suspends interrupt generation. To resume
+ * generating interrupts, call `interrupts_global_enable`.
  */
 void interrupts_global_disable(void);
+
+/*
+ * `interrupts_enable_source`
+ *
+ * Enable a particular interrupt source. The source itself must
+ * be configured to generate interrupts (and global interrupts must be
+ * enabled) for a registered handler to be called.
+ *
+ * @param source    which interrupt source (see enumeration values below)
+ *
+ * An error is raised if `source` is not valid.
+ */
+void interrupts_enable_source(interrupt_source_t source);
+
+/*
+ * `interrupts_disable_source`
+ *
+ * Disable a particular interrupt source. Interrupts for this source
+ * will not trigger a handler and will remain pending (until cleared).
+ *
+ * @param source    which interrupt source (see enumeration values below)
+ *
+ * An error is raised if `source` is not valid.
+ */
+void interrupts_disable_source(interrupt_source_t source);
 
 /*
  * `handlerfn_t`
@@ -62,49 +91,46 @@ typedef void (*handlerfn_t)(uintptr_t, void *);
  * `interrupts_register_handler`
  *
  * Register the handler function for a given interrupt source. Each interrupt
- * source can have one handler: further dispatch should be invoked by
- * the handler itself.
- *
- * This function asserts on an attempt to register handler without initializing
- * the interrupts module (i.e. required to call `interrupts_init` first).
- *
- * An interrupt source is identified by number. Valid source numbers are
- * listed below in the `interrupt_source` enumeration.
+ * source can have one handler: further dispatch should be managed by
+ * the handler itself. Registering a handler does not enable the source:
+ * this must be done separately through `interrupts_enable_source`.
+ * These are separate because otherwise there can be impossible-to-solve
+ * technical challenges such as
+ *   - having an interrupt handled before `interrupts_register_handler` returns,
+ *   - handling interrupts that were pending from a different use of the source,
+ *   - changing the handler as one part of a larger atomic action.
  *
  * @param source    which interrupt source (see enumeration values below)
  * @param fn        handler function to call when interrupt generated on source
  * @param aux_data  client's data pointer to be passed as second argument
  *                  when calling handler function
  *
- * An assert is raised if `source` is invalid. `aux_data` can be NULL if
- * handler function has no need for auxiliary data.
+ * An error is raised if `source` is not valid. `aux_data` can be NULL if
+ * handler function has no need for auxiliary data. If `fn` is NULL, this
+ * removes any handler previously registered for `source`.
  */
-void interrupts_register_handler(int source, handlerfn_t fn, void *aux_data);
+void interrupts_register_handler(interrupt_source_t source, handlerfn_t fn, void *aux_data);
 
 /*
- * `interrupts_remove_handler`
+ * 'interrupt_source_t` enumeration
  *
- * Remove any handler previously registered for `source`.
- *
- * @param source    which interrupt source (see enumeration values below)
- *
- * An assert is raised if `source` is invalid.
+ * Below are interrupt sources for which this module can enable, disable,
+ * and register a handler. Interrupt source numbers are assigned in
+ * table 3-9 p.204-210 of the D1-H User Manual.
  */
-void interrupts_remove_handler(int source);
-
-/*
- * Enumeration of valid interrupt sources
- *
- * Below are the interrupt sources that this module can enable, disable,
- * and handle.
- */
-enum interrupt_source_t {
+enum _interrupt_sources {
     INTERRUPT_SOURCE_UART0 = 18,
     INTERRUPT_SOURCE_UART1 = 19,
     INTERRUPT_SOURCE_UART2 = 20,
     INTERRUPT_SOURCE_UART3 = 21,
     INTERRUPT_SOURCE_UART4 = 22,
     INTERRUPT_SOURCE_UART5 = 23,
+    INTERRUPT_SOURCE_TWI0 = 25,
+    INTERRUPT_SOURCE_TWI1 = 26,
+    INTERRUPT_SOURCE_TWI2 = 27,
+    INTERRUPT_SOURCE_TWI3 = 28,
+    INTERRUPT_SOURCE_SPI0 = 31,
+    INTERRUPT_SOURCE_SPI1 = 32,
     INTERRUPT_SOURCE_HSTIMER0 = 71,
     INTERRUPT_SOURCE_HSTIMER1 = 72,
     INTERRUPT_SOURCE_GPIOB = 85,
