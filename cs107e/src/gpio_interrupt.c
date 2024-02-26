@@ -111,7 +111,7 @@ void gpio_interrupt_disable(gpio_id_t gpio) {
     gpio_interrupt_set_enabled(gpio, false);
 }
 
-bool gpio_interrupt_clear(gpio_id_t gpio) {
+void gpio_interrupt_clear(gpio_id_t gpio) {
     if (!module.initialized) error("gpio_interrupt_init() has not been called!\n");
     assert(gpio_id_is_valid(gpio));
     int pin_index;
@@ -119,13 +119,10 @@ bool gpio_interrupt_clear(gpio_id_t gpio) {
     unsigned int mask = (1 << pin_index);
     if ((gp->eint->regs.status & mask) != 0) { // is pending
         gp->eint->regs.status |= mask; // write 1 to clear
-        return true;
-    } else {
-        return false;
     }
 }
 
-void gpio_interrupt_set_trigger(gpio_id_t gpio, gpio_event_t event) {
+void gpio_interrupt_config(gpio_id_t gpio, gpio_event_t event, bool debounce) {
     if (!module.initialized) error("gpio_interrupt_init() has not been called!\n");
     assert(gpio_id_is_valid(gpio) && event <= GPIO_INTERRUPT_DOUBLE_EDGE);
     int pin_index;
@@ -134,11 +131,14 @@ void gpio_interrupt_set_trigger(gpio_id_t gpio, gpio_event_t event) {
     int index = pin_index % 8;
     int shift = index * 4;
     unsigned int mask = ((1 << 4) - 1);
-    gp->eint->regs.cfg[bank] = ( gp->eint->regs.cfg[bank] & ~(mask << shift)) | ((event & mask) << shift);
+    gp->eint->regs.cfg[bank] = (gp->eint->regs.cfg[bank] & ~(mask << shift)) | ((event & mask) << shift);
     gpio_set_function(gpio, GPIO_FN_INTERRUPT); // change pin function to interrupt
-#warning TODO deal with gpio interrupt debounce
-    // debounce defaults to 32khz clock, does not trigger reliably for PS2 speeds
-    // change to 24Mhz clock, no predivide
-    gp->eint->regs.debounce = (0 << 4) | 1;
-    gpio_interrupt_clear(gpio); // clear any previous interrupt
+    if (debounce) {
+        // 32Khz clock, predivide 2^5, will filter to ~1 event per ms
+        gp->eint->regs.debounce = (5 << 4) | 0;
+    } else {
+        // 24Mhz clock, no predivide, no filter
+        gp->eint->regs.debounce = (0 << 4) | 1;
+    }
+    gpio_interrupt_clear(gpio); // cancel any stale event
 }

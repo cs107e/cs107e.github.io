@@ -31,7 +31,7 @@ void main(void) {
 
     interrupts_init();
     gpio_interrupt_init();
-    gpio_interrupt_set_trigger(BUTTON, GPIO_INTERRUPT_NEGATIVE_EDGE);
+    gpio_interrupt_config(BUTTON, GPIO_INTERRUPT_NEGATIVE_EDGE, false);
     gpio_interrupt_register_handler(BUTTON, button_pressed, NULL);
     gpio_interrupt_enable(BUTTON);
     interrupts_global_enable();

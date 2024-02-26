@@ -1,4 +1,7 @@
-.attribute arch, "rv64im_zicsr"
+/*
+ * Asm routines to access CSRs used by interrupts module
+ */
+ .attribute arch, "rv64im_zicsr"
 
 .globl interrupts_global_enable
 interrupts_global_enable:
@@ -24,11 +27,6 @@ get_mcause:
 .globl get_mepc
 get_mepc:
     csrr a0,mepc
-    ret
-
-.globl get_mip
-get_mip:
-    csrr a0,mip
     ret
 
 .globl get_mtval

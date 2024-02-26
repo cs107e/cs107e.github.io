@@ -68,16 +68,21 @@ typedef enum {
 } gpio_event_t;
 
 /*
- * `gpio_interrupt_set_trigger`
+ * `gpio_interrupt_config`
  *
- * Set interrupt to trigger on `event` for GPIO with id `pin`.
+ * Config interrupt to trigger on `event` for GPIO with id `pin`.
+ * The boolean parameter `debounce` controls whether to apply debounce
+ * circuit to filter/coalesce sequence of rapid-fire events. If true, debounce
+ * filters to ~1 event/ms. If events expected to be more rapid (e.g. PS/2),
+ * set debounce to false to not miss events.
  *
- * @param pin      the id of the GPIO pin
- * @param event    which event, see gpio_event_t enumeration
+ * @param pin        the id of the GPIO pin
+ * @param event      which event, see gpio_event_t enumeration
+ * @param debounce   whether to apply debounce filter
  *
  * Raises an assert if `pin` or `event` is not valid.
  */
-void gpio_interrupt_set_trigger(gpio_id_t pin, gpio_event_t event);
+void gpio_interrupt_config(gpio_id_t pin, gpio_event_t event, bool debounce);
 
 /*
  * `gpio_interrupt_enable`
@@ -110,6 +115,6 @@ void gpio_interrupt_disable(gpio_id_t pin);
  *
  * Raises an assert if `pin` is not valid.
  */
-bool gpio_interrupt_clear(gpio_id_t pin);
+void gpio_interrupt_clear(gpio_id_t pin);
 
 #endif

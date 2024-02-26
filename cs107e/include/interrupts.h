@@ -11,7 +11,6 @@
 
 typedef enum _interrupt_sources interrupt_source_t;
 
-
 /*
  * `interrupts_init`: Required initialization for interrupts
  *
@@ -96,8 +95,8 @@ typedef void (*handlerfn_t)(uintptr_t, void *);
  * this must be done separately through `interrupts_enable_source`.
  * These are separate because otherwise there can be impossible-to-solve
  * technical challenges such as
- *   - having an interrupt handled before `interrupts_register_handler` returns,
- *   - handling interrupts that were pending from a different use of the source,
+ *   - receiving an interrupt before `interrupts_register_handler` completes,
+ *   - handling an interrupt that was pending from a different use of the source,
  *   - changing the handler as one part of a larger atomic action.
  *
  * @param source    which interrupt source (see enumeration values below)

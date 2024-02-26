@@ -35,7 +35,7 @@ typedef union {
 _Static_assert(&(INTERRUPT_BASE->regs.irq_stas) == (uint32_t *)0x3008004, "hstimer irq stas reg must be at address 0x3008004");
 
 static struct {
-    volatile hstimer_irq_t * interrupt;
+    volatile hstimer_irq_t *interrupt;
     volatile hstimer_t *timers;
 } const module = {
     .interrupt = INTERRUPT_BASE,
@@ -48,24 +48,28 @@ static struct {
     HS_TMR0_INTV_VALUE_HI acts as the bit[55:32].
     To read or write the interval value, HS_TMR0_INTV_LO_REG should be done before HS_TMR0_INTV_HI_REG.
  */
-void hstimer_init(int usecs) {
+void hstimer_init(hstimer_id_t index, long usecs) {
+    if (index != HSTIMER0 && index != HSTIMER1) return;
     ccu_enable_bus_clk(CCU_HSTIMER_BGR_REG, 1 << 0, 1 << 16);   // clock up peripheral
-    module.timers[0].regs.ctrl = (0 << 7) | (0 << 4);  // config for normal mode, periodic (not one-shot), prescale = 2^0, disabled
+    module.timers[index].regs.ctrl = (0 << 7) | (0 << 4);  // config for normal mode, periodic (not one-shot), prescale = 2^0, disabled
     uint64_t count = (usecs * ccu_ahb0_frequency())/(1000*1000); // calculate count based on clock frequency
-    module.timers[0].regs.intv_lo = count & 0xffffffff; // must set low before high (see docs note above)
-    module.timers[0].regs.intv_hi = count >> 32;
-    module.timers[0].regs.ctrl |= (1 << 1);     // reload interval into cur
-    module.interrupt->regs.irq_en = 1;          // enable interrupts
+    module.timers[index].regs.intv_lo = count & 0xffffffff; // must set low before high (see docs note above)
+    module.timers[index].regs.intv_hi = count >> 32;
+    module.timers[index].regs.ctrl |= (1 << 1);     // reload interval into cur
+    module.interrupt->regs.irq_en |= (1 << index);          // enable interrupts
 }
 
-void hstimer_enable(void) {
-    module.timers[0].regs.ctrl |= 1;   // enable will start (or resume) countdown
+void hstimer_enable(hstimer_id_t index) {
+    if (index != HSTIMER0 && index != HSTIMER1) return;
+    module.timers[index].regs.ctrl |= 1;   // enable will start (or resume) countdown
 }
 
-void hstimer_disable(void) {
-    module.timers[0].regs.ctrl &= ~1; // disable will pause countdown
+void hstimer_disable(hstimer_id_t index) {
+    if (index != HSTIMER0 && index != HSTIMER1) return;
+    module.timers[index].regs.ctrl &= ~1; // disable will pause countdown
 }
 
-void hstimer_interrupt_clear(void) {
-    module.interrupt->regs.irq_stas = 1; // write 1 to clear
+void hstimer_interrupt_clear(hstimer_id_t index) {
+    if (index != HSTIMER0 && index != HSTIMER1) return;
+    module.interrupt->regs.irq_stas = (1 << index); // write 1 to clear
 }
