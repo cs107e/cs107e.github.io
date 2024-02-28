@@ -110,7 +110,7 @@ There is a neat performance trick that applies here. To identify which event is 
 
 A better way to implement is to drop down to assembly leverage bitwise tricks to count leading zeros. We are using the hand-rolled assembly provided by gcc (`__builtin_clz`). Enthusiastic hackers compete to see if they can [outperform it](https://www.reddit.com/r/RISCV/comments/132s19s/hand_optimised_riscv_assembly_language_clz/).  The recently ratified RISC-V [Zbb extension](https://drive.google.com/file/d/11-dKxnp7yfl9L3HESXGCtYl90dFKGTzE/view) adds the `clz` (count leading zeros) instruction that counts in as few as 3 cycles. (The processor we use predates this extension, so not available on Mangp Pi).  Reducing the time it takes to find a pending interrupt from 100 to 3 cycles, (an improvement of 33x!) is a big benefit to every single interrupt.  This kind of throughput boost is why instructions like `clz` exist. Neat!
 
-+ How is a function "registered" as a handler with a dispatcher? How does the dispatcher know which handler to call for a given event? Can there be multiple handlers registered for the same event? 
++ How is a function "registered" as a handler with a dispatcher? How does the dispatcher know which handler to call for a given event? Can there be multiple handlers registered for the same event?
 
 + An `aux_data` pointer can be stored with the handler. That pointer is later passed as an argument to the handler when invoked. What is the purpose of an `aux_data` pointer?
 
@@ -134,7 +134,7 @@ Compile and run the program. When you click the button, the message is printed a
 
 - If you click the button multiple times in quick succession, some of
 the presses are missed. You get neither a printed message nor a screen
-redraw and these clicks are not included in the count. Why does that happen? 
+redraw and these clicks are not included in the count. Why does that happen?
 
 You'll note that redrawing the screen is quite slow. If we speed
 that up, it would cause us to miss fewer events, but we still have to spin waiting for a press and still can miss events. Interrupts will solve this problem.
@@ -150,7 +150,7 @@ Start by reviewing the documentation for the library modules you will use:
     * Gpio interrupts module
 + [interrupts.h](/header#interrupts)
     * Top-level interrupts module
-    
+
 Remember there are __three__ layers to configuring and enabling interrupts:
 1. Configure/enable specific event (in this case, gpio event)
     + Configure interrupt (negative edge for button gpio)
@@ -169,7 +169,7 @@ Remember there are __three__ layers to configuring and enabling interrupts:
 The order that you do these operations can be very important: think
 carefully about each action, revisiting the lecture slides/code if
 you need to.  Talk this over with your tablemates and ensure that you
-understand what each step does and why it's necessary. 
+understand what each step does and why it's necessary.
 
 Compile and run the program. If you have done everything correctly, the program continuously redraws as before, but now whenever you click the button, it prints a message in your terminal to congratulate your prowess with interrupts and the click count increments. You get the best of both worlds: your long-running computation can be written as a simple loop, yet the system is immediately responsive to input.
 
@@ -191,12 +191,12 @@ To track all updates and process each one by one, we can use a queue to communic
 
 How to rework the code:
 
-- Review the [ringbuffer.h](header#ringbuffer) header file and source file [ringbuffer.c](/src#ringbuffer) to see the provided ring buffer queue. This ADT maintains a queue of integer values implemented as a ring buffer.
+- Review the [ringbuffer.h](/header#ringbuffer) header file and source file [ringbuffer.c](/src#ringbuffer) to see the provided ring buffer queue. This ADT maintains a queue of integer values implemented as a ring buffer.
 - In the `main` function, declare a variable of type `rb_t *rb` and initialize with a call to `rb_new`.  Use the `rb` pointer as the `aux_data` pointer when registering the handler.
 - Edit your handler to now cast the `aux_data` parameter to type `rb_t *`.  In the handler, enqueue the updated value of count to the ring buffer by calling `rb_enqueue`.
 - Edit `main` to use `rb_dequeue` to retrieve each update from the queue. This replaces the previous code that compared `gCount` to the saved value to detect a change in click count. Be careful with the second argument to `rb_dequeue` -- you are passing the address of an int and `rb_dequeue` will write the dequeued value to that memory location (i.e. used as "out" parameter).
 
-Make the above changes and rebuild and run the program. It should now redraw the screen once for each button press in one-to-one correspondence, including patiently processing a backlog of redraws from a sequences of fast presses. 
+Make the above changes and rebuild and run the program. It should now redraw the screen once for each button press in one-to-one correspondence, including patiently processing a backlog of redraws from a sequences of fast presses.
 
 When you're done, take a moment to verify your understanding:
 
