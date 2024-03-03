@@ -104,7 +104,7 @@ You're ready for this check-in question[^1].
 
 The `trap_handler` routine in `interrupts.c` is invoked for any exceptional event. If the event cause is external interrupt, it dispatches to the registered handler. All other event causes are unrecoverable fatal exception, so we simply print an error message and call `mango_abort`.
 
-In our second lecture on interrupts, we looked at how to dispatch an event to its associated handler. The design for dispatch in both `interrupts` and `gpio_interrupt` uses an array of function pointers, one per-index. The client implements a handler function and registers it with the dispatcher. The dispatcher stores the client's function pointer in the array at the associated index. When an event occurs, the dispatch invokes the handler at that index. In the top-level `interrupts` module, the interrupt source number is the index into the array of handlers. In the `gpio_interrupts` module, the pin index within the gpio group is used as the index.
+In our second lecture on interrupts, we looked at how to dispatch an event to its associated handler. The design for dispatch in both `interrupts` and `gpio_interrupt` uses an array of function pointers, one per-index. The client implements a handler function and registers it with the dispatcher. The dispatcher stores the client's function pointer in the array at the associated index. When an event occurs, the dispatch invokes the handler at that index. In the top-level `interrupts` module, the interrupt source number is the index into the array of handlers. In the `gpio_interrupt` module, the pin index within the gpio group is used as the index.
 
 There is a neat performance trick that applies here. To identify which event is pending, the dispatcher scans the pending/status registers to find the first bit that is set. If you were implementing that scan in C, you might loop and shift/test each bit indvidually. A more streamlined version could do fancy bit twiddling, such as Kernighan's algorithm, or employ on a lookup table. Such versions might take tens or even hundreds of cycles.
 
@@ -146,7 +146,7 @@ Remove the call to `wait_for_click` from the loop in `main`. Compile and re-run.
 You are now going to rework the program to intercept those button clicks as interrupts.
 
 Start by reviewing the documentation for the library modules you will use:
-+ [gpio_interrupts.h](header#gpio_interrupts)
++ [gpio_interrupt.h](/header#gpio_interrupt)
     * Gpio interrupts module
 + [interrupts.h](/header#interrupts)
     * Top-level interrupts module

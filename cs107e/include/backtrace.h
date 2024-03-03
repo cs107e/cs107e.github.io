@@ -51,19 +51,18 @@ int backtrace_gather_frames(frame_t f[], int max_frames);
  * `backtrace_print_frames`
  *
  * Given an array of frames as filled in by a call to backtrace_gather_frames(),
- * this function prints the backtrace, one line per frame, using the format:
+ * this function prints one line per frame zero-indexed using format:
  *
- *      #0  0x40000124 <label+offset>
- *      #1  0x400001d8 <label+offset>
- *      #2  0x4000004c <label+offset>
+ *      #0  0x40000124 at <label+offset>
+ *      #1  0x4000004c at <label+offset>
+ *      #2  0x400001d8 at <label+offset>
  *
  * If symbols are available, the label is the name of the function and offset.
  * The offset is the number of bytes from function start to resume_addr.
- * This offset represents how far control has advanced into the caller
- * function before it invoked the callee. If symbols are not available,
- * the label is the offset of the resume address within the .text section.
+ * If symbols are not available,  the label is the offset of the address
+ * within the .text section. See `symtab_label_for_addr` in symtab.h
  *
- *     #1 0x400001d8 at <.text+2816>
+ *     #2 0x400001d8 at <.text+2816>
  *
  * @param f     array of stack frames
  * @param n     number of frames in array f

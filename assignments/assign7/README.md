@@ -106,7 +106,7 @@ Next, you need to arrange for your handler to be called on clock event and confi
 
 Review the module interface for `gpio_interrupt` in its header file [gpio_interrupt.h](/header#gpio_interrupt) to learn the functions that set up a gpio interrupt.
 Here are the steps to take in `ps2_new`:
-- initialize `gpio_interrupts` module
+- initialize `gpio_interrupt` module
 - configure interrupt for negative edge event
 - register handler
 - enable gpio interrupt

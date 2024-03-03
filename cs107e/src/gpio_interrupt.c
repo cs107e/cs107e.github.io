@@ -82,11 +82,7 @@ void gpio_interrupt_register_handler(gpio_id_t gpio, handlerfn_t fn, void *aux_d
 // per-pin handlers that have been registered with this module
 static void dispatch_to_pin(uintptr_t pc, void *aux_data) {
     gpio_int_group_t *gp = aux_data;
-    assert(gp >= module.groups && gp < module.groups + GPIO_NGROUPS);
-    int nzeros = __builtin_clz(gp->eint->regs.status);
-    int pin_index = (nzeros == 32) ? -1 : 31 - nzeros;
-    assert(pin_index != -1);
-    assert(gp->handlers[pin_index].fn != NULL);
+    int pin_index = 31 - __builtin_clz(gp->eint->regs.status);
     gp->handlers[pin_index].fn(pc, gp->handlers[pin_index].aux_data);
 }
 
