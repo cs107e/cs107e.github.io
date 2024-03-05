@@ -47,7 +47,7 @@ weeks:
     lab: /labs/projectlab1/
     mon: /lectures/Project/
     assign: /project/
-    fri: "Special guest: Pat Hanrahan"
+    fri: /lectures/OOP/
   - 
     lab: /labs/projectlab2/
     mon: TBA
