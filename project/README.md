@@ -53,7 +53,7 @@ The project proposal should include:
     + Include specific __midpoint milestones__ for check-in during second project lab
     + We will review milestones with you and adjust/refine end goals to ensure success in final push
 
-Re: hardware: If you need to order parts, it can take time, so figure out what you need ASAP and place the order. Also, check the [list of sensors](sensors) we have on hand.
+Re: hardware: If you need to order parts, it can take time, so figure out what you need ASAP and place the order.
 
 ### Project lab 2 (Week 10)
 
@@ -107,6 +107,7 @@ In addition to going further with the components you have already used in the co
 
     * Visit [lab64](https://ee.stanford.edu/news/lab64), the EE department's Maker Space located in the Packard building. This workspace has a variety of tools (oscilloscope, soldering stations, 3-D printer, laser cutter) and a store stocked with basic electronic parts such as transistors, op-amps, etc.
 
+We have a small lending library of [sensors](sensors) that we can loan out so you can try a part our before buying your own. Come by office hours to see what we have on hand.
 
 - ### Support code
     The `$CS107E/src` directory contains source code for the support modules from `libmango`.

@@ -2,10 +2,9 @@
 permalink: /project/sensors
 title: 'Sensors for projects'
 ---
+__March 2024: We haven't made an inventory of what we currently have in our sensor stash, come by OH and we can look together to see what we have available.__
 
-__March 2024: the info below is not up-to-date, we have not inventoried our current sensor stash. Come by OH and we can look together if you need a specific sensor.__
-
-We have a smattering of sensors on hand that we can loan to you. You can also purchases sensors of your own.
+There are many sensors students have successfully used in previous quarters, below is a partial list to show the breadth and variety!  We have a small lending library of some common sensors and can loan you one to try out before ordering your own.
 
 ### Analog
 
