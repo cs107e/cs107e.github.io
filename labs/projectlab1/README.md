@@ -42,22 +42,11 @@ This quick lab exercise is to get your team started on using git collaboratively
 
 The basic workflow goes like this. Each team member has a local copy of the repository on their laptop. Edit files in the local repository and commit changes. When your latest work has stabilized to a state that is ready to share, use `git push` to send your updates to the remote. Your teammate then uses `git pull` to fetch changes from the remote which are brought into their local repository. 
 
-The initial project repository is empty.  Choose __one (and only one!)__ team member to do the initial setup. The steps below clone the team's project repository and incorporate the starter files from the project mirror:
+Each team member should change to their cs107e_home directory and make a local clone of the team's project repository:
 
 ```console
 $ cd ~/cs107e_home
 $ git clone git@github.com:cs107e/project-[YOUR-GITHUB_USERNAMES].git project
-$ cd project
-$ git remote add code-mirror git@github.com:cs107e/code-mirror.git
-$ git pull code-mirror project-starter
-$ git push 
-```
-
-The remaining team members now clone the team's project repository, which now contains the starter files.
-
-```console
-$ cd ~/cs107e_home
-$ git clone git@github.com:cs107e/[YOUR-GITHUB_USERNAMES]-project.git project
 ```
 
 Have each team member do the following to confirm that your local project repository is correctly configured.
