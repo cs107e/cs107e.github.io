@@ -3,4 +3,5 @@ Runtime polymorphism is achieved only through a pointer (or reference) of the ba
 
 
 
-
+_ZTT1A - type info for A
+_ZTV1A - vtable for A

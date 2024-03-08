@@ -23,6 +23,7 @@ all :: $(PRODUCTS)
 
 %.elf: %.o $(START_OBJS)
 	riscv64-unknown-elf-g++ $(LDFLAGS) $^ $(LDLIBS) -o $@
+	riscv64-unknown-elf-objdump $(OBJDUMP_FLAGS) $< > $@.list
 
 %.o: %.cpp
 	riscv64-unknown-elf-g++ $(CFLAGS) -c $< -o $@
