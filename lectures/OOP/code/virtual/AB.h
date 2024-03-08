@@ -2,7 +2,7 @@ class Base {
   public:      
     int x;
     int y;
-    virtual int f(int);
+    virtual int f(int) = 0;
 };
 
 class A : public Base {
