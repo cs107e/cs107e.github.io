@@ -2,7 +2,7 @@
 
 SRC_PROGRAMS = test.cpp 
 
-START_OBJS = A.o
+START_OBJS = AB.o
 
 PRODUCTS = $(SRC_PROGRAMS:.cpp=.bin)
 
@@ -23,7 +23,6 @@ all :: $(PRODUCTS)
 
 %.elf: %.o $(START_OBJS)
 	riscv64-unknown-elf-g++ $(LDFLAGS) $^ $(LDLIBS) -o $@
-	riscv64-unknown-elf-objdump $(OBJDUMP_FLAGS) $@ > $@.list
 
 %.o: %.cpp
 	riscv64-unknown-elf-g++ $(CFLAGS) -c $< -o $@
@@ -31,12 +30,11 @@ all :: $(PRODUCTS)
 %.s: %.cpp
 	riscv64-unknown-elf-g++ $(CFLAGS) -S $< -o $@
 
-
 %.o: %.s
 	riscv64-unknown-elf-as $(ASFLAGS) $< -o $@
 
 %.list: %.o
-	riscv64-unknown-elf-objdump $(OBJDUMP_FLAGS) $<
+	riscv64-unknown-elf-objdump $(OBJDUMP_FLAGS) $< > $@
 
 run: $(firstword $(PRODUCTS))
 	mango-run $<

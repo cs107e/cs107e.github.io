@@ -1,0 +1,1 @@
+clang -cc1 -fdump-record-layouts -emit-llvm A.cpp

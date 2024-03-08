@@ -5,3 +5,9 @@ class A {
     int f(int);
 };
 
+class B : public A {
+  public:
+    int z;
+    int f(int);
+};
+

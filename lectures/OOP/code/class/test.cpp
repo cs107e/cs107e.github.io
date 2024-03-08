@@ -1,6 +1,6 @@
 #include "A.h"
 
-void test() {
+void main() {
     A a;
     int y = a.f(1);
 }

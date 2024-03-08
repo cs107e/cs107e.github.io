@@ -16,3 +16,18 @@ Name encoding - see 7.2 ARM
 - overloaded functions
   - same name with different arguments ... argument types added to the name
 - type-safe linkage
+
+
+
+class layouts
+
+https://stackoverflow.com/questions/51005713/dumping-memory-layout-of-c-object-does-not-work-in-clang
+
+https://eli.thegreenplace.net/2012/12/17/dumping-a-c-objects-memory-layout-with-clang/:
+
+
+clang -cc1 -fdump-record-layouts -emit-llvm AB.cpp
+clang -cc1 -fdump-vtable-layouts -emit-llvm AB.cpp
+
+-fdump-record-layouts-simple
+

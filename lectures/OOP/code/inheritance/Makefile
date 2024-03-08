@@ -2,7 +2,7 @@
 
 SRC_PROGRAMS = test.cpp 
 
-START_OBJS = A.o
+START_OBJS = AB.o
 
 PRODUCTS = $(SRC_PROGRAMS:.cpp=.bin)
 
@@ -38,8 +38,8 @@ all :: $(PRODUCTS)
 %.list: %.o
 	riscv64-unknown-elf-objdump $(OBJDUMP_FLAGS) $<
 
-run: $(firstword $(PRODUCTS))
-	mango-run $<
+dump:
+	riscv64-unknown-elf-g++ -fdump-lang-class AB.h
 
 clean::
 	rm -f *.o *.s *.bin *.elf *.list *.ll *~

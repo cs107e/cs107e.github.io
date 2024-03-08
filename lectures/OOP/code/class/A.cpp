@@ -1,6 +1,5 @@
 #include "A.h"
 
-int A::f(int y) {
-    x = y;
-    return 2*x+1;
+int A::f(int c) {
+    return x+y+c;
 }
