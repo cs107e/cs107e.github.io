@@ -2,7 +2,7 @@ class Base {
   public:      
     int x;
     int y;
-    virtual int f(int) = 0;
+    virtual int f(int) = 0; //  force f to be defined in derived classes
 };
 
 class A : public Base {

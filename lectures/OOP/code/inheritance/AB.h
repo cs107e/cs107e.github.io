@@ -5,7 +5,7 @@ class A {
     int f(int);
 };
 
-class B : public A {
+class B : A {
   public:
     int z;
     int f(int);
