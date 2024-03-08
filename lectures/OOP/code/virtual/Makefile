@@ -7,10 +7,10 @@ START_OBJS = AB.o
 PRODUCTS = $(SRC_PROGRAMS:.cpp=.bin)
 
 # Flags for compile and link
-ARCH    = -march=rv64im -mabi=lp64
+ARCH    = #-march=rv64im -mabi=lp64
 ASFLAGS = $(ARCH)
 CFLAGS  = $(ARCH) -g -Og $$warn $$freestanding -fno-omit-frame-pointer
-LDFLAGS = -nostdlib 
+LDFLAGS = #-nostdlib
 LDLIBS  = 
 OBJDUMP_FLAGS = -d 
 #OBJDUMP_FLAGS = -d -no-show-raw-insn --no-addresses --disassembler-color=terminal --visualize-jumps
