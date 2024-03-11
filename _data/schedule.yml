@@ -50,7 +50,7 @@ weeks:
     fri: /lectures/OOP/
   - 
     lab: /labs/projectlab2/
-    mon: TBA
+    mon: /lectures/RISC-V/
     fri: /lectures/Wrap/
   -
     project_demo: "2024-03-20 9:00 AM"
