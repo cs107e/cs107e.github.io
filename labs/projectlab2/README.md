@@ -18,9 +18,7 @@ Gather the keyboard kit parts (PS/2 keyboard + PS/2 plug board) and bring with y
 
 ### Goals
 
-You're coming down to the finish line! 🏁 
-
-Lab this week will be a working meeting with your team.
+Lab this week will be a working meeting with your team. You are at the halfway point, and hopefully have made a good headway so far and see a clear path from here to finish line!
 
 * How has teamwork been so far?
     * planning, dividing up tasks, supporting each other
