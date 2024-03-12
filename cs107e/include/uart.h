@@ -8,6 +8,7 @@
  */
 
 #include <stdbool.h>
+#include "gpio.h"
 #include "interrupts.h"
 
 // gpio pins for connecting uart TX/RX lines

@@ -69,7 +69,7 @@ int fb_get_depth(void);
  * `fb_get_draw_buffer`
  *
  * Get the start address of the framebuffer memory into which the
- * client can draw pixels.  The address returned is the start of an
+ * client can draw pixels. The address returned is the start of an
  * array of bytes of capacity width*height*depth.
  *
  * If in single buffering mode, there is only one buffer in use, so the
@@ -97,9 +97,9 @@ void* fb_get_draw_buffer(void);
 /*
  * `fb_swap_buffer`
  *
- * Swap the on-screen and off-screen buffers. The draw buffer (off-screen)
- * is moved on-screen (contents now displayed) and on-screen buffer
- * is moved off-screen (becomes the draw buffer, contents off-screen).
+ * Fast exchange of front (on-screen) and back (off-screen) buffers.
+ * The buffer that was previously off-screen is now displayed on-screen
+ * and buffer that was on-screen moves off-screen.
  *
  * If not in double buffering mode, there is only one buffer and this
  * function has no effect.

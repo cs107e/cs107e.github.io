@@ -42,10 +42,13 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 - [Binary utilities (`binutils`)](binutils)
 - [Advice on software testing](testing)
 
-{% comment %}
 ## Extras
-These resources have not been thoroughly vetted, but were successfully used Fall 2019.
-
+These resources are not fully fleshed out, but could be helpful starting points to use for projects
+- Info on the [vector unit](extras/vector_unit) of Mango Pi
+- Sensors lecture [code examples](https://github.com/cs107e/cs107e.github.io/tree/master/lectures/Sensors/code) (includes bit bang version of i2c and spi)
+- Code to use [spi peripheral](https://github.com/cs107e/cs107e.github.io/tree/master/cs107e/extras/spi_peripheral) of Mango Pi
+- Implementation of [math library](https://github.com/cs107e/cs107e.github.io/tree/master/cs107e/extras/mathlib/) of Mango Pi
+{% comment %}
 - Code to read/write files on the [SD card](extras/sd_library)
 - Using 2 ESP-32 devices to build a [Uart Wifi bridge](extras/uart-wifi-bridge) between 2 Raspberry Pis
 - Using ESP-32 to [serve a web page](extras/webpage)
