@@ -48,6 +48,8 @@ These resources are not fully fleshed out, but could be helpful starting points 
 - Sensors lecture [code examples](https://github.com/cs107e/cs107e.github.io/tree/master/lectures/Sensors/code) (includes bit bang version of i2c and spi)
 - Code to use [spi peripheral](https://github.com/cs107e/cs107e.github.io/tree/master/cs107e/extras/spi_peripheral) of Mango Pi
 - Implementation of [math library](https://github.com/cs107e/cs107e.github.io/tree/master/cs107e/extras/mathlib/) of Mango Pi
+- Sample code for [Neopixel/WS8212](https://github.com/cs107e/cs107e.github.io/tree/master/cs107e/extras/neopixel/)
+
 {% comment %}
 - Code to read/write files on the [SD card](extras/sd_library)
 - Using 2 ESP-32 devices to build a [Uart Wifi bridge](extras/uart-wifi-bridge) between 2 Raspberry Pis
