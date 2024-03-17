@@ -1,21 +1,18 @@
 /*
- * tsop 34838 IR sensor.
- *
-   Don't print while getting input.
-
    http://irq5.io/2012/07/27/infrared-remote-control-protocols-part-1/
-   no signal = 1.
 
-		Signal Part	off (µs)	on (µs)
-			leader	9000		4500
-			0 bit	560		560
-			1 bit	560		1690
-			stop	560		–
+   Apple IR remote uses pulse length encoding
 
-		we wait for a 9000off.
-		then start pulling bits.
+		Signal	off (µs)	on (µs)
+		leader	9000		4500
+		0 bit	560			560
+		1 bit	560			1680
 
-		not sure what stop is (timeout on on i believe).
+	align on leader (9000-off followed by 4500-on)
+	then start pulling bits.
+	long on is stop bit
+
+	tsop 34838 IR sensor
  */
 #include "timer.h"
 #include "gpio.h"
@@ -25,73 +22,78 @@
 
 static const gpio_id_t clk = GPIO_PB4;
 
-static const char *apple_key(unsigned int val) {
-	switch (val) {
-		case 0x77e150b3: return "+";
-		case 0x77e130b3: return "-";
-		case 0x77e160b3: return ">>";
-		case 0x77e190b3: return "<<";
-		case 0x77e1a0b3: return "play/pause";
-		case 0x77e1c0b3: return "menu";
-		default: return "invalid decoding";
-	}
-}
-
-// return usec of time period val was held (-1 on timeout)
+// read until value changes or 10ms timeout, whichever comes first
+// return usec of time period val was held (-1 if timeout)
 static int stable_read(gpio_id_t pin, int val) {
 	unsigned long start_ticks = timer_get_ticks();
 	unsigned long too_long = start_ticks + 10000*TICKS_PER_USEC;
 	while (gpio_read(pin) == val) {
-		if (timer_get_ticks() > too_long)
+		if (timer_get_ticks() > too_long) {
 			return -1;
+		}
 	}
 	return (timer_get_ticks() - start_ticks)/TICKS_PER_USEC;
 }
 
-static inline int within(int actual, int expected_len, int eps) {
+static inline int in_tolerance(int actual, int expected_len) {
+	int eps = (expected_len*.25);
 	return (actual >= expected_len - eps) && (actual <= expected_len + eps);
 }
 
-static int validate_bit(int on_time, int off_time) {
-	const int one_tick = 600, eps = 100;
-	const int zero_length = one_tick, one_length = one_tick*3;
+static int validate_bit(int off_time, int on_time) {
+	const int PULSE_USEC = 560;
+	const int zero_length = PULSE_USEC, one_length = PULSE_USEC*3;
 
-	if (within(on_time, one_tick, eps)) {
-		if (within(off_time, zero_length, eps)) return 0;
-		if (within(off_time, one_length, eps*3)) return 1;
-	}
-	printf("invalid?  on time=%d, off time =%d (expected on_time %d and off time %d or %d\n", on_time, off_time, one_tick, zero_length, one_length);
+	if (in_tolerance(off_time, PULSE_USEC) && in_tolerance(on_time, zero_length)) return 0;
+	if (in_tolerance(off_time, PULSE_USEC) && in_tolerance(on_time, one_length)) return 1;
+
+	printf("cannot decode: off=%d, on=%d (expected %d then %d or %d)\n", off_time, on_time, PULSE_USEC, zero_length, one_length);
 	return -1;
 }
 
-static int expect(unsigned int bit, unsigned int expected_len, unsigned int epsilon) {
+static int expect(unsigned int bit, unsigned int expected_len) {
 	int time = stable_read(clk, bit);
-	return time != -1 && within(time, expected_len, epsilon);
+	return time != -1 && in_tolerance(time, expected_len);
 }
 
 static unsigned int read_packet(void) {
 	while (1) {
-		// wait until aligned on the leader
-		while(!expect(0, 9000, 500)
-		|| !expect(1, 4500, 500)
-		|| !expect(0, 600, 100)
-		|| !expect(1, 600, 100))
-			;
+		// wait until aligned on leader
+		while (!expect(0, 9000) || !expect(1, 4500));
 
+	   // bits sent order msb -> lsb
 		unsigned int val = 0;
 		while (1) {
 			int on_time, off_time;
 			if ((off_time = stable_read(clk, 0)) == -1) {
-				break;
+				break;  // restart
 			}
-			// stop bit is just 0 and a long on-signal.
+			// extra long on_time is stop bit
 			if ((on_time = stable_read(clk, 1)) == -1)
 				return val;
 			int bit = validate_bit(off_time, on_time);
-			if (bit == -1) break;
+			if (bit == -1) break; // restart
 			val = (val << 1) | bit;
 		}
 	}
+}
+
+static const char *decode(unsigned int val, unsigned char *p_remote) {
+	*p_remote = val & 0xff;
+	unsigned char command = ((val >> 12) & 0x7);
+	unsigned short apple = (val >> 16) & 0xfff;
+
+	if (apple == 0x7e1) {
+		switch (command) {
+		  	case 0x1: return "<<";
+		  	case 0x2: return "play/pause";
+		  	case 0x3: return "-";
+		  	case 0x4: return "menu";
+			case 0x5: return "+";
+			case 0x6: return ">>";
+		}
+	}
+	return NULL;
 }
 
 void main(void) {
@@ -103,8 +105,19 @@ void main(void) {
   	gpio_set_pulldown(clk);
 
   	printf("Waiting on IR events from Apple remote...\n");
-  	while (1) {
+ 	unsigned char last_id = 0;
+ 	while (1) {
+  		unsigned char remote_id;
 		unsigned int v = read_packet();
-		printf("hit apple remote key: %s\n", apple_key(v));
+		const char *key = decode(v, &remote_id);
+		if (key) {
+			if (remote_id != last_id) {
+				last_id = remote_id;
+				printf("\tremote id now %x\n", remote_id);
+			}
+			printf("[%s]\n", key);
+		} else {
+			printf("unable to decode packet %x\n", v);
+		}
 	}
 }
