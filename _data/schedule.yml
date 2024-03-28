@@ -2,57 +2,57 @@
 weeks:
     # start is date of first lecture (a Monday)
     # assign0_duedate is second week Tuesday 5pm (assume weekly repeat for assign1-7)
-  - start_date: "2024-01-08"
-    assign0_duedate: "2024-01-16 5:00 PM"
+  - start_date: "2024-04-01"
+    assign0_duedate: "2024-04-09 5:00 PM"
     mon: /lectures/Intro/
     lab: /labs/lab0/
     assign: /assignments/assign0/
     fri: /lectures/Assembly/
   -
-    mon: MLK Jr Day (no lecture)
+    mon: /lectures/C_Control/
     lab: /labs/lab1/
     assign: /assignments/assign1/
-    fri: /lectures/C_Control/
+    fri: /lectures/C_Pointers/
   -
-    mon: /lectures/C_Pointers/
+    mon: /lectures/C_Functions/
     lab: /labs/lab2/
     assign: /assignments/assign2/
-    fri: /lectures/C_Functions/
+    fri: /lectures/Serial/
   -
-    mon: /lectures/Serial/
+    mon: /lectures/Linking/
     lab: /labs/lab3/
     assign: /assignments/assign3/
-    fri: /lectures/Linking/
+    fri: /lectures/Memory/
   -
-    mon: /lectures/Memory/
+    mon: /lectures/C_Mastery/
     lab: /labs/lab4/
     assign: /assignments/assign4/
-    fri: /lectures/C_Mastery/
+    fri: /lectures/Keyboard/
   -
-    mon: /lectures/Keyboard/
+    mon: /lectures/Framebuffer/
     lab: /labs/lab5/
     assign: /assignments/assign5/
-    fri: /lectures/Framebuffer/
-  -
-    mon: Presidents Day (no lecture)
-    lab: /labs/lab6/
-    assign: /assignments/assign6/
     fri: /lectures/Interrupts1/
   -
     mon: /lectures/Interrupts2/
-    lab: /labs/lab7/
-    assign: /assignments/assign7/
+    lab: /labs/lab6/
+    assign: /assignments/assign6/
     fri: /lectures/Sensors/
   -
+    mon: /lectures/FloatingPoint/
+    lab: /labs/lab7/
+    assign: /assignments/assign7/
+    fri: /lectures/Project/
+  -
+    mon: /lectures/OOP/
     lab: /labs/projectlab1/
-    mon: /lectures/Project/
     assign: /project/
-    fri: /lectures/OOP/
+    fri: /lectures/RISC-V/
   - 
+    mon: /lectures/Misc/
     lab: /labs/projectlab2/
-    mon: /lectures/RISC-V/
     fri: /lectures/Wrap/
   -
-    project_demo: "2024-03-20 9:00 AM"
-    project_due: "2024-03-20 11:59 PM"
+    project_demo: "2024-06-07 3:30 PM"
+    project_due: "2024-06-07 11:59 PM"
   -
