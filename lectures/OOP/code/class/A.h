@@ -1,7 +1,0 @@
-class A {       
-  public:      
-    int x;
-    int y;
-    int f(int);
-};
-

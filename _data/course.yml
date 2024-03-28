@@ -3,14 +3,18 @@ id: CS107e
 title: Computer Systems From the Ground Up
 quarter: Spring 2024
 staff:
+  - name: Kenny Osele
+    img: /_assets/img/kenny.png
   - name: Ben Ruland
     img: /_assets/img/Ben.jpeg
   - name: Didi Kamalova
     img: /_assets/img/didi.jpeg
+  - name: Aanya Tashfeen
+    img: /_assets/img/smile.png
+  - name: Daniel James 
+    img: /_assets/img/smile.png
   - name: Chris Gregg 
-    img: /_assets/img/chris.jpg
-  - name: Kenny Osele
-    img: /_assets/img/kenny.png
+    img: /_assets/img/chris.png
 lecture_schedule: Mon and Fri 10:30am - 12pm
 lab_schedule: Wed 10:30-12:30pm and Wed 3:00-5:00pm
 forum: https://edstem.org/us/courses/57701/discussion/
