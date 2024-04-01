@@ -50,7 +50,7 @@ static struct {
     .initialized = false,
 };
 
-static void dispatch_to_pin(uintptr_t pc, void *group_num);
+static void dispatch_to_pin(void *group_num);
 
 static gpio_int_group_t *get_int_group(gpio_id_t gpio, int *p_index) {
     gpio_pin_t p = get_group_and_index(gpio);
@@ -80,10 +80,10 @@ void gpio_interrupt_register_handler(gpio_id_t gpio, handlerfn_t fn, void *aux_d
 
 // dispatch_to_pin handler receives all GPIO interrupts and performs second-level dispatch to
 // per-pin handlers that have been registered with this module
-static void dispatch_to_pin(uintptr_t pc, void *aux_data) {
+static void dispatch_to_pin(void *aux_data) {
     gpio_int_group_t *gp = aux_data;
     int pin_index = 31 - __builtin_clz(gp->eint->regs.status);
-    gp->handlers[pin_index].fn(pc, gp->handlers[pin_index].aux_data);
+    gp->handlers[pin_index].fn(gp->handlers[pin_index].aux_data);
 }
 
 static void gpio_interrupt_set_enabled(gpio_id_t gpio, bool state) {

@@ -18,7 +18,7 @@ _start:
 .cfi_undefined ra           # tell gdb this is start routine
 
     csrc    mstatus, 1<<3   # global disable interrupts, mstatus.mie = 0
-    la      t0,mango_abort
+    la      t0,_trap_handler
     csrw    mtvec,t0        # install trap handler
 .globl _start_gdb
 _start_gdb:                 # entry for gdb will skip csr as not avail in sim
@@ -29,7 +29,3 @@ _start_gdb:                 # entry for gdb will skip csr as not avail in sim
 hang: j hang
     ret
 .cfi_endproc
-
-.align 8
-_trap_handler:
-    j _trap_handler        # if exception raised, hang

@@ -78,14 +78,16 @@ static const char *description(unsigned int cause) {
     return (cause < n ? table[cause] : "Unknown");
 }
 
+void _trap_handler(void);
+
 // gcc attribute used to generate prologue/epilogue appropriate for machine interrupt
 // https://gcc.gnu.org/onlinedocs/gcc/RISC-V-Function-Attributes.html
-__attribute__((interrupt("machine"))) static void trap_handler(void) {
+__attribute__((interrupt("machine"))) void _trap_handler(void) {
 #define EXTERNAL_INTERRUPT ((1L << 63) | 0xb)
     if (get_mcause() == EXTERNAL_INTERRUPT) {
         // no need to search pending bits to identify source, claim reg has it
         uint32_t source = module.plic->regs.claim_complete; // read claim_complete to "claim" (atomically clears pending bit)
-        module.handlers[source].fn(get_mepc(), module.handlers[source].aux_data); // dispatch to registered handler
+        module.handlers[source].fn(module.handlers[source].aux_data); // dispatch to registered handler
         module.plic->regs.claim_complete = source;   // write claim_complete to "complete"
     } else {
         sys_report_error("EXCEPTION: %s (mtval 0x%lx, mepc 0x%lx)\n", description(get_mcause()), get_mtval(), get_mepc());
@@ -98,7 +100,7 @@ void interrupts_init(void) {
     interrupts_global_disable();
     module.plic->regs.ctrl = 0;         // machine mode only
     module.plic->regs.threshhold = 0;   // accept interrupts of any priority
-    set_mtvec(trap_handler);            // install trap handler
+    set_mtvec(_trap_handler);            // install trap handler
     for (int i = 0; i < 8; i++) {       // all sources start disabled
         module.sources->regs.pending[i] = 0;
         module.sources->regs.enable[i] = 0;
