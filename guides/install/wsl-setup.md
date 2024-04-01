@@ -33,6 +33,7 @@ Windows OS does not natively support the development tools used in this course. 
 1. Open PowerShell or Windows Command Prompt in administrator mode by right-clicking and selecting "Run as administrator", enter the wsl --install command below, then restart your machine.
 
     ```powershell
+    wsl --set-default-version 1
     wsl --install -d Ubuntu-22.04
     ```
 
@@ -59,8 +60,11 @@ Release:        22.04
 Codename:       jammy
 $ powershell.exe "wsl --list --verbose"
   NAME              STATE       VERSION
- *Ubuntu-22.04      Running     2
+ *Ubuntu-22.04      Running     1
 ```
+    > __Be sure you are on WSL version 1
+    > The other WSL version is not compatible with the work we'll be doing in the class.
+    {: .callout-warning}
 {%- comment %}
 NOTE: WSL2 now supports serial ports
 TODO: see if we need https://github.com/dorssel/usbipd-win

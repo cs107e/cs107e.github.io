@@ -18,7 +18,7 @@ You may need to restart your computer a few times throughout this process, so it
 > __Got WSL?__ By now you should already have installed WSL, if you don't, please first follow the [WSL installation guide](../wsl-setup) first and then come back here to install the developer tools.
 {: .callout-warning}
 
-Run the commands below in your WSL terminal to confirm that you are running an appropriate version of Ubuntu and WSL. 
+Run the commands below in your WSL terminal to confirm that you are running an appropriate version of Ubuntu and WSL.
 
 {% include checkstep.html content="confirm Ubuntu and WSL version" %}
 ```console
@@ -33,54 +33,45 @@ $ powershell.exe "wsl --list --verbose"
  *Ubuntu-22.04      Running     1
 ```
 
-> If you've reached this point, give Kenny a shout so he can help you out with the next steps.
 {: .callout-warning}
 ## Install some prerequisites
 ```console
 $ sudo apt-get update
 $ sudo apt-get upgrade
-$ sudo apt install make emacs libgcc-s1 libgmp10 libisl23 libmpc3 libmpfr6 libstdc++6 zlib1g locales
+$ sudo apt install make libmpc3 gdb
 ````
 ## Install riscv-unknown-elf toolchain
 
 We use a cross-compiler toolchain to compile programs for the Mango Pi. Run the commands below in your WSL terminal to install the toolchain.
 
-1. Download our toolchain package files (run each command one after the other):
+1. Download the prebuilt toolchain files:
     ```console
-    $ mkdir tmp-debs && cd tmp-debs
-    $ wget https://github.com/cs107e/homebrew-cs107e/raw/master/DebPackages/libc6_2.37-13_amd64.deb
-    $ wget http://ftp.us.debian.org/debian/pool/main/libz/libzstd/libzstd1_1.5.4+dfsg2-5_amd64.deb
-    $ wget https://github.com/cs107e/homebrew-cs107e/raw/master/DebPackages/binutils-riscv64-unknown-elf_2.41-4+6_amd64.deb
-    $ wget https://github.com/cs107e/homebrew-cs107e/raw/master/DebPackages/gcc-riscv64-unknown-elf_12.2.0-14+11+b1_amd64.deb
+    $
+    $ wget https://web.stanford.edu/~kenny1g/riscv-107e-wsl-prebuild.tar.gz
     ```
 
 2. Install the packages.
 NOTE: The first command is to check your current directory. If you are not in the `tmp-debs` directory, you will need to change to that directory before running the `dpkg` commands.
 
    ```console
-   $ pwd
-   $ sudo dpkg -i --auto-deconfigure --force-depends libc6_2.37-13_amd64.deb 
-   $ sudo dpkg -i --force-depends libzstd1_1.5.4+dfsg2-5_amd64.deb
-   $ sudo dpkg -i --force-depends binutils-riscv64-unknown-elf_2.41-4+6_amd64.deb 
-   $ sudo dpkg -i --force-depends gcc-riscv64-unknown-elf_12.2.0-14+11+b1_amd64.deb
+   $ sudo tar -C /opt xcf riscv-107e-wsl-prebuild.tar.gz
+   # At this point, you can delete the tar file if you want
+   $ rm riscv-107e-wsl-prebuild.tar.gz
+   # Symlink the binaries
+   $ sudo ln -s /opt/riscv-107e-wsl-prebuild/bin/riscv64-unknown-elf-* /usr/local/bin/
    ```
 
 {% include checkstep.html content="confirm compiler" %}
 ```console
-$ apt list gcc-riscv64-unknown-elf
-Listing... Done
-gcc-riscv64-unknown-elf/now 12.2.0-14+11+b1 amd64 [installed, local]
-
-
 $ riscv64-unknown-elf-gcc --version
-riscv64-unknown-elf-gcc (12.2.0-14+11+b1) 12.2.0
+riscv64-unknown-elf-gcc () 13.2.0
 Copyright (C) 2022 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
 ## Install xfel
 
-Next, we need to install xfel (<https://github.com/xboot/xfel>), which is the tool that we use to communicate with your Pi (i.e., send code and other nifty tricks). 
+Next, we need to install xfel (<https://github.com/xboot/xfel>), which is the tool that we use to communicate with your Pi (i.e., send code and other nifty tricks).
 
 Here are the steps:
 
@@ -110,8 +101,8 @@ Here are the steps:
     For example, if my path in that step was `C:\Users\killer-rabbit\Downloads\xfel-windows-v1.3.2\xfel-windows-v1.3.2\`, then I would access that folder from WSL as `/mnt/c/Users/killer-rabbit/Downloads/xfel-windows-v1.3.2/xfel-windows-v1.3.2/`. (Note that the slashes go in different directions in Windows and Linux---that's just how they're referenced). You might have to play around to figure out the exact path on your computer, but once you have, use these two commands from inside the `$CS107E/bin` folder:
 
     ```console
-    $ cp /mnt/c/[downloads path]/xfel-windows-v1.3.2/xfel-windows-v1.3.2/xfel.exe xfel
-    $ cp /mnt/c/[downloads path]/xfel-windows-v1.3.2/xfel-windows-v1.3.2/libusb-1.0.dll .
+    $ sudo cp /mnt/c/[downloads path]/xfel-windows-v1.3.2/xfel-windows-v1.3.2/xfel.exe xfel
+    $ sudo cp /mnt/c/[downloads path]/xfel-windows-v1.3.2/xfel-windows-v1.3.2/libusb-1.0.dll .
     ```
 
     If this worked, the following files should appear in your respository:
