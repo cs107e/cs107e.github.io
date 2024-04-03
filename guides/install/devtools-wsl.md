@@ -54,11 +54,11 @@ We use a cross-compiler toolchain to compile programs for the Mango Pi. Run the 
 NOTE: The first command is to check your current directory. If you are not in the `tmp-debs` directory, you will need to change to that directory before running the `dpkg` commands.
 
    ```console
-   $ sudo tar -C /opt xcf riscv-107e-wsl-prebuild.tar.gz
+   $ sudo tar -xvf riscv-107e-wsl-prebuild.tar.gz -C /opt
    # At this point, you can delete the tar file if you want
    $ rm riscv-107e-wsl-prebuild.tar.gz
    # Symlink the binaries
-   $ sudo ln -s /opt/riscv-107e-wsl-prebuild/bin/riscv64-unknown-elf-* /usr/local/bin/
+   $ sudo ln -s /opt/riscv-unknown-elf-107e/bin/riscv64-unknown-elf-* /usr/local/bin/
    ```
 
 {% include checkstep.html content="confirm compiler" %}
