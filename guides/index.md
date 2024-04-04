@@ -14,7 +14,7 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 ## Kit and Tools
 - [Bill of Materials (BOM)](bom) for course parts kit
 - Recommendations for [hand tools](handtools)
-- [Soldering guide](soldering-guide) for soldering pins onto the MangoPi 
+- [Soldering guide](soldering-guide.pdf) for soldering pins onto the MangoPi 
 
 ## Installation
 - [Install WSL](install/wsl-setup) (Windows users only)
