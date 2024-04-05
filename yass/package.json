@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "@codemirror/lang-cpp": "^6.0.2",
+    "@codemirror/lang-javascript": "^6.2.2",
+    "@codemirror/state": "^6.4.1",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "codemirror": "^6.0.1",
+    "rollup": "^4.13.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.3"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.24.3"
+  }
+}

@@ -27,7 +27,9 @@ plugins:        [jekyll-sitemap, jekyll-target-blank]
 
 # blacklist files/folders to never publish
 # if name is prefixed with dot/underscore will be excluded by default
-exclude:        [Gemfile, vendor, README.md, /cs107e/, private, lectures/*/private, labs/*/private, assignments/*/private, lectures/private]
+exclude:        [Gemfile, vendor, README.md, /cs107e/, private,
+  lectures/*/private, labs/*/private, assignments/*/private, lectures/private,
+  yass/node_modules, yass/*.json, yass/*.mjs]
 # whitelist of files/folders to always publish (these would be excluded because of prefix)
 include:        [_assets, _templates]
 
