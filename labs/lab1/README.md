@@ -1,5 +1,5 @@
 ---
-released: true
+released: true 
 permalink: /labs/lab1/
 title: 'Lab 1: Getting to know your Mango Pi'
 toc: true
