@@ -4,6 +4,7 @@ all : blink.bin c_blink.bin
 
 ARCH = -march=rv64im -mabi=lp64
 ASFLAGS = $(ARCH)
+# CFLAGS = -O2 $(ARCH) -Wall -ffreestanding
 CFLAGS = -Og $(ARCH) -Wall -ffreestanding
 OBJDUMP_FLAGS = --no-show-raw-insn --no-addresses --disassembler-color=terminal --visualize-jumps
 
