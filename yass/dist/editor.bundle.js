@@ -32721,10 +32721,20 @@
   });
   // Function to update editor content
   function updateEditorContent(newContent, comments) {
+      // Validate that the comments are sorted and are not overlapping so that
+      // code mirror doesn't crash
+      comments.sort(function (a, b) { return a.from - b.from; });
+      var filteredComments = comments.reduce(function (acc, current) {
+          var overlap = acc.some(function (comment) { return comment.from <= current.to && comment.to >= current.from; });
+          if (!overlap) {
+              acc.push(current);
+          }
+          return acc;
+      }, []);
       editor.dispatch({
           changes: { from: 0, to: editor.state.doc.length, insert: newContent },
       }, {
-          effects: updateCommentsDataEffect.of(comments),
+          effects: updateCommentsDataEffect.of(filteredComments),
       });
   }
   // Expose the function globally to the html

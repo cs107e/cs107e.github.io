@@ -129,12 +129,27 @@ let editor = new EditorView({
 
 // Function to update editor content
 function updateEditorContent(newContent: string, comments: EditorComment[]) {
+  // Validate that the comments are sorted and are not overlapping so that
+  // code mirror doesn't crash
+  comments.sort((a, b) => a.from - b.from);
+  let filteredComments = comments.reduce(
+    (acc: EditorComment[], current: EditorComment) => {
+      const overlap = acc.some(
+        (comment) => comment.from <= current.to && comment.to >= current.from
+      );
+      if (!overlap) {
+        acc.push(current);
+      }
+      return acc;
+    },
+    [] as EditorComment[]
+  );
   editor.dispatch(
     {
       changes: { from: 0, to: editor.state.doc.length, insert: newContent },
     },
     {
-      effects: updateCommentsDataEffect.of(comments),
+      effects: updateCommentsDataEffect.of(filteredComments),
     }
   );
 }
