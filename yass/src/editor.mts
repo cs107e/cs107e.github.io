@@ -131,6 +131,7 @@ let editor = new EditorView({
 function updateEditorContent(newContent: string, comments: EditorComment[]) {
   // Validate that the comments are sorted and are not overlapping so that
   // code mirror doesn't crash
+  comments = comments || [];
   comments.sort((a, b) => a.from - b.from);
   let filteredComments = comments.reduce(
     (acc: EditorComment[], current: EditorComment) => {

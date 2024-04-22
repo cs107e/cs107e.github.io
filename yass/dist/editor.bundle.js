@@ -32723,6 +32723,7 @@
   function updateEditorContent(newContent, comments) {
       // Validate that the comments are sorted and are not overlapping so that
       // code mirror doesn't crash
+      comments = comments || [];
       comments.sort(function (a, b) { return a.from - b.from; });
       var filteredComments = comments.reduce(function (acc, current) {
           var overlap = acc.some(function (comment) { return comment.from <= current.to && comment.to >= current.from; });
