@@ -18,7 +18,7 @@ $ riscv64-unknown-elf-gcc --save-temps -c larson.c -o larson.o
 
 LINKER
 
-$ riscv64-unknown-elf-ld -nostdlib -T memmap.ld  *.o larson.elf
+$ riscv64-unknown-elf-ld -nostdlib -T memmap.ld  *.o -o larson.elf
 
 Run with trace-symbol
 
