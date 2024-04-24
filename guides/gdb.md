@@ -10,13 +10,13 @@ running program. Becoming facile with a full-featured debugger such as
 
 In our bare metal world, the debugger options are more
 limited than they would be in a hosted environment. You will not be able to
-monitor and interact with your program while it is actually executing on the Pi. However, you can use the debugger in simulation mode. You run `gdb` on your laptop and execute your program inside the debugger using the built-in ARM simulator.
+monitor and interact with your program while it is actually executing on the Pi. However, you can use the debugger in simulation mode. You run `gdb` on your laptop and execute your program inside the debugger using the built-in RISCV simulator.
 Under simulation, you can single-step through your code, set breakpoints, print variables, examine registers and memory, and more. These observations can help you to understand what your code is doing and diagnose bugs.  
 
 Using the debugger is largely the same whether in simulation mode or not, but some programs may execute differently under simulation than when running on the actual Pi. Be sure to read the section below on those [differences due to simulation](#simulation).
 
 ## Sample gdb session
-Let's try out the gdb simulator on the following simple C program. This program code is available in `$CS107E/examples/gdb/program.c`.
+Let's try out the gdb simulator on the following simple C program. NOTE - you can use the `simple.c` file in the folder `simple` of lab3 to follow along, some of the line numbers and code are slightly different so use your best judgement to adjust. 
 
 ```c
 int sum(int n)
