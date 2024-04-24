@@ -43,14 +43,14 @@ sent to the Pi.  The `elf` version of the file is the one used by the gdb simula
 Run `gdb` on the `program.elf` file:
 
 ```console?prompt=(gdb),$
-$ arm-none-eabi-gdb program.elf
+$ riscv64-unknown-elf-gdb program.elf
 GNU gdb (GDB) 9.2
 Copyright (C) 2020 Free Software Foundation, Inc.
 License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 Type "show copying" and "show warranty" for details.
-This GDB was configured as "--host=x86_64-apple-darwin19.6.0 --target=arm-none-eabi".
+This GDB was configured as "--host=x86_64-apple-darwin19.6.0 --target=riscv64-unknown-elf".
 Type "show configuration" for configuration details.
 For bug reporting instructions, please see:
 <http://www.gnu.org/software/gdb/bugs/>.
