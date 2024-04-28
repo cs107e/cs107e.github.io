@@ -26,6 +26,7 @@ void main(void) {
     for (int i = 0; i < n; i++) {
         printf("Name: ");
         names[i] = read_line();
+        printf("Current name: %s\n", names[i]);
     }
     printf("Read %d names.\n", n);
 
