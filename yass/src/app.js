@@ -31,9 +31,8 @@ function handleFileSelect(event) {
 
 function updateUI(assignmentsData) {
   let dashboardRowsHTML = generateDashboardRowsHTML(assignmentsData);
-  document.querySelector(
-    ".dashboard_table"
-  ).innerHTML = `<tr class="table_header">
+  document.querySelector(".dashboard_table").innerHTML =
+    `<tr class="table_header">
           <th style="width: 5em">Assn</th>
           <th style="width: 10em">Submitted</th>
           <th style="width: 10em">Extension</th>
@@ -83,7 +82,7 @@ function generateSingleRowHTML(assn, assignmentDetails, index) {
 function findTestResult(test_results, testClass, testCategory) {
   return (
     Object.values(test_results).find(
-      (test) => test.class === testClass && test.category === testCategory
+      (test) => test.class === testClass && test.category === testCategory,
     )?.result || "<b>None</b>"
   );
 }
@@ -134,18 +133,15 @@ function updateAssignmentUI(assignmentDetails, assignmentKey) {
 }
 
 function populateFailedTestsSection(test_results, assignmentKey) {
-  document.getElementById(
-    "failedTestsHeader"
-  ).textContent = `You passed all ${assignmentKey} tests! 🥳`;
+  document.getElementById("failedTestsHeader").textContent =
+    `You passed all ${assignmentKey} tests! 🥳`;
   const failedTests = generateFailedTestsContent(test_results, assignmentKey);
 
   if (failedTests !== "None") {
-    document.getElementById(
-      "failedTestsHeader"
-    ).textContent = `Tests for ${assignmentKey}`;
-    document.querySelector(
-      ".details_table"
-    ).innerHTML = `<tr class="table_header">
+    document.getElementById("failedTestsHeader").textContent =
+      `Tests for ${assignmentKey}`;
+    document.querySelector(".details_table").innerHTML =
+      `<tr class="table_header">
         <th style="width: 12em">Test ID</th>
         <th style="width: 5em">Status</th>
         <th style="width: 5em">Issue</th>
@@ -164,15 +160,15 @@ function generateFailedTestsContent(test_results, assignmentKey) {
           (test.class !== "Quality" &&
             test.class !== "Extension" &&
             !test.result) ||
-          test.class === "FullSystem"
+          test.class === "FullSystem",
       )
       .map(
         ([test_id, test]) => `<tr>
         <td>${test_id}</td>
         <td>${test.result ? "Passed" : "Failed"}</td>
-        <td>${test.issue || "None"}</td>
+        <td>${test.issue ? `<a href="${test.issue}" target="_blank">Link</a>` : "None"}</td>
         <td>${test.explanation || "None"}</td>
-        </tr>`
+        </tr>`,
       )
       .join("") || "None"
   );
