@@ -1,10 +1,9 @@
-// JavaScript code from dashboard.html
 let uploadedData = null; // Store uploaded data globally
-const DEBUG = false;
+const DEBUG = true;
 
 async function debug_init() {
-  uploadedData = await fetch("./example_grade.json").then((res) => res.json());
-  updateUI(uploadedData.grades);
+  uploadedData = await fetch("./adam_grade.json").then((res) => res.json());
+  generateDashboardTable(uploadedData.grades);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -16,12 +15,14 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("change", handleFileSelect, false);
 });
 
+// Entry function to handle user selecting their grade file
 function handleFileSelect(event) {
   const reader = new FileReader();
   reader.onload = async (e) => {
     try {
       uploadedData = JSON.parse(e.target.result); // Store uploaded data
-      updateUI(uploadedData.grades);
+
+      generateDashboardTable(uploadedData.grades);
     } catch (error) {
       console.error("Error loading JSON file:", error);
     }
@@ -29,7 +30,8 @@ function handleFileSelect(event) {
   reader.readAsText(event.target.files[0]);
 }
 
-function updateUI(assignmentsData) {
+// Popualtes DOM with the table that shows students summary of their grades
+function generateDashboardTable(assignmentsData) {
   let dashboardRowsHTML = generateDashboardRowsHTML(assignmentsData);
   document.querySelector(".dashboard_table").innerHTML =
     `<tr class="table_header">
@@ -42,6 +44,7 @@ function updateUI(assignmentsData) {
         </tr>${dashboardRowsHTML}`;
 }
 
+// Generates DOM elements for all the rows that goes in the dashboard table
 function generateDashboardRowsHTML(assignmentsData) {
   return Object.entries(assignmentsData)
     .map(([assn, assignmentDetails], index) => {
@@ -50,6 +53,7 @@ function generateDashboardRowsHTML(assignmentsData) {
     .join("");
 }
 
+// Used by generateDashboardRowsHTML to generate each individual row DOM element
 function generateSingleRowHTML(assn, assignmentDetails, index) {
   const { name, timeliness, test_totals, test_results, review } =
     assignmentDetails;
@@ -79,6 +83,7 @@ function generateSingleRowHTML(assn, assignmentDetails, index) {
         </tr>`;
 }
 
+// Used by generateSingleRowHTML to get the quality grades
 function findTestResult(test_results, testClass, testCategory) {
   return (
     Object.values(test_results).find(
@@ -87,6 +92,7 @@ function findTestResult(test_results, testClass, testCategory) {
   );
 }
 
+// Used by generateSingleRowHTML to make HTML element to show score summary
 function generateTestTotals(test_totals) {
   return (
     Object.entries(test_totals)
@@ -97,6 +103,7 @@ function generateTestTotals(test_totals) {
   );
 }
 
+// Used by generateSingleRowHTML to make HTML element to show extension score
 function generateExtensionResults(test_results) {
   return (
     Object.values(test_results)
@@ -107,7 +114,8 @@ function generateExtensionResults(test_results) {
       .join("") || "<b>None</b>"
   );
 }
-// JavaScript code from assignment.html
+// Called when a student clicks on an assignment name in the dashboard table
+// Populates the DOM elements that show failed tests and style comments
 async function showAssignmentDetails(assignmentKey) {
   if (!uploadedData) {
     console.error("No data uploaded");
@@ -118,24 +126,34 @@ async function showAssignmentDetails(assignmentKey) {
     console.error("Assignment details not found");
     return;
   }
-  updateAssignmentUI(assignmentDetails, assignmentKey);
-  //   document.getElementById("dashboard").style.display = "none";
+  updateAssignmentDetailsDIV(assignmentDetails, assignmentKey);
   document.getElementById("assignmentDetails").style.display = "block";
 }
 
-function updateAssignmentUI(assignmentDetails, assignmentKey) {
+// Wrapper around populate FailedTests & Review Section functions
+function updateAssignmentDetailsDIV(assignmentDetails, assignmentKey) {
   const { name, timeliness, test_totals, test_results, review } =
     assignmentDetails;
   const { submit, extension, retests } = timeliness || {};
+  const { when } = submit || {};
 
-  populateFailedTestsSection(test_results, assignmentKey);
-  populateReviewSection(review, assignmentKey);
+  if (when === undefined) {
+    document.getElementById("failedTestsHeader").textContent =
+      `No submission Found 😔`;
+    document.getElementById("commentSection").style.display = "none";
+  } else {
+    document.getElementById("commentSection").style.display = "block";
+    populateFailedTestsSection(test_results, assignmentKey);
+    populateReviewSection(review, assignmentKey);
+  }
 }
 
+// Populates DOM with a table summary of the tests the student failed
 function populateFailedTestsSection(test_results, assignmentKey) {
   document.getElementById("failedTestsHeader").textContent =
     `You passed all ${assignmentKey} tests! 🥳`;
-  const failedTests = generateFailedTestsContent(test_results, assignmentKey);
+
+  const failedTests = generateFailedTestsRows(test_results);
 
   if (failedTests !== "None") {
     document.getElementById("failedTestsHeader").textContent =
@@ -152,7 +170,7 @@ function populateFailedTestsSection(test_results, assignmentKey) {
   }
 }
 
-function generateFailedTestsContent(test_results, assignmentKey) {
+function generateFailedTestsRows(test_results) {
   return (
     Object.entries(test_results)
       .filter(
@@ -166,7 +184,11 @@ function generateFailedTestsContent(test_results, assignmentKey) {
         ([test_id, test]) => `<tr>
         <td>${test_id}</td>
         <td>${test.result ? "Passed" : "Failed"}</td>
-        <td>${test.issue ? `<a href="${test.issue}" target="_blank">Link</a>` : "None"}</td>
+        <td>${
+          test.issue
+            ? `<a href="${test.issue}" target="_blank">Link</a>`
+            : "None"
+        }</td>
         <td>${test.explanation || "None"}</td>
         </tr>`,
       )
