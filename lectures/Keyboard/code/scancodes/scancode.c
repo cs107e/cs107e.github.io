@@ -7,6 +7,8 @@
 
 void main(void) {
     gpio_init();
+    // clock: PG12
+    // data: PB7
     keyboard_init(KEYBOARD_CLOCK, KEYBOARD_DATA);
     uart_init();
 
