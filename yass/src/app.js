@@ -1,5 +1,5 @@
 let uploadedData = null; // Store uploaded data globally
-const DEBUG = true;
+const DEBUG = false;
 
 async function debug_init() {
   uploadedData = await fetch("./adam_grade.json").then((res) => res.json());
@@ -145,9 +145,42 @@ function updateAssignmentDetailsDIV(assignmentDetails, assignmentKey) {
     document.getElementById("commentSection").style.display = "block";
     populateFailedTestsSection(test_results, assignmentKey);
     populateReviewSection(review, assignmentKey);
+    populateCommentList(assignmentKey);
+    console.log("nani");
   }
 }
 
+// Populates DOM with a list of all the style comments left on this assignment for
+//ease of navigation
+function populateCommentList(assignmentKey) {
+  const commentElement = document.getElementById("commentList");
+  const assignmentDetails = uploadedData.grades[assignmentKey];
+  let comments = [];
+  const reviews = Object.entries(assignmentDetails.review);
+  for (let [fileName, review] of reviews) {
+    comments = [
+      ...comments,
+      ...review.comments.map((comment) => ({
+        file: fileName,
+        comment: comment.comment,
+      })),
+    ];
+  }
+  console.log(comments);
+  if (comments.size !== 0) {
+    commentElement.innerHTML = "<h2>Style Comments</h2>";
+    commentElement.innerHTML += comments
+      .map(
+        (comment) => `
+        <div class="commentListItem">
+        <div> File: <b>${comment.file}</b></div>
+        <div> Comment: ${comment.comment}</div>
+        </div>
+        `,
+      )
+      .join("");
+  }
+}
 // Populates DOM with a table summary of the tests the student failed
 function populateFailedTestsSection(test_results, assignmentKey) {
   document.getElementById("failedTestsHeader").textContent =
@@ -170,6 +203,7 @@ function populateFailedTestsSection(test_results, assignmentKey) {
   }
 }
 
+// Used by populateFailedTestsSection to generate all the rows to insert in the DOM
 function generateFailedTestsRows(test_results) {
   return (
     Object.entries(test_results)
@@ -225,6 +259,9 @@ function populateReviewFileSelector(review, selector, assignmentKey) {
   });
 }
 
+// Called by populateReviewFileSelector when the first file is added to the drop down
+// populates the codemirror editor with the file and comments of the currently selected
+// file
 async function updateReviewCodeMirror(assignmentKey) {
   const assignmentDetails = uploadedData.grades[assignmentKey];
   if (!assignmentDetails) {

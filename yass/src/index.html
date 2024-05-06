@@ -40,16 +40,56 @@
     </table>
 </div>
 
+<style>
+    .overviewContainer {
+        display: flex;
+        justify-content: space-between;
+    }
+    .details_table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .details_table th,
+    .details_table td {
+        border: 1px solid #ddd;
+        padding: 4px;
+    }
+    .details_table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    .details_table th {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: left;
+        background-color: #4caf50;
+        color: white;
+    }
+    .commentListItem {
+        margin-bottom: 10px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .commentListContainer .tableContainer {
+        height: 200px;
+        overflow-y: auto;
+        width: 50%;
+    }
+</style>
 <div id="assignmentDetails" style="display: none">
     <hr />
-    <h2 id="failedTestsHeader"></h2>
     <!-- Table header and rows will be inserted here dynamically -->
-    <table class="details_table"></table>
+    <div class="overviewContainer">
+        <div class="tableContainer">
+            <h2 id="failedTestsHeader"></h2>
+            <table class="details_table"></table>
+        </div>
+        <div id="commentListContainer">
+            <div id="commentList"></div>
+        </div>
+    </div>
     <hr />
     <div id="commentSection">
-        <!-- <div id="commentList">
-            <h2>Comment List</h2>
-        </div> -->
         <div id="codeReview">
             <h2>Code Review</h2>
             <div id="reviewFileViewer">
