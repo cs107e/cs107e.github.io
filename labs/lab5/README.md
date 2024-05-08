@@ -63,7 +63,6 @@ $ cd ~/cs107e_home/mycode
 $ git checkout dev
 $ git pull code-mirror lab5-starter
 ```
-
 ### 1. Install PS/2 plug
 
 In lab, we will distribute a PS/2 keyboard and plug board to each of you.
@@ -239,6 +238,21 @@ Type single keys to observe the scancodes for press, release, and
 auto-repeat.  Then try typing modifier keys like Shift and Alt, singularly and in conjunction
 with other keys. Does shift being pressed changed what scancode is sent by a letter key? What about
 caps lock? Observe the sequence of scancodes to suss out what functionality is provided by the keyboard hardware and what features are to be implemented in the keyboard driver software.
+
+Note: If you are having issues with minicom(those who are on WSL might run into this issue), run the following commands:
+```console
+$ cd sudo su
+$ screen
+```
+Press 'Enter', then Ctrl-D. Next, proceed with:
+```console
+$ chmod 777 /run/screen
+```
+Press Ctrl-D again, then:
+```console
+$ screen /dev/ttys5 115200
+```
+
 
 You're ready for the second check-in question [^2]
 
