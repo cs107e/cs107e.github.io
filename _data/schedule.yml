@@ -39,10 +39,10 @@ weeks:
     assign: /assignments/assign6/
     fri: /lectures/Sensors/
   -
-    mon: /lectures/FloatingPoint/
+    mon: /lectures/Project/
     lab: /labs/lab7/
     assign: /assignments/assign7/
-    fri: /lectures/Project/
+    fri: /lectures/FloatingPoint-Sound/
   -
     mon: /lectures/OOP/
     lab: /labs/projectlab1/
