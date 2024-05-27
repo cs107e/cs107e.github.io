@@ -9,7 +9,7 @@
 // #include "welcome.h"
 // #include "moon.h"
 // #include "THX.h"
-#include "sound_headers/shall-we-play-a-game.h"
+#include "sound-headers/shall-we-play-a-game.h"
 // #include "touch-the-sky.h"
 
 struct wav_format {

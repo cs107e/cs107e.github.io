@@ -12,11 +12,13 @@ Data description: b'LIST'
 Data chunk size: 194
 */
 
-const int repeat = 0;
-
-const int sample_freq = 44100;
-
-const int bits_per_sample = 16;
+struct PCM_METADATA pcm_metadata = {
+    .sample_freq = 44100,
+    .bits_per_sample = 16,
+    .block_alignment = 4,
+    .mono = 1,
+    .repeat = 0
+};
 
 const uint16_t pcm_data[] = {
     // 256 samples
