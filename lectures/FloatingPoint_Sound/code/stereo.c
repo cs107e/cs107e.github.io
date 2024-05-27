@@ -4,8 +4,8 @@
 #include "printf.h"
 #include "timer.h"
 #include "uart.h"
-#include "sin16-440hz.h"
-#include "sin16-554hzR.h"
+#include "sound-headers/sin16-440hz.h"
+#include "sound-headers/sin16-554hzR.h"
 
 struct wav_format {
    uint32_t description; // should be 'RIFF'
