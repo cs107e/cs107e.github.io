@@ -4,13 +4,12 @@
 #include "printf.h"
 #include "timer.h"
 #include "uart.h"
-// #include "sin16-440hz.h"
-// #include "sin16-880hz.h"
-// #include "welcome.h"
-// #include "moon.h"
-// #include "THX.h"
+// #include "sound-headers/sin16-440hz.h"
+// #include "sound-headers/sin16-880hz.h"
+// #include "sound-headers/welcome.h"
+// #include "sound-headers/moon.h"
+// #include "sound-headers/THX.h"
 #include "sound-headers/shall-we-play-a-game.h"
-// #include "touch-the-sky.h"
 
 struct wav_format {
    uint32_t description; // should be 'RIFF'
