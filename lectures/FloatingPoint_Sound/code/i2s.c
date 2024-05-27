@@ -5,20 +5,25 @@
 #include "ccu.h"
 #include "printf.h"
 
+// this code works for the HiLetgo PCM5102 I2S IIS Lossless Digital Audio DAC Decoder Module Stereo DAC Digital-to-Analog Converter Voice Module 
+// Connect VIN on device to 3.3V, and GND on device to ground
+// The only other necessary pins are BCK, DIN, and LCK. All other pins can be left floating. 
+// Datasheet: https://www.ti.com/lit/ds/symlink/pcm5102a.pdf?ts=1716798075863&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FPCM5102A
+
 // allwinner d1
 unsigned long CCU_BASE   = 0x02001000;
 // unsigned long I2S_0_BASE = 0x02032000;
 // unsigned long I2S_1_BASE = 0x02033000;
-unsigned long I2S_2_BASE = 0x02034000;
+unsigned long I2S_2_BASE = 0x02034000; // only I2S2 is exposed on the mango pi
 
 // these pins are for I2S2:
-#define DOUT0 GPIO_PB4
-#define DOUT1 GPIO_PB3
-#define DOUT2 GPIO_PB2
-#define DOUT3 GPIO_PB1
-#define BCLK  GPIO_PB5
-#define LRCK  GPIO_PB6
-#define MCLK  GPIO_PB7
+#define DOUT0 GPIO_PB4 // goes to DIN on device
+#define DOUT1 GPIO_PB3 // not needed
+#define DOUT2 GPIO_PB2 // not needed
+#define DOUT3 GPIO_PB1 // not needed
+#define BCLK  GPIO_PB5 // goes to BCK on device
+#define LRCK  GPIO_PB6 // goes to LCK on device
+#define MCLK  GPIO_PB7 // not needed
 #define PLL_AUDIO0_CTRL_REG CCU_BASE + 0x78
 #define PLL_AUDIO1_CTRL_REG CCU_BASE + 0x80
 #define I2S2_CLK_REG (CCU_BASE + 0xA18)
