@@ -5,19 +5,22 @@
 #include "audio.h"
 #include "printf.h"
 #include "mango.h"
+#include "malloc.h"
+// #include "interrupts.h"
+#include "dma.h"
 
-/* Modified by Chris Gregg, May 2024 */
+/* Modified by Chris Gregg for the Mango Pi using i2s, May 2024 */
 
 /*
    Initialize the i2s for audio.
-   - base clock is 9600000
-   - i2s range is base clock / sample_freq to give correct sample clock rate
 */
 
-void audio_init(int sample_freq, int block_alignment) 
+void audio_init(int sample_freq, int block_alignment, CHANNEL_TYPE channel_type) 
 {
     i2s_setup(sample_freq, block_alignment);
-    i2s_enable();
+    i2s_enable(channel_type);
+    // interrupts_init();
+    // interrupts_global_enable();
 }
 
 /* 
@@ -46,10 +49,7 @@ void audio_init(int sample_freq, int block_alignment)
 
 void audio_write_i16(const int16_t waveform[], unsigned num_samples, int mono, int repeat) 
 {
-    // assume num_samples is even for stereo
-    if (!mono && num_samples % 2 != 0) {
-        mango_abort();
-    }
+    i2s_start();
     while (1) {
         for (unsigned int sample = 0; sample < num_samples; sample++) {
             unsigned status = i2s_get_status();
@@ -58,11 +58,12 @@ void audio_write_i16(const int16_t waveform[], unsigned num_samples, int mono, i
             }
             if (mono) {
                 int16_t pcm = waveform[sample];
-                i2s_write( pcm, pcm ); // output to left
+                i2s_write_mono(pcm);
             } else { // stereo
                 int16_t pcm_left = waveform[sample];
                 int16_t pcm_right = waveform[sample + 1];
-                i2s_write( pcm_left, pcm_right ); // output to left
+                i2s_write_stereo(pcm_left, pcm_right);
+                sample++;
             }
         }
         printf("repeating\n");
@@ -72,6 +73,7 @@ void audio_write_i16(const int16_t waveform[], unsigned num_samples, int mono, i
 
 void audio_write_i16_stereo_mix(const int16_t waveform1[], const int16_t waveform2[], unsigned num_samples, int repeat) 
 {
+    i2s_start();
     while (1) {
         for (unsigned int sample = 0; sample < num_samples; sample++) {
             unsigned status = i2s_get_status();
@@ -80,10 +82,35 @@ void audio_write_i16_stereo_mix(const int16_t waveform1[], const int16_t wavefor
             }
             int16_t pcmL = waveform1[sample];
             int16_t pcmR = waveform2[sample];
-            i2s_write( pcmL, pcmR );
+            i2s_write_stereo( pcmL, pcmR );
         }
         printf("repeating\n");
         if (!repeat) break;
     }
+}
+
+void audio_write_i16_dma(int16_t waveform[], unsigned int num_samples, int repeat) {
+
+    i2s_enable_interrupts();
+    // create a 32-bit waveform
+    uint32_t *wide_waveform = malloc(sizeof(uint32_t) * num_samples);
+    // left shift all 16-bit values into upper part of the 32-bit space
+    for (int i = 0; i < num_samples; i++) {
+        wide_waveform[i] = ((uint32_t)waveform[i] << 16);
+    }
+    volatile I2S *i2s2 = (I2S *)I2S_2_BASE;
+    printf("num_samples: %d\n", num_samples);
+    dma_init(wide_waveform, &i2s2->regs.txfifo, num_samples * sizeof(uint32_t)); 
+    i2s_start();
+    dma_start();
+    // i2s2->regs.i2s_int.full = 0xf0; // enable dma
+    // i2s2->regs.i2s_int.interrupt.TXEI_EN = 0x1; // enable dma
+    /*
+    printf("waiting for transfer...\n");
+    volatile struct DMA *dmac = (struct DMA *)0x03002000UL;
+    printf("dmac_cfg_regn: %p, %x\n", &dmac->dmac_channel[0].dmac_cfg_regn, *(uint32_t *)(&dmac->dmac_channel[0].dmac_cfg_regn));
+    printf("dmac_cur_src_regn: %p, %x\n", &dmac->dmac_channel[0].DMAC_CUR_SRC_REGN, *(uint32_t *)(&dmac->dmac_channel[0].DMAC_CUR_SRC_REGN));
+    printf("dmac_cur_dest_regn: %p, %x\n", &dmac->dmac_channel[0].DMAC_CUR_DEST_REGN, *(uint32_t *)(&dmac->dmac_channel[0].DMAC_CUR_DEST_REGN));
+    */
 }
 

@@ -1,9 +1,10 @@
 # Programs built by this makefile
-RUN_PROGRAM   = play.bin
+# RUN_PROGRAM   = play.bin
+RUN_PROGRAM   = playDMA.bin
 # RUN_PROGRAM   = stereo.bin
 TEST_PROGRAM  = 
 
-MY_MODULE_SOURCES = i2s.c audio.c
+MY_MODULE_SOURCES = i2s.c audio.c dma.c
 # MY_MODULE_SOURCES = printf.c
 
 # MY_MODULE_SOURCES is a list of those library modules (such as gpio.c)

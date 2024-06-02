@@ -12,6 +12,17 @@
  * Date: May 27, 2024
  */
 
+typedef enum CHANNEL_TYPE {
+    MONO, STEREO
+} CHANNEL_TYPE;
+
+// allwinner d1
+#define CCU_BASE 0x02001000UL
+// unsigned long I2S_0_BASE = 0x02032000;
+// unsigned long I2S_1_BASE = 0x02033000;
+#define I2S_2_BASE 0x02034000UL
+// only I2S2 is exposed on the mango pi
+
 struct I2S_CTL {
     uint32_t GEN: 1;
     uint32_t RXEN: 1;
@@ -91,17 +102,20 @@ struct I2S_FSTA {
     uint32_t UNUSED3 : 3;
 };
 
-struct I2S_INT {
-    uint32_t RXAI_EN : 1;
-    uint32_t RXOI_EN : 1;
-    uint32_t RXUI_EN : 1;
-    uint32_t RX_DRQ : 1;
-    uint32_t TXEI_EN : 1;
-    uint32_t TXOI_EN : 1;
-    uint32_t TXUI_EN : 1;
-    uint32_t TX_DRQ : 1;
-    uint32_t UNUSED1 : 24;
-};
+typedef union {
+    struct I2S_INT {
+        uint32_t RXAI_EN : 1;
+        uint32_t RXOI_EN : 1;
+        uint32_t RXUI_EN : 1;
+        uint32_t RX_DRQ : 1;
+        uint32_t TXEI_EN : 1;
+        uint32_t TXOI_EN : 1;
+        uint32_t TXUI_EN : 1;
+        uint32_t TX_DRQ : 1;
+        uint32_t UNUSED1 : 24;
+    } interrupt;
+    uint32_t full;
+} I2S_INT;
 
 struct I2S_CLKD {
     uint32_t MCLKDIV : 4;
@@ -284,7 +298,7 @@ typedef union {
         uint32_t rxfifo; // offset 0x10
         struct I2S_FCTL fctl; // offset 0x14
         struct I2S_FSTA fsta; // offset 0x18
-        struct I2S_INT i2s_int; // offset 0x1c
+        I2S_INT i2s_int; // offset 0x1c
         uint32_t txfifo; // offset 0x20
         struct I2S_CLKD clkd; // offset 0x24
         uint32_t txcnt; // offset 0x28
@@ -391,16 +405,23 @@ void i2s_setup(int frequency, int block_alignment);
  *
  * @param chan      the I2S channel - either 0 or 1
  */
-void i2s_enable();
+void i2s_enable(CHANNEL_TYPE channel_type);
+void i2s_enable_interrupts();
+void i2s_start();
 void i2s_disable(int chan);
 
 /*
- * Write a value to all channels
+ * Write a value to both channels
  *
- * @param value     value (typically between 0 and 4095). Set the I2S width 
- *                  to value.
  */
-void i2s_write(uint16_t left, uint16_t right);
+void i2s_write_stereo(uint16_t left, uint16_t right);
+
+/*
+ * Write a value to one channel
+ *
+ */
+void i2s_write_mono(uint16_t value);
+
 
 /*
  * Read the current status of the I2S channel.

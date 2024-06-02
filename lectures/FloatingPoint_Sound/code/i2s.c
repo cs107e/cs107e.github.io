@@ -4,18 +4,13 @@
 #include "stdint.h"
 #include "ccu.h"
 #include "printf.h"
+#include "malloc.h"
 #include "i2s.h"
 
 // this code works for the HiLetgo PCM5102 I2S IIS Lossless Digital Audio DAC Decoder Module Stereo DAC Digital-to-Analog Converter Voice Module 
 // Connect VIN on device to 3.3V, and GND on device to ground
 // The only other necessary pins are BCK, DIN, and LCK. All other pins can be left floating. 
 // Datasheet: https://www.ti.com/lit/ds/symlink/pcm5102a.pdf?ts=1716798075863&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FPCM5102A
-
-// allwinner d1
-unsigned long CCU_BASE   = 0x02001000;
-// unsigned long I2S_0_BASE = 0x02032000;
-// unsigned long I2S_1_BASE = 0x02033000;
-unsigned long I2S_2_BASE = 0x02034000; // only I2S2 is exposed on the mango pi
 
 // these pins are for I2S2:
 #define DOUT0 GPIO_PB4 // goes to DIN on device
@@ -199,7 +194,7 @@ void i2s_setup(int frequency, int block_alignment) {
 }
 
 
-void i2s_enable() 
+void i2s_enable(CHANNEL_TYPE channel_type) 
 {
     gpio_set_function( DOUT0, GPIO_FN_ALT3 );  
     /*
@@ -213,19 +208,34 @@ void i2s_enable()
 
     // printf("mclko before: %x\n", *(uint32_t *)&(i2s2->regs.clkd));
     i2s2->regs.clkd.MCLKDIV = 0x1;
-    i2s2->regs.clkd.MCLKO_EN = 1;
+    // i2s2->regs.clkd.MCLKO_EN = 1;
     i2s2->regs.ctl.DOUT0_EN = 1;
     // i2s2->regs.ctl.DOUT1_EN = 0;
     // i2s2->regs.ctl.DOUT2_EN = 0;
     // i2s2->regs.ctl.DOUT3_EN = 0;
     // printf("mclko after: %x\n", *(uint32_t *)&(i2s2->regs.clkd));
    
-    // working: 
-    // i2s2->regs.fmt0.LRCK_PERIOD = 15; 
-    // i2s2->regs.chcfg.TX_SLOT_NUM = 0x0; 
-    // i2s2->regs.txxchsel[0].TXx_CHEN = 0x3;
-    // i2s2->regs.txxchsel[0].TXx_CHSEL = 0x1;
-    // i2s2->regs.txxchsel[0].TXx_OFFSET = 0x1;
+    // working (non-stereo):
+    if (channel_type == MONO) {
+        i2s2->regs.fmt0.LRCK_PERIOD = 15; 
+        i2s2->regs.chcfg.TX_SLOT_NUM = 0x0; 
+        i2s2->regs.txxchsel[0].TXx_CHEN = 0x3;
+        i2s2->regs.txxchsel[0].TXx_CHSEL = 0x1;
+        i2s2->regs.txxchsel[0].TXx_OFFSET = 0x1;
+    } else {
+        // working for stereo:
+        i2s2->regs.fmt0.SW = 0x3; // 16-bit slot width (?) 
+        i2s2->regs.fmt0.SR = 0x7; // 16-bit sample resolution
+        // i2s2->regs.fmt1.SEXT = 0x3;
+
+        i2s2->regs.fmt0.LRCK_PERIOD = 15; 
+        i2s2->regs.chcfg.TX_SLOT_NUM = 0x1; // two slots (L/R)
+        i2s2->regs.txxchsel[0].TXx_CHEN = 0x3; // enable both slots 
+        i2s2->regs.txxchsel[0].TXx_CHSEL = 0x1; // 1 Channel (Slot) Number Select for Each Output
+        i2s2->regs.tx0chmap1.TXx_CH0_MAP = 0;
+        i2s2->regs.tx0chmap1.TXx_CH1_MAP = 1; 
+        i2s2->regs.txxchsel[0].TXx_OFFSET = 1;
+    }
     
     /* left channel only:
     i2s2->regs.fmt0.LRCK_PERIOD = 15; 
@@ -260,17 +270,7 @@ void i2s_enable()
     i2s2->regs.txxchsel[0].TXx_CHSEL = 0x1; // two channels total
     i2s2->regs.txxchsel[0].TXx_OFFSET = 1;
     */
-    i2s2->regs.fmt0.SW = 0x3; // 16-bit slot width (?) 
-    i2s2->regs.fmt0.SR = 0x7; // 16-bit sample resolution
-    // i2s2->regs.fmt1.SEXT = 0x3;
 
-    i2s2->regs.fmt0.LRCK_PERIOD = 15; 
-    i2s2->regs.chcfg.TX_SLOT_NUM = 0x1; // two slots (L/R)
-    i2s2->regs.txxchsel[0].TXx_CHEN = 0x3; // enable both slots 
-    i2s2->regs.txxchsel[0].TXx_CHSEL = 0x1; // 1 Channel (Slot) Number Select for Each Output
-    i2s2->regs.tx0chmap1.TXx_CH0_MAP = 0;
-    i2s2->regs.tx0chmap1.TXx_CH1_MAP = 1; 
-    i2s2->regs.txxchsel[0].TXx_OFFSET = 1;
     
     /*
     i2s2->regs.txxchsel[1].TXx_CHEN = 0xf;
@@ -282,8 +282,19 @@ void i2s_enable()
     i2s2->regs.fctl.FRX = 0;
     i2s2->regs.txcnt = 0; 
     i2s2->regs.rxcnt = 0; 
+
+}
+
+void i2s_enable_interrupts() {
+    i2s2->regs.i2s_int.interrupt.TX_DRQ = 1;
+    i2s2->regs.i2s_int.interrupt.TXUI_EN = 1;
+    i2s2->regs.i2s_int.interrupt.TXOI_EN = 1;
+    i2s2->regs.i2s_int.interrupt.TXEI_EN = 1;
+}
+
+void i2s_start() {
     i2s2->regs.ctl.TXEN = 1;
-    //i2s2->regs.ctl.RXEN = 1;
+    //////i2s2->regs.ctl.RXEN = 1;
     i2s2->regs.ctl.GEN = 1;
     i2s2->regs.txcnt = 0;
 }
@@ -294,16 +305,11 @@ unsigned i2s_get_status(void) {
     return status;
 }
 
-void i2s_write(uint16_t left, uint16_t right) {
+void i2s_write_stereo(uint16_t left, uint16_t right) {
     i2s2->regs.txfifo = left << 16;
     i2s2->regs.txfifo = right << 16;
-    /*
-    if (i2s2->regs.txxchsel[0].TXx_CHEN == 0x2) {
-        i2s2->regs.txxchsel[0].TXx_CHEN = 0x1;
-        i2s2->regs.txxchsel[0].TXx_CHSEL = 0x0;
-    } else {
-        i2s2->regs.txxchsel[0].TXx_CHEN = 0x2;
-        i2s2->regs.txxchsel[0].TXx_CHSEL = 0x1;
-    }
-    */
+}
+
+void i2s_write_mono(uint16_t value) {
+    i2s2->regs.txfifo = value << 16;
 }

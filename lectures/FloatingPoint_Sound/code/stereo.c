@@ -29,7 +29,7 @@ void main ()
     gpio_init();
     uart_init();
     i2s_init();
-    audio_init(pcm_metadata.sample_freq, pcm_metadata.block_alignment);
+    audio_init(pcm_metadata.sample_freq, pcm_metadata.block_alignment, STEREO);
 
     while (1) {
         printf("starting play\n");

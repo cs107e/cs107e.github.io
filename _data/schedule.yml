@@ -49,9 +49,8 @@ weeks:
     assign: /project/
     fri: /lectures/RISC-V/
   - 
-    mon: /lectures/Misc/
+    mon: /lectures/Wrap/
     lab: /labs/projectlab2/
-    fri: /lectures/Wrap/
   -
     project_demo: "2024-06-07 3:30 PM"
     project_due: "2024-06-07 11:59 PM"

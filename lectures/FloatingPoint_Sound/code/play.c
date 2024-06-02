@@ -33,13 +33,17 @@ void main ()
     gpio_init();
     uart_init();
     i2s_init();
-    audio_init(pcm_metadata.sample_freq, pcm_metadata.block_alignment);
+    CHANNEL_TYPE ct = pcm_metadata.mono ? MONO : STEREO;
+    audio_init(pcm_metadata.sample_freq, pcm_metadata.block_alignment, ct);
 
     while (1) {
-        printf("starting play\n");
-        audio_write_i16((int16_t *)pcm_data, sizeof(pcm_data)/sizeof(pcm_data[0]), pcm_metadata.mono, pcm_metadata.repeat);
-    }
+        while (1) {
+            printf("starting play\n");
+            audio_write_i16((int16_t *)pcm_data, sizeof(pcm_data)/sizeof(pcm_data[0]), pcm_metadata.mono, pcm_metadata.repeat);
+            break; // for testing
+        }
 
-    printf("done playing\n");
-    timer_delay_ms(1000);
+        printf("done playing\n");
+        timer_delay_ms(1000);
+    }
 }
