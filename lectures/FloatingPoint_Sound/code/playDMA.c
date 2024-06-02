@@ -21,7 +21,7 @@ void main ()
     audio_init(pcm_metadata.sample_freq, pcm_metadata.block_alignment, ct);
 
     printf("starting play\n");
-        audio_write_i16_dma((int16_t *)pcm_data, sizeof(pcm_data)/sizeof(pcm_data[0]), pcm_metadata.repeat);
+    audio_write_i16_dma((int16_t *)pcm_data, sizeof(pcm_data)/sizeof(pcm_data[0]), pcm_metadata.repeat);
 
     int count = 0;
 
