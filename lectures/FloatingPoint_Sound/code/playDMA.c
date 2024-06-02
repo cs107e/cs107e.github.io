@@ -25,12 +25,12 @@ void main ()
 
     int count = 0;
 
-    volatile struct DMA *dmac = (struct DMA *)0x03002000UL;
     while (1) {
         printf("doing other stuff count: %d\n", count); 
         count++;
-        if (!dmac->dmac_sta_reg.DMA_STATUS) {
+        if (dma_complete()) {
             dma_disable();
+            printf("Sound finished!\n");
             return;
         }
     }

@@ -278,5 +278,6 @@ struct HSTIMER_BGR_REG {
 
 void dma_start();
 void dma_disable();
+int dma_complete();
 
 #endif

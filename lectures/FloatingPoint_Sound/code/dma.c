@@ -98,3 +98,8 @@ void dma_disable() {
     volatile struct DMA *dmac = (struct DMA *)DMAC_BASE;
     dmac->dmac_channel[0].dmac_en_regn.DMA_EN = 0;
 }
+
+int dma_complete() {
+    volatile struct DMA *dmac = (struct DMA *)DMAC_BASE;
+    return !dmac->dmac_sta_reg.DMA_STATUS;
+}
