@@ -23,7 +23,7 @@ struct PCM_METADATA pcm_metadata = {{
     .repeat = {repeat}
 }};
 
-const int16_t pcm_data[] =
+const uint16_t pcm_data[] =
 {{
     """, end='')
 for i in range(sample_rate * num_seconds):

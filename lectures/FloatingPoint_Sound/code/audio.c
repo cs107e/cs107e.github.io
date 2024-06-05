@@ -23,6 +23,12 @@ void audio_init(int sample_freq, int block_alignment, CHANNEL_TYPE channel_type)
     // interrupts_global_enable();
 }
 
+void mic_init() 
+{
+    i2s_mic_setup(44100);
+    i2s_mic_enable();
+}
+
 /* 
    These functions transmit a wave to the RPi audio jack 
    as a pulse-width-modulated signal.
@@ -47,7 +53,7 @@ void audio_init(int sample_freq, int block_alignment, CHANNEL_TYPE channel_type)
    If repeat is true, the functions will not return.
 */
 
-void audio_write_i16(const int16_t waveform[], unsigned num_samples, int mono, int repeat) 
+void audio_write_i16(const uint16_t waveform[], unsigned num_samples, int mono, int repeat) 
 {
     i2s_start();
     while (1) {
@@ -57,11 +63,11 @@ void audio_write_i16(const int16_t waveform[], unsigned num_samples, int mono, i
                 status = i2s_get_status();
             }
             if (mono) {
-                int16_t pcm = waveform[sample];
+                uint16_t pcm = waveform[sample];
                 i2s_write_mono(pcm);
             } else { // stereo
-                int16_t pcm_left = waveform[sample];
-                int16_t pcm_right = waveform[sample + 1];
+                uint16_t pcm_left = waveform[sample];
+                uint16_t pcm_right = waveform[sample + 1];
                 i2s_write_stereo(pcm_left, pcm_right);
                 sample++;
             }
@@ -71,7 +77,7 @@ void audio_write_i16(const int16_t waveform[], unsigned num_samples, int mono, i
     }
 }
 
-void audio_write_i16_stereo_mix(const int16_t waveform1[], const int16_t waveform2[], unsigned num_samples, int repeat) 
+void audio_write_i16_stereo_mix(const uint16_t waveform1[], const uint16_t waveform2[], unsigned num_samples, int repeat) 
 {
     i2s_start();
     while (1) {
@@ -80,8 +86,8 @@ void audio_write_i16_stereo_mix(const int16_t waveform1[], const int16_t wavefor
             while (status == 0) {
                 status = i2s_get_status();
             }
-            int16_t pcmL = waveform1[sample];
-            int16_t pcmR = waveform2[sample];
+            uint16_t pcmL = waveform1[sample];
+            uint16_t pcmR = waveform2[sample];
             i2s_write_stereo( pcmL, pcmR );
         }
         printf("repeating\n");
@@ -89,7 +95,7 @@ void audio_write_i16_stereo_mix(const int16_t waveform1[], const int16_t wavefor
     }
 }
 
-void audio_write_i16_dma(int16_t waveform[], unsigned int num_samples, int repeat) {
+void audio_write_i16_dma(uint16_t waveform[], unsigned int num_samples, int repeat) {
 
     i2s_enable_interrupts();
     // create a 32-bit waveform
@@ -114,3 +120,10 @@ void audio_write_i16_dma(int16_t waveform[], unsigned int num_samples, int repea
     */
 }
 
+void mic_capture_dma(uint32_t *audio_samples, unsigned int num_samples) {
+    volatile I2S *i2s2 = (I2S *)I2S_2_BASE;
+    dma_mic_init(&i2s2->regs.rxfifo, audio_samples, num_samples * sizeof(uint32_t));
+    i2s_mic_start();
+    i2s_enable_mic_interrupts();
+    dma_mic_start();
+}

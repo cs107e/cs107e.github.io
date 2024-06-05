@@ -226,6 +226,7 @@ struct DMAC_CHANNEL {
     struct DMAC_MODE_REGN dmac_mode_regn;
     uint32_t DMAC_FDESC_ADDR_REGN;
     uint32_t DMAC_PKG_NUM_REGN;
+    uint32_t PADDING[2];
 };
 
 struct DMA {
@@ -269,6 +270,8 @@ struct DMA_DESCRIPTOR {
 
 struct DMA_DESCRIPTOR *dma_init(const void *source_addr, volatile void *dest_addr, uint32_t byte_count);
 
+struct DMA_DESCRIPTOR *dma_mic_init(volatile void *source_addr, void *dest_addr, uint32_t byte_count);
+
 struct HSTIMER_BGR_REG {
     uint32_t HSTIMER_GATING : 1;
     uint32_t UNUSED1 : 15;
@@ -277,7 +280,8 @@ struct HSTIMER_BGR_REG {
 };
 
 void dma_start();
-void dma_disable();
-int dma_complete();
+void dma_disable(int channel);
+void dma_mic_start();
+int dma_complete(int channel);
 
 #endif

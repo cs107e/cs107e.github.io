@@ -39,7 +39,7 @@ void main ()
     while (1) {
         while (1) {
             printf("starting play\n");
-            audio_write_i16((int16_t *)pcm_data, sizeof(pcm_data)/sizeof(pcm_data[0]), pcm_metadata.mono, pcm_metadata.repeat);
+            audio_write_i16(pcm_data, sizeof(pcm_data)/sizeof(pcm_data[0]), pcm_metadata.mono, pcm_metadata.repeat);
             break; // for testing
         }
 

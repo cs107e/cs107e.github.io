@@ -33,7 +33,7 @@ void main ()
 
     while (1) {
         printf("starting play\n");
-        audio_write_i16_stereo_mix((int16_t *)pcm_data, (int16_t *)pcm_dataR, sizeof(pcm_data)/sizeof(pcm_data[0]), pcm_metadata.repeat);
+        audio_write_i16_stereo_mix(pcm_data, pcm_dataR, sizeof(pcm_data)/sizeof(pcm_data[0]), pcm_metadata.repeat);
 
         printf("done playing\n");
         timer_delay_ms(1000);

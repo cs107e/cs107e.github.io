@@ -399,6 +399,7 @@ void i2s_set_clock(int frequency);
  * Setup I2S
  */
 void i2s_setup(int frequency, int block_alignment);
+void i2s_mic_setup(int frequency);
 
 /*
  * Enable or disable I2S.
@@ -409,6 +410,8 @@ void i2s_enable(CHANNEL_TYPE channel_type);
 void i2s_enable_interrupts();
 void i2s_start();
 void i2s_disable(int chan);
+void i2s_mic_enable();
+void i2s_enable_mic_interrupts();
 
 /*
  * Write a value to both channels
@@ -430,5 +433,7 @@ void i2s_write_mono(uint16_t value);
  * need to wait until the channel is not full before writing a new value.
  */
 unsigned int i2s_get_status(void);
+
+void i2s_mic_start();
 
 #endif

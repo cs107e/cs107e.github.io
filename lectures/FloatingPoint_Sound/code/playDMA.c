@@ -21,15 +21,15 @@ void main ()
     audio_init(pcm_metadata.sample_freq, pcm_metadata.block_alignment, ct);
 
     printf("starting play\n");
-    audio_write_i16_dma((int16_t *)pcm_data, sizeof(pcm_data)/sizeof(pcm_data[0]), pcm_metadata.repeat);
+    audio_write_i16_dma((uint16_t *)pcm_data, sizeof(pcm_data)/sizeof(pcm_data[0]), pcm_metadata.repeat);
 
     int count = 0;
 
     while (1) {
         printf("doing other stuff count: %d\n", count); 
         count++;
-        if (dma_complete()) {
-            dma_disable();
+        if (dma_complete(0)) {
+            dma_disable(0);
             printf("Sound finished!\n");
             return;
         }

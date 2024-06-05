@@ -2,6 +2,7 @@
 # RUN_PROGRAM   = play.bin
 RUN_PROGRAM   = playDMA.bin
 # RUN_PROGRAM   = stereo.bin
+# RUN_PROGRAM   = mic-capture.bin
 TEST_PROGRAM  = 
 
 MY_MODULE_SOURCES = i2s.c audio.c dma.c
