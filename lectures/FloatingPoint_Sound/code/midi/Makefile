@@ -1,7 +1,7 @@
 # Programs built by this makefile
-#RUN_PROGRAM   = midi-lamb.bin
+RUN_PROGRAM   = midi-lamb.bin
 # RUN_PROGRAM   = midi-beat.bin
-RUN_PROGRAM    = midi-song.bin
+#RUN_PROGRAM    = midi-song.bin
 TEST_PROGRAM  =
 
 MY_MODULE_SOURCES = midi.c
