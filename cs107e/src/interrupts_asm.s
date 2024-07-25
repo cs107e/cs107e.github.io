@@ -19,22 +19,22 @@ interrupts_global_disable:
     csrc mie,a0
     ret
 
-.globl get_mcause
-get_mcause:
+.globl interrupts_get_mcause
+interrupts_get_mcause:
     csrr a0,mcause
     ret
 
-.globl get_mepc
-get_mepc:
+.globl interrupts_get_mepc
+interrupts_get_mepc:
     csrr a0,mepc
     ret
 
-.globl get_mtval
-get_mtval:
+.globl interrupts_get_mtval
+interrupts_get_mtval:
     csrr a0,mtval
     ret
 
-.globl set_mtvec
-set_mtvec:
+.globl interrupts_set_mtvec
+interrupts_set_mtvec:
     csrw mtvec,a0
     ret

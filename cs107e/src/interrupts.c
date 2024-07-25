@@ -12,10 +12,10 @@
 #include "_system.h"
 
 /* Module-private helpers defined in interrupts_asm.s */
-unsigned long get_mepc(void);
-unsigned long get_mcause(void);
-unsigned long get_mtval(void);
-void set_mtvec(void *);
+unsigned long interrupts_get_mepc(void);
+unsigned long interrupts_get_mcause(void);
+unsigned long interrupts_get_mtval(void);
+void interrupts_set_mtvec(void *);
 
 #define N_SOURCES 256
 // structs defined to match layout of hardware registers
@@ -84,13 +84,13 @@ void _trap_handler(void);
 // https://gcc.gnu.org/onlinedocs/gcc/RISC-V-Function-Attributes.html
 __attribute__((interrupt("machine"))) void _trap_handler(void) {
 #define EXTERNAL_INTERRUPT ((1L << 63) | 0xb)
-    if (get_mcause() == EXTERNAL_INTERRUPT) {
+    if (interrupts_get_mcause() == EXTERNAL_INTERRUPT) {
         // no need to search pending bits to identify source, claim reg has it
         uint32_t source = module.plic->regs.claim_complete; // read claim_complete to "claim" (atomically clears pending bit)
         module.handlers[source].fn(module.handlers[source].aux_data); // dispatch to registered handler
         module.plic->regs.claim_complete = source;   // write claim_complete to "complete"
     } else {
-        sys_report_error("EXCEPTION: %s (mtval 0x%lx, mepc 0x%lx)\n", description(get_mcause()), get_mtval(), get_mepc());
+        sys_report_error("EXCEPTION: %s (mtval 0x%lx, mepc 0x%lx)\n", description(interrupts_get_mcause()), interrupts_get_mtval(), interrupts_get_mepc());
         mango_abort();
     }
 }
@@ -100,7 +100,7 @@ void interrupts_init(void) {
     interrupts_global_disable();
     module.plic->regs.ctrl = 0;         // machine mode only
     module.plic->regs.threshhold = 0;   // accept interrupts of any priority
-    set_mtvec(_trap_handler);            // install trap handler
+    interrupts_set_mtvec(_trap_handler);            // install trap handler
     for (int i = 0; i < 8; i++) {       // all sources start disabled
         module.sources->regs.pending[i] = 0;
         module.sources->regs.enable[i] = 0;

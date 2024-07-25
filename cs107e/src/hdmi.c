@@ -204,7 +204,7 @@ static void hdmi_controller_init(void) {
 
     // frame controller
     // V and H sync polarity bits 5&6, data enble input polarity bit 4, HDMI mode bit 3    
-    module.hdmi_fc->regs.invidconf = (1<<6) | (1<<5) | (1<<4); // no HDMI (bit 3) to work with older DVI monitors
+    module.hdmi_fc->regs.invidconf = (1<<6) | (1<<5) | (1<<4) | (1<<3);
 
     hdmi_write_short(module.hdmi_fc->regs.inhactv, module.config.horiz.pixels);
     hdmi_write_short(module.hdmi_fc->regs.inhblank, BLANKING(module.config.horiz));
