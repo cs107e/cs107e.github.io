@@ -1,0 +1,51 @@
+/* JDZ Dec 2020
+ * piggyback callout on top of blockquote in markdown
+ * add class .callout-cls (where cls is from bootstrap
+ * color themes, success, danger, etc)
+ */
+
+// argh, should import fa variables
+$fa-minus-square-o: '\f147';
+$fa-thumbs-o-up: '\f087';
+$fa-ban: '\f05e';
+$fa-exclamation-triangle: '\f071';
+$fa-info-circle: '\f05a';
+$fa-comment: '\f075';
+$fa-question: '\f128';
+
+$callouts: (
+    "success": $fa-thumbs-o-up,
+    "warning": $fa-exclamation-triangle,
+    "danger": $fa-ban,
+    "info": $fa-info-circle,
+    "primary": $fa-comment,
+);
+
+@each $cls,$icon in $callouts {
+  .callout-#{$cls} {
+    @extend .alert, .alert-#{$cls};
+
+    &.callout-invert {
+      @extend .bg-#{$cls};
+      color: white !important;
+    }
+    & p strong:first-child {
+      display: block; /* use first bold span as title, set on own line */
+    }
+    & p strong:first-child:before {
+      font-family: "FontAwesome"; /* add icon if title */
+      content: $icon;
+      margin-right: 4px;
+    }
+    & p {
+      margin-bottom: 0;
+    }
+  }
+  .callout-#{$cls}-invert {
+    @extend .callout-#{$cls}, .callout-invert;
+  }
+}
+
+blockquote {
+ /* @extend .callout-primary;*/
+}

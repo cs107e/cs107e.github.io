@@ -1,0 +1,25 @@
+<!-- This partial used like a function to harvest list from schedule, include.type is either "lab" or "assign"  -->
+
+<div class="list-group">
+{% for week in site.data.schedule.weeks %}
+
+{% assign plink = week[include.type] %}
+<!-- look up by permalink if possible -->
+{% assign found = site.pages | where:"permalink",plink | first %}
+<!-- Public site won't have unreleased assign/lab, read title from _data/unreleased.csv -->
+{% if site.data contains "unreleased" %}
+{% assign unreleased = site.data.unreleased | where:"permalink",plink | first %}
+{% endif %}
+
+{% if plink != null and found != null or unreleased != null %}
+<div class="list-group-item" style="padding: 3px 15px;">
+{% if found %}
+<a href="{{ found.permalink }}">{{ found.title }}</a>
+{% else %}
+<i>{{ unreleased.title }}</i>
+{% endif %}
+</div>
+{% endif %}
+
+{% endfor %}
+</div>

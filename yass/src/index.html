@@ -1,0 +1,105 @@
+<script src="src/app.js"></script>
+
+<style>
+    .jss39 {
+        padding: 4px 16px;
+    }
+    .jss37 {
+        margin: 0px 0px 8px 0px;
+        padding: 12px 4px;
+        word-break: normal;
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        grid-column-end: 3;
+        grid-column-start: 2;
+    }
+
+    .MuiPaper-elevation1 {
+        box-shadow:
+            0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+            0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+            0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    }
+
+    .MuiPaper-rounded {
+        border-radius: 4px;
+    }
+    .MuiPaper-root {
+        color: #2e2d29;
+        transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        background-color: #ffffff;
+    }
+    .jss39 {
+        padding: 4px 16px;
+    }
+</style>
+<div id="dashboard">
+    <input type="file" id="fileInput" />
+    <!-- <h2>Assignments (Click the name to see failed tests and code review)</h2> -->
+    <table class="dashboard_table">
+        <!-- Table header and rows will be inserted here dynamically -->
+    </table>
+</div>
+
+<style>
+    .overviewContainer {
+        display: flex;
+        justify-content: space-between;
+    }
+    .details_table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .details_table th,
+    .details_table td {
+        border: 1px solid #ddd;
+        padding: 4px;
+    }
+    .details_table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    .details_table th {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: left;
+        background-color: #4caf50;
+        color: white;
+    }
+    .commentListItem {
+        margin-bottom: 10px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .commentListContainer .tableContainer {
+        height: 200px;
+        overflow-y: auto;
+        width: 50%;
+    }
+</style>
+<div id="assignmentDetails" style="display: none">
+    <hr />
+    <!-- Table header and rows will be inserted here dynamically -->
+    <div class="overviewContainer">
+        <div class="tableContainer">
+            <h2 id="failedTestsHeader"></h2>
+            <table class="details_table"></table>
+        </div>
+        <div id="commentListContainer">
+            <div id="commentList"></div>
+        </div>
+    </div>
+    <hr />
+    <div id="commentSection">
+        <div id="codeReview">
+            <h2>Code Review</h2>
+            <div id="reviewFileViewer">
+                <select id="fileReviewSelector">
+                    <option value="">Select a file</option>
+                </select>
+                <div id="editor"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script defer src="dist/editor.bundle.js"></script>

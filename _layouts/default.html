@@ -1,0 +1,65 @@
+---
+layout: base
+---
+<div class="body-container container-fluid" data-spy="scroll" data-target="#toc">
+
+{% if page contains "title" %}<h1 class="title">{{ page.title }}</h1><hr>{% endif %}
+
+<p class="attribution">
+{% if page.attribution %}{{page.attribution}}{% endif %}
+</p>
+
+{% if page contains "toc" and page.toc == true %}
+    <div class="row">
+        <div class="col-xs-12 col-md-10" id="content"<>{{ content }}</div>
+        <div class="col-xs-hidden col-md-2"><nav class="fixed-top-right toc" id="toc"></nav></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.css">
+
+    <script>
+      tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '#toc',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: '#content',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h2, h3, h4',
+      });
+    </script>
+
+{% else %}
+
+<div id="content">{{ content }}</div>
+
+{% endif %}
+
+</div>
+
+<style>
+    p.attribution {
+        font-style: italic;
+        font-size: 80%;
+        text-align: right;
+    }
+
+    .body-container {
+        margin: 0 10%;
+        max-width: 55em;
+        width: 80%;
+    }
+    a.toc-link {
+      color: #aaa !important;
+      font-size: 90%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .fixed-top-right {
+        position: fixed;
+        margin-top: 0;
+        margin-left: 0;
+    }
+</style>
+

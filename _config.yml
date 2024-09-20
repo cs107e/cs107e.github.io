@@ -1,0 +1,44 @@
+# Site-level
+description: Stanford University CS107E Computer Systems from the Ground Up
+livereload: true
+
+# front matter defaults
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+      type: "pages"
+    values:
+      layout: "default"
+permalink: pretty
+
+# Settings to tweak generation, features, plug-ins
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  input:                GFM
+  hard_wrap:            false
+  smart_quotes:         ["apos", "apos", "quot", "quot"]
+  syntax_highlighter:   rouge
+  syntax_highligher_opts:
+    default_lang: c
+
+plugins:        [jekyll-sitemap, jekyll-target-blank]
+
+# blacklist files/folders to never publish
+# if name is prefixed with dot/underscore will be excluded by default
+exclude:        [Gemfile, vendor, README.md, /cs107e/, private,
+  lectures/*/private, labs/*/private, assignments/*/private, lectures/private,
+  yass/node_modules, yass/*.json, yass/*.mjs]
+# whitelist of files/folders to always publish (these would be excluded because of prefix)
+include:        [_assets, _templates]
+
+theme: null  # not using any pre-built theme
+
+# ask for as much checking as possible
+liquid:
+  error_mode:       strict
+  strict_front_matter: true
+# strict_variables:   true    # JDZ: not compatible with jekyll-sitemap, sigh
+  strict_filters:     true
+lang:               en-US

@@ -1,0 +1,107 @@
+---
+# front matter required for Jekyll to process into css
+---
+
+// See https://github.com/twbs/bootstrap/blob/v4-dev/scss/_variables.scss
+
+
+$font-family-sans-serif:    Lato, Arial, Helvetica, sans-serif;
+$font-family-monospace:     Inconsolata, Consolas, Menlo, monospace;
+$font-size-base:            .85rem;
+
+$dkgreen: #060;
+$mangopink: #CB4899;
+$raspberry: #B52741;
+$gray: #ccc;
+$cardinal: #941100;
+$nearwhite: #f5f5f5;
+
+
+// defaults are  2.5, 2, 1.75, 1.5, 1.25, 1
+$h1-font-size:            $font-size-base * 2.3;
+$h2-font-size:            $font-size-base * 1.6;
+$h3-font-size:            $font-size-base * 1.4;
+$h4-font-size:            $font-size-base * 1.2;
+$h5-font-size:            $font-size-base;
+$h6-font-size:            $font-size-base * 0.8;
+
+// A few custom styles are used globally across site
+// otherwise most styles kept local to page
+
+h1.title {
+    color: $mangopink;
+}
+
+h4 {
+    padding-top: 20px;
+}
+
+body {
+    padding-top: 5rem;     // allow for fixed navbar
+}
+
+// CODE
+$code-color: $raspberry;
+$code-font-size: 100%;
+
+// inline code spans (not within pre)
+// github-like styling (raspberry text, offwhite bg)
+:not(pre) > code {
+  font-weight: 500;
+  background-color: $nearwhite;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+pre {  // put pre in panel-like box
+    padding: 10px;
+    background-color: $nearwhite;
+    border: 1px solid $gray;
+    border-radius: 5px;
+}
+
+/* this part adds an icon after external links, using FontAwesome */
+a[href^="http://"]:after, a[href^="https://"]:after {
+    content: "\f08e";
+    font-family: FontAwesome;
+    font-size: 60%;
+    font-style: normal;
+    display: inline-block;
+    text-decoration: none;
+    padding-left: 3px;
+}
+
+/* zoomable images have special styling */
+img.zoom {
+    @extend .rounded, .border, .p-1, .d-block, .mx-auto;
+    cursor: zoom-in;
+
+}
+
+/* if width not otherwise set, use 50% as default */
+img.zoom:not([width]) {
+    width: 50%;
+}
+
+.smallcaps {
+    font-size: 80%;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+// JDZ turn on for debugging
+NOTdiv {
+    border: 1px dotted gray;
+}
+
+
+@import "friendly.css"; // highlight theme for code
+@import "console";      // customizations for console
+@import "callout";      // customizations for blockquote as callout/alert
+
+@import "bootstrap/bootstrap";
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700,900|Inconsolata:400,700,900");
+img {
+    @include img-fluid();
+}

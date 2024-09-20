@@ -1,0 +1,30 @@
+# Dashboard home page
+tools:
+  - title: EdStem
+    icon: ed.png
+    link: https://edstem.org/us/courses/67356/discussion/
+    description: (discussion forum)
+  - title: Github
+    icon: github.png
+    link: http://github.com/
+    description:
+  - title: Ripes
+    icon: ripes.png
+    link: http://ripes.me
+    description: (RISC-V simulator)
+  - title: RISC-V cheatsheet
+    icon: riscv.png
+    link: https://blog.translusion.com/images/posts/RISC-V-cheatsheet-RV32I-4-3.pdf
+    description: (Erik Engheim)
+  - title: D-1 User manual
+    icon: allwinner.png
+    link: /readings/d1-h_user_manual_v1.0.pdf
+    description: (peripherals)
+  - title: Mango Pi pinout
+    icon: pinout_icon.png
+    link: /guides/images/refcard-front.pdf
+    description: (Ref card)
+  - title: Compiler Explorer
+    icon: godbolt.png
+    link: https://gcc.godbolt.org/z/Eod3jo3bb
+    description: (C to Asm)

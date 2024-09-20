@@ -1,0 +1,27 @@
+# Navigation bar menu structure
+- title: Home
+  link: /
+- title: Assignments
+  link: /assignments/
+- title: Labs
+  link: /labs/
+- title: Resources
+  submenu:
+    - title: About the course
+      link: /about/
+    - title: Policies
+      link: /policies/
+    - title: Guides
+      link: /guides/
+    - title: Project Gallery
+      link: /project_gallery/
+    - title: External demos
+      link: /demos/
+    - title: External resources
+      link: /resources/
+- title: "🗓Schedule"
+  link: /schedule/
+- title: ✅Gradebook
+  link: /yass/
+- title: "🔍Search"
+  link: /search/

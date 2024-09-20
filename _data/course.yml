@@ -1,0 +1,24 @@
+# Top-level information about course
+id: CS107e
+title: Computer Systems From the Ground Up
+quarter: Fall 2024
+staff:
+  - name: Kenny Osele
+    img: /_assets/img/kenny.png
+  - name: Ben Ruland
+    img: /_assets/img/Ben.jpeg
+  - name: Didi Kamalova
+    img: /_assets/img/didi.jpeg
+  - name: Frances Raphael
+    img: /_assets/img/frances.png
+  - name: Aanya Tashfeen
+    img: /_assets/img/aanya.jpg
+  - name: Daniel James 
+    img: /_assets/img/daniel.jpeg
+  - name: Ishita Gupta 
+    img: /_assets/img/ishita.jpeg
+  - name: Julie Zelenski
+    img: /_assets/img/julie.jpg
+lecture_schedule: Mon and Fri 10:30am - 12pm, Y2E2 111
+lab_schedule: Tue and Wed 6:30-8:30pm
+forum: https://edstem.org/us/courses/67356/discussion/
