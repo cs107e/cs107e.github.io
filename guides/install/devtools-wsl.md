@@ -20,7 +20,7 @@ You may need to restart your computer a few times throughout this process, so it
 
 Run the commands below in your WSL terminal to confirm that you are running an appropriate version of Ubuntu and WSL.
 
-{% include checkstep.html content="confirm Ubuntu and WSL version" %}
+{% include checkstep.html content="confirm Ubuntu and WSL version 1" %}
 ```console
 $ lsb_release -a
 No LSB modules are available.
@@ -32,9 +32,13 @@ $ powershell.exe "wsl --list --verbose"
   NAME              STATE       VERSION
  *Ubuntu-22.04      Running     1
 ```
-
+> __Be sure you have WSL version 1__
+> The WSL version 2 is not compatible with the work we'll be doing in the class.
 {: .callout-warning}
-## Install some prerequisites
+
+## Install prerequisites
+Run the commands below in your WSL terminal to get the needed prequisities.
+
 ```console
 $ sudo apt-get update
 $ sudo apt-get upgrade
@@ -46,19 +50,15 @@ We use a cross-compiler toolchain to compile programs for the Mango Pi. Run the 
 
 1. Download the prebuilt toolchain files:
     ```console
-    $
     $ wget https://web.stanford.edu/~kenny1g/riscv-107e-wsl-prebuild.tar.gz
     ```
 
-2. Install the packages.
-NOTE: The first command is to check your current directory. If you are not in the `tmp-debs` directory, you will need to change to that directory before running the `dpkg` commands.
+2. Extract the package file and symlink into place:
 
    ```console
    $ sudo tar -xvf riscv-107e-wsl-prebuild.tar.gz -C /opt
-   # At this point, you can delete the tar file if you want
-   $ rm riscv-107e-wsl-prebuild.tar.gz
-   # Symlink the binaries
-   $ sudo ln -s /opt/riscv-unknown-elf-107e/bin/riscv64-unknown-elf-* /usr/local/bin/
+   $ rm riscv-107e-wsl-prebuild.tar.gz  # remove archive, not needed
+   $ sudo ln -s /opt/riscv-unknown-elf-107e/bin/riscv64-unknown-elf-* /usr/local/bin/  # symlink binaries
    ```
 
 {% include checkstep.html content="confirm compiler" %}

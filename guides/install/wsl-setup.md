@@ -62,16 +62,17 @@ $ powershell.exe "wsl --list --verbose"
   NAME              STATE       VERSION
  *Ubuntu-22.04      Running     1
 ```
-    > __Be sure you are on WSL version 1
-    > The other WSL version is not compatible with the work we'll be doing in the class.
-    {: .callout-warning}
+> __Be sure you have WSL version 1__
+> The WSL version 2 is not compatible with the work we'll be doing in the class.
+{: .callout-warning}
+
 {%- comment %}
 NOTE: WSL2 now supports serial ports
 TODO: see if we need https://github.com/dorssel/usbipd-win
 The rightmost column of the last command reports the version of WSL. It is critical that you are using WSL version 1, not 2, as serial port support is not available in WSL2.
 {%- endcomment %}
 
-You now have an up-to-date version of Ubuntu running in WSL2 on top of your Windows OS.
+You now have an up-to-date version of Ubuntu running in WSL on top of your Windows OS.
 
 <a name="files"></a>
 ### Accessing WSL files from Windows
