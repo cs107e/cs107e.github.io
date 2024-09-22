@@ -1,7 +1,7 @@
 ---
 title: "Guide: Initial git setup and mycode repo"
 toc: true
-quarterprefix: spring24
+quarterprefix: fall24
 attribution: Written by Maria Paula Hernandez and Liana Keesing, incorporating work of past TAs
 ---
 
@@ -79,7 +79,7 @@ Make a new directory named `cs107e_home` to store course material within your ho
 $ mkdir ~/cs107e_home
 ```
 
-Note: If you're using WSL, now is a good time to open File Explorer on your `cs107e_home` directory and "Pin to Quick Access" to add it the sidebar for future use. See [accessing WSL files from Windows](../install/wsl/#files).
+Note: If you're using WSL, now is a good time to open File Explorer on your `cs107e_home` directory and "Pin to Quick Access" to add it the sidebar for future use. See [accessing WSL files from Windows](../install/wsl-setup/#files).
 
 ### Step 5: Make local clone
 
