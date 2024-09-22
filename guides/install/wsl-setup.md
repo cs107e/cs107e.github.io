@@ -17,25 +17,29 @@ You may need to restart your computer a few times throughout this process, so it
 ## Requirements
 Confirm that you are running an appropriate version of Windows 11. To find the version number, type `winver` into the start menu search bar and run the command. A panel appears that reports the version information as shown in this screenshot:
 
-![Window Version 22H2](../images/winver23H2.png)
+![Window Version 23H2](../images/winver23H2.png)
 {: .w-75}
 
 When we updated our installation instructions for Fall 2024, we tested on __Version 23H2__ of Windows 11 and recommend that your version match ours.
-> __Windows version earlier than 22H2__ If you are running a Windows version that is earlier 22H2; you should not proceed with the installation instructions. Stop here and update to a compatible OS version first. If you need help, reach out to the staff.
+> __Windows version earlier than 23H2__ If you are running a Windows version that is earlier than what we tested; you should not proceed with the installation instructions. Stop here and update to a compatible OS version first. If you need help, reach out to the staff.
 {: .callout-danger-invert}
+
+### Enable WSL Windows feature
 
 Windows OS does not natively support the development tools used in this course. Enabling WSL (Windows Subsystem for Linux) allows you to run an Ubuntu instance on top of Windows OS. You will install the necessary development tools into the Ubuntu WSL environment and do your coursework there.
 
-### Enable WSL for Windows and install Ubuntu 22.04
+1. Type "features" into start bar and open the Control panel to "Turn Windows features on or off".
+1. In the panel, find the checkbox "Windows Subsystem for Linux". Check the box, and click "OK". Wait for it to complete the requested changes and then restart your computer when prompted.
 
-1. Open PowerShell or Windows Command Prompt in administrator mode by right-clicking and selecting "Run as administrator", enter the commands below.
+### Install Ubuntu 24.04
 
+1. Open PowerShell or Windows Command Prompt and enter the commands below.
     ```powershell
     wsl --set-default-version 1
-    wsl --install -d Ubuntu-22.04
+    wsl --install -d Ubuntu-24.04
     ```
 
-    > __Be sure to install version Ubuntu 22.04__
+    > __Be sure to install version Ubuntu 24.04__
     > The other Ubuntu versions do not support the software requirements we need.
     {: .callout-warning}
 
@@ -53,12 +57,12 @@ The updater is quite the chatterbox, do not be alarmed about the long-winded uni
 $ lsb_release -a
 No LSB modules are available.
 Distributor ID: Ubuntu
-Description:    Ubuntu 22.04.3 LTS
-Release:        22.04
-Codename:       jammy
+Description:    Ubuntu 24.04 LTS
+Release:        24.04
+Codename:       noble
 $ powershell.exe "wsl --list --verbose"
   NAME              STATE       VERSION
- *Ubuntu-22.04      Running     1
+ *Ubuntu-24.04      Running     1
 ```
 > __Be sure you have WSL version 1__
 > WSL version 2 is not compatible with the tools we use in this course.

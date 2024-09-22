@@ -17,8 +17,8 @@ The installation steps are:
 - Install `xfel`, our communication client for sending binaries to the Mango Pi (for Mac, this step is actually rolled into the toolchain installation, as you'll see in the steps).
 
 Follow the installation instructions for your OS
-+ [Install on macOS](../devtools-mac)
-+ [Install on Windows WSL](../devtools-wsl)
++ [Install dev tools on macOS](../devtools-mac)
++ [Install dev tools on Windows WSL](../devtools-wsl)
 
 <a name="finalcheck"></a>
 ## Final check steps

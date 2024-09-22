@@ -25,12 +25,12 @@ Run the commands below in your WSL terminal to confirm that you are running an a
 $ lsb_release -a
 No LSB modules are available.
 Distributor ID: Ubuntu
-Description:    Ubuntu 22.04.3 LTS
-Release:        22.04
-Codename:       jammy
+Description:    Ubuntu 24.04 LTS
+Release:        24.04
+Codename:       noble
 $ powershell.exe "wsl --list --verbose"
   NAME              STATE       VERSION
- *Ubuntu-22.04      Running     1
+ *Ubuntu-24.04      Running     1
 ```
 > __Be sure you have WSL version 1__
 > WSL version 2 is not compatible with the tools we use in this course.
