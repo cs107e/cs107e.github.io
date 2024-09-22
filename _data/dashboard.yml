@@ -22,7 +22,7 @@ tools:
     description: (peripherals)
   - title: Mango Pi pinout
     icon: pinout_icon.png
-    link: /guides/images/refcard-front.pdf
+    link: /guides/images/refcard-front.png
     description: (Ref card)
   - title: Compiler Explorer
     icon: godbolt.png

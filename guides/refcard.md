@@ -6,8 +6,8 @@ Your [course parts kit](/guides/bom) contains a printed copy of the reference ca
 
 The front side has the pinout for the GPIO pins, you'll be referring to this often! The back side includes pro-tips from our past students. Let us know if you have suggesions of what we should include going forward!
 
-![ref card front](../images/refcard-front.pdf)![ref card back](../images/refcard-back.png)
-{: .w-50 .mx-auto .border .p-2 }
+![ref card front](../images/refcard-front.png)![ref card back](../images/refcard-back.png)
+{: .w-75 .mx-auto .border .p-2 }
 
 Bonus: try the command `pinout.py` for an Ascii pinout when your ref card is not on hand.
 

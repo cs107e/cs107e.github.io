@@ -10,18 +10,17 @@ li a[href*="//"]:link { font-size: 80%; }
 ## Parts kit
 Each student is given a parts kit containing the materials needed for the course assignments and labs. The kit is packed into a plastic box and contains:
 - a flamingo pink __Mango Pi MQ-Pro__ <https://mangopi.org/mqpro>
-- a __4-port USB-A data hub__ with individual on/off switches <https://www.amazon.com/dp/B00BWF5U0M>
-- a __USB adapter__ plug to convert USB-C to USB-A <https://www.aliexpress.us/item/2255799820011261.html>
-- a short __USB data__ cable (A to C) <https://www.aliexpress.us/item/3256805079140338.html>
-- a __HDMI adapter__ plug to convert mini-HDMI to full-size <https://www.aliexpress.us/item/2251832819936069.html>
+- a short __USB-C extension cable with on/off switch__ <https://www.amazon.com/dp/B0D5Y63VRP/>
+- a slim __USB-C hub/splitter__ <https://www.aliexpress.us/item/3256805490680384.html>
+- a __USB OTG connector__ <https://www.aliexpress.us/item/3256802115485144.html>
 - a __CP2102 USB-to-serial__ breakout board <https://www.taydaelectronics.com/cp2102-serial-converter-usb-2-0-to-ttl-uart-ftdi.html>
 - a 4-digit __7-segment display__ <http://www.lanpade.com/7-segment-led-dot-matrix/5461as.html>
 - a full-sized __breadboard__ <https://www.jameco.com/z/WBU-202-R-Jameco-Valuepro-830-Point-Solderless-Breadboard-6-5-x-2-125-_20723.html>
-    + Jameco is solid! sometimes cheaper breadboards have flaky connection points, best to avoid
+    + Jameco, BusBoard, Velleman are solid! sometimes cheaper breadboards have flaky connection points, best to avoid
 - __jumpers__ (5-20 of each) <https://www.aliexpress.com/item/32891879068.html>
     -  __female-female__
     -  __female-male__
-- a handy __reference card__ ([custom designed](/guides/refcard) by Anna Mistele)
+- a handy __reference card__ (Anna Mistele's [custom design](/guides/refcard))
 - a __mini-box__ of small components:
     - __resistors__ ([how resistance is encoded in band color](https://learn.sparkfun.com/tutorials/resistors#decoding-resistor-markings),  [color code calculator](https://www.digikey.com/en/resources/conversion-calculators/conversion-calculator-resistor-color-code))
         - twenty __1K resistors__ (for leds, 4-digit display, transistors) <https://www.taydaelectronics.com/resistors/1k-ohm-1-2w-5-carbon-film-resistor.html>
@@ -54,7 +53,7 @@ For keyboard lab:
 
 For graphics lab:
 - any __display__ (monitor, tv, projector) that accepts HDMI input
-- __HDMI cable__
+- __HDMI cable__ (Mango Pi has a mini-HDMI connector so need compatible cable or adapter)
 
 ## Sources for parts
 
