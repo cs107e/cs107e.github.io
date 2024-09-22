@@ -17,40 +17,38 @@ You may need to restart your computer a few times throughout this process, so it
 ## Requirements
 Confirm that you are running an appropriate version of Windows 11. To find the version number, type `winver` into the start menu search bar and run the command. A panel appears that reports the version information as shown in this screenshot:
 
-![Window Version 22H2](../images/win11ver.png)
+![Window Version 22H2](../images/winver23H2.png)
 {: .w-75}
 
-When we updated our installation instructions for Winter Quarter 2024, we tested on __Version 22H2__ of Windows 11 and recommend that your version match ours.
+When we updated our installation instructions for Fall 2024, we tested on __Version 23H2__ of Windows 11 and recommend that your version match ours.
 > __Windows version earlier than 22H2__ If you are running a Windows version that is earlier 22H2; you should not proceed with the installation instructions. Stop here and update to a compatible OS version first. If you need help, reach out to the staff.
 {: .callout-danger-invert}
 
-## Enable WSL and install Ubuntu 22.04
-
 Windows OS does not natively support the development tools used in this course. Enabling WSL (Windows Subsystem for Linux) allows you to run an Ubuntu instance on top of Windows OS. You will install the necessary development tools into the Ubuntu WSL environment and do your coursework there.
 
-### Enable and Install Ubuntu on the WSL Windows feature
+### Enable WSL for Windows and install Ubuntu 22.04
 
-1. Open PowerShell or Windows Command Prompt in administrator mode by right-clicking and selecting "Run as administrator", enter the wsl --install command below, then restart your machine.
+1. Open PowerShell or Windows Command Prompt in administrator mode by right-clicking and selecting "Run as administrator", enter the commands below.
 
     ```powershell
     wsl --set-default-version 1
     wsl --install -d Ubuntu-22.04
     ```
 
-    > __Be sure to choose version Ubuntu 22.04 LTS__
+    > __Be sure to install version Ubuntu 22.04__
     > The other Ubuntu versions do not support the software requirements we need.
     {: .callout-warning}
 
-1. Once it's done, the `ubuntu` application wil be launched. And the terminal window will say "Installing, this may take a few minutes...".
-1. Once that command finishes, it prompts you to enter a new username and password for your Ubuntu account. __Be sure to remember the name and password__, you'll need them later for administrator privileges.
-1. Apply the latest Ubuntu updates by running the command below in your WSL terminal window:
+1. The `ubuntu` application is now launched and opens a new WSL terminal window. The terminal prints the message "Installing, this may take a few minutes...", be patient while it works.
+1. When complete, it prompts you to create a new username and password for your Ubuntu account. __Be sure to remember the name and password__, you'll need them later for sudo/administrator privileges.
+1. Bring the Ubuntu packages up to date by running the command below in your WSL terminal window:
 
     ```console
     $ sudo apt update && sudo apt upgrade
     ```
-Do not be alarmed about the long-winded unix-babble produced -- these processes are total chatterboxes.
+The updater is quite the chatterbox, do not be alarmed about the long-winded unix-babble, just be patient and confirm that the process eventually completes. You are now ready to confirm your install of WSL.
 
-{% include checkstep.html content="confirm Ubuntu and WSL version" %}
+{% include checkstep.html content="confirm Ubuntu and WSL version 1" %}
 ```console
 $ lsb_release -a
 No LSB modules are available.
@@ -63,7 +61,7 @@ $ powershell.exe "wsl --list --verbose"
  *Ubuntu-22.04      Running     1
 ```
 > __Be sure you have WSL version 1__
-> The WSL version 2 is not compatible with the work we'll be doing in the class.
+> WSL version 2 is not compatible with the tools we use in this course.
 {: .callout-warning}
 
 {%- comment %}
@@ -85,6 +83,6 @@ $ explorer.exe .
 
 This command opens a window in File Explorer that shows the files in the current WSL directory (whose shortname name is dot). Windows applications can now access these files, such as to edit a WSL text file using your favorite Windows text editor. Nifty!
 
-## Installation complete
+## WSL installation complete
 
-Nice job! Interested in becoming even more productive with WSL? It's okay if you don't have time now, but the ✨Windows-savvy✨ folks on the teaching team highly recommend using [Windows Terminal](https://github.com/microsoft/terminal), which wraps around the brutal Ubuntu default terminal to make it both pretty & full of very very useful features like tabs, rich text, and split terminals. If you have questions and want to do this, feel free to reach out during office hours!
+Nice job! Interested in becoming even more productive with WSL? The Windows-savvy folks on the teaching team highly recommend using [Windows Terminal](https://github.com/microsoft/terminal), which wraps around the basic Ubuntu default terminal to make it both pretty & full of very useful features like tabs, rich text, and split terminals. If you have questions and want to do this, feel free to reach out during office hours!

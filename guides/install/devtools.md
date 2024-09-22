@@ -24,7 +24,7 @@ Follow the installation instructions for your OS
 ## Final check steps
 After completing the installation instructions, use these final check steps below to confirm your developer tools.
 
-{% include checkstep.html content="confirm $CS107E, cross-compile build and debug" %}
+{% include checkstep.html content="confirm $CS107E, cross-compile build and debug simulator" %}
 ```console
 $ cd $CS107E/sample_build
 $ make clean && make all
@@ -32,8 +32,7 @@ rm -f *.o *.bin *.elf *.list *~
 riscv64-unknown-elf-gcc ... blah blah blah ...
 ```
 ```console?prompt=(gdb),$
-$ make debug
-$ riscv64-unknown-elf-gdb hello.elf
+$ riscv64-unknown-elf-gdb
 GNU gdb (GDB) 13.2
 ... blah blah blah ...
 (gdb) target sim
@@ -41,17 +40,25 @@ Connected to the simulator.
 (gdb) quit
 ```
 
-{% include checkstep.html content="confirm __mango-run__ and __xfel__" %}
+{% include checkstep.html content="confirm __xfel__ and __mango-run__ " %}
 ```console
+$ xfel
+xfel(v1.3.2) - https://github.com/xboot/xfel
+usage:
+    xfel version                                    - Show chip version
+    xfel hexdump address length                     - Dumps memory region in hex
+    ... blah blah blah ...
 $ mango-run
 Usage: /Users/julie/cs107e_home/mycode/cs107e/bin/mango-run <binary-file>
 
   Simple script to run a program on the Mango Pi using xfel as bootloader.
   (xfel ddr d1, xfel write, xfel exec)
 
-$ xfel version
-ERROR: Can't found any FEL device.
+xfel version
+ERROR: Did not find a FEL device connected to USB.
 ```
+
+{% comment %}
 > __got abort?__ If you run `xfel` when there are no USB devices connected to your laptop, rather than report a helpful error about not finding anything to talk to, `xfel` drops an unceremonious assert (see below). Re-connecting your Pi should fix it. If not, change to a different USB port on your laptop to jigger things, or if USB just seems wedged, restart your laptop.
 {: .callout-danger}
 
@@ -59,4 +66,5 @@ ERROR: Can't found any FEL device.
 Assertion failed: (count > 0), function main, file main.c, line 60.
 fish: Job 1, 'xfel version' terminated by signal SIGABRT (Abort)
 ```
+{% endcomment %}
 

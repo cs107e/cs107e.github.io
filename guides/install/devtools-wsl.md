@@ -33,7 +33,7 @@ $ powershell.exe "wsl --list --verbose"
  *Ubuntu-22.04      Running     1
 ```
 > __Be sure you have WSL version 1__
-> The WSL version 2 is not compatible with the work we'll be doing in the class.
+> WSL version 2 is not compatible with the tools we use in this course.
 {: .callout-warning}
 
 ## Install prerequisites
@@ -53,7 +53,7 @@ We use a cross-compiler toolchain to compile programs for the Mango Pi. Run the 
     $ wget https://web.stanford.edu/~kenny1g/riscv-107e-wsl-prebuild.tar.gz
     ```
 
-2. Extract the package file and symlink into place:
+2. Extract the files and symlink into place:
 
    ```console
    $ sudo tar -xvf riscv-107e-wsl-prebuild.tar.gz -C /opt
@@ -66,8 +66,6 @@ We use a cross-compiler toolchain to compile programs for the Mango Pi. Run the 
 $ riscv64-unknown-elf-gcc --version
 riscv64-unknown-elf-gcc () 13.2.0
 Copyright (C) 2022 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
 ## Install xfel
 
@@ -112,38 +110,19 @@ Here are the steps:
     blink-actled.bin  libusb-1.0.dll  mango-run  pinout.py  xfel
     ```
 
-8. Time to check if that worked! Go back to your `mycode` folder, and try running xfel. {% include checkstep.html content="confirm xfel" %}
+8. Time to check if that worked! Go back to your `mycode` folder, and try running xfel.
 
-    ```console
-    $ cd ~/cs107e_home/mycode
-    $ xfel
+{% include checkstep.html content="confirm xfel" %}
 
-    xfel(v1.3.2) - https://github.com/xboot/xfel
-    usage:
-        xfel version                                        - Show chip version
-        xfel hexdump <address> <length>                     - Dumps memory region in hex
-        xfel dump <address> <length>                        - Binary memory dump to stdout
-        xfel read32 <address>                               - Read 32-bits value from device memory
-        xfel write32 <address> <value>                      - Write 32-bits value to device memory
-        xfel read <address> <length> <file>                 - Read memory to file
-        xfel write <address> <file>                         - Write file to memory
-        xfel exec <address>                                 - Call function address
-        xfel reset                                          - Reset device using watchdog
-        xfel sid                                            - Show sid information
-        xfel jtag                                           - Enable jtag debug
-        xfel ddr [type]                                     - Initial ddr controller with optional type
-        xfel sign <public-key> <private-key> <file>         - Generate ecdsa256 signature file for sha256 of sid
-        xfel spinor                                         - Detect spi nor flash
-        xfel spinor erase <address> <length>                - Erase spi nor flash
-        xfel spinor read <address> <length> <file>          - Read spi nor flash to file
-        xfel spinor write <address> <file>                  - Write file to spi nor flash
-        xfel spinand                                        - Detect spi nand flash
-        xfel spinand erase <address> <length>               - Erase spi nand flash
-        xfel spinand read <address> <length> <file>         - Read spi nand flash to file
-        xfel spinand write <address> <file>                 - Write file to spi nand flash
-        xfel spinand splwrite <split-size> <address> <file> - Write file to spi nand flash with split support
-        xfel extra [...]                                    - The extra commands
-    ```
+```console
+$ xfel
+xfel(v1.3.2) - https://github.com/xboot/xfel
+usage:
+    xfel version                                        - Show chip version
+    xfel hexdump <address> <length>                     - Dumps memory region in hex
+    xfel dump <address> <length>                        - Binary memory dump to stdout
+    ...
+```
 
 ## Installation complete
 
