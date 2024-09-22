@@ -36,36 +36,35 @@ $ powershell.exe "wsl --list --verbose"
 > WSL version 2 is not compatible with the tools we use in this course.
 {: .callout-warning}
 
-## Install prerequisites
-Run the commands below in your WSL terminal to get the needed prequisities.
+## Install developer tools
+Run the commands below in your WSL terminal.
 
+1. Install prerequisites and base toolchain.
 ```console
-$ sudo apt-get update
-$ sudo apt-get upgrade
-$ sudo apt install make libmpc3 gdb
-````
-## Install riscv-unknown-elf toolchain
+$ sudo apt install build-essential gcc-riscv64-unknown-elf
+```
 
-We use a cross-compiler toolchain to compile programs for the Mango Pi. Run the commands below in your WSL terminal to install the toolchain.
+1. Download archive of our custom debugger build and extract files into place.
+```console
+$ wget https://github.com/cs107e/homebrew-cs107e/raw/master/riscv64-gdb-wsl.tar.xz
+$ sudo tar -xvf riscv64-gdb-wsl.tar.xz -C /usr/local/bin
+$ rm riscv64-gdb-wsl.tar.xz  # remove archive, not needed
+```
 
-1. Download the prebuilt toolchain files:
-    ```console
-    $ wget https://web.stanford.edu/~kenny1g/riscv-107e-wsl-prebuild.tar.gz
-    ```
-
-2. Extract the files and symlink into place:
-
-   ```console
-   $ sudo tar -xvf riscv-107e-wsl-prebuild.tar.gz -C /opt
-   $ rm riscv-107e-wsl-prebuild.tar.gz  # remove archive, not needed
-   $ sudo ln -s /opt/riscv-unknown-elf-107e/bin/riscv64-unknown-elf-* /usr/local/bin/  # symlink binaries
-   ```
-
-{% include checkstep.html content="confirm compiler" %}
+{% include checkstep.html content="confirm compiler and debugger with simulator" %}
 ```console
 $ riscv64-unknown-elf-gcc --version
 riscv64-unknown-elf-gcc () 13.2.0
 Copyright (C) 2022 Free Software Foundation, Inc.
+```
+
+```console?prompt=(gdb),$
+$ riscv64-unknown-elf-gdb
+GNU gdb (GDB) 13.2
+... blah blah blah ...
+(gdb) target sim
+Connected to the simulator.
+(gdb) quit
 ```
 ## Install xfel
 

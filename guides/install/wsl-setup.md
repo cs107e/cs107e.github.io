@@ -15,21 +15,21 @@ These are the instructions for setting up a development environment using the Wi
 You may need to restart your computer a few times throughout this process, so it’s a good idea to save all work before starting so you can restart when prompted.
 
 ## Requirements
-Confirm that you are running an appropriate version of Windows 11. To find the version number, type `winver` into the start menu search bar and run the command. A panel appears that reports the version information as shown in this screenshot:
+Confirm that you are running an appropriate version of Windows 11. To find the version number, type `winver` into the start bar and run the command. A panel appears that reports the version information as shown in this screenshot:
 
 ![Window Version 23H2](../images/winver23H2.png)
 {: .w-75}
 
-When we updated our installation instructions for Fall 2024, we tested on __Version 23H2__ of Windows 11 and recommend that your version match ours.
-> __Windows version earlier than 23H2__ If you are running a Windows version that is earlier than what we tested; you should not proceed with the installation instructions. Stop here and update to a compatible OS version first. If you need help, reach out to the staff.
+When we updated our installation instructions for __Fall 2024__, we tested on __Version 23H2__ of Windows 11 and recommend that your version match ours.
+> __Old Windows version: stop here!__ If your version of Windows version is earlier than what we tested (23H2); you should not proceed with the installation instructions. Update to a compatible OS version first. If you need help, reach out to the staff.
 {: .callout-danger-invert}
 
 ### Enable WSL Windows feature
 
 Windows OS does not natively support the development tools used in this course. Enabling WSL (Windows Subsystem for Linux) allows you to run an Ubuntu instance on top of Windows OS. You will install the necessary development tools into the Ubuntu WSL environment and do your coursework there.
 
-1. Type "features" into start bar and open the Control panel to "Turn Windows features on or off".
-1. In the panel, find the checkbox "Windows Subsystem for Linux". Check the box, and click "OK". Wait for it to complete the requested changes and then restart your computer when prompted.
+1. Type `features` into the start bar and open the Control panel to `Turn Windows features on or off`.
+1. In the panel, find the checkbox `Windows Subsystem for Linux`. Check the box, and click `OK`. Wait for it to complete the requested changes and then restart your computer when prompted.
 
 ### Install Ubuntu 24.04
 
@@ -48,9 +48,11 @@ Windows OS does not natively support the development tools used in this course. 
 1. Bring the Ubuntu packages up to date by running the command below in your WSL terminal window:
 
     ```console
+    $ sudo dpkg-divert --rename --add /usr/bin/systemd-sysusers
+    $ sudo ln -sf /usr/bin/true /usr/bin/systemd-sysusers
     $ sudo apt update && sudo apt upgrade
     ```
-The updater is quite the chatterbox, do not be alarmed about the long-winded unix-babble, just be patient and confirm that the process eventually completes. You are now ready to confirm your install of WSL.
+The update procedure is very chatty, expect a lot of long-winded unix-babble to go by. Be patient and wait to confirm that the process eventually completes with no errors.
 
 {% include checkstep.html content="confirm Ubuntu and WSL version 1" %}
 ```console
