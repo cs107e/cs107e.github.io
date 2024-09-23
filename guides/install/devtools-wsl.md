@@ -98,8 +98,8 @@ Here are the steps:
     For example, if my path in that step was `C:\Users\killer-rabbit\Downloads\xfel-windows-v1.3.2\xfel-windows-v1.3.2\`, then I would access that folder from WSL as `/mnt/c/Users/killer-rabbit/Downloads/xfel-windows-v1.3.2/xfel-windows-v1.3.2/`. (Note that the slashes go in different directions in Windows and Linux---that's just how they're referenced). You might have to play around to figure out the exact path on your computer, but once you have, use these two commands from inside the `$CS107E/bin` folder:
 
     ```console
-    $ sudo cp /mnt/c/[downloads path]/xfel-windows-v1.3.2/xfel-windows-v1.3.2/xfel.exe xfel
-    $ sudo cp /mnt/c/[downloads path]/xfel-windows-v1.3.2/xfel-windows-v1.3.2/libusb-1.0.dll .
+    $ cp /mnt/c/[downloads path]/xfel-windows-v1.3.2/xfel-windows-v1.3.2/xfel.exe xfel
+    $ cp /mnt/c/[downloads path]/xfel-windows-v1.3.2/xfel-windows-v1.3.2/libusb-1.0.dll .
     ```
 
     If this worked, the following files should appear in your respository:
@@ -117,9 +117,9 @@ Here are the steps:
 $ xfel
 xfel(v1.3.2) - https://github.com/xboot/xfel
 usage:
-    xfel version                                        - Show chip version
-    xfel hexdump <address> <length>                     - Dumps memory region in hex
-    xfel dump <address> <length>                        - Binary memory dump to stdout
+    xfel version                            - Show chip version
+    xfel hexdump address length             - Dumps memory region in hex
+    xfel dump address length                - Binary memory dump to stdout
     ...
 ```
 
