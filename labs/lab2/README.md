@@ -257,9 +257,9 @@ the bottom (after all, ground is underneath us). Insert your display unit in the
 
 ![Breadboard with clock in position](images/breadboard.1.placement.jpg){: .zoom }
 
-Take note of which column numbers on the breadboard align with pinout of the
+Take note of which row and column numbers on the breadboard align with pinout of the
 display unit. When the display unit is inserted into the breadboard you can no longer
-see the pins underneath, so you want to know which breadboard column aligns with each pin. Throughout this guide, we have placed the display unit so __pin 1 is in Row 20 Column D__.
+see the pins underneath, so you want to know which breadboard holes aligns with each pin. Throughout this guide, we placed the display unit so __pin 1 is in the slot labeled Row 20 Column D__ on our breadboard. This location may be labeled differently on your breadboard. To match our anchor point, count starting from the left side to the 20th row and go down 2 from middle channel. Jot down the row/col number of the anchor according to the labels on your breadboard.
 
 The LEDs in the display unit require a current-limiting resistor just as the LEDs in your Larson scanner did. Place a 1K resistor bridging the middle of the breadboard to the right of the display unit. The resistor should sit neatly--- Liana shows how to use the pliers to make a sharp crease and clip the leads with the cutters for a nice secure fit.
 
@@ -274,7 +274,7 @@ The first test connection is to turn on the single segment B of digit 1. Below i
 - Follow the above schematic and build this test circuit on your breadboard.
 	- Pick out three short male-male jumpers (orange for 3.3V, black for GND, and green).
 	- Use the orange jumper to connect the red power rail to the top of the resistor.
-	- Use the green jumper to connect the bottom of the resistor to segment B on the display unit. Consider: if pin 1 of the display unit is aligned with breadboard column 20, which column number aligns with the pin for segment B?
+	- Use the green jumper to connect the bottom of the resistor to segment B on the display unit.
 	- Use the black jumper to connect digit D1 on the display unit to the ground rail.
 - Connect your breadboard to power and ground from your Mango Pi.
     - Pick out a pair of red and black male-female jumpers.
