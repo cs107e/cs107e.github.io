@@ -1,91 +1,194 @@
 #!/usr/bin/python3
 """
-Quick & dirty python script to print ASCII art version of Mango Pi pinout
+Quick & dirty python script to print ASCII art version of Mango Pi pinout.
+
+View help message with `pinout.py -h`.
 
 Author: Julie Zelenski <zelenski@cs.stanford.edu> Dec 2023
 Updated by Daniel James <drjames@stanford.edu> Jan 2024
+Documented, Updated by Marcus Alagar <marcusal@stanford.edu> Jan 2025
 """
-import sys
 
-USE_COLORS = True
+import argparse, os, re, sys
+
 def wrap(text, *colors):
+    """Wraps given text in the specified color codes
+
+    Takes string `text` and variable-length tuple of string `colors`
+    Returns a copy of `text` wrapped in ANSI escape codes to display
+    in specified colors and reset to normal after.
+    """
+
+    # With help of https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences
     COLORS = {
         'normal': 0,
-        'black': 100,
+        'black': 100, # In ANSI, is technically bright black
         'black_fg': 90,
         'red': 41,
-        'red_fg': 31,
         'green': 42,
-        'green_fg': 32,
         'yellow': 43,
-        'yellow_fg': 33,
-        'blue': 44,
-        'blue_fg': 34,
+        'cyan': 46,
         'magenta_fg': 35,
+        'white': 107, # In ANSI, is technically bright white
         'white_fg': 97
-        }
-    ansi_escape = lambda name: f"\033[{COLORS[name]}m" if USE_COLORS else ''
-    return ''.join((ansi_escape(c) for c in colors)) + text + ansi_escape('normal')
+    }
+    if ARGS.no_color: # if colors disabled, return text as-is
+        return text
+    else:
+        ansi_escape = lambda name: f"\033[{COLORS[name]}m"
+        return ''.join((ansi_escape(c) for c in colors)) + text + ansi_escape('normal')
 
-BOARD = [
-    "                                             ",
-    "    │ OTG │  │ USB │            │ HDMI │     ",
-    " O──┤     ├──┤     ├────────────┤ mini ├───O ",
-    " │                  ┌──────┐      ┌─────┐  │ ",
-    " │     " + wrap('Mango Pi','magenta_fg') + "     │  D1  │      │ µsd │  │ ",
-    " │     " + wrap(' MQ-Pro ','magenta_fg') + "     │      │      │     │  │ ",
-    " │                  └──────┘      └─────┘  │ ",
-    " │                                         │ ",
-    " │ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ │ ",
-    " │ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ │ ",
-    " │ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ │ ",
-    " O─────────────────────────────────────────O ",
-]
+PINS = {
+    1:  ('3V3', 'yellow'),   2:  ('5V',  'red'),
+    3:  ('PG13','green'),    4:  ('5V',  'red'),
+    5:  ('PG12','green'),    6:  ('GND', 'black'),
+    7:  ('PB7', 'green'),    8:  ('PB8', 'green', '(TX)'),
+    9:  ('GND', 'black'),    10: ('PB9', 'green', '(RX)'),
+    11: ('PD21','green'),    12: ('PB5', 'green'),
+    13: ('PD22','green'),    14: ('GND', 'black'),
+    15: ('PB0', 'green'),    16: ('PB1', 'green'),
+    17: ('3V3', 'yellow'),   18: ('PD14','green'),
+    19: ('PD12','green'),    20: ('GND', 'black'),
+    21: ('PD13','green'),    22: ('PC1', 'green'),
+    23: ('PD11','green'),    24: ('PD10','green'),
+    25: ('GND', 'black'),    26: ('PD15','green'),
+    27: ('PE17','cyan'),     28: ('PE16','cyan'),
+    29: ('PB10','green'),    30: ('GND', 'black'),
+    31: ('PB11','green'),    32: ('PC0', 'green'),
+    33: ('PB12','green'),    34: ('GND', 'black'),
+    35: ('PB6', 'green'),    36: ('PB2', 'green'),
+    37: ('PD17','green'),    38: ('PB3', 'green'),
+    39: ('GND', 'black'),    40: ('PB4', 'green')
+}
 
-HEADERS = [
-    [ ("3V3",'yellow'), ("5V",'red') ],
-    [ ("PG13",'green'), ("5V",'red') ],
-    [ ("PG12",'green'), ("GND",'black') ],
-    [ ("PB7",'green'),  ("PB8 (TX)",'green') ],
-    [ ("GND",'black'),  ("PB9 (RX)",'green') ],
-    [ ("PD21",'green'), ("PB5",'green') ],
-    [ ("PD22",'green'), ("GND",'black') ],
-    [ ("PB0",'green'),  ("PB1",'green') ],
-    [ ("3V3",'yellow'), ("PD14",'green') ],
-    [ ("PD12",'green'), ("GND",'black') ],
-    [ ("PD13",'green'), ("PC1",'green') ],
-    [ ("PD11",'green'), ("PD10",'green') ],
-    [ ("GND",'black'),  ("PD15",'green') ],
-    [ ("PE17",'blue'),  ("PE16",'blue') ],
-    [ ("PB10",'green'), ("GND",'black') ],
-    [ ("PB11",'green'), ("PC0",'green') ],
-    [ ("PB12",'green'), ("GND",'black') ],
-    [ ("PB6",'green'),  ("PB2",'green') ],
-    [ ("PD17",'green'), ("PB3",'green') ],
-    [ ("GND",'black'),  ("PB4",'green') ],
-]
+def pin_color(pin_num):
+    return PINS[pin_num][1]
 
-def colored_header(str, colors):
-    return ''.join((wrap(' ', next(colors))) if ch == '@' else ch for ch in str)
+def pin_label(pin_num):
+    info = PINS[pin_num]
+    return f"{info[0]}{(' ' + info[2]) if len(info) >= 3 else ''}"
 
-def print_board():
-    indexes = iter(range(0, 2))
+def pinbox(pin_num, target_set):
+    """ Returns formatted string for pin with `pin_num`
+        if not in target_set uses plain dot else colored box or @
+    """
+    if pin_num == 1: return '1'
+    elif pin_num not in target_set: return '·'
+    elif ARGS.no_color: return '@'
+    else: return wrap('·', pin_color(pin_num))
+
+def print_board(target_set):
+    """Prints ASCII board. Use color settings in `PINS` to beautify header.
+    """
+
+    BOARD = [
+        "                                             ",
+        "    │ OTG │  │ USB │            │ HDMI │     ",
+        " O──┤     ├──┤     ├────────────┤ mini ├───O ",
+        " │                  ┌──────┐      ┌─────┐  │ ",
+        " │     " + wrap('Mango Pi','magenta_fg') + "     │  D1  │      │ µsd │  │ ",
+        " │     " + wrap(' MQ-Pro ','magenta_fg') + "     │      │      │     │  │ ",
+        " │                  └──────┘      └─────┘  │ ",
+        " │                                         │ ",
+        " │ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ │ ",
+        " │ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ │ ",
+        " │ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ │ ",
+        " O─────────────────────────────────────────O ",
+    ]
+
+    # Apply pinbox to color header pins ('@') according to PINS
+    # First row (odd): iterate odd-numbered pins 39-1 in reverse
+    # Second row (even): iterate even-numbered pins 40-2 in reverse
+    pins = (39,-1,-2)
     for row in BOARD:
-        if '@' in row:
-            header_index = next(indexes)
-            row = colored_header(row, (c[header_index][1] for c in reversed(HEADERS)))
+        if '@' in row:          # if row is header
+            pin_iter = iter(range(*pins))
+            row = ''.join((pinbox(next(pin_iter), target_set) if ch == '@' else ch) for ch in row)
+            pins = (40,0,-2) # set up for subsequent row
         print(row)
 
-def print_header_table():
-    pin_numbers = iter(range(1, 41))
-    pin = lambda color: wrap("▐", color+"_fg") + wrap(f"{next(pin_numbers):2}","white_fg", color) + wrap("▌", color + "_fg")
-    for pair in HEADERS:
-        l_label,l_pin = pair[0][0], pin(pair[0][1])
-        r_label,r_pin = pair[1][0], pin(pair[1][1])
-        print(f"  {l_label:4} {l_pin} │ {r_pin} {r_label}")
+def pin_info_formatted(pin_num, target_set):
+    """Formats label and pin strings
 
-if __name__ == '__main__':
-    USE_COLORS = not(len(sys.argv) >= 2 and sys.argv[1].startswith('-n'))
-    print_board()
+    Takes `pin_num` and `target_set`. Returns tuple (label, pin)
+    of label string and formatted pin number string.
+    Dot label if not in target set, otherwise label from PINS
+    Pin number format pin color for background, white foreground text.
+    """
+    label = pin_label(pin_num) if pin_num in target_set else '·'
+    number_str  = wrap(f"{pin_num:3} ", "white_fg", pin_color(pin_num))
+    return (label, number_str)
+
+def print_header_table(target_set):
+    """Prints colored table of headers
+
+    Takes a set of pin numbers `target_set`. Prints headers,
+    pin backgrounds use color from PINS, labels are displayed for all
+    pins in target set.
+    """
+    for pin_num in range(1, 41, 2):
+        l_label,l_pin = pin_info_formatted(pin_num, target_set)
+        r_label,r_pin = pin_info_formatted(pin_num + 1, target_set)
+        print(f"{l_label:>6}  {l_pin} │ {r_pin}  {r_label}")
+
+def as_pin_number(id, quiet=False):
+    """Convert string (label, gpio id, or pin number) to pin number(s)
+    Report parse error if label/id/number not valid
+    """
+    if id.isnumeric():
+        nums = {int(id)}
+    else:
+        nums = set(pin_num for pin_num,pair in PINS.items() if pair[0] == id.upper())
+    if not quiet and not (nums & PINS.keys()): # empty intersect w/ pins on header
+        parser.error(f"Header has no pin '{id}'. Id can be pin label (PB3, GND), pin range (PB2-4), pin number (1 to 40), larson, or clock.")
+    else:
+        return nums
+
+def parse_range_specifier(s):
+    """Takes string arg and attempts to parse as range specifier
+    If match regex pattern, ids are those in start-end inclusive
+    Returns list of ids in range (or None if range is not valid)
+    """
+    # https://www.w3schools.com/python/python_regex.asp
+    # https://docs.python.org/3/library/re.html
+    # All hail https://regexr.com/
+    match = re.match(r'P([B-G])(\d\d?)-(\d\d?)', s, re.IGNORECASE)
+    if match is not None:
+        letter = match.group(1).upper()
+        start,end = int(match.group(2)), int(match.group(3))
+        return [f"P{letter}{i}"for i in range(start, end + 1)]
+    else:
+        return None
+
+def process_ids(ids):
+    """Takes id arguments and process into target set of pin numbers
+    """
+    pin_set = set()
+    for arg in ids:
+        if arg == 'larson':
+            expanded = parse_range_specifier('PB0-7')
+        elif arg == 'clock':
+            expanded = ['PD17','PB6','PB12','PB11','PB10','PD11','PD13','PD12','PB4','PB3','PB2','PC0','PD12']
+        elif parse_range_specifier(arg):
+            expanded = parse_range_specifier(arg)
+        else:
+            pin_set |= as_pin_number(arg)  # complain if cannot convert single
+            continue
+        for e in expanded:
+            pin_set |= as_pin_number(e, quiet=True) # don't complain if gaps in range
+    return pin_set
+
+if __name__ == "__main__":
+    # Use argparse to handle command-line arguments
+    parser = argparse.ArgumentParser(description=f"This script displays pinout of the Mango Pi MQ-Pro.")
+    nc_env = os.environ.get("NO_COLOR")  # respect NO_COLOR environment setting see https://no-color.org
+    nc_default = nc_env is not None and nc_env != ""
+    parser.add_argument('ids', help="which pins to highlight, can specify as single pin PD18, range PB0-5, pin number 1 to 40, or label such as GND", nargs='*', action="extend")
+    parser.add_argument('-n', help="disable colors", action="store_true", dest="no_color", default=nc_default)
+    ARGS = parser.parse_args()
+    target_set = process_ids(ARGS.ids)
+    if not target_set: target_set = PINS.keys() # if no selected ids, all pins in target set
+
+    print_board(target_set)
     print()
-    print_header_table()
+    print_header_table(target_set)
