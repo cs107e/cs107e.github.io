@@ -122,7 +122,7 @@ The eight functions exported by the `gpio` module are:
 - `gpio_read`
 - `gpio_write`
 
-The starter code contains copmleted code for the first four functions, along with a few helper functions.  Start by reviewing all of the provided code and comments in `gpio.c` and ask questions if there is anything unclear. Your task will be to complete the module by implementing the remaining four public functions.
+The starter code contains completed code for the first four functions, along with a few helper functions.  Start by reviewing all of the provided code and comments in `gpio.c` and ask questions if there is anything unclear. Your task will be to complete the module by implementing the remaining four public functions.
 
 We recommend that you start with by implementing `gpio_set_function`. This operation is used to configure a pin to a selected function. As you recall from assignment 1, you configure a pin by changing the appropriate bits in the associated `CFG` device register (e.g. `PB_CFG0` for pin PB0). Each group has its own separate `CFG` registers, i.e. `PB_CFG0` is distinct from `PC_CFG0`.  Within a group, each `CFG` register is associated with up to eight pins.  Pins with indexes 0-7 are configured in the `CFG0` register, pins 8-15 in the `CFG1` register and pins 16-23 in `CFG2` register. When updating the bits for a given pin, take care to not overwrite settings for the neighboring pins! This means you must first read the current state for all pins in this configure register, selectively modify the bits of interest, and write back the updated state.
 
