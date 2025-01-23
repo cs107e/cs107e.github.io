@@ -23,7 +23,7 @@ attribution: Prepared by Julie Zelenski
 
 Below is a brief summary of common RISC-V instructions. See the [Resources](/resources#riscv-assembly) page for links to more complete tutorials and readings about RISC-V assembly. We particularly like Eric Engheim's RISC-V cheatsheet:
 
-<a href="http://blog.translusion.com/images/posts/RISC-V-cheatsheet-RV32I-4-3.pdf">
+<a href="/readings/RISC-V-cheatsheet-RV32I-4-3.pdf">
 ![](../images/riscv-cheatsheet.png){: .border .mx-auto .w-25}
 </a>
 
