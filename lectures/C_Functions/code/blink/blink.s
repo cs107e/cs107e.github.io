@@ -8,17 +8,17 @@
 
 loop:
 
-    sw      a1,0x40(a0)  # on
+    sw      a1,0x40(a0)  # turn on
     lui     a2,0x3f00
-    delay:
+    delay_on:
         addi    a2,a2,-1
-        bne     a2,zero,delay
+        bne     a2,zero,delay_on
 
-    sw      zero,0x40(a0) # off
+    sw      zero,0x40(a0) # turn off
     lui     a2,0x3f00
-    delay2:
+    delay_off:
         addi    a2,a2,-1
-        bne     a2,zero,delay2
+        bne     a2,zero,delay_off
 
     j       loop
 
