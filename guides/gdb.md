@@ -1,6 +1,5 @@
 ---
 title: "Guide: Using GDB in Simulation Mode"
-toc: true
 attribution: Written by Julie Zelenski
 ---
 
@@ -46,13 +45,13 @@ riscv64-unknown-elf-gdb -q --command=$CS107E/other/gdbsim.commands sum.elf
 Reading symbols from sum.elf...
 Auto-loading commands from $CS107E/other/gdbsim.commands...
 Connected to the simulator.
-Loading section .text, size 0x510c lma 40000000
-Loading section .rodata, size 0x2510 lma 40005110
-Loading section .eh_frame, size 0x2c lma 40007620
-Loading section .data, size 0x1648 lma 40020000
+Loading section .text, size 0x5a14 lma 40000000
+Loading section .rodata, size 0x26b4 lma 40005a18
+Loading section .eh_frame, size 0x2c lma 400080d0
+Loading section .data, size 0x16e0 lma 40020000
 Start address 40000010
-Transfer rate: 287872 bits in <1 sec.
-Breakpoint 1 at 0x400009b0
+Transfer rate: 310944 bits in <1 sec.
+Breakpoint 1 at 0x40000a74
 (gdb)
 ```
 
@@ -104,7 +103,7 @@ The program has not yet executed the statement that assigns `b` and its value is
 $3 = 15
 ```
 
-Use `continue` to let the program resume execution.  The main function should finish executing and it will appear that the program is stuck. 
+Use `continue` to let the program resume execution.  The main function will finish executing, and gdb will print a message that the process exited.
 
 ```console?prompt=(gdb)
 (gdb) continue
@@ -112,7 +111,7 @@ Continuing.
 [Inferior 1 (process 42000) exited normally]
 ```
 
-The above information tells you that the program exited normally. This is the expected behavior for a C program that has successfully run to completion.
+The above information means the program exited normally. This is the expected behavior for a C program that has successfully run to completion.
 
 <A name="simulation"></A>
 ## Differences due to simulation 
@@ -143,43 +142,5 @@ Arg! These conflicting observations can be mystifying and you may start to think
 
 Despite its limitations, gdb simulation mode can be a powerful ally when dealing with difficult bugs. Learn to make good use of this tool, but do stay mindful of the ways in which it is not an exact match to running on the actual Pi.
 
-## Common commands
-
-Here is a list of useful `gdb` commands. Many command names can be abbreviated. For example, `info registers` can be invoked as `i r`, `stepi` can be invoked `si`, `print/x` is shortened to `p/x`, and so on.
-
-|__Command__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|__Use to__|
-|`run`|start program executing from beginning
-|`control-C`| interrupt the executing program, give control back to gdb
-|`continue`|resume program execution
-|`break WHERE`|set breakpoint to stop at, `WHERE` is name of function or line number or address of instruction
-|`info break`|list all breakpoints
-|`delete [N]`|remove n'th breakpoint, with no argument removes all breakpoints
-|`stepi`|execute one assembly instruction
-|`step`|execute one line of C source, step into function call
-|`next`|execute one line of C source, step over function calls
-|`backtrace`|show stack backtrace up to current execution
-|`disassemble [WHAT]`|disassemble instructions, `WHAT` can be function name or address, if no arg disassemble currently executing function
-|`info registers`|show contents of all registers
-|`print/d EXPR`|eval expression, print result in decimal
-|`print/x EXPR`|eval expression, print result in hex
-|`print/t EXPR`|eval expression in binary, print result in binary
-|`display EXPR`|auto-print expression after each command
-|`info display`|list all auto-display expressions
-|`undisplay [n]`|remove n'th auto-display expression
-|`x/HOW ADDR`|examine contents of memory at ADDR, use format `HOW` 3 letters for repeatcount, format, size
-|`help [cmdname]`| show help for gdb command `[cmdname]`
-|⬆️⬇️|scroll back/forward through previously executed commands
-|`quit`|quit gdb
-{: .table-striped .w-75 .mx-auto}
-
-
-
-## Additional resources
-
-- CS107's [guide to gdb](https://cs107.stanford.edu/resources/gdb.html) is a good introduction.
-- Watch Chris Gregg's [video tutorial on gdb](https://www.youtube.com/watch?v=uhIt8YqtmuQ&feature=youtu.be).
--  Looking to learn some fancier tricks? See these articles Julie wrote for a 
-programming journal: [Breakpoint Tricks](https://web.stanford.edu/class/archive/cs/cs107/cs107.1186/resources/gdb_coredump1.pdf) 
-and [gdb's Greatest Hits](https://web.stanford.edu/class/archive/cs/cs107/cs107.1186/resources/gdb_coredump2.pdf). 
-- Last but not least, the full online gdb manual tells all: 
-[http://sourceware.org/gdb/current/onlinedocs/gdb/index.html](http://sourceware.org/gdb/current/onlinedocs/gdb/index.html).
+> __Pro-tip__ See our [gdb quick reference](/guides/gdb-quickref) for a list of common gdb commands.
+{: .callout-info}

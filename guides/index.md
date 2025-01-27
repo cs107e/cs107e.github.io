@@ -39,6 +39,7 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 - [Bare metal programming using `gcc`](gcc)
 - [`make` and `Makefiles`](make)
 - [Using `gdb` in simulation mode](gdb)
+- [`gdb` quick reference](gdb-quickref)
 - [Binary utilities (`binutils`)](binutils)
 - [Advice on software testing](testing)
 
