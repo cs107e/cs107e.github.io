@@ -12,7 +12,7 @@ attribution: Prepared by Julie Zelenski
         font-weight: 700;
         font-family: Inconsolata, Consolas, Menlo, monospace;
         color: #A60E13;
-        width: 25%;
+        width: 30%;
     }
     thead {
         font-weight: 700;
@@ -24,7 +24,7 @@ attribution: Prepared by Julie Zelenski
 
 
 ### Opening gdb
-Run gdb on the `program.elf` file that you wish to debug and specify command file `$CS107E/other/gdbsim.commands` to our custom common script to properly configure simulator.
+Run gdb on the `program.elf` file to debug and use script file `$CS107E/other/gdbsim.commands`  to properly configure simulator.
 ```console
 $ riscv64-unknown-elf-gdb --command=$CS107E/other/gdbsim.commands program.elf
 Reading symbols from program.elf...
@@ -45,7 +45,9 @@ The gdb debugger has a tremendous amount of features packed into it, allowing yo
 |-|-|
 |help | Help for gdb
 | help CMD| Help for gdb command `CMD`
-|⬆️ ⬇️|Scroll back/forward through gdb command history
+| ↩️  | Return key repeats previous command
+| ▶️ | Tab key completes from prefix (works for commands, function/variable names, and more)
+|⬆️ ⬇️ | Up/down arrow keys scroll back/forward through gdb command history
 |ctrl-r| Search backwards through gdb command history for a specific string
 |quit | Quit gdb
 {: .table .table-sm .commands }
@@ -60,7 +62,7 @@ The gdb debugger has a tremendous amount of features packed into it, allowing yo
 
 | Breakpoints |
 |-|-|
-|break WHERE | Set breakpoint at `WHERE`. Examples:
+|break WHERE | Set breakpoint at `WHERE`
 |&nbsp;&nbsp;  break sum | Set breakpoint at function
 |&nbsp;&nbsp;  break 13 | Set breakpoint at line number
 |&nbsp;&nbsp;  break *0x40001234  | Set breakpoint at address of instruction
@@ -128,12 +130,12 @@ The gdb debugger has a tremendous amount of features packed into it, allowing yo
 |&nbsp;&nbsp;  x/10bc ptr | Examine ten 1-byte values, show as ASCII
 {: .table .table-sm .commands }
 
-## Additional resources
+## Additional resources for learning gdb
 
 - CS107's [guide to gdb](https://cs107.stanford.edu/resources/gdb.html) is a good introduction.
 - Watch Chris Gregg's [video tutorial on gdb](https://www.youtube.com/watch?v=uhIt8YqtmuQ&feature=youtu.be).
 -  Looking to learn some fancier tricks? See these articles Julie wrote for a
 programming journal: [Breakpoint Tricks](https://web.stanford.edu/class/archive/cs/cs107/cs107.1186/resources/gdb_coredump1.pdf)
 and [gdb's Greatest Hits](https://web.stanford.edu/class/archive/cs/cs107/cs107.1186/resources/gdb_coredump2.pdf).
-- Last but not least, the full online gdb manual tells all:
+- The full online gdb manual tells all:
 [http://sourceware.org/gdb/current/onlinedocs/gdb/index.html](http://sourceware.org/gdb/current/onlinedocs/gdb/index.html).

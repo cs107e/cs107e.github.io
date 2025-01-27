@@ -49,15 +49,15 @@ Save the file and exit your editor. Now when you invoke `tio mango`, tio will lo
 
 ## Do a loopback test
 
-Grab your USB-serial adapter and a female-female jumper to test out tio now. Connect TX to RX on the USB-serial adapter in loop back mode, as shown in this photo:
+Grab your USB-serial adapter and a female-female jumper to test out tio now. Connect TX to RX on the USB-serial adapter in loopback mode, as shown in this photo:
 
-![loop back](/labs/lab3/images/loopback.jpg){: .zoom}
+![CP2102 loopback](/labs/lab3/images/loopback.jpg){: .zoom}
 
 Start tio on your device and type characters in the tio window. The characters should be echoed back.
 ```console
 $ tio /dev/YOUR_DEVICE_NAME
 ```
-In loop back mode, the signals sent out on the TX pin are wired straight to the RX pin. Reading from the RX pin will read the characters sent over TX.
+In loopback mode, the signals sent out on the TX pin are wired straight to the RX pin. Reading from the RX pin will read the characters sent over TX.
 
 When you connect the TX and RX to the Mango Pi, tio is bridging the communication from your laptop to the Pi and back. Tio sends what you type to the Pi and displays what is received from the Pi. Neat!
 

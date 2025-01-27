@@ -32,11 +32,11 @@ __Got CP2102 driver?__  Is you are running macOS or a recent version of Windows 
 
 <A name="find-dev"></A>
 ## Find device name
-When the usb-serial is plugged into your laptop, it appears as a new entry in the filesystem, with a name of the form `/dev/YOUR_DEVICE_NAME` for some value of YOUR_DEVICE_NAME. You'll need to know that device NAME in order to connect to it.
+When the usb-serial is plugged into your laptop, it appears as a new entry in the filesystem, with a name of the form `/dev/YOUR_DEVICE_NAME` for some value of __YOUR_DEVICE_NAME__. You'll need to know the device name on your system in order to connect to it.
 
-How to get the device name:
+How to get the device name on your system:
 1. `find-dev.sh`
-    Try out this little script we hacked up that tries to ferret out the CP2102 device name for you. It works for some setups but not all.
+    Try out this little script we hacked up that tries to ferret out the CP2102 device name. It works for some setups but not all.
 
     When `find-dev.sh` finds the CP2102, it prints the device name. If it doesn't find your usb-serial, double-check that it is connected and powered on. If `find-dev.sh` just isn't working for you, move on to the other method below.
 
