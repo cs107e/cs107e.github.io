@@ -32,7 +32,7 @@ __Got CP2102 driver?__  Is you are running macOS or a recent version of Windows 
 
 <A name="find-dev"></A>
 ## Find device name
-When the usb-serial is plugged into your laptop, it appears as a new entry in the filesystem, with a name of the form `/dev/NAME` for some value of NAME. You'll need to know that device NAME in order to connect to it.
+When the usb-serial is plugged into your laptop, it appears as a new entry in the filesystem, with a name of the form `/dev/YOUR_DEVICE_NAME` for some value of YOUR_DEVICE_NAME. You'll need to know that device NAME in order to connect to it.
 
 How to get the device name:
 1. `find-dev.sh`
@@ -86,7 +86,7 @@ If you are not able to find the device name, ask us for help!
         - green: usb-serial __RX__ <-> Pi __UART TX__
         - black: usb-serial __GND__ <-> Pi __ground__
         ![usb-serial to Pi connections](../images/uart-usb-serial-connect.jpg){: .w-50 .zoom}
-    We recommend the arrangement shown above-- OTG port connected to hub using port at end and CP2102 connected to port on side-- as this configuration doesn't block access to the other ports along the side of the Pi.
+    We recommend the arrangement shown above: OTG connected to end of hub and CP2102 connected to side of hub (this configuration leaves open access to the Pi's other USB/HDMI ports).
 
 >__Careful with the connections__ The connections run from one device's TX to the other's RX, i.e. the data __transmitted__ by your laptop is __received__ by your Pi and vice versa. Connecting TX to TX and RX to RX is not correct!
 {: .callout-warning}

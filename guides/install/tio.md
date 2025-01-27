@@ -1,5 +1,6 @@
 ---
 title: 'Guide: Install Tio'
+toc: true
 ---
 
 ## What is Tio?
@@ -21,25 +22,23 @@ Use your package manager to install `tio`
 ## Documentation on tio
 The tio maintainer has a lovely github page introducing tio and its features [https://github.com/tio/tio](https://github.com/tio/tio?tab=readme-ov-file#tio---a-serial-device-io-tool)
 
-## Configuring tio
+## Configure tio
 
 You invoke tio with the device to connect to and various flags to configure the communication settings:
 
 ```console 
-$ tio -b 115200 -d 8 -s 1 -p none  /dev/YOUR_DEVICE_PATH
+$ tio -b 115200 -d 8 -s 1 -p none  /dev/YOUR_DEVICE_NAME
 ```
 
-The above command connects to a device and sets the baud rate to 115200 baud, 8 data bits, 1 stop bit, and no parity.
-
-Refer to instructions in [uart guide](/guides/uart#find-dev) for finding the CP2102 device path.
+The above command connects to a device and sets the baud rate to 115200 baud, 8 data bits, 1 stop bit, and no parity. Be sure to replace __YOUR_DEVICE_NAME__ with the name of CP2102 device on your system. See [instructions in uart guide](/guides/uart#find-dev) for finding your device name.
 
 To exit tio, use the sequence `control-t q`.
 
-Rather than re-type all these flags each time, you can store these settings in your tio configuration file and then retrieve them by name. Create a new file `~/.tioconfig`. Open the file in your editor and paste in the text below which defines a new configuration named `mango`.  Change `device` setting to __your__ device path.
+Rather than re-type all these flags each time, you can store these settings in your tio configuration file and then retrieve them by name. Create a new file `~/.tioconfig`. Open the file in your editor and paste in the text below which defines a new configuration named `mango`.  Be sure to replace __YOUR_DEVICE_NAME__ with actual device name on your system.
 
 ```
 [mango]
-device = /dev/YOUR_DEVICE_PATH
+device = /dev/YOUR_DEVICE_NAME
 baudrate = 115200
 databits = 8
 parity = none
@@ -56,7 +55,7 @@ Grab your USB-serial adapter and a female-female jumper to test out tio now. Con
 
 Start tio on your device and type characters in the tio window. The characters should be echoed back.
 ```console
-$ tio /dev/YOUR_DEVICE_PATH
+$ tio /dev/YOUR_DEVICE_NAME
 ```
 In loop back mode, the signals sent out on the TX pin are wired straight to the RX pin. Reading from the RX pin will read the characters sent over TX.
 
@@ -72,8 +71,6 @@ Open a separate window/tab to run `tio` and always keep it running. No need to e
 
 ## Other handy info
 - If you try to connect and receive the error `Device file is locked by another process`, this typically means that `tio` is already running and connected to the device. Look through your windows to find your existing connection instead of trying to start another one.
-    - I like to set a distinctive background on terminal window that is running `tio` (mango orange, yeah!). This makes my tio window easier to spot. Set the background color of a macOS terminal via `Edit Background Color` in Shell menu (or `Show Inspector` for additional customization options). In WSL, you can set tab color by right-clicking on title and choose `Change tab color` from menu.
-
-- If you are running Windows, your settings may be configured to play a alert sound each time a USB device connects or disconnects. You can disable this if you find the sound irksome.  Go to `Sounds` > `Program Events` > `Device Connect/Device Disconnect` and change its sound to `none`.
-
+- I like to set a distinctive background on terminal window that is running `tio` (mango orange, yeah!). This makes my tio window easier to spot. Set the background color of a macOS terminal via `Edit Background Color` in Shell menu (or `Show Inspector` for additional customization options). In WSL, you can set tab color by right-clicking on title and choose `Change tab color` from menu.
+- On Windows, your settings may be configured to play a alert sound each time a USB device connects or disconnects. If you find this irksome, you can disable through the setting `Sounds` -> `Program Events` -> `Device Connect/Device Disconnect`, set sound to `none`.
 
