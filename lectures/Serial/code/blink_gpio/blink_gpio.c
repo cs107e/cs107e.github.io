@@ -7,7 +7,7 @@
 
 #define SECOND 1000
 
-const int pin = GPIO_PB0;
+const gpio_id_t pin = GPIO_PB0;
 
 void main(void) {
     timer_init();

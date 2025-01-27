@@ -1,7 +1,7 @@
 #include "timer.h"
 #include "gpio.h"
 
-const int pin = GPIO_PD18;
+const gpio_id_t pin = GPIO_PD18;
 
 #define SECOND 1000
 
@@ -10,7 +10,7 @@ const int pin = GPIO_PD18;
 
 #define SPACE DOT
 #define LETTERSPACE (3*SPACE-SPACE)
-#define WORD (7*SPACE-LETTERSPACE)
+#define WORDSPACE (7*SPACE-LETTERSPACE)
 
 void dot(void) {
     gpio_write(pin, 1);
@@ -44,7 +44,7 @@ void sos(void) {
     s();
     o();
     s();
-    timer_delay_ms(WORD);
+    timer_delay_ms(WORDSPACE);
 }
 
 void main(void) {

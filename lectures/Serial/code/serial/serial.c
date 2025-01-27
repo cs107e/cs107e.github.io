@@ -1,7 +1,7 @@
 #include "gpio.h"
 #include "timer.h"
 
-const int pin = GPIO_PB8; // uart tx connection
+const gpio_id_t pin = GPIO_PB8; // uart tx connection
 
 #define BAUD 9600
 #define DELAY (1000000/BAUD)
