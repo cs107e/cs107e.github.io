@@ -118,5 +118,6 @@ A successful uart connection requires that the transmitter and receiver agree on
 - Confirm that your settings are 115200 8N1.
 - If you try to connect and receive the error `Device file is locked by another process`, this typically means that `tio` is already running and connected to the device. Look through your windows to find your existing connnection instead of trying to start another one.
 - In some situations, the CP2102 device name can change from what it was previously. Re-do the [hunt for the device name](#find-dev).
+- If tio gets a "permission denied" error when trying to connect to your device, try adding your user id to the group of the `/dev` files (possibly `tty` or `dialout`). Ask a staff member for help.
 
 
