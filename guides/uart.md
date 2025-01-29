@@ -14,13 +14,13 @@ You will use a CP2102 USB-to-serial breakout board (hereafter referred to as "us
 Find the usb-serial in your parts kit. One end has a USB-A connector and the other is a 5-pin or 6-pin header. You will plug the USB-A end into a usb port and connect jumpers from the header end to the Pi.
 ![usb-serial](../images/uart-usb-serial.jpg){: .w-50 .zoom}
 
-The usb-serial requires a CP2102 driver installed on your laptop. Most recent macOS and Windows have pre-installed driver. If you have an older version of Windows, you must manually install the driver.
+The usb-serial requires a CP2102 driver installed on your laptop. Recent macOS versions ship with a driver pre-installed. If you are using Windows/WSL, you must manually install the driver.
 
 <blockquote class="callout-warning" markdown="1">
-__Got CP2102 driver?__  Is you are running macOS or a recent version of Windows (v11 or newer), you already have a CP2102 driver out of the box. Skip over this section; do not manually install the driver.
+__Got CP2102 driver?__  Is you are running macOS, you already have a CP2102 driver out of the box. Skip over this section; do not manually install the driver.
 <details markdown="1">
-<summary>Expand for instructions to manually install CP2012 driver</summary>
-1. Only use these instructions for Windows v10 or older.
+<summary>Expand for instructions to manually install CP2012 driver on Windows/WSL</summary>
+1. Only use these instructions for Windows v10 or v11.
 1. Installing the CP2102 driver is done from Windows (not inside the WSL terminal). Switch to your Windows web browser and go to the Silicon Labs [CP210x Downloads page](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads).
 1. Select the "Downloads" tab and find "CP210x Windows Drivers v6.7.6". Download this zip file.
     - __Be sure to choose version 6.7.6!__ Don't be confused by other drivers with similar names and slightly different version numbers. The version to download is exactly __CP210x Windows Drivers v6.7.6__.
