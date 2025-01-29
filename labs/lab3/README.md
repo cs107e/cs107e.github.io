@@ -592,6 +592,7 @@ void process_request(struct request *request) {
   char filename[128];
   // one fewer to make sure there's space for a \0
   stnrcpy(filename, request->filename, sizeof(filename) - 1);
+  filename[sizeof(filename) - 1] = '\0';
   read_file(filename); 
 }
 ```
