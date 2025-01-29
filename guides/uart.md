@@ -55,8 +55,8 @@ How to get the device name on your system:
     The idea is to capture a list of the files in directory `/dev/tty*` when usb-serial is unplugged and take another capture after connecting it. Applying `diff` to the two listings will show what changed, which gives you the device name for the usb-serial, neat!
 
     ```console?prompt=$
-    $ ls /dev/tty* >unplugged     # capture ls output into file named unplugged
-    $ ls /dev/tty* >plugged       # repeat after plugging in usb-serial
+    $ ls /dev >unplugged     # capture ls output into file named unplugged
+    $ ls /dev >plugged       # repeat after plugging in usb-serial
     $ diff plugged unplugged
     2a3
     > /dev/ttyS3
