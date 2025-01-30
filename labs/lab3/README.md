@@ -133,7 +133,7 @@ hello, laptop
 We <3 printf!
 ```
 
-The `uart` module the basic function `uart_putstring` to output a string constant, but what would be much more useful is the ability to output formatted strings, e.g. `printf`. For example, the call `printf("Today is %s %d\n", monthname, daynum)`
+The `uart` module uses the basic function `uart_putstring` to output a string constant, but what would be much more useful is the ability to output formatted strings, e.g. `printf`. For example, the call `printf("Today is %s %d\n", monthname, daynum)`
 inserts the month string and day number into the output. To learn more about how to use printf, check out the standard library [printf documentation](http://www.tutorialspoint.com/c_standard_library/c_function_printf.htm).
 
 In Assignment 3, you will implement your own version of `printf`.  With a working `printf`, your programs will be able to report on their state and super-charge your debugging. What a big improvement over trying to communicate everything using only LEDs!
