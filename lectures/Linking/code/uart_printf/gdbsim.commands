@@ -1,0 +1,19 @@
+# gdb command file that configs simulator for CS107E bare-metal program
+
+echo \033[33mAuto-loading commands from local gdbsim.commands... \033[0m \n
+
+define timer-reroute
+  # set {int{timer_delay_us = 0x8067 // 0x0867 = ret
+  set {int}(timer_delay_us + 0) = 0x00050793
+  set {int}(timer_delay_us + 4) = 0xfff5051b
+  set {int}(timer_delay_us + 8) = 0xfe079ce3
+  set {int}(timer_delay_us + 12) = 0x00008067
+end
+
+# Default commands to execute
+set confirm off
+set backtrace past-main on
+target sim
+sim memory-region 0x40000000,0x20000000
+load
+timer-reroute
