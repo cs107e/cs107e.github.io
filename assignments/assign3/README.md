@@ -335,7 +335,7 @@ You are now ready to tackle `snprintf`. The most important advice is __do not tr
   - Test on simple example: `snprintf(buf, bufsize, "Hello, World!")`.
   - Test cases use `strcmp` to confirm that `buf` contains the expected output string.
 - Add support for the simplest formatting codes first: `%%` `%c` `%s`.
-  - Test on a single codes first `snprintf(buf, bufsize, "%c", 'M')`, work up to multiple mixed codes `snprintf(buf, bufsize, "LS%cU" = 100%% %s!", 'J', "fresh")`.
+  - Test on a single codes first `snprintf(buf, bufsize, "%c", 'M')`, work up to multiple mixed codes `snprintf(buf, bufsize, "LS%cU = 100%% %s!", 'J', "fresh")`.
 - It's best to begin thinking about truncation now and the imperative to respect `bufsize`.
   - When you are appending characters to the output, you must only copy the characters that fit. Think back to the strings module and the `strlcat` function that you implemented. That size-bounded concatenation operation is just perfect here!  Using it each time you need to append to output gives a tidy and reliable way to enforce truncation and ensure proper null-termination.
   - Add tests that produce more output than fits into a small-size buffer and confirm proper truncation at bufsize.
