@@ -1,0 +1,221 @@
+<html>
+<style type='text/css'>
+    table 
+    { font-family: Inconsolata, Consolas, Menlo, monospace;
+      font-size: 9pt;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th {
+       padding: 4px;
+       margin: 0;
+       background-color: #cccccc;
+       border-bottom: 1px black solid;
+    }
+    th:nth-child(5) {
+        text-align: left;
+    }
+    td {
+       padding: 1px 10px 1px 10px;
+       margin: 0;
+    }
+    tr.gap td:nth-child(3) {
+        background: linear-gradient(gray, white, gray);
+    }
+    td:nth-child(1) {
+        font-weight: bold;
+        text-align: right;
+        padding-right: 0px;
+        min-width: 5ch;
+    }
+    td:nth-child(2) {
+       text-align: right;
+       padding-right: 4px;
+       min-width: 10ch;
+    }
+    td:nth-child(3) {
+       border: 1px solid black; border-width: 0 1px 0 1px;
+       border-top: 1px dotted black;
+       min-width: 11ch;
+    }
+    td:nth-child(4) {
+       font-style: italic;
+       min-width: 10ch;
+    }
+    td:nth-child(5) {
+       width: 100%;
+    }
+    tr.frameline td:nth-child(4), tr.frameline td:nth-child(3) {
+       border-bottom: 1px solid black;
+    }
+    tr.notop td:nth-child(3)  {
+        border-top: none;
+    }
+    tr.stack td:nth-child(3), tr.notop td:nth-child(3), tr.frameline td:nth-child(3) {
+        background-color:#88B2F9; /* blue */
+    }
+    tr.bss td:nth-child(3) {
+        background-color:#F9AC5B; /* orange */
+    }
+    tr.rodata td:nth-child(3) {
+        background-color:#EF7676; /* red */
+    }
+    tr.data td:nth-child(3){
+        background-color:#89CD6F; /* green */
+    }
+    tr.text td:nth-child(3) {
+        background-color:#CAB1E7; /* purple */
+    }
+    pre {
+        font-family: Inconsolata, Consolas, Menlo, monospace;
+        font-size: 12pt;
+    }
+    p.label {
+        font-family: Inconsolata, Consolas, Menlo, monospace;
+        font-size: 12pt;
+    }
+
+    span.underline {
+        border-bottom: 1px solid black;
+    }
+    </style>
+<tt>Diagram of example.elf, stopped in main (example.c:32)</tt>
+<table><tr><th>&nbsp;</th><th>Address</th><th>Contents</th><th>Symbol</th><th>Decoded</th></tr>
+<tr class="stack"><td></td><td>[0x4ffffffc]</td><td>00 00 00 00</td><td></td><td></td></tr>
+<tr class=" notop"><td></td><td>[0x4ffffff8]</td><td>40 00 00 10</td><td>saved ra</td><td>= _start+16</td></tr>
+<tr class="stack"><td></td><td>[0x4ffffff4]</td><td>00 00 00 00</td><td></td><td></td></tr>
+<tr class=" frameline notop"><td>sp =></td><td>[0x4ffffff0]</td><td>00 00 00 00</td><td>saved fp</td><td></td></tr>
+<tr class=gap style="height: 100px"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr class="rodata"><td></td><td>[0x400001f4]</td><td>00 21 73 65</td><td></td><td>es!\0</td></tr>
+<tr class="rodata"><td></td><td>[0x400001f0]</td><td>6c 75 72 20</td><td></td><td> rul</td></tr>
+<tr class="rodata"><td></td><td>[0x400001ec]</td><td>69 50 20 6f</td><td></td><td>o Pi</td></tr>
+<tr class="rodata"><td></td><td>[0x400001e8]</td><td>67 6e 61 4d</td><td></td><td>Mang</td></tr>
+<tr class="text"><td></td><td>[0x400001e4]</td><td>00 00 80 67</td><td>&lt;main+44&gt;</td><td>ret</td></tr>
+<tr class="text"><td></td><td>[0x400001e0]</td><td>01 01 01 13</td><td>&lt;main+40&gt;</td><td>add	sp,sp,16</td></tr>
+<tr class="text"><td></td><td>[0x400001dc]</td><td>00 01 34 03</td><td>&lt;main+36&gt;</td><td>ld	fp,0(sp)</td></tr>
+<tr class="text"><td></td><td>[0x400001d8]</td><td>00 81 30 83</td><td>&lt;main+32&gt;</td><td>ld	ra,8(sp)</td></tr>
+<tr class="text"><td></td><td>[0x400001d4]</td><td>f9 9f f0 ef</td><td>&lt;main+28&gt;</td><td>jal	0x4000016c &lt;follow_me&gt;</td></tr>
+<tr class="text"><td></td><td>[0x400001d0]</td><td>f3 1f f0 ef</td><td>&lt;main+24&gt;</td><td>jal	0x40000100 &lt;combine&gt;</td></tr>
+<tr class="text"><td></td><td>[0x400001cc]</td><td>00 50 05 13</td><td>&lt;main+20&gt;</td><td>li	a0,5</td></tr>
+<tr class="text"><td></td><td>[0x400001c8]</td><td>00 70 05 93</td><td>&lt;main+16&gt;</td><td>li	a1,7</td></tr>
+<tr class="text"><td></td><td>[0x400001c4]</td><td>01 01 04 13</td><td>&lt;main+12&gt;</td><td>add	fp,sp,16</td></tr>
+<tr class="text"><td></td><td>[0x400001c0]</td><td>00 81 30 23</td><td>&lt;main+8&gt;</td><td>sd	fp,0(sp)</td></tr>
+<tr class="text"><td></td><td>[0x400001bc]</td><td>00 11 34 23</td><td>&lt;main+4&gt;</td><td>sd	ra,8(sp)</td></tr>
+<tr class="text"><td>pc =></td><td>[0x400001b8]</td><td>ff 01 01 13</td><td>&lt;main&gt;</td><td>add	sp,sp,-16</td></tr>
+<tr class="text"><td></td><td>[0x400001b4]</td><td>00 00 80 67</td><td>&lt;follow_me+72&gt;</td><td>ret</td></tr>
+<tr class="text"><td></td><td>[0x400001b0]</td><td>02 01 01 13</td><td>&lt;follow_me+68&gt;</td><td>add	sp,sp,32</td></tr>
+<tr class="text"><td></td><td>[0x400001ac]</td><td>00 01 39 03</td><td>&lt;follow_me+64&gt;</td><td>ld	s2,0(sp)</td></tr>
+<tr class="text"><td></td><td>[0x400001a8]</td><td>00 81 34 83</td><td>&lt;follow_me+60&gt;</td><td>ld	s1,8(sp)</td></tr>
+<tr class="text"><td></td><td>[0x400001a4]</td><td>01 01 34 03</td><td>&lt;follow_me+56&gt;</td><td>ld	fp,16(sp)</td></tr>
+<tr class="text"><td></td><td>[0x400001a0]</td><td>01 81 30 83</td><td>&lt;follow_me+52&gt;</td><td>ld	ra,24(sp)</td></tr>
+<tr class="text"><td></td><td>[0x4000019c]</td><td>00 a4 85 3b</td><td>&lt;follow_me+48&gt;</td><td>addw	a0,s1,a0</td></tr>
+<tr class="text"><td></td><td>[0x40000198]</td><td>ed df f0 ef</td><td>&lt;follow_me+44&gt;</td><td>jal	0x40000074 &lt;add&gt;</td></tr>
+<tr class="text"><td></td><td>[0x40000194]</td><td>00 09 05 13</td><td>&lt;follow_me+40&gt;</td><td>mv	a0,s2</td></tr>
+<tr class="text"><td></td><td>[0x40000190]</td><td>00 70 05 93</td><td>&lt;follow_me+36&gt;</td><td>li	a1,7</td></tr>
+<tr class="text"><td></td><td>[0x4000018c]</td><td>00 05 04 93</td><td>&lt;follow_me+32&gt;</td><td>mv	s1,a0</td></tr>
+<tr class="text"><td></td><td>[0x40000188]</td><td>fa 9f f0 ef</td><td>&lt;follow_me+28&gt;</td><td>jal	0x40000130 &lt;make_array&gt;</td></tr>
+<tr class="text"><td></td><td>[0x40000184]</td><td>00 05 09 13</td><td>&lt;follow_me+24&gt;</td><td>mv	s2,a0</td></tr>
+<tr class="text"><td></td><td>[0x40000180]</td><td>02 01 04 13</td><td>&lt;follow_me+20&gt;</td><td>add	fp,sp,32</td></tr>
+<tr class="text"><td></td><td>[0x4000017c]</td><td>01 21 30 23</td><td>&lt;follow_me+16&gt;</td><td>sd	s2,0(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000178]</td><td>00 91 34 23</td><td>&lt;follow_me+12&gt;</td><td>sd	s1,8(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000174]</td><td>00 81 38 23</td><td>&lt;follow_me+8&gt;</td><td>sd	fp,16(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000170]</td><td>00 11 3c 23</td><td>&lt;follow_me+4&gt;</td><td>sd	ra,24(sp)</td></tr>
+<tr class="text"><td></td><td>[0x4000016c]</td><td>fe 01 01 13</td><td>&lt;follow_me&gt;</td><td>add	sp,sp,-32</td></tr>
+<tr class="text"><td></td><td>[0x40000168]</td><td>00 00 80 67</td><td>&lt;make_array+56&gt;</td><td>ret</td></tr>
+<tr class="text"><td></td><td>[0x40000164]</td><td>03 01 01 13</td><td>&lt;make_array+52&gt;</td><td>add	sp,sp,48</td></tr>
+<tr class="text"><td></td><td>[0x40000160]</td><td>02 01 34 03</td><td>&lt;make_array+48&gt;</td><td>ld	fp,32(sp)</td></tr>
+<tr class="text"><td></td><td>[0x4000015c]</td><td>02 81 30 83</td><td>&lt;make_array+44&gt;</td><td>ld	ra,40(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000158]</td><td>f6 9f f0 ef</td><td>&lt;make_array+40&gt;</td><td>jal	0x400000c0 &lt;sum&gt;</td></tr>
+<tr class="text"><td></td><td>[0x40000154]</td><td>fd 84 05 13</td><td>&lt;make_array+36&gt;</td><td>add	a0,fp,-40</td></tr>
+<tr class="text"><td></td><td>[0x40000150]</td><td>00 60 05 93</td><td>&lt;make_array+32&gt;</td><td>li	a1,6</td></tr>
+<tr class="text"><td></td><td>[0x4000014c]</td><td>fc f4 2c 23</td><td>&lt;make_array+28&gt;</td><td>sw	a5,-40(fp)</td></tr>
+<tr class="text"><td></td><td>[0x40000148]</td><td>00 d0 07 93</td><td>&lt;make_array+24&gt;</td><td>li	a5,13</td></tr>
+<tr class="text"><td></td><td>[0x40000144]</td><td>fe f4 20 23</td><td>&lt;make_array+20&gt;</td><td>sw	a5,-32(fp)</td></tr>
+<tr class="text"><td></td><td>[0x40000140]</td><td>00 90 07 93</td><td>&lt;make_array+16&gt;</td><td>li	a5,9</td></tr>
+<tr class="text"><td></td><td>[0x4000013c]</td><td>03 01 04 13</td><td>&lt;make_array+12&gt;</td><td>add	fp,sp,48</td></tr>
+<tr class="text"><td></td><td>[0x40000138]</td><td>02 81 30 23</td><td>&lt;make_array+8&gt;</td><td>sd	fp,32(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000134]</td><td>02 11 34 23</td><td>&lt;make_array+4&gt;</td><td>sd	ra,40(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000130]</td><td>fd 01 01 13</td><td>&lt;make_array&gt;</td><td>add	sp,sp,-48</td></tr>
+<tr class="text"><td></td><td>[0x4000012c]</td><td>00 00 80 67</td><td>&lt;combine+44&gt;</td><td>ret</td></tr>
+<tr class="text"><td></td><td>[0x40000128]</td><td>01 01 01 13</td><td>&lt;combine+40&gt;</td><td>add	sp,sp,16</td></tr>
+<tr class="text"><td></td><td>[0x40000124]</td><td>00 01 34 03</td><td>&lt;combine+36&gt;</td><td>ld	fp,0(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000120]</td><td>00 81 30 83</td><td>&lt;combine+32&gt;</td><td>ld	ra,8(sp)</td></tr>
+<tr class="text"><td></td><td>[0x4000011c]</td><td>f5 9f f0 ef</td><td>&lt;combine+28&gt;</td><td>jal	0x40000074 &lt;add&gt;</td></tr>
+<tr class="text"><td></td><td>[0x40000118]</td><td>00 07 85 13</td><td>&lt;combine+24&gt;</td><td>mv	a0,a5</td></tr>
+<tr class="text"><td></td><td>[0x40000114]</td><td>00 05 05 93</td><td>&lt;combine+20&gt;</td><td>mv	a1,a0</td></tr>
+<tr class="text"><td></td><td>[0x40000110]</td><td>00 05 87 93</td><td>&lt;combine+16&gt;</td><td>mv	a5,a1</td></tr>
+<tr class="text"><td></td><td>[0x4000010c]</td><td>01 01 04 13</td><td>&lt;combine+12&gt;</td><td>add	fp,sp,16</td></tr>
+<tr class="text"><td></td><td>[0x40000108]</td><td>00 81 30 23</td><td>&lt;combine+8&gt;</td><td>sd	fp,0(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000104]</td><td>00 11 34 23</td><td>&lt;combine+4&gt;</td><td>sd	ra,8(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000100]</td><td>ff 01 01 13</td><td>&lt;combine&gt;</td><td>add	sp,sp,-16</td></tr>
+<tr class="text"><td></td><td>[0x400000fc]</td><td>00 00 80 67</td><td>&lt;sum+60&gt;</td><td>ret</td></tr>
+<tr class="text"><td></td><td>[0x400000f8]</td><td>01 01 01 13</td><td>&lt;sum+56&gt;</td><td>add	sp,sp,16</td></tr>
+<tr class="text"><td></td><td>[0x400000f4]</td><td>00 81 34 03</td><td>&lt;sum+52&gt;</td><td>ld	fp,8(sp)</td></tr>
+<tr class="text"><td></td><td>[0x400000f0]</td><td>fe b7 c6 e3</td><td>&lt;sum+48&gt;</td><td>blt	a5,a1,0x400000dc &lt;sum+28&gt;</td></tr>
+<tr class="text"><td></td><td>[0x400000ec]</td><td>00 17 87 9b</td><td>&lt;sum+44&gt;</td><td>addw	a5,a5,1</td></tr>
+<tr class="text"><td></td><td>[0x400000e8]</td><td>00 a7 05 3b</td><td>&lt;sum+40&gt;</td><td>addw	a0,a4,a0</td></tr>
+<tr class="text"><td></td><td>[0x400000e4]</td><td>00 07 27 03</td><td>&lt;sum+36&gt;</td><td>lw	a4,0(a4) # 0x40020000</td></tr>
+<tr class="text"><td></td><td>[0x400000e0]</td><td>00 e6 87 33</td><td>&lt;sum+32&gt;</td><td>add	a4,a3,a4</td></tr>
+<tr class="text"><td></td><td>[0x400000dc]</td><td>00 27 97 13</td><td>&lt;sum+28&gt;</td><td>sll	a4,a5,0x2</td></tr>
+<tr class="text"><td></td><td>[0x400000d8]</td><td>01 80 00 6f</td><td>&lt;sum+24&gt;</td><td>j	0x400000f0 &lt;sum+48&gt;</td></tr>
+<tr class="text"><td></td><td>[0x400000d4]</td><td>00 00 05 13</td><td>&lt;sum+20&gt;</td><td>li	a0,0</td></tr>
+<tr class="text"><td></td><td>[0x400000d0]</td><td>00 00 07 93</td><td>&lt;sum+16&gt;</td><td>li	a5,0</td></tr>
+<tr class="text"><td></td><td>[0x400000cc]</td><td>00 05 06 93</td><td>&lt;sum+12&gt;</td><td>mv	a3,a0</td></tr>
+<tr class="text"><td></td><td>[0x400000c8]</td><td>01 01 04 13</td><td>&lt;sum+8&gt;</td><td>add	fp,sp,16</td></tr>
+<tr class="text"><td></td><td>[0x400000c4]</td><td>00 81 34 23</td><td>&lt;sum+4&gt;</td><td>sd	fp,8(sp)</td></tr>
+<tr class="text"><td></td><td>[0x400000c0]</td><td>ff 01 01 13</td><td>&lt;sum&gt;</td><td>add	sp,sp,-16</td></tr>
+<tr class="text"><td></td><td>[0x400000bc]</td><td>00 00 80 67</td><td>&lt;add+72&gt;</td><td>ret</td></tr>
+<tr class="text"><td></td><td>[0x400000b8]</td><td>02 01 01 13</td><td>&lt;add+68&gt;</td><td>add	sp,sp,32</td></tr>
+<tr class="text"><td></td><td>[0x400000b4]</td><td>00 01 39 03</td><td>&lt;add+64&gt;</td><td>ld	s2,0(sp)</td></tr>
+<tr class="text"><td></td><td>[0x400000b0]</td><td>00 81 34 83</td><td>&lt;add+60&gt;</td><td>ld	s1,8(sp)</td></tr>
+<tr class="text"><td></td><td>[0x400000ac]</td><td>01 01 34 03</td><td>&lt;add+56&gt;</td><td>ld	fp,16(sp)</td></tr>
+<tr class="text"><td></td><td>[0x400000a8]</td><td>01 81 30 83</td><td>&lt;add+52&gt;</td><td>ld	ra,24(sp)</td></tr>
+<tr class="text"><td></td><td>[0x400000a4]</td><td>00 95 05 3b</td><td>&lt;add+48&gt;</td><td>addw	a0,a0,s1</td></tr>
+<tr class="text"><td></td><td>[0x400000a0]</td><td>01 25 05 3b</td><td>&lt;add+44&gt;</td><td>addw	a0,a0,s2</td></tr>
+<tr class="text"><td></td><td>[0x4000009c]</td><td>fb df f0 ef</td><td>&lt;add+40&gt;</td><td>jal	0x40000058 &lt;first&gt;</td></tr>
+<tr class="text"><td></td><td>[0x40000098]</td><td>1e 85 05 13</td><td>&lt;add+36&gt;</td><td>add	a0,a0,488 # 0x400001e8</td></tr>
+<tr class="text"><td></td><td>[0x40000094]</td><td>40 00 05 37</td><td>&lt;add+32&gt;</td><td>lui	a0,0x40000</td></tr>
+<tr class="text"><td></td><td>[0x40000090]</td><td>00 05 84 93</td><td>&lt;add+28&gt;</td><td>mv	s1,a1</td></tr>
+<tr class="text"><td></td><td>[0x4000008c]</td><td>00 05 09 13</td><td>&lt;add+24&gt;</td><td>mv	s2,a0</td></tr>
+<tr class="text"><td></td><td>[0x40000088]</td><td>02 01 04 13</td><td>&lt;add+20&gt;</td><td>add	fp,sp,32</td></tr>
+<tr class="text"><td></td><td>[0x40000084]</td><td>01 21 30 23</td><td>&lt;add+16&gt;</td><td>sd	s2,0(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000080]</td><td>00 91 34 23</td><td>&lt;add+12&gt;</td><td>sd	s1,8(sp)</td></tr>
+<tr class="text"><td></td><td>[0x4000007c]</td><td>00 81 38 23</td><td>&lt;add+8&gt;</td><td>sd	fp,16(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000078]</td><td>00 11 3c 23</td><td>&lt;add+4&gt;</td><td>sd	ra,24(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000074]</td><td>fe 01 01 13</td><td>&lt;add&gt;</td><td>add	sp,sp,-32</td></tr>
+<tr class="text"><td></td><td>[0x40000070]</td><td>00 00 80 67</td><td>&lt;first+24&gt;</td><td>ret</td></tr>
+<tr class="text"><td></td><td>[0x4000006c]</td><td>01 01 01 13</td><td>&lt;first+20&gt;</td><td>add	sp,sp,16</td></tr>
+<tr class="text"><td></td><td>[0x40000068]</td><td>00 81 34 03</td><td>&lt;first+16&gt;</td><td>ld	fp,8(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000064]</td><td>00 05 45 03</td><td>&lt;first+12&gt;</td><td>lbu	a0,0(a0)</td></tr>
+<tr class="text"><td></td><td>[0x40000060]</td><td>01 01 04 13</td><td>&lt;first+8&gt;</td><td>add	fp,sp,16</td></tr>
+<tr class="text"><td></td><td>[0x4000005c]</td><td>00 81 34 23</td><td>&lt;first+4&gt;</td><td>sd	fp,8(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000058]</td><td>ff 01 01 13</td><td>&lt;first&gt;</td><td>add	sp,sp,-16</td></tr>
+<tr class="text"><td></td><td>[0x40000054]</td><td>00 00 80 67</td><td>&lt;_cstart+64&gt;</td><td>ret</td></tr>
+<tr class="text"><td></td><td>[0x40000050]</td><td>01 01 01 13</td><td>&lt;_cstart+60&gt;</td><td>add	sp,sp,16</td></tr>
+<tr class="text"><td></td><td>[0x4000004c]</td><td>00 01 34 03</td><td>&lt;_cstart+56&gt;</td><td>ld	fp,0(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000048]</td><td>00 81 30 83</td><td>&lt;_cstart+52&gt;</td><td>ld	ra,8(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000044]</td><td>17 40 00 ef</td><td>&lt;_cstart+48&gt;</td><td>jal	0x400001b8 &lt;main&gt;</td></tr>
+<tr class="text"><td></td><td>[0x40000040]</td><td>fe e7 e8 e3</td><td>&lt;_cstart+44&gt;</td><td>bltu	a5,a4,0x40000030 &lt;_cstart+28&gt;</td></tr>
+<tr class="text"><td></td><td>[0x4000003c]</td><td>00 07 07 13</td><td>&lt;_cstart+40&gt;</td><td>mv	a4,a4</td></tr>
+<tr class="text"><td></td><td>[0x40000038]</td><td>40 02 07 37</td><td>&lt;_cstart+36&gt;</td><td>lui	a4,0x40020</td></tr>
+<tr class="text"><td></td><td>[0x40000034]</td><td>00 17 87 93</td><td>&lt;_cstart+32&gt;</td><td>add	a5,a5,1</td></tr>
+<tr class="text"><td></td><td>[0x40000030]</td><td>00 07 80 23</td><td>&lt;_cstart+28&gt;</td><td>sb	zero,0(a5) # 0x40020000</td></tr>
+<tr class="text"><td></td><td>[0x4000002c]</td><td>00 c0 00 6f</td><td>&lt;_cstart+24&gt;</td><td>j	0x40000038 &lt;_cstart+36&gt;</td></tr>
+<tr class="text"><td></td><td>[0x40000028]</td><td>00 07 87 93</td><td>&lt;_cstart+20&gt;</td><td>mv	a5,a5</td></tr>
+<tr class="text"><td></td><td>[0x40000024]</td><td>40 02 07 b7</td><td>&lt;_cstart+16&gt;</td><td>lui	a5,0x40020</td></tr>
+<tr class="text"><td></td><td>[0x40000020]</td><td>01 01 04 13</td><td>&lt;_cstart+12&gt;</td><td>add	fp,sp,16</td></tr>
+<tr class="text"><td></td><td>[0x4000001c]</td><td>00 81 30 23</td><td>&lt;_cstart+8&gt;</td><td>sd	fp,0(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000018]</td><td>00 11 34 23</td><td>&lt;_cstart+4&gt;</td><td>sd	ra,8(sp)</td></tr>
+<tr class="text"><td></td><td>[0x40000014]</td><td>ff 01 01 13</td><td>&lt;_cstart&gt;</td><td>add	sp,sp,-16</td></tr>
+<tr class="text"><td></td><td>[0x40000010]</td><td>00 00 00 6f</td><td>&lt;hang+0&gt;</td><td>j	0x40000010 &lt;hang&gt;</td></tr>
+<tr class="text"><td></td><td>[0x4000000c]</td><td>00 80 00 ef</td><td>&lt;_start+12&gt;</td><td>jal	0x40000014 &lt;_cstart&gt;</td></tr>
+<tr class="text"><td></td><td>[0x40000008]</td><td>ff c1 01 13</td><td>&lt;_start+8&gt;</td><td>add	sp,sp,-4 # 0x50000000</td></tr>
+<tr class="text"><td></td><td>[0x40000004]</td><td>10 00 01 17</td><td>&lt;_start+4&gt;</td><td>auipc	sp,0x10000</td></tr>
+<tr class="text"><td></td><td>[0x40000000]</td><td>00 00 04 13</td><td>&lt;_start&gt;</td><td>li	fp,0</td></tr>
+</table>
+<br><hr><p class=label><span class=underline>&nbsp;&nbsp;<b> REGISTERS </b>&nbsp;&nbsp;</span></p><pre>
+     sp = 0x4ffffff0
+     fp = 0x50000000
+     pc = 0x400001b8
+</pre>
+</html>
