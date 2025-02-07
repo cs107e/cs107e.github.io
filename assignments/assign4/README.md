@@ -164,7 +164,7 @@ Note that a call to `__stack_chk_fail` is a tiny bit different than usual due to
 void __stack_chk_fail(void) __attribute__ ((noreturn));
 ```
 
-Revisit the Compiler Explorer link <https://gcc.godbolt.org/z/MqEMMf6cc> and look very carefully at where the compiler has placed the instruction `call __stack_chk_fail` relative to the rest of the function instructions.  Keep this placement in mind when interpreting the `ra` value you obtain once inside `__stack_chk_fail`. The unusual arrangement requires slightly different handling to match it to the proper function symbol name.  It may help to draw a stack diagram and/or single-step in gdb to sort out what is going on.
+Revisit the Compiler Explorer link <https://gcc.godbolt.org/z/MqEMMf6cc> and/or disassemble in gdb and look very carefully at where the compiler has placed the instruction `call __stack_chk_fail` relative to the rest of the function instructions.  Keep this placement in mind when interpreting the `ra` value you obtain once inside `__stack_chk_fail`. The unusual arrangement requires slightly different handling to match it to the proper function symbol name.  It may help to draw a stack diagram and/or single-step in gdb to sort out what is going on.
 
 Edit your Makefile to add the flag `-fstack-protector-strong` to `CFLAGS` and do a `make clean` and `make`.
 
