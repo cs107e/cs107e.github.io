@@ -369,9 +369,9 @@ __Note: Build warnings/errors__ We expect your code to compile cleanly with no w
   + __P2 "Comprehensive"__ tests thoroughly exercise the full range of functionality including lesser-traveled features.
   + __P3 "Just Mention__" is used for small concerns as a misbehavior in an obscure edge case or minor issue of polish.
 - We have a __revise and retest__ policy for library modules. We will file GitHub issues for any test failure that is eligible for revision, and you may submit bug fixes for retest. Commit and push changes to your repo on your `dev` branch and tag the finished commit with `assign2-retest` (Do __not__ move the original `assign2-submit` tag!)  Once a week, the staff will re-run the automated tests on submissions tagged `assign2-retest` and update to show passing results on corrected issues.
-- We accept revisions for priority 1, 2, and 3 automated tests on your library modules. There is no retest/resubmit for extensions or tests that are manually evaluated (all of A1 and the clock tests for A2). Such tests are run only against your original submission, marked with the `assign2-submit` tag.
+- We accept revisions for priority 1, 2, and 3 automated unit tests on your library modules. There is no retest/resubmit for extensions or tests that are manually evaluated (e.g. A2 clock tests). Such tests are run only against your original submission, marked with the `assign2-submit` tag.
 
-By the end of the quarter, we want your library modules to have passing results on all Priority 1 tests. Lower priority tests and tests on non-library modules can be fixed at your discretion and will contribute positively to your course grade.
+By the end of the quarter, we want your library modules to have passing results on all Priority 1 tests. Lower priority tests can be fixed at your discretion and will contribute positively to your course grade.
 
 ## Good habits == good results
 
