@@ -155,7 +155,7 @@ If the canary has been damaged, everything upward in the stack is potentially co
 
 
 ```console
-Stack smashing detected 0x40000754 at <overflow+128>
+*** Stack smashing detected at end of function bad_guy() ***
 ```
 
 Note that a call to `__stack_chk_fail` is a tiny bit different than usual due to its declaration as attribute `noreturn`. This attribute indicates that once a call is made to `__stack_chk_fail` it does not return to the caller; program execution stops within the call. In this situation, this is the only right thing to do. The caller is the bad actor who has corrupted the stack and the compiler absolutely does not want to return control to this caller and unleash further havoc.
@@ -171,7 +171,7 @@ Edit your Makefile to add the flag `-fstack-protector-strong` to `CFLAGS` and do
 > __Pro-tip: make clean__ Whenever you make a change to a Makefile, always follow up with `make clean`. You want to ensure your next `make` will start fresh and apply the updated build settings to all files. `make clean` removes all previous build products, thus ensuring a fresh recompile of all files. Without `make clean`, you could end up with a mishmash of files compiled under the old and new settings.
 {: .callout-warning }
 
-The buggy `overflow` function that previously got away with its nefarious doings should now be stopped in its tracks by your stack protection. Neat!  It will be wise to keep this protection enabled from here forward, interpreting a shoutout from a detection tool will be much more helpful aid to tracking down a bug than having to decipher a mysterious crash.
+The buggy `bad_guy` function that previously got away with its nefarious doings should now be stopped in its tracks by your stack protection. Neat!  It will be wise to keep this protection enabled from here forward, interpreting a shoutout from a detection tool will be much more helpful aid to tracking down a bug than having to decipher a mysterious crash.
 
 Neat references for further learning:
 -  Good overview of StackGuard from RedHat <https://www.redhat.com/en/blog/security-technologies-stack-smashing-protection-stackguard>
