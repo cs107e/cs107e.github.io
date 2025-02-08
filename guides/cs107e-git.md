@@ -12,7 +12,7 @@ the general use of `git` in [our git guide](/guides/git). To set up the `mycode`
 
 In this document, we walk through the specific workflow to access the starter code and submit your work.
 
-> **Note** This guide assumes that you've already set up your `mycode` repo and development environment using the [Git workflow setup guide](cs107e-git-setup).
+> **Note** This guide assumes that you've already set up your `mycode` repo and development environment using the [Git workflow setup guide](/guides/setup-mycode-repo).
 {: .callout-warning}
 
 ## Organization of the `mycode` repo
