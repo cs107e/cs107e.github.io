@@ -151,20 +151,19 @@ Here is a CompilerExplorer link <https://gcc.godbolt.org/z/MqEMMf6cc> that compa
 
 StackGuard relies on two global symbols, `__stack_chk_guard` (a data symbol containing the value to use for canary) and `__stack_chk_fail` (a function called when overflow is detected). These symbols are provided in the standard library, but given we run bare-metal, we must write them for ourselves.  Set the canary value to a value of your choice, and implement the fail function to report where the stack smashing was detected and call `mango_abort` to terminate the program.
 
-If the canary has been damaged, everything upward in the stack is potentially compromised. The only part of the stack that you know to be valid is the tippy-top, where the stack frame for `__stack_chk_fail` itself is.  In this dicey context, you should not attempt a call to the full version of `gather_backtrace`, so instead you must write code to very carefully extract just the single `ra` to identify which function called `__stack_chk_fail` . You will use this address to pin the blame on the name of the function where the stack smashing happened. Working out which function is the bad guy is a great flex of your stack-wrangling superpower!
-
+If the canary has been damaged, everything upward in the stack is potentially compromised. The only part of the stack that you know to be valid is the tippy-top, where the stack frame for `__stack_chk_fail` itself is.  In this dicey context, you should not attempt a call to the full version of `gather_backtrace`, so instead you must write code to very carefully extract just the single `ra` and work from there to identify which function called `__stack_chk_fail` so you can report where the stack smashing happened.
 
 ```console
 *** Stack smashing detected at end of function bad_guy() ***
 ```
 
-Note that a call to `__stack_chk_fail` is a tiny bit different than usual due to its declaration as attribute `noreturn`. This attribute indicates that once a call is made to `__stack_chk_fail` it does not return to the caller; program execution stops within the call. In this situation, this is the only right thing to do. The caller is the bad actor who has corrupted the stack and the compiler absolutely does not want to return control to this caller and unleash further havoc.
+Working out which function called `__stack_chk_fail` turns out to be slightly trickier task than for an ordinary call due to to its declaration as attribute `noreturn`. This attribute indicates that once a call is made to `__stack_chk_fail` it does not return to the caller; program execution stops within the call. In this situation, this is the only right thing to do. The caller is the bad actor who has corrupted the stack and the compiler absolutely does not want to return control to this caller and unleash further havoc.
 
 ```
 void __stack_chk_fail(void) __attribute__ ((noreturn));
 ```
 
-Revisit the Compiler Explorer link <https://gcc.godbolt.org/z/MqEMMf6cc> and/or disassemble in gdb and look very carefully at where the compiler has placed the instruction `call __stack_chk_fail` relative to the rest of the function instructions.  Keep this placement in mind when interpreting the `ra` value you obtain once inside `__stack_chk_fail`. The unusual arrangement requires slightly different handling to match it to the proper function symbol name.  It may help to draw a stack diagram and/or single-step in gdb to sort out what is going on.
+When generating the call to a `noreturn` function, the compiler knows that control will not return to the caller.  Revisit the Compiler Explorer link <https://gcc.godbolt.org/z/MqEMMf6cc> and disassemble in gdb and look very carefully at where the compiler has placed the instruction `call __stack_chk_fail` relative to the rest of the function instructions and what that will mean for the value of the return address recorded by the `jal`.  Keep these details in mind when interpreting the `ra` value you obtain once inside `__stack_chk_fail`. You read the saved ra from the stack as usual, but the steps to match that saved ra to the proper function symbol name will need to be a bit different.  It may help to draw a stack diagram and single-step through the disassembly in gdb to sort out what is going on. Working out how to interpret that ra and correctly identify the bad actor is a great flex of your stack-wrangling and RISC-V disassembly superpowers!
 
 Edit your Makefile to add the flag `-fstack-protector-strong` to `CFLAGS` and do a `make clean` and `make`.
 
