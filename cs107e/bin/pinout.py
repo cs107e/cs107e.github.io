@@ -42,8 +42,8 @@ PINS = {
     1:  ('3V3', 'yellow'),   2:  ('5V',  'red'),
     3:  ('PG13','green'),    4:  ('5V',  'red'),
     5:  ('PG12','green'),    6:  ('GND', 'black'),
-    7:  ('PB7', 'green'),    8:  ('PB8', 'green', '(TX)'),
-    9:  ('GND', 'black'),    10: ('PB9', 'green', '(RX)'),
+    7:  ('PB7', 'green'),    8:  ('PB8', 'green'),
+    9:  ('GND', 'black'),    10: ('PB9', 'green'),
     11: ('PD21','green'),    12: ('PB5', 'green'),
     13: ('PD22','green'),    14: ('GND', 'black'),
     15: ('PB0', 'green'),    16: ('PB1', 'green'),
@@ -61,12 +61,10 @@ PINS = {
     39: ('GND', 'black'),    40: ('PB4', 'green')
 }
 
+LABELS = {8:'UART TX', 10:'UART RX'}
+
 def pin_color(pin_num):
     return PINS[pin_num][1]
-
-def pin_label(pin_num):
-    info = PINS[pin_num]
-    return f"{info[0]}{(' ' + info[2]) if len(info) >= 3 else ''}"
 
 def pinbox(pin_num, target_set):
     """ Returns formatted string for pin with `pin_num`
@@ -115,9 +113,14 @@ def pin_info_formatted(pin_num, target_set):
     Dot label if not in target set, otherwise label from PINS
     Pin number format pin color for background, white foreground text.
     """
-    label = pin_label(pin_num) if pin_num in target_set else '·'
+    if pin_num not in target_set:
+        label = ''
+        id = '·'
+    else:
+        label = LABELS[pin_num] if pin_num in LABELS else ''
+        id = PINS[pin_num][0]
     number_str  = wrap(f"{pin_num:3} ", "white_fg", pin_color(pin_num))
-    return (label, number_str)
+    return (label, id, number_str)
 
 def print_header_table(target_set):
     """Prints colored table of headers
@@ -127,12 +130,12 @@ def print_header_table(target_set):
     pins in target set.
     """
     for pin_num in range(1, 41, 2):
-        l_label,l_pin = pin_info_formatted(pin_num, target_set)
-        r_label,r_pin = pin_info_formatted(pin_num + 1, target_set)
-        print(f"{l_label:>6}  {l_pin} │ {r_pin}  {r_label}")
+        l_label,l_id,l_pin_no = pin_info_formatted(pin_num, target_set)
+        r_label,r_id,r_pin_no = pin_info_formatted(pin_num + 1, target_set)
+        print(f"{l_label:>10}   {l_id:>4} {l_pin_no} │ {r_pin_no} {r_id:<4}   {r_label:<10}")
 
 def as_pin_number(id, quiet=False):
-    """Convert string (label, gpio id, or pin number) to pin number(s)
+    """Convert string (either label, gpio id, or pin number) to pin number(s) (GND/PWR have multi entries)
     Report parse error if label/id/number not valid
     """
     if id.isnumeric():
@@ -165,17 +168,41 @@ def process_ids(ids):
     """
     pin_set = set()
     for arg in ids:
+        range_ids = []
+        labels = {}
         if arg == 'larson':
-            expanded = parse_range_specifier('PB0-7')
+            range_ids = parse_range_specifier('PB0-7')
         elif arg == 'clock':
-            expanded = ['PD17','PB6','PB12','PB11','PB10','PD11','PD13','PD12','PB4','PB3','PB2','PC0','PD12']
+            labels = {'PD17':'SegA','PB6':'SegB','PB12':'SegC','PB11':'SegD','PB10':'SegE','PD11':'SegF','PD13':'SegG',
+                       'PB4':'Dig1','PB3':'Dig2','PB2':'Dig3','PC0':'Dig4',
+                       'PD12':'Button'}
+        elif arg == 'keyboard':
+            labels = {'PG12':'Key CLK','PB7':'Key DATA'}
+        elif arg == 'mouse':
+            labels = {'PD21':'Mouse CLK','PD22':'Mouse DATA'}
+        elif arg == 'ps2':
+            labels = {'PG12':'Key CLK','PB7':'Key DATA','PD21':'Mouse CLK','PD22':'Mouse DATA'}
+        elif arg == 'pwm':
+            labels = {'PB12':'PWM0','PB6':'PWM1','PB11':'PWM2','PB0':'PWM3','PB1':'PWM4','PB8':'PWM5','PB9':'PWM6','PB10':'PWM7'}
+        elif arg == 'spi':
+            labels = {'PD11':'SCLK','PD12':'MOSI','PD13':'MISO','PD10':'CS'}
+        elif arg == 'i2c':
+            labels = {'PG13':'SDA','PG12':'SCL'}
+        elif arg == 'i2s':
+            labels = {'PB5':'CLK','PB6':'FS','PB3':'Din','PB4':'Dout'}
         elif parse_range_specifier(arg):
-            expanded = parse_range_specifier(arg)
+            range_ids = parse_range_specifier(arg)
         else:
-            pin_set |= as_pin_number(arg)  # complain if cannot convert single
+            pin_set |= as_pin_number(arg)
             continue
-        for e in expanded:
-            pin_set |= as_pin_number(e, quiet=True) # don't complain if gaps in range
+
+        # process list/ranges
+        for (id,label) in labels.items():
+            added = as_pin_number(id)
+            pin_set |= added
+            for n in added: LABELS[n] = label
+        for id in range_ids:
+            pin_set |= as_pin_number(id, quiet=True) # ignore if gaps in range
     return pin_set
 
 if __name__ == "__main__":
