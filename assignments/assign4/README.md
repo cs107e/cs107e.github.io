@@ -84,33 +84,32 @@ It may help to have your stack diagram from lab4 handy as you consider the follo
 - How can the saved `fp` be used to access to the stack frame for the caller?  How do you then go from that frame to the frame of its caller and so on? What is the indication that you have hit the outermost stack frame? This is where backtrace stops.
 - Confirm your answers to the above questions by running your test program under the debugger, set a breakpoint at the point you want to backtrace, and then when stopped at the breakpoint, use gdb commands to print registers and examine memory.  Validating your backtrace against `gdb`'s `backtrace` command is another useful debugging technique.
 ```console?prompt=(gdb)
-Breakpoint 2, check_backtrace (nframes=nframes@entry=6) at test_backtrace_malloc.c:20
-20      frame_t f[nframes];
+Breakpoint 2, recursion (n=n@entry=1) at test_backtrace_malloc.c:16
+16  static int recursion(int n) {
 (gdb) backtrace
-#0  check_backtrace (nframes=nframes@entry=6) at test_backtrace_malloc.c:20
-#1  0x00000000400000f8 in function_A (nframes=nframes@entry=6) at test_backtrace_malloc.c:30
-#2  0x000000004000011c in function_B (nframes=nframes@entry=6) at test_backtrace_malloc.c:34
-#3  0x00000000400001bc in test_backtrace () at test_backtrace_malloc.c:51
-#4  0x0000000040000714 in main () at test_backtrace_malloc.c:191
-#5  0x0000000040005870 in _cstart () at reference/cstart.c:21
-#6  0x0000000040000020 in _start ()
+#0  recursion (n=n@entry=1) at test_backtrace_malloc.c:16
+#1  0x000000004000023c in recursion (n=n@entry=2) at test_backtrace_malloc.c:22
+#2  0x000000004000024c in recursion (n=n@entry=3) at test_backtrace_malloc.c:24
+#3  0x000000004000023c in recursion (n=n@entry=4) at test_backtrace_malloc.c:22
+#4  0x0000000040000288 in test_backtrace () at test_backtrace_malloc.c:51
+#5  0x0000000040000794 in main () at test_backtrace_malloc.c:208
+#6  0x0000000040005d90 in _cstart () at reference/cstart.c:21
+#7  0x0000000040000020 in _start ()
 (gdb) print $fp
-$1 = (void *) 0x4fffffb0
+$1 = (void *) 0x4fffff90
 (gdb) p $sp
-$2 = (void *) 0x4fffff80
+$2 = (void *) 0x4fffff70
 (gdb) p $ra
-$3 = (void (*)()) 0x400000f8 <function_A+20>
-(gdb) p *(void **)$fp
-$4 = (void *) 0x4fffffd0
+$3 = (void (*)()) 0x4000023c <recursion+64>
 (gdb) x/32wx $sp
-0x4fffff80: 0x00000002  0x00000012  0x00000000  0x00000000
-0x4fffff90: 0x00000000  0x00000000  0x00000000  0x00000000
-0x4fffffa0: 0x4fffffc0  0x00000000  0x400000f8  0x00000000
-0x4fffffb0: 0x4fffffd0  0x00000000  0x4000011c  0x00000000
-0x4fffffc0: 0x4fffffe0  0x00000000  0x400001bc  0x00000000
-0x4fffffd0: 0x4ffffff0  0x00000000  0x40000714  0x00000000
-0x4fffffe0: 0x50000000  0x00000000  0x40005870  0x00000000
-0x4ffffff0: 0x00000000  0x00000000  0x40000020  0x00000000
+0x4fffff70: 0x00000000  0x00000000  0x00000003  0x00000000
+0x4fffff80: 0x4fffffb0  0x00000000  0x4000024c  0x00000000
+0x4fffff90: 0x00000000  0x00000000  0x00000004  0x00000000
+0x4fffffa0: 0x4fffffd0  0x00000000  0x4000023c  0x00000000
+0x4fffffb0: 0x4fffffd0  0x00000000  0x00000000  0x00000000
+0x4fffffc0: 0x4fffffe0  0x00000000  0x40000288  0x00000000
+0x4fffffd0: 0x4ffffff0  0x00000000  0x40000794  0x00000000
+0x4fffffe0: 0x50000000  0x00000000  0x40005d90  0x00000000
 ```
 - One piece of advice that cannot overemphasized when writing this code is that __pointer arithmetic always scales by the size of the pointee type__. The expression `ptr + 2` when `ptr` is type `char *` is simply adding 2 to the base address `ptr`. However, if `ptr` is type `int *`, the expression  `ptr + 2` is adding 8 (2*sizeof(int)) to `ptr`. This will come up when using offset arithmetic to access relative locations within the stack. A location that is an offset of 8 bytes from a `char *` base can alternatively be computed as an offset of 2 words from a `int *` base, so be sure to consider pointee type when determining appropriate value for offset.
 
@@ -120,12 +119,14 @@ All stack frames use the same layout, so once your code can correctly gather fra
 After you have gathered the stack frames, the `backtrace_print_frames` function is used to print them out. Frames are printed one per line in the format below:
 
 ```console?prompt=(gdb)
-#0 0x40000064 at <check_backtrace+64>
-#1 0x400000f8 at <function_A+20>
-#2 0x4000011c at <function_B+20>
-#3 0x400001bc at <test_backtrace+32>
-#4 0x40000714 at <main+36>
-#5 0x40005870 at <_cstart+60>
+#0 0x40000228 at <recursion+44>
+#1 0x4000023c at <recursion+64>
+#2 0x4000024c at <recursion+80>
+#3 0x4000023c at <recursion+64>
+#4 0x40000288 at <test_backtrace+28>
+#5 0x40000794 at <main+36>
+#6 0x40005d90 at <_cstart+60>
+#7 0x40000020 at <_start+32>
 ```
 
 The information in angle brackets is the __label__ which identifies the function that contains this address and the offset of how far into the function it occurs. Finding the function name for an address needs a bit of support magic we provide. In an executing program, functions are only referred by address, not name. Symbol names are not even present in the `.bin` file! However, they are in the `.elf` file, and we can use the same technique as debuggers do: read names from the ELF symbol table used by the linker.
