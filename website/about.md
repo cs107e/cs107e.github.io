@@ -4,9 +4,9 @@ title: About the course
 ---
 ## {{ site.data.course.quarter }}
 
-  - **Lectures:** {{ site.data.course.lecture_schedule }}
-  - **Labs**: {{ site.data.course.lab_schedule }}
-  - **Course staff**: {{ site.data.course.staff | map: "name" | join: ", " }}
+  - __Lectures:__ {{ site.data.course.lecture_schedule }}
+  - __Labs__: {{ site.data.course.lab_schedule }}
+  - __Course staff__: {{ site.data.course.staff | map: "name" | join: ", " }}
 
 {% include gallery.html %}
 

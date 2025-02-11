@@ -46,7 +46,7 @@ For a __B__ course grade, we expect __solid__ work that meets all base expectati
 + Engagement
     - Good (all labs, some style reflections, positive E-P-C)
 
-Work that is not completed satisfactorily will earn grades **C and below**.
+Work that is not completed satisfactorily will earn grades __C and below__.
 
 ## Late Policy
 
@@ -138,7 +138,7 @@ implementation strategies, testing, and debugging. Some examples:
 
 - __Receiving help from an AI acting IFF in the role of "ethical tutor"__{: .text-warning }
 
-    Use of AI tools (e.g. ChatGPT, CoPilot) is restricted to the kind of help that could be provided by a ethically-minded tutor. A good tutor can answers questions about your confusions, can provide clarification, can walk you through an example, can direct you to additional information, and so on. A tutor is acting as a sounding board for your own understanding and guiding without overly leading. If you used an AI as a tutor, you should cite the assistance you received. **Note that a properly-trained tutor doesn't write code for you nor does it point out your bugs or tell you how to rewrite your code.** Such uses are disallowed.
+    Use of AI tools (e.g. ChatGPT, CoPilot) is restricted to the kind of help that could be provided by a ethically-minded tutor. A good tutor can answers questions about your confusions, can provide clarification, can walk you through an example, can direct you to additional information, and so on. A tutor is acting as a sounding board for your own understanding and guiding without overly leading. If you used an AI as a tutor, you should cite the assistance you received. __Note that a properly-trained tutor doesn't write code for you nor does it point out your bugs or tell you how to rewrite your code.__ Such uses are disallowed.
 
 #### What is an appropriate citation?
 

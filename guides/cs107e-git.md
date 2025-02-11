@@ -12,7 +12,7 @@ the general use of `git` in [our git guide](/guides/git). To set up the `mycode`
 
 In this document, we walk through the specific workflow to access the starter code and submit your work.
 
-> **Note** This guide assumes that you've already set up your `mycode` repo and development environment using the [Git workflow setup guide](/guides/setup-mycode-repo).
+> __Note__ This guide assumes that you've already set up your `mycode` repo and development environment using the [Git workflow setup guide](/guides/setup-mycode-repo).
 {: .callout-warning}
 
 ## Organization of the `mycode` repo
@@ -74,7 +74,7 @@ make regular git commits to record a snapshot of your work and track your progre
 saved in your local repo. You can follow up with a `git push` to sync those changes with your remote
 repo.
 
-> **Note** We strongly encourage you to develop the habit of commit __early and often__. Any time you make a change that you'd be upset to lose, take a moment to make a commit (usually, this is at least once an hour, often more frequently). Also make regular pushes to send your latest commits to the remote. This means you have an offiste backup if anything scary should befall your laptop!
+> __Note__ We strongly encourage you to develop the habit of commit __early and often__. Any time you make a change that you'd be upset to lose, take a moment to make a commit (usually, this is at least once an hour, often more frequently). Also make regular pushes to send your latest commits to the remote. This means you have an offiste backup if anything scary should befall your laptop!
 {: .callout-warning}
 
 To see the current state of your repo, use the `git status` command. It will indicate which files have been modified, which changes are "staged" (ready to be commmitted) and whether the local and remote repos are currently in sync.
@@ -107,8 +107,8 @@ navigate the history of code changes, as well as providing the opportunity to
 revert to previous versions. Sometimes you may find that you want to revert to
 a commit before some code changes that introduced a bug. The more frequently you
 commit, the more opportunities you have to restore previous working states
-without losing as much work. **We recommend that you commit early and often and
-that you write detailed commit messages.**
+without losing as much work. __We recommend that you commit early and often and
+that you write detailed commit messages.__
 
 > Git command responses can sometimes look cryptic and scary. DON'T BE SCARED!
 > The worst thing you can do is just ignore the responses altogether, especially when you get warnings and errors.
@@ -118,7 +118,7 @@ that you write detailed commit messages.**
 > {: .callout-info}
 
 You can view the contents of your remote repo by browsing it on GitHub.
-**Note:** GitHub will show commits for the `master` branch by default. To see activity
+__Note:__ GitHub will show commits for the `master` branch by default. To see activity
 on the `dev` branch, switch to it by selecting from the drop-down menu:
 
 ![Github change to another branch](../images/github-change-branch.png){: .zoom .w-75}

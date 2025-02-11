@@ -9,13 +9,13 @@ toc: true
 {% comment %}
 Task list to copy/paste when creating PR:
 
-**Before releasing assign1:**
+__Before releasing assign1:__
 
 - [ ] Review writeup/starter code (instructor)
 - [ ] Review consistency/completeness of grading info published to students relative to grading tests used, consider changes clarity/ease of grading (TA)
 - [ ] Followup on issues from previous quarter postmortem (issue #467)
 
-**To prep for assign1:**
+__To prep for assign1:__
 
 - [ ]
 
@@ -63,7 +63,7 @@ The course follows a weekly cadence where a topic is introduced in the Friday-Mo
 
 Each assignment has a required set of core features and optional extended features. Completing the core functionality is required for all students; the extensions are the optional "stretch goals" for those students aiming to go further. We award bonus credits for the extended features. We encourage everyone to try the extensions; they're a great way to challenge yourself and deepen your understanding.
 
-> **YEAH = Your Early Assignment Help**  The YEAH session is the kickoff for the week's assignment. In this group office hour session, we can answer your questions, inspire you about the new things you'll be learning, and facilitate a group brainstorm on best practices for success. The YEAH session meets in Gates B02, usually on Thursday afternoon. See the Ed forum for post announcing YEAH schedule for this quarter. Everyone welcome!
+> __YEAH = Your Early Assignment Help__  The YEAH session is the kickoff for the week's assignment. In this group office hour session, we can answer your questions, inspire you about the new things you'll be learning, and facilitate a group brainstorm on best practices for success. The YEAH session meets in Gates B02, usually on Thursday afternoon. See the Ed forum for post announcing YEAH schedule for this quarter. Everyone welcome!
 {: .callout-success}
 
 
@@ -165,24 +165,29 @@ Here are the instructions for the [style reflection](style_reflection) to be sub
 The starter files for each assignment include an empty `README.md` file for communicating with the grader. Edit this file to pass along whatever information you'd like:
 'I implemented extended feature X' or 'There is a lurking bug in function Y that I need help to resolve' or 'I am really proud of this neat thing Z I did in my code'. The file may also be left blank.
 
-> **Note** Make sure that you also cite any help that you receive, either in the `README.md` or as comments in your code, as explained in the [collaboration policy](/policies/#collaboration-policy).
+> __Note__ Make sure that you also cite any help that you receive, either in the `README.md` or as comments in your code, as explained in the [collaboration policy](/policies/#collaboration-policy).
 {: .callout-warning}
 
 The submit checklist in the [Git Workflow Guide](/guides/cs107e-git#assignment-checklist) has the final steps: __tag__ your
 submit and __push__ to sync with your remote repo.
 
-The assignment is due at **5pm on Tuesday.** The timestamp on the tagged commit determines the submission time.  Delivering on schedule earns a small on-time reward. We encourage you to learn how to pace your work and hit the deadline -- this is a great skill to build! Finishing on time also allows you a short breather before the next assignment comes out. If you are running a a bit behind in a given week, there is a 48-hour grace period where we accept late submissions without penalty (although you miss out on the on-time reward). Read more about the [late policy](/policies/#late-policy).
+The assignment is due at __5pm on Tuesday.__ The timestamp on the tagged commit determines the submission time.  Delivering on schedule earns a small on-time reward. We encourage you to learn how to pace your work and hit the deadline -- this is a great skill to build! Finishing on time also allows you a short breather before the next assignment comes out. If you are running a a bit behind in a given week, there is a 48-hour grace period where we accept late submissions without penalty (although you miss out on the on-time reward). Read more about the [late policy](/policies/#late-policy).
 
 ## Extension
 
 If you enjoyed the core assignment portion and want to explore further, we encourage you to tackle the extension. The extension is more challenging, and will involve further explorations of RISC-V assembly and writing more complicated code. Completing this extension is worth __2 extension bonus credits__.
 
+{% comment %}
+ Think of how you might create a much more simplistic version of PWM. Specifically, "brightness" is created by making an LED switch very quickly between on and off such that the percentage of on -vs- off time gives you an apparent brightness. For example, let's say you want 50% brightness. Then, the total time for on -vs- off should be equal during a given period. But, the tricky part is that you can't simply say that in 1 second, you turn on the LED for 0.5 sec, and then off for 0.5 sec -- this just looks like a blinking light. To fool your eye into seeing "brightness", you need to turn the LED on and off very frequently during that 1 second interval -- thousands of times would be a good strategy. Your eye won't see the individual blinking (it will be too fast), and you will interpret the pattern as brightness.
+{% endcomment %}
 
 If you watch the Larson scanner carefully,
 several LEDs are turned on at once.
 The center one is at full brightness,
-and the ones on the edge are dimmer.
-How would you dim an LED? Your challenge for the assignment extension is to
+and the ones on the edge are dimmer. How can you dim an LED?
+You may remember from lab how to change the LED brightness with a hardware tweak such as applying a smaller resistor or supplying a different voltage. That won't work here-- the pins on the Mango Pi are digital and have only two settings: on (3.3V) or off (0), nothing in between. However, it is possible in software to very quickly switch the LED on and off in such a way to simulate an effect that the human eye will perceive as "semi-on". Neat!
+
+Your challenge for the assignment extension is to
 implement a scanner with LEDs aesthetically dimmed
 in a way that would please Glen Larson.
 
@@ -195,6 +200,10 @@ the
 You should have at least three distinct levels of brightness (not including "zero brightness," or the lights that are off).
 
 This fancy code will surely require thorough comments to explain how it works!
+
+{% comment %}
+FOR NEXT TIME: require that larson start at standstill with 3 levels of brightness for 5 seconds, and only then start moving
+{% endcomment %}
 
 The extension program is to be written in the file `extension.s`. Copy your completed code from `larson.s` into `extension.s` as your starting point. Use `make extension` to compile and run your extension program.
 

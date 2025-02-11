@@ -39,7 +39,7 @@ During the lab, we ask that you periodically check-in with the course staff, so 
 ### What is the lab collaboration policy?
 
 More heads are better than one for this kind of experimenting,
-so you will work in **pairs.** 
+so you will work in __pairs.__
 You are also encouraged to discuss the work 
 and share ideas with everyone in your lab room.
 Lab time is for active, hands-on, collaborative learning 

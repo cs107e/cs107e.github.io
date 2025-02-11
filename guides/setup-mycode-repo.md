@@ -7,7 +7,7 @@ attribution: Written by Maria Paula Hernandez and Liana Keesing, incorporating w
 
 In CS107e, we distribute course materials as git repos and you will use git to access, manage, and submit your work. These repositories are hosted on GitHub. This guides walks you through the steps to do the initial setup of the `mycode` repo. The `mycode` repo is where you will manage all of your cs107e code.
 
-> **Note** You should only need to follow the steps in guide once at the beginning of the course (unless you have to redo your setup for some reason). As always, be sure to ask for help if you run into any snags!
+> __Note__ You should only need to follow the steps in guide once at the beginning of the course (unless you have to redo your setup for some reason). As always, be sure to ask for help if you run into any snags!
 {: .callout-warning}
 
 ### Introduction
@@ -83,7 +83,7 @@ Note: If you're using WSL, now is a good time to open File Explorer on your `cs1
 
 ### Step 5: Make local clone
 
-> **Note** In the commands below, replace any reference to `[YOUR-GITHUB-USERNAME]` with your __actual GitHub username__.
+> __Note__ In the commands below, replace any reference to `[YOUR-GITHUB-USERNAME]` with your __actual GitHub username__.
 {: .callout-warning}
 
 In your browser, visit the page

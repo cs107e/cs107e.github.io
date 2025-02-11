@@ -10,12 +10,12 @@ toc: true
 {% comment %}
 Task list to copy/paste when creating PR for this assign:
 
-**Before releasing assign0:**
+__Before releasing assign0:__
 
 - [ ] Review writeup/starter files/process (TA)
 - [ ] Followup on issues from previous quarter postmortem ()
 
-**To prep for assign0:**
+__To prep for assign0:__
 
 - [ ]
 
@@ -70,7 +70,7 @@ In the `assign0` subfolder, find the file named `background.txt` and open it in 
 Add answers to the following questions.  Make sure each your response is clearly labeled (i.e.
 we know what question it corresponds to) and reasonably organized.
 
-> **Tip** If you're stuck on any of the questions, take a look at the guides section
+> __Tip__ If you're stuck on any of the questions, take a look at the guides section
 > of the course website, post on Ed, or start reading some articles online!
 > {: .callout-info}
 

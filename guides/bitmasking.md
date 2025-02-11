@@ -19,7 +19,7 @@ How would we set the three rightmost bits to `101`?
 
 Okay, so it looks like we can set bits just be OR'ing them in. Right?
 
-**WRONG!** What if the starting value isn't all zeroes?
+__WRONG!__ What if the starting value isn't all zeroes?
 
 ![00000000000000000000000000000111 OR 101 = 00000000000000000000000000000111](../images/bitmasking2.png){: .w-75 .zoom}
 

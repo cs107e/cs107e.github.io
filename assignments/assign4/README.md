@@ -210,7 +210,7 @@ that was not obtained from `malloc` or `free`ing an already freed pointer, the b
 #### Order of attack
 Below we offer our suggestions for a step-by-step plan  of the tasks before you. 
 
-1. **Study starter code.**
+1. __Study starter code.__
 
     The file `malloc.c` in the starter code contains the super simple "bump allocator" shown in lecture. Start by reviewing this code. The bump allocator is correct, but quite naive. It serves as a reference point from which your own heap allocator will be able to show substantial improvements.
    
@@ -231,7 +231,7 @@ Below we offer our suggestions for a step-by-step plan  of the tasks before you.
 
     Use `make run` right now on the starter code to see the bump allocator in action. The bump allocator is correct but lazy. It process requests very quickly but remorselessly chews through memory with no hope of recycling. You can do better!
 
-2. **Re-work `malloc()` to add a block header to each block.**
+2. __Re-work `malloc()` to add a block header to each block.__
     
    Your heap allocator will place a header on each block that tracks the block size and status (in-use or free).  Review these [block header diagrams](block_headers/) to understand the basic layout of a heap using block headers.
    
@@ -239,13 +239,13 @@ Below we offer our suggestions for a step-by-step plan  of the tasks before you.
    
    When adding the header, be sure to consider how it will affect payload alignment. Each payload must start on an address that is a multiple of 8. One convenient way to adhere to the alignment rule is to round up each payload to a size that is a multiple of 8, add an 8-byte header, and lay out blocks end to end beginning at an address that is a multiple of 8. Our standard `memmap.ld` linker script aligns the `__heap_start__` symbol to an 8-byte boundary.
 
-3. **Implement `free()` to update status in block header.**
+3. __Implement `free()` to update status in block header.__
    
    `free()` should access the block's header and mark it as free. Accessing the neighboring memory at a negative offset via pointer subtraction works just like pointer addition -- handy!
    
    This doesn't yet recycle a free block, but marking it as free is the first step toward that.
 
-4. **Implement `heap_dump()` to output debugging information.**
+4. __Implement `heap_dump()` to output debugging information.__
    
    Before things get any more complex, implement a routine to give you insight into what's going on inside your heap.  The intention of `heap_dump()` is to print a visual dump of your heap contents that will help you when debugging your allocator.  Yay `printf`, where have you been all my life?!  
    
@@ -257,7 +257,7 @@ Below we offer our suggestions for a step-by-step plan  of the tasks before you.
 
    What you print in `heap_dump` will not be graded. This debugging function is yours to use as you see fit, but the more help it provides to you, the better off you will be. 
 
-5. **Upgrade `malloc()` to search freed blocks and reuse/split.**
+5. __Upgrade `malloc()` to search freed blocks and reuse/split.__
       
    Now change `malloc` to recycle a free block if possible. Walk the heap by traversing the implicit list of headers, and look for a free block of an appropriate size. A block that exactly matched the requested size would be ideal, but searching the entire heap to find that best fit block can be time-consuming. A quicker approach is to go with _first fit_, i.e. grab the first block found that is large enough. If this block satisfies the request with enough excess leftover to form a non-empty second block, split that remainder into its own free block.
    
@@ -265,7 +265,7 @@ Below we offer our suggestions for a step-by-step plan  of the tasks before you.
    
    Add your own `test_recycle` case to `test_backtrace_malloc.c` to test that your allocator will now recycle freed memory. For example, if you run a loop that repeatedly does malloc-free (same size malloc each time), the same block should be repeated re-used.  Now add a `test_split` case that does a large-size malloc and frees it, followed by several small-size mallocs to see the splitting of the previous large block.  Make liberal use of `heap_dump` to confirm the internal configuration of your allocator during these operations is as you intend. 
 
-6. **Upgrade `free()` to coalesce adjacent free blocks.**
+6. __Upgrade `free()` to coalesce adjacent free blocks.__
    
    Reusing single freed blocks is a good improvement, but there is further opportunity for recycling. What happens if the client repeatedly allocates 8-byte blocks until the heap is full, frees all of them, then tries to allocate a 32-byte block? The heap contains much more than 32 total bytes of free space, but it has been fragmented  into individual 8-byte blocks.  To service a larger request, we'll need to join those smaller blocks.
    
@@ -274,7 +274,7 @@ Below we offer our suggestions for a step-by-step plan  of the tasks before you.
    Add a `test_coalesce` case to `test_backtrace_malloc.c` that runs a sequence designed for forward coalesce, such as request several small blocks, free the blocks in reverse order, and then request a large block.  Use `heap_dump` to confirm the coalescing and re-use of previous blocks.
 
 
-7. **Watch your heap at work!**
+7. __Watch your heap at work!__
 
     After confirmed your allocator's correct behavior on your own test cases, you're ready for a final spin using the simulation application program `heap_workflow.c`. Use the `make run` target to run the simulation. The simulation runs a long sequence of random malloc/free calls, confirming that each request is correctly serviced and payload data is properly managed. It also measures the time spent servicing each request (thank you, timer module!) and observed the growth in the footprint of the heap segment. At the end of the simulation, it reports summary statistics on the allocator performance. Compare your results to the original results of the lazy bump allocator and take a bow for your hard work showing up that slacker!
 

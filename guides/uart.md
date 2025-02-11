@@ -69,7 +69,7 @@ If you are not able to find the device name, ask us for help!
 ## Connect usb-serial to Pi
 1. First, disconnect power to the Pi.
 
-    >**Danger** Always have the Pi powered down whenever you are fiddling with the wiring.
+    >__Danger__ Always have the Pi powered down whenever you are fiddling with the wiring.
     If you leave it plugged in, power is flowing and all wires are live, which makes for a dicey situation. An accidental crossed wire can a short circuit, which could fry your Pi or make your
     laptop disable the USB port.
     {: .callout-danger-invert}

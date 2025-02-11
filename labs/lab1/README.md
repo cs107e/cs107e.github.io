@@ -155,7 +155,7 @@ and complete the circuit by connecting the cathode to ground. The power and grou
 Follow these steps:
 
 1. First, disconnect or switch off your Pi.
-    >**Danger** Always take care to cut power to the Pi
+    >__Danger__ Always take care to cut power to the Pi
     before you fiddle with the wiring.
     If you leave it plugged in, power is flowing and all wires are live, which makes for a dicey situation. An accidental crossed wire can a short circuit, which could fry your Pi or make your
     laptop disable the USB port.
