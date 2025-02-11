@@ -73,7 +73,7 @@ In lab, we will distribute a PS/2 keyboard and plug board to each of you.
 - __PS/2 keyboard__ (including __USB-to-PS/2 adapter__ perma-attached with hot glue)
     ![keyboard](images/v7keyboard.jpg){: .zoom .w-50}
 - __PS/2 plug board__
-    ![plugboard](images/plugboard.png){: .zoom .w-25}
+    ![plugboard](images/plugboard.jpg){: .zoom .w-50}
 
 The keyboard and plugboard are lent to you, take them home to work on the upcoming assignments. Please take care of them, you must return them at the end of the quarter.
 
@@ -98,13 +98,11 @@ carry VCC, GND, DATA and CLK.
 
 ![PS/2 6-pin mini-din pinout](images/minidin.png)
 
-Grab the PS/2 plug board and fip it over to see the four-pin header that
-on the underside of the circuit board. These header pins connect
-to the male pins in the PS/2 plug through small traces. Find those traces on the circuit board. The CLK, DATA, and GND traces are on the top side of the board
-and the 5V trace on the underside.
+Grab the PS/2 plug board and look at the four-pin header. Each pin on the header connects to one of the pins in the PS/2 plug following a trace on the circuit board.  On the red plugboards, the CLK, DATA, and GND traces are on the top side of the board
+and the 5V trace on the underside. On the green plugboards, all four traces are on the bottom side of the board.
 
-Place the plug board into your breadboard so that each of the four pins
-is on a different row. Be careful not to mis-orient the pins; if the four pins are all in the same row, they are all connected together, which is not what you want!
+If you have a red plugboard, place it into your breadboard so that each of the four pins
+is in a different row. Be careful not to mis-orient the pins; if the four pins are all in the same row, they are all connected together, which is not what you want! If you have a green plugboard where the pins face up, use a female-to-male jumper to connect each pin to a separate row on the breadboard.
 
 From your kit, pick out seven female-to-male jumpers: one red, two black, two white, and two yellow. You'll be following these color conventions: red for
 5V, black for GND, white for CLK, and yellow for DATA.
@@ -316,8 +314,7 @@ exactly what signals are sent *and* how your Pi interprets them is extremely
 useful: it's like gdb for the pins!
 
 > __Disconnecting logic analyzer__
-The wiring we are using in lab has four jumpers for CLK and DATA: one pair to send keyboard signals to the Pi and another to share with the logic analyzer.
-The essential connection is between the keyboard and the Pi; the additional connection to the logic analyzer is just for debugging. When leaving lab, remove the extra jumpers and return the logic analyzer to us. The logic analyzers are available in lab if you need to borrow one again in future.
+The wiring we are using in lab is complicated due to connecting the plugboard to both the Mango Pi and the logic analzyer, running through the breadboard to share the signal.  The essential connection is between the plugboard and the Pi; the additional connections to the breadboard and logic analyzer are only for debugging. When leaving lab, disconnect the extra jumpers and breadboard and use instead female-to-female jumpesr to directly connect the Mango Pi pins to the plugboard. Be sure to return the logic analyzer to us (not to take home). The logic analyzers are available in lab if you need to borrow one again in future.
 {: .callout-warning}
 
 The function `keyboard_read_scancode` in `keyboard.c` simply calls `ps2_read`
