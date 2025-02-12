@@ -26,7 +26,7 @@ __To prep for lab5:__
 ## Goals
 
 In your next assignment, you will write a PS/2 keyboard driver for your Pi. The
-primary goal of this lab is to set up the keyboard so that you can start on
+primary goal of this lab is to get you set up with the keyboard to be ready to start on
 the assignment.
 
 During this lab you will:
@@ -51,9 +51,10 @@ To prepare for lab, do the following:
   [download links for Logic 2](https://ideas.saleae.com/f/changelog/). Download
   and install the version for your platform. If using WSL, download the Windows
   version.
+    - The linux version seems to require some extra fiddling; see [helpful Ed post from Bhushan](https://edstem.org/us/courses/70346/discussion/6158273) with info.
 1. Bring in interesting code for [show-and-tell](#code-reading)!
 1. Organize your supplies to bring to lab
-    - Bring your laptop (with full charge) and full parts kit, __including your breadboard__.
+    - Bring your laptop (with full charge) and full parts kit.
 
 ## Lab exercises
 
@@ -66,7 +67,7 @@ $ cd ~/cs107e_home/mycode
 $ git checkout dev
 $ git pull code-mirror lab5-starter
 ```
-### 1. Install PS/2 plug
+### 1. Connect PS/2 plug, power up keyboard
 
 In lab, we will distribute a PS/2 keyboard and plug board to each of you.
 (Click photos to enlarge).
@@ -75,41 +76,43 @@ In lab, we will distribute a PS/2 keyboard and plug board to each of you.
 - __PS/2 plug board__
     ![plugboard](images/plugboard.jpg){: .zoom .w-50}
 
-The keyboard and plugboard are lent to you, take them home to work on the upcoming assignments. Please take care of them, you must return them at the end of the quarter.
+The keyboard and plug board are lent to you, take them home to work on the upcoming assignments. Write your name and id number of your keyboard on the sign-out sheet. Please take care of keyboard and plug board, you must return both at the end of the quarter.
 
 Most modern keyboards use the Universal Serial Bus (USB). The USB protocol is quite complicated: a typical USB keyboard driver is 2,000 lines of code -- ouch!
 In this course, we instead use a PS/2
 keyboard because PS/2 is a simple serial protocol that is easy to decode.  The PS/2
 keyboard appeared on the original IBM PC.  Computers have long since stopped
-including a PS/2 port as standard equipment so we will wire a direct connection
+including a PS/2 port as standard equipment; we wire our own connection
 from a PS/2 plug board to the GPIO pins on the Pi.
 
 Sourcing genuine PS/2 keyboards has become an archaeological expedition for us. We found a USB keyboard that can also operate in PS/2 mode.  The keyboard has
-a wired USB connector and a USB-to-PS/2 adapter. We used hot glue to permanently attach that adapter, so the keyboard acts as a wired PS/2 keyboard.
+a wired USB connector and a USB-to-PS/2 adapter. We use hot glue to attach that adapter, so the keyboard acts as a wired PS/2 keyboard.
 
 There are two common PS/2 devices: a keyboard and a mouse.  A PS/2
 plug is a 6-pin
 [mini-DIN connector](https://en.wikipedia.org/wiki/Mini-DIN_connector).
 By convention, a mouse connector is green and a keyboard connector is purple, but the connectors
 are otherwise identical.  Inspect the inside of the mini-din PS/2 connector on the keyboard. It
-contains a plastic tab (this forces the plug to be inserted with the correct
-polarity) and 6 male pins. Two pins are NC (not-connected), and the others
+has 6 male pins and a plastic tab (SHLD) to guide inserting the plug with the correct
+polarity. Two of the pins are NC (not-connected); the others
 carry VCC, GND, DATA and CLK.
 
 ![PS/2 6-pin mini-din pinout](images/minidin.png)
 
-Grab the PS/2 plug board and look at the four-pin header. Each pin on the header connects to one of the pins in the PS/2 plug following a trace on the circuit board.  On the red plugboards, the CLK, DATA, and GND traces are on the top side of the board
-and the 5V trace on the underside. On the green plugboards, all four traces are on the bottom side of the board.
+Grab the PS/2 plug board and look at its four-pin header. Each pin on the header corresponds to one of the four connected pins of the PS/2 plug. The circuit board has traces to connect each pin.  On the red plug boards, the CLK, DATA, and GND traces are on the top side of the board
+and the 5V trace on the underside. On the green plug boards, all four traces are on the bottom side of the board.
 
-If you have a red plugboard, place it into your breadboard so that each of the four pins
-is in a different row. Be careful not to mis-orient the pins; if the four pins are all in the same row, they are all connected together, which is not what you want! If you have a green plugboard where the pins face up, use a female-to-male jumper to connect each pin to a separate row on the breadboard.
+From your parts kit, pick out five female-to-female jumpers: one red, two black, one white, and one purple. You'll be following these color conventions: red for
+5V, black for GND, white for CLK, and purple for keyboard DATA.
 
-From your kit, pick out seven female-to-male jumpers: one red, two black, two white, and two yellow. You'll be following these color conventions: red for
-5V, black for GND, white for CLK, and yellow for DATA.
+Use the red and black jumpers to supply power to the plug board. First have your Pi switched off, and use a red jumper to connect a 5V pin on your Pi to the 5V pin on your plug board and a black jumper to connect a GND pin on your Pi to the GND pin on your plug board. Double-check these connections to confirm they are correct (wiring a short circuit through the keyboard can cause fatal damage; ask us how we know...).
 
-Use one red and one black jumper to supply power to your keyboard.
-Connect the female end of the red jumper to a 5V pin on your Pi and the male end to the 5V row in your breadboard.
-Similarly, use a black jumper to connect a GND pin on your Pi to the GND row.
+Plug your keyboard into the plug board, being sure to rotate the plug to the correct position to align the plastic tab. If you try to force a misaligned plug, you can bend the pins or break off the tab. Please do not do this!
+
+Power on your Pi and the keyboard should flash the small green LEDs in the upper corner when it powers up. These LEDs are not very bright and the flash is brief. You may get a better view if you use your hand to block the ambient light.
+
+If your keyboard does not power on, grab a staff member to help diagnose.
+
 
 ### 2. Use a logic analyzer to visualize keyboard signals
 
@@ -120,38 +123,24 @@ An logic analyzer allows you to examine the signals sent by the keyboard. Here i
 ![Hiletgo logic analyzer](images/hiletgo.jpg){: .zoom .w-25}
 
 One end of the logic analyzer has a 10-pin header. The pins correspond to the different signals or _channels_ to be monitored by
-the analyzer. The analyzer supports reading up to 8 simultaneous channels. The
-other end of the logic analyzer has a mini-USB port that you will connect to the USB
-on your laptop to supply power and read data.
+the analyzer. The analyzer supports reading up to 8 simultaneous channels.
 
-Use one white and one yellow jumper to connect the keyboard clock and data to the logic analyzer.
-Use
-the label on the analyzer to learn the pin layout and identify which pins correspond to channels 0 and 1.
-Connect the female end of the white jumper to channel 0
-on your analyzer and the male end to the CLK row on your breadboard.
-Similarly, use the yellow jumper to connect channel 1 to the DATA row.
+Read
+the analyzer label to learn its pin layout and identify which pins correspond to the two lowest-numbered channels.  Some of our logic analyzers label the channels using a 0-based index (`Ch0`, `Ch1`, ... `Ch7`) and others use 1-based index (`Ch1`, `Ch2`,... `Ch8`). In either case, you want to use the two lowest-numbered channels for the clock and data connections. We will refer to the two lowest-numbered channels as `Ch0` and `Ch1` but they may be labelled `Ch1` and `Ch2` on the analyzer you are using.
 
-In the photo below, the four jumpers from left to right are power (red), ground (black), CLK (white), and DATA (yellow).
-The power and ground connect to your Pi. The CLK and DATA are connected to channels 0 and 1 of the logic analyzer.
+Use the white jumper to connect `Ch0`
+on the analyzer to the CLK pin on your plug board and the purple jumper to connect `Ch1` to the DATA pin.
 
-![wire order](images/plug.breadboard.jpg){: .zoom .w-25}
 
 You must also ground the logic analyzer. Voltage is relative: when looking at a signal, the reading is the difference from a
 reference voltage, which in this case should be the ground provided by the Pi. If you don't
-connect the logic analyzer to the Pi's ground, then it will be measuring voltage against whatever happens to be
+tie the logic analyzer's ground to the Pi's ground, then it will be measuring voltage against whatever happens to be
 on the pins, which can act as tiny antennae. Identify
-the ground pin on the analyzer and use a black jumper to connect it to the keyboard
-ground.
+the ground pin on the analyzer and use a black jumper to connect it to an open ground pin on your Pi.
 
-The last two jumpers (one white and one yellow) will be be used to connect the keyboard clock and data to the gpio pins on the Pi. Connect the male end of the second white jumper to the CLK row and the second yellow jumper to the DATA row. Leave the female jumper ends unconnected.
-We will connect these later, but it's easier to get them into the breadboard now.
+Below is a photo of the circuit (click photo to enlarge). The plug board power (red) and ground (black) are connected to the Pi. The plug board CLK (white) and DATA (purple) are connected to channels 0 and 1 of the logic analyzer. The logic analyzer ground (black) is connected to Pi ground.
 
-This is what it looks like when the plug board is wired up to the logic analyzer. (Click photos to enlarge)
-
-![wired up](images/plug.analyzer.breadboard.jpg){: .zoom .w-50}
-![wired up](images/plug.analyzer.jpg){: .zoom .w-50}
-
-Plug your keyboard into the PS/2 port on the plug board.
+![wired up](images/plug.logic_analyzer.jpg){: .zoom .w-50}
 
 Open the *Logic 2* application you installed on your laptop as part of prelab
 preparation. When the logic analyzer is unconnected, the start-up screen is similar to this:
@@ -162,25 +151,22 @@ Connect the USB cable from the mini-USB port on the logic analyzer to an open po
 
 ![Logic2 Connected](images/Logic2.connected.png){: .w-75}
 
-Press the flat cube icon in the upper left to access the device settings. Find the sample rate control in the settings pane; it is labeled something like `24 M/s`. Adjust the sample rate down to `1 M/s` (1 million samples per second is plenty, attempting to sample at a higher rates can sometimes produce errors). Close the settings pane.
+Press the flat cube icon in the upper right to access the device settings. Find the sample rate control in the settings pane; it is labeled something like `24 M/s`. Adjust the sample rate down to `1 M/s` (1 million samples per second is plenty, attempting to sample at a higher rates can sometimes produce errors). Close the settings pane.
 
-![Logic2 sample rate](images/Logic2.samplerate.png)
+![Logic2 sample rate](images/Logic2.samplerate.png){: .w-75}
 
-The blue circle with a white "Play" triangle is the play/stop button. Press play
+The blue triangle at the top is the play/stop button. Press play
 to start reading the signal. Type a few keys on the PS/2 keyboard, then press stop to end the recording.
 The Logic2 window will show the signals recorded on channels 0 and 1.
-You can zoom in and out and pan left and right to see the details
-of the captured signal. You should see the characteristic pattern of the PS/2
+Zoom in and out and pan left and right to view the signal details. You should see the characteristic pattern of the PS/2
 protocol. 
 
-The Logic 2 application provides protocol analyzers that can be applied to
-the captured data. Along the right side, find the hexagon labeled `1F` . Click this button to
-display the *Analyzers* pane. Click the `+` in upper right to access the list
-of analyzers and choose the PS/2 protocol analyzer. Configure CLK on
+The Logic 2 application has signal analyzers for common protocols.  Along the top of the windonw, click the hexagon labeled `1F` to
+display the "Add Analyzer" pane. Type "PS" to filter the list of analyzers and select "PS/2 Keyboard/Mouse". Configure CLK on
 channel 0 and DATA on channel 1. The captured data is now decoded according to
 the PS/2 protocol and interprets the sampled signal as scancodes.
 
-![Logic 2 PS/2 Analyzer](images/Logic2.ps2analyzer.png)
+![Logic 2 PS/2 signal Analyzed](images/Logic2.ps2analyzed.png)
 
 Hover over the visualization of the PS/2 clock channel to see the signal timing
 data. How far apart is each falling clock edge? At what frequency is the PS/2
@@ -191,22 +177,18 @@ You're ready to answer the first check-in question[^1].
 
 ### 3. Run keyboard test
 
-You're now ready to try reading the keyboard signals on the Pi.
-Earlier you added additional white and yellow jumpers to your breadboard rows, now you will connect the female ends to your Pi.
+Now rewire the circuit to connnect the clock and data lines of plug board to the Pi, instead of the logic analyzer.
 
-Review the keyboard module interface [keyboard.h](https://cs107e.github.io/header#keyboard) to see which gpio pins to use for the keyboard clock and data lines. The white jumper (CLK) connects to `KEYBOARD_CLOCK` (`PG12`) and the yellow jumper (DATA) to `KEYBOARD_DATA` (`PB7`). Find the corresponding header pins on the Mango Pi [pinout](/guides/refcard).
+Turn off power to the Pi and disconnect the logic analyzer and return to us. Re-use the white and purple jumpers to connect the plug board clock and data to the Mango Pi keyboard clock and data gpios.
+
+Review the keyboard module interface [keyboard.h](https://cs107e.github.io/header#keyboard) to see which gpio pins to use for the keyboard clock and data lines. The white jumper (CLK) connects to `KEYBOARD_CLOCK` (`PG12`) and the purple jumper (DATA) to `KEYBOARD_DATA` (`PB7`). Find the corresponding header pins on the Mango Pi [pinout](/guides/refcard).
 ```console
 $ pinout.py keyboard
 ```
 
-Fanning out two connections from the PS/2 plug (one to the logic analyzer, the other to your Pi)
-allows your Pi to receive the data while simultaneously capturing the same signal
-on the logic analyzer. This is useful during debugging as you can compare what your Pi thinks
-it's receiving with the ground truth of what the logic analyzer sees.
+All four jumpers (red, black, white, purple) connect from the plug board to the Mango Pi as shown in the photo below (click photo to enlarge):
 
-Here are the connections to the Pi:
-
-![Keyboard plugged into the Pi](images/keyboard.pi.jpg){: .zoom .w-75}
+![Plugboard connected to Pi](images/plug.pi.jpg){: .w-75}
 
 The `keyboard_test` application uses the reference implementation of the
 keyboard driver. Let's try it now:
@@ -216,7 +198,7 @@ $ cd lab5/keyboard_test
 $ make run
 ```
 Type keys on the PS/2 keyboard and the program should print the scancodes
-received. You should also be able to see the signals in the Logic 2 application. If you aren't getting events, check your wiring.
+received. If you aren't getting events, check your wiring.
 
 Note that scancodes are not ASCII characters. Instead, these values relate to
 the physical placement of the key on the keyboard.  Inside the keyboard,
@@ -258,7 +240,7 @@ You're ready for the second check-in question [^2]
 ### 4. Implement ps2_read
 
 In this lab exercise, you will get a start on writing the keyboard
-driver that will be a part of your next assignment. We want you to do this task in lab because working at the intersection of hardware and software requires a specialized kind of debugging (logic analyzer, etc.) which can be tricky; it helps to
+driver that will be a part of your next assignment. We want you to do this task in lab because working at the intersection of hardware and software requires a specialized kind of debugging which can be tricky; it helps to
 have staff around!
 
 Change to the directory `lab5/my_keyboard`. This is the
@@ -294,27 +276,16 @@ into a shared helper aids readability and maintainability; this is a good habit
 to adopt. 
 
 A scancode transmission consists of 11 bits: a start bit (always low), 8 data
-bits, a parity bit, and a stop bit (always high).  To synchronize with the keyboard,
+bits, a parity bit, and a stop bit (always high).  The
 `ps2_read` should verify that first bit read is a valid start bit, e.g. is 0.
 If not, discard it and read again until a valid start bit is received.  Next,
-read the 8 data bits. 
+read the 8 data bits and lastly, read the parity and stop bits.
 
 In which order do the 8 data bits arrive? [^3]
 - Hint: if you're not sure, take a look at the signal you captured for the keyboard's data line with the
   logic analyzer or look back at the PS/2 protocol documentation linked in the prelab.
 
-The last two bits are the parity and stop bits. For the assignment, your driver will
-validate these bits have the correct values, but for lab, just read the bits
-and assume they are correct. 
-
-If you're having trouble reading in the bits correctly, debug by comparing the bits
-your code is seeing with the signals seen by the logic analyzer: run your program,
-start the logic analyzer, and type one key. Being able to simultaneously see
-exactly what signals are sent *and* how your Pi interprets them is extremely
-useful: it's like gdb for the pins!
-
-> __Disconnecting logic analyzer__
-The wiring we are using in lab is complicated due to connecting the plugboard to both the Mango Pi and the logic analzyer, running through the breadboard to share the signal.  The essential connection is between the plugboard and the Pi; the additional connections to the breadboard and logic analyzer are only for debugging. When leaving lab, disconnect the extra jumpers and breadboard and use instead female-to-female jumpesr to directly connect the Mango Pi pins to the plugboard. Be sure to return the logic analyzer to us (not to take home). The logic analyzers are available in lab if you need to borrow one again in future.
+> __Error-checking in `ps2_read`__ In the starter version you write during lab, the only error-checking is to detect and discard an invalid start bit. For the assignment, your driver will implement additional error-checking for parity, stop bit, and timeout. For lab, it's okay to just read the bits and assume they are correct.
 {: .callout-warning}
 
 The function `keyboard_read_scancode` in `keyboard.c` simply calls `ps2_read`
@@ -331,6 +302,11 @@ to hit the ground running on the assignment. Show us your working code! [^4]
 
 > __Caution on adding debug code in timing-sensitive passages__ Back in lab1, you estimated how many instructions the Pi was executing (~400 million/second).  Earlier in this lab, you measured the time of one cycle of the PS/2 clock.  Work out how many instructions the Pi can execute in that time. Now consider a call to `printf`. Make a ballpark estimate of how many instructions are executed to process and output each character and multiply that count by length of the format string for a rough total count. Imagine adding a debug print statement to your keyboard driver after reading one bit and before reading the next. What would be the consequence if that `printf` call takes longer to execute that you have available? To ensure you stay within budget, best to limit debug output to a quick jot of a few characters via `uart_putchar`.  Keep this lesson in mind whenever working with code that has similar tight timing requirements.
 {: .callout-warning }
+
+#### Using a logic analyzer to "snoop"
+In this lab, we connected the keyboard clock and data lines to __either__ the logic analzyer or to the Pi, but it's also possible to connect to __both__ simultaneously!  You would run clock and data jumpers from the plug board to a breadboard and then fan out two connections from there, one to the logic analyzer and another to your Pi. Your Pi receives the data while the same signal is simultaneously captured by the logic analyzer.  This can be very useful during debugging as you can compare what your Pi thinks
+it's receiving with the ground truth of the logic analyzer capture. Using the logic analzyer to observe
+exactly what signals are sent while simultaneously seeing how your Pi interprets them is like having gdb for the pins! The logic analyzers are available in lab if you need to borrow one in the future.
 
 <a name="code-reading"></A>
 ### 5. Code reading
@@ -355,4 +331,4 @@ The key goals for this lab are to leave with wired connection to the PS/2 keyboa
 
 [^4]: Show off that your implementation of `keyboard_read_scancode` correctly receives scancodes from your keyboard.
 
-[^5]: Please return __logic analyzer and usb cable__ to the lab cabinet (not to take home). The PS/2 keyboard and plug board are on loan to you to take home. Please take care of this equipment; you will return it at the end of quarter. <BR>Were you able to complete all of the lab exercises? Do you need followup assistance? How can we help?
+[^5]: Please return __logic analyzer and usb cable__ to the lab cabinet (not to take home). The PS/2 keyboard and plug board are on loan to you to take home. Please take care of this equipment; you will return both at the end of quarter. <BR>Were you able to complete all of the lab exercises? Do you need followup assistance? How can we help?
