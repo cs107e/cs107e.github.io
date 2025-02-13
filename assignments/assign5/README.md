@@ -590,7 +590,7 @@ cs107e rocks
 
     Implement the up and down arrow keys to access commands from the history. Typing an up arrow moves backwards to earlier commands in the history. Typing a down arrow moves forward to commands later in the history. Call `shell_bell` to alert the user if they try to move beyond either end of the history. When the user chooses to recall a command from the history, that command replaces the current line and the cursor is placed at the end of the line, the user can reissue by typing enter. The user can also use command-line editing to modify the recalled command such as to fix a typo before reissuing it.
 
-    Pick an additional history shortcut to implement. Here are some suggestions to consider:
+    Pick one or more additional history shortcuts to implement. Here are some suggestions to consider:
 
     - `!!` to repeat the last command
     - `!n` to access nth command from the history
@@ -601,7 +601,7 @@ cs107e rocks
 
 - __Bonus command/feature__
 
-    The final extension task is to implement a bonus command/feature of your own design that adds a feature to your to customize it to your liking.  Need to spare your overworked fingers? Add `tab` to auto-complete command names or implement environment variables to set and recall values. What shell commands/features would make your shell feel uniquely yours? Our reference shell includes add-ons for `gpio` (control gpio pins), `calc` (simple calculator), `hexdump` (extended peek), `pinout` (display header pinout), `backtrace` (current backtrace), `nm` (print symbol table), and `disassemble` (using the assign3 disassemble extension). We do not have one specific bonus command/feature for everyone to implement; we welcome you to add anything that you would learn something valuable from implementing and/or would appreciate having in your shell.
+    The final extension task is to implement a bonus command/feature of your own choosing that customizes the shell to your liking.  Perhaps you like to be able to `tab` to auto-complete command names or use environment variables to set and recall values. Our reference shell includes the extra commands `gpio` (control gpio pins), `calc` (simple calculator), `hexdump` (extended peek), `pinout` (display header pinout), `backtrace` (current backtrace), `nm` (print symbol table), and `disassemble` (using the assign3 disassemble extension). We do not have one specific bonus command for everyone to implement; we welcome you to add anything that you would learn something valuable from implementing and would appreciate having in your shell.
 
 To submit the completed extension for grading, tag with `assign5-extension`. In your `assign5/README.md`, tells us about all of the editing, history, and bonus features supported by your fancy extended shell so we'll know how to try it out when grading.
 
