@@ -120,11 +120,11 @@ And `keyboard` functions:
 The design of the keyboard driver is worth a pause to understand and
 appreciate. All of the nitty-gritty low-level protocol details are encapsulated
 within the `ps2` module. The `keyboard` module layers on that to implement the
-logic to process scancodes into sequences, events, and typed characters. Within
+logic to process scancodes into key actions, events, and eventually typed characters. Within
 the keyboard module, the functionality is arranged hierarchically, each routine
 building on the next. The bottom level routine reads a raw scancode (by
 delegating to the `ps2` module), the next level gathers a sequence of scancodes
-into one logical key action, the higher level routines translate those actions
+into one logical key action, the higher level routines translate actions
 into key events and typed characters.
 
 The layered interface cleanly supports the needs of different clients. A client
@@ -180,10 +180,10 @@ The `ps2_read` function reads one well-formed scancode.
 If `ps2_read` encounters an invalid bit, it should abandon
 the partial scancode and retry, reading the next bit as the start of a new scancode. Discard as many invalid attempts as necessary, only returning when a full valid scancode is received.
 
-In a similar vein, a dropped bit or discarded partial read could cause your driver to become de-synchronized. If attempting to read a scancode starting mid-packet, it can get stuck waiting for further bits
-to arrive that aren't forthcoming or wrongly mash together bits from two different scancodes. Implement error-handling to resynchronize on timeout. Call your `timer_get_ticks` function to get a timestamp for each clock edge. If you detect that the current clock edge occurs more than 1ms after the previous timestamp, reset the state and assume the current clock edge is for a new start bit. This small effort provides additional robustness in your driver to combat flaky connections and hardware blips.
+In a similar vein, a dropped bit or discarded partial read could cause your driver to become de-synchronized. If the driver attempts to gather a scancode starting mid-packet, it can get stuck waiting for further bits
+to arrive that aren't forthcoming or wrongly mash together bits from two different scancodes. Your driver should implement a timeout reset that detects when the gap between bits is too long for them to have been part of the same scancode. Given the PS/2 bit rate of 10-16Khz, the gap should be in the range 60-100us. Call your `timer_get_ticks` function to get a timestamp for each clock edge.  If you detect that this clock edge occured more than 500us after the previous timestamp, reset the scancode state and assume the current clock edge is for the start bit of a new scancode. This small effort provides additional robustness in your driver to combat flaky connections and hardware blips.
 
-The error-handling can be a bit tricky to directly test. One way to try to force a malformed or interrupted scancode is by disconnecting the clock or data line in the middle of typing. Reconnect and observe that your driver can resynchronize to receive further scancodes.
+The error-handling can be a bit tricky to directly test. One way to try to force a malformed or interrupted scancode is by disconnecting the clock or data line in the middle of typing on the keyboard. Reconnect and observe that your driver successfully resynchronizes and receives further scancodes.
 
 #### 3) Gather sequence into key action (keyboard_read_sequence)
 
@@ -227,7 +227,7 @@ the bit is clear, it indicates the modifier is inactive.
 
 The PS/2 protocol does not provide a way to ask the keyboard which modifiers
 are active, instead your driver must track the modifier state itself. A simple
-approach is a module-level static variable in your keyboard module that you update in
+approach is a module-level __`static`__ variable in your keyboard module that you update in
 response to modifier key actions. The Shift, Control, and Alt modifiers are
 active if and only if the corresponding modifier key is currently held down.
 Caps Lock operates differently in that its setting is "sticky". A press of the
@@ -235,7 +235,7 @@ Caps Lock key makes the modifier active and that state persists even after
 releasing the key. A subsequent press of Caps Lock inverts the state of the modifier.
 
 To associate each key with the characters it can produce, we provide an
-array to use as a _lookup table_. Review the definition of the `ps2_keys` array
+array to use as a _lookup table_. Review the definition of the `ps2_ke ys` array
 in the source file `$CS107E/src/ps2_keys.c` ( [ps2_keys.c](/src#ps2_keys)) The array is indexed by scancode.
 The array element at each index is a struct. For example, the __A__ key
 generates scancode `0x1C`. The array element `ps2_keys[0x1c]` holds the struct
@@ -517,7 +517,7 @@ Pi> poke 0x20000a0 0x40000
 Pi> poke 0x20000a0 0
     ```
 
-  __Tread carefully when testing peek and poke__.  The peek and poke commands operate on live memory. The only error detection is to reject an address that is not a well-formed number or is not 4-byte aligned.  If the address supplied by the user passes the simple validity check, the command will attempt to read/write that memory location.  Reasonable addresses to test on are those within the range of the Mango Pi DRAM (`0x40000000` - `0x5fffffff`) and addresses of memory-mapped peripherals such as gpio and uart. A test that accesses an address outside the known memory map can behave unpredictably. Indiscriminate use of `poke` can be deadly as you are changing values in memory out from under the executing program.  Before you test `poke` an address, be sure you know what is stored there and what effect your change will have. Once you have tested `peek` and `poke` on a few carefully selected addresses, it is reasonable to extrapolate that it will also handle other valid locations without testing on every single address in the entire address space. 😅
+  __Tread carefully when testing peek and poke__.  The peek and poke commands operate on live memory. The only error detection is to reject an address that is not a well-formed number or is not 4-byte aligned.  If the address supplied by the user passes the simple validity check, the command will attempt to read/write that memory location.  Reasonable addresses to `peek` on are those within the range of the Mango Pi DRAM (`0x40000000` - `0x5fffffff`) and addresses of memory-mapped peripherals such as gpio and uart. Attempting to `peek` an address outside the known memory map can behave unpredictably. When testing `poke`, you'll need to be especially careful, as indiscriminately changing values in memory can be deadly.  Before you test `poke` an address, be sure you know what is stored there and what effect your change will have. Once you have tested `peek` and `poke` on a few carefully selected addresses, it is reasonable to extrapolate that it will also handle other valid locations without testing on every single address in the entire address space. 😅
 
     Check out the
     [Wikipedia article on peek and poke](https://en.wikipedia.org/wiki/PEEK_and_POKE) if you're curious to learn about their historical origins.
@@ -560,15 +560,22 @@ your keyboard driver.
 
 ## Extension: shell++
 
-If you are eager to go further, the extension is to implement all of these three additional shell features: __(A)__ command-line editing, __(B)__ command history, and __(C)__ your choice of bonus command/feature.
+Super charge your shell by adding command-line editing and command history along with your choice of bonus command/feature. Successful completion of this extension is worth __3 credits__.
 
-- __Command-line editing__
+- __Command-line editing and command history__
 
-    Implement the left and right arrow keys to move the cursor within the current line and allow inserting and deleting characters at the point of the cursor. What other editing features might be nice to have:  `Ctrl-a` and `Ctrl-e` to move the cursor to the first and last character of the line? `Ctrl-u` to delete the entire line? Ctrl-t to twiddle adjacent characters? Implement your favorite vim/emacs must-haves!
+    For editing, implement the left and right arrow keys to move the cursor within the current line and allow inserting and deleting characters at the point of the cursor. Pick two or more additional editing shortcuts to implement. Here are some suggestions to consider:
 
-- __Command history__
+    - `ctrl-a` and `ctrl-e` to move the cursor to the first and last character of the line
+    - `ctrl-k` to delete from the cursor to end of the line and `ctrl-u` to delete from start of line to cursor
+    - `ctrl-d` to forward delete (character after cursor)
+    - `ctrl-t` to twiddle adjacent characters
+    - `ctrl-l` to clear the screen
+    - your favorite shell editing must-haves!
 
-    Allow the user to access a list of previously executed commands, enhancing productivity and efficiency. Number the commands entered starting from 1 and maintain a rolling history of the last 10 commands entered. Change the prompt to include the command number of the current line. Add a `history` command that displays the history of recent commands, each prefixed with its command number. See the example below:
+    Try out these editing shortcuts in the shell on your laptop to see how they work. Handy, no?
+
+    For history, implement a list of previously executed commands. Number the commands entered starting from 1 and maintain a rolling history of the last 10 commands entered. Change the shell prompt to include the command number of the current line. Add the `history` command that displays the history of recent commands, each prefixed with its command number. See the example below:
 
     ```console?prompt=Pi>
 [1] Pi> help echo
@@ -581,15 +588,20 @@ cs107e rocks
   3 history
     ```
 
-    Implement the up and down arrow keys to access commands from the history. Typing an up arrow moves backwards to earlier commands in the history. Typing a down arrow moves forward to commands later in the history. Call `shell_bell` to alert the user if they try to move beyond either end of the history. Accessing a command from the history uses it to replace the current line so the user can repeat it. It is also possible to recall a previous command and edit it such as to fix a typo before reissuing it.
+    Implement the up and down arrow keys to access commands from the history. Typing an up arrow moves backwards to earlier commands in the history. Typing a down arrow moves forward to commands later in the history. Call `shell_bell` to alert the user if they try to move beyond either end of the history. When the user chooses to recall a command from the history, that command replaces the current line and the cursor is placed at the end of the line, the user can reissue by typing enter. The user can also use command-line editing to modify the recalled command such as to fix a typo before reissuing it.
 
-    What other history features will be handy to include in your implementation? `!!` to repeat the last command? `!n` to access nth command of history? `!po` to repeat the most recent command matching the specified prefix `po`?
+    Pick an additional history shortcut to implement. Here are some suggestions to consider:
+
+    - `!!` to repeat the last command
+    - `!n` to access nth command from the history
+    - `!po` to repeat the most recent command that begins with prefix `po`
+    - `^find^repl` repeat the last command substituting `repl` for `find` (great for fixing a typo!)
 
     If you didn't already know that your regular shell includes editing and history features like these, now is a great time to pick up a few new tricks to help boost your productivity!
 
 - __Bonus command/feature__
 
-    The final extension task is to implement a bonus command/feature of your own design that supercharges your shell to your liking.  Need to spare your overworked fingers? Add `tab` to auto-complete command names or environment variables that remember state. What shell commands/features would make your shell feel uniquely yours? Our reference shell includes add-ons for `gpio` (control gpio pins), `calc` (simple calculator), `hexdump` (extended peek), `pinout` (display header pinout), `backtrace` (current backtrace), `nm` (print symbol table), and `disassemble` (using the assign3 disassemble extension). We do not have one specific bonus command/feature for everyone to implement; we welcome you to add anything that you would learn something valuable from implementing and/or would appreciate having in your shell.
+    The final extension task is to implement a bonus command/feature of your own design that adds a feature to your to customize it to your liking.  Need to spare your overworked fingers? Add `tab` to auto-complete command names or implement environment variables to set and recall values. What shell commands/features would make your shell feel uniquely yours? Our reference shell includes add-ons for `gpio` (control gpio pins), `calc` (simple calculator), `hexdump` (extended peek), `pinout` (display header pinout), `backtrace` (current backtrace), `nm` (print symbol table), and `disassemble` (using the assign3 disassemble extension). We do not have one specific bonus command/feature for everyone to implement; we welcome you to add anything that you would learn something valuable from implementing and/or would appreciate having in your shell.
 
 To submit the completed extension for grading, tag with `assign5-extension`. In your `assign5/README.md`, tells us about all of the editing, history, and bonus features supported by your fancy extended shell so we'll know how to try it out when grading.
 
@@ -625,7 +637,7 @@ Our highest priority tests will focus on the core features for this assignment:
   - ps2
     - read well-formed scancode
     - discard malformed (wrong start/stop/parity) and restart, timeout resynchronize
-        - these are tough for you to test for,
+        - tough for you to directly test, just try your best and we'll run under our test rig to give you results
   - keyboard
     - read events from all keys
     - handling of modifiers, including caps lock
