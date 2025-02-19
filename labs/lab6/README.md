@@ -39,7 +39,7 @@ To prepare for lab, do the following:
 1. Organize your supplies to bring to lab
     - Bring your laptop (with full charge) and full parts kit.
     - You do not need your PS/2 keyboard for this lab, it can stay home.
-    - You will need a HDMI monitor to complete this lab. We have monitors and cables available in lab for shared use.
+    - You will need a HDMI monitor to complete this lab. We have monitors available in lab for shared use.
 
 ## Lab exercises
 
@@ -55,7 +55,7 @@ $ git pull code-mirror lab6-starter
 ### 1. Confirm video
 
 Find an available monitor in lab, connect the monitor to power, and turn it on.
-Connect its HDMI cable to the mini-HDMI port on your Mango Pi.
+The monitor should have an HDMI cable attached. Connect that cable to the mini-HDMI port on your Mango Pi.
 
 Change to the directory `lab6/grid` and build and run the grid program using
 `make run`. The monitor should display a grid of white lines on a black background.
@@ -287,9 +287,9 @@ Share about the improvement you were able to achieve.[^5] Which changes surprise
 
 The key goals for this lab are to leave with a good understanding of the layout of the framebuffer memory and feel ready for starting on Assignment 6.[^6]
 
-You will need access to an HDMI monitor for assignments 6 and 7. This can be any computer monitor, tv, or projector that accepts HDMI input. We have monitors available in lab for shared use. If you have access to an HDMI display elsewhere, feel free to give it a try. We have confirmed the reference library's support for HDMI output on a smattering of monitors. We expect it should work on others as well, but are a little wary about possibility of lurking bug or corner case that has yet to surface. Please let us know if you run into trouble and we can help diagnose.
+You will need access to an HDMI monitor for assignments 6 and 7. This can be any computer monitor, tv, or projector that accepts HDMI input. We have monitors available in lab for shared use. If you have access to an HDMI display elsewhere, feel free to give it a try. We have confirmed the reference library's support for HDMI output on a smattering of monitors. We expect it should work on others as well, but are a little wary about possibility of lurking bug or corner case that has yet to surface. Please let us know if you run into trouble and we can help diagnose.  If the display you have access to does not have an HDMI cable or needs an mini-to-standard adapter, check the low bookshelf where we keep a box of cables and adapters we can lend out to you. Please remember to return anything you borrow.
 
-Our HDMI monitors and cables are to stay in lab for all to use.  __Please do not take our cables or monitors out of the lab room__.
+Our HDMI monitors and their attached cables are to stay in lab for all to use.  __Thank you for not taking our monitors out of the lab room and not detaching/removing their cables!__
 
 
 [^1]: Talk us through your plan for extending the `fb` module to support double-buffering.
