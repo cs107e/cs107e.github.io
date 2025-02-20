@@ -181,7 +181,8 @@ def process_ids(ids):
         elif arg == 'mouse':
             labels = {'PD21':'Mouse CLK','PD22':'Mouse DATA'}
         elif arg == 'ps2':
-            labels = {'PG12':'Key CLK','PB7':'Key DATA','PD21':'Mouse CLK','PD22':'Mouse DATA'}
+            # loopback connections for ps2 simulator used in grading
+            labels = {'PD11':'Device CLK','PD10':'Device DATA','PD13':'Host CLK','PC1':'Host DATA'}
         elif arg == 'pwm':
             labels = {'PB12':'PWM0','PB6':'PWM1','PB11':'PWM2','PB0':'PWM3','PB1':'PWM4','PB8':'PWM5','PB9':'PWM6','PB10':'PWM7'}
         elif arg == 'spi':
