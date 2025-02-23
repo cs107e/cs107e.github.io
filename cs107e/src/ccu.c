@@ -147,6 +147,8 @@ static void get_pll_bits(ccu_pll_id_t id, long rate, uint32_t *factor_mask, uint
     case CCU_PLL_DDR_CTRL_REG:
     case CCU_PLL_VE_CTRL_REG:
         error("Attempt to change PLL that should not be modified.");
+    default:
+        error("Invalid PLL id");
     }
 }
 

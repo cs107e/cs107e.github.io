@@ -5,9 +5,9 @@
  * This module defines a ring buffer data structure that provides
  * a fixed-length FIFO (first-in-first-out) queue of int elements.
  *
- * The queue is designed to allow concurrent access by 1 reader (rb_dequeue)
- * and 1 writer (rb_enqueue). The writer is typically the interrupt handler,
- * which is enqueuing data to be dequeued by the main program, the reader.
+ * The queue is designed to allow concurrent access by one reader (rb_dequeue)
+ * and one writer (rb_enqueue). The interrupt handler (writer) enqueues
+ * data to be dequeued by the main program (reader).
  *
  * Author: Philip Levis <pal@cs.stanford.edu>
  * Author: Julie Zelenski <zelenski@cs.stanford.edu>
@@ -33,18 +33,20 @@ typedef struct ringbuffer rb_t;
  *
  *     rb_t *rb = rb_new();
  *
- * Notice that this interface is slightly different from the _init exposed by
- * other library modules. This _new pattern allows a user to have multiple ring
- * buffers, like objects in Java. It also means that users of this
- * module don't need to know the implementation details (like size) of rb_t,
- * since they just keep a pointer.
+ * Notice the interface is slightly different than other library modules
+ * which provide a module_init routine, intended to be called just once to
+ * initialize the module. A module_new function can be called more than once,
+ * to allocate a new distinct ring buffer on each call, like creating new
+ * objects in Java. The client uses the returned pointer to a rb_t without
+ * knowing the inner details which are privately encapsulated within the .c file.
  */
 rb_t *rb_new(void);
 
 /*
  * `rb_empty`
  *
- * Check if a ring buffer is currently empty.
+ * Check if a ring buffer is currently empty, i.e. contains
+ * no elements.
  *
  * @param rb    the ring buffer to check
  * @return      true if rb is empty, false otherwise
@@ -54,9 +56,9 @@ bool rb_empty(rb_t *rb);
 /*
  *  `rb_full`
  *
- * Check if a ring buffer is currently full. When full, existing
- * elements must first be dequeued before further elements can
- * be enqueued.
+ * Check if a ring buffer is currently full to capacity, i.e.
+ * no further elements can be enqueued until some are dequeued
+ * to make space.
  *
  * @param rb    the ring buffer to check
  * @return      true if rb is full, false otherwise
@@ -66,28 +68,25 @@ bool rb_full(rb_t *rb);
 /*
  * `rb_enqueue`
  *
- * Add an element to the back of a ring buffer. If the ring buffer
- * is full, no changes are made and false is returned.
+ * Add an element to the back of a ring buffer. It is an error to
+ * attempt to enqueue to a ring buffer that is full to capacity.
+ * Use `!rb_full(rb)` to confirm before enqueueing.
  *
  * @param rb    the ring buffer to enqueue to
- * @param elem  the element to enqueue
- * @return      true if elem was successfully enqueued, false otherwise
+ * @param elem  the element to enqueue to back
  */
-bool rb_enqueue(rb_t *rb, int elem);
+void rb_enqueue(rb_t *rb, int elem);
 
 /*
  * `rb_dequeue`
  *
- * If the ring buffer is not empty, remove frontmost element,
- * store into *p_elem, and return true. p_elem should be the address
- * of a valid memory location into which to store the dequeued value.
- * If the ring buffer is empty, no changes are made to either the ring
- * buffer or *p_elem and the return value is false.
+ * Remove frontmost element and return it. It is an error to
+ * attempt to dequeue from an empty ring buffer.
+ * Use `!rb_empty(rb)` to confirm before dequeueing.
  *
  * @param rb        the ring buffer to dequeue from
- * @param p_elem    address at which to store the dequeued element
- * @return          true if an element was written to *p_elem, false otherwise
+ * @return          the element dequeued from front
  */
-bool rb_dequeue(rb_t *rb, int *p_elem);
+int rb_dequeue(rb_t *rb);
 
 #endif
