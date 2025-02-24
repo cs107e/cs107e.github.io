@@ -44,7 +44,7 @@ Learn about design patterns! Some really smart people have been doing this sort 
 #### Model View Controller
 Continuing the conversation of design patterns, there is a particularly important design pattern that we use when presenting data to a user: Model View Controller (MVC). In MVC, the data is stored in the model, is acted upon by the controller(s), and views are used to show the model state to the user. The controller interacts with the model to change the state, the views regenerate to show the latest state.  Here are a few concrete examples on MVC in action:
 
-* The assignment writeup encouraged using of MVC for the console as it applies very nicely here. The console stores a grid of text contents; this is the model. The model is updated in response to controller actions (in this case, characters typed by the user in the shell). The view reads the model data and draw those characters on screen.  Notice that we don't read from the view to figure out what pixels to draw in an updated view, nor do we go straight from receiving a character to drawing it on the screen. Changes flow from the controller into the model, which then causes the view to be regenerated. This avoids many errors and edge cases caused by inconsistent state.
+* The assignment writeup encouraged using of MVC for the console as it applies very nicely here. The console stores a grid of text contents; this is the model. The model is updated in response to controller actions (in this case, characters typed by the user in the shell). The view reads the model data and draw those characters on screen.  Notice that we don't read from the view to figure out what pixels to draw in an updated view, nor do we go straight from receiving a character to drawing it on the screen. Changes flow from the controller into the model, which then causes the view to be regenerated. This avoids manys and edge cases caused by inconsistent state.
 
 * A simple recipe app is another good example. The app might have a collection of recipes to browse, organized in a index by category. A recipe is shown as a notecard of essentials info like title, category, and a thumbnail image. When you click on a notecard, it expands to a full page of the detailed information of ingredients and instructions. Each representation is just a different view of the data maintained in the one model. Using MVC in this way, the controller can change the category for a recipe by telling the model to make the change and regenerate all the views. The update is reflected everywhere because all views connect to same one model.
 
@@ -59,6 +59,7 @@ A very similar notion has come up previously with respect to the scope of variab
 
 ## Prompt questions
 Edit the text file named `style_reflection.txt` in your `assign6` directory to include your responses to the following questions. The entire document should be about one page. Please do not repeat the question prompts in the text file, just your answers.
+<a name="FSM"></a>
 
 
 1. One challenge when designing a module is striking a good balance between building in flexibility for anticipated future use cases versus a simpler design that fits exactly and only what is needed today. Consider the assign 5 `keyboard` module. Tell us what code changes would be needed to support a different keymap like Dvorak. How much work would be required to add support for other modifiers, i.e alt+letter or ctrl+letter? Identify an extended feature the current design does not seem to anticipate and how you would change the design to better accommodate it.
@@ -73,15 +74,14 @@ Edit the text file named `style_reflection.txt` in your `assign6` directory to i
 
 4. 
 
-    a. One very useful tool when designing your program is to break down your program or idea into a finite state machine. If you are unfamiliar with finite state machines or need a refresher check out these resources 
+    a. Diagramming as a finite state machine can be a good tool when designing the implementation of a logically complex operation. If you are unfamiliar with finite state machines or need a refresher, check out these resources:
 
-    [Wikipedia (a brief overview and some useful examples)](https://en.wikipedia.org/wiki/Finite-state_machine)
-
-    [CS103 slides ( 3 part series this links to the first, a much more in depth and theoretical approach if you are interested)](https://web.stanford.edu/class/archive/cs/cs103/cs103.1254/lectures/14/)
+    - [Wikipedia entry](https://en.wikipedia.org/wiki/Finite-state_machine) gives a brief overview and some useful examples
+    - [CS103 lecture introducing Finite Automata](https://web.stanford.edu/class/archive/cs/cs103/cs103.1254/lectures/14/) is a theoretical treatment that goes into more depth
     
     Break out your pencils and diagram a finite state machine for your `ps2_read` function. Make sure to show separate transitions for each failed check (timing, start, parity, stop). 
     We aren't going to be pedantic about getting a perfect FSM here so don't stress over that, mostly correct is good enough. Include in your repo a photo of your FSM diagram. 
 
-    b. Tell us what design insights you are able to see from your FSM diagram. Think about how you would write `ps2_read` if you were handed just this diagram and no write up. How would that implementation differ from your current implementation? 
+    b. Tell us what design insights you are able to glean from your FSM diagram. Think about how you would write `ps2_read` if you were handed just this diagram and no write up. How would that implementation differ from your current implementation?
 
 

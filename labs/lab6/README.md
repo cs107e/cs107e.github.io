@@ -248,6 +248,7 @@ font - neat!
 
 You're ready for this check-in question.[^4]
 
+<a name="speed"></a>
 ### 5. Drawing performance
 After you have gotten the functionality of your graphics modules working correctly, you can take things to the next level by turning your attention to optimization. Small targeted changes to a heavy-travelled tight loop can reap stunningly big gains. This exercise is a fun exploration in small tweaks to get your graphics code moving wickedly fast.
 
