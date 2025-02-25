@@ -5,13 +5,21 @@ title: 'Project gallery'
 
 Our students have delighted us  with a cornucopia of creative projects each quarter. This gallery shares a sampling of that awesomeness. What cool thing will YOU be inspired to create?
 
-Click below to view a short highlight reel from the project demonstration session in Spring 2017.
+Below are two short highlight reels from the project demos.
+
 <video width="600" height="400" controls>
-<source src="http://cs107e.stanford.edu/project_fair.mp4" type="video/mp4">
+<source src="http://cs107e.stanford.edu/demos_spring2017.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
+Spring quarter 2017 (Raspberry Pi)
 
+<video width="600" height="400" controls>
+<source src="http://cs107e.stanford.edu/demos_fall2024.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+Fall quarter 2024 (Mango Pi)
 
+<hr>
 Here are short descriptions of some projects from past years:
 
 * __Noob Cube__
@@ -100,12 +108,16 @@ Here are short descriptions of some projects from past years:
 * __Bop-it game__
   - Sensors to detect various actions
 * __Lego printer__
-  - print image via pick-and-place of lego pixels on grid board
+  - Print image via pick-and-place of lego pixels on grid board
 * __Escalating challenge snooze__
-  - each use of snooze alarm is harder to shut off
+  - Each use of snooze alarm is harder to shut off
 * __Gesture tetris__
-  - game controlled via hand gestures
+  - Game controlled via hand gestures
 * __Zen garden__
   - Draw patterns in sandbox by moving magnet via stepper motors
+* __Drawing stylus__
+  - Track moving magnet atop field of analog Hall effect sensors and use as input device
+* __Midi-controlled music box__
+  - Servo motors used to pluck tines and play midi input
   
 
