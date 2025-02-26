@@ -150,7 +150,7 @@ Start by reviewing the documentation for the library modules you will use:
 
 There are multiple steps to set up an interrupt and coordination is across two modules: `gpio_interrupt` for gpio-specific configuration and top-level `interrupts` module for global state.
 
-- Edit code in `config_button()` to set up gpio interrupts for button click events. There are a number of steps to take:
+- Edit code in `config_button()` to set up gpio interrupts for button click events following the steps below. Setting up gpio_interrupts should be done _after_ setting the button to input and activating the pull-up resistor.
     + call `gpio_interrupt_init()` to initialize the gpio interrupt module
     + call `gpio_interrupt_config()` to configure the button event trigger
         - You want a trigger on falling edge (negative edge) events on the button gpio. Set `debounce` to true.
@@ -160,9 +160,9 @@ There are multiple steps to set up an interrupt and coordination is across two m
         +  The handler function increments `gCount` and outputs a message `uart_putstring("[YOUR-NAME-HERE] has interrupt mojo!")`
     + call `gpio_interrupt_register_handler()` to register your handler function for button events
         + Pass `NULL` for `aux_data`; the handler does not use the argument.
-    + call `gpio_enable_interrupt` to enable button interrupts
+    + call `gpio_interrupt_enable` to enable the button interrupt
 - Edit code in `main()` to set up global interrupts
-    + call `interrupts_init` to initialize the global interrupt system (do this once at start of program)
+    + call `interrupts_init` to initialize the global interrupt system (do this once at very start of program)
     + call `interrupts_global_enable()` to turn on the "global switch" (final step, after all pieces configured and ready)
 
 The order that you do these operations is important: think
