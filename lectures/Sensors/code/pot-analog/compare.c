@@ -18,7 +18,7 @@ void main(void) {
     int last = -1;
     while (1) {
         int cur = gpio_read(COMPARE);
-        if (cur != last) printf("Pin is %s\n", (cur? "HIGH" : "LOW"));
+        if (cur != last) printf("Pin is %s\n", (cur? "     HIGH" : "LOW"));
         last = cur;
     }
 }
