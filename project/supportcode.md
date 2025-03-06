@@ -20,6 +20,8 @@ The project [code_extras](code_extras) contains a hodgepodge of additional code 
 - `math_lib`: student's implementation of math functions
 - `neopixel`: sample code for Neopixel/WS8212 rgb led
 
+[Browse code_extras directory](https://github.com/cs107e/cs107e.github.io/tree/master/project/code_extras)
+
 __Code sharing from previous projects__: A few of the projects built by our Mango pioneers (e.g. Daniel James' awesome 3-D graphics library) have been shared and extended in subsequent projects. We also have code in our archives on offer from previous student projects that implemented features on Raspberry Pi such as FAT filesystem, Arducam, GPU, ESP32 communication, etc. This older code could be interesting to learn from, but unlikely to be a simple recompile; effort to port could be anything from a minor nuisance and to significant rewrite.
 
 Reach out if you want to know more and/or would like to offer your project code to future students.

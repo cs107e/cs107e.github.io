@@ -6,3 +6,5 @@ This code_extras folder contains a hodgepodge of additional code resources. We h
     - code for these modules is new-ish and needs further testing
 - `math_lib`: student's implementation of math functions
 - `neopixel`: sample code for Neopixel/WS8212 rgb led
+
+[Browse code_extras directory](https://github.com/cs107e/cs107e.github.io/tree/master/project/code_extras)
