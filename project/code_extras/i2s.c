@@ -9,12 +9,11 @@
 #include "i2s.h"
 #include "assert.h"
 #include "ccu.h"
+#include "dma.h"
 #include "gpio.h"
-#include <stdint.h>
 #include "printf.h"
 
 // structs defined to match layout of hardware registers
-
 typedef union {
     struct {
         struct {
@@ -29,16 +28,16 @@ typedef union {
             uint32_t            : 5;
             uint32_t dir_bclk   : 1;
             uint32_t dir_lrclk  : 1;
-            uint32_t            : 13;
+            uint32_t            :13;
         } ctl;
         struct {
             uint32_t slot_width : 3;
             uint32_t            : 1;
             uint32_t sample_res : 3;
             uint32_t            : 1;
-            uint32_t lr_period  : 10;
-            uint32_t            : 13;
-            uint32_t            : 32; // fmt1 fields
+            uint32_t lr_period  :10;
+            uint32_t            :13;
+            uint32_t            :32; // fmt1 fields
         } fmt;
         uint32_t ista;
         uint32_t rx_fifo;
@@ -64,26 +63,36 @@ typedef union {
             uint32_t tx_empty   : 1;
             uint32_t            : 3;
         } fsta;
-        uint32_t irq;
+        struct uint32_t {
+            uint32_t rxai_en    : 1;
+            uint32_t rxoi_en    : 1;
+            uint32_t rxui_en    : 1;
+            uint32_t rx_drq     : 1;
+            uint32_t txei_en    : 1;
+            uint32_t txoi_en    : 1;
+            uint32_t txui_en    : 1;
+            uint32_t tx_drq     : 1;
+            uint32_t            :24;
+        } irq;
         uint32_t tx_fifo;
         struct {
             uint32_t            : 4;
             uint32_t bclk_div   : 3;
             uint32_t mclk_ena   : 1;
-            uint32_t            : 24;
+            uint32_t            :24;
         } clkd;
         uint32_t tx_cntr;
         uint32_t rx_cntr;
         struct {
             uint32_t tx_slot_num : 4;
             uint32_t rx_slot_num : 4;
-            uint32_t             : 24;
+            uint32_t             :24;
         } chcfg;
         struct {
-            uint32_t chen       : 16;
+            uint32_t chen       :16;
             uint32_t chsel      : 4;
             uint32_t offset     : 2;
-            uint32_t            : 10;
+            uint32_t            :10;
         } txchsel[4];
         struct {
             uint32_t ch8        : 4;
@@ -103,8 +112,62 @@ typedef union {
             uint32_t ch6        : 4;
             uint32_t ch7        : 4;
         } txchmap[4];
-        uint32_t rxchsel;
-        uint32_t rxchhmap[4];
+        struct {
+            uint32_t            :16;
+            uint32_t chsel      : 4;
+            uint32_t offset     : 2;
+            uint32_t            :10;
+        } rxchsel;
+        struct {
+           uint32_t ch12map     : 4;
+           uint32_t ch12sel     : 2;
+           uint32_t             : 2;
+           uint32_t ch13map     : 4;
+           uint32_t ch13sel     : 2;
+           uint32_t             : 2;
+           uint32_t ch14map     : 4;
+           uint32_t ch14sel     : 2;
+           uint32_t             : 2;
+           uint32_t ch15map     : 4;
+           uint32_t ch15sel     : 2;
+           uint32_t             : 2;
+           uint32_t ch8map      : 4;
+           uint32_t ch8sel      : 2;
+           uint32_t             : 2;
+           uint32_t ch9map      : 4;
+           uint32_t ch9sel      : 2;
+           uint32_t             : 2;
+           uint32_t ch10map     : 4;
+           uint32_t ch10sel     : 2;
+           uint32_t             : 2;
+           uint32_t ch11map     : 4;
+           uint32_t ch11sel     : 2;
+           uint32_t             : 2;
+           uint32_t ch4map      : 4;
+           uint32_t ch4sel      : 2;
+           uint32_t             : 2;
+           uint32_t ch5map      : 4;
+           uint32_t ch5sel      : 2;
+           uint32_t             : 2;
+           uint32_t ch6map      : 4;
+           uint32_t ch6sel      : 2;
+           uint32_t             : 2;
+           uint32_t ch7map      : 4;
+           uint32_t ch7sel      : 2;
+           uint32_t             : 2;
+           uint32_t ch0map      : 4;
+           uint32_t ch0sel      : 2;
+           uint32_t             : 2;
+           uint32_t ch1map      : 4;
+           uint32_t ch1sel      : 2;
+           uint32_t             : 2;
+           uint32_t ch2map      : 4;
+           uint32_t ch2sel      : 2;
+           uint32_t             : 2;
+           uint32_t ch3map      : 4;
+           uint32_t ch3sel      : 2;
+           uint32_t             : 2;
+        } rxchmap;
     } regs;
     unsigned char padding[0x1000]; // sizeof entire I2S block
 } i2s_t;
@@ -113,6 +176,7 @@ typedef union {
 _Static_assert(&(I2S_BASE[0].regs.tx_fifo)  == (void *)0x02032020, "i2s0 ttx_fifo reg must be at address 0x02032040");
 _Static_assert(&(I2S_BASE[1].regs.rxchsel)  == (void *)0x02033064, "i2s1 rxchsel must be at address 0x02033000");
 _Static_assert(&(I2S_BASE[2].regs.ctl)      == (void *)0x02034000, "i2s2 ctrl reg must be at address 0x02032080");
+_Static_assert(sizeof(I2S_BASE[2].regs.rxchmap) == 16, "i2s2 rxchmap should have one byte per channel = 16 bytes total");
 
 static volatile i2s_t * const module = &I2S_BASE[2]; // use i2s2, has gpio pinouts on header
 
@@ -150,18 +214,19 @@ static void config_gpio(void) {
     static struct  {
         gpio_id_t pin;
         uint8_t fn;        // Connections from Mango Pi to pins on DAC
-    } bclk =  {GPIO_PB5, GPIO_FN_ALT3},     // GPIO_PB5 to BCLK
+    } bclk  = {GPIO_PB5, GPIO_FN_ALT3},     // GPIO_PB5 to BCLK
       lrclk = {GPIO_PB6, GPIO_FN_ALT3},     // GPIO_PB6 to LRCLK
-      dout0 = {GPIO_PB4, GPIO_FN_ALT3};     // GPIO_PB4 to Data In
+      dout0 = {GPIO_PB4, GPIO_FN_ALT3},     // GPIO_PB4 to Data Out
+      din0  = {GPIO_PB3, GPIO_FN_ALT5};     // GPIO_PB3 to Data In
     gpio_set_function(bclk.pin,  bclk.fn);
     gpio_set_function(lrclk.pin, lrclk.fn);
     gpio_set_function(dout0.pin, dout0.fn);
+    gpio_set_function(din0.pin, din0.fn);
 }
 
 void i2s_init(int sample_frequency) {
     config_gpio();
     long mclk_rate = choose_clock(sample_frequency); // configure clocks
-
     module->regs.ctl.global_ena = 0;
     module->regs.ctl.rx_ena = 0;
     module->regs.ctl.tx_ena = 0;
@@ -192,7 +257,7 @@ void i2s_init(int sample_frequency) {
     module->regs.clkd.bclk_div = chosen_index;
 }
 
-static void config_for_stream(i2s_frame_type_t ftype, int bits_per_sample) {
+static void config_for_playback(i2s_frame_type_t ftype, int bits_per_sample) {
     module->regs.fmt.lr_period = bits_per_sample - 1;   // bclks per sample
     module->regs.fmt.sample_res = bits_per_sample/4 - 1; // sample resolution = 16
     module->regs.fmt.slot_width = bits_per_sample/4 - 1; // slot width = 16
@@ -217,7 +282,7 @@ static void config_for_stream(i2s_frame_type_t ftype, int bits_per_sample) {
     }
 }
 
-static void start(void) {
+static void playback_start(void) {
     module->regs.fifoctl.tx_flush = 0;
     module->regs.tx_cntr = 0;
     module->regs.ctl.out_mute = 0; // unmute
@@ -225,7 +290,7 @@ static void start(void) {
     module->regs.ctl.global_ena = 1;
 }
 
-static void stop(void) {
+static void playback_stop(void) {
     module->regs.ctl.out_mute = 1;
     module->regs.ctl.tx_ena = 0;
     module->regs.ctl.global_ena = 0;
@@ -236,10 +301,10 @@ static void write_fifo(int16_t val) {
     module->regs.tx_fifo = val;
 }
 
-void i2s_play_stream(int sample_freq, const int16_t data[], int ndata, i2s_frame_type_t ftype) {
+void i2s_play_stream(const int16_t data[], int ndata, i2s_frame_type_t ftype) {
     int bits_per_sample = 16;
-    config_for_stream(ftype, bits_per_sample);
-    start();
+    config_for_playback(ftype, bits_per_sample);
+    playback_start();
     // add all samples to stream
     for (int i = 0; i < ndata; /* advance in body */ ) {
         if (ftype == I2S_MONO) {
@@ -249,5 +314,34 @@ void i2s_play_stream(int sample_freq, const int16_t data[], int ndata, i2s_frame
             write_fifo(data[i++]);
         }
     }
-    stop();
+    playback_stop();
 }
+
+static void enable_tx_interrupts(void) {
+    module->regs.irq.tx_drq = 1;
+    module->regs.irq.txui_en = 1;
+    module->regs.irq.txoi_en = 1;
+    module->regs.irq.txei_en = 1;
+}
+
+dma_channel_id_t i2s_play_stream_dma(const int16_t data[], int ndata, i2s_frame_type_t ftype) {
+    int bits_per_sample = 16;
+    config_for_playback(ftype, bits_per_sample);
+    enable_tx_interrupts();
+    dma_endpoint_t from_memory = {.width = WIDTH_16, .type = DRQ_TYPE_DRAM, .mode = ADDR_MODE_LINEAR, .addr = (uintptr_t)data };
+    dma_endpoint_t to_i2s_tx =   {.width = WIDTH_16, .type = DRQ_TYPE_I2S2, .mode = ADDR_MODE_IO,     .addr = (uintptr_t)&module->regs.tx_fifo };
+    dma_channel_id_t ch = dma_new_channel(from_memory, to_i2s_tx, ndata * sizeof(*data));
+    dma_begin_transfer(ch);
+    playback_start();
+    return ch;
+}
+
+bool i2s_dma_playback_complete(dma_channel_id_t ch) {
+    if (dma_end_transfer(ch)) {
+        playback_stop();
+        return true;
+    } else {
+        return false;
+    }
+}
+
