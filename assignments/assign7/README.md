@@ -290,13 +290,13 @@ Here is some opportunities to accelerate a sluggish redraw:
 {% endcomment %}
 
 ### Submit full system
-+ Double-check that final versions of files for all modules/assignments are committed and pushed.
++ Double-check that final versions of files for all modules/assignments are committed and pushed. The `assign7` Makefile should have your settings and flags to build `interrupts_console_shell` without warnings or errors.
 + Tag the commit you want us to test `fullsystem-submit`. If you do not have a `fullsystem-submit` tag, we will not test your code for the full system bonus.
 + Get submit on or before full system deadline. This deadline is firm, no grace period applies.
 
 ### Grading full system
 
-For the integration test, we will build the `interrupts_console_shell` application using all of your library modules and interactively test the complete system running with a PS/2 keyboard and HDMI monitor.
+For the integration test, we will build the assign7 `interrupts_console_shell` application using all of your library modules and interactively test the complete system running with a PS/2 keyboard and HDMI monitor.
 + Our test will touch on the core features of the system to confirm all is working together in integration.
 + We will not re-test your individual modules to the same extent as the comprehensive module unit tests, but all functionality used by shell/console must work correctly. This means, for example, your `printf` must properly print zero-padded hexadecimal numbers (which are needed for `peek`), but could slip by with a minor bug in formatting a large negative value (since they are not used by the shell).
 + Your console should feel reasonably responsive and the screen should update in a smooth and non-glitchy manner. It doesn't need to be blindingly fast, but it should not be painfully slow. Keeping it snappy will not only delight your grader, but make testing it yourself less torturous. (If you have a sluggish redraw in need of acceleration, revisit the [speed exercise from lab6](/labs/lab6#speed) for inspiration.)

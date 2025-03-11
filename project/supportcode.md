@@ -22,6 +22,9 @@ The project [code_extras](code_extras) contains a hodgepodge of additional code 
 
 [Browse code_extras directory](https://github.com/cs107e/cs107e.github.io/tree/master/project/code_extras)
 
+We build a custom boot program ("secondary program loader" in linux-speak) to load/execute a MangoPi binary read from a microSD card (e.g. removes need to tether to your laptop for `xfel/mango-run` bootload). Successfully used Fall 2024.
+- <https://github.com/cs107e/sdcard_boot_spl>
+
 __Code sharing from previous projects__: A few of the projects built by our Mango pioneers (e.g. Daniel James' awesome 3-D graphics library) have been shared and extended in subsequent projects. We also have code in our archives on offer from previous student projects that implemented features on Raspberry Pi such as FAT filesystem, Arducam, GPU, ESP32 communication, etc. This older code could be interesting to learn from, but unlikely to be a simple recompile; effort to port could be anything from a minor nuisance and to significant rewrite.
 
 Reach out if you want to know more and/or would like to offer your project code to future students.
