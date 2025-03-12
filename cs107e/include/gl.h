@@ -251,4 +251,13 @@ void gl_draw_line(int x1, int y1, int x2, int y2, color_t c);
  */
 void gl_draw_triangle(int x1, int y1, int x2, int y2, int x3, int y3, color_t c);
 
+/*
+ * `gl_clear_glyph_cache`: clears the internal glyph cache to reset the font
+ *
+ * In order to use multiple fonts, we need to clear the glyph cache so it gets
+ * repopulated with the new font's characters
+ *
+ */
+// void gl_clear_glyph_cache(void);
+
 #endif
