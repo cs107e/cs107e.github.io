@@ -1,0 +1,28 @@
+Need to consider master -vs- slave mode: on pages 647-648, there is possibly conflicting information:
+
+page 647:
+- When the I2S works in the master mode, the external I2S module provides BCLK_in and LRCK_in for the
+clock management unit (CMU), and the I2S_TX and I2S_RX work with the two external clocks.
+- When the I2S works in the slave mode, the CMU provides clocks BCLK_out and LRCK_out for the external
+I2S module, and the I2S_TX and I2S_RX work with the internal clocks.
+
+But, on page 648:
+LRCK and BCLK are bidirectional I/O. When the I2S/PCM interface works in the Master mode, LRCK and BCLK
+are output pins. When the I2S/PCM interface works in the Slave mode, LRCK and BCLK are input pins.
+
+This seems to conflict -- if the external device is providing the clocks, they need to be input pins, not output pins. My hunch is that page 647 is backwards.
+
+Chip: PCM5102A (https://www.ti.com/lit/ds/symlink/pcm5102a.pdf?ts=1715932690050&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FPCM5102A%253FkeyMatch%253DPCM5102A%2526tisearch%253Dsearch-everything%2526usecase%253DGPN-ALT)
+3.3v input
+PCM Data Formats: I2S, Left-Justified
+"The integrated PLL on the device removes the requirement for a system clock (commonly known as master clock), allowing a 3-wire I2S connection and reducing system EMI."
+
+possibly good code: https://github.com/torvalds/linux/blob/master/sound/soc/sunxi/sun4i-i2s.c
+
+pins: all ALT_FUNC3
+PB4: DOUT0
+PB5: BCLK
+PB6: LRCK
+PB7: MCLK
+
+Page: https://bbs.aw-ol.com/topic/3387/全志t113-s3使用ov5640加载insmod-vin_v4l2-ko报错

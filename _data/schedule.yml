@@ -49,7 +49,7 @@ weeks:
     assign: /project/
     fri: /lectures/Output/
   -
-    mon: /lectures/Arithmetic/
+    mon: /lectures/FloatingPoint_Sound
     lab: /labs/projectlab2/
     fri: /lectures/Wrap/
   -
