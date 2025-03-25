@@ -342,7 +342,7 @@ and "Computer Graphics from Scratch" has a nice explanation of
 The line and triangle drawing makes heavy use of floating point. You will find these operations to be quite slow in our default build environment which relies on the software emulation fp routines in the gcc compiler support library. The Mango Pi has support for hardware floating
 point which can greatly accelerate these operations.
 
-Research what changes are needed to the Makefile to compile for hardware floating point and how to enable the floating point unit at runtime using the appropriate assembly instructions. Rather than use a separate `.s` file, read up on gcc's support for "inline/extended assembly". This allows you to embed assembly instructions within a C function. Add the instructions to enable directly into your `gl_init` functions.
+Research the compile-time and run-time changes that are needed for floating poin suport. Make the necessary edits in your Makefile to compile for hardware floating point and add the assembly instructions to enable the floating point unit. Rather than add a separate `.s` file for the assembly, read up on gcc's support for "inline/extended assembly" and embed the necessary instructions directly into your `gl_init` C function.
 
 Use your timer routines to measure the performance of drawing lines and triangles on hard-float versus soft-float and report back about the gains you were able to make!
 
