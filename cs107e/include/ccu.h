@@ -30,6 +30,9 @@ typedef enum { // ids for Module Clock registers
     CCU_I2S1_CLK_REG        = 0x0A14,
     CCU_I2S2_CLK_REG        = 0x0A18,
     CCU_LEDC_CLK_REG        = 0x0BF0,
+    CCU_SMHC0_CLK_REG       = 0x0830,
+    CCU_SMHC1_CLK_REG       = 0x0834,
+    CCU_SMHC2_CLK_REG       = 0x0838,
 } ccu_module_id_t;
 
 typedef enum {  // ids for Bus Gating Reset registers
@@ -46,6 +49,7 @@ typedef enum {  // ids for Bus Gating Reset registers
     CCU_HDMI_BGR_REG        = 0x0B1C,
     CCU_TCONTV_BGR_REG      = 0x0B9C,
     CCU_LEDC_BGR_REG        = 0x0BFC,
+    CCU_SMHC_BGR_REG        = 0x084C,
 } ccu_bgr_id_t;
 
 typedef enum { // ids for PLL registers
