@@ -9,6 +9,8 @@ layout: dashboard
     background-color:#f3f3f3;
     border: 1px solid gray;
     border-radius: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     padding: 10px;
 }
 
@@ -21,6 +23,9 @@ layout: dashboard
     background-color: #666;
     color: white;
     font-weight: 700;
+
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .upcoming .day {
@@ -72,12 +77,12 @@ a[href^="http://"]:after, a[href^="https://"]:after {
 
 .button-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 170px);
+    grid-template-columns: repeat(auto-fit, 160px);
     grid-template-rows: repeat(auto-fit, 90px);
-    grid-gap: 4px;
+    grid-gap: 10px;
     flex: 1;
     width: 100%;
-    padding: 10px;
+    padding: 0 10px;
 }
 
 </style>
