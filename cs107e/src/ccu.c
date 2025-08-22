@@ -254,6 +254,14 @@ long ccu_ungate_bus_clock(ccu_bgr_id_t id) {
     return ccu_ungate_bus_clock_bits(id, standard_gating_bits, standard_reset_bits);
 }
 
+void ccu_ungate_mbus_bits(uint32_t gating_bits) {
+    volatile uint32_t *reg = reg_for_id(CCU_MBUS_CLK_REG);
+    *reg |= (1 << 30);      // de-assert reset
+    reg = reg_for_id(CCU_MBUS_MCG_REG);
+    *reg |= gating_bits;
+}
+
+
 /****  DEBUG INFO from here down ***/
 
 
@@ -286,6 +294,7 @@ static struct debug_info info_table[] = {
     { INFO_CLK(CCU_PSI_CLK_REG),      {PARENT_HOSC, PARENT_32K, NOT_IN_MODEL, PARENT_PERI}, .ncount=2,.mcount=2 },
     { INFO_CLK(CCU_APB0_CLK_REG),     {PARENT_HOSC, PARENT_32K, PARENT_PSI, PARENT_PERI}, .ncount=2,.mcount=5 },
     { INFO_CLK(CCU_APB1_CLK_REG),     {PARENT_HOSC, PARENT_32K, PARENT_PSI, PARENT_PERI}, .ncount=2,.mcount=5  },
+    { INFO_CLK(CCU_MBUS_CLK_REG),     {PARENT_DDR_DIV4, NOT_IN_MODEL}, .ncount=0,.mcount=0 },
     { INFO_CLK(CCU_DRAM_CLK_REG),     {PARENT_DDR, NOT_IN_MODEL, PARENT_PERI_2X}, .ncount=2,.mcount=2 },
     { INFO_CLK(CCU_DE_CLK_REG),       {PARENT_PERI_2X, PARENT_VIDEO0_4X, PARENT_VIDEO1_4X}, .ncount=0,.mcount=5 },
     { INFO_CLK(CCU_TCONTV_CLK_REG),   {PARENT_VIDEO0, PARENT_VIDEO0_4X}, .ncount=2,.mcount=4 },
@@ -302,7 +311,7 @@ static struct debug_info info_table[] = {
     { INFO_BGR(CCU_DPSS_TOP_BGR_REG), {PARENT_AHB0} },
     { INFO_BGR(CCU_HDMI_BGR_REG),     {PARENT_AHB0} },
     { INFO_BGR(CCU_TCONTV_BGR_REG),   {PARENT_AHB0} },
-    { INFO_BGR(CCU_DMA_BGR_REG),      {PARENT_AHB0} },
+    { INFO_BGR(CCU_DMA_BGR_REG),      {PARENT_MBUS} },
     { INFO_BGR(CCU_HSTIMER_BGR_REG),  {PARENT_AHB0} },
     { INFO_BGR(CCU_PWM_BGR_REG),      {PARENT_APB0} },
     { INFO_BGR(CCU_UART_BGR_REG),     {PARENT_APB1} },
@@ -376,6 +385,7 @@ static long debug_rate_parent(ccu_parent_id_t id) {
         case PARENT_HOSC:       return 24*1000*1000;
         case PARENT_32K:        return 32768;
         case PARENT_DDR:        return debug_rate_pll(CCU_PLL_DDR_CTRL_REG);
+        case PARENT_DDR_DIV4:   return debug_rate_pll(CCU_PLL_DDR_CTRL_REG)/4;
         case PARENT_PERI_2X:           mult = 2; // *** fallthrough
         case PARENT_PERI:       return mult*debug_rate_pll(CCU_PLL_PERI_CTRL_REG);
         case PARENT_VIDEO0_4X:         mult = 4; // *** fallthrough
@@ -389,6 +399,7 @@ static long debug_rate_parent(ccu_parent_id_t id) {
         case PARENT_APB1:       return debug_rate_clk(CCU_APB1_CLK_REG);
         case PARENT_AHB0:       return debug_rate_clk(CCU_PSI_CLK_REG);
         case PARENT_PSI:        return debug_rate_clk(CCU_PSI_CLK_REG);
+        case PARENT_MBUS:       return debug_rate_clk(CCU_MBUS_CLK_REG);
     }
     return -1;
 }
@@ -415,7 +426,8 @@ static long debug_rate_pll(ccu_pll_id_t id) {
 static long debug_rate_clk(ccu_module_id_t id) {
     module_clk_reg_t clk;
     clk.bits = *reg_for_id(id);
-    if (id > CCU_APB1_CLK_REG && !clk.ena) return 0; // cheezy (ena bits not applicable for psi/apb?)
+    if (!clk.ena && !(id >= CCU_PSI_CLK_REG && id <= CCU_MBUS_CLK_REG))
+        return 0; // short circuit if not enable, but ena bits not applicable for top-level bus clocks...
     int n = 1 << clk.factor_n;
     int m = clk.factor_m + 1;
     struct debug_info *i = info_for_id(id);

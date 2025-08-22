@@ -20,8 +20,10 @@ typedef enum { // ids for Module Clock registers
     CCU_PSI_CLK_REG         = 0x0510,
     CCU_APB0_CLK_REG        = 0x0520,
     CCU_APB1_CLK_REG        = 0x0524,
+    CCU_MBUS_CLK_REG        = 0x0540,
     CCU_DE_CLK_REG          = 0x0600,  // Display engine
     CCU_DRAM_CLK_REG        = 0x0800,
+    CCU_MBUS_MCG_REG        = 0x0804, // mbus master clock gating
     CCU_HDMI_24M_CLK_REG    = 0x0B04,
     CCU_TCONTV_CLK_REG      = 0x0B80,
     CCU_SPI0_CLK_REG        = 0x0940,
@@ -73,6 +75,7 @@ typedef enum {
     PARENT_HOSC = 1,
     PARENT_32K,
     PARENT_DDR,
+    PARENT_DDR_DIV4,
     PARENT_PERI,
     PARENT_PERI_2X,
     PARENT_VIDEO0,
@@ -86,6 +89,7 @@ typedef enum {
     PARENT_APB0,
     PARENT_APB1,
     PARENT_PSI,
+    PARENT_MBUS,
 } ccu_parent_id_t;
 
 /*
@@ -124,6 +128,9 @@ long ccu_config_module_clock_rate(ccu_module_id_t id, ccu_parent_id_t parent, lo
  */
 long ccu_ungate_bus_clock(ccu_bgr_id_t reg_id);
 long ccu_ungate_bus_clock_bits(ccu_bgr_id_t reg_id, uint32_t gating_bits, uint32_t reset_bits);
+
+// oddball for mbus clock
+void ccu_ungate_mbus_bits(uint32_t gating_bits);
 
 // for debugging purposes
 void ccu_debug_show_clocks(const char *label);

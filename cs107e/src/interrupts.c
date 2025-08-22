@@ -98,6 +98,7 @@ __attribute__((interrupt("machine"))) void _trap_handler(void) {
         } else if (mcause == 2 || mcause == 3) {
             sys_report_error("Faulting instruction (mepc):   [%pW] %pI at %p %pL\n", mepc, mepc, mepc, mepc);
         } else if (mcause == 5 || mcause == 7) {
+            sys_report_error("Instruction (mepc): %p %pL\n", mepc, mepc);
             sys_report_error("Faulting address (mtval): 0x%lx \n", mtval);
         } else {
             sys_report_error("Instruction (mepc): %p %pL\n", mepc, mepc);
