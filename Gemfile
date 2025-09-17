@@ -20,3 +20,7 @@ gem "jekyll", "~> 3.9.0"
 # Ruby 3 upgrade require manual use of webrick
 # I think this will fail on github pages, only needed locally?
 gem "webrick"
+
+gem "nokogiri", "~> 1.14.0"
+gem "csv"
+gem "bigdecimal"

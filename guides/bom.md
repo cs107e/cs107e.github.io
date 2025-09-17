@@ -11,12 +11,12 @@ li a[href*="//"]:link { font-size: 80%; }
 Each student is given a parts kit containing the materials needed for the course assignments and labs. The kit is packed into a plastic box and contains:
 - a flamingo pink __Mango Pi MQ-Pro__ <https://mangopi.org/mqpro>
 - a short __USB-C extension cable with on/off switch__ <https://www.amazon.com/dp/B0D5Y63VRP/>
-- a slim __USB-C hub/splitter__ <https://www.aliexpress.us/item/3256805490680384.html>
-- a __USB OTG connector__ <https://www.aliexpress.us/item/3256802115485144.html>
+- a slim __USB-C hub/splitter__ <https://www.amazon.com/dp/B0BSMNHWCL/>
+- a __USB OTG connector__ <https://www.amazon.com//dp/B0F7XTF5D6/>
 - a __CP2102 USB-to-serial__ breakout board <https://www.taydaelectronics.com/cp2102-serial-converter-usb-2-0-to-ttl-uart-ftdi.html>
 - a full-sized __breadboard__ <https://www.jameco.com/z/WBU-202-R-Jameco-Valuepro-830-Point-Solderless-Breadboard-6-5-x-2-125-_20723.html>
     + Jameco, BusBoard, Velleman are solid! sometimes cheaper breadboards have flaky connection points, best to avoid
-- __jumpers__ (5-20 of each) <https://www.aliexpress.com/item/32891879068.html>
+- __jumpers__ (5-20 of each) <https://www.taydaelectronics.com/catalogsearch/result/?q=dupont+jumper+wires>
     -  __female-female__
     -  __female-male__
 - a handy __reference card__ (Anna Mistele's [custom design](/guides/refcard))
