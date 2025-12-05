@@ -16,7 +16,7 @@ Each student is given a parts kit containing the materials needed for the course
 - a __CP2102 USB-to-serial__ breakout board <https://www.taydaelectronics.com/cp2102-serial-converter-usb-2-0-to-ttl-uart-ftdi.html>
 - a full-sized __breadboard__ <https://www.jameco.com/z/WBU-202-R-Jameco-Valuepro-830-Point-Solderless-Breadboard-6-5-x-2-125-_20723.html>
     + Jameco, BusBoard, Velleman are solid! sometimes cheaper breadboards have flaky connection points, best to avoid
-- __jumpers__ (5-20 of each) <https://www.taydaelectronics.com/catalogsearch/result/?q=dupont+jumper+wires>
+- __jumpers__ (5-20 of each) <https://www.taydaelectronics.com/catalogsearch/result/?q=dupont+jumper+female>
     -  __female-female__
     -  __female-male__
 - a handy __reference card__ (Anna Mistele's [custom design](/guides/refcard))
