@@ -5,18 +5,10 @@ quarter: Winter 2026
 staff:
   - name: Aditri Patil
     img: /_assets/img/aditri.jpg
-  - name: Ben Ruland
-    img: /_assets/img/Ben.jpeg
-  - name: Chris Gregg
-    img: /_assets/img/chris.png
-  - name: Didi Kamalova
-    img: /_assets/img/didi.jpeg
   - name: Frances Raphael
     img: /_assets/img/frances.png
-  - name: Haven Whitney
-    img: /_assets/img/haven.jpg
   - name: Julie Zelenski
     img: /_assets/img/julie.jpg
-lecture_schedule: Mon and Fri 10:30am - 12pm, Littlefield
+lecture_schedule: Mon and Fri 10:30am - 12pm, Littlefield 107
 lab_schedule: Tue and Wed 6:30-8:30pm
 forum: https://edstem.org/us/courses/89400/discussion/
