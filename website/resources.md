@@ -8,9 +8,9 @@ Here are links to various external resources with information about the Mango Pi
 
 ## Mango Pi
 
-- Manufacturer's site Mango Pi MQPro <https://mangopi.org/mqpro>
-- Mango Pi schematic [readings/mq-pro-sch-v12.pdf](/readings/mq-pro-sch-v12.pdf)
-- Interactive tour of Mango Pi board <https://mangopi.org/_media/mq-pro-v12-ibom.html>
+- Manufacturer's site Mango Pi MQ-Pro <https://widora.cn/mqpro>
+- Mango Pi [schematic/pinout](/readings/mq-prov14-sch.pdf)
+- Tour the Mango Pi board using its [interactive BOM](/readings/mq-pro-v12-ibom.html)
 - The Mango Pi uses an Allwinner D1-H chip. The peripherals are documented in the [Allwinner D1-H User Manual](/readings/d1-h_user_manual_v1.0.pdf)
     - The user manual is 1400 pages of nitty-gritty goodness (addresses, layouts, behaviors). It's a tome for sure, but keep this one bookmarked, you'll be looking at it often.
 - The D1 has a single RV64GCV core XuanTie C906 made by T-Head Semiconductors.

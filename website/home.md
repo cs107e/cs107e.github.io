@@ -91,7 +91,6 @@ a[href^="http://"]:after, a[href^="https://"]:after {
 
 CS107e is __Computer Systems from the Ground Up__. Read more [about the course](/about/)
 and review answers to [common questions from prospective students and enrollment information](http://cs107e.stanford.edu).
-We'll hold an informal [info session](lectures/InfoSession) Thu Dec 4th 4:30pm in 380-380C.
 
 ---
 <div class="d-flex">

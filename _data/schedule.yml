@@ -4,7 +4,7 @@ weeks:
     # assign0_duedate is second week Tuesday 5pm (assume weekly repeat for assign1-7)
   - start_date: "2026-01-05 9:00 AM"
     assign0_duedate: "2026-01-13 5:00 PM"
-    mon: /lectures/RISC-V/
+    mon: /lectures/Intro/
     lab: /labs/lab0/
     assign: /assignments/assign0/
     fri: /lectures/Assembly/
