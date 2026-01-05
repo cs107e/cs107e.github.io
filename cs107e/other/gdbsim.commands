@@ -1,0 +1,32 @@
+# gdb command file that configs simulator for CS107E bare-metal program
+
+echo \033[33mAuto-loading commands from $CS107E/other/gdbsim.commands... \033[0m \n
+
+define timer-reroute
+set breakpoint pending on
+b timer_get_ticks
+commands
+silent
+echo \033[31;1m\n\rReached timer_get_ticks(), CSRs not implemented in simulator, cannot continue.\n\033[0m
+end
+end
+
+set confirm off
+set backtrace past-main on
+target sim
+
+# Configure sim memory map
+# unmap default region, set regions for peripherals and ram
+sim memory-delete 0
+sim memory-region 0x02000000,0x06000000
+sim memory-region 0x40000000,0x10000000
+# if $elf_file set when gdb invoved, memmap file to 0x50000000
+# just as we do in mango-run
+if ! $_isvoid($elf_file)
+eval "sim memory-mapfile %s", $elf_file
+sim memory-region 0x50000000
+else
+sim memory-region 0x50000000,0x10000000
+end
+load
+timer-reroute

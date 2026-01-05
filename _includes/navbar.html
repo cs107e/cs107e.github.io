@@ -1,0 +1,51 @@
+<nav class="top fixed-top navbar navbar-expand-md navbar-dark" role="navigation">
+  <img class="navbar-brand navbar-brand-image" src="/_assets/img/mango.png" >
+  <a class="navbar-brand" href="/"> {{ site.data.course.id }} {{ site.data.course.quarter }} </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="navbar-collapse collapse"  id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      {%- for m in site.data.navbar %}
+        {%- if m contains "submenu" %}
+          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false"> {{ m.title }} </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {%- for s in m.submenu %}
+            <a class="dropdown-item" href="{{s.link}}">{{s.title}}</a>
+            {%- endfor %}
+          </div>
+          </li>
+        {%- else %}
+          <li class="nav-item"><a class="nav-link" href="{{m.link}}">{{m.title}}</a></li>
+        {%- endif %}
+      {%- endfor %}
+    </ul>
+    <!---
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" id="search-text" name="query" placeholder="🔍 Search CS106B..." aria-label="Search" action="search">
+    </form>
+    --->
+  </div>
+</nav>
+
+<style>
+  .top.navbar {
+    margin-bottom: 2rem;
+  }
+  .top.navbar-dark {
+    background-color: #CB4899;
+  }
+  .top .nav-item > a {
+    color: white !important;
+  }
+  .top .nav-item > a:hover {
+    text-decoration: underline;
+  }
+
+  .top .navbar-brand-image {
+    padding: 2px !important;
+    width: 2rem;
+  }
+
+</style>

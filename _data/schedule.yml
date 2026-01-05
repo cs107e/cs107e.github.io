@@ -1,0 +1,58 @@
+# Data to populate schedule (lecture topics, labs, assignments)
+weeks:
+    # start is date of first lecture (a Monday)
+    # assign0_duedate is second week Tuesday 5pm (assume weekly repeat for assign1-7)
+  - start_date: "2026-01-05 9:00 AM"
+    assign0_duedate: "2026-01-13 5:00 PM"
+    mon: /lectures/RISC-V/
+    lab: /labs/lab0/
+    assign: /assignments/assign0/
+    fri: /lectures/Assembly/
+  -
+    mon: /lectures/C_Control/
+    lab: /labs/lab1/
+    assign: /assignments/assign1/
+    fri: /lectures/C_Pointers/
+  -
+    mon: MLK Day (no lecture)
+    lab: /labs/lab2/
+    assign: /assignments/assign2/
+    fri: /lectures/C_Functions/
+  -
+    mon: /lectures/Serial/
+    lab: /labs/lab3/
+    assign: /assignments/assign3/
+    fri: /lectures/Linking/
+  -
+    mon: /lectures/Memory/
+    lab: /labs/lab4/
+    assign: /assignments/assign4/
+    fri: /lectures/C_Mastery/
+  -
+    mon: /lectures/Keyboard/
+    lab: /labs/lab5/
+    assign: /assignments/assign5/ 
+    fri: /lectures/Framebuffer/
+  -
+    mon: Presidents Day (no lecture)
+    lab: /labs/lab6/
+    assign: /assignments/assign6/
+    fri: /lectures/Interrupts1/
+  -
+    mon: /lectures/Interrupts2/
+    lab: /labs/lab7/
+    assign: /assignments/assign7/
+    fri: /lectures/Project/
+  -
+    mon: /lectures/Sensors/
+    lab: /labs/projectlab1/
+    assign: /project/
+    fri: /lectures/Output/
+  -
+    mon: TBA
+    lab: /labs/projectlab2/
+    fri: /lectures/Wrap/
+  -
+    project_demo: "2026-03-20 9:00 AM"
+    project_due: "2026-03-20 11:59 PM"
+  -
