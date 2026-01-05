@@ -5,8 +5,14 @@ quarter: Winter 2026
 staff:
   - name: Aditri Patil
     img: /_assets/img/aditri.jpg
+  - name: Daniel James
+    img: /_assets/img/daniel.jpg
+  - name: Elias Chikwanda
+    img: /_assets/img/elias.jpg
   - name: Frances Raphael
     img: /_assets/img/frances.png
+  - name: Joe Robertazzi
+    img: /_assets/img/joe.jpg
   - name: Julie Zelenski
     img: /_assets/img/julie.jpg
 lecture_schedule: Mon and Fri 10:30am - 12pm, Littlefield 107

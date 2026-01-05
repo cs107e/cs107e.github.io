@@ -21,6 +21,6 @@ gem "jekyll", "~> 3.9.0"
 # I think this will fail on github pages, only needed locally?
 gem "webrick"
 
-gem "nokogiri", "~> 1.14.0"
+gem "nokogiri", ">= 1.18.9"
 gem "csv"
 gem "bigdecimal"
