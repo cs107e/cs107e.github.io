@@ -15,7 +15,7 @@ void *sys_memset(void *s, int c, size_t n);
 // _cstart zeroes out the BSS section and then calls the main function
 void _cstart(void) {
     // linker script memmap.ld places symbols to mark bss boundaries
-    sys_memset(&__bss_start, 0, &__bss_end - &__bss_start);
+    sys_memset(BSS_START, 0, BSS_END - BSS_START);
 
     mango_actled(LED_ON);   // turn on blue onboard LED while executing main
     main();
