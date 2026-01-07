@@ -1,7 +1,7 @@
 ---
 title: "Guide: Initial git setup and mycode repo"
 toc: true
-quarterprefix: win25
+quarterprefix: win26
 attribution: Written by Maria Paula Hernandez and Liana Keesing, incorporating work of past TAs
 ---
 

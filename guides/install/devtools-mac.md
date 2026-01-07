@@ -49,7 +49,7 @@ $ brew install cs107e/cs107e/riscv-gnu-toolchain-13
 {% include checkstep.html content="confirm compiler" %}
 ```console?prompt=$
 $ brew info riscv-gnu-toolchain-13
-==> cs107e/cs107e/riscv-gnu-toolchain-13: stable 13-2024q1-cs107e
+==> cs107e/cs107e/riscv-gnu-toolchain-13: stable 13.3-2025q1-cs107e
 Pre-built RISC-V GNU toolchain for CS107e
 https://cs107e.github.io/guides/install/
 Installed
