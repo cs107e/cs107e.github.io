@@ -1,0 +1,2 @@
+riscv64-unknown-elf-as on.s -o on.o
+riscv64-unknown-elf-objcopy on.o -O binary on.bin
