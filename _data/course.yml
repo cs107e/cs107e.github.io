@@ -17,6 +17,9 @@ staff:
     img: /_assets/img/joe.jpg
   - name: Julie Zelenski
     img: /_assets/img/julie.jpg
+  - name: Nifemi Ibrahim
+    img: /_assets/img/nifemi.jpg
+
 lecture_schedule: Mon and Fri 10:30am - 12pm, Littlefield 107
 lab_schedule: Tue and Wed 6:30-8:30pm
 forum: https://edstem.org/us/courses/89400/discussion/
