@@ -127,7 +127,7 @@ $ xfel exec  0x40000000
 ```
 The blink-actled program sits in an endless loop blinking the blue on-board led.
 
-To load and run a different program, your must first reset the Pi by briefly interrupting power. This step is necessary to reset the Pi and reenter the bootloader so it is ready to receive a new program. Your parts kit includes a usb cable with a rocker switch so you can perform a reset by a quick switch to off then back on.
+To load and run a different program, your must first reset the Pi by briefly interrupting power. This step is necessary to reset the Pi and reenter the bootloader so it is ready to receive a new program. Your parts kit includes a usb cable with a rocker switch so you can reset the Pi with a quick flip off and back on. The latest (Dec 2025) rev of the Mango Pi board includes a tiny push button that you can click to perform a reset.
 
 ## Pro-tip: `mango-run`
 You will need to re-play these commands (`xfel ddr d1; xfel write; xfel exec`) so often that we wrote a small script to package this command sequence into the single command `mango-run`.
@@ -168,7 +168,7 @@ Use `xfel version` (or `mango-run` with no arguments) to test communication with
 	- Double-check the Pi is powered up, that your laptop is connected to the Mango OTG port, and the cable you are using supports both charge and data.
 	- In some situations, a connection that was fine a moment ago can stop working. This can happen if your laptop's usb system went a bit wonky and suspended the port. Unplugging from your laptop usb port and replug may prompt your laptop to reset the port, if not, reboot your laptop to set things right.
 - If response is `ERROR: xfel had timeout comunicating with device (device not listening, needs reset?)`, it found the connection to Pi, but was not able to communicate with the bootloader.
-	- This generally means the bootloader is not running/listening. If you previously bootloaded a different program and it is now executing on the Pi, the bootloader is no longer running. To re-enter the bootloader, you must restart the Pi. Reset by briefly cutting and restoring power using the switch on your usb cable.
+	- This generally means the bootloader is not running/listening. If you previously bootloaded a different program and it is now executing on the Pi, the bootloader is no longer running. To re-enter the bootloader, you must reset the Pi by flipping the switch on the USB cable or clicking the on-board reset button.
 
 ## Resources
 - The `xfel` source code is published on github, we maintain a custom fork at <https://github.com/cs107e/xfel>

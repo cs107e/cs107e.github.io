@@ -19,3 +19,5 @@ The total power being consumed is 0.41 W. That is not a lot of power! The power 
 {: .w-75 .mx-auto }
 
 To reset the Pi, simply interrupt its power supply. One way to do this is by briefly unplugging and re-plugging the usb cable. We provide a usb cable that has a built-in switch to make the process a little easier.
+
+The latest (Dec 2025) rev of the Mango Pi board __includes a reset button__! 🔥  Look for the tiny push button on the edge of the board between hdmi and USB connectors. Click this button to reset the Pi.

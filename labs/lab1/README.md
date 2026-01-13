@@ -28,27 +28,24 @@ __To prep for lab1:__
 
 During this lab you will:
 
-- Explore simple breadboard circuits using LEDs, resistors, and buttons.
-- Practice with building and running programs on the Pi.
-    - Build programs using the cross-development tools you installed on your computer
-    - Download and run programs on the Pi using the `xfel` bootloader
+- Practice building and running programs on the Pi using the cross-compile dev tools and `xfel` bootloader.
+- Construct simple breadboard circuits using LEDs, resistors, and buttons.
 - Explore the assembly code for the blink and button programs.
 
 ## Prelab preparation
 
 To prepare, please do the following before coming to lab:
 
-1. Be up to date on recent lectures: __RISC-V architecture and assembly__
+1. Be up to date on recent lectures: __RISC-V assembly__
 1. Reading to do ahead of lab:
     - Read this SparkFun tutorial on [using a breadboard](https://learn.sparkfun.com/tutorials/how-to-use-a-breadboard). Pay special attention to the section labeled "Anatomy of a Breadboard" to learn about the internal connections.
-    - Please review our course guides on:
+    - Review course guides on:
         -  [powering the Pi](/guides/power)
         -  [using the xfel bootloader](/guides/xfel) to send programs to the Pi
         -  [one page of RISC-V](/guides/riscv-onepage) assembly
 1. Organize supplies to bring with you:
-    - Bring your __laptop__, ideally with full charge, cable/charger as needed.
+    - Bring your __laptop__ with full battery (and cable/charger if needed)
     - If you have access to a __multimeter__, bring it along.
-1. When you arrive at lab, check that your Stanford ID card is authorized. When you place your card on the reader, it should blink green and unlock the door. If your card does not work, followup with one of the staff.
 
 ## Lab exercises
 
@@ -67,23 +64,25 @@ Your repo should now be on the `dev` branch and has a subfolder named `lab1` con
 ### 1. Inventory your kit
 
 You will receive your parts kit when you arrive at lab. Open it up and check it out!
-Unwrap and discard the packaging. Identify what each component is and compare to the [kit inventory](/guides/bom/) to ensure your kit is complete. If you are missing any parts, ask us for replacements.
+Unwrap and discard the packaging bags and wrappers. Identify what each component is and compare to the [kit inventory](/guides/bom/) to ensure your kit is complete. If you are missing any parts, ask us for replacements.
 
-The components are packed in a handy plastic box for convenient carrying. Write your name on the white label on the box top to help you and and your box stay united. Plan to bring your entire parts kit to every lab.
+The handy plastic box is so you can take the kit on the go. The top of the box has a blank label for you to decorate with your name so that you and your box stay united. Plan to bring your entire parts kit to every lab.
 
 ### 2. Power up Pi and use `xfel` to converse
 
-Start with our course guides to acquaint with your new BFF.
+Start with our course guides to acquaint yourself with your new BFF.
 
-- Read through the guide on [powering the Pi](/guides/power) and:
-    - follow the instructions to connect your Pi to power
-- Open the guide to the [xfel bootloader](/guides/xfel) and follow along with steps to:
-    - peek and poke to control the blue act LED
-    - use `xfel` commands to bootload a program
-    - use `mango-run` as a convenience for bootloading
-If you run into any snags or have questions, be sure to ask for help!
+- Guide: [powering the Pi](/guides/power)
+    - follow instructions to connect your Pi to power
+- Guide: [xfel bootloader](/guides/xfel)
+    - follow steps to
+        - peek and poke to turn on the blue act LED
+        - use `xfel` commands to load and execute a program
+        - use `mango-run` as a bootloading convenience
 
-Change to the directory `$CS107E/bin` directory and use the following commands to examine the size and data in the `blink-actled.bin` program file:
+If you run into any snags or have questions, be sure to ask for help.
+
+Change to the directory `$CS107E/bin` and use the following commands to examine the size and data in the `blink-actled.bin` program file:
 ```console
 $ cd $CS107E/bin
 $ ls -l blink-actled.bin
@@ -91,7 +90,7 @@ $ hexdump -C blink-actled.bin
 ```
 How many bytes of data are in the program file? How many instructions does this correspond to? What does this data represent?
 
-Reset your Pi by briefly flipping the switch to temporarily cut power. Once it has reset, use `xfel ddr d1` to initialize the memory controller and `xfel hexdump` to display the contents of the 200 bytes of memory at address `0x40000000`. This is the initial contents of memory after the Mango Pi has reset.
+Reset your Pi now. Use `xfel ddr d1` to initialize the memory controller and `xfel hexdump` to display the contents of the 200 bytes of memory at address `0x40000000`. This is the initial contents of memory after the Mango Pi has reset.
 
 ```console
 $ xfel ddr d1
@@ -123,15 +122,17 @@ $ mango-run blink-actled.bin    # bootloads program given as argument
  What happens if you try to `mango-run` a second time
 after the bootloader has already loaded a program? Why does that happen?
 
-To halt any currently executed program and return to FEL, simply reset the Pi. On reset, it will always will restart into FEL, ready to receive a new program.
+To halt the current execution and start over, reset the Pi. The Pi will restart into FEL, ready to receive a new program.
 
 ### 3. Make LED circuit on breadboard
 
 Grab the breadboard from your parts kit. You are going to use it to wire up a simple circuit. First, be sure you understand how the breadboard is internally constructed. Which holes are connected to which other holes?  How are the power and ground rails connected? Review the section  "Anatomy of a Breadboard" in the SparkFun [tutorial on breadboard](https://learn.sparkfun.com/tutorials/how-to-use-a-breadboard#anatomy-of-a-breadboard) from the pre-lab.
 
-Test a few points on the breadboard to confirm the internal connections. Get out your multimeter if you brought one or borrow one of the shared lab multimeters. Grab two __male-male__ jumpers (any colors) from the bin in lab. Choose two neighboring holes along one of the power rails and plug one end of each jumper into the holes. Confirm these holes are connected by applying the multimeter leads to the free ends of the jumpers and testing for continuity. Now move the jumpers around to different positions on the breadboard (for example, two holes within same row or same column or one hole in each power or ground rail) as you continue testing for continuity. Sketch out a map of which holes are connected and which are not.
+Test a few points on the breadboard to confirm the internal connections. Get out your multimeter if you brought one or borrow one of the shared lab multimeters. Grab two __male-male__ jumpers (any colors) from the bin of jumpers in the lab room. Choose two neighboring holes along one of the power rails and plug one end of each jumper into the holes. Confirm these holes are connected by applying the multimeter leads to the free ends of the jumpers and testing for continuity. Now move the jumpers around to different positions on the breadboard (for example, two holes within same row or same column or one hole in each power or ground rail) as you continue testing for continuity. Sketch out a road map of which holes are connected and which are not.
 
+{% comment %}
 Take a close look at the power and ground rails on the long edges. There is a break in the marking at the midpoint. Testing with a multimeter will confirm that this is a discontinuity in the rail. Keep this is mind when wiring connections to the rails. The breadboard we used in previous quarters did not have that break, thus some of the photos/circuits may look a little different than yours.
+{% endcomment %}
 
 You are going to wire up a simple circuit to light an
 LED. You'll need an LED and a 1K resistor from your kit. A resistor's value is indicated by the sequence of colored bands. (See this Sparkfun [tutorial on resistors](https://learn.sparkfun.com/tutorials/resistors#decoding-resistor-markings) for help on decoding the bands and bookmark this [color code calculator](http://www.digikey.com/en/resources/conversion-calculators/conversion-calculator-resistor-color-code-4-band).) What are the band colors for 1K?  Find a 1K resistor in your kit and use the multimeter to measure the resistance to confirm the value.
@@ -242,31 +243,31 @@ delay:
 ```
 
 If there is anything you don't understand about this program,
-ask questions of your partner and others.
+ask and discuss it with others.
 
-Identify the `lui` instruction that inits the countdown. The value determines the number of loop iterations in the delay loop. Note that the "load upper immediate" operation loads into the upper 20 bits of the destination register. This effectively left-shifts the immediate by 12, so `lui a2,11000` sets countdown to `11000 << 12` which is roughly 45 million.
+Identify the `lui` instruction that inits the countdown. The value determines the number of loop iterations in the delay loop. The "load upper immediate" operation loads into the upper 20 bits of the destination register, effectively left-shiting the immediate by 12 positions. The instruction `lui a2,11000` initializes the countdown to `11000 << 12` which is roughly 45 million.
 
-Edit the countdown value to make the delay half as long. Rebuild and run the program to see that it now blinks twice as fast.
+Edit the assembly instructions to halve the countdown value. This should make the delay half as long. Rebuild and run the program to see that it now blinks twice as fast.
 
-Modifying the program and re-running it is a multi-step process:
-- Use your text editor to edit `blink.s` and save changes. (pro-tip: do not exit editor, leave open and switch to other terminal)
+It is a multi-step process to modify the program and re-run it:
+- In your text editor, edit `blink.s` and save changes. (pro-tip: do not exit editor, leave open and switch to other terminal)
 - Re-build `blink.bin` ([build commands](#build) `as` and `objcopy`)
-- Reset the Pi
-- Bootload updated program `mango-run blink.bin`
+- Reset the Pi (using cable switch or on-board reset button)
+- Bootload and execute `mango-run blink.bin`
 
 Make sure you understand why each step is necessary. Show off your working edit-build-run cycle when you check-in with us. [^2]
 
-Experiment with changing the number of loop iterations until you achieve a blink rate of roughly 1 second on and 1 second off. Review the assembly and count the number of instructions executed within each loop iteration. Combine these numbers to calculate an estimate of how many instructions per second the Mango Pi is executing. Compare your estimate with your neighbors -- does the measured rate mostly jibe with the stated clock speed (1Ghz)? You can now answer this check-in question[^3].
+Experiment with changing the number of loop iterations (i.e. the countdown value) until you observe a blink rate of roughly 1 second on and 1 second off. Review the assembly and count the number of instructions executed within each loop iteration. Combine these numbers to calculate an estimate of how many instructions per second the Mango Pi is executing. Compare your estimate with your tablemates -- does the measured rate mostly jibe with the stated clock speed (1Ghz)? You can now answer this check-in question[^3].
 
 
 > __Toward a productive workflow__
 You will be spending much quality time with your editor and terminal and will want to develop an efficient and productive workflow. Pay attention to speed bumps and awkwardness and consider what tools you have that can help streamline your process. For example:
 - Learn how to use tab-complete and history as shortcuts to avoid (re)typing of commands and filenames.
- If you don't yet know about these features, ask Google or a peer to show you.
+ If you don't yet know about these features, ask a peer to show you or do a web search for a tutorial.
 - Don't close out your editor each time you need to return to your shell; keep open multiple windows/tabs and use keyboard control to quickly switch between them.
 - Organize your screen for visibility of all essential content, don't force yourself to hunt through scattered and overlapping windows.
-- Longer term: eliminate as much mouse usage as you can. By learning key bindings/macros, you can keep your hands on the keyboard and stay in programming flow state.
-    - <small>"The single biggest productivity slowdown I see in stanford undergrads (grads too) is the slow, laborious use of taking their hand off a keyboard, moving a mouse, clicking, switching screens, clicking on something else, switching back, etc. You don't realize how much this slows you down you until you watch someone who writes code well and compare their fluent flow to your plodding agrarian lifestyle.  Any time you move the mouse, you're not doing work. Do what you can to stop this." (--Dawson Engler)</small>
+- Longer term: avoid the overhead of reaching for your mouse and instead learn how to leverage key bindings and macros, so you can keep your hands on the keyboard and stay in programming flow state.
+    - <small>"The single biggest productivity slowdown I see in stanford undergrads (grads too) is the slow, laborious use of taking their hand off a keyboard, moving a mouse, clicking, switching screens, clicking on something else, switching back, etc. You don't realize how much this slows you down you until you watch someone who writes code well and compare their fluent flow to your plodding agrarian lifestyle.  Any time you move the mouse, you're not doing work. Do what you can to stop this." --Dawson Engler</small>
 {: .callout-info}
 
 <A name="button"></A>
@@ -319,7 +320,7 @@ Below is a photo of a partial circuit corresponding to the schematic above.
 
 ![Button with pull-up resistor circuit](images/button-circuit.jpg){: .zoom}
 
-CC (3.3V) and ground are connected to the Pi, R1 is a 10K resistor. The northeast leg of the button is connected to the pull-up resistor which is connected to VCC. The southwest button leg is connected to ground. Be sure to note how the connection to power flows through the 10K resistor! Without that resistor, pressing the button would create a short between power and ground that could damage your Pi. Note that the circuit in photo is not yet complete -- it is missing the connection for the input pin.
+CC (3.3V) and ground are connected to the Pi, R1 is a 10K resistor. In the photo above, the northeast leg of the button is connected to the pull-up resistor which is connected to VCC. The southwest button leg is connected to ground. Be sure to note how the connection to power flows through the 10K resistor! Without that resistor, pressing the button would create a short between power and ground that could damage your Pi. Note that the circuit in photo is not yet complete -- it is missing the connection for the input pin.
 
 Make the above partial circuit on your breadboard (keep the existing connections for the `PB0` LED intact as well). Now you are to add the missing connection from the input pin to read the button state. Use the pinout to find the input pin gpio `PC0` on the Mango Pi header.  Identify where to connect from `PC0` into the button circuit such that it will read high in starting state and read low when button is pressed. Add a jumper for that connection and your circuit is complete.
 
@@ -337,14 +338,14 @@ You're ready to answer the final check-in question[^4].
 
 
 ## Check in with TA
-The points we'd like you to check in with us during the lab are listed below[^5]. Remember the goal of the lab is not to rush through to finish fastest; it's to work through the material and build understanding. We encourage you to check-in as you go, rather than batching up all for the end.
+Be sure to hand in your check-in sheet before leaving lab. We encourage you to touch base with us along the way rather than batching up your questions at the end[^5]. Remember the goal of the lab is not to rush through to finish fastest; it's to work through the material and build understanding.
 
 
-__Tidy up!__ Take care to return our tools and supplies to their rightful place, discard any trash, and straighten up the tables and chairs. Our lab room is our home, let's all work together to keep it a tidy and welcoming place!
+__Clean all the things__: Please return tools and supplies to their place, discard any trash, and straighten up the tables and chairs. Our lab room is our home, let's work together to keep it a tidy and welcoming place.
 {: .callout-warning}
 
 [^1]: How much current flows through the LED with a 1K resistor connected to 5V? With a 10K resistor connected to 3.3V?
 [^2]: Show off the workflow you are using to edit/compile/execute a program on the Pi. Everyone should confirm this success individually; this is an important takeaway before starting Assign1.
 [^3]: What is your experimental estimate of the rate of instructions per second executed by the Mango Pi? How did you compute it?
 [^4]: Show us your annotated version of `button.s` and your completed breadboard circuit with button and LED.  What is the purpose of the resistor in the button circuit? Why is it needed? How could you re-arrange the button circuit for a pull-down resistor instead of pull-up? How would you need to change the code to match this re-wired circuit?
-[^5]: Before leaving, check in and let us know which (if any) of the tasks were you not able to complete. Do you need assistance? How can we help?
+[^5]: Are there any tasks were you not able to complete during lab? Do you need assistance finishing? How can we help?
