@@ -6,7 +6,7 @@ attribution: Written by Julie Zelenski
 We will supply power to the Mango Pi via usb. Find the two USB-C ports along the edge of the Mango Pi board. The port that is closer to the corner is labeled `OTG`.
 USB On-The-Go (OTG) is a USB sub-specification  that allows devices to switch between the roles of host and device. Connecting a 5V power source to either usb port will power up the Pi, but we connect to the OTG port because it additionally suppports the communication protocol used by the [xfel bootloader](/guides/xfel) we will be using to load and execute programs on the Pi.
 
-Connect a usb cable from a usb port on your laptop to the OTG port on the Mango Pi. The green power LED turns on when the Pi is receiving power. It is blindingly bright! We wish it were possible to dim it. If you find a way, please share.
+Connect a usb cable from a usb port on your laptop to the OTG port on the Mango Pi. The green power LED turns on when the Pi is receiving power. This LED on past boards was blindingly bright, bu the latest rev (Dec 2025) uses a higher ohm resistor for a pleasant, muted glow. Thank you, Mango Pi!
 
 ![usb otg power](../images/power-otg.jpg)
 {: .w-50 .mx-auto }

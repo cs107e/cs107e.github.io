@@ -17,10 +17,10 @@ The coursework consists of 7 weekly assignments and a final project. There are n
 + Project deliverables
     - Creative final project that is well-executed and shows proficiency with course material
 + Engagement
-    - We encourage and recognize your contributions of E-P-C:
-        - Effort: growth mindset, willingness to challenge yourself, dedication to learning, continued improvement
-        - Participation: active involvement in lab, lecture, and forum
-        - Community: learning together, asking and answering questions, collaborating in lab, celebrating and supporting one another
+    - We encourage and recognize your contributions of __E-P-C__:
+        - __Effort__: growth mindset, willingness to challenge yourself, dedication to learning, continued improvement
+        - __Participation__: active involvement in lab, lecture, and forum
+        - __Community__: learning together, asking and answering questions, collaborating in lab, celebrating and supporting one another
     - Together we can build a vibrant and interactive learning environment where all can thrive!
 
 Our grading system is designed to be entirely __constructive__. We celebrate and reward each of your accomplishments, whether that is tracking down bugs, keen participation in lab, implementing extended features, or making on-time submssions. Satisfying the base expectations listed below guarantees a course grade in the B range; your efforts to go above and beyond boost your course grade upward.
@@ -29,8 +29,11 @@ If you have your sights set on earning an __A__ course grade, you will need cons
 + Assignment deliverables
     - Core functionality is complete and correct (resolve all issues, revise and resubmit ok)
     - Consistently good timeliness (submit on-time, swift resolution of outstanding issues)
-    - Earn 15 or more bonus credits (extended features can earn up to 2-4 credits, full system earns 6)
-        - Full system: assign7 console is polished and "ready to ship", uses only your code. This is a big achievement and great showing of mastery -- way to go!
+    - Earn 15 or more bonus credits
+        - Extended features on assignments (2-4 credits)
+            - each assignment has one or more extended features you can choose to implement for bonus credits, refer to assignment writeup for details
+        - Full system bonus (6 credits)
+            - rewards an assign7 console that is polished, complete, and "ready to ship", uses only your code. This is a big achievement and great showing of mastery -- way to go!
 + Project deliverables
     - Outstanding project (strong challenge, demonstrates mastery of course topics, excellent execution)
 + Engagement
@@ -44,17 +47,17 @@ For a __B__ course grade, we expect __solid__ work that meets all base expectati
 + Project deliverables
     - Good project (shows skill on course topics, satisfactory execution)
 + Engagement
-    - Good (all labs, some style reflections, positive E-P-C)
+    - Good (all labs, ok style reflections, good E-P-C)
 
 Work that is not completed satisfactorily will earn grades __C and below__.
 
 ## Late Policy
 
-The course moves at a steady clip and the weekly assignments build on one other. In our experience, one of the strongest factors in student success has been the dedication to stay on pace. Learning to set a schedule and manage your time to hit deadlines is a valuable skill to develop and an accomplishment you can be proud of.  We designed our policy to encourage and reward good habits, but knowing that things come up, we have a standing grace period that provides a little flexibility if you need it.
+The course moves at a steady clip and the weekly assignments build on one other. One of the strongest factors for student success in this course has been keeping on pace. Learning to set a schedule and manage your time to hit deadlines is a valuable skill to develop and an accomplishment you can be proud of.  We encourage and recognize your timeliness with a policy that rewards on-time submissions. However, knowing that things do come up, there is also a standing grace period for flexibility on the occasions you need it.
 
-- The submission deadline for the weekly assignments is 5pm Tuesday. An ontime submission earns a small bonus in timeliness. Kudos to you for pacing your work and shipping on schedule!
+- The submission deadline for the weekly assignments is 5pm Tuesday. An on-time submission earns a small bonus in timeliness. Kudos to you for pacing your work and shipping on schedule!
 - There is also a 48-hour grace period after the deadline in which we accept late submissions. There is no penalty or cap applied to late submissions within the grace period, but they do not earn the timeliness bonus.
-- Late submissions beyond the grace period are arranged with the course staff as warranted for exceptional circumstances.
+-  Late submissions beyond the grace period are arranged with the course staff as warranted for exceptional circumstances.
 - The final project must be submitted on time without exception.
 
 

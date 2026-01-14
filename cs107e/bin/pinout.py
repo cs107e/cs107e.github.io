@@ -172,6 +172,7 @@ def process_ids(ids):
         labels = {}
         if arg == 'larson':
             range_ids = parse_range_specifier('PB0-7')
+            labels =  {'PC0':'Extension button'}
         elif arg == 'clock':
             labels = {'PD17':'SegA','PB6':'SegB','PB12':'SegC','PB11':'SegD','PB10':'SegE','PD11':'SegF','PD13':'SegG',
                        'PB4':'Dig1','PB3':'Dig2','PB2':'Dig3','PC0':'Dig4',
