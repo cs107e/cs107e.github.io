@@ -215,11 +215,19 @@ $4 = 11111111111111111111111111000111
 ```
 
 ## Check in with TA
-
-We want you to periodically touch base with us as you work through the exercises. The check-in allows us to
-verify your understanding and help with any unresolved issues. 
-
 The points we'd like you to check in with us for this lab are listed below [^5]:
+We want you to periodically touch base with us as you work through the exercises. The check-in allows us to
+verify your understanding and help with any unresolved issues.
+
+
+<div class=checkinsheet markdown="1">
+# {{ page.title }}
+<div class="underline-name"></div>
+Circle lab attended:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  _Tuesday_  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  _Wednesday_
+<BR>
+<BR>
+Fill out this check-in sheet as you go and use it to jot down any questions/issues that come up.  Please check in with us along the way, we are here to help![^6]
+</div>
 
 [^1]: Have you installed the development tools and confirmed each of the [final check](/guides/install/devtools#finalcheck) steps of the install guide?
 
@@ -230,3 +238,5 @@ The points we'd like you to check in with us for this lab are listed below [^5]:
 [^4]: If you had any trouble completing the binary/bitwise exercises, ask us for clarification.
 
 [^5]:  Before leaving, check in and let us know which (if any) of the tasks were you not able to complete. Do you need assistance? How can we help?
+
+[^6]: Do you have any feedback on this lab? Please share!

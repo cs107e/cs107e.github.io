@@ -22,31 +22,31 @@ different tools.
 <img src="../images/handtools.jpg" width="400">
 
 - __Wire stripper__
-    - Hakko wire stripper/cutter for 30-20 gauge wire, $13 <https://www.amazon.com/gp/product/B00FZPHMUG/>
-    - Hanloop wire stripper/cutter, $14 <https://www.amazon.com/dp/B00B88EK3Q/>
+    - Hakko wire stripper/cutter for 30-20 gauge wire, $21 <https://a.co/d/eXPW124>
+    - Hanloop wire stripper/cutter, $11 <https://a.co/d/7CqGmjK>
 - __Pliers__
-    - Weller Xcelite 4" sub-miniature needle-nose pliers, $17 <https://www.amazon.com/dp/B074NKY1BH/>
-    - Hakko CHP PN-2007 long-nose pliers, $12 <https://www.amazon.com/dp/B00FZPHEW2/>
-    - Tekton mini needle-nose pliers $14 <https://www.amazon.com/dp/B07CNSHZ1H/>
-    - Darice 5" needle-nose pliers, $10 <https://www.amazon.com/dp/B0733P4KZ5>
+    - Weller Xcelite 4" sub-miniature needle-nose pliers, $23 <https://a.co/d/2RAmAxf>
+    - Hakko CHP PN-2007 long-nose pliers, $17 <https://a.co/d/7Bgh16J>
+    - Tekton mini needle-nose pliers $17 <https://a.co/d/a58L8RJ>
+    - Darice 5" needle-nose pliers, $6 <https://a.co/d/4uKU7eW>
 - __Cutter__ 
-    - Hakko diagonal wire cutter, $9 <http://www.amazon.com/gp/product/B00FZPDG1K/>
+    - Hakko diagonal wire cutter, $10 <https://a.co/d/1ZsaLAO>
 - __Multimeter__
-    - AstroAI AM33D Multimeter, $13 <https://www.amazon.com/AstroAI-Digital-Multimeter-Voltage-Tester/dp/B01ISAMUA6/>
-    - Extech EX330 mini-multimeter, $55 <http://www.amazon.com/gp/product/B000EX0AE4/>
+    - Extech EX330 mini-multimeter, $55 <https://a.co/d/7op2KAf>
+    - AstroAI Multimeter, $15 <https://a.co/d/fVA348m>
 
 I include amazon links in case you have an Amazon Prime account which includes free shipping. This means you can get them fast at a good price. 
 
 There is no need to buy them all. Here is my rank in terms of usefulness.
-1.  The wire stripper (which can be used as a wire cutter)
+1.  A wire stripper (which can be used as a wire cutter)
 is essential for breadboarding.
-2. The needle nose pliers is next most useful. The Xcelite one is very high quality and makes you feel like a jewelry maker when you use it. The other ones are cheaper,
+2. A set of needle nose pliers is the next most useful. The Xcelite one is very high quality and makes you feel like a jewelry maker when you use it. The other ones are cheaper,
 but work fine. 
 3. Next is a diagonal cutter. You really don't
 need a separate tool for cutting wire because the wire stripper also has
 a cutter, but it definitely does cut better. Diagonal cutters are
-also useful when you are trimming leads after soldering stuff to
-PCBs. 
+also useful when you are trimming leads after soldering to a
+PCB.
 4. The multimeter is pretty expensive, and entirely optional.
 You can also buy a lower quality one for less than $10 at places like Harbor
 Freight.

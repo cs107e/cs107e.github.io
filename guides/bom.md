@@ -9,12 +9,12 @@ li a[href*="//"]:link { font-size: 80%; }
 
 ## Parts kit
 Each student is given a parts kit containing the materials needed for the course assignments and labs. The kit is packed into a plastic box and contains:
-- a flamingo pink __Mango Pi MQ-Pro__ <https://mangopi.org/mqpro>
-- a short __USB-C extension cable with on/off switch__ <https://www.amazon.com/dp/B0D5Y63VRP/>
-- a slim __USB-C hub/splitter__ <https://www.amazon.com/dp/B0BSMNHWCL/>
-- a __USB OTG connector__ <https://www.amazon.com//dp/B0F7XTF5D6/>
-- a __CP2102 USB-to-serial__ breakout board <https://www.taydaelectronics.com/cp2102-serial-converter-usb-2-0-to-ttl-uart-ftdi.html>
-- a full-sized __breadboard__ <https://www.jameco.com/z/WBU-202-R-Jameco-Valuepro-830-Point-Solderless-Breadboard-6-5-x-2-125-_20723.html>
+- a flamingo pink __Mango Pi MQ-Pro__ <https://widora.cn/mqpro>
+- a short __USB-C extension cable with on/off switch__ <https://a.co/d/1LONjaU>
+- a slim __USB-C hub/splitter__ <https://a.co/d/c7Pl74S>
+- a __USB OTG connector__ <https://a.co/d/a9yR0XI>
+- a __CP2102 USB-to-serial__ breakout board <https://a.co/d/fbcCC3o>
+- a full-sized __breadboard__ <https://www.jameco.com/z/239-Adafruit-Industries-Full-Sized-Premium-Breadboard-830-Tie-Points_2500655.html>
     + Jameco, BusBoard, Velleman are solid! sometimes cheaper breadboards have flaky connection points, best to avoid
 - __jumpers__ (5-20 of each) <https://www.taydaelectronics.com/catalogsearch/result/?q=dupont+jumper+female>
     -  __female-female__
@@ -32,19 +32,19 @@ Each student is given a parts kit containing the materials needed for the course
 
 
 ## Lab tools supplement
-Doing the labs also requires a few hand tools and supplies, which will have available for use in the lab room.
+The lab activities require some additional hand tools and supplies which will have available for use in the lab room.
 
 Hand tools and supplies for breadboarding:
 
 - wire __stripper__, needlenose __pliers__, and angled __cutter__
-    (if you interested in having your own set of tools, see recommendations in our [guide to hand tools](/guides/handtools))
+    - if you interested in purchasing your own tools, see recommendations in our [guide to hand tools](/guides/handtools)
 - solid core __wire__, 22-24 AWG
 -  __male-male__ jumpers, various lengths
 - multimeter
 
 For keyboard lab:
 
-- PS/2 __keyboard__ and __mouse__ <https://www.amazon.com/dp/B0758BF15X>
+- PS/2 __keyboard__ and __mouse__ <https://www.amazon.com/dp/B0758BF15X> <https://a.co/d/7j11KRC>
 -  inexpensive, low-speed USB __logic analyzer__ <https://www.amazon.com/dp/B077LSG5P2>
 - __PS/2 breakout__ board
     + we source a custom board from <https://www.pcbway.com/>

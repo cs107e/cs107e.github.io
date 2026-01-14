@@ -36,7 +36,7 @@ During this lab you will:
 
 To prepare, please do the following before coming to lab:
 
-1. Be up to date on recent lectures: __RISC-V assembly__
+1. Be up to date on [recent lecture content](/schedule/#Week1): __RISC-V assembly, GPIO__
 1. Reading to do ahead of lab:
     - Read this SparkFun tutorial on [using a breadboard](https://learn.sparkfun.com/tutorials/how-to-use-a-breadboard). Pay special attention to the section labeled "Anatomy of a Breadboard" to learn about the internal connections.
     - Review course guides on:
@@ -192,7 +192,12 @@ What effect do these changes have on the brightness of the LED? Do some comparis
 You are ready to answer the first check-in question. [^1]
 
 ### 4. Execute blink program
-You want to run `blink` program from lecture which blinks a LED connected to gpio `PB0`. Re-configure your breadboard circuit by connecting `PB0` to the anode of the LED. Use the pinout to identify which header pin is `PB0`.
+You want to run `blink` program from lecture which blinks a LED connected to gpio `PB0`.  Look on your pinout card and find the pin labelled `PB0`. You can also identify a pin by giving an optional argument to `pinout.py`:
+
+```console
+$ pinout.py PB0
+```
+Now that you know which pin is `PB0`, re-configure your breadboard circuit to connect `PB0` to the anode of the LED.
 
 ![PB0 connected to LED](images/led-pb0.jpg){: .zoom}
 
@@ -247,7 +252,7 @@ ask and discuss it with others.
 
 Identify the `lui` instruction that inits the countdown. The value determines the number of loop iterations in the delay loop. The "load upper immediate" operation loads into the upper 20 bits of the destination register, effectively left-shiting the immediate by 12 positions. The instruction `lui a2,11000` initializes the countdown to `11000 << 12` which is roughly 45 million.
 
-Edit the assembly instructions to halve the countdown value. This should make the delay half as long. Rebuild and run the program to see that it now blinks twice as fast.
+Edit the assembly instructions to halve the countdown value; this should make the delay half as long. Rebuild and run the program to see that it now blinks twice as fast.
 
 It is a multi-step process to modify the program and re-run it:
 - In your text editor, edit `blink.s` and save changes. (pro-tip: do not exit editor, leave open and switch to other terminal)
@@ -274,7 +279,7 @@ You will be spending much quality time with your editor and terminal and will wa
 ### 6.  Add a button
 The final lab exercise is to study the `button` program and build a circuit to test the program.
 
-This button program is in the file `lab1/button/button.s`. It reads the state of a button connected to gpio `PC0` and turns off the LED on gpio `PB0` when the button is pressed.
+This button program is in the file `lab1/button/button.s`. It uses two gpios: `PB0` configured as an output and connected to an LED and `PC0` configured as an input and connected to read state of a push button. The initial instructions of the program turn on the LED connected to `PB0` and there after it goes into a loop which reads the value of `PC0` and turns off the LED when the button is pressed.
 
 ```    
     lui     a0,0x2000       # a0 holds gpio base addr = 0x2000000
@@ -297,34 +302,35 @@ off:
 ```
 
 Challenge yourself to understand
-what each line of code accomplishes and why it works as expected. We annotated the first few lines to get you started, add your own annotations as you figure out each line. Have the [D1 user manual](/readings/d1-h_user_manual_v1.0.pdf) handy for looking up information about the GPIO peripheral and bookmark our one-page guide to [RISC-V instructions](/guides/riscv-onepage).
+what each line of code accomplishes and why it works as expected. We annotated the first few lines to get you started, add your own annotations as you figure out each line. Have the [D1 user manual](/readings/d1-h_user_manual_v1.0.pdf#page=1093) handy for looking up information about the GPIO peripheral and bookmark our one-page guide to [RISC-V instructions](/guides/riscv-onepage).
 
 Here are a few questions to test your understanding.
 
 - What information is stored in the peripheral registers at addresses `0x02000060` and `0x02000070`?
 - What value is being tested by the `beq` instruction?
 - Will the LED on or off when the program starts?
+- What will be the value of `PC0` when the button is not pressed? When the button is pressed?
 
 Once you understand how the code operates, you are ready to make the button circuit.
 
 Grab a pushbutton from your parts kit. The button has four legs, which are partitioned into two opposing pairs. The legs within a pair are always connected to one another. When the button is pressed, all four legs become connected. Wiring a connection from a leg to one in the opposite pair will read as open until the button is pressed. Your first task is to work out which leg pairs are always connected and which only become connected when the switch is closed. How the legs are wired is not obvious! One way to experimentally confirm is using the multimeter to test for continuity across each pair of legs.  Once you understand how the legs are connected, position the button on the breadboard so it can act as a switch.
 
-You will connect an input pin from the Pi into the button circuit to read the button state (pressed or not pressed)  The default voltage of a gpio input pin is in a "floating" state, so we must intentionally pull the pin to a known voltage to ensure a reliable reading. The button program above is written expect that the button state is initially high and goes low when pressed, so we need to make the default state high. We can do this by connecting the input pin to the power rail through a 10K resistor to "pull up" the line. This causes the gpio to read high by default when the button is not pressed. Pressing the button grounds the circuit and the gpio will then read low.  Sparkfun has a nice tutorial on the [use of pull-up resistors](https://learn.sparkfun.com/tutorials/pull-up-resistors/all) for more information.
+You will connect an input pin from the Pi into the button circuit to read the button state (pressed or not pressed). The default voltage of a gpio pin operating in input mode is in a "floating" state, it might read high, it might read low, the value can even change unpredictably. We must intentionally pull the pin to a known voltage to establish a reliable reading. The button program above is written expect that the button state is initially high and goes low when pressed, so we need to make the default state high. We can do this by connecting the input pin to the power rail through a 10K resistor to "pull up" the line. This causes the gpio to read high by default when the button is not pressed. Pressing the button grounds the circuit and the gpio will then read low.  Sparkfun has a nice tutorial on the [use of pull-up resistors](https://learn.sparkfun.com/tutorials/pull-up-resistors/all) for more information.
 
 Here is the schematic for connecting an input pin to read the button state. The input pin will read high while switch is open (button unpressed) and low when switch is closed (button pressed).
 
 ![Button with pull-up resistor diagram](images/pull-up-schematic.jpg)
 {: .w-50 .mx-auto}
 
-Below is a photo of a partial circuit corresponding to the schematic above.
+Below is a photo of a partial circuit corresponding to the schematic above. VCC (3.3V) and ground are connected to the Pi, R1 is a 10K resistor uses as a pull-up. Add this partial circuit on your breadboard (keep the existing connections for the `PB0` LED intact as well).
 
 ![Button with pull-up resistor circuit](images/button-circuit.jpg){: .zoom}
 
-CC (3.3V) and ground are connected to the Pi, R1 is a 10K resistor. In the photo above, the northeast leg of the button is connected to the pull-up resistor which is connected to VCC. The southwest button leg is connected to ground. Be sure to note how the connection to power flows through the 10K resistor! Without that resistor, pressing the button would create a short between power and ground that could damage your Pi. Note that the circuit in photo is not yet complete -- it is missing the connection for the input pin.
+In the photo above, the northeast leg of the button is connected to VCC through the pull-up resistor. The southwest button leg is directly connected to ground. Be sure to note how power is flowing through the 10K resistor! If the button leg were directly connected to power without that resistor, pressing the button would create a short between power and ground that could damage your Pi.
 
-Make the above partial circuit on your breadboard (keep the existing connections for the `PB0` LED intact as well). Now you are to add the missing connection from the input pin to read the button state. Use the pinout to find the input pin gpio `PC0` on the Mango Pi header.  Identify where to connect from `PC0` into the button circuit such that it will read high in starting state and read low when button is pressed. Add a jumper for that connection and your circuit is complete.
+Note that the circuit in photo is not yet complete -- it is missing from the input pin to read the button state. Use the pinout to find gpio `PC0` on the Mango Pi header.  Identify where to connect a jumper from `PC0` into the button circuit such that it will read high in starting state and read low when button is pressed. Add a jumper for that connection and your circuit is complete.
 
-Your breadboard should have the previous circuit of LED connected to `PB0` and the additional button circuit connected to `PC0`. You are now ready to power it up and build and run the button program.  Time for another round of `riscv64-unknown-elf-...`, uh, what was that again? Let's add another useful tool to your bag of tricks: `make`. A `Makefile` can be used to list the commands needed to build and run the program and allows you to skip re-typing them again and again.  Next week's lab will have an exercise on exploring `make`, for now, you can take it on faith that the command `make run` is shortcut for building and running a program on the Mango Pi. Try it out now!
+Your breadboard should have the previous circuit of LED connected to `PB0` and the additional button circuit connected to `PC0`. You are now ready to power it up and build and run the button program.  Time for another round of `riscv64-unknown-elf-...`, uh, what was that again? Let's add another useful tool to your bag of tricks: `make`. A `Makefile` can be used to list the commands needed to build and run the program and allows you to skip re-typing them again and again.  Next week's lab will have an exercise on exploring `make`, for now, you can take it on faith that we have provided a Makefile to use. Use the command `make run` as a shortcut for building and running a program on the Mango Pi. Try it out now!
 
 ```console
 $ make run
@@ -333,7 +339,7 @@ riscv64-unknown-elf-objcopy button.o -O binary button.bin
 mango-run button.bin
 ```
 
-If the LED turns at start and turns off when the button is held down, you've got it all right!
+If the LED is on at start and turns off when the button is held down, you've got it all right!
 You're ready to answer the final check-in question[^4].
 
 
@@ -344,8 +350,18 @@ Be sure to hand in your check-in sheet before leaving lab. We encourage you to t
 __Clean all the things__: Please return tools and supplies to their place, discard any trash, and straighten up the tables and chairs. Our lab room is our home, let's work together to keep it a tidy and welcoming place.
 {: .callout-warning}
 
+<div class=checkinsheet markdown="1">
+# {{ page.title }}
+<div class="underline-name"></div>
+Circle lab attended:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  _Tuesday_  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  _Wednesday_
+<BR>
+<BR>
+Fill out this check-in sheet as you go and use it to jot down any questions/issues that come up.  Please check in with us along the way, we are here to help![^6]
+</div>
+
 [^1]: How much current flows through the LED with a 1K resistor connected to 5V? With a 10K resistor connected to 3.3V?
 [^2]: Show off the workflow you are using to edit/compile/execute a program on the Pi. Everyone should confirm this success individually; this is an important takeaway before starting Assign1.
 [^3]: What is your experimental estimate of the rate of instructions per second executed by the Mango Pi? How did you compute it?
 [^4]: Show us your annotated version of `button.s` and your completed breadboard circuit with button and LED.  What is the purpose of the resistor in the button circuit? Why is it needed? How could you re-arrange the button circuit for a pull-down resistor instead of pull-up? How would you need to change the code to match this re-wired circuit?
-[^5]: Are there any tasks were you not able to complete during lab? Do you need assistance finishing? How can we help?
+[^5]: Are there any tasks were still need to complete? Do you need assistance finishing? How can we help?
+[^6]: Do you have any feedback on this lab? Please share!

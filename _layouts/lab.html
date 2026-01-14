@@ -12,4 +12,55 @@ layout: default
         content: "Check-in questions";
         font-size: 125%;
     }
+
+    @media not print {
+      .checkinsheet {
+        display: none;
+      }
+    }
+
+    @media print {
+
+        @page {
+            size: Letter;
+            margin: 0;
+        }
+
+        .body-container, .container-fluid {
+            margin: 0;
+            width: 100%;
+            max-width: 2000px;
+        }
+
+      #toc , .footer, .reversefootnote, .footnote, .footnotes:before  {
+        display:none
+      }
+
+      .footnotes li {
+         padding-bottom: 110px;
+      }
+
+      .checkinsheet {
+           page-break-before: always;
+           margin-top: 40px;
+       }
+
+       .underline-name {
+            border-bottom: 1px solid;
+            width: 600px;
+            margin-top: 50px;
+            margin-left: 50px;
+            margin-bottom: 30px;
+            position: relative; /* Required for positioning the ::before element */
+        }
+        .underline-name::before {
+            content: "Name";
+            display: block;
+            font-size: 125%;
+            position: absolute; /* Position it absolutely within the box */
+            top: -20px;
+            left: -50px;
+        }
+
+    }
 </style>
