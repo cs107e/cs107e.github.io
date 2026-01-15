@@ -155,7 +155,7 @@ and complete the circuit by connecting the cathode to ground. The power and grou
 
 Follow these steps:
 
-1. First, disconnect or switch off your Pi.
+1. First, disconnect your Pi from power.
     >__Danger__ Always take care to cut power to the Pi
     before you fiddle with the wiring.
     If you leave it plugged in, power is flowing and all wires are live, which makes for a dicey situation. An accidental crossed wire can a short circuit, which could fry your Pi or make your
@@ -257,7 +257,7 @@ Edit the assembly instructions to halve the countdown value; this should make th
 It is a multi-step process to modify the program and re-run it:
 - In your text editor, edit `blink.s` and save changes. (pro-tip: do not exit editor, leave open and switch to other terminal)
 - Re-build `blink.bin` ([build commands](#build) `as` and `objcopy`)
-- Reset the Pi (using cable switch or on-board reset button)
+- Reset the Pi (can either unplug and replug OTG or press small reset button on side of Mango Pi board)
 - Bootload and execute `mango-run blink.bin`
 
 Make sure you understand why each step is necessary. Show off your working edit-build-run cycle when you check-in with us. [^2]

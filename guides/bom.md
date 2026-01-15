@@ -10,7 +10,8 @@ li a[href*="//"]:link { font-size: 80%; }
 ## Parts kit
 Each student is given a parts kit containing the materials needed for the course assignments and labs. The kit is packed into a plastic box and contains:
 - a flamingo pink __Mango Pi MQ-Pro__ <https://widora.cn/mqpro>
-- a short __USB-C extension cable with on/off switch__ <https://a.co/d/1LONjaU>
+- ~~a short __USB-C extension cable with on/off switch__~~ <https://a.co/d/1LONjaU>
+    - the cables we bought for Winter quarter are defective, so we removed from kit. Instead use reset button on the Mango Pi board.
 - a slim __USB-C hub/splitter__ <https://a.co/d/c7Pl74S>
 - a __USB OTG connector__ <https://a.co/d/a9yR0XI>
 - a __CP2102 USB-to-serial__ breakout board <https://a.co/d/fbcCC3o>

@@ -63,7 +63,7 @@ When you connect the TX and RX to the Mango Pi, tio is bridging the communicatio
 
 ## Connect and disconnect
 
-When you disconnect or reset your Pi (by unplugging or flipping the switch), an open tio connection will pause. It will print a status message  `Disconnected, Waiting for tty device` to let you know the connection is currently paused. When the Pi is ready again, tio will automatically reconnect and resume communication.
+When you disconnect or reset your Pi (by unplugging or pressing reset button), an open tio connection will pause. It will print a status message  `Disconnected, Waiting for tty device` to let you know the connection is currently paused. When the Pi is ready again, tio will automatically reconnect and resume communication.
 
 > __Pro-tip__
 Open a separate window/tab to run `tio` and always keep it running. No need to exit and restart `tio`. When you disconnect or reset your Pi, it will simply pause (prints "Disconnected, Waiting for tty device"). When your Pi resets, tio will automatically reconnect and resume communication.
