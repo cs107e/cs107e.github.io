@@ -3,7 +3,7 @@
 
 ARCH = -march=rv64im -mabi=lp64
 CFLAGS 	= $(ARCH) -g -Og -Wall -ffreestanding
-LDFLAGS = $(ARCH) -nostdlib -e main
+LDFLAGS = -nostdlib -e main
 LDLIBS =
 
 all: dice dice.bin
@@ -12,7 +12,7 @@ all: dice dice.bin
 	riscv64-unknown-elf-objcopy $*.elf -O binary $@
 
 %.elf: %.o
-	riscv64-unknown-elf-gcc $(LDFLAGS) $^ $(LDLIBS) -o $@
+	riscv64-unknown-elf-ld $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 %.o: %.c
 	riscv64-unknown-elf-gcc $(CFLAGS) -c $< -o $@

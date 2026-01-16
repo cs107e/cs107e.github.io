@@ -32,7 +32,7 @@ all: $(NAME).bin
 	riscv64-unknown-elf-objcopy $< -O binary $@
 
 %.elf: %.o
-	riscv64-unknown-elf-gcc $(LDFLAGS) $< -o $@
+	riscv64-unknown-elf-ld $(LDFLAGS) $< -o $@
 
 %.o: %.c
 	riscv64-unknown-elf-gcc $(CFLAGS) -c $< -o $@
@@ -56,7 +56,7 @@ all: button.bin
 
 button.bin: button.c
 	riscv64-unknown-elf-gcc -ffreestanding -c button.c -o button.o
-	riscv64-unknown-elf-gcc -nostdlib button.o -o button.elf
+	riscv64-unknown-elf-ld -nostdlib button.o -o button.elf
 	riscv64-unknown-elf-objcopy button.elf -O binary button.bin
     
 clean: 
@@ -74,7 +74,7 @@ This brings us to the next rule for `button.bin`:
 ```makefile
 button.bin: button.c
 	riscv64-unknown-elf-gcc -ffreestanding -c button.c -o button.o
-	riscv64-unknown-elf-gcc -nostdlib button.o -o button.elf
+	riscv64-unknown-elf-ld -nostdlib button.o -o button.elf
 	riscv64-unknown-elf-objcopy button.elf -O binary button.bin
 ```
 The ingredients (dependencies on the right-hand-side) are needed as the starting point to create the desired output (target on the left-hand-side). The indented lines that follow the rule are the commands that turn the ingredients into the final product. These steps are collectively called the __recipe__. Thus, in order to make `button.bin`, we start with our ingredient (`button.c`) and then step through the commands in the recipe.
@@ -111,7 +111,7 @@ all: $(NAME).bin
 
 $(NAME).bin: $(NAME).c
 	riscv64-unknown-elf-gcc $(CFLAGS) -c $(NAME).c -o $(NAME).o
-	riscv64-unknown-elf-gcc $(LDFLAGS) $(NAME).o -o $(NAME).elf
+	riscv64-unknown-elf-ld $(LDFLAGS) $(NAME).o -o $(NAME).elf
 	riscv64-unknown-elf-objcopy $(NAME).elf -O binary $(NAME).bin
 
 clean: 
@@ -139,7 +139,7 @@ We can further generalize our Makefile by using _pattern rules_ that can be used
 # This pattern rule links an object file into an executable ELF file.
 # filename.elf is built from filename.o
 %.elf: %.o
-	riscv64-unknown-elf-gcc $(LDFLAGS) $< -o $@
+	riscv64-unknown-elf-ld $(LDFLAGS) $< -o $@
 
 # This pattern rule extract binary from an ELF executable
 # filename.bin is built from filename.elf

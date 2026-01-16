@@ -10,7 +10,7 @@ all : hello.bin sum.bin
 	riscv64-unknown-elf-objcopy $< -O binary $@
 
 %.elf: %.o
-	riscv64-unknown-elf-gcc $(LDFLAGS) $^ $(LDLIBS) -o $@
+	riscv64-unknown-elf-ld $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 %.o: %.c
 	riscv64-unknown-elf-gcc $(CFLAGS) -c $< -o $@

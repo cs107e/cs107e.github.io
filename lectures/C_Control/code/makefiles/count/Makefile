@@ -8,7 +8,7 @@ NAME = count
 
 ARCH    = -march=rv64im -mabi=lp64
 CFLAGS 	= $(ARCH) -g -Og -Wall -ffreestanding
-LDFLAGS = $(ARCH) -nostdlib -e main
+LDFLAGS = -nostdlib -e main
 OBJDUMP_FLAGS = --no-show-raw-insn --no-addresses --disassembler-color=terminal --visualize-jumps
 
 all : $(NAME).bin
@@ -17,7 +17,7 @@ all : $(NAME).bin
 	riscv64-unknown-elf-objcopy $< -O binary $@
 
 %.elf: %.o
-	riscv64-unknown-elf-gcc $(LDFLAGS) $< -o $@
+	riscv64-unknown-elf-ld $(LDFLAGS) $< -o $@
 
 %.o: %.c
 	riscv64-unknown-elf-gcc $(CFLAGS) -c $< -o $@
