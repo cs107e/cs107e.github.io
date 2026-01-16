@@ -139,7 +139,9 @@ Here is a video clip of an 8-LED scanner:
        name="Assignment 1 demo" src="images/larson_demo.mp4"></video>
 
 
-Keep the [one-page guide](/guides/riscv-onepage) on hand as a reference. You are free to use the full range of RISC-V instructions other than function calls, which we have yet to cover, i.e. do __not use__ `jal`,`jalr`,`call`, or `ret`.
+Keep the [one-page guide](/guides/riscv-onepage) on hand as a reference. You may use any of the RISC-V instructions other than function calls, which we have yet to cover, i.e. do __not use__ `jal`,`jalr`,`call`, or `ret`.
+
+Writing a bare-metal assembly program is a bit of a power trip. Your program is king -- it is the only code executing and has unfettered access to the machine. You can use any and all of the registers, you have access to all of DRAM memory, you specify exactly which instructions to execute and how control flows.  But with great power comes with great responsibility; it is up to you to track how you use the resources and not step on your own toes.
 
 There are various ways you could structure your code, some more pleasing than others.  We want your priority to be on writing clean, straightforward code that is easy for the reader to follow and understand. A much lesser side goal is to support modest extensibility, such as making it easy to edit the number of LEDs from 4 to 6 or change the speed.
 
