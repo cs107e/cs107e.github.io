@@ -2,8 +2,6 @@
 layout: default
 ---
 
-{{ content }}
-
 <style>
     .footnote:before {
         content: ' Q-';
@@ -26,24 +24,47 @@ layout: default
             margin: 0;
         }
 
+        .no-print {
+            display: none;
+        }
+
+        body * { /* hide everything */
+            display: none !important;
+        }
+
+
+        /* restore display of parent chain */
+        main,
+        .body-container,
+        .container-fluid,
+        .row,
+        .col-xs-12,
+        .col-md-10,
+        #content {
+            display: block !important;
+        }
+
+        /* restore display of these specific elements to default display type */
+        .checkinsheet,
+        .checkinsheet *,
+        .footnotes,
+        .footnotes * {
+            display: revert !important;
+        }
+
         .body-container, .container-fluid {
             margin: 0;
             width: 100%;
             max-width: 2000px;
         }
 
-      #toc , .footer, .reversefootnote, .footnote, .footnotes:before  {
-        display:none
-      }
+        #toc , .footer, .reversefootnote, .footnote, .footnotes:before  {
+            display:none !important;
+        }
 
-      .footnotes li {
-         padding-bottom: 110px;
-      }
-
-      .checkinsheet {
-           page-break-before: always;
-           margin-top: 40px;
-       }
+        .footnotes li {
+            padding-bottom: 110px;
+        }
 
        .underline-name {
             border-bottom: 1px solid;
@@ -64,3 +85,5 @@ layout: default
 
     }
 </style>
+
+{{ content }}

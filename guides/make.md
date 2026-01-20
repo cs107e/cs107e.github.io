@@ -6,17 +6,16 @@ attribution: Written by Julie Zelenski
 
 ## What is a Makefile?
 
-Make is a tool that automates building programs;
-a Makefile describes the commands and options used in the build
-process. As you will see soon enough, using a Makefile saves you a lot of retyping and makes your life
+A _Makefile_ is
+a text file that describes the commands and options needed to build a program. The Makefile is used by the tool `make`.  As you will see soon enough, using a Makefile to automate the build process saves you a lot of retyping and makes your life
 as a developer a whole lot smoother!
 
-This guide introduces Makefiles using examples of cross-development. For further information about Makefiles in general,
-check out the [other resources](#resources) on the bottom of this page.
+This guide uses example Makefiles written for a cross-development build. For information about Makefiles in other contexts,
+refer to the resources in the section [Going Further](#resources).
 
 ## An example Makefile
-The example makefile below builds the `blink.bin` program out of the `blink.c` source file.
-Our labs and assignments will include similar Makefiles, 
+The example makefile below builds the `blink.bin` program from the `blink.c` source file.
+The labs and assignments use Makefiles very similar to this one,
 so you will soon become familiar with the common structure.
 
 ```makefile
@@ -155,15 +154,20 @@ The symbols that begin with `$` and `%` in a pattern rule are handled by `make` 
 
 One more special variable `$^` refers to all elements in the right part of the rule, after the `:`, which is to say all of the dependencies.
 
-For further convenience, we can add a rule for the `run` target. We use this target to invoke the command ` blink.bin` to load and execute our newly-built program on the Pi.
+For further convenience, we can add a rule for the `run` target to load and execute our newly-built program on the Pi.
 
 ```makefile
-# The run target uploads a freshly made binary image to the xfel bootloader
-run: $(NAME).bin
+run: $(NAME).bin   # load and execute binary program on Pi
 	mango-run $<
 ```
 
 With that finishing touch, you have a general Makefile that can be easily re-purposed for other projects. Now that you know that a Makefile is just a cookbook that culminates in the tasty program you wish to create, you're ready to add your favorite recipes and bon appetit!
+
+<a name="tab"></a>
+> __Make is failing with a cryptic error about `Makefile: *** missing separator`. What gives?__
+In what is widely considered one of the dumber decisions in the history of computing, a Makefile distinguishes between tabs and spaces. The recipe lines for a target must be indented by a tab and an equivalent number of spaces just won't do. Edit your makefile and replace those errant spaces with a tab to restore Makefile joy.
+{: .callout-warning}
+
 
 ## Going further
 <a name="resources"></a>
@@ -172,10 +176,6 @@ Some follow up references on Makefiles:
 - [a Makefile tutorial](http://www.opussoftware.com/tutorial/TutMakefile.htm)
 - [another Makefile tutorial](http://www.delorie.com/djgpp/doc/ug/larger/makefiles.html)
 - [CS107 Guide to Makefiles](https://web.stanford.edu/class/archive/cs/cs107/cs107.1186/guide/make.html)
-- An inexhaustible source of make wisdom is the full manual for [GNU make](https://www.gnu.org/software/make/manual/html_node/index.html) which will tell you more that you could ever want to know. 
+- An inexhaustible source of make wisdom is the full manual for [GNU make](https://www.gnu.org/software/make/manual/html_node/index.html) which will tell you more that you could ever want to know.
 - Reading makefiles from real world projects is a good way to see make in action.  A [search for makefile on github.com](https://github.com/search?q=makefile) will turn up a treasure trove.
 
-
-__Q. Make is failing with a cryptic error about `Makefile: *** missing separator`. What gives?__
-
-A. In what is widely considered one of the dumber decisions in the history of computing, a Makefile distinguishes between tabs and spaces. The recipe lines for a target must begin with a tab and an equivalent number of spaces just won't do. Edit your makefile and replace those errant spaces with a tab to restore Makefile joy.

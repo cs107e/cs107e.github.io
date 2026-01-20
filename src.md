@@ -36,7 +36,7 @@ pre {
 }
 </style>
 
-{% assign filenames = "ccu.c,cstart.c,de.c,font.c,gpio_interrupt.c,hdmi.c,hstimer.c,interrupts.c,interrupts_asm.s,mango.c,ps2_keys.c,rand.c,ringbuffer.c,start.s,uart.c" | split: ',' %}
+{% assign filenames = "ccu.c,cstart.c,de.c,font.c,gpio_interrupt.c,hdmi.c,hstimer.c,interrupts.c,interrupts_asm.s,mango.c,memmap.ld,ps2_keys.c,rand.c,ringbuffer.c,start.s,uart.c" | split: ',' %}
 
 <div class="row flex-row">
 <div class="nav nav-pills flex-column sidenav">
@@ -50,9 +50,18 @@ pre {
 <div class="tab-content content">
 {%- for f in filenames %}
 {% assign base = f | split:'.' | first %}
+{% assign ext = f | split:'.' | last %}
 <div class="tab-pane" id="{{base}}" markdown="1">
+{%- if ext == "s" %}
+```ini
+{%- else %}
 ```c
+{%- endif %}
+{%- if f == "memmap.ld" %}
+{% include_relative /cs107e/lib/memmap.ld %}
+{%- else %}
 {% include_relative /cs107e/src/{{f}} %}
+{%- endif %}
 ```
 </div>
 {% endfor %}

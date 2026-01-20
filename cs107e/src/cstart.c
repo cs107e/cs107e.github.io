@@ -1,6 +1,7 @@
 /*
  * File: cstart.c
  * --------------
+ * This file contains the C language portion of start sequence.
  *
  * Author: Julie Zelenski <zelenski@cs.stanford.edu>
  */

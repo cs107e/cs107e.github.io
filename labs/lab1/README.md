@@ -230,7 +230,7 @@ Running the `blink.bin` program on the Pi should pulse gpio `PB0` which is conne
 
 Below is the blink program that from lecture. This code is available in the file `lab1/blink/blink.s` and also reproduced below.
 
-```
+```ini
     lui     a0,0x2000       # a0 holds base addr PB group = 0x2000000
     addi    a1,zero,1       # a1 holds constant 1
     sw      a1,0x30(a0)     # config PB0 as output
@@ -281,7 +281,7 @@ The final lab exercise is to study the `button` program and build a circuit to t
 
 This button program is in the file `lab1/button/button.s`. It uses two gpios: `PB0` configured as an output and connected to an LED and `PC0` configured as an input and connected to read state of a push button. The initial instructions of the program turn on the LED connected to `PB0` and there after it goes into a loop which reads the value of `PC0` and turns off the LED when the button is pressed.
 
-```    
+```ini
     lui     a0,0x2000       # a0 holds gpio base addr = 0x2000000
     addi    a1,zero,0x1     # a1 holds constant 1
     sw      a1,0x30(a0)     # config PB0 as output

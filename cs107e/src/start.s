@@ -1,11 +1,11 @@
-/*
- /* File: start.s
-  * -------------
-  * These asm instuctions go first in binary image, they will be
-  * the first to be executed in a newly loaded program.
-  *
-  * Author: Julie Zelenski <zelenski@cs.stanford.edu>
-  */
+# File: start.s
+# -------------
+# This file defines the start sequence. These asm instuctions
+# are placed first in binary image and will be the first
+# to be executed in a newly loaded program.
+#
+# Author: Julie Zelenski <zelenski@cs.stanford.edu>
+
 
 .attribute arch, "rv64im_zicsr"
 

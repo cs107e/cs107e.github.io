@@ -61,3 +61,9 @@
 .highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
 .highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
 .highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */
+
+.language-makefile .highlight .nv { color: purple; font-weight: bold }
+.language-makefile .highlight .nt { color:black; font-weight: bold }
+/* re-purposing for RISC-C assembly, suppress errors */
+.language-ini .highlight .err { border: none }
+

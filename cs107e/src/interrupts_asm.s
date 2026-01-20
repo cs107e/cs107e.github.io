@@ -1,6 +1,7 @@
-/*
- * Asm routines to access CSRs used by interrupts module
- */
+#
+# Asm routines to access CSRs used by interrupts module
+#
+
  .attribute arch, "rv64im_zicsr"
 
 .globl interrupts_global_enable
