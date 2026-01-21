@@ -317,18 +317,23 @@ Grab a pushbutton from your parts kit. The button has four legs, which are parti
 
 You will connect an input pin from the Pi into the button circuit to read the button state (pressed or not pressed). The default voltage of a gpio pin operating in input mode is in a "floating" state, it might read high, it might read low, the value can even change unpredictably. We must intentionally pull the pin to a known voltage to establish a reliable reading. The button program above is written expect that the button state is initially high and goes low when pressed, so we need to make the default state high. We can do this by connecting the input pin to the power rail through a 10K resistor to "pull up" the line. This causes the gpio to read high by default when the button is not pressed. Pressing the button grounds the circuit and the gpio will then read low.  Sparkfun has a nice tutorial on the [use of pull-up resistors](https://learn.sparkfun.com/tutorials/pull-up-resistors/all) for more information.
 
-Here is the schematic for connecting an input pin to read the button state. The input pin will read high while switch is open (button unpressed) and low when switch is closed (button pressed).
+Below is the schematic for a button connected to a pull-up resistor. The input pin will read high while switch is open (button unpressed) and low when switch is closed (button pressed).
 
-![Button with pull-up resistor diagram](images/pull-up-schematic.jpg)
+![Button with pull-up resistor diagram](images/pull-up-schematic.png)
 {: .w-50 .mx-auto}
 
 Below is a photo of a partial circuit corresponding to the schematic above. VCC (3.3V) and ground are connected to the Pi, R1 is a 10K resistor uses as a pull-up. Add this partial circuit on your breadboard (keep the existing connections for the `PB0` LED intact as well).
 
 ![Button with pull-up resistor circuit](images/button-circuit.jpg){: .zoom}
 
-In the photo above, the northeast leg of the button is connected to VCC through the pull-up resistor. The southwest button leg is directly connected to ground. Be sure to note how power is flowing through the 10K resistor! If the button leg were directly connected to power without that resistor, pressing the button would create a short between power and ground that could damage your Pi.
+In the photo above, we used an orange jumper to connect 3.3V on Pi to one end of the pull-up resistor, the other end of the resistor is connected to the northeast leg of the button. We used a black jumper to connect the southwest button leg directly to ground on Pi. Pressing the button completes the circuit and power will flow from VCC through the resistor through the closed button and eventually to ground.
 
-Note that the circuit in photo is not yet complete -- it is missing from the input pin to read the button state. Use the pinout to find gpio `PC0` on the Mango Pi header.  Identify where to connect a jumper from `PC0` into the button circuit such that it will read high in starting state and read low when button is pressed. Add a jumper for that connection and your circuit is complete.
+Be sure you understand why the resistor is needed! If power was connected directly to the button leg, pressing the button would form a short between power and ground that could damage your Pi. Ouch!
+
+> __Double-check your wiring!__  Before powering up your circuit, "read" it over to confirm it correctly models the schematic. Choosing jumper colors that follow consistent conventions (e.g. orange for 3.3V power, black for ground) can help with readability.
+{:  .callout-danger }
+
+The circuit in photo is not yet complete -- it is missing the connection to read the button state.  Review the schematic to identify where the input pin connects into the button circuit. The input point is chosen such that the input will read high in the starting state and read low when the button is pressed. Use the pinout to find gpio `PC0` on the Mango Pi header.  Add a jumper from `PC0` to the input and your circuit is complete.
 
 Your breadboard should have the previous circuit of LED connected to `PB0` and the additional button circuit connected to `PC0`. You are now ready to power it up and build and run the button program.  Time for another round of `riscv64-unknown-elf-...`, uh, what was that again? Let's add another useful tool to your bag of tricks: `make`. A `Makefile` can be used to list the commands needed to build and run the program and allows you to skip re-typing them again and again.  Next week's lab will have an exercise on exploring `make`, for now, you can take it on faith that we have provided a Makefile to use. Use the command `make run` as a shortcut for building and running a program on the Mango Pi. Try it out now!
 
