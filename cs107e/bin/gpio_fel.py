@@ -3,210 +3,157 @@
 Python script to access Mango Pi gpio peripheral using xfel
 
 Author:  Daniel James <drjames@stanford.edu> Jan 2024
+Updated: Julie Zelenski, Winter quarter 2026
 """
 
-import subprocess
-import sys
+import subprocess,sys
 
-ANSI_GRAY = "\033[90m"
-ANSI_RED = "\033[31m"
-ANSI_GREEN = "\033[32m"
-ANSI_YELLOW = "\033[33m"
-ANSI_RESET = "\033[0m"
+COLORS = {'normal':'\033[0m', 'red':'\033[31m', 'green':'\033[32m', 'yellow':'\033[33m',
+          'bold':'\033[1m', 'faint':'\033[2m', 'underline':'\033[4m'}
+def wrap_fn(color): return lambda s: COLORS[color] + str(s) + COLORS['normal']
+for color in COLORS: setattr(sys.modules[__name__], color, wrap_fn(color))
 
-def p_hex(num: int):
-    return f"{num:#0{10}x}"
+def xfel_command(cmd, *args):
+    shell_cmd = ['xfel', cmd] + [f"{a:#0{10}x}" for a in args]
+    print(faint(' '.join(shell_cmd)))
+    try:
+        result = subprocess.run(shell_cmd, check=True, capture_output=True)
+        return result.stdout.decode('utf-8').strip()
+    except Exception:
+        print(red(f"Error calling xfel. Are you sure the MangoPi is connected?"))
+        sys.exit(1)
 
-def run_xfel(args: list[str]):
-    parts = ["xfel"] + args
-    print(ANSI_GRAY, end="")
-    print(*parts, sep=" ", )
-    print(ANSI_RESET, end="")
-    return subprocess.run(parts, check=True, capture_output=True)
-
-def xfel_read(address: int):
-    result = run_xfel(["read32", p_hex(address)])
-    stdout_str = result.stdout.decode("utf-8")
-    return int(stdout_str.strip(), 16)
+def xfel_read(address: int) -> int:
+    out = xfel_command('read32', address)
+    return int(out, 16)
 
 def xfel_write(address: int, value):
-    run_xfel(["write32", p_hex(address), p_hex(value)])        
+    xfel_command('write32', address, value)
 
 class GpioPin:
+
+    GROUPS = {# (max id, cfg base addr)
+        'B': (12, 0x02000030),
+        'C': ( 7, 0x02000060),
+        'D': (22, 0x02000090),
+        'E': (17, 0x020000C0),
+        'F': ( 6, 0x020000F0),
+        'G': (18, 0x02000120),
+    }
+
     def __init__(self, s: str) -> None:
         try:
-            pin = s.upper()
-            if pin[0] == "P":
-                pin = pin[1:]
+            idstr = s.upper()
+            if idstr[0] == 'P': idstr = idstr[1:]
+            self.group = idstr[0]
+            self.index = int(idstr[1:])
+            (max, cfg_base_addr) = GpioPin.GROUPS[self.group]
+            if not (0 <= self.index <= max): raise Exception()
+            self.cfg_addr = cfg_base_addr + (self.index // 8) * 4
+            self.data_addr = cfg_base_addr + 0x10
+            self.cfg_shift = (self.index % 8) * 4
 
-            self.group = pin[0]
-            self.pin_idx = int(pin[1:])
+        except (KeyError, ValueError, IndexError):
+            sys.exit(red(f"Error: invalid gpio id '{s}'"))
 
-            if not self.is_valid(): raise Exception(s)
-
-        except:
-            sys.exit(f"Invalid gpio id: {s}")
-
-    def is_valid(self):
-        if   self.group == "B": return 0 <= self.pin_idx <= 12
-        elif self.group == "C": return 0 <= self.pin_idx <= 7
-        elif self.group == "D": return 0 <= self.pin_idx <= 22
-        elif self.group == "E": return 0 <= self.pin_idx <= 17
-        elif self.group == "F": return 0 <= self.pin_idx <= 6
-        elif self.group == "G": return 0 <= self.pin_idx <= 18
-        else: return False
-    
-    def cfg_base_address(self):
-        if   self.group == "B": return 0x02000030
-        elif self.group == "C": return 0x02000060
-        elif self.group == "D": return 0x02000090
-        elif self.group == "E": return 0x020000C0
-        elif self.group == "F": return 0x020000F0
-        elif self.group == "G": return 0x02000120
-        else: return None
-    
-    def data_base_address(self):
-        if   self.group == "B": return 0x02000040
-        elif self.group == "C": return 0x02000070
-        elif self.group == "D": return 0x020000A0
-        elif self.group == "E": return 0x020000D0
-        elif self.group == "F": return 0x02000100
-        elif self.group == "G": return 0x02000130
-        else: return None
-    
     def read_fn(self):
-        addr = self.cfg_base_address() + (self.pin_idx // 8) * 4
-        shift = (self.pin_idx % 8) * 4
-        return (xfel_read(addr) >> shift) & 0xF
+        return (xfel_read(self.cfg_addr) >> self.cfg_shift) & 0xF
 
     def write_fn(self, fn: int):
-        if fn < 0 or fn > 15: raise Exception(f"Invalid function {fn}.")
+        xfel_write(self.cfg_addr, (xfel_read(self.cfg_addr) & ~(0xF << self.cfg_shift)) | (fn << self.cfg_shift))
 
-        addr = self.cfg_base_address() + (self.pin_idx // 8) * 4
-        shift = (self.pin_idx % 8) * 4
-        curr = xfel_read(addr)
-        curr &= ~(0xF << shift) # unset the bits for our pin
-        curr |= fn << shift     # and set the bits for the function
-        xfel_write(addr, curr)
-    
     def read_val(self):
-        addr = self.data_base_address()
-        return (xfel_read(addr) >> self.pin_idx) & 1 == 1
+        return (xfel_read(self.data_addr) >> self.index) & 0x1
 
     def write_val(self, val: bool):
-        addr = self.data_base_address()
-        curr = xfel_read(addr)
-        curr &= ~(1 << self.pin_idx)
-        curr |= (1 if val else 0) << self.pin_idx
-        xfel_write(addr, curr)
+        curr = xfel_read(self.data_addr)
+        shift = 1 << self.index
+        xfel_write(self.data_addr, (curr | shift) if val else (curr & ~shift))
 
     def __str__(self):
-        return f"P{self.group}{self.pin_idx}"
+        return f"P{self.group}{self.index}"
+
+    def all_pins():
+        return [f"P{g}{i}" for (g,(n,_)) in GpioPin.GROUPS.items() for i in range(0, n+1)]
 
 
-def parse_state(state: str):
-    if state in ["high", "true", "1"]: return True
-    elif state in ["low", "false", "0"]: return False
-    else: return None
+def fn_name(num: int) -> str:
+    FN_NAMES = {0:'input',1:'output',14:'interrupt',15:'disabled'}
+    if num in FN_NAMES: return FN_NAMES[num]
+    if 2 <= num <= 8: return f"alt{num}"
+    if 9 <= num <= 13: return "reserved"
+    return None
 
-
-def pretty_print_fn(fn: int):
-    if fn == 0: print("0 - Input")
-    elif fn == 1: print("1 - Output")
-    elif 2 <= fn <= 8: print(f"{fn} - Alt{fn}")
-    elif 9 <= fn <= 13: print(f"{fn} - Reserved")
-    elif fn == 14: print("14 - Interrupt")
-    elif fn == 15: print("15 - Disabled")
-    else: print(f"Function {fn}? That should be possible!")
-
-
-def parse_fn(fn: str):
-    if fn == "in" or fn == "input": return 0
-    elif fn == "out" or fn == "output": return 1
-    elif fn == "alt2": return 2
-    elif fn == "alt3": return 3
-    elif fn == "alt4": return 4
-    elif fn == "alt5": return 5
-    elif fn == "alt6": return 6
-    elif fn == "alt7": return 7
-    elif fn == "alt8": return 8
-    elif fn == "interrupt": return 14
-    elif fn == "disabled" or fn == "disable": return 15
-    else:
-        num = int(fn)
-        if 0 <= num <= 15:
-            return num
-        else:
-            return None
-
-
-def show_pin(pin):
-    #pin = GpioPin(id)
-    print("----")
-    fn = pin.read_fn()
-    if fn in [0, 1]:
-        val = pin.read_val()
-        valstr = f" val: {'1 - High' if val else '0 - Low'},"
-    else:
-        valstr = ''
-    print(f"[{pin}]{valstr} fn: ", end='')
-    pretty_print_fn(fn)
-
-
-def help_message():
-    print(f"A tool for interacting with the GPIO pins on the mango pi")
-    print(f"")
-    print(f"{ANSI_YELLOW}Usage:{ANSI_RESET} gpio_fel.py [COMMAND]")
-    print(f"")
-    print(f"{ANSI_YELLOW}Commands:{ANSI_RESET}")
-    print(f"   {ANSI_GREEN} help              {ANSI_RESET}   - Print this help message")
-    print(f"   {ANSI_GREEN} read <pin>        {ANSI_RESET}   - Read the current state of the pin")
-    print(f"   {ANSI_GREEN} write <pin> <val> {ANSI_RESET}   - Set the state of the pin (high, low, true, false, 0, 1)")
-    print(f"   {ANSI_GREEN} fn get <pin>      {ANSI_RESET}   - Get the function of the pin")
-    print(f"   {ANSI_GREEN} fn set <pin> <fn> {ANSI_RESET}   - Set the function of pin pin (0-15, in, out, alt2-8, interrupt, disabled)")
-    print(f"   {ANSI_GREEN} show <pin> <pin>...{ANSI_RESET}  - Show function and state of pin(s) (if no argument, show all pins)")
-
-def main():
-    argv = sys.argv
-
-    if len(argv) == 1 or argv[1] == "help" or argv[1] == "--help" or argv[1] == "-h":
-        help_message()
-        exit()
-
-    if argv[1] == "read":
-        pin = GpioPin(argv[2])
-        print("1 - High" if pin.read_val() else "0 - Low")
-
-    elif argv[1] == "write":
-        pin = GpioPin(argv[2])
-        state = parse_state(argv[3])
-        pin.write_val(state)
-
-    elif argv[1] == "fn" and argv[2] == "get":
-        pin = GpioPin(argv[3])        
-        pretty_print_fn(pin.read_fn())
-
-    elif argv[1] == "fn" and argv[2] == "set":
-        pin = GpioPin(argv[3])
-        fn = parse_fn(argv[4])
-        pin.write_fn(fn)
-
-    elif argv[1] == "show":
-        if (len(argv) > 2):
-            ids = argv[2:]
-        else:
-            groups = {'B':12, 'C':7, 'D':22, 'E':17, 'F':6, 'G':18}
-            ids =  [f"P{g}{i}" for g in groups for i in range(0, groups[g]+1)]
-        for p in [GpioPin(id) for id in ids]:
-            show_pin(p)
-
-    else:
-        help_message()
-
-
-if __name__ == "__main__":
+def parse_fn(s: str) -> int:
     try:
-        main()
-    except subprocess.CalledProcessError:
-        print(f"{ANSI_RED}There was an error with xfel. Are you sure the MangoPi is connected?{ANSI_RESET}")
-        exit(1)
+        as_int = int(s)
+        if fn_name(as_int) is not None: return as_int
+    except:
+        for i in range(0, 16):
+            if s.lower() == fn_name(i).lower(): return i
+    sys.exit(red(f"Error: invalid fn '{s}'"))
+
+def parse_state(s: str) -> bool:
+    s = s.lower()
+    if s in ['high', 'true', '1']: return True
+    elif s in ['low', 'false', '0']: return False
+    sys.exit(red(f"Error: invalid state '{s}'"))
+
+def show_pin(pin, *args):
+    print('----')
+    valstr = fnstr = ''
+    fn = pin.read_fn()
+    if 'val' in args or ('all' in args and fn != 15):
+        valstr = f"val: {'1 (High)' if pin.read_val() else '0 (Low)'}"
+    if 'fn' in args or 'all' in args:
+        fnstr = f"fn: {fn} ({fn_name(fn).capitalize()})"
+    print(f"[{pin}] {valstr} {fnstr}")
+
+def show_usage():
+    commands = [('read', ['pin'], 'Read pin state'),
+                ('write', ['pin','val'], 'Set pin state (val can be high,1,true,low,0,false)'),
+                ('getfn', ['pin'], 'Get pin function'),
+                ('setfn', ['pin', 'fn'], 'Set pin function (fn can be 0-15,input,output,alt2-8,interrupt,disabled)'),
+                ('show', ['[pin]', '...'], 'Show function and state of one or more pins (if no argument, show all pins)')]
+
+    print(f"A tool for interacting with the GPIO pins on the Mango Pi\n")
+    print(f"{yellow('Usage:')} gpio_fel.py {underline('subcommand')}\n")
+    print(f"{yellow('Subcommands:')}")
+    for (cmd,args,desc) in commands:
+        print(f"    {green(cmd)} {(' '.join(underline(a) for a in args))}    \t- {desc}")
+
+
+if __name__ == '__main__':
+
+    if len(sys.argv) == 1 or sys.argv[1] == '--help' or sys.argv[1] == '-h':
+        show_usage()
+        sys.exit()
+
+    try:
+        subcommand = sys.argv[1]
+        args = sys.argv[2:]
+        if subcommand == 'read':
+            show_pin(GpioPin(args[0]), 'val')
+
+        elif subcommand == 'write':
+            pin = GpioPin(args[0])
+            pin.write_val(parse_state(args[1]))
+
+        elif subcommand == 'getfn':
+            show_pin(GpioPin(args[0]), 'fn')
+
+        elif subcommand == 'setfn':
+            pin = GpioPin(args[0])
+            pin.write_fn(parse_fn(args[1]))
+
+        elif subcommand == 'show':
+            ids = args if len(args) > 0 else GpioPin.all_pins()
+            for p in [GpioPin(id) for id in ids]:
+                show_pin(p, 'all')
+
+        else:
+            print(bold(red(f"Error: gpio_fel.py: no such subcommand '{subcommand}'\n")))
+            show_usage()
+
+    except IndexError:
+        print(red(bold(f"Error: gpio_fel.py {subcommand} {' '.join(args)}  ")), red("missing required argument(s)"))

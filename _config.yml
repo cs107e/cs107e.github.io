@@ -40,7 +40,6 @@ exclude:        [Gemfile, vendor, README.md, /cs107e/, private,
 include:        [_assets, _templates]
 
 theme: null  # not using any pre-built theme
-
 # ask for as much checking as possible
 liquid:
   error_mode:       strict
@@ -48,3 +47,6 @@ liquid:
 # strict_variables:   true    # JDZ: not compatible with jekyll-sitemap, sigh
   strict_filters:     true
 lang:               en-US
+
+remote_theme: eecs485staff/primer-spec
+plugins:        [jekyll-remote-theme,jekyll-optional-front-matter,jekyll-readme-index,jekyll-relative-links,jekyll-default-layout,jemoji]

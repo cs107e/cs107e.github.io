@@ -9,7 +9,7 @@ NAME = count
 ARCH    = -march=rv64im -mabi=lp64
 CFLAGS 	= $(ARCH) -g -Og -Wall -ffreestanding
 LDFLAGS = -nostdlib -e main
-OBJDUMP_FLAGS = --no-show-raw-insn --no-addresses --disassembler-color=terminal --visualize-jumps
+OBJDUMP_FLAGS = --no-show-raw-insn --no-addresses --disassembler-color=terminal --visualize-jumps=extended-color
 
 all : $(NAME).bin
 

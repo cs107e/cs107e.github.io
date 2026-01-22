@@ -16,7 +16,7 @@ tools:
     icon: riscv.png
     link: /readings/RISC-V-cheatsheet-RV32I-4-3.pdf
     description: (Erik Engheim)
-  - title: D-1 User manual
+  - title: D1-H User manual
     icon: allwinner.png
     link: /readings/d1-h_user_manual_v1.0.pdf
     description: (peripherals)
