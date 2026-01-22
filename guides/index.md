@@ -30,7 +30,7 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 - [Meet your GPIO pins](MeetYourGPIOPins.pdf)
 - [Program your GPIO pins](ProgramYourGPIOPins.pdf)
 
-## Risc-V
+## RISC-V
 - [One page of RISC-V](riscv-onepage)
 
 ## Development tools/process

@@ -19,7 +19,7 @@ Here are links to various external resources with information about the Mango Pi
 
 ## RISC-V architecture
 
-- _The Risc-V Reader: An Open Architecture Atlas_, Patterson & Waterman <https://www.amazon.com/dp/0999249118/>
+- _The RISC-V Reader: An Open Architecture Atlas_, Patterson & Waterman <https://www.amazon.com/dp/0999249118/>
     - Amazingly succinct yet thorough coverage of the architecture, with backstory on how the design came to be.
 - Riscv.org website <https://riscv.org/technical/specifications/>
     - [RISC-V specification Vol. 1](/readings/riscv-spec-20191213.pdf) and [Vol. 2](/readings/riscv-privileged-20190608-1.pdf)

@@ -151,13 +151,13 @@ Your functions should also be robust against client error. If given an invalid p
 
 >__Pins with special function__ Some GPIO pins have specialized behavior to note.
 - At reset, all GPIOs are initially disabled excepting four F group pins that are configured for JTAG control. `GPIO_PF0`, `GPIO_PF1`, `GPIO_PF3`, `GPIO_PF5` will be set to function `Alt 4`. It is okay to reconfigure and manipulate these gpios for testing.
-- `GPIO_PD18` controls the blue ACT LED on the Mango Pi board. The start sequence we are using configures it as output and turns it on.  You can manipulate the gpio for testing but expect this to affect the blue LED.
-- We recommend your Mango Pi __not be connected to your clock breadboard__ while testing the gpio module. (or be aware that component connneted to header pin will be reacting to test cases)
+- `GPIO_PD18` controls the blue ACT LED on the Mango Pi board. The start sequence in `cstart.c` configures it as output and turns it on.  You can manipulate this gpio for testing but be aware these actions will affect the blue LED.
+- We recommend your Mango Pi __not be connected to your clock breadboard__ while testing the gpio module (or be aware that the connected components will be reacting to the actions of your test cases).
 {: .callout-warning}
 
 Next up, implement the `gpio_write` and `gpio_read` functions. To set a pin's state to high or low, write a 1 or 0 to the corresponding bit in group's `DAT` register. To read a pin's state, read the corresponding bit.
 
-Test before moving on. `test_gpio_timer.c` has a sample test in `test_gpio_read_write()` that calls `gpio_write` to change the state and confirms that `gpio_read` returns the updated state. Consider what additional behaviors need to be confirmed and write test cases for each:
+Be sure to test the functions before moving on. In `test_gpio_timer.c` the function `test_gpio_read_write()` has a simple test that calls `gpio_write` to change a pin state and confirms `gpio_read` returns the updated state. Consider what other behaviors need to be confirmed and write additional test cases for each.
 
 - read should match value that was written
 - can read and write pins for any valid gpio id
@@ -186,7 +186,7 @@ Note that `volatile` is not something to throw about indiscriminately. Apply it 
 
 ### 2. Implement and test timer module
 
-The clock application needs to determine the passage of time. The RISC-V specification requires a machine counter `mtime` that tracks a tick count incremented with constant frequency (see documentation in [Section 3.1.10 of the Risc-V spec](/readings/riscv-privileged-20190608-1.pdf#page=44)).  On the Mango Pi, `mtime` is a 64-bit tick counter that is initialized to zero on reset and is continuously incremented at a rate of 24Mhz (i.e. each tick is 1/24 microsecond). This `mtime` register is not exposed as a memory-mapped address, instead access is provided using a `CSR` ("Control and Status Registers"). The CSRs are documented in [Section 2 of the Risc-V spec](/readings/riscv-privileged-20190608-1.pdf#page=17)). CSRs are accessed using special assembly instructions.  To read a CSR, the instruction is `csrr` (CSR read).  `csrr rd,which` will copy the value of CSR `which` into the destination register `rd`. CSRs can be identified either by name mnemonic or CSR number. In this case, either `time` or `0xC01` refers to the read-only CSR that corresponds to the `mtime` machine register.
+The clock application needs to determine the passage of time. The RISC-V specification requires a machine counter `mtime` that tracks a tick count incremented with constant frequency (see documentation in [Section 3.1.10 of the RISC-V spec](/readings/riscv-privileged-20190608-1.pdf#page=44)).  On the Mango Pi, `mtime` is a 64-bit tick counter that is initialized to zero on reset and is continuously incremented at a rate of 24Mhz (i.e. each tick is 1/24 microsecond). This `mtime` register is not exposed as a memory-mapped address, instead access is provided using a `CSR` ("Control and Status Registers"). The CSRs are documented in [Section 2 of the RISC-V spec](/readings/riscv-privileged-20190608-1.pdf#page=17)). CSRs are accessed using special assembly instructions.  To read a CSR, the instruction is `csrr` (CSR read).  `csrr rd,which` will copy the value of CSR `which` into the destination register `rd`. CSRs can be identified either by name mnemonic or CSR number. In this case, either `time` or `0xC01` refers to the read-only CSR that corresponds to the `mtime` machine register.
 
 Read the header file `timer.h` to view the function declarations and documentation for the `timer` module. The module implementation is split over two files: `timer.c` for the C code and `timer_asm.s` for assembly code. You have only one task for the `timer` module which is to implement the function `timer_get_ticks` in `timer_asm.s` to access the current tick count. This function must be implemented in assembly, as CSR can only be accessed using special instructions.
 
@@ -204,7 +204,10 @@ Next turn your attention to the hardware for your clock display.
 - In total, you will use twelve GPIOs on the Pi: seven to control the segments, four to control the digits, and one to read the state of the
    button. Here is the schematic from lab (click to enlarge):
   ![](/labs/lab2/images/schematic.full.png){: .zoom .w-75 }
-  The assigned GPIOs appear to be random, but if you compare it to the [refcard](/guides/refcard), I think you'll see the method to our madness.
+  The assigned GPIOs appear to be random, but if you compare it to the [refcard](/guides/refcard), I think you'll see the method to our madness.  You can also ask `pinout.py` to show you the clock connections:
+  ```console
+  $ pinout.py clock
+  ```
 - The dots in the upper right of the schematic control the segments. Add male-to-female jumpers connecting the seven header pins for gpios `{PD17, PB6, PB12, PB11, PB10, PD11, PD13}` to the 1K current-limiting
   resistors on your breadboard that connect to segments A - G of the display unit. `PD17` controls segment A, `PB6` controls segment B, and so on.
 - The dots in the lower left of the schematic are for the digits. Add male-to-female jumpers connecting the four header pins for gpios `{PB4, PB3, PB2, PC0}` to the 1K resistors at the base of the transistors controlling digits 1 through 4.
@@ -229,20 +232,20 @@ Subcommands:
     getfn pin         - Get pin function
     setfn pin fn      - Set pin function (fn can be 0-15,input,output,alt2-8,interrupt,disabled)
     show [pin] ...    - Show function and state of one or more pins (if no argument, show all pins)
-$ gpio_fel.py show
-----
-xfel read32 0x02000030
-[PB0]  fn: 15 (Disabled)
-....
 
+$ gpio_fel.py show
+[PB0]  fn: 15 (Disabled)
+[PB1]  fn: 15 (Disabled)
+[PB2]  fn: 15 (Disabled)
+...
 ```
-The commands below turn on blue ACT led:
+The commands below turn on the blue ACT led which is controlled by gpio `PD18`:
 ```console
 $ gpio_fel.py setfn PD18 output
 $ gpio_fel.py write PD18 1
 ```
 
-Now let's see how you can `gpio_fel.py` to test your clock circuit. The diagram below labels each segment/digit with the controlling gpio.
+You can use `gpio_fel.py` to verify your clock wiring. The diagram below labels each segment/digit with the controlling gpio.
 ![clock gpio label](images/clock_gpio_labeled.png){: .zoom}
 
 To light the middle segment of digit 4, you will need to turn on `PD13` and `PC0`:
@@ -253,13 +256,13 @@ $ gpio_fel.py write PD13 1
 $ gpio_fel.py setfn PC0 output
 $ gpio_fel.py write PC0 1
 ```
-Cool! Continue using `gpio_xfel.py` to turn on and off each of the seven segments and the four digits.  These tests confirm your hardware -- your circuit and connections are certified awesome!
+Did it light up? Cool! Continue using `gpio_xfel.py` to turn on and off each of the seven segments and the four digits.  These tests confirm your hardware -- when you are done, you know your circuit and connections are certified awesome!
 
-Now that you have confidence about your hardware, you are ready to try a similar test using your software, i.e. controlling the gpios via your functions. This is a great real world test of your gpio module!  In the `test_gpio_timer.c` we provide the function `test_breadboard_connections`. This test calls your gpio functions to configure the pins, and then iterates over the digits lighting one segment at a time, pausing whenever the button is pressed. Uncomment the call to `test_breadboard_connections` and use `make test` to build and run. Because you previously confirmed the hardware and connecctions, any new problems that show in this test must originate from faulty code within your gpio module.
+With confidence in your hardware, you are ready to try a similar test on your software: calling your function to control the gpios. This is a great real world test of your gpio module!  In the `test_gpio_timer.c` we provide the function `test_breadboard_connections`. Review the code to see how it calls your gpio functions to configure the pins and light the segments one at time, pausing when the button is pressed. Uncomment the call to `test_breadboard_connections` and use `make test` to build and run. Because you previously confirmed the hardware, any new problems that come up in this test must originate from faulty code in your gpio module.
 
-Take a beat to appreciate why it is valuable to separate the testing of your hardware from the testing of your software. Imagine you were in a hurry and figured it would be quicker to test both simultaneously by jumping straight to `test_breadboard_connections`. But when a segment doesn't light up, how would you determine what's at fault: is the problem hardware, software, or both? Sounds like there might be some painful debugging ahead...
+Take a beat to appreciate why it is valuable to separate the testing of your hardware from the testing of your software. Imagine you were in a hurry and figured it would be quicker to test both simultaneously by jumping straight to `test_breadboard_connections without checking the hardware separately first. But when a segment doesn't light up, how can you determine what's at fault: is the problem hardware, software, or both? Sounds like there might be some painful debugging ahead...
 
-Give yourself a pat on the back! You've constructed an intricate circuit and used your marvelous gpio module has confirmed it is fully functional. Snap a photo of your finished hardware setup, copy the file to the `assign2` directory in your repo. Add the file and commit to include it with your submission so we can see your beautiful handiwork.
+Give yourself a pat on the back! You've constructed an intricate circuit and used your marvelous gpio module to confirm it is fully functional. Snap a photo of your finished hardware setup, copy the file to the `assign2` directory in your repo. Add the file and commit to include it with your submission so we can see your beautiful handiwork.
 
 ### 4. Display a digit
 
@@ -270,7 +273,7 @@ be a byte (8-bits). C has no `byte` type, but `unsigned char` suffices (there is
 
 Bit 0 (the least significant) will represent segment A, bit 1 segment B, and so on. If a bit is set, then that segment should be lit. For example, digit `0` consists of segments A-F, so its bit pattern is `0b00111111`. Digit `1` consists of just segments B and C, so its bit pattern is `0b00000110`. (`0b` is the prefix that introduces a binary number literal, just as `0x` prefixes a hexadecimal literal). Bit 7 (the most significant) could be used to represent `DP` but since we are not using the decimal point in this assignment, bit 7 will always be 0.
 
-Write a function that displays a single digit and call it from the `main()` function of `clock.c`. Verify that your bit patterns are correct by displaying each digit value from `0` to `9` and visually confirming.
+Write a function that turns on the segments for a given digit on Digit 1 and call it from the `main()` function of `clock.c`. Verify that your bit patterns are correct by displaying digits from `0` to `9` and visually confirming.
 Use `make run` to build and run your clock application.
 
 ### 5. Write display refresh loop
@@ -280,14 +283,13 @@ all four digits on the display. There is no way to turn on the display segments 
 
 Instead of actually displaying a simultaneous `5` and `3`, you'll accomplish the same effect with a display refresh loop that iterates over the digits one-by-one in quick succession. It turns on the segments for the leftmost digit, waits a moment, and turns off those segments, then repeats the process for each of the other three digits. You might think that turning a digit on and off would cause it to flicker. The key is to sequence through the digits so fast that our eyes cannot see them changing. Good thing computers are fast!
 
-Implement the display refresh loop in `clock.c`. Use the functions from
-the `timer` module to control the wait time. Loop though all four digits, turning each on for 2500 microseconds. Do you see any flicker? How long does the delay have to for you to start to see it?
+Implement the display refresh loop in `clock.c`. Loop though the four digits, turning each digit on for a fraction of a second. Use the functions from the `timer` module to control the wait time. At first, use a long-ish delay so you can observe the individual digits and confirm it's working as you intend. Then change it to be so fast that your eyes don't see the flicker.
 
 ### 6. Implement countdown clock
 
-The clock operates as a countdown clock. When the program is started, the display shows the countdown duration. The duration is expressed in minutes + seconds, e.g. "0230" is 2 minutes and 30 seconds.
+The clock operates as a countdown clock. When the program is started, the display shows the countdown duration. The duration is expressed in minutes + seconds, e.g. "0230" is 2 minutes and 30 seconds. The clock counts down by seconds.
 
-To start the countdown, the user clicks the button. The clock starts counting down by seconds, continually refreshing the display to show the remaining minutes and seconds. Confirm that the timer is calibrated correctly by observing that the clock is counting down at the right rate according to your watch or computer.
+When the user clicks the button, start the countdown.  Continually refresh the display to show the count of minutes and seconds remaining. Confirm that the timer is calibrated correctly by observing that the clock is counting down at the right rate according to your watch or computer.
 
 When the count reaches zero, announce the end of the countdown by blinking the display on and off (or apply your own creative touch to display a message or pattern).
 
@@ -296,22 +298,19 @@ This video shows countdown clock of 10-second duration:
 <video controls="controls" width="400"
        name="Assignment 2 demo" src="images/clock_demo.mp4"></video>
 
-The countdown duration for the clock is configured using a mechanism we added to the Makefile. The default duration is set for 67 seconds (1 minute and 7 seconds = 107).  You can specify a different duration using an argument with `make run`. The command `make run DURATION=20` will build and run the clock using a duration of 20 seconds. Your clock should work for any duration up to 99 minutes and 59 seconds.
+The countdown duration for the clock application is configured using a mechanism we added to the Makefile. The default duration is 67 seconds (1 minute and 7 seconds = 107).  You can specify a different duration using an argument with `make run`. The command `make run DURATION=20` will build and run the clock using a duration of 20 seconds. Your clock should work for any duration up to 99 minutes and 59 seconds.
 
 
 __Mission accomplished!__  You have wired up a complex breadboard circuit, written two reusable
-library modules and a clock application, as well as developing a testing methodology. Be sure to show off your spiffy new clock to your followers (but
+library modules and a clock application, as well as developing an effective methodology for testing. Be sure to show off your spiffy new clock to your followers (but
 not to the TSA next time you pass through airport security...).
 
 ## Troubleshooting
 
-Here are some problems that have "bugged" students in the past, presented here to help you troubleshoot if your code isn't working:
-- To express a number as binary constant, prefix it with "0b", e.g. `0b10110001`.
+Here are some problems that have "bugged" students in the past, presented here to help you troubleshoot:
+- Double-check your constants, especially  addresses. The wrong number of zeros or a missing prefix can cause a lot of grief. A numeric constant with no prefix is decimal. If you intend hex, be sure to prefix with "0x", e.g. `0x02000000`.  The prefix for binary is "0b", e.g. `0b10110001`.
+- Take care with your bitwise operations. Try out Max's [Bitwise Explorer](https://mdrach.github.io/cs107-apps/) as a helpful tool for practice and visualization.
 - Make sure you declare the contents of hardware peripheral registers as `volatile`, otherwise the compiler might optimize away repeated reads/writes. If you don't understand why this is important, ask us in lecture, lab, or office hours -- it's important and also pretty cool!
--  To identify header pins on the Mango Pi header, refer to your refcard or pinout.py (newly enhanced by Marcus Alagar to accept optional argument). Try asking for the clock connections!
-    ```console
-    $ pinout.py clock
-    ```
 - If you accidentally connect a full 3.3V to a segment LED or transistor base without the protection of a current-limiting resistor, it can fatally damage the component. If this fate befalls you, grab a replacement from the spare parts bin in the lab room or ask us for help in office hours.
 
 ## Extension: Putting the G in GPIO
@@ -325,14 +324,14 @@ For your input device, we suggest a rotary encoder knob, 5-way directional switc
 
 ![input devices](images/ext_input.jpeg){: .zoom}
 
-Design a user interface for your chosen input device that allows the user to set the duration before starting the countdown.  Ideally, it supports both reliable and precise single-stepping and efficiently making a sweeping change. While the user is setting the duration, the display should change in some fashion to show it is in "set" mode; perhaps by flashing or scrolling a banner message on the display? Strive for an interface design that is easy to learn, straightforward to use, and provides clear feedback. It can be challenging to build an [interface with just a few buttons](images/dilbert160612.jpg). (Looking at you, [sign found posted in HCI wing](images/bad_ui.jpg) of Gates building. Oh, the irony...)
+Design a user interface for your chosen input device that allows the user to set the duration before starting the countdown.  Ideally, it supports both reliable and precise single-stepping and efficiently making a sweeping change. While the user is setting the duration, the display should change in some fashion to show it is in "set" mode; perhaps by flashing or scrolling? Strive for an interface design that is easy to learn, straightforward to use, and provides clear feedback. It can be challenging to build an [interface with just a few buttons](images/dilbert160612.jpg). (Looking at you, [sign found posted in HCI wing](images/bad_ui.jpg) of Gates building. Oh, the irony...)
 
-When reading from an input device, you will notice that a single press/turn may cause the value on the GPIO pin to fluctuate several times.
-This is due to the physical mechanism making and breaking contact in rapid succession before settling down into a stable open or closed state. To address this
+When reading from an input device, you will notice that a single press/turn may cause the value on the GPIO pin to fluctuate more than once.
+This is due to the physical mechanism making and breaking contact several times in rapid succession before settling down into a stable open or closed state. To address this
 issue, you should implement _software debouncing_ to discard these spurious rapid changes and process as a single event.
 When you observe the value has changed, follow-up with additional reads to confirm that value has stabilized. Your goal is to strike a good balance where your interface feels responsive, yet processing is not so quick that it generates unwanted extra events.
 
-Whenever you are using a GPIO as an input, you cannot get a reliable reading in a "floating" state. This is why we connected the start button to a pull-up resistor to pull the line high by default.  You will need to do something similar for the additional gpios you are using for your input device. However rather than using external hardware, for the extension you will level up your gpio module to add support for the internal resistor. If you read deeper into the GPIO chapter of the [D1-H user manual](/readings/d1-h_user_manual_v1.0.pdf#page=1090) you will discover that the Mango Pi GPIOs have an internal pull-up resistor you can activate in software. For the extension, implement the gpio function `gpio_set_pullup` to activate the internal pull-up for a given gpio. When wiring up your input device, do not use external hardware pull-up resistors but instead call on your new `gpio_set_pullup` function.
+Whenever using a GPIO as an input, it is not possible to get a reliable reading from a "floating" state. This is why we connect the start button to a pull-up resistor, to pull the line high by default.  You will need to do something similar for the additional gpios for your input device. However rather than using more external resistors, for the extension you will level up your gpio module to add support for the internal resistor. If you read further on in the GPIO chapter of the [D1-H user manual](/readings/d1-h_user_manual_v1.0.pdf#page=1090) you will discover that the Mango Pi GPIOs have an internal pull-up resistor that can be activated in software. For the extension, you are to implement the gpio function `gpio_set_pullup` to activate the internal pull-up for a given gpio. When wiring up your input device, do not use external hardware pull-up resistors but instead call on your new `gpio_set_pullup` function.
 
 Expectations for input device
 - Allows user to use device to change duration before starting countdown
@@ -358,7 +357,7 @@ The extension follows the same workflow, edit files on the `dev` branch, make re
 
 Add documentation to the `README.md` file for `assign2` that shares what you learned from doing the extension and explains the input and output features of your fancy clock.
 
-In order to grade the extension, you'll need to do a demo for us, since we won't have the hardware/board to match yours. Make a short video of you operating the clock.  Be sure your video shows both setting the countdown using your input device and the alarm from your output device. You can add the video to our repo and include with your submission or upload it to youtube and share link in your README. Also cool to come give a live demo to one of the instructors or CAs in OH.  We are excited to see what you come up with it!
+For us to grade your extension, you'll need to do a demo for us, since we won't have the hardware setup to match yours. Make a short video of you operating the clock.  Be sure your video shows both setting the countdown using your input device and the alarm from your output device. You can add the video to our repo and include with your submission or upload it to youtube and share the link in your README. Or skip the video and just come give a live demo to one of the instructors or CAs in OH.  We are excited to see what you come up with it!
 
 ## Style reflection
 
@@ -370,7 +369,7 @@ The deliverables for `assign2-submit` are:
 
 - a photo of your completed breadboard
 - implementations of the `gpio.c` and `timer.c` modules
-- comprehensive tests for both modules in `test_gpio_timer.c`
+- comprehensive tests for modules in `test_gpio_timer.c`
 - application program `clock.c`
 - `README.md` with any information you want to share with your grader
 - your responses to the prompt questions in `style_reflection.txt`
@@ -414,7 +413,7 @@ __Note: Build warnings/errors__ We expect your code to compile cleanly with no w
   + __P1 "Essential"__ tests exercise core functionality that is critical to the system's operation. Your system won't be fully usable until these high priority issues are addressed.
   + __P2 "Comprehensive"__ tests thoroughly exercise the full range of functionality including lesser-traveled features.
   + __P3 "Just Mention__" is used for small concerns as a misbehavior in an obscure edge case or minor issue of polish.
-- We have a __revise and retest__ policy for library modules. We will file GitHub issues for any test failure that is eligible for revision, and you may submit bug fixes for retest. Commit and push changes to your repo on your `dev` branch and tag the finished commit with `assign2-retest` (Do __not__ move the original `assign2-submit` tag!)  Once a week, the staff will re-run the automated tests on submissions tagged `assign2-retest` and update to show passing results on corrected issues.
+- We have a __revise and retest__ policy for library modules. We will file GitHub issues for any test failure that is eligible for revision, and you may submit bug fixes for retest. Commit and push changes on your `dev` branch and tag the revised commit with `assign2-retest` (Do __not__ move the original `assign2-submit` tag!)  Once a week, the grader will re-run the automated tests on submissions tagged `assign2-retest` and update to show passing results on corrected issues.
 - We accept revisions for priority 1, 2, and 3 automated unit tests on your library modules. There is no retest/resubmit for extensions or tests that are manually evaluated (e.g. clock). Such tests are run only against your original submission, marked with the `assign2-submit` tag.
 
 By the end of the quarter, we want your library modules to have passing results on all Priority 1 tests. Lower priority tests can be fixed at your discretion and will contribute positively to your course grade.
