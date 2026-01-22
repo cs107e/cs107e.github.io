@@ -1,0 +1,65 @@
+---
+title: "Style Reflection Assign 2"
+toc: true
+attribution: Written by Ben Ruland
+---
+
+## Organizing your code
+
+### Modules, libraries, applications
+At this point in the course, you'll hear us talking about "modules", "libraries", and "applications". Let's break down the meaning of these terms and how they apply to the code you are writing.
+
+The term __module__ in its purest form simply refers to a single file of C source code. We use the word module more specifically for a file that provides a comprehensive and coherent set of features for particular purpose. The module has an interface (which describes the functionality to a client) and the implementation (internal nuts and bolts). Assignment 2 asks you to implement two modules: `gpio` and `timer`. A developer who wants to interface with the hardware peripherals on the Mango Pi (GPIO pins and system timer, respectively) can use these modules to access that functionality, without having to muck about in the internal details.
+
+A __library__ is a collection of modules managed as one combined package. You have likely used many libraries in the past: the standard library for your programming language, add-on libraries for special needs such as math, graphics, networking, statistics and custom libraries such as the CS106B [Stanford C++ library](https://web.stanford.edu/dept/cs_edu/resources/cslib_docs/). A programming language's __standard library__ contains those features sufficiently general-purpose that they are baked into the language standard and required for all implementations. Here is info about [libc](https://en.wikipedia.org/wiki/C_standard_library), the standard library for the C programming language. In the world of bare-metal, we start with __no libraries__; your major accomplishment this quarter will be implementing the modules for your own MangoPi library. The awesome library you write will be a solid foundation on which you can build a cool application for your final project!
+
+An __application__ is a standalone program that provides functionality to a user, such as an alarm clock, text editor, or chat client.  Applications are almost always built on top of other modules and libraries.  For Assignment 2, you write a clock application.  The application-specific code goes into the `clock.c` program file, which makes calls to functions from the `gpio` and `timer` modules when it needs to interact with those peripherals.
+
+### Modular design
+The `gpio` and `timer` modules are used by `clock` application, but, more broadly, these modules are designed to be reusable in any future application that requires similar functionality. The next time you need to interact with a GPIO pin, you'll be able to simply call upon the functions you wrote for the `gpio` module, and never again have to fuss around with figuring out which bit you need to set in register 0x2000030. Hooray for abstraction!
+
+### Interface and implementation
+We refer to the module interface as its API (application programming interface) and it is a critical part of designing a module. There are a lot of choices to make -- which operations to include, how they behave, naming conventions, arguments and return types, how errors are handled, and more. Designing a good API is a big job! An added part of the challenge is that you basically have to get it right on the first try.  Once you settle on your API and release it, clients start writing code that depends on that API. If you then make changes to the API, you'll be disrupting all those clients. In this course, we give you the API of each module pre-written. Reviewing our provided APIs is a good opportunity to reflect on our choices and learn from them. When you are reading through the header files for each assignment, take a pause to consider the choices we made: What naming conventions do we use? How do we structure flow of information in and out of each function? Why expose some functions while keeping others private to the module? How might an API you designed yourself look different than ours?
+
+### Error handling
+So why do we bring up this review about modules and applications? Aside from our hopes that you will become deeply interested in the finer points of software architecture, the design you choose can have a significant impact on how you go about writing your code. A good example is the way we choose to detect and handle (or not handle!) errors. If writing a quick-and-dirty application, you might choose to be a bit lazy about errors. Say the application prompts for a number and the user enters a name. If not error-check the input, it would cluelessly blunder on into who-know-what sad end.  Since we are at the application layer, no one is relying on us to do something reasonable. Yes, this means our app is kind of crummy, but that's on us. If instead we are writing a library, perhaps a critically important library that every application relies upon, then the landscape for error handling looks much different. We need to be serious about detecting errors and providing paths to gracefully handle or recover from them.
+
+Architecting robust mechanisms for error-handling have filled many a PhD thesis and SWE careers. Let's consider some of the more common simple cases.
+First we need to think about the possible sources of error. Was the function called with invalid arguments or in an improper context? Was there an illegal memory access or misuse of a hardware peripheral?  In order to construct a good defense, we have to first figure out what things could go wrong and how we can detect the problem.
+
+Once we detect an error, we next need to figure out what to do about it. Sometimes the best option is to not handle it at all and instead kick the can down the road to whoever called us to deal with it. But this isn't always possible, such as if a function's return type encompasses every possible value as valid, our hands are tied. For example, a read function that returned how many bytes it read as an unsigned integer, there is no value we could return to tell the calling function we encountered an error, as it would just look like we returned a count. However if we return type was a signed integer, we could return -1 to signify we hit an error since -1 is not a valid number of bytes read.
+
+For errors you can't punt on, consider who should be responsible to handling it. Is it the user who needs to be change their behavior or a a developer who needs to change their code?  At the application level, we could print a helpful error message for the user and exit. If detecting the error within a module or library, you might communicate the problem to the developer via a failed assert.  If the error was a transient failure from an I/O device, such as reading from a sensor, disk drive or network, then we might log the concern and try repeating the action a few more times before giving up.
+
+Unfortunately there is no one size fits all answer, but often the act of just having thought about how best to handle the error gets you pretty close.
+
+## Declaration scope and qualifiers
+A common design mistake folks make when writing low-level code is to misuse global variables. Here are some thoughts on choosing an appropriate scope or visibility.
+
+### Global variables
+Global variables are those that are defined outside of your functions. A global variable exists through the entire lifetime of the program and is accessible everywhere in all modules.  From a design standpoint, global variables are consider gauche and there is much we dislike about them. No means to review the information flow of how and where these variables are used or see which code depends on them. No access control; its value can be modified by any code at any time, debugging an unexpected change makes for a tough slog. A name has to be unique in the single flat namespace. Global variables are best avoided entirely; the instances in which you truly need one is exceedingly rare.
+
+### File-level static variables
+In C, you can define a variable outside of a function and add the `static` qualifier to restrict the visibility of the variable to just this module/file. The variable can be accessed throughout this module, but not outside it. It has program lifetime. Its name is private; not dumped into the global namespace. A file-level variable shares some of the undisciplined nature of globals, but the concerns somewhat ameliorated by the more limited scope and private name.  Defining a module-level variable can be appropriate for limited amount of shared state that belongs to the module itself and is used across many of the functions in the module.
+
+### Local variables and parameters
+Variables that are declared with a function are function-local, or just local. The function parameters are also function-local. A local variable exists during the lifetime of a function call and is scoped to be visible only within the function where declared. This limited scope and lifetime means you know exactly when and where that variable can be used, use of parameters communicate the information flow into the function, these names are local to their context -- much to love! There is no reason to be stingy with local variables. Rather than declare one local that is re-purposed for several uses within the function, instead declare as many distinct locals as you need. A complex calculation might become more readable if broken down into steps with additional locals use to hold intermediate results. Just be sure you are choosing good names to aid readability. (i.e. `temp1` and `temp2` are not the move here!)
+
+### Constants
+We want to make the distinction between global variables and global constants. Systems programming tends to have a lot of "magic numbers". These are constant values that are fixed, we call them "magic" because they are unusual values such as the address of a hardware peripheral register that seemed to have been pulled out of thin air. Rather than drop magic numbers throughout our code, we would prefer to assign descriptive names to these constants, making our code easier to edit and to read!
+
+The old-school mechanism for defining a constant in C uses the preprocessor (stay tuned for more info about the preprocessor and its tricks in a later reflection). The `#define` directive is used to give a name to a constant expression, e.g. `#define NUM_WEEKDAYS 7`. Our code references `NUM_WEEKDAYS` as needed and when the preprocessor runs, it does a find-and-replace operation to replace every occurrence of `NUM_WEEKDAYS` with `7`.  It is a common convention to use all caps for constants. Note that a #define we do not use an `=` sign as it is not a C assignment statement. #define operates at the level of the entire file, there is no means to change scope/visibility.
+
+While we do love our `#define`, this approach is a bit unsatisfying. It operates outside the type-system (notice a #define constant has no type information) which means no type-checking, and mistakes in the definition can lead to some inscrutable compiler errors due to the hacky nature of the preprocessor.  The more modern practice is to use `const`.  Start with an ordinary C variable declaration  and add the `const` qualifier to the type to declare that the value will not be changed after its initial assignment, e.g. `const int num_weekdays = 7;` This gives us the advantages of C declarations (type-checking, visibility controls) with the added restriction that if our code attempts to write to this read-only variable, we get a helpful compiler error.
+
+`const` does not affect the lifetime or scope of a declaration, it just marks it as read-only. Thus you can apply `const` to any of the variable declarations discussed above to make a global constant, a module-level constant (declared `static const`), and local constants.
+
+
+## Prompt questions
+Edit the text file named `style_reflection.txt` in your `assign2` directory to include your responses to the following questions. The entire document should be about one page. Please do not repeat the question prompts in the text file, just your answers.
+
+1. Take a look at how we asked you to handle errors in your input for `gpio_set_function`. Why do we ask you to handle an error in this way rather than any alternative methods like returning a particular value as we do in other functions?
+
+2. After reading the section on declarations, review your clock code and tell us how many global variables you have. For each of your global variables, consider whether it should remain a global variable. If you think it should then make a short case as to why, if not then tell us how you would change it (i.e change to constant,make it a local variable in my display refresh loop, etc.)
+
+3. Take a look over the code you wrote for your gpio module and clock application and share your thoughts on your style. What parts of your code do you feel good about, what parts do you think could use some cleaning up? Is there any part you wish you knew how to do differently? Please be specific in your answer, include line numbers for any specific code you reference.
