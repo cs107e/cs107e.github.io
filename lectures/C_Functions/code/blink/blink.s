@@ -9,14 +9,16 @@
 loop:
 
     sw  a1,0x40(a0)  # turn on
+
     lui a2,0x3f00
-    delay_on:
+delay_on:
         addi    a2,a2,-1
         bne     a2,zero,delay_on
 
     sw  zero,0x40(a0) # turn off
+
     lui a2,0x3f00
-    delay_off:
+delay_off:
         addi    a2,a2,-1
         bne     a2,zero,delay_off
 
