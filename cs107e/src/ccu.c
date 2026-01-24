@@ -13,7 +13,7 @@
 #include "timer.h"
 
 /*
- * Models the D-1 clock tree as diagrammed on p.39 of D-1 manual
+ * Models the clock tree as diagrammed on p.39 of D1-H manual
  * (with some simplifications to only consider clocks we are using)
  * The implementation borrows design elements from linux clock tree
  * (e.g. clock parent)
@@ -93,7 +93,7 @@ static const struct pll_config_t {
     uint32_t rate;
     struct { uint8_t P; uint8_t N; uint8_t M1; uint8_t M0; };
 } pll_table[] = {
-    {CCU_PLL_VIDEO0_CTRL_REG,  297000000, {        .N= 99,  .M1= 2 }},          // recommended dividers 99,2 p.43 D-1 manual
+    {CCU_PLL_VIDEO0_CTRL_REG,  297000000, {        .N= 99,  .M1= 2 }},          // recommended dividers 99,2 p.43 D1-H manual
     {CCU_PLL_VIDEO0_CTRL_REG,  120000000, {        .N= 20,  .M1= 1 }},
     {CCU_PLL_AUDIO0_CTRL_REG,   22545454, {.P= 33, .N= 124, .M1= 1, .M0= 1 }},  // base rate for audio 22.1Khz
     {CCU_PLL_AUDIO1_CTRL_REG, 3072000000, {        .N= 128, .M1= 1 }},          // base rate for audio 24Khz
@@ -153,7 +153,7 @@ static void get_pll_bits(ccu_pll_id_t id, long rate, uint32_t *factor_mask, uint
     }
 }
 
-// Procedure to update PLL from p46 of D-1 user manual
+// Procedure to update PLL from p46 of D1-H user manual
 // NOTE: code explicitly sets and clears bits using bitwise ops!
 // This ensures it acts exactly as required in spec
 // (not using bitfields, gcc-generated code can vary)
@@ -212,7 +212,7 @@ static uint32_t get_module_clk_bits(ccu_module_id_t id, ccu_parent_id_t parent, 
     return 0;
 }
 
-/* From p47 D-1 user manual:
+/* From p47 D1-H user manual:
  * Configure the clock source and frequency division factor first,
  * and then release the clock gating (that is, set enable to 1)
  */
@@ -233,7 +233,7 @@ long ccu_config_module_clock_rate(ccu_module_id_t id, ccu_parent_id_t parent, lo
 }
 
 /*
- *  From p47 D-1 user manual:
+ *  From p47 D1-H user manual:
  *  For the Bus Gating Reset register of a module, the reset bit is de-asserted first,
  *  and then the clock gating bit is enabled to avoid potential problems
  *  caused by the asynchronous release of the reset signal.

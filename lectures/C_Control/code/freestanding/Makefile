@@ -24,8 +24,8 @@ run: dice.bin
 	mango-run $<
 
 list: dice.o dice
-	riscv64-unknown-elf-objdump --no-show-raw-insn -d dice.o > dice.list
-	otool -v -t dice > dice.mac.list
+	riscv64-unknown-elf-objdump --no-show-raw-insn --no-addresses -d dice.o | fgrep -v "<." > dice.list
+	otool -v -t -X dice > dice.mac.list
 
 # This recipe is for a native executable on hosted environment
 # (not cross-compiled, not freestanding)

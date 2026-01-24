@@ -22,7 +22,7 @@ all : $(NAME).bin
 %.o: %.c
 	riscv64-unknown-elf-gcc $(CFLAGS) -c $< -o $@
 
-list: $(NAME).o
+list: $(NAME).elf
 	riscv64-unknown-elf-objdump $(OBJDUMP_FLAGS) -d $<
 
 clean:
