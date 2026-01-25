@@ -151,6 +151,7 @@ Your functions should also be robust against client error. If given an invalid p
 
 >__Pins with special function__ Some GPIO pins have specialized behavior to note.
 - At reset, all GPIOs are initially disabled excepting four F group pins that are configured for JTAG control. `GPIO_PF0`, `GPIO_PF1`, `GPIO_PF3`, `GPIO_PF5` will be set to function `Alt 4`. It is okay to reconfigure and manipulate these gpios for testing.
+- `GPIO_PB8` and `GPIO_PB9` are initially disabled on reset. However, the process of initializing the DRAM via `xfel ddr d1` (or `mango-run`) sets them to function `Alt 6`. It is okay to reconfigure and manipulate these gpios for testing.
 - `GPIO_PD18` controls the blue ACT LED on the Mango Pi board. The start sequence in `cstart.c` configures it as output and turns it on.  You can manipulate this gpio for testing but be aware these actions will affect the blue LED.
 - We recommend your Mango Pi __not be connected to your clock breadboard__ while testing the gpio module (or be aware that the connected components will be reacting to the actions of your test cases).
 {: .callout-warning}
