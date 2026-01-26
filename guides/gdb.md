@@ -15,92 +15,101 @@ Under simulation, you can single-step through your code, set breakpoints, print 
 Using the debugger is largely the same whether in simulation mode or not, but some programs may execute differently under simulation than when running on the actual Pi. Be sure to read the section below on those [differences due to simulation](#simulation).
 
 ## Sample gdb session
-Let's try out the gdb simulator on the following simple `sum` program. The code is availble in the folder `$CS107E/sample_build` if you want to follow along.
+Let's try out the gdb simulator on a simple program. The file is available in `$CS107E/sample_build/program.c` if you want to follow along.
 
 ```c
 int sum(int n) {
     int result = 0;
-    
+
     for (int i = 1; i <= n; i++)
         result += i;
     return result;
 }
 
-int main(void)  {
-    int a = sum(10);
-    int b = sum(5);
-    return a + b;
+int factorial(int n) {
+    if (n == 0) return 1;
+    return n * factorial(n-1);
+}
+
+void main(void)
+{
+    uart_init();
+    int val = 10;
+    int result = sum(val);
+    printf("Gaussian sum(%d) = %d\n", val, result);
+    val = 7;
+    result = factorial(val);
+    printf("factorial(%d) = %d\n", val, result);
 }
 ```
-
-The `sum.elf` file is typically the penultimate step in our build, right
-before we extract the raw binary instructions into the `sum.bin` that is
+The `program.elf` file is typically the penultimate step in our build, right
+before we extract the raw binary instructions into the `program.bin` that is
 sent to the Pi.  The `elf` version of the file is the one used by the gdb simulator.
 
-Run `make debug` to start gdb on the `sum.elf` file
+Run `make debug` to start gdb on the `program.elf` file
 
 ```console?prompt=(gdb),$
 $ make debug
-riscv64-unknown-elf-gdb -q --command=$CS107E/other/gdbsim.commands sum.elf
-Reading symbols from sum.elf...
-Auto-loading commands from $CS107E/other/gdbsim.commands...
+riscv64-unknown-elf-gdb -q --command=CS107E/other/gdbsim.commands program.elf
+Reading symbols from program.elf...
+Auto-loading commands from CS107E/other/gdbsim.commands...
 Connected to the simulator.
-Loading section .text, size 0x5a14 lma 40000000
-Loading section .rodata, size 0x26b4 lma 40005a18
-Loading section .eh_frame, size 0x2c lma 400080d0
-Loading section .data, size 0x16e0 lma 40020000
+Loading section .text, size 0x6a10 lma 40000000
+Loading section .rodata, size 0x2988 lma 40006a10
+Loading section .eh_frame, size 0x2c lma 40009398
+Loading section .data, size 0x1800 lma 40020000
 Start address 40000010
-Transfer rate: 310944 bits in <1 sec.
-Breakpoint 1 at 0x40000a74
-(gdb)
+Transfer rate: 351776 bits in <1 sec.
+Breakpoint 1 at 0x400069cc
 ```
 
 Let's review the code for `main`. Note that `gdb` knows about the source file and line numbers because our Makefile compiles the code with the debugging flag `-g`.
 
 ```console?prompt=(gdb)
 (gdb) list main
-4       for (int i = 1; i <= n; i++)
-5           result += i;
-6       return result;
-7   }
-8
-9   int main(void)  {
-10      int a = sum(10);
-11      int b = sum(5);
-12      return a + b;
-13  }
+13      if (n == 0) return 1;
+14      return n * factorial(n-1);
+15  }
+16
+17  void main(void)
+18  {
+19      uart_init();
+20      int val = 10;
+21      int result = sum(val);
+22      printf("Gaussian sum(%d) = %d\n", val, result);
 ```
 
-Set a breakpoint on line 11 of this file:
+Set a breakpoint on line 21 of this file:
 ```console?prompt=(gdb)
-(gdb) break 11
-Breakpoint 2 at 0x4000005c: file sum.c, line 11.
+(gdb) break 21
+Breakpoint 2 at 0x40000088: file program.c, line 21.
 ```
 The `run` command starts executing the program in the simulator. It will quickly hit the breakpoint we set:
 
 ```console?prompt=(gdb)
 (gdb) run
-Starting program: sum.elf
-Breakpoint 2, main () at sum.c:11
-11      int b = sum(5);
+Starting program: /Users/julie/github/mango-staff/cs107e/sample_build/program.elf
+
+Breakpoint 2, main () at program.c:21
+21      int result = sum(val);
 ```
-The program is stopped at line 11. This is _before_ this line of C has executed.
+The program is stopped at line 21. This is _before_ this line of C has executed.
 
 The gdb `print` command can be used to view a variable or evaluate an expression.
 
 ```console?prompt=(gdb)
-(gdb) print a
-$1 = 55
-(gdb) print b
+(gdb) print val
+$1 = 10
+(gdb) print result
 $2 = <optimized out>
 ```
-The program has not yet executed the statement that assigns `b` and its value is not available. Use `next` to execute that statement. After which, you can then print `b` to see its value.
+The program has not yet executed the statement that assigns `result` and its value is not available. Use `next` to execute that statement. After which, you can then print `result` to see its value.
 
 ```console?prompt=(gdb)
 (gdb) next
-12      return a + b;
-(gdb) print b
-$3 = 15
+22      printf("Gaussian sum(%d) = %d\n", val, result);
+(gdb) print result
+$3 = 55
 ```
 
 Use `continue` to let the program resume execution.  The main function will finish executing, and gdb will print a message that the process exited.
@@ -108,6 +117,8 @@ Use `continue` to let the program resume execution.  The main function will fini
 ```console?prompt=(gdb)
 (gdb) continue
 Continuing.
+Gaussian sum(10) = 55
+factorial(7) = 5040
 [Inferior 1 (process 42000) exited normally]
 ```
 
@@ -121,7 +132,7 @@ The simulator does not model the peripherals such as GPIO or timer. For example,
 the blink program we studied early in the quarter drives an LED connected to GPIO PB0. If you run this program in the
 simulator, the LED will not light. The simulator is not talking to your
  Pi (you won't even need your Pi to be plugged in), nor is the simulator doing
-anything special when your program accesses the memory locations for the memory-mapped peripherals. You can step through the blink program under the simulator and examine the state, but the code that attempts to control the peripherals is a no-op -- no LED will light, the timer does not increment.
+anything special when your program accesses the memory locations for the memory-mapped peripherals. You can step through the blink program under the simulator and examine the state of variables and memory, but the code that attempts to control the peripherals is a no-op -- no LED will light, the timer does not increment.
 
 Another important issue to be aware of is that the default state of registers and memory may be different under the simulator. For a correctly-written program, this difference is of no consequence, but a buggy program can be sensitive to it; such as a program that mistakenly accesses memory out of bounds or uses an uninitialized variable. The irony is that such buggy programs are exactly the ones that you will need the debugger's help to resolve, yet, frustratingly, these programs can exhibit different behavior when run under the simulator than when running on the Pi. If running in the gdb simulator, the contents of not-yet-accessed memory defaults to zero. If running the program on the actual Pi, the contents of un-accessed memory is unpredictable. For example, if the sample program we used above had a bug where it forget to initialize the result:
 ```c

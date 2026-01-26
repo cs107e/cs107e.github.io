@@ -30,7 +30,7 @@ You invoke tio with the device to connect to and various flags to configure the 
 $ tio -b 115200 -d 8 -s 1 -p none  /dev/YOUR_DEVICE_NAME
 ```
 
-The above command connects to a device and sets the baud rate to 115200 baud, 8 data bits, 1 stop bit, and no parity. Be sure to replace __YOUR_DEVICE_NAME__ with the name of CP2102 device on your system. See [instructions in uart guide](/guides/uart#find-dev) for finding your device name.
+The above command connects to a device and sets the baud rate to 115200 baud, 8 data bits, 1 stop bit, and no parity. Be sure to replace __YOUR_DEVICE_NAME__ with the name of usb-serial device on your system. See [instructions in uart guide](/guides/uart#find-dev) for finding your device name.
 
 To exit tio, use the sequence `control-t q`.
 

@@ -18,8 +18,9 @@ void main(void)
 {
     uart_init();
     int val = 10;
-    printf("Gaussian sum(%d) = %d\n", val, sum(val));
+    int result = sum(val);
+    printf("Gaussian sum(%d) = %d\n", val, result);
     val = 7;
-    printf("factorial(%d) = %d\n", val, factorial(val));
-
+    result = factorial(val);
+    printf("factorial(%d) = %d\n", val, result);
 }

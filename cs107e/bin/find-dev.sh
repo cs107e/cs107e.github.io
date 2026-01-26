@@ -18,18 +18,23 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # use pyserial to look up by VID/PID
     DEV=$(python3 -m serial.tools.list_ports -q "VID:PID=10C4:EA60")
     if [ $? -ne 0 ]; then
-        echo "python3/pyserial failed. Possibly need pip3 install pyserial?"
-        exit 1
+        # not found, might be fixed by pip3 install pyserial
+        # fallback take any serial device found by ioreg
+        DEV=$(ioreg -r -c IOSerialBSDClient -l -w0 | awk -F'"' '/"IOCalloutDevice"/ {print $4}')
+        if [ $? -ne 0 ]; then
+            echo "Unable to find device using pyserial/ioreg. Instead use manual list of files ls /dev/tty*"
+            exit 1
+        fi
     fi
 else
-    echo "Do not understand this OS.  Use ls /dev/tty* to list all?"
+    echo "Do not understand this OS. Instead use manual list of files ls /dev/tty*"
     exit 1
 fi
 if [ ! -z "$DEV" ]; then
     printf "%s\n" $DEV
     exit 0
 else
-    echo "Could not find CP2102 serial device."
+    echo "Could not find CP2102 USB-serial device."
     echo "I looked through the serial devices on this computer, and did not"
     echo "find a device associated with a CP2102 USB-serial adapter. Is"
     echo "your USB-serial adapter plugged in?"

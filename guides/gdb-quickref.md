@@ -35,9 +35,9 @@ Loading section .text, size 0x510c lma 40000000
 ```
 
 ### Common GDB commands
-The gdb debugger has a tremendous amount of features packed into it, allowing you to control program execution, observe and trace runtime behavior, examine and change registers and memory, and much more.  Below is a table of gdb commands for common actions. Make it your goal to get these basic commands under your belt now and plan to keep learning and extending your mastery from here. Becoming a wizard at using gdb is a major superpower for a programmer to have!
+The gdb debugger has many features packed into it, allowing you to control program execution, observe and trace runtime behavior, examine and change registers and memory, and much more.  Below is a table of gdb commands for common use cases. Make it your goal to get these basic commands under your belt now and plan to keep learning and extending your mastery from here. Becoming facile at wrangling gdb is a major superpower for a programmer to have!
 
-> __Pro-tip__ The table below lists the full name of the command but most can be abbreviated to save your overworked fingers. For example, `info registers` can be invoked as `i r`, `break` can be invoked `b`, `print/x` is shortened to `p/x`, and so on.
+> __Pro-tip__ In the table, we identify commands by their full name but most can be abbreviated to save your overworked fingers. For example, `info registers` can be invoked as `i r`, `break` is just `b`, `print/x` can be shortened to `p/x`, and so on.
 {: .callout-info}
 
 
@@ -55,7 +55,7 @@ The gdb debugger has a tremendous amount of features packed into it, allowing yo
 | Run and stop program |
 |-|-|
 |run | Run program, start from beginning
-|start | Run program, start from beginning, stop at entry to `main()`
+|start | Run program, start from beginning, stop at entry to `main()` function
 |ctrl-c |  Interrupt executing program, give control back to gdb
 |kill | Kill execution of program being debugged
 {: .table .table-sm .commands }
@@ -63,8 +63,8 @@ The gdb debugger has a tremendous amount of features packed into it, allowing yo
 | Breakpoints |
 |-|-|
 |break WHERE | Set breakpoint at `WHERE`
-|&nbsp;&nbsp;  break sum | Set breakpoint at function
-|&nbsp;&nbsp;  break 13 | Set breakpoint at line number
+|&nbsp;&nbsp;  break sum | Set breakpoint at named function
+|&nbsp;&nbsp;  break 13 | Set breakpoint at line number in current file
 |&nbsp;&nbsp;  break *0x40001234  | Set breakpoint at address of instruction
 |info break | List all breakpoints
 |delete NUM | Delete breakpoint `NUM`. With no argument deletes all.
@@ -76,7 +76,7 @@ The gdb debugger has a tremendous amount of features packed into it, allowing yo
 |next | Execute one line of C source, step __over__ function call
 |stepi | Execute one assembly instruction
 |nexti  | Execute one assembly instruction, step over `jal` (function call)
-| | Note: All of above accept argument N to repeat N actions, i.e. `step 5`
+| | Note: All of above accept optional argument N to repeat N times, i.e. `step 5`
 |until LINE | Execute up to line number `LINE`
 |finish | Execute up to end of current function
 |continue | Continue execution
@@ -85,7 +85,7 @@ The gdb debugger has a tremendous amount of features packed into it, allowing yo
 | Registers |
 |-|-|
 |info registers | Show info about all registers
-|print $a0  | Can access individual register by `$name`
+|print $a0  | Access individual register by `$name`
 |set $a0 = 8 | Set register's value
 {: .table .table-sm .commands }
 
@@ -101,7 +101,8 @@ The gdb debugger has a tremendous amount of features packed into it, allowing yo
 |-|-|
 |list | Show C source for currently executing function
 |&nbsp;&nbsp; list sum | Show C source for named function
-|&nbsp;&nbsp; list 45 | Show C source around line number
+|&nbsp;&nbsp; list 45 | Show C source around line number in current file
+|&nbsp;&nbsp; list other.c:45 | Show C source around line number in specified file
 |disassemble | Show disassembly of currently executing function
 |&nbsp;&nbsp; disassemble sum | Show disassembly of named function
 |&nbsp;&nbsp; disassemble 0x40001234 | Show disassembly of instruction at address
@@ -110,12 +111,12 @@ The gdb debugger has a tremendous amount of features packed into it, allowing yo
 
 | Print |
 |-|-|
-|print EXPR | Evaluate `EXPR`, print result
-|&nbsp;&nbsp; print/d *ptr | Evaluate and print result in decimal
-|&nbsp;&nbsp; print/x (val & 0xff) | Evaluate and print result in hex
-|&nbsp;&nbsp;  print/t mask | Evaluate and print result in binary
+|print EXPR | Evaluate `EXPR`, print result, optional format modifier after slash
+|&nbsp;&nbsp; print/d *ptr | Print in decimal format
+|&nbsp;&nbsp; print/x (val & 0xff) | Print in hex format
+|&nbsp;&nbsp;  print/t mask | Print in binary format
 |display EXPR | Auto-print `EXPR` each time execution stops
-|&nbsp;&nbsp;  display/d i | Auto-print uses same format modifiers as print above
+|&nbsp;&nbsp;  display/d i | Auto-print accepts same format modifiers as print above
 |info display | List all auto-printed expressions
 |undisplay NUM | Delete auto-printed expression `NUM`.  With no argument deletes all.
 {: .table .table-sm .commands }

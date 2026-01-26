@@ -5,11 +5,11 @@ attribution: Written by Julie Zelenski
 ---
 ## What is uart?
 
-UART is an acronym for __Universal Asynchronous Receiver-Transmitter__, a protocol for sequential serial communication.  Most processors include hardware support for a uart peripheral (the Mango Pi has six of them in fact!). A uart is a serial communication channel for sending and receiving data between devices. Your laptop can use a uart to talk to your Pi and receive output and provide input.
+UART is an acronym for __Universal Asynchronous Receiver-Transmitter__, a protocol for sequential serial communication.  Most processors include hardware support for a uart peripheral (the Mango Pi has six of them in fact!). A uart is a serial communication channel for sending and receiving data between devices. Your laptop will connects to the Pi's uart to receive output and provide input.
 
 ## USB-serial breakout board
 
-You will use a CP2102 USB-to-serial breakout board (hereafter referred to as "usb-serial”) to make a serial connection between your laptop usb and the Pi's uart.
+We use a CP2102 USB-to-serial breakout board (hereafter referred to as "usb-serial”) to make a serial connection between your laptop usb and the Pi's uart.
 
 Find the usb-serial in your parts kit. One end has a USB-A connector and the other is a 5-pin or 6-pin header. You will plug the USB-A end into a usb port and connect jumpers from the header end to the Pi.
 ![usb-serial](../images/uart-usb-serial.jpg){: .w-50 .zoom}
@@ -17,7 +17,7 @@ Find the usb-serial in your parts kit. One end has a USB-A connector and the oth
 The usb-serial requires a CP2102 driver installed on your laptop. Recent macOS versions ship with a driver pre-installed. If you are using Windows/WSL, you must manually install the driver.
 
 <blockquote class="callout-warning" markdown="1">
-__Got CP2102 driver?__  Is you are running macOS, you already have a CP2102 driver out of the box. Skip over this section; do not manually install the driver.
+__Got CP2102 driver?__  If running macOS, you already have a CP2102 driver out of the box. Skip over this section; do not manually install the driver.
 <details markdown="1">
 <summary>Expand for instructions to manually install CP2012 driver on Windows/WSL</summary>
 1. Only use these instructions for Windows v10 or v11.
@@ -35,10 +35,10 @@ __Got CP2102 driver?__  Is you are running macOS, you already have a CP2102 driv
 When the usb-serial is plugged into your laptop, it appears as a new entry in the filesystem, with a name of the form `/dev/YOUR_DEVICE_NAME` for some value of __YOUR_DEVICE_NAME__. You'll need to know the device name on your system in order to connect to it.
 
 How to get the device name on your system:
-1. `find-dev.sh`
-    Try out this little script we hacked up that tries to ferret out the CP2102 device name. It works for some setups but not all.
+1. Try `find-dev.sh`
+    This is a little script we hacked up that attempts to ferret out the usb-serial device name. It works for some setups but not all.
 
-    When `find-dev.sh` finds the CP2102, it prints the device name. If it doesn't find your usb-serial, double-check that it is connected and powered on. If `find-dev.sh` just isn't working for you, move on to the other method below.
+    When `find-dev.sh` finds the usb-serial, it prints the device name. If it doesn't find your usb-serial, double-check that it is connected and powered on. If `find-dev.sh` just isn't working for you, move on to method #2 below.
 
     ```console
     $ find-dev.sh
@@ -52,18 +52,18 @@ How to get the device name on your system:
     ```
 
 1.  Instead use your shell ninja powers to suss out the device name.
-    The idea is to capture a list of the files in directory `/dev/tty*` when usb-serial is unplugged and take another capture after connecting it. Applying `diff` to the two listings will show what changed, which gives you the device name for the usb-serial, neat!
+    The idea is to capture a list of the files in directory `/dev/tty*` when the usb-serial is unplugged and take another capture after connecting it. Applying `diff` to the two listings will show what changed, which gives you the device name for the usb-serial. Knowing your way around the unix command-line can be very helpful!
 
     ```console?prompt=$
     $ ls /dev/* >unplugged     # capture ls output into file named unplugged
-    $ ls /dev/* >plugged       # repeat after plugging in usb-serial
+    $ ls /dev/* >plugged       # capture again after plugging in usb-serial
     $ diff plugged unplugged
     2a3
     > /dev/ttyS3
     $ rm plugged unplugged        # remove temp files
     ```
 
-Note that __your__ device name may be different than the examples above.
+Note that the device name on __your__ system may be different than the examples above.
 If you are not able to find the device name, ask us for help!
 
 ## Connect usb-serial to Pi
@@ -76,7 +76,7 @@ If you are not able to find the device name, ask us for help!
 
 2. Connect transmit, receive, and ground between the usb-serial and the Pi
     - Pick out three female-female jumpers: one blue, one green, and one black. People experienced in electronics choose the color of the wire to indicate what type of signal is being carried.  This makes it easier to debug connections and visualize the circuit. By convention, black is used for ground, and blue and green are used for transmit and receive, respectively.
-    - On the usb-serial, identify the pins labeled transmit `TX`, receive `RX`, and ground `GND`. Connect the jumpers to the usb-serial as follows:
+    - Look at your usb-serial and identify the pins labeled transmit `TX`, receive `RX`, and ground `GND`. Connect the jumpers to the usb-serial as follows:
         - blue: usb-serial __TX__
         - green: usb-serial __RX__
         - black: usb-serial __GND__
@@ -86,7 +86,7 @@ If you are not able to find the device name, ask us for help!
         - green: usb-serial __RX__ <-> Pi __UART TX__
         - black: usb-serial __GND__ <-> Pi __ground__
         ![usb-serial to Pi connections](../images/uart-usb-serial-connect.jpg){: .w-50 .zoom}
-    We recommend the arrangement shown above: OTG connected to end of hub and CP2102 connected to side of hub (this configuration leaves open access to the Pi's other USB/HDMI ports).
+    We recommend the arrangement shown above: OTG connected to end of hub and usb-serial connected to side of hub (this configuration leaves open access to the Pi's other USB/HDMI ports).
 
 >__Careful with the connections__ The connections run from one device's TX to the other's RX, i.e. the data __transmitted__ by your laptop is __received__ by your Pi and vice versa. Connecting TX to TX and RX to RX is not correct!
 {: .callout-warning}
@@ -117,7 +117,7 @@ A successful uart connection requires that the transmitter and receiver agree on
 - If jumper cables appear stressed or worn, replace with fresh ones.
 - Confirm that your settings are 115200 8N1.
 - If you try to connect and receive the error `Device file is locked by another process`, this typically means that `tio` is already running and connected to the device. Look through your windows to find your existing connnection instead of trying to start another one.
-- In some situations, the CP2102 device name can change from what it was previously. Re-do the [hunt for the device name](#find-dev).
+- In some situations, the usb-serial device name can change from what it was previously. Re-do the [hunt for the device name](#find-dev).
 - If tio gets a "permission denied" error when trying to connect to your device, try adding your user id to the group of the `/dev` files (possibly `tty` or `dialout`). Ask a staff member for help.
 
 
