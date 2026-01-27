@@ -288,7 +288,9 @@ Implement the display refresh loop in `clock.c`. Loop though the four digits, tu
 
 ### 6. Implement countdown clock
 
-The clock operates as a countdown clock. When the program is started, the display shows the countdown duration. The duration is expressed in minutes + seconds, e.g. "0230" is 2 minutes and 30 seconds. The clock counts down by seconds.
+The clock operates as a countdown clock. The display unit shows the time remaining expressed in minutes and seconds with leading zeros, e.g. "1234" is 12 minutes and 34 seconds and "0205" is 2 minutes and 5 seconds.
+
+The default duration is 67 seconds (1 minute and 7 seconds = 107).  You can run the clock using a different duration via an optional `make` argument.  The command `make run DURATION=20` will build and run the clock using a duration of 20 seconds. (For the curious: review `Makefile` and `clock.c` to see how we implemented this mechanism!) Your clock should work for any duration up to 5999 (5999 seconds is 99 minutes and 59 seconds).
 
 When the user clicks the button, start the countdown.  Continually refresh the display to show the count of minutes and seconds remaining. Confirm that the timer is calibrated correctly by observing that the clock is counting down at the right rate according to your watch or computer.
 
@@ -299,7 +301,7 @@ This video shows countdown clock of 10-second duration:
 <video controls="controls" width="400"
        name="Assignment 2 demo" src="images/clock_demo.mp4"></video>
 
-The countdown duration for the clock application is configured using a mechanism we added to the Makefile. The default duration is 67 seconds (1 minute and 7 seconds = 107).  You can specify a different duration using an argument with `make run`. The command `make run DURATION=20` will build and run the clock using a duration of 20 seconds. Your clock should work for any duration up to 99 minutes and 59 seconds.
+
 
 
 __Mission accomplished!__  You have wired up a complex breadboard circuit, written two reusable
@@ -311,8 +313,10 @@ not to the TSA next time you pass through airport security...).
 Here are some problems that have "bugged" students in the past, presented here to help you troubleshoot:
 - Double-check your constants, especially  addresses. The wrong number of zeros or a missing prefix can cause a lot of grief. A numeric constant with no prefix is decimal. If you intend hex, be sure to prefix with "0x", e.g. `0x02000000`.  The prefix for binary is "0b", e.g. `0b10110001`.
 - Take care with your bitwise operations. Try out Max's [Bitwise Explorer](https://mdrach.github.io/cs107-apps/) as a helpful tool for practice and visualization.
+- A case in a C `switch` statement must end with `break` or you will have unintended fallthrough to other cases. <https://stackoverflow.com/questions/29915854/why-does-c-require-breaks-in-switch-statements>
 - Make sure you declare the contents of hardware peripheral registers as `volatile`, otherwise the compiler might optimize away repeated reads/writes. If you don't understand why this is important, ask us in lecture, lab, or office hours -- it's important and also pretty cool!
 - If you accidentally connect a full 3.3V to a segment LED or transistor base without the protection of a current-limiting resistor, it can fatally damage the component. If this fate befalls you, grab a replacement from the spare parts bin in the lab room or ask us for help in office hours.
+- More critically, a connection from voltage (e.g. Pi's power pin or a gpio output set to high) direct to ground creates a short circuit which will fatally damage your Pi.  __Always have your Pi unplugged when rearranging wires__. (Rule of thumb: when Pi's green light is on, it means "back off, especially if you have wire or a metal tool in your hand") After you finish rewiring, trace your circuit one more time to confirm it is correct before you power back up.
 
 ## Extension: Putting the G in GPIO
 
