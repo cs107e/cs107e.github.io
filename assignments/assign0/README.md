@@ -69,9 +69,9 @@ In the `assign0` subfolder, find the file named `background.txt` and open it in 
 
 Add answers to the following questions.  Please try to keep the file reasonably organized and label your responses by question number.
 
-> __Feeling stuck?__ See guides on
+> __Feeling stuck?__ Check out the guides here on
 >  course website, come by office hours, post on Ed, discuss with a peer, do a web search, consult an LLM, ask for help!
-> {: .callout-info}
+{: .callout-question}
 
 1. What is the result of a bitwise OR of these two
    hexadecimal numbers: `0x23 OR 0x4a`?  Now left

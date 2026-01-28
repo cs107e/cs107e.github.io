@@ -58,8 +58,9 @@ layout: dashboard
 .upcoming .stop     { color: #aaa; }
 .upcoming li.event+li.event { border-top: 1px dotted #aaa; }
 
-a[href^="http://"]:after, a[href^="https://"]:after {
-    display: none;
+/* disable display of external link icon for links within button grid */
+.button-grid a::after {
+    display: none !important;
 }
 
 .boxed-link {

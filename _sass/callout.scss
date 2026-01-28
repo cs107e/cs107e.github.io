@@ -4,36 +4,28 @@
  * color themes, success, danger, etc)
  */
 
-// argh, should import fa variables
-$fa-minus-square-o: '\f147';
-$fa-thumbs-o-up: '\f087';
-$fa-ban: '\f05e';
-$fa-exclamation-triangle: '\f071';
-$fa-info-circle: '\f05a';
-$fa-comment: '\f075';
-$fa-question: '\f128';
-
 $callouts: (
-    "success": $fa-thumbs-o-up,
-    "warning": $fa-exclamation-triangle,
-    "danger": $fa-ban,
-    "info": $fa-info-circle,
-    "primary": $fa-comment,
+    "success": var(--icon-thumbsup),
+    "warning": var(--icon-warning),
+    "danger": var(--icon-ban),
+    "info": var(--icon-info),
+    "primary": var(--icon-comment),
 );
 
 @each $cls,$icon in $callouts {
   .callout-#{$cls} {
-    @extend .alert, .alert-#{$cls};
+    @extend .alert;
+    @extend .alert-#{$cls} !optional;
 
     &.callout-invert {
-      @extend .bg-#{$cls};
+      @extend .bg-#{$cls} !optional;
       color: white !important;
     }
     & p strong:first-child {
       display: block; /* use first bold span as title, set on own line */
     }
     & p strong:first-child:before {
-      font-family: "FontAwesome"; /* add icon if title */
+      font-family: "icomoon"; /* add icon if title */
       content: $icon;
       margin-right: 4px;
     }
@@ -42,8 +34,16 @@ $callouts: (
     }
   }
   .callout-#{$cls}-invert {
-    @extend .callout-#{$cls}, .callout-invert;
+    @extend .callout-#{$cls}, .callout-invert !optional;
   }
+}
+
+.callout-question {
+  @extend .callout-primary;
+  & p strong:first-child:before {
+    content: var(--icon-question);
+  }
+
 }
 
 blockquote {

@@ -84,18 +84,18 @@ part, we will treat students with trust and respect.
 
 <style>
     li .text-success:before {
-        content:  '\f087';
-        font-family: "FontAwesome";
+        content: var(--icon-thumbsup);
+        font-family: "icomoon";
         margin-right: 4px;
     }
     li .text-warning:before {
-        content: '\f071';
-        font-family: "FontAwesome";
+        content: var(--icon-warning);
+        font-family: "icomoon";
         margin-right: 4px;
     }
     li .text-danger:before {
-        content: '\f05e';
-        font-family: "FontAwesome";
+        content: var(--icon-ban);
+        font-family: "icomoon";
         margin-right: 4px;
     }
 </style>

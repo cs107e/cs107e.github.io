@@ -60,10 +60,10 @@ pre {  // put pre in panel-like box
     border-radius: 5px;
 }
 
-/* this part adds an icon after external links, using FontAwesome */
+/* adds an icon after external links, using custom font (glyphs from FontAwesome library, package by icomoon) */
 a[href^="http://"]:after, a[href^="https://"]:after {
-    content: "\f08e";
-    font-family: FontAwesome;
+    content: var(--icon-link);
+    font-family: icomoon;
     font-size: 60%;
     font-style: normal;
     display: inline-block;
@@ -102,6 +102,8 @@ NOTdiv {
 
 @import "bootstrap/bootstrap";
 @import url("https://fonts.googleapis.com/css?family=Lato:400,700,900|Inconsolata:400,700,900");
+@import url('/_assets/fonts/icomoon_fonts.css');
+
 img {
     @include img-fluid();
 }

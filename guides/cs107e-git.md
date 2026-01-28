@@ -115,7 +115,7 @@ that you write detailed commit messages.__
 > Git is your friend :) Reading all the responses will help
 > you understand the commands your running, and prevent you from missing
 > important messages about the state of your repo. 
-> {: .callout-info}
+{: .callout-info}
 
 You can view the contents of your remote repo by browsing it on GitHub.
 __Note:__ GitHub will show commits for the `master` branch by default. To see activity
