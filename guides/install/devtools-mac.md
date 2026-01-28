@@ -10,7 +10,7 @@ $().ready(function() {
 });
 </script>
 
-These are the instructions for installing the development tools on macOS. We peppered the installation instructions with <i class="fa fa-check-square-o fa-lg"></i> __Check__ steps that confirm your progress through the steps. Use each to validate a step before moving on.  If you hit a snag, stop and reach out (forum, office hours) and we can help you out!
+These are the instructions for installing the development tools on macOS. We peppered the installation instructions with <i class="icon-check-square-o"></i> __Check__ steps that confirm your progress through the steps. Use each to validate a step before moving on.  If you hit a snag, stop and reach out (forum, office hours) and we can help you out!
 
 ## Install Homebrew/Xcode
 

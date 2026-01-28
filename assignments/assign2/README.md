@@ -79,7 +79,7 @@ For the `gpio` and `timer` modules, we specify the module interface; it is your 
 
 > __Where are the header files?__
 > The module header files are stored in `$CS107E/include`. Change to that directory and list to see the filenames. Use `cat` to  view the contents of a file. You can also browse the [header files on this website](/header). Note you should should never edit/modify these header files, the interface is fixed and is not to be changed.
-> {: .callout-info}
+{: .callout-question}
 
 You will edit the source files `gpio.c` `timer.c` and `timer_asm.s` to complete the private implementation of the modules. You should not export additional public `gpio_` or `timer_` functions. However, you can add your own private helper functions by declaring those functions at the top of the C file with the `static` keyword to make them private and accessible only to the implementation.
 
@@ -152,6 +152,7 @@ Your functions should also be robust against client error. If given an invalid p
 >__Pins with special function__ Some GPIO pins have specialized behavior to note.
 - At reset, all GPIOs are initially disabled excepting four F group pins that are configured for JTAG control. `GPIO_PF0`, `GPIO_PF1`, `GPIO_PF3`, `GPIO_PF5` will be set to function `Alt 4`. It is okay to reconfigure and manipulate these gpios for testing.
 - `GPIO_PB8` and `GPIO_PB9` are initially disabled on reset. However, the process of initializing the DRAM via `xfel ddr d1` (or `mango-run`) sets them to function `Alt 6`. It is okay to reconfigure and manipulate these gpios for testing.
+- Four GPIOs (`GPIO_PG12`, `GPIO_PG13`, `GPIO_PE16`, and `GPIO_PE17`) have an internal pull-up resistor that is always active unless the gpio is configured to output.  When the pull-up is active, the pin has a low voltage that is enough for a connected LED to faintly glow and input to read as high.  Setting the gpio to output turns off the resistor. Our clock connections intentionally do not use any of these gpios because of possible confusion from this "semi-on" state.  It is okay to reconfigure and manipulate these gpios for testing.
 - `GPIO_PD18` controls the blue ACT LED on the Mango Pi board. The start sequence in `cstart.c` configures it as output and turns it on.  You can manipulate this gpio for testing but be aware these actions will affect the blue LED.
 - We recommend your Mango Pi __not be connected to your clock breadboard__ while testing the gpio module (or be aware that the connected components will be reacting to the actions of your test cases).
 {: .callout-warning}

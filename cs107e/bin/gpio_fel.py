@@ -102,11 +102,11 @@ def parse_state(s: str) -> bool:
 def show_pin(pin, *args):
     print('----')
     valstr = fnstr = ''
-    fn = pin.read_fn()
-    if 'val' in args or ('all' in args and fn != 15):
-        valstr = f"val: {'1 (High)' if pin.read_val() else '0 (Low)'}"
     if 'fn' in args or 'all' in args:
+        fn = pin.read_fn()
         fnstr = f"fn: {fn} ({fn_name(fn).capitalize()})"
+    if ('val' in args or ('all' in args and fn != 15)):
+        valstr = f"val: {'1 (High)' if pin.read_val() else '0 (Low)'}"
     print(f"[{pin}] {valstr} {fnstr}")
 
 def show_usage():
