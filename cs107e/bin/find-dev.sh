@@ -2,6 +2,8 @@
 #
 # quick & dirty script to get the device associated with CP2012
 # vendor id 10C4, product id EA60
+#
+# Updated Jan 2026 to add fallback to pick up any IO device if specific id fail
 
 HAS_POWERSHELL=$(which powershell.exe)
 if [ ! -z $HAS_POWERSHELL ]; then   # has powershell -> on WSL

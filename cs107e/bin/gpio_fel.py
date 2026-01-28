@@ -95,8 +95,8 @@ def parse_fn(s: str) -> int:
 
 def parse_state(s: str) -> bool:
     s = s.lower()
-    if s in ['high', 'true', '1']: return True
-    elif s in ['low', 'false', '0']: return False
+    if s in ['on', 'high', 'true', '1']: return True
+    elif s in ['off', 'low', 'false', '0']: return False
     sys.exit(red(f"Error: invalid state '{s}'"))
 
 def show_pin(pin, *args):
