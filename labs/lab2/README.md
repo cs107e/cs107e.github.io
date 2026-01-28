@@ -124,12 +124,12 @@ clean:
 Go through the Makefile with your tablemates to identify its components and add comments to document the various structures (variables, targets, recipes, pattern rules, etc.).
 
 - Trace what happens when you issue `make` with no command-line arguments. What target does `make` build by default? How does it determine which actions to take to build that target?
-- If you make an edit to `blink-actled.c` and run `make` again, which commands are re-run?
-- If you remove the file `blink-actled.bin` and then reissue `make`, just one command is re-run. Which is it? Why is this different that before? How does `make` determine which commands must be re-run?
+- If you make an edit to `blink_actled.c` and run `make` again, which commands are re-run?
+- If you remove the file `blink_actled.bin` and then reissue `make`, just one command is re-run. Which is it? Why is this different that before? How does `make` determine which commands must be re-run?
 - What does `make clean` do?
 
 #### Add target `make run`
-You can include targets in a Makefile to automate other tasks, such as to execute your newly-built program on the Pi.  Open `Makefile` in your editor and add a new target `run` to invoke `mango-run` on the program binary.  Be sure to list the file `blink-actled.bin` as a dependency, so run will first rebuild if needed. Try out `make run` now. If you edit the .c file and then issue `make run`, it should trigger a rebuild first.
+You can include targets in a Makefile to automate other tasks, such as to execute your newly-built program on the Pi.  Open `Makefile` in your editor and add a new target `run` to invoke `mango-run` on the program binary.  Be sure to list the file `blink_actled.bin` as a dependency, so run will first rebuild if needed. Try out `make run` now. If you edit the .c file and then issue `make run`, it should trigger a rebuild first.
 
 You should now be able to answer the check-in question about makefiles[^2].
 

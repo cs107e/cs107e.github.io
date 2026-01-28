@@ -16,15 +16,11 @@ if [ ! -z $HAS_POWERSHELL ]; then   # has powershell -> on WSL
     fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     # use pyserial to look up by VID/PID
-    DEV=$(python3 -m serial.tools.list_ports -q "VID:PID=10C4:EA60")
+    DEV=$(python3 -m xserial.tools.list_ports -q "VID:PID=10C4:EA60" 2>/dev/null)
     if [ $? -ne 0 ]; then
-        # not found, might be fixed by pip3 install pyserial
+        # might be fixed by pip3 install pyserial but don't suggest that, instead
         # fallback take any serial device found by ioreg
-        DEV=$(ioreg -r -c IOSerialBSDClient -l -w0 | awk -F'"' '/"IOCalloutDevice"/ {print $4}')
-        if [ $? -ne 0 ]; then
-            echo "Unable to find device using pyserial/ioreg. Instead use manual list of files ls /dev/tty*"
-            exit 1
-        fi
+        DEV=$(ioreg -r -c IOSerialBSDClient -l -w0 | awk -F'"' '/"IOCalloutDevice"/ {print $4}' | fgrep usbserial)
     fi
 else
     echo "Do not understand this OS. Instead use manual list of files ls /dev/tty*"
@@ -35,7 +31,7 @@ if [ ! -z "$DEV" ]; then
     exit 0
 else
     echo "Could not find CP2102 USB-serial device."
-    echo "I looked through the serial devices on this computer, and did not"
+    echo "I looked through the serial devices on this computer and did not"
     echo "find a device associated with a CP2102 USB-serial adapter. Is"
     echo "your USB-serial adapter plugged in?"
     exit 1
