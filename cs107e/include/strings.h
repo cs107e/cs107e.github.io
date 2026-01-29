@@ -66,6 +66,30 @@ size_t strlen(const char *str);
 int strcmp(const char *s1, const char *s2);
 
 /*
+ * `strlcat`
+ *
+ * Size-bounded string concatenation. Append the null-terminated string `src`
+ * to the end of `dst`. `strlcat` appends at most `dstsize - strlen(dst) - 1`
+ * bytes, and null-terminates `dst`. If `dst` and `src` overlap,
+ * the behavior is undefined.
+ *
+ * The function result is the initial length of `dst` plus the length of
+ * `src`, i.e. the final length of `dst` if there were space to append
+ * all of `src`.
+ *
+ * If there is no null terminator within the first `dstsize` characters of
+ * `dst`, either `dstsize` is incorrect or `dst` is not a proper string.
+ * In such cases, nothing is written to `dst` and the return result is
+ * `dstsize + strlen(src)`
+ *
+ * @param dst       destination buffer containing null-terminated string
+ * @param str       null-terminated string to append to destination
+ * @param dstsize   size of the dst buffer
+ * @return          final length of dst if there were space to append all of src
+ */
+size_t strlcat(char *dst, const char *src, size_t dstsize);
+
+/*
  * `strtonum`
  *
  * Convert the digit characters in `str` to the corresponding unsigned long
@@ -101,29 +125,5 @@ int strcmp(const char *s1, const char *s2);
  * @return          result of numeric conversion (or 0 if first char is invalid)
  */
 unsigned long strtonum(const char *str, const char **endptr);
-
-/*
- * `strlcat`
- *
- * Size-bounded string concatenation. Append the null-terminated string `src`
- * to the end of `dst`. `strlcat` appends at most `dstsize - strlen(dst) - 1`
- * bytes, and null-terminates `dst`. If `dst` and `src` overlap,
- * the behavior is undefined.
- *
- * The function result is the initial length of `dst` plus the length of
- * `src`, i.e. the final length of `dst` if there were space to append
- * all of `src`.
- *
- * If there is no null terminator within the first `dstsize` characters of
- * `dst`, either `dstsize` is incorrect or `dst` is not a proper string.
- * In such cases, nothing is written to `dst` and the return result is
- * `dstsize + strlen(src)`
- *
- * @param dst       destination buffer containing null-terminated string
- * @param str       null-terminated string to append to destination
- * @param dstsize   size of the dst buffer
- * @return          final length of dst if there were space to append all of src
- */
-size_t strlcat(char *dst, const char *src, size_t dstsize);
 
 #endif
