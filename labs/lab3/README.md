@@ -293,7 +293,7 @@ When debugging a function, a common workflow is to
   1. If the next line of code is a call to a subroutine and you suspect the problem could be inside that call, use `step` to drop down into it.  If you `next` through a call and realize that you wish you had used `step` instead, use `run` to start over from the beginning and get another chance.
   1. Recursively apply rules 2-3 until you find the bug.
 
-#### 2c) Use `gdb` to access stack frames
+#### 2b) Use `gdb` to access stack frames
 There are gdb commands that allow you to trace function calls and view stack frames.  Let's try them out!
 
 Set a breakpoint on the `abs` function. gdb reports the address of the instruction where it placed the breakpoint, in this case, address `0x40000024`.
