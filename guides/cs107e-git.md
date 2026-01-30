@@ -160,11 +160,11 @@ $ git push --tags
 <A name="resubmit"></a>
 #### Move tag for resubmit
 If you need to update your previously tagged submission with additional changes, you can move the tag to a different commit with the following command
-(note that you need to push `--force` when moving a tag that already exists).
+(note that you need the `--force` flag to move or push a tag that already exists. `--force` can be shortened to just `-f`).
 
 ```console
-$ git tag -f assignX-submit
-$ git push --tags --force
+$ git tag --force assignX-submit
+$ git push --force --tags
 ```
 
 If you complete one of the extensions for the assignment, add the tag `assignX-extension`
