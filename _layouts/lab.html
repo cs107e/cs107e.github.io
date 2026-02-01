@@ -83,6 +83,23 @@ layout: default
             left: -50px;
         }
 
+        .underline-team {
+             border-bottom: 1px solid;
+             width: 600px;
+             margin-top: 50px;
+             margin-left: 50px;
+             margin-bottom: 30px;
+             position: relative; /* Required for positioning the ::before element */
+         }
+         .underline-team::before {
+             content: "Team names";
+             display: block;
+             font-size: 125%;
+             position: absolute; /* Position it absolutely within the box */
+             top: -20px;
+             left: -100px;
+         }
+
     }
 </style>
 

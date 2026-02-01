@@ -368,5 +368,5 @@ Fill out this check-in sheet as you go and use it to jot down any questions/issu
 [^2]: Show off the workflow you are using to edit/compile/execute a program on the Pi. Everyone should confirm this success individually; this is an important takeaway before starting Assign1.
 [^3]: What is your experimental estimate of the rate of instructions per second executed by the Mango Pi? How did you compute it?
 [^4]: Show us your annotated version of `button.s` and your completed breadboard circuit with button and LED.  What is the purpose of the resistor in the button circuit? Why is it needed? How could you re-arrange the button circuit for a pull-down resistor instead of pull-up? How would you need to change the code to match this re-wired circuit?
-[^5]: Are there any tasks were still need to complete? Do you need assistance finishing? How can we help?
+[^5]: Are there any tasks you still need to complete? Do you need assistance finishing? How can we help?
 [^6]: Do you have any feedback on this lab? Please share!

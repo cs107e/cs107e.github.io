@@ -629,5 +629,5 @@ Fill out this check-in sheet as you go and use it to jot down any questions/issu
 [^2]: Which gdb commands are you already feeling comfortable with? Which others do you plan to learn more about?
 [^3]: On a hosted system, a bogus call to `strlen` (e.g. invalid address, unterminated string) may crash/halt at runtime. But running bare-metal on the Pi, every call to `strlen` (whether well-formed or not) will complete "successfully" and return a value. Explain why this difference in behavior. What value is returned from an erroneous call?
 [^4]: Given that the gdb simulator is not an exact match to the actual Pi hardware, one particularly challenging situation is a program that exhibits a bug on the Pi, but appears to work fine under the simulator or vice versa. What underlying difference(s) between simulator and real thing might contribute to this inconsistency?
-[^5]: Are there any tasks were still need to complete? Do you need assistance finishing? How can we help?
+[^5]: Are there any tasks you still need to complete? Do you need assistance finishing? How can we help?
 [^6]: Do you have any feedback on this lab? Please share!
