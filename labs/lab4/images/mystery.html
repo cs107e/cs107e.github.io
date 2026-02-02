@@ -1,0 +1,116 @@
+<html>
+<style type='text/css'>
+    table 
+    { font-family: Inconsolata, Consolas, Menlo, monospace;
+      font-size: 15pt;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th {
+       padding: 4px;
+       margin: 0;
+       background-color: #cccccc;
+       border-bottom: 1px black solid;
+    }
+    th:nth-child(5) {
+        text-align: left;
+    }
+    td {
+       padding: 1px 10px 1px 10px;
+       margin: 0;
+    }
+    tr.gap td:nth-child(3) {
+        background: linear-gradient(gray, white, gray);
+    }
+    td:nth-child(1) {
+        font-weight: bold;
+        text-align: right;
+        padding-right: 0px;
+        min-width: 5ch;
+    }
+    td:nth-child(2) {
+       text-align: right;
+       padding-right: 4px;
+       min-width: 10ch;
+    }
+    td:nth-child(3) {
+       border: 1px solid black; border-width: 0 1px 0 1px;
+       border-top: 1px dotted black;
+       min-width: 11ch;
+    }
+    td:nth-child(4) {
+       font-style: italic;
+       min-width: 10ch;
+    }
+    td:nth-child(5) {
+       width: 100%;
+    }
+    tr.frameline td:nth-child(4), tr.frameline td:nth-child(3) {
+       border-bottom: 1px solid black;
+    }
+    tr.notop td:nth-child(3)  {
+        border-top: none;
+    }
+    tr.stack td:nth-child(3), tr.notop td:nth-child(3), tr.frameline td:nth-child(3) {
+        background-color:#88B2F9; /* blue */
+    }
+    tr.bss td:nth-child(3) {
+        background-color:#F9AC5B; /* orange */
+    }
+    tr.rodata td:nth-child(3) {
+        background-color:#EF7676; /* red */
+    }
+    tr.data td:nth-child(3){
+        background-color:#89CD6F; /* green */
+    }
+    tr.text td:nth-child(3) {
+        background-color:#CAB1E7; /* purple */
+    }
+    pre {
+        font-family: Inconsolata, Consolas, Menlo, monospace;
+        font-size: 12pt;
+    }
+    p.label {
+        font-family: Inconsolata, Consolas, Menlo, monospace;
+        font-size: 12pt;
+    }
+
+    span.underline {
+        border-bottom: 1px solid black;
+    }
+    </style>
+<tt>Diagram of example.elf, stopped where?</tt>
+<table><tr><th>&nbsp;</th><th>Address</th><th>Contents</th><th>Symbol</th><th>Decoded</th></tr>
+<tr class="stack"><td></td><td>[0x4ffffffc]</td><td>00 00 00 00</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4ffffff8]</td><td>40 00 00 10</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4ffffff4]</td><td>00 00 00 00</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4ffffff0]</td><td>00 00 00 00</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4fffffec]</td><td>00 00 00 00</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4fffffe8]</td><td>40 00 00 48</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4fffffe4]</td><td>00 00 00 00</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4fffffe0]</td><td>50 00 00 00</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4fffffdc]</td><td>00 00 00 00</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4fffffd8]</td><td>40 00 01 d4</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4fffffd4]</td><td>00 00 00 00</td><td></td><td></td></tr>
+<tr class="stack"><td>fp =></td><td>[0x4fffffd0]</td><td>4f ff ff f0</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4fffffcc]</td><td>00 00 00 00</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4fffffc8]</td><td>40 00 01 20</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4fffffc4]</td><td>00 00 00 00</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4fffffc0]</td><td>4f ff ff e0</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4fffffbc]</td><td>00 00 00 00</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4fffffb8]</td><td>00 00 00 00</td><td></td><td></td></tr>
+<tr class="stack"><td></td><td>[0x4fffffb4]</td><td>00 00 00 00</td><td></td><td></td></tr>
+<tr class="stack"><td>sp =></td><td>[0x4fffffb0]</td><td>00 00 00 00</td><td></td><td></td></tr>
+</table>
+<br><hr><p class=label><b> Symbol table </b> <span class=underline>&nbsp;&nbsp;&nbsp; Address range &nbsp;&nbsp;&nbsp;&nbsp; Symbol name</span></p><pre>
+              400001b8 - 400001e7   <b>main</b>
+              4000016c - 400001b7   <b>follow_me</b>
+              40000130 - 4000016b   <b>make_array</b>
+              40000100 - 4000012f   <b>combine</b>
+              400000c0 - 400000ff   <b>sum</b>
+              40000074 - 400000bf   <b>add</b>
+              40000058 - 40000073   <b>first</b>
+              40000014 - 40000057   <b>_cstart</b>
+              40000000 - 40000013   <b>_start</b>
+</pre>
+</html>
