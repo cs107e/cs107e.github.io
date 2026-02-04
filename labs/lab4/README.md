@@ -17,7 +17,7 @@ __Before releasing lab4:__
 - [ ] Followup on issues from previous quarter postmortem (issue #394)
 
 __To prep for lab4:__
-- [ ] Make copies memory diagrams (ideally in color if possible) to hand out in lab
+- [ ] Make copies of stack diagrams (ideally in color if possible) to hand out in lab
 
 {% endcomment %}
 
@@ -80,11 +80,11 @@ Temporary breakpoint 2, main () at example.c:32
 (gdb) x/4wx $sp
 ```
 
-The [full memory diagram](images/stopped-main-full.html) shows the state of memory up to the point where `main` was called. The information shown in gdb should match this diagram. Here are some key details to observe:
+The [full memory diagram](images/stopped-main-full.html) shows the entire state of memory up to the point where `main` was called. The information shown in gdb should match this diagram. Here are some key details to observe:
 - `info address main` reports that the instructions for function `main` start at address `0x400001b8`.
 - `print $pc` to see value of `pc` register, the address of the next instruction to execute. The program is currently stopped at the entry to `main`, thus `$pc` should be the address of the first instruction of main, which is same as reported by `info address main`.
 - `disassemble` lists the instructions in the currently executing function (i.e. function containing `$pc`). In this context, it lists instructions of `main`.  The instruction that is next to be executed (i.e. value of `$pc`) is marked with an arrow `=>`.
-- Look at the memory diagram and find addresses `0x40000000` to `0x400001e8`. This is the "text" section, containing binary-encoded instructions.  You can specified arguments to `disassemble` command to select a named function or range of addresses. Try it now, and see how instructions match what is shown in the memory diagram.
+- Look at the full memory diagram and find addresses `0x40000000` to `0x400001e8`. This is the "text" section, containing binary-encoded instructions.  You can specified arguments to `disassemble` command to select a named function or range of addresses. Try it now, and see how instructions match what is shown in the full memory diagram.
 - The gdb `x` command ("examine memory") is used to display the contents of memory as though it were an array. You specify the number of elements, the size of each element, and display format.
     - Use `help x` to learn more about the options for repeat count, element size, and display format. As an example, `/2wx` displays __2__ __word__-size elements in __hex__ format. ("word" is 32-bits)
         - BTW: the same format characters also apply to the `print` command you learned previously and the `display` command you will learn below, e.g `p/x` to print in hex or `p/t` to print in binary.
@@ -92,7 +92,7 @@ The [full memory diagram](images/stopped-main-full.html) shows the state of memo
     - The command `x/2wi 0x40000000` examines the same 8 bytes of memory, this time displaying as 2 word-size instructions.
 - The stack pointer was initialized to address `0x50000000` and grows downward when a new stack frame is pushed.  At the point the program is currently stopped, the stack contains only one stack frame, for the function `_cstart`. The frame size is 16 bytes and occupies locations `0x4ffffff0`- `0x4ffffffc` on the stack.
     - Try examine `x/4wx $sp` to display 4 words in hex starting from address `sp`. This command shows the topmost four words on the stack -- neat!
-    - This should match what is shown in the memory diagram for the stack frame.
+    - This should match what is shown in the full memory diagram for the stack frame.
 
 #### gdb commands to single step by assembly instruction
 You have previously used `step` to execute a single line of C, today you'll use `stepi` to execute a single assembly instruction. This is Real Deal of single-stepping.
@@ -160,7 +160,7 @@ Temporary breakpoint 3, main () at example.c:32
 ```
 
 
-Use `x` to see the first four instructions in the function prolog. Carefully read over those instructions, then trace their action in gdb using `stepi` to single-step.  Have your printed memory diagram on hand and as you `stepi`, use `p` and `x` to get updated values of registers and memory and manually update the diagram to add the contents of the stack frame for `main`.  Ask questions and discuss with your labmates to help one another get a complete and accurate understanding of the process.
+Use `x` to see the first four instructions in the function prolog. Carefully read over those instructions, then trace their action in gdb using `stepi` to single-step.  Have your printed stack diagram on hand and as you `stepi`, use `p` and `x` to get updated values of registers and memory and manually update the stack diagram to add the contents of the stack frame for `main`.  Ask questions and discuss with your labmates to help one another get a complete and accurate understanding of the process.
 
 Here is a walkthrough of the prolog instructions:
 
@@ -174,7 +174,7 @@ Here is a walkthrough of the prolog instructions:
     -  The first 16 bytes of a RISC-V stack frame are used to save registers `ra` and `fp/s0`. The `saved ra` is the first pushed to the stack and underneath it is the `saved fp/s0`.
         - `saved ra`
             - What is the `ra` register used for? What will be the value of the `ra` register when starting the function `main`?
-           - The `ra` is an address in the text segment.  In your memory diagram, write in that value and draw an arrow that points to that address. Which function is this address contained in?  What is the meaning of that value relative to the currently executing function?
+           - The `ra` is an address in the text segment.  In your stack diagram, write in that value and draw an arrow that points to that address. Which function is this address contained in?  What is the meaning of that value relative to the currently executing function?
            - Why might it be useful for the frame to store a saved copy of `ra`? What does it tell you about where the function was called from?
         - `saved fp/s0`
             - The `fp/s0` is an address in the stack. Where in the stack does this address point to?
@@ -183,11 +183,11 @@ Here is a walkthrough of the prolog instructions:
     - The final instruction of the prolog sets the `fp/s0` register as the "anchor" for the current frame.
     - After executing this instruction, where does `fp/s0` point? Relative to this anchor, at what offset can you find the `saved ra`? the `saved fp/s0`?
 
-The prolog is now finished and execution continues with instructions in the body of the `main` function.  The next few instructions set values for the parameters and make a call to the function `combine`. Keep single-stepping with `stepi` until execution enters the `combine` function. Use `disassemble combine` to view its assembly instruction and note that it starts with the same function prolog instructions as `main` did. Trace/single-step through the prolog here, and extend your memory diagram to add the stack frame for `combine`.
+The prolog is now finished and execution continues with instructions in the body of the `main` function.  The next few instructions set values for the parameters and make a call to the function `combine`. Keep single-stepping with `stepi` until execution enters the `combine` function. Use `disassemble combine` to view its assembly instruction and note that it starts with the same function prolog instructions as `main` did. Trace/single-step through the prolog here, and extend your stack diagram to add the stack frame for `combine`.
 
 Having traced the frame setup twice, hopefully you are getting familiar with how the stack operates. Each function has same prolog instructions: adjust the stack pointer to make space, store the `saved ra` and `saved fp/s0` to the stack, then anchor the `fp/s0`.
 
-Compare your memory diagram with your tablemates. Ask questions of each other and resolve any discrepancies. We want everyone to have a rock solid undertanding of how a stack frame is laid out and what each of the values mean. Check in with us to confirm your understanding. [^1]
+When completed, your stack diagram should show the data on the stack after entering the `combine` function. Compare your stack diagram with your tablemates and ask questions of each other and resolve any discrepancies Confirm your answers with ours: [stopped in combine](images/stopped-combine.html).  We want everyone to have a rock solid undertanding of how a stack frame is laid out and what each of the values mean.  Check in with us to confirm your understanding. [^1]
 
 #### Function epilog
 The last four instructions of `combine` are the function _epilog_. These instructions tear down the stack frame and restore saved registers before returning to the caller. The purpose of the epilog is to reverse the operations done in the prolog, i.e. put everything back to the state it was on function entry. The instructions restore the registers to their saved values and adjust the stack pointer in preparation for returning control to the caller.
@@ -244,9 +244,9 @@ Writing outside the bounds of a stack-allocated array can be a devastating error
 
 #### Solving a stack mystery
 
-Your newfound understanding of how the stack is managed is a neat superpower that you can now test out. Here is a [mystery diagram](images/mystery.html) of the example program stopped somewhere else in its execution. In this diagram, the stack is not annotated with labels and frame divisions as before. The stack memory looks to be a inscrutable jumble of hex numbers.  However, the current value of `fp/s0` and `sp` are marked. How can you use these anchors to get a foothold to the stack frame of the currently executing function? How can you then work backwards from there to the frame of the caller and its caller and so on? Manually unwind and annotate the stack memory with labels to identify each stack frame and its contents. You have just produced your first backtrace!
+Your newfound understanding of how the stack is managed is a neat superpower that you can now test out. Here is a [mystery diagram](images/mystery.html) of the example program stopped somewhere else in its execution. In the mystery stack diagram, the stack is not annotated with labels and frame divisions as before. The stack memory looks to be a inscrutable jumble of hex numbers.  However, the current value of `fp/s0` and `sp` are marked. How can you use these anchors to get a foothold to the stack frame of the currently executing function? How can you then work backwards from there to the frame of the caller and its caller and so on? Manually unwind and annotate the stack memory with labels to identify each stack frame and its contents. You have just produced your first backtrace!
 
-Compare your completed memory diagram with your neighbors and confirm that your versions agree. Here is our version of the [mystery deciphered](images/mystery-deciphered.html).
+Compare your annotations of the mystery stack diagram with your neighbors and confirm that your versions agree. Here is our version of [mystery deciphered](images/mystery-deciphered.html).
 
 ### 2. Heap
 
@@ -373,7 +373,7 @@ Circle lab attended:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  _Tuesday_  &nbsp;&nb
 Fill out this check-in sheet as you go and use it to jot down any questions/issues that come up.  Please check in with us along the way, we are here to help![^6]
 </div>
 
-[^1]: Show us your completed memory diagram for the example program stopped in `combine` (or even better, the annotated mystery diagram if you deciphered it). Here are our annotations for [stopped in combine](images/stopped-combine.html) and [mystery deciphered](images/mystery-deciphered.html) to compare with yours.
+[^1]: Show us your completed stack diagram when stopped in `combine`, or even better, the annotated mystery diagram if you deciphered it. Don't hand in your stack sheet to us-- take it with you to review when working on assign 4.
 [^2]: How should the number of `free` calls relate to the number of `malloc` calls if correctly using heap allocation?
 [^3]: How do symbol addresses in a `.o` file (pre-link) differ from `.elf` file (post-link)? Use `nm` to compare. How does the instruction `jal _cstart` change from `.o` to `.elf`? Use `objdump -d` to view disassembly.
 [^4]: Explain the difference in a build error that results from forgetting to `#include "module.h"` versus forgetting to link against `module.o`.
