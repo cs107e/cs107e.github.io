@@ -81,12 +81,14 @@ void backtrace_print(void);
  * `__stack_chk_fail`
  *
  * Handler function for gcc StackGuard. You should not call this function
- * yourself. A call to the handler is inserted by gcc when a buffer
- * overflow is detected. The handler print an error message about the issue.
- * The attribute `noreturn` indicates the function does not return and
- * program execution stops within the function. A noreturn function stops
- * execution by entering an infinite loop or calling another noreturn function
- * such as `mango_abort` or `mango_reboot`.
+ * yourself. A call to this handler function is inserted by gcc when a buffer
+ * overflow is detected. The handler function prints an error message
+ * to identify the function responsible for stack smashing and exits.
+ *
+ * The attribute `noreturn` applied to the function indicates program
+ * execution does not return from this call, i.e. function enters an
+ * infinite oop or calls another noreturn function such as `mango_abort`
+ * or `mango_reboot` to terminate.
  */
 void __stack_chk_fail(void) __attribute__ ((noreturn));
 

@@ -280,7 +280,7 @@ typedef enum {  // labels for ccu registers that are "known" but unhandled
     CCU_USB_BGR_REG         = 0x0A8C,
 } ccu_ignored_id;
 
-static struct debug_info info_table[] = {
+static struct debug_info ccu_clock_info_table[] = {
     // PLL
     { INFO_PLL(CCU_PLL_CPU_CTRL_REG)    },
     { INFO_PLL(CCU_PLL_DDR_CTRL_REG)    },
@@ -329,7 +329,7 @@ static struct debug_info info_table[] = {
   };
 
 static int get_parent_src_index(ccu_module_id_t id, ccu_parent_id_t parent) {
-    for (struct debug_info *info = info_table; info->name ; info++) {
+    for (struct debug_info *info = ccu_clock_info_table; info->name ; info++) {
         if (info->reg_id == id) {
             for (int i = 0; i < sizeof(info->parents)/sizeof(*info->parents); i++) {
                 if (info->parents[i] == parent) return i;
@@ -339,7 +339,7 @@ static int get_parent_src_index(ccu_module_id_t id, ccu_parent_id_t parent) {
     return -1;
 }
 static struct debug_info *info_for_id(uint32_t id) {
-    for (struct debug_info *info = info_table; info->name; info++) {
+    for (struct debug_info *info = ccu_clock_info_table; info->name; info++) {
         if (info->reg_id == id) {
             return info;
         }
@@ -358,7 +358,7 @@ static const char *get_label(struct debug_info *info) {
 void ccu_debug_show_clocks(const char *label) {
     const char *prev_label = NULL;
     printf("\n++++++++ CCU clock debug (%s) ++++++++\n", label);
-    for (struct debug_info *i = info_table; i->name; i++) {
+    for (struct debug_info *i = ccu_clock_info_table; i->name; i++) {
         const char *cur_label = get_label(i);
         if (cur_label && cur_label != prev_label) {
             printf("\n        Rate  %s\n", cur_label);
