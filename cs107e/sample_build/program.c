@@ -1,19 +1,26 @@
+#include "printf.h"
+#include "uart.h"
 
+int sum(int n) {
+    int result = 0;
 
-void big_stack_function(void) {
-    char buffer[4096];  // Large allocation
-    buffer[0] = 1;
-    // Prevent optimization
-    asm volatile("" : : "r"(buffer) : "memory");
+    for (int i = 1; i <= n; i++)
+        result += i;
+    return result;
 }
 
 int factorial(int n) {
+    if (n == 0) return 1;
     return n * factorial(n-1);
 }
 
-int main(void)
+void main(void)
 {
-    return factorial(10);
+    uart_init();
+    int val = 10;
+    int result = sum(val);
+    printf("Gaussian sum(%d) = %d\n", val, result);
+    val = 7;
+    result = factorial(val);
+    printf("factorial(%d) = %d\n", val, result);
 }
-
-//void *__stack_limit = (void*)0x80000000;  // Example address
