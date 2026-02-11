@@ -76,7 +76,7 @@ In lab, we will distribute a PS/2 keyboard and plug board to each of you.
 - __PS/2 plug board__
     ![plugboard](images/plugboard.jpg){: .zoom .w-50}
 
-The keyboard and plug board are lent to you, take them home to work on the upcoming assignments. Write your name and id number of your keyboard on the sign-out sheet. Please take care of keyboard and plug board, you must return both at the end of the quarter.
+The keyboard and plug board are lent to you, take them home to work on the upcoming assignments. Please take care of keyboard and plug board, you must return both at the end of the quarter. Write your name and keyboard id on the keyboard clipboard. [^1]
 
 Most modern keyboards use the Universal Serial Bus (USB). The USB protocol is quite complicated: a typical USB keyboard driver is 2,000 lines of code -- ouch!
 In this course, we instead use a PS/2
@@ -153,7 +153,13 @@ preparation. When the logic analyzer is unconnected, the start-up screen is simi
 
 ![Logic2 Startup](images/Logic2.startup.png){: .w-75}
 
-Connect the USB cable from the mini-USB port on the logic analyzer to an open port on your laptop or USB hub. When the logic analyzer is connected, the Logic screen will change to this:
+Connect the USB cable from the mini-USB port on the logic analyzer to an open USB port on your laptop.
+
+> __Hardware hiccup: don't overload the hub__
+> While it would be convenient to plug the USB-A end of the logic analyzer cable into the USB hub alongside the Pi and usb-serial, sadly, the combo of all three is more than the hub can manage. Instead, plug the logic analyzer cable directly into a USB port on your laptop. We have USB-C-to-A adapters if your laptop only has USB-C ports.
+{: .callout-warning}
+
+When the logic analyzer is connected, the Logic screen will change to this:
 
 ![Logic2 Connected](images/Logic2.connected.png){: .w-75}
 
@@ -179,7 +185,7 @@ data. How far apart is each falling clock edge? At what frequency is the PS/2
 clock running?  Is the keyboard operating with the range dictated by the
 [spec](https://web.archive.org/web/20180302005138/http://computer-engineering.org/ps2protocol/)? 
 
-You're ready to answer the first check-in question[^1].
+You're ready to answer this check-in question[^2].
 
 ### 3. Run keyboard test
 
@@ -229,7 +235,7 @@ auto-repeat.  Then try typing modifier keys like Shift and Alt, singularly and i
 with other keys. Does shift being pressed changed what scancode is sent by a letter key? What about
 caps lock? Observe the sequence of scancodes to suss out what functionality is provided by the keyboard hardware and what features are to be implemented in the keyboard driver software.
 
-You're ready for the second check-in question [^2]
+You're ready for this check-in question [^3]
 
 <style>
   .sidebar { font-size: small; }
@@ -285,9 +291,9 @@ bits, a parity bit, and a stop bit (always high).  The
 If not, discard it and read again until a valid start bit is received.  Next,
 read the 8 data bits and lastly, read the parity and stop bits. In which order do the 8 data bits arrive?
 If you're not sure, take a look at the signal you captured for the keyboard's data line with the
-  logic analyzer or look back at the PS/2 protocol documentation linked in the prelab.
+logic analyzer or look back at the PS/2 protocol documentation linked in the prelab. (Although working code for `ps2_read` was demoed in the Keyboard lecture, we think you will learn more by writing it for yourself than blindly copying, just sayin'...)
 
-> __Error-checking in `ps2_read`__ In the starter version you write during lab, the only error-checking is to detect and discard an invalid start bit. For the assignment, your driver will implement additional error-checking for parity, stop bit, and timeout. For lab, it's okay to just read the bits and assume they are correct.
+> __Error-checking in `ps2_read`__ In the starter version you write during lab, the only error-checking is to detect and discard an invalid start bit. For the assignment, your driver will implement additional error-checking for parity, stop bit, and timeout. During lab, read the parity and stop bits and assume they are correct.
 {: .callout-warning}
 
 The function `keyboard_read_scancode` in `keyboard.c` simply calls `ps2_read`
@@ -300,7 +306,7 @@ If your implementation of `ps2_read` is working
 correctly, you should be able to compile your application and have it act
 identically to the `keyboard_test` version you tested in Step 3. If you run
 into any snags, please be sure to get help from us now so that you'll be able
-to hit the ground running on the assignment. Show us your working code! [^3]
+to hit the ground running on the assignment. Show us your working code! [^4]
 
 > __Caution on adding debug code in timing-sensitive passages__ Back in lab1, you estimated how many instructions the Pi was executing (~400 million/second).  Earlier in this lab, you measured the time of one cycle of the PS/2 clock.  Work out how many instructions the Pi can execute in that time. Now consider a call to `printf`. Make a ballpark estimate of how many instructions are executed to process and output each character and multiply that count by length of the format string for a rough total count. Imagine adding a debug print statement to your keyboard driver after reading one bit and before reading the next. What would be the consequence if that `printf` call takes longer to execute than the time before the next bit is sent by the keyboard? To ensure you stay within budget, best to limit debug output to a quick jot of a few characters via `uart_putchar`.  Keep this lesson in mind whenever working with code that has similar tight timing requirements.
 {: .callout-warning }
@@ -323,7 +329,7 @@ public source (github, open source repository, blog, textbook, paper, etc.). Per
 
 
 ## Check in with TA
-The key goals for this lab are to leave with wired connection to the PS/2 keyboard and a working draft code to read the 11 bits of a single scancode. Please return __logic analyzer and usb cable__ to the lab cabinet (not to take home).[^4]
+The key goal for this lab is to finish with connection/code to successfully read scancodes from your keyboard. Take your keyboard and plug board with you, plan to return both at the end of the quarter. The __logic analyzer and usb cables__ stay in lab (not to take home).[^5]
 
 <div class=checkinsheet markdown="1">
 # {{ page.title }}
@@ -331,13 +337,13 @@ The key goals for this lab are to leave with wired connection to the PS/2 keyboa
 Circle lab attended:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  _Tuesday_  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  _Wednesday_
 <BR>
 <BR>
-Fill out this check-in sheet as you go and use it to jot down any questions/issues that come up.  Please check in with us along the way, we are here to help![^5][^6]
+Fill out this check-in sheet as you go and use it to jot down any questions/issues that come up.  Please check in with us along the way, we are here to help![^6]
 </div>
 
-[^1]: The PS/2 clock frequency must be in the range 10 to 16.7 kHz. To be within spec, what should time period between falling clock edges be? When you measured using the logic analyzer, what time period did you observe? Is your keyboard operating within spec?
-[^2]: What sequence of codes is sent when typing capital `A`? If you hold down both the shift key and 'a' key, what is the sequence of repeating codes is sent?
-[^3]: Show off that your implementation of `keyboard_read_scancode` correctly receives scancodes from your keyboard.
-[^4]:  The PS/2 keyboard and plug board are on loan to you to take home. Please take care of this equipment; you will return both at the end of quarter. Write down the number marked on your keyboard so we can track it.
+[^1]: There is a green id number marked on each keyboard. Write that id and your name on the clipboard hanging on the lab whiteboard.
+[^2]: The PS/2 clock frequency must be in the range 10 to 16.7 kHz. To be within spec, what should time period between falling clock edges be? When you measured using the logic analyzer, what time period did you observe? Is your keyboard operating within spec?
+[^3]: What sequence of codes is sent when typing capital `A`? If you hold down both the shift key and 'a' key, what is the sequence of repeating codes is sent?
+[^4]: Show off that your implementation of `keyboard_read_scancode` correctly receives scancodes from your keyboard.
 [^5]: Are there any tasks you still need to complete? Do you need assistance finishing? How can we help?
 [^6]: Do you have any feedback on this lab? Please share!
 
