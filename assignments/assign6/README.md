@@ -62,6 +62,7 @@ In the `assign6` directory, you will find these files:
 - `Makefile`: rules to build console_shell application (`make run`) and unit test program (`make test`)
 - `README.md`: edit this text file to communicate with us about your submission
 - `style_reflection.txt`: a text file that you will edit for your responses to the style reflection prompts
+- `gl_mine.h`, `extension.c`: edit these files if doing the extension
 
 The `make run` target builds and runs the sample application
 `console_shell.bin`. Use this target as a final step to confirm the full
@@ -328,7 +329,7 @@ This quarter, we changed the extension to be more free-form to give flexibility 
 
 The starter code includes an empty header file `gl_mine.h` where you are to document the interface to your extended features. The Makefile includes the target `make extension` that runs the the program in `extension.c`. Add your tests to the `extension.c` file.
 
-After implementing your features, the final bit of fun is to create a "splash screen"  that shows them off. Fill in the function `console_startup_screen()` to display a custom scene or animation that brings you joy. Maybe even dig out the passive buzzer from Assign2 extension and add a retro soundtrack? When the user starts your console, let them know that is yours and you are proud of it!
+After implementing your chosen features, the final bit of fun is to create a "splash screen" that shows them off. Fill in the function `console_startup_screen()` to display a custom scene or animation that brings you joy. Dig out the passive buzzer from Assign2 extension and add a retro soundtrack while you're at it? When the user starts your console, let them know that is yours and you are proud of it!
 
 For this extension, we will award up to 3 credits. A feature is worth 1-2 credits depending on how involved it is and how much of the implementation is your own contribution. Even if you have only time to add one modest feature, we'd love to see it and earn a credit for it. (For a sense of calibration, in past quarters, the required extension task was a clean-room implementation of anti-aliased lines and triangles which earned 3 credits.)
 
@@ -341,8 +342,8 @@ Some guidance on making your features awesome:
     - The simplest approach to ensure correct clipping is to only ever change pixels via `gl_draw_pixel`, but this overhead can be a big slowdown when drawing larger regions. Consider instead how how you can exclude the clipped pixels entirely and directly write to the included pixels without repeatedly bounds-checking.
     - Review the [speed exercise from lab6](/labs/lab6) for other suggestions on improving drawing performance.
 - __Hardware floating point__
-    - Some of the algorithms make heavy use of floating point. You will find these operations to be quite slow in our default build environment which relies on the software emulation fp routines in the gcc compiler support library. The Mango Pi has support for hardware floating point which can greatly accelerate these operations.
-    - Research the compile-time and run-time changes that are needed for floating point support. Make the necessary edits in your Makefile to compile for hardware floating point and add the assembly instructions to enable the floating point unit. Rather than add a separate `.s` file for the assembly, read up on gcc's support for "inline/extended assembly" and embed the necessary instructions directly into your `gl_init` C function.
+    - Some geometric algorithms make heavy use of floating point. You will find these operations to be quite slow in our default build environment which relies on the software emulation fp routines in the gcc compiler support library. The Mango Pi has support for hardware floating point which can greatly accelerate these operations.
+    - Research what needs to be changed to instead use hard-float. There will be edits to Makefile to compile for hardware fp and runtime instructions to enable the floating point unit (requires assembly). Rather than use a separate `.s` file, read up on gcc's support for "inline/extended assembly" and embed the necessary instructions directly into your `gl_init` C function.
     -  Use your timer routines to measure the performance of fp-intensive code on hard-float versus soft-float and report back about the gains you were able to make!
 
 
@@ -361,7 +362,7 @@ Tag with `assign6-extension` to submit the extension for grading. Include the fo
 - if you include code that was adapted from an outside source, please be sure to cite, also identify what code was your own contribution
 - tell us about your efforts to get nice output and good performance
 
-Be sure that the commit tagged `assign6-extension` includes all of files necessary for properly testing your extension. We're excited to see what you will do!
+Be sure that the commit tagged `assign6-extension` includes all of files we need to properly test your extension. We're excited to see what you will do!
 
 ## Style reflection
 

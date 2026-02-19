@@ -35,7 +35,7 @@ Think in layers. Assignments 5 and 6 are a good example of this. The `shell` is 
 
 Make components that do one thing. It can be tempting to amass a super-function that does the entire uber-task in one go, but we much prefer decomposing to a set of independent functions that each do one thing well. This facilitates code reuse and makes restructuring your program a breeze. Think of it like legos, a 1x16 long brick only fits into certain configurations, but you can re-arrange 16 1x1 bricks in lots of different ways (don’t read too much into the structural integrity of our metaphor, we're programmers, not civil engineers 😃 ).
 
-Play around, try different ideas. You are unlikely to hit the perfect structure on your first try, but that's the beauty of the process. By going slow, spending time at the drawing board, and making the code you write modular, you give yourself the space to try different structures and implementations. Never be afraid to rewrite a piece of code or scrap a design, it might feel like a loss at first but throwing away that first attempt and
+Play around, try different ideas. You are unlikely to hit the perfect structure on your first try, but by given some time to reflect and iterate, you can work your way to better and better solutions. Never be afraid to rewrite a piece of code or scrap a design, it might feel like a loss at first but throwing away that first attempt and
 using what you learned from it to restart with a clean design is often the best
 path forward; far better than grinding along with a flawed approach.
 
