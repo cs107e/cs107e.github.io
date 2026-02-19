@@ -18,22 +18,22 @@ typedef enum { FB_SINGLEBUFFER = 0, FB_DOUBLEBUFFER = 1 } fb_mode_t;
  *
  * Initialize the framebuffer.
  *
- * @param width  the requested width in pixels of the framebuffer
- * @param height the requested height in pixels of the framebuffer
- * @param mode   whether the framebuffer should be
+ * @param width     requested framebuffer width (in pixels)
+ * @param height    requested framebuffer height (in pixels)
+ * @param mode      whether framebuffer should be
  *                      single buffered (FB_SINGLEBUFFER)
  *                      or double buffered (FB_DOUBLEBUFFER)
  *
- * The depth of the framebuffer is always 4 bytes; ech pixel is
+ * The depth of the framebuffer is always 4 bytes; each pixel is
  * 32-bit value in format BGRA.
  *
- * If the requested size can be successfully accommodated by the underlying
- * hardware, the function returns normally. Otherwise an assert will be raised
- * within de/hdmi to report the problem.
+ * If the requested size can be successfully accommodated by the display
+ * hardware peripherals, the function returns normally. Otherwise an assert
+ * is raised within de/hdmi to report the incompatibility.
  *
- * A subsequent call to fb_init after the first does a reinitialization.
+ * A subsequent call to fb_init after the first does a re-initialization.
  * All previous framebuffer memory is deallocated and the framebuffer is
- * re-initialized for the requested configuration.
+ * reset for the requested configuration.
  */
 void fb_init(int width, int height, fb_mode_t mode);
 

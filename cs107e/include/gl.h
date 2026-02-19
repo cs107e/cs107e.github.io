@@ -26,31 +26,31 @@ gl_mode_t;
  * Initialize the graphic library. This function will call `fb_init` in turn
  * to initialize the framebuffer.
  *
- * @param width  the requested width in pixels of the framebuffer
- * @param height the requested height in pixels of the framebuffer
- * @param mode   whether the framebuffer should be
+ * @param width     requested framebuffer width (in pixels)
+ * @param height    requested framebuffer height (in pixels)
+ * @param mode      whether framebuffer should be
  *                  single buffered (GL_SINGLEBUFFER)
  *                  or double buffered (GL_DOUBLEBUFFER)
  *
- * A subsequent call to gl_init after the first does a reinitialization.
+ * A subsequent call to gl_init after the first does a re-initialization.
  */
 void gl_init(int width, int height, gl_mode_t mode);
 
 /*
  * `gl_get_width`
  *
- * Get the current width in pixels of the framebuffer.
+ * Get the current width of the framebuffer.
  *
- * @return    the width in pixels
+ * @return    the width (in pixels)
  */
 int gl_get_width(void);
 
 /*
  * `gl_get_height`
  *
- * Get the current height in pixels of the framebuffer.
+ * Get the current height of the framebuffer.
  *
- * @return    the height in pixels
+ * @return    the height (in pixels)
  */
 int gl_get_height(void);
 
@@ -92,9 +92,9 @@ typedef uint32_t color_t;
  * blue components. The alpha component of the color will be
  * set to 0xff (fully opaque).
  *
- * @param r  the red component of the color
- * @param g  the green component of the color
- * @param b  the blue component of the color
+ * @param r     red component of color
+ * @param g     green component of color
+ * @param b     blue component of color
  *
  * @return   the color as a single value of type color_t
  */
@@ -105,7 +105,7 @@ color_t gl_color(uint8_t r, uint8_t g, uint8_t b);
  *
  * Clear all the pixels in the framebuffer to the given color.
  *
- * @param c  the color drawn into the framebuffer
+ * @param c     color to set all pixels
  */
 void gl_clear(color_t c);
 
@@ -128,9 +128,9 @@ void gl_swap_buffer(void);
  * Draw a single pixel at location x,y in color c.
  * If the location is outside the bounds of framebuffer, it is not drawn.
  *
- * @param x  the x location of the pixel
- * @param y  the y location of the pixel
- * @param c  the color of the pixel
+ * @param x     x location of pixel
+ * @param y     y location of pixel
+ * @param c     color of pixel
  */
 void gl_draw_pixel(int x, int y, color_t c);
 
@@ -140,8 +140,8 @@ void gl_draw_pixel(int x, int y, color_t c);
  * Return the color of the pixel at location x,y. Returns 0 if the
  * location is outside the bounds of the framebuffer.
  *
- * @param x  the x location of the pixel
- * @param y  the y location of the pixel
+ * @param x     x location of pixel
+ * @param y     y location of pixel
  *
  * @return   the color at that location
  */
@@ -156,11 +156,11 @@ color_t gl_read_pixel(int x, int y);
  * clipped (i.e. not drawn). Only the "on" pixels of the character
  * are drawn, all "off" pixels are left as-is.
  *
- * @param x   the x location of the upper left corner of the character glyph
- * @param y   the y location of the upper left corner of the character glyph
- * @param ch  the character to be drawn, e.g. 'a'. If this character has no glyph
- *            in the current font, nothing is drawn (refer to font_get_glyph())
- * @param c   the color of the character
+ * @param x     x location of upper left corner of character glyph
+ * @param y     y location of upper left corner of character glyph
+ * @param ch    character to be drawn, e.g. 'a'. If this character has no glyph
+ *              in the current font, nothing is drawn (refer to font_get_glyph())
+ * @param c     color of the character
  */
 void gl_draw_char(int x, int y, char ch, color_t c);
 
@@ -173,10 +173,10 @@ void gl_draw_char(int x, int y, char ch, color_t c);
  * that lies outside is clipped (i.e. not drawn). Only the "on" pixels of
  * the characters are drawn, all "off" pixels are left as-is.
  *
- * @param x    the x location of the upper left corner of the first char of string
- * @param y    the y location of the upper left corner of the first char of string
- * @param str  the null-terminated string to be drawn
- * @param c    the color of the string
+ * @param x     x location of upper left corner of the first char of string
+ * @param y     y location of upper left corner of the first char of string
+ * @param str   null-terminated string to be drawn
+ * @param c     color of the string
  */
 void gl_draw_string(int x, int y, const char* str, color_t c);
 
@@ -185,7 +185,7 @@ void gl_draw_string(int x, int y, const char* str, color_t c);
  *
  * Get the height in pixels of a single character glyph.
  *
- * @return the height of character glyph in pixels
+ * @return  the height of character glyph in pixels
  */
 int gl_get_char_height(void);
 
@@ -194,7 +194,7 @@ int gl_get_char_height(void);
  *
  * Get the width in pixels of a single character glyph.
  *
- * @return the width of character glyph in pixels
+ * @return  the width of character glyph in pixels
  */
 int gl_get_char_width(void);
 
@@ -205,59 +205,12 @@ int gl_get_char_width(void);
  * All pixels in the rectangle that lie within the bounds of the
  * framebuffer are drawn. Any pixel that lies outside is clipped (i.e. not drawn).
  *
- * @param x  the x location of the upper left corner of the rectangle
- * @param y  the y location of the upper left corner of the rectangle
- * @param w  the width of the rectangle
- * @param h  the height of the rectangle
- * @param c  the color of the rectangle
+ * @param x     x location of upper left corner of the rectangle
+ * @param y     y location of upper left corner of the rectangle
+ * @param w     width of rectangle
+ * @param h     height of rectangle
+ * @param c     color of rectangle
  */
 void gl_draw_rect(int x, int y, int w, int h, color_t c);
-
-/*
- * `gl_draw_line`: optional extension
- *
- * Draw a line segment from location x1,y1 to location x2,y2 of color c.
- * All pixels along the line that lie within the bounds of the framebuffer
- * are drawn. Any pixel that lies outside is clipped (i.e. not drawn).
- *
- * @param x1  the x location of vertex 1
- * @param y1  the y location of vertex 1
- * @param x2  the x location of vertex 2
- * @param y2  the y location of vertex 2
- * @param c   the color of the line
- *
- * This function is NOT part of the core requirements.
- * You can leave this function unimplemented if not doing the extension.
- */
-void gl_draw_line(int x1, int y1, int x2, int y2, color_t c);
-
-/*
- * `gl_draw_triangle`: optional extension
- *
- * Draw a filled triangle connecting the three vertices filled with color c.
- * All pixels within the triangle that lie within the bounds of the
- * framebuffer are drawn. Any pixel that lies outside is clipped (i.e. not drawn).
- *
- * @param x1  the x location of vertex 1
- * @param y1  the y location of vertex 1
- * @param x2  the x location of vertex 2
- * @param y2  the y location of vertex 2
- * @param x3  the x location of vertex 3
- * @param y3  the y location of vertex 3
- * @param c   the color of the triangle
- *
- * This function is NOT part of the core requirements.
- * You can leave this function unimplemented if not doing the extension.
- */
-void gl_draw_triangle(int x1, int y1, int x2, int y2, int x3, int y3, color_t c);
-
-/*
- * `gl_clear_glyph_cache`: clears the internal glyph cache to reset the font
- *
- * In order to use multiple fonts, we need to clear the glyph cache so it gets
- * repopulated with the new font's characters
- *
- */
-// void gl_clear_glyph_cache(void);
 
 #endif

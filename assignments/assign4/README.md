@@ -363,7 +363,7 @@ Here are the instructions for the [style reflection](style_reflection) to be sub
 The deliverables for `assign4-submit` are:
 
 - implementations of the `backtrace.c` and `malloc.c` library modules
-- comprehensive tests for both modules in `test_backtrace_malloc.c`
+- unit tests for both modules in `test_backtrace_malloc.c`
 - `README.md` (possibly empty)
 - your responses to the prompt questions in `style_reflection.txt`
 
@@ -374,7 +374,7 @@ Submit your finished code by commit, tag `assign4-submit`, and push to remote. T
 To grade this assignment, we will:
 
 - Verify that your submission builds correctly, with no warnings. Clean build always!
-- Run automated tests on your `backtrace` and `malloc` modules
+- Run our automated tests on your `backtrace` and `malloc` modules
 - Go over the test cases you added to `test_backtrace_malloc.c` and evaluate for thoughtfulness and completeness in coverage.
 - Review your completed style reflection.
 

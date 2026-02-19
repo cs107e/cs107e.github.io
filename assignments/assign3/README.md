@@ -470,7 +470,7 @@ Here are the instructions for the [style reflection](style_reflection) to be sub
 The deliverables for `assign3-submit` are:
 
 - implementations of the `strings.c` and `printf.c` library modules
-- comprehensive tests for both modules in `test_strings_printf.c`
+- unit tests for both modules in `test_strings_printf.c`
 - `README.md` (possibly empty)
 - your responses to the prompt questions in `style_reflection.txt`
 
@@ -482,8 +482,8 @@ As time permits, you are encouraged to revisit code from previous assignments an
 
 To grade this assignment, we will:
 
-- Verify that your project builds correctly, with no warnings
-- Run automated tests on your `strings` and `printf` modules
+- Verify that your submission builds correctly, with no warnings. Clean build always!
+- Run our automated tests on your `strings` and `printf` modules
 - Go over the unit tests you added to `test_strings_printf.c` and evaluate them for
   thoughtfulness and completeness in coverage.
 - Review your completed style reflection.

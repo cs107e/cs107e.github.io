@@ -374,8 +374,8 @@ Here are the instructions for the [style reflection](style_reflection) to be sub
 The deliverables for `assign2-submit` are:
 
 - a photo of your completed breadboard
-- implementations of the `gpio.c` and `timer.c` modules
-- comprehensive tests for modules in `test_gpio_timer.c`
+- implementations of the `gpio.c` and `timer.c` library modules
+- unit tests for both modules in `test_gpio_timer.c`
 - application program `clock.c`
 - `README.md` with any information you want to share with your grader
 - your responses to the prompt questions in `style_reflection.txt`
@@ -390,8 +390,8 @@ The steps to follow are given in the [git workflow guide](/guides/cs107e-git#ass
 
 To grade this assignment, we will:
 
-- Verify that your project builds correctly, with no warnings.
-- Run automated tests on your `gpio` and `timer` modules.
+- Verify that your submission builds correctly, with no warnings. Clean build always!
+- Run our automated tests on your `gpio` and `timer` modules.
 - Observe your countdown clock running on a Mango Pi wired to a clock breadboard
   and visually confirm its operation. Our hardware setup will be configured exactly as specified in the [schematic](#clock_spec).
 - Admire the photo you submit of your completed breadboard.

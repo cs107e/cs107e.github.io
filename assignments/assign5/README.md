@@ -614,7 +614,7 @@ Here are the instructions for the [style reflection](style_reflection) to be sub
 The deliverables for `assign5-submit` are:
 
 - implementations of the `ps2.c` `keyboard.c` and `shell.c` library modules
-- comprehensive tests for all modules in `test_keyboard_shell.c`
+- unit tests for all modules in `test_keyboard_shell.c`
 - `README.md` (possibly empty)
 - your responses to the prompt questions in `style_reflection.txt`
 
@@ -626,7 +626,7 @@ Submit your finished code by commit, tag `assign5-submit`, and push to remote. T
 To grade this assignment, we will:
 
 - Verify that your submission builds correctly, with no warnings. Clean build always!
-- Run automated tests on your `ps2`, `keyboard` and `shell` modules
+- Run our automated tests on your `ps2` `keyboard` and `shell` modules
     +  __Take care!__ Our automated testing requires that your shell has absolute consistency in calling `module.shell_printf` for all shell output. Double-check that you are compliant. Be sure to remove or comment out any direct use of `printf` or debugging output.
 - Go over the test cases you added to `test_keyboard_shell.c` and evaluate for thoughtfulness and completeness in coverage.
 - Review your completed style reflection.
