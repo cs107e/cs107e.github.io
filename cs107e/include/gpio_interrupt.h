@@ -57,7 +57,9 @@ void gpio_interrupt_register_handler(gpio_id_t pin, handlerfn_t fn, void *aux_da
  * Enumeration for GPIO interrupt events
  *
  * The enumerated values below establish symbolic names for the different
- * GPIO events that can trigger an interrupt.
+ * GPIO events that can trigger an interrupt. "Positive" edge is what we call
+ " rising edge, "negative" is falling. "Double edge" triggers for either
+ * rising or falling.
  */
 typedef enum {
     GPIO_INTERRUPT_POSITIVE_EDGE = 0,
@@ -72,9 +74,10 @@ typedef enum {
  *
  * Config interrupt to trigger on `event` for GPIO with id `pin`.
  * The boolean parameter `debounce` controls whether to apply debounce
- * circuit to filter/coalesce sequence of rapid-fire events. If true, debounce
- * filters to ~1 event/ms. If events expected to be more rapid (e.g. PS/2),
- * set debounce to false to not miss events.
+ * circuit to filter/coalesce sequence of rapid-fire events. Debounce true
+ * will filter repeated events to about 1 event/ms. If events are expected
+ * to arrive more rapidly (e.g. PS/2 10Khz is 10 events/ms), set debounce
+ * to false so all events will be passed through as-is, no filtering.
  *
  * @param pin        the id of the GPIO pin
  * @param event      which event, see gpio_event_t enumeration
@@ -87,7 +90,8 @@ void gpio_interrupt_config(gpio_id_t pin, gpio_event_t event, bool debounce);
 /*
  * `gpio_interrupt_enable`
  *
- * Enable interrupts for GPIO with id `pin`.
+ * Enable interrupts for GPIO with id `pin`. Interrupts will be triggered
+ * for the event configured for this pin..
  *
  * @param pin      the id of the GPIO pin
  *
@@ -98,7 +102,8 @@ void gpio_interrupt_enable(gpio_id_t pin);
 /*
  * `gpio_interrupt_disable`
  *
- * Disable interrupts for GPIO with id `pin`.
+ * Disable interrupts for GPIO with id `pin`. No interrupts are
+ * triggered for this pin.
  *
  * @param pin      the id of the GPIO pin
  *
@@ -109,7 +114,9 @@ void gpio_interrupt_disable(gpio_id_t pin);
 /*
  * `gpio_interrupt_clear`
  *
- * Clears any pending interrupt for GPIO with id `pin`.
+ * Clears any pending interrupt for GPIO with id `pin`. Call this function
+ * to reset interrupt state for this pin, such as after the event has been
+ * handled or when resetting the interrupt configuration for this pin.
  *
  * @param pin      the id of the GPIO pin
  *

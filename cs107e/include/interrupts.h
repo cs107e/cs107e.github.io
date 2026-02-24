@@ -34,8 +34,8 @@ void interrupts_init(void);
 /*
  * `interrupts_global_enable`
  *
- * Turn on interrupts system-wide. An interrupt generated on an
- * interrupt source that is enabled will call the registered handler.
+ * Turn on interrupts system-wide. Start (or resume) generating
+ * interrupts for all interrupt sources that are enabled.
  */
 void interrupts_global_enable(void);
 
@@ -52,9 +52,8 @@ void interrupts_global_disable(void);
 /*
  * `interrupts_enable_source`
  *
- * Enable a particular interrupt source. The source itself must
- * be configured to generate interrupts (and global interrupts must be
- * enabled) for a registered handler to be called.
+ * Enable a particular interrupt source.  An interrupt on an enabled source
+ * will call the registered handler.
  *
  * @param source    which interrupt source (see enumeration values below)
  *
@@ -65,8 +64,8 @@ void interrupts_enable_source(interrupt_source_t source);
 /*
  * `interrupts_disable_source`
  *
- * Disable a particular interrupt source. Interrupts for this source
- * will not trigger a handler and will remain pending (until cleared).
+ * Disable a particular interrupt source. An interrupt for a disabled source
+ * will not call the registered handler.
  *
  * @param source    which interrupt source (see enumeration values below)
  *
@@ -92,8 +91,8 @@ typedef void (*handlerfn_t)(void *);
  * source can have one handler: further dispatch should be managed by
  * the handler itself. Registering a handler does not enable the source:
  * this must be done separately through `interrupts_enable_source`.
- * These are separate because otherwise there can be impossible-to-solve
- * technical challenges such as
+ * Registering handler and enabling the source are separate actions to avoid
+ * impossible-to-solve technical challenges such as
  *   - receiving an interrupt before `interrupts_register_handler` completes,
  *   - handling an interrupt that was pending from a different use of the source,
  *   - changing the handler as one part of a larger atomic action.

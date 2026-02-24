@@ -114,7 +114,7 @@ void interrupts_init(void) {
     module.plic->regs.ctrl = 0;             // machine mode only
     module.plic->regs.threshhold = 0;       // accept interrupts of any priority
     interrupts_set_mtvec(_trap_handler);    // install trap handler
-    for (int i = 0; i < N_SOURCES/32; i++) {
+    for (int i = 0; i < N_SOURCES/32; i++) { // 1 bit per souce
         module.sources->regs.pending[i] = 0;// all sources initially disabled
         module.sources->regs.enable[i] = 0;
     }
