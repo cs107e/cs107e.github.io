@@ -202,9 +202,9 @@ How to rework the code:
 
 - Review the [ringbuffer.h](/header#ringbuffer) header file and source file [ringbuffer.c](/src#ringbuffer) to see the provided ring buffer queue. The ringbuffer is a sequence of integer values implemented as a circular queue.
 - In the `main` function, declare a variable of type `rb_t *rb` and initialize with a call to `rb_new`.
-- When calling `gpio_interrupt_register_handler`, change to pass the `rb` pointer as `aux_data.`
+- Edit `config_button` to take one argument, the `rb` pointer.  When calling `gpio_interrupt_register_handler`, pass the `rb` pointer as `aux_data.`
 - Change your click handler function to receive `rb` pointer as `aux_data`, i.e. cast the `aux_data` to `rb_t *`. Add the updated value of `gCount` to the ring buffer by calling `rb_enqueue`.
-- Edit `main` to use `rb_dequeue` to retrieve each update from the queue. Remove the previous code comparing `gCount` to saved count and instead check if the ring buffer is non-empty to detect there is a pending update to draw.
+- Edit `main` to call `rb_dequeue` to retrieve each update from the queue. Remove the previous code comparing `gCount` to saved count and instead check if the ring buffer is non-empty to detect there is a pending update to draw.
 
 Make the above changes and rebuild and run the program. It should now redraw the screen once for each button press in one-to-one correspondence, including patiently processing a backlog of individual redraws, one for each click made in fast succession.
 
