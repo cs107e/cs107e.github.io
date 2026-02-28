@@ -13,13 +13,13 @@
     {% assign one_week = one_day | times: 7 %}
     {% assign four_days = one_day | times: 4 %}
     {% assign two_days = one_day | times: 2 %}
-    {% assign sat_before_first_monday = first_monday | minus:two_days %}
+    {% assign sun_before_first_monday = first_monday | minus:one_day %}
 
     {% assign start_index = 0 %}
     {% assign num_weeks = site.data.schedule.weeks.size %}
     {% if include.current_only %}
         {% assign num_weeks = 1 %}
-        {% assign where_is_today = site.time | date: "%s" | minus: sat_before_first_monday | divided_by: one_week %}
+        {% assign where_is_today = site.time | date: "%s" | minus: sun_before_first_monday | divided_by: one_week %}
         {% if where_is_today >= 0 and where_is_today < site.data.schedule.weeks.size %}
             {% assign start_index = where_is_today %}
         {% endif %}
