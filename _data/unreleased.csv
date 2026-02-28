@@ -1,5 +1,4 @@
 permalink,title,released
-"/project/","Final Project",false
 "/labs/projectlab1/","Lab 8: Project Team Meeting 1",false
 "/labs/projectlab2/","Lab 9: Project Team Meeting 2",false
 "/lectures/Arithmetic/","Number Representation and Arithmetic",false
@@ -7,7 +6,6 @@ permalink,title,released
 "/lectures/FloatingPoint_Sound/","Floating Point and Sound",false
 "/lectures/OOP/","Object-oriented programming",false
 "/lectures/Output/","Output",false
-"/lectures/Project/","Project",false
 "/lectures/RISC-V/","RISC-V architecture",false
 "/lectures/Sensors/","Sensor Input",false
 "/lectures/Wrap/","Wrap or There and Back Again",false
