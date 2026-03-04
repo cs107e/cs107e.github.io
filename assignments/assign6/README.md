@@ -331,7 +331,7 @@ The starter code includes an empty header file `gl_mine.h` where you are to docu
 
 After implementing your chosen features, the final bit of fun is to create a "splash screen" that shows them off. Fill in the function `console_startup_screen()` to display a custom scene or animation that brings you joy. Dig out the passive buzzer from Assign2 extension and add a retro soundtrack while you're at it? When the user starts your console, let them know that is yours and you are proud of it!
 
-For this extension, we will award up to 3 credits. A feature is worth 1-2 credits depending on how involved it is and how much of the implementation is your own contribution. Even if you have only time to add one modest feature, we'd love to see it and earn a credit for it. (For a sense of calibration, in past quarters, the required extension task was a clean-room implementation of anti-aliased lines and triangles which earned 3 credits.)
+For this extension, we will award up to 3 credits. A feature is worth 1-2 credits depending on how involved it is and how much of the implementation is your own contribution. Even if you have only time to add one modest feature, we'd love to see it and earn a credit for it. (For a sense of calibration, in past quarters, the required extension task was a clean-room implementation of anti-aliased lines and filled triangles which earned 3 credits.)
 
 Some guidance on making your features awesome:
 - __Anti-aliasing__
