@@ -1,8 +1,11 @@
 /*
-    Module to interface with PWM hardware peripheral
-
-    Author: Julie Zelenski
-    Mon Nov 18 21:54:01 PST 2024
+ * File: pwm.h
+ *
+ * Module to interface with PWM hardware peripheral
+ *
+ * Author: Julie Zelenski <zelenski@cs.stanford.edu>
+ *
+ * Last updated: Mon Nov 18 21:54:01 PST 2024
  */
 
 #include "pwm.h"
@@ -113,7 +116,6 @@ static struct {
 
 enum { SRC_HOSC = 0, SRC_APB0 = 1 };
 enum { MODE_CYCLE_CONTINUOUS = 0, MODE_PULSE = 1 };
-enum { ACTIVE_LOW = 0, ACTIVE_HIGH = 1 };
 enum { PERIOD_READY = 0, PERIOD_BUSY = 1 };
 
 static const int HOSC_FREQ = 24000000;
@@ -206,7 +208,7 @@ static void config_clock_settings(pwm_channel_id_t ch, int desired_freq) {
     module.clk_settings[ch].n_entire = n_entire;
 }
 
-void pwm_config_channel(pwm_channel_id_t ch, gpio_id_t pin, int freq, bool invert) {
+void pwm_config_channel(pwm_channel_id_t ch, gpio_id_t pin, int freq, pwm_active_state_t active) {
     if (!module.initialized) error("pwm_init() has not been called!\n");
     config_clock_settings(ch, freq);
     if (!set_pin_fn_to_pwm(ch, pin)) {
@@ -219,24 +221,27 @@ void pwm_config_channel(pwm_channel_id_t ch, gpio_id_t pin, int freq, bool inver
     module.pwm->regs.channel[ch].pcr.prescale = k - 1; // apply prescaler
     set_period(ch, 0, module.clk_settings[ch].n_entire); // config 0% duty to start
     module.pwm->regs.channel[ch].pcr.mode = MODE_CYCLE_CONTINUOUS;
-    module.pwm->regs.channel[ch].pcr.active_state = invert? ACTIVE_LOW : ACTIVE_HIGH;
+    assert(active == PWM_ACTIVE_LOW || active == PWM_ACTIVE_HIGH);
+    module.pwm->regs.channel[ch].pcr.active_state = active;
     module.pwm->regs.channel[ch].pcntr.counter_start = 0;
     module.pwm->regs.per |= (1 << ch);     // enable pwm output
 }
 
-void pwm_set_duty(pwm_channel_id_t ch, int percentile) {
+void pwm_set_duty(pwm_channel_id_t ch, int percent) {
+    if (!module.initialized) error("pwm_init() has not been called!\n");
     bool pwm_ch_enabled = (module.pwm->regs.per & (1 << ch)); // confirm ch is config/enabled
     assert(pwm_ch_enabled);
-    assert(percentile >= 0 && percentile <= 100);
+    assert(percent >= 0 && percent <= 100);
     int n_steps = module.clk_settings[ch].n_entire;
-    int scaled_active = (percentile*n_steps)/100;
+    int scaled_active = (percent*n_steps)/100;
     set_period(ch, scaled_active, n_steps);
 }
 
 void pwm_set_freq(pwm_channel_id_t ch, int freq) {
+    if (!module.initialized) error("pwm_init() has not been called!\n");
     bool pwm_ch_enabled = (module.pwm->regs.per & (1 << ch));  // confirm ch is config/enabled
     assert(pwm_ch_enabled);
-    int percentile = 50;
+    int percent = 50;
     if (freq == 0) {
         pwm_set_duty(ch, 0); // turn off
     } else {
@@ -244,7 +249,7 @@ void pwm_set_freq(pwm_channel_id_t ch, int freq) {
         int k = module.clk_settings[ch].k;
         module.pwm->regs.channel[ch].pcr.prescale = k - 1; // apply prescaler
         int n_entire = module.clk_settings[ch].n_entire;
-        int n_active = (n_entire*percentile)/100;
+        int n_active = (n_entire*percent)/100;
         module.pwm->regs.channel[ch].pcr.mode = MODE_CYCLE_CONTINUOUS;
         set_period(ch, n_active, n_entire);
     }

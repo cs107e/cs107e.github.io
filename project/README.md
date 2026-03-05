@@ -107,7 +107,4 @@ Our rubric for evaluating final projects considers two major areas and one bonus
 - Browse our [project gallery](/project_gallery/) of past projects
 - Project [musings and inspiration](inspirations)
 - Exploring [components and sensors](components)
-{% comment %}
-- Mango Pi [on-board peripherals](mangopi)
 - Available [support code](supportcode)
-{% endcomment %}

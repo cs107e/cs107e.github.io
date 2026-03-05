@@ -11,6 +11,7 @@
 
 #include "gpio.h"
 #include <stdint.h>
+
 /*
  * Type: `spi_mode_t`
  *
@@ -22,7 +23,6 @@ typedef enum {
     SPI_MODE_2,         // CPOL = 1, CPHA = 0 (Clock High, Data Captured on Falling Edge)
     SPI_MODE_3,         // CPOL = 1, CPHA = 1 (Clock High, Data Captured on Rising Edge)
 } spi_mode_t;
-
 
 /*
  * `spi_device_t`
