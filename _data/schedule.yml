@@ -49,9 +49,9 @@ weeks:
     assign: /project/
     fri: /lectures/Output/
   -
-    mon: TBA
+    mon: /lectures/Wrap/
     lab: /labs/projectlab2/
-    fri: /lectures/Wrap/
+    fri: No lecture, work on projects!
   -
     project_demo: "2026-03-20 9:00 AM"
     project_due: "2026-03-20 11:59 PM"
