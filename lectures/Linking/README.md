@@ -3,6 +3,9 @@ released: true
 permalink: /lectures/Linking/
 title: Modules, Libraries, and Linking
 readings: |
+    Build process, makefiles, linking, libraries, module design
+
+    Readings:
     + Our guide to [binutils](/guides/binutils)
     + Anatomy of a simple [linker script example](https://www.sourceware.org/binutils/docs/ld/Simple-Example.html) from ld documentation
     + Longer tutorial on [bare-metal RISC-V build](https://fryzekconcepts.com/notes/baremetal-risc-v.html), thanks to Lucas Fryzek
