@@ -9,6 +9,5 @@ readings: |
     + Wikipedia entry [pulse width modulation](https://en.wikipedia.org/wiki/Pulse-width_modulation)
     + Readings for [i2s](/readings/i2s.pdf) protocol
     + [libextra](/extra) has i2s and pwm drivers
-    + [How To Mechatronics](https://howtomechatronics.com/category/how-it-works/) tutorials
-
+    + Neat tutorials from [How To Mechatronics](https://howtomechatronics.com/category/how-it-works/) and [Great Scott Electronics](https://www.youtube.com/user/greatscottlab)
 ---
