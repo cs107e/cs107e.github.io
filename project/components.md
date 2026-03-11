@@ -75,17 +75,26 @@ The Mango Pi GPIO pins are digital, reading an analog value requres interfacing 
 
 ## Component suppliers
 
-Some known good vendors for electronic components:
+Here are some options of known good sources.
 
-- [Jameco](https://www.jameco.com/) has a great selection of electronic parts and are located in Belmont near SFO.
+__Local__
+- [MicroCenter](https://www.microcenter.com) recently opened in Santa Clara, neat! Their business is mostly consumer electronics along with some hobbyist tools and supplies. In additional to standard electronic components, they also have an eclectic selection of specialized leds/sensors/modules from the Adafruit and Sparkfun catalogs. It's fun to go and browse. If looking for a specific part, check the website inventory before you make the trip.
+
+- [Jameco](https://www.jameco.com/) stocks a large catalog of electronic components and are located in Belmont near SFO.
 If you place an online order, parts will generally arrive the next day via US mail. If you have a car, you can also drive there and pick up parts same day at the Will Call desk.
-
-- [Pololu](https://www.pololu.com/) has a wide selection of parts for robotics, including sensors and motor drivers. They also document their parts very well.
-
-- [Adafruit](https://www.adafruit.com/) Limor Fried has founded a company that caters to makers of all types. Besides building great products, they also provide extensive tutorials and learning guides on their web site.
-
-- [Sparkfun](https://www.sparkfun.com/) is another good source for hobbyist electronics, many great tutorials.
 
 - If you have yet to visit [lab64](https://ee.stanford.edu/news/lab64), go now and check it out! The EE department's Maker Space is located on first floor of Packard building. The staff is super helpful and can assist you with using the available tools (oscilloscope, soldering, 3-D printing, laser cutting). They also have a store stocked with electronic components (transistors, op-amps, diodes, etc) and some common sensors and motors.
 
-CS107E has a small lending library of some components that we can loan for you to try out before ordering your own.
+__Online__
+
+If ordering online, try to do it early so you aren't having to pay through the nose for expedited shipping.
+- [Adafruit](https://www.adafruit.com/) Limor Fried has founded a company that caters to makers of all types. Besides building great products, they also provide extensive tutorials and learning guides on their web site.
+
+- [Sparkfun](https://www.sparkfun.com/) is another great source for hobbyist electronics, many great tutorials.
+
+- [Pololu](https://www.pololu.com/) specializes in parts for robotics (sensors, motor drivers, mechanical). They also document their parts very well.
+
+__Loaners and scrap parts__
+- We have a small lending library of some components that we can loan for you to try out before ordering your own. We have the parts demoed in lecture (switches, hall effect, phototransistor, IR, ultrasound, shift register, buzzer, motors...) and other oddballs (RTC, temp, displays). Ask us if you have need for something and we'll try to round up what we can.
+- The drawer labeled "project parts" in lab room has a random smattering of scrap parts left over from previous projects. You are welcome to paw through and re-use what you can.
+- We also try to keep some common "consumables" on hand: protoboards, heat shrink, ribbon cables, hot glue, connectors, etc. Check the drawer and let us know if supplies are running low so we can replenish.
