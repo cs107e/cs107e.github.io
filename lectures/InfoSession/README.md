@@ -12,6 +12,6 @@ Come hang out with us __Wed Mar 11 5pm in CoDa E160__ to hear more about the cou
 + [Course FAQ](https://cs107e.stanford.edu) has answers to common questions from prospective students
 + [Project gallery](/project_gallery/)
 + [Course policies](/policies)
-{% comment %}+ [Slides](slides.pdf) from info session{% endcomment %}
++ [Slides](slides.pdf) from info session
 
 If you're interested in being considered, be sure to submit the enrollment questionnaire. See [FAQ](https://cs107e.stanford.edu) for link and schedule.
