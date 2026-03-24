@@ -1,2 +1,0 @@
-docs/ folder contains datasheets
-
