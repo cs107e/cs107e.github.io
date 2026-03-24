@@ -8,14 +8,22 @@ toc: true
 
 ## Course Grades
 
-The coursework consists of 7 weekly assignments and a final project. There are no exams. We look for your demonstrated accomplishment of the course learning goals through meeting the deliverables for assignments/project and sustained engagement with the material.
+The coursework consists of 7 weekly assignments and a final project. There are no exams. We look for your achievement of the course learning goals through meeting the assignment and project deliverables, demonstrating growth and proficiency, and sustained engagement with the material.
 
 + Assignment deliverables
     - Core functionality is "feature-complete"
     - Timeliness in meeting schedule
-    - Bonus credits available for completing additional features
 + Project deliverables
-    - Creative final project that is well-executed and shows proficiency with course material
+    - Successful completion of final project that shows proficiency with course material
++ Engagement
+    - Willingness to challenge yourself, dedication to learning, continued improvement
+    - Active involvement in lecture, lab, forum, office hours
+    - Show growth and mastery in written and verbal forms (code reflections, project writeup, interview assessment)
+
+Our grading system is designed to be entirely __constructive__. We celebrate and reward each of your accomplishments, whether that is tracking down bugs, keen participation in lab, implementing extended features, or making on-time submssions.
+
+{% comment %}
+
 + Engagement
     - We encourage and recognize your contributions of __E-P-C__:
         - __Effort__: growth mindset, willingness to challenge yourself, dedication to learning, continued improvement
@@ -23,7 +31,7 @@ The coursework consists of 7 weekly assignments and a final project. There are n
         - __Community__: learning together, asking and answering questions, collaborating in lab, celebrating and supporting one another
     - Together we can build a vibrant and interactive learning environment where all can thrive!
 
-Our grading system is designed to be entirely __constructive__. We celebrate and reward each of your accomplishments, whether that is tracking down bugs, keen participation in lab, implementing extended features, or making on-time submssions. Satisfying the base expectations listed below guarantees a course grade in the B range; your efforts to go above and beyond boost your course grade upward.
+Satisfying the base expectations listed below guarantees a course grade in the B range; your efforts to go above and beyond boost your course grade upward.
 
 If you have your sights set on earning an __A__ course grade, you will need consistently __outstanding__ work:
 + Assignment deliverables
@@ -50,6 +58,8 @@ For a __B__ course grade, we expect __solid__ work that meets all base expectati
     - Good (all labs, ok style reflections, good E-P-C)
 
 Work that is not completed satisfactorily will earn grades __C and below__.
+
+{% endcomment %}
 
 ## Late Policy
 
@@ -116,7 +126,7 @@ These things are encouraged and allowed for all students, no citation needed:
 
     If you need to help with an issue specific to your design/code/debugging, please bring to the course staff. They are deeply knowledgeable of the course material and know how to guide without overly leading you.
 
-- __Use of external resources for background information__{: .text-success }
+- __Use of external resources/AI tools for background information__{: .text-success }
 
     You may search for and use external resources (web sites, blogs, forums, etc.) to further your understanding of course topics, languages, and tools.
 
@@ -139,9 +149,6 @@ implementation strategies, testing, and debugging. Some examples:
 
     If you discuss strategies for testing or jointly brainstorm test inputs (e.g. "be sure to test on oddball cases like `free(NULL)`"), please cite.
 
-- __Receiving help from an AI acting IFF in the role of "ethical tutor"__{: .text-warning }
-
-    Use of AI tools (e.g. ChatGPT, CoPilot) is restricted to the kind of help that could be provided by a ethically-minded tutor. A good tutor can answers questions about your confusions, can provide clarification, can walk you through an example, can direct you to additional information, and so on. A tutor is acting as a sounding board for your own understanding and guiding without overly leading. If you used an AI as a tutor, you should cite the assistance you received. __Note that a properly-trained tutor doesn't write code for you nor does it point out your bugs or tell you how to rewrite your code.__ Such uses are disallowed.
 
 #### What is an appropriate citation?
 
@@ -159,23 +166,14 @@ aid:
 
 - __Copying code__{: .text-danger }
 
-    It is plagiarism to submit work as your own which is whole or in part copied or
-derived from the work of others .
+    You must not submit work for grading that is whole or in part copied or
+derived from the work of others. It is a misrepresentation to claim such work as your own, n matter where the code came from and who authored it (peers, found online, AI-generated).
 
-- __Reviewing the code of another__{: .text-danger }
+- __Reviewing solution code that is not your own__{: .text-danger }
 
-    You may not have another person "walk you through"
-their approach nor may you use their work "as a reference" to
-look at if you get stuck.
+    You should not be searching online for assignment solution code. Should you accidentally stumble upon it, the correct response to about-face. You should not request solution code from external sources (e.g. StackOverflow) or prompt an AI to generate solution code. You may not have another person walk you through
+    their approach nor may you have their work as a reference to look at if you get stuck.
 
-- __Joint development/debugging__{: .text-danger }
-
-    Students may not jointly work together to develop
-a design, write code, or debug. 
-
-- __Use of external resources or AI tools for help with assignment-specific code__{: .text-danger }
-
-    You should not be searching online for assignment solution code. Should you stumble across some accidentally, the correct response to about-face. You should not request assignment-specific code from external sources (e.g. StackOverflow) nor should you be using an AI tool (e.g. ChatGPT, CoPilot) to generate code for you or fix/debug your code.
 
 - __Sharing your code__{: .text-danger }
 
@@ -183,13 +181,17 @@ a design, write code, or debug.
 publicly post it. After completing the course, you are expected to take reasonable security precautions
 to maintain your work privately.
 
-### Integrity as community
 
-The Honor Code is a powerful assertion that we as a community proudly
-dedicate ourselves to upholding the highest standards of academic
-integrity. The vast majority will do right by CS107e -- we ask a lot
-of you and you will consistently meet those challenges in submitting your
-own authentic work. We demonstrate our respect and appreciation for your integrity by 
-clearly stating our expectations and holding accountable
-those students who act outside the policy.
+### Assistance from generative AI
+
+- __OK to use AI in role of "ethical tutor"__{: .text-success }
+
+    Using an AI as a partner in your learning can be a wonderful thing. What's not to love about having a tutor available 24/7?  Just be sure you're using it a sound and ethical way. Think of it as a tutor is who well-trained and committed to your learning. The tutor provides a sounding board for your own understanding and will avoid overly leading you. Ask your questions, have it walk you through an example, converse with it to refine your understanding, ask for additional resources, and so on. But asking it to do your work for you? No bueno!
+
+- __Your code is not sent to AI nor do you take code from the AI__{: .text-danger }
+
+    Here is the bright line to not cross: __code doesn't go back or forth__: your assignment code is never sent __to the AI__ and you never take code __from the AI__ into your assignment. The code you submit for grading should be written, tested, debugged, and documented by you and you alone.
+
+
+We know this course is challenging and requires a lot from you. The effort you put in will be rewarded with a deep understanding of the system from top to bottom, and we hope that earning that superpower is why you chose this course. Building a system that is wholly your creation is a huge accomplishment of which you will be crazy proud!  It will take sustained effort through the highs and lows. If you are ever facing one of those lows and tempted to take an unethical shortcut, take a beat before making a choice you might regret. __Please please consider reaching out to us__. We are here to support you and want to help. Together we can map out a strategy to get you through this challenge without you having to compromise your integrity and leads to a positive outcome you can be proud of.
 
