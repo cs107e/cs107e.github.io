@@ -8,7 +8,7 @@ toc: true
 
 ## Course Grades
 
-The coursework consists of 7 weekly assignments and a final project. There are no exams. We look for your achievement of the course learning goals through meeting the assignment and project deliverables, demonstrating growth and proficiency, and sustained engagement with the material.
+The coursework consists of 7 weekly assignments and a final project.  We look for your achievement of the course learning goals through meeting the assignment and project deliverables, demonstrating growth and proficiency, and sustained engagement with the material.
 
 + Assignment deliverables
     - Core functionality is "feature-complete"
@@ -116,19 +116,19 @@ These things are encouraged and allowed for all students, no citation needed:
 
 - __Peer discussion about course topics, tools, techniques__{: .text-success }
 
-    Please do discuss all content from lectures, lab, readings, ask and answer questions about C and assembly, exchange tips for effective use of tools, and share useful resources. Talking things through with your peers can boost everyone's learning!
+    Please do discuss any content from lectures, lab, readings, ask and answer each other's questions, exchange tips for effective use of tools, and share useful resources. Talking things through with your peers can boost everyone's learning!
 
 - __Use of our course materials__{: .text-success }
 
-    Our materials (lectures, labs, website, etc) have lots of useful code examples.  Please use and build on these examples!
+    Our materials (lectures, labs, website, etc) have many handy code examples.  Please use and build on these examples!
 
 - __Discussion with staff__{: .text-success }
 
-    If you need to help with an issue specific to your design/code/debugging, please bring to the course staff. They are deeply knowledgeable of the course material and know how to guide without overly leading you.
+    If you need help specific to your code/debugging, please come to office hours or make a private post on the forum They are deeply knowledgeable of the course material and know how to guide without overly leading you.
 
 - __Use of external resources/AI tools for background information__{: .text-success }
 
-    You may search for and use external resources (web sites, blogs, forums, etc.) to further your understanding of course topics, languages, and tools.
+    You may use external resources (web sites, blogs, forums, etc.) and conversations with AI tools to further your understanding of course topics, languages, and tools.
 
 
 ### Assistance that must be cited
@@ -139,7 +139,7 @@ implementation strategies, testing, and debugging. Some examples:
 
 - __Discussing your assignment design__{: .text-warning }
 
-    Design is a crucial part of the development process, and we expect you to create a design on your own. Two students who have already each completed their own design could compare and contrast approaches. Both should cite this discussion.
+    Design is a crucial part of the development process, and we expect you to create a design on your own. Two students who have already each completed their own design could compare and contrast approaches at a high level. Both should cite this discussion.
 
 - __Helping another student to debug__{: .text-warning }
 
@@ -149,8 +149,10 @@ implementation strategies, testing, and debugging. Some examples:
 
     If you discuss strategies for testing or jointly brainstorm test inputs (e.g. "be sure to test on oddball cases like `free(NULL)`"), please cite.
 
+Having an assignment-specific discussion with an AI tool and receiving help that influences your submitted work should be cited in the same manner as a conversation with a peer.
 
-#### What is an appropriate citation?
+
+__How to make a proper citation__
 
 A citation should be specific, complete, and truthful. Clearly identify the source of the help/discussion (person's
 name, book title, URL), describe the nature and extent of the
@@ -164,21 +166,20 @@ should never be intimate with another's code nor allow others to
 be intimate with yours. Here are some specific examples of unpermitted
 aid:
 
-- __Copying code__{: .text-danger }
+- __Copying/adapting code of others__{: .text-danger }
 
     You must not submit work for grading that is whole or in part copied or
-derived from the work of others. It is a misrepresentation to claim such work as your own, n matter where the code came from and who authored it (peers, found online, AI-generated).
+derived from the work of others. This prohibition applies no matter where the code came from and who authored it (peers, found online, AI-generated).
 
 - __Reviewing solution code that is not your own__{: .text-danger }
 
-    You should not be searching online for assignment solution code. Should you accidentally stumble upon it, the correct response to about-face. You should not request solution code from external sources (e.g. StackOverflow) or prompt an AI to generate solution code. You may not have another person walk you through
-    their approach nor may you have their work as a reference to look at if you get stuck.
+    You should not be searching online for assignment solution code. Should you accidentally stumble upon it, the correct response to about-face. You should not request solution code from external sources (e.g. StackOverflow) nor prompt an AI to generate solution code. You should not have another person walk you through
+    their approach nor should you have solution code as a reference to look at if you get stuck.
 
 
 - __Sharing your code__{: .text-danger }
 
-    You must not share your code with other students nor
-publicly post it. After completing the course, you are expected to take reasonable security precautions
+    You must not share your code with other students nor send to an AI tool for its review. After completing the course, you are expected to take reasonable security precautions
 to maintain your work privately.
 
 
@@ -186,12 +187,11 @@ to maintain your work privately.
 
 - __OK to use AI in role of "ethical tutor"__{: .text-success }
 
-    Using an AI as a partner in your learning can be a wonderful thing. What's not to love about having a tutor available 24/7?  Just be sure you're using it a sound and ethical way. Think of it as a tutor is who well-trained and committed to your learning. The tutor provides a sounding board for your own understanding and will avoid overly leading you. Ask your questions, have it walk you through an example, converse with it to refine your understanding, ask for additional resources, and so on. But asking it to do your work for you? No bueno!
+    Using an AI as a partner in your learning can be a wonderful thing. What's not to love about having an attentive personal tutor available 24/7?  Just be sure you're using these tools in a sound way that doesn't compromise your learning. Approach the conversation as a dialog with a well-trained and ethical tutor, who wants to help you learn how to do the work for yourself, not do the work for you. Use the tutor as a sounding board, pepper it with questions, have it walk you through examples, converse with it to refine your understanding, have it direct you to additional resources, and so on. Many of these conversations do not require citation, however, assignment-specific re-read the seaction If you receive assistance that crosses into the assignment-specific context described above, please cite.
 
 - __Your code is not sent to AI nor do you take code from the AI__{: .text-danger }
 
-    Here is the bright line to not cross: __code doesn't go back or forth__: your assignment code is never sent __to the AI__ and you never take code __from the AI__ into your assignment. The code you submit for grading should be written, tested, debugged, and documented by you and you alone.
+    Here is the bright line to not cross: __code doesn't go back or forth__. Your assignment code/work is never sent __to the AI__ and you never take code __from the AI__ into your assignment. All of the code/work you submit for grading should be written, tested, debugged, and documented by you alone.
 
-
-We know this course is challenging and requires a lot from you. The effort you put in will be rewarded with a deep understanding of the system from top to bottom, and we hope that earning that superpower is why you chose this course. Building a system that is wholly your creation is a huge accomplishment of which you will be crazy proud!  It will take sustained effort through the highs and lows. If you are ever facing one of those lows and tempted to take an unethical shortcut, take a beat before making a choice you might regret. __Please please consider reaching out to us__. We are here to support you and want to help. Together we can map out a strategy to get you through this challenge without you having to compromise your integrity and leads to a positive outcome you can be proud of.
+We know this course is challenging and requires a lot from you. The effort you put in will be rewarded with a deep understanding of the system from top to bottom. Building a system that is wholly your creation is an accomplishment of which you will be crazy proud!  It will take sustained effort through both the highs and lows. If facing one of those lows ever has you tempted to take an unethical shortcut, take a beat and reconsider before making a choice you might regret. __Please please please reach out to us__. We are here to support you and want to help. Together we can map out a strategy to get you through this challenge without you having to compromise your integrity and leads to a positive outcome you can be proud of.
 

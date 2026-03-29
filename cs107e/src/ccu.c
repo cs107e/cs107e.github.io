@@ -241,8 +241,10 @@ long ccu_config_module_clock_rate(ccu_module_id_t id, ccu_parent_id_t parent, lo
 long ccu_ungate_bus_clock_bits(ccu_bgr_id_t id, uint32_t gating_bits, uint32_t reset_bits) {
     validate_bgr(id);
     volatile uint32_t *reg = reg_for_id(id);
-    *reg |= reset_bits;      // de-assert reset
-    *reg |= gating_bits;     // enable
+    *reg |= reset_bits;      // de-assert reset first
+    timer_delay_us(5);       // delay for reset to take effect
+    *reg |= gating_bits;     // now enable clock gate
+    timer_delay_us(5);       // delay for clock to stablize
     return debug_rate_bgr(id);
 }
 
