@@ -19,7 +19,7 @@ How would we set the three rightmost bits to `101`?
 
 Okay, so it looks like we can set bits just be OR'ing them in. Right?
 
-__WRONG!__ What if the starting value isn't all zeroes?
+__Oops!__ What if the starting value isn't all zeroes?
 
 ![00000000000000000000000000000111 OR 101 = 00000000000000000000000000000111](../images/bitmasking2.png){: .w-75 .zoom}
 
@@ -40,7 +40,7 @@ when we AND our bitmask with the value.
 That's a lot of long numbers, and hard to listen to out loud, but the important thing is that when we use the AND trick we did in the
 picture/alt text above, and *then* we OR in a `101`, it will actually put `101` into our string.](../images/bitmasking4.png){: .w-75 .zoom}
 
-Whoaa!! Looks like if we take our value, AND it with a bitmask, and then OR it with the number we want to plug in, we'll have inserted those bits without messing up any of the other bits.
+Cool! Looks like if we take our value, AND it with a bitmask, and then OR it with the number we want to plug in, we'll have inserted those bits without messing up any of the other bits.
 
 The only issue: No one wants to write out `unsigned int bitmask = 0b111111111111111111111111111111000;` That's a lot of ones. 
 Instead, we can write `~0b111`. The tilde (`~`) means take the number `0b111` and flip all the bits (all the trailing zeroes 
@@ -50,8 +50,8 @@ Okay there's actually one more issue. What if we want to replace bits in the mid
 location. Look at the example bitmask below and figure out which bits are being changed.
 
 ```c
-// original bits of reg preserved, only 4 targeted bits will change
+// Operation below updates only the targeted bits, all other bits of reg are preserved. Which bits are being targeted?
 unsigned int reg = <...>;
-reg &= ~(0b1111 << 5);
-reg |= (0b1010 << 5);
+reg &= ~(0b1111 << 6);
+reg |= (0b1010 << 6);
 ```
