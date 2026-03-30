@@ -7,6 +7,7 @@
  * Author: Julie Zelenski <zelenski@cs.stanford.edu>
  */
 #include "gpio.h"
+#include <stdbool.h>
 
 /*
  * The blue act led on-board the Mango Pi is controlled via GPIO PD18.
@@ -47,5 +48,13 @@ void mango_reboot(void) __attribute__ ((noreturn));
  * the act led. This function does not return.
  */
 void mango_abort(void) __attribute__ ((noreturn));
+
+/*
+ * `mango_running_in_simulator`
+ *
+ * Returns true if currently executing program is running in
+ * the gdb simulator, false if running on Mango Pi hardware
+ */
+bool mango_running_in_simulator(void);
 
 #endif

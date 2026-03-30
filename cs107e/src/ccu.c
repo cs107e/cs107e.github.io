@@ -9,7 +9,6 @@
 #include "assert.h"
 #include <stddef.h>
 #include "printf.h"
-#include "_system.h"
 #include "timer.h"
 
 /*
@@ -114,7 +113,7 @@ static const struct pll_config_t *get_pll_config_for_rate(ccu_pll_id_t id, long 
 static void get_pll_bits(ccu_pll_id_t id, long rate, uint32_t *factor_mask, uint32_t *new_factors) {
     uint32_t out_mhz;
     const struct pll_config_t *cfg = get_pll_config_for_rate(id, rate);
-    if (!cfg) sys_report_error("No matching pll config for id 0x%4x found in rate table.\n", id);
+    if (!cfg) printf("No matching pll config for id 0x%4x found in rate table.\n", id);
 
     switch(cfg->pll_id) {
     case CCU_PLL_VIDEO0_CTRL_REG: // N, M1
@@ -147,9 +146,9 @@ static void get_pll_bits(ccu_pll_id_t id, long rate, uint32_t *factor_mask, uint
     case CCU_PLL_CPU_CTRL_REG:
     case CCU_PLL_DDR_CTRL_REG:
     case CCU_PLL_VE_CTRL_REG:
-        sys_report_error("Attempt to change PLL id 0x%4x that should not be modified.\n", id);
+        printf("Attempt to change PLL id 0x%4x that should not be modified.\n", id);
     default:
-        sys_report_error("Invalid PLL id 0x%4x\n", id);
+        printf("Invalid PLL id 0x%4x\n", id);
     }
 }
 
@@ -185,7 +184,7 @@ long ccu_config_pll_rate(ccu_pll_id_t id, long rate) {
 
 static uint32_t get_module_clk_bits(ccu_module_id_t id, ccu_parent_id_t parent, long rate) {
     int src = get_parent_src_index(id, parent);
-    if (src == -1) sys_report_error("Parent id 0x%4x is not valid for module clock 0x%4x\n", parent, id);
+    if (src == -1) printf("Parent id 0x%4x is not valid for module clock 0x%4x\n", parent, id);
     long parent_rate = debug_rate_parent(parent);
     module_clk_reg_t new_settings = { .src= src, .factor_n= 0, .factor_m= 0 };
 
@@ -208,7 +207,7 @@ static uint32_t get_module_clk_bits(ccu_module_id_t id, ccu_parent_id_t parent, 
             return new_settings.bits;
         }
     }
-    sys_report_error("No compatible factors between parent rate %ld and module rate %ld\n", parent_rate, rate);
+    printf("No compatible factors between parent rate %ld and module rate %ld\n", parent_rate, rate);
     return 0;
 }
 
@@ -242,9 +241,7 @@ long ccu_ungate_bus_clock_bits(ccu_bgr_id_t id, uint32_t gating_bits, uint32_t r
     validate_bgr(id);
     volatile uint32_t *reg = reg_for_id(id);
     *reg |= reset_bits;      // de-assert reset first
-    timer_delay_us(5);       // delay for reset to take effect
     *reg |= gating_bits;     // now enable clock gate
-    timer_delay_us(5);       // delay for clock to stablize
     return debug_rate_bgr(id);
 }
 
@@ -445,15 +442,15 @@ static long debug_rate_bgr(ccu_bgr_id_t id) {
 
 static void validate_pll(ccu_pll_id_t id) {
     struct debug_info *info = info_for_id(id);
-    if (!info || info->fn != debug_rate_pll) sys_report_error("id 0x%4x is not a valid PLL\n", id);
+    if (!info || info->fn != debug_rate_pll) printf("id 0x%4x is not a valid PLL\n", id);
 }
 
 static void validate_module_clk(ccu_module_id_t id) {
     struct debug_info *info = info_for_id(id);
-    if (!info || info->fn != debug_rate_clk) sys_report_error("id 0x%4x is not a valid module clock\n", id);
+    if (!info || info->fn != debug_rate_clk) printf("id 0x%4x is not a valid module clock\n", id);
 }
 
 static void validate_bgr(ccu_bgr_id_t id) {
     struct debug_info *info = info_for_id(id);
-    if (!info || info->fn != debug_rate_bgr) sys_report_error("id 0x%4x is not a valid bus gating reset\n", id);
+    if (!info || info->fn != debug_rate_bgr) printf("id 0x%4x is not a valid bus gating reset\n", id);
 }

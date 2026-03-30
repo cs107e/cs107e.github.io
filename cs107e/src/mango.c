@@ -6,8 +6,8 @@
  */
 
 #include "mango.h"
+#include "system.h"
 #include "timer.h"
-#include "_system.h"
 #include "uart.h"
 
 // structs defined to match layout of hardware registers
@@ -33,8 +33,13 @@ static struct {
     .wdog = WATCHDOG_BASE
 };
 
+bool mango_running_in_simulator(void) {
+    volatile uint32_t *riscv_clk_reg = (void*)0x02001d00;
+    return (*riscv_clk_reg == 0); // in sim have no hw regs => processor clk reg will be zero
+}
+
 void mango_reboot(void) {
-    if (sys_running_in_simulator()) {
+    if (mango_running_in_simulator()) {
         syscall_exit(0);  // divert iff in gdb sim
     }
     timer_delay_ms(100); // give output time to flush (needed if using uart)
@@ -45,9 +50,8 @@ void mango_reboot(void) {
     while (1) ;
 }
 
-
 void mango_abort(void) {
-    if (sys_running_in_simulator()) {
+    if (mango_running_in_simulator()) {
         syscall_exit(1); // divert iff in gdb sim
     }
     uart_start_error(); // will force init uart if needed
@@ -57,7 +61,7 @@ void mango_abort(void) {
         mango_actled(LED_TOGGLE);
         timer_delay_ms(100);
         if (uart_haschar()) {
-            int ch = uart_recv();
+            int ch = uart_getchar();
             if (ch == 'r') {
                 uart_putstring("rebooting\n");
                 mango_reboot();

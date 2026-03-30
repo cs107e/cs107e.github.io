@@ -6,9 +6,6 @@
 #
 # Author: Julie Zelenski <zelenski@cs.stanford.edu>
 
-
-.attribute arch, "rv64im_zicsr"
-
 # Identify this section to linker script memmap.ld
 .section ".text.start"
 
