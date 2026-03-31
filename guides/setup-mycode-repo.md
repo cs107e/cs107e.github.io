@@ -160,7 +160,7 @@ repo on GitHub. The second `git remote -v` should show you both remotes:
 
 Let's pull some code from the `code-mirror` remote repo. If you look at <https://github.com/cs107e/code-mirror> (which we call `code-mirror`), you'll see that it contains a folder called `cs107e`. In that folder are a number of subfolders (like `bin`, `include`, and `src`) filled with files. Those files will serve as the base code for CS107e, and the code you write will sometimes reference those files (for example, all the `.h` files you'll reference in this class are located in the `include` folder). To update your local `mycode` repo to include the `cs107e` folder, use the following command:
 ```console
-$ git pull code-mirror master
+$ git pull code-mirror cs107e-starter
 ```
 {% include checkstep.html content="confirm the cs107e folder is on your local machine" %}
 ```console
