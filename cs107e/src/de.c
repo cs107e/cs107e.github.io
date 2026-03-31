@@ -7,6 +7,7 @@
 
 #include "de.h"
 #include "assert.h"
+#include <stdint.h>
 #include "timer.h"
 
 // Display Engine 2.0
@@ -147,13 +148,15 @@ void de_init(int fb_width, int fb_height, int screen_width, int screen_height) {
     de_config_ui_ch1(fb_size, full_screen);
 }
 
+void tcon_wait_for_vertical_blank(void); // extern but not documented
+
 void de_set_active_framebuffer(void *addr) {
     module.de_ui_ch1->regs.layer[0].attr_ctrl &= ~(1 << 4); // disable fill
     uintptr_t full_address = (uintptr_t)addr;
     uint32_t low_addr = full_address & 0xffffffff;
     assert((uintptr_t)low_addr == full_address); // confirm address fits in 32 bits
+    tcon_wait_for_vertical_blank(); // wait until in vblank, change pointer then
     module.de_ui_ch1->regs.layer[0].top_laddr = low_addr;
-    timer_delay_ms(10);  // resync delay
 }
 
 // DE Mixer block is a pipeline: framebuffer(s) -> overlay channel(s) -> (optional scaler) -> blender -> output to TCON

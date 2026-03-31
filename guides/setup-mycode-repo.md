@@ -1,7 +1,7 @@
 ---
 title: "Guide: Initial git setup and mycode repo"
 toc: true
-quarterprefix: win26
+quarterprefix: spr26
 attribution: Written by Maria Paula Hernandez and Liana Keesing, incorporating work of past TAs
 ---
 
@@ -169,6 +169,15 @@ $ ls cs107e
 bin  include  lib  other sample_build  src
 ```
 Above confirms that the `cs107e` directory in your `mycode` repo is populated with the correct files.
+
+You should never edit files in the `cs107e` directory. Use the commands
+below to install our git hook that disallows write permissions.
+```console
+$ cd ~/cs107e_home/mycode
+$ cp cs107e/other/post-checkout .git/hooks
+```
+
+
 
 ### Step 8: Edit shell configuration file
 The `cs107e` folder (filled with all of its goodies) is safely tucked away in the `mycode` repo. We will configure our shell environment to know where this folder is to make it easy to later reference it.

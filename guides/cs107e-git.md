@@ -1,7 +1,7 @@
 ---
 title: "Guide: Git workflow for CS107e"
 toc: true
-quarterprefix: win26
+quarterprefix: spr26
 attribution: Written by Maria Paula Hernandez, incorporating work of past TAs
 ---
 

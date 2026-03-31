@@ -2,21 +2,16 @@
  * Use of PLIC to configure and dispatch external interrupts
  *
  * Author: Julie Zelenski <zelenski@cs.stanford.edu>
- * June 2023
+ * Updated Mar 2026
  */
 
 #include "interrupts.h"
 #include "assert.h"
+#include "csr.h"
 #include "disassemble.h"
 #include "mango.h"
+#include "printf.h"
 #include <stddef.h>
-#include "_system.h"
-
-/* Module-private helpers defined in interrupts_asm.s */
-unsigned long interrupts_get_mepc(void);
-unsigned long interrupts_get_mcause(void);
-unsigned long interrupts_get_mtval(void);
-void interrupts_set_mtvec(void *);
 
 #define N_SOURCES 256
 // structs defined to match layout of hardware registers
@@ -82,27 +77,28 @@ void _trap_handler(void);
 // gcc attribute used to generate prologue/epilogue appropriate for machine interrupt
 // https://gcc.gnu.org/onlinedocs/gcc/RISC-V-Function-Attributes.html
 __attribute__((interrupt("machine"))) void _trap_handler(void) {
-    long mcause = interrupts_get_mcause();
+    long mcause = CSR_READ(mcause);
 #define EXTERNAL_INTERRUPT ((1L << 63) | 0xb)
     if (mcause == EXTERNAL_INTERRUPT) { // trap is interrupt
         // do not need to search pending bits to identify which source, claim reg has source number
         uint32_t source = module.plic->regs.claim_complete; // read claim_complete to "claim" (atomically clears pending bit)
-        module.handlers[source].fn(module.handlers[source].aux_data); // dispatch to registered handler
+        module.handlers[source].fn(module.handlers[source].aux_data); // dispatch to handler for source
         module.plic->regs.claim_complete = source;   // write claim_complete to clear
     } else { // trap is exception
-        long mtval = interrupts_get_mtval();
-        void *mepc = (void *)interrupts_get_mepc();
-        sys_report_error("EXCEPTION: %s\n", DESCRIPTION(mcause));
+        long mtval =  CSR_READ(mtval);
+        void *mepc = (void *)CSR_READ(mepc);
+        uart_start_error(); // output in bold red
+        printf("EXCEPTION: %s\n", DESCRIPTION(mcause));
         if (mcause == 0 || mcause == 1) {
-            sys_report_error("Cannot fetch instruction at invalid address (mepc):  %p\n", mepc);
+            printf("Cannot fetch instruction at invalid address (mepc):  %p\n", mepc);
         } else if (mcause == 2 || mcause == 3) {
-            sys_report_error("Faulting instruction (mepc):   [%pW] %pI at %p %pL\n", mepc, mepc, mepc, mepc);
+            printf("Faulting instruction (mepc):   [%pW] %pI at %p %pL\n", mepc, mepc, mepc, mepc);
         } else if (mcause == 5 || mcause == 7) {
-            sys_report_error("Instruction (mepc): %p %pL\n", mepc, mepc);
-            sys_report_error("Faulting address (mtval): 0x%lx \n", mtval);
+            printf("Instruction (mepc): %p %pL\n", mepc, mepc);
+            printf("Faulting address (mtval): 0x%lx \n", mtval);
         } else {
-            sys_report_error("Instruction (mepc): %p %pL\n", mepc, mepc);
-            sys_report_error("Value (mtval):  %8ld   0x%lx \n", mtval, mtval);
+            printf("Instruction (mepc): %p %pL\n", mepc, mepc);
+            printf("Value (mtval):  %8ld   0x%lx \n", mtval, mtval);
         }
         mango_abort();
     }
@@ -113,7 +109,7 @@ void interrupts_init(void) {
     interrupts_global_disable();
     module.plic->regs.ctrl = 0;             // machine mode only
     module.plic->regs.threshhold = 0;       // accept interrupts of any priority
-    interrupts_set_mtvec(_trap_handler);    // install trap handler
+    CSR_WRITE(mtvec, _trap_handler);        // install trap handler
     for (int i = 0; i < N_SOURCES/32; i++) { // 1 bit per souce
         module.sources->regs.pending[i] = 0;// all sources initially disabled
         module.sources->regs.enable[i] = 0;
@@ -139,8 +135,6 @@ static bool is_valid_source(interrupt_source_t source) {
 }
 
 static void set_source_enabled(interrupt_source_t source, bool enabled) {
-    if (!module.initialized) error("interrupts_init() has not been called!\n");
-    if (!is_valid_source(source)) error("request to enable/disable interrupt source that is not valid");
     int bank = source / 32;
     int shift = source % 32;
     if (enabled) {
@@ -152,17 +146,23 @@ static void set_source_enabled(interrupt_source_t source, bool enabled) {
     }
 }
 
-void interrupts_enable_source(interrupt_source_t source) {
-    set_source_enabled(source, true);
-}
-
-void interrupts_disable_source(interrupt_source_t source) {
-    set_source_enabled(source, false);
-}
-
-void interrupts_register_handler(interrupt_source_t source, handlerfn_t fn, void *aux_data) {
+void interrupts_set_handler(interrupt_source_t source, handlerfn_t fn, void *aux_data) {
     if (!module.initialized) error("interrupts_init() has not been called!\n");
-    if (!is_valid_source(source)) error("request to register handler for interrupt source that is not valid");
+    if (!is_valid_source(source)) error("call to set handler for interrupt source that is not valid");
+
+    set_source_enabled(source, false);              // disable before changing
     module.handlers[source].fn = fn;                // store handler function and
     module.handlers[source].aux_data = aux_data;    // aux_data pointer into array at index corresponding to source
+    if (fn) set_source_enabled(source, true);       // enable if fn is non-NULL
+}
+
+void interrupts_global_enable(void) {
+    if (!module.initialized) error("interrupts_init() has not been called!\n");
+    CSR_SET_BIT(mie, 1<<11);        // MEIE bit 11 (m-mode external interrupts)
+    CSR_SET_BIT(mstatus, 1<<3);     // MIE bit 3 (global enable m-mode interrupts)
+}
+
+void interrupts_global_disable(void) {
+    CSR_CLEAR_BIT(mie, 1<<11);      // clear bits set by global enable
+    CSR_CLEAR_BIT(mstatus, 1<<3);
 }

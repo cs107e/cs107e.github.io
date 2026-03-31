@@ -2,7 +2,7 @@
  * GPIO interrupt handling
  *
  * Author: Julie Zelenski <zelenski@cs.stanford.edu>
- * Updated Thu Feb 15 12:28:12 PST 2024
+ * Updated Mar 2026
  */
 
 #include "gpio_interrupt.h"
@@ -12,6 +12,7 @@
 #include "interrupts.h"
 #include <stddef.h>
 
+// structs defined to match layout of hardware registers
 typedef union {
     struct {
         uint32_t cfg[4]; // only 1-2 in use
@@ -58,27 +59,18 @@ static gpio_int_group_t *get_int_group(gpio_id_t gpio, int *p_index) {
     return &module.groups[p.group];
 }
 
-// register private function dispatch_to_pin with top-level interrupts module
-// as handler for all GPIO interrupt sources, use pointer to interrupt group as aux_data
+// `dispatch_to_pin` set as handler with top-level interrupts module
+// there is one interrupt source per each GPIO group, set same
+// handler for all groups, pass pointer to GPIO group as aux_data
 void gpio_interrupt_init(void) {
     for (int i = 0; i < GPIO_NGROUPS; i++) {
-        interrupts_register_handler(module.groups[i].source, dispatch_to_pin, &module.groups[i]);
-        interrupts_enable_source(module.groups[i].source);
+        interrupts_set_handler(module.groups[i].source, dispatch_to_pin, &module.groups[i]);
     }
     module.initialized = true;
 }
 
-void gpio_interrupt_register_handler(gpio_id_t gpio, handlerfn_t fn, void *aux_data) {
-    if (!module.initialized) error("gpio_interrupt_init() has not been called!\n");
-    assert(gpio_id_is_valid(gpio));
-    int pin_index;
-    gpio_int_group_t *gp = get_int_group(gpio, &pin_index);
-    gp->handlers[pin_index].fn = fn;
-    gp->handlers[pin_index].aux_data = aux_data;
-}
-
-// dispatch_to_pin handler receives all GPIO interrupts and performs second-level dispatch to
-// per-pin handlers that have been registered with this module
+// dispatch_to_pin handler receives GPIO interrupt per-group and does
+// second-level dispatch to per-pin handler set within this module
 static void dispatch_to_pin(void *aux_data) {
     gpio_int_group_t *gp = aux_data;
     // find 'on' bit in status register to determine which pin had interrupt
@@ -87,9 +79,7 @@ static void dispatch_to_pin(void *aux_data) {
     gp->handlers[pin_index].fn(gp->handlers[pin_index].aux_data);
 }
 
-static void gpio_interrupt_set_enabled(gpio_id_t gpio, bool state) {
- if (!module.initialized) error("gpio_interrupt_init() has not been called!\n");
-    assert(gpio_id_is_valid(gpio));
+static void set_events_enabled(gpio_id_t gpio, bool state) {
     int pin_index;
     gpio_int_group_t *gp = get_int_group(gpio, &pin_index);
     unsigned int mask = (1 << pin_index);
@@ -100,21 +90,13 @@ static void gpio_interrupt_set_enabled(gpio_id_t gpio, bool state) {
     }
 }
 
-void gpio_interrupt_enable(gpio_id_t gpio) {
-    gpio_interrupt_set_enabled(gpio, true);
-}
-
-void gpio_interrupt_disable(gpio_id_t gpio) {
-    gpio_interrupt_set_enabled(gpio, false);
-}
-
 void gpio_interrupt_clear(gpio_id_t gpio) {
     if (!module.initialized) error("gpio_interrupt_init() has not been called!\n");
     assert(gpio_id_is_valid(gpio));
     int pin_index;
     gpio_int_group_t *gp = get_int_group(gpio, &pin_index);
     unsigned int mask = (1 << pin_index);
-    if ((gp->eint->regs.status & mask) != 0) {  // if pending bit set for this pin
+    if ((gp->eint->regs.status & mask) != 0) {  // if pending bit set for pin
         gp->eint->regs.status |= mask;          // write 1 to clear
     }
 }
@@ -128,6 +110,7 @@ void gpio_interrupt_config(gpio_id_t gpio, gpio_event_t event, bool debounce) {
     int index = pin_index % 8;
     int shift = index * 4;
     unsigned int mask = ((1 << 4) - 1);
+                    // wipe cfg of any previous events, set to single event
     gp->eint->regs.cfg[bank] = (gp->eint->regs.cfg[bank] & ~(mask << shift)) | ((event & mask) << shift);
     gpio_set_function(gpio, GPIO_FN_INTERRUPT); // change pin function to interrupt
     if (debounce) { // if debounce requested
@@ -137,5 +120,16 @@ void gpio_interrupt_config(gpio_id_t gpio, gpio_event_t event, bool debounce) {
         // apply 24Mhz clock, no predivide, no filter
         gp->eint->regs.debounce = (0 << 4) | 1;
     }
-    gpio_interrupt_clear(gpio); // clear any past event, start anew with updated config
+    gpio_interrupt_clear(gpio); // clear any past events, start anew with updated config
+}
+
+void gpio_interrupt_set_handler(gpio_id_t gpio, handlerfn_t fn, void *aux_data) {
+    if (!module.initialized) error("gpio_interrupt_init() has not been called!\n");
+    assert(gpio_id_is_valid(gpio));
+    int pin_index;
+    gpio_int_group_t *gp = get_int_group(gpio, &pin_index);
+    set_events_enabled(gpio, false);        // disable events before changing
+    gp->handlers[pin_index].fn = fn;
+    gp->handlers[pin_index].aux_data = aux_data;
+    if (fn) set_events_enabled(gpio, true);  // enable events if fn is non-NULL
 }

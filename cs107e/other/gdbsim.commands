@@ -2,16 +2,6 @@
 
 echo \033[33mAuto-loading commands from $CS107E/other/gdbsim.commands... \033[0m \n
 
-define hookpost-load
-    set breakpoint pending on
-    b timer_get_ticks
-    commands
-        silent
-        echo \033[31;1m\n\rReached timer_get_ticks(), CSRs not implemented in simulator, cannot continue.\n\033[0m
-    end
-    set breakpoint pending off
-end
-
 set confirm off
 set backtrace past-main on
 target sim

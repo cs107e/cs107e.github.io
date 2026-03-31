@@ -58,7 +58,18 @@ typedef union {
 typedef union {
     struct {
         uint32_t gtcl;
-        uint32_t reserved[15];
+        struct {
+            uint32_t                :12;
+            uint32_t line           : 1;
+            uint32_t                : 1;
+            uint32_t vblank         : 1;
+            uint32_t                :13;
+            uint32_t line_int_en    : 1;
+            uint32_t                : 1;
+            uint32_t vblank_int_en  : 1;
+            uint32_t                : 1;
+        } gint0;
+        uint32_t reserved[14];
         uint32_t src_ctl;
         uint32_t reservedB[19];
         uint32_t ctl;
@@ -187,6 +198,20 @@ int hdmi_get_screen_width(void) {
 int hdmi_get_screen_height(void) {
     if (module.config.id == HDMI_INVALID) error("Must call hdmi_init before using hdmi_get_screen_height()");
     return module.config.vert.pixels;
+}
+
+void tcon_wait_for_vertical_blank(void); // extern but not documented
+
+void tcon_wait_for_vertical_blank(void) {
+    // used to synchronize swap of framebuffer pointer during vertical no-display period (vblank)
+    // returns when at the start of fresh vblank period
+
+    // vblank flag is sticky, set by hardware, clear in software
+    while (module.tcon_tv->regs.gint0.vblank != 0) { // skip past any vblank in process
+       module.tcon_tv->regs.gint0.vblank = 0;   // attempt clear (hw will reset if still in vblank)
+    }
+    while (module.tcon_tv->regs.gint0.vblank == 0) // wait for start of next vblank
+        ;
 }
 
 // enable all clocks needed for HDMI+TCON+DE2

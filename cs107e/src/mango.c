@@ -6,6 +6,7 @@
  */
 
 #include "mango.h"
+#include <stdint.h>
 #include "system.h"
 #include "timer.h"
 #include "uart.h"
