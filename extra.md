@@ -35,9 +35,9 @@ pre {
     padding: 0px 10px;
 }
 </style>
-
+{% comment %}
 {% assign filenames = "dma.h,dma.c,i2c.h,i2c.c,twi_driver.h,twi_driver.c,i2s.h,i2s.c,spi.h,spi.c,spi_extra.h,spi_driver.h,spi_driver.c,pwm.h,pwm.c" | split: ',' %}
-
+{% endcomment %}
 <div class="row flex-row">
 <div class="nav nav-pills flex-column sidenav">
 {%- for f in filenames %}
