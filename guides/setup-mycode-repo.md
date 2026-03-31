@@ -164,20 +164,18 @@ $ git pull code-mirror master
 ```
 {% include checkstep.html content="confirm the cs107e folder is on your local machine" %}
 ```console
-$ cd ~/cs107e_home/mycode
 $ ls cs107e
 bin  include  lib  other sample_build  src
 ```
 Above confirms that the `cs107e` directory in your `mycode` repo is populated with the correct files.
 
 You should never edit files in the `cs107e` directory. Use the commands
-below to install our git hook that disallows write permissions.
+below to apply a local githook that disallows write permissions.
 ```console
-$ cd ~/cs107e_home/mycode
-$ cp cs107e/other/post-checkout .git/hooks
+$ git config --local core.hooksPath cs107e/other/githooks
+$ git checkout dev
+
 ```
-
-
 
 ### Step 8: Edit shell configuration file
 The `cs107e` folder (filled with all of its goodies) is safely tucked away in the `mycode` repo. We will configure our shell environment to know where this folder is to make it easy to later reference it.
