@@ -12,7 +12,7 @@
 #include "gpio.h"
 #include "gpio_extra.h"
 #include "interrupts.h"
-#include "_system.h"
+#include "system.h"
 
 #define LCR_DLAB            (1 << 7)
 #define USR_BUSY            (1 << 0)
@@ -138,8 +138,7 @@ void uart_init(void) {
 void uart_use_interrupts(handlerfn_t handler, void *client_data) {
     if (module.uart == NULL) error("uart_init() has not been called!\n");
     interrupt_source_t src = INTERRUPT_SOURCE_UART0 + module.config.index;
-    interrupts_register_handler(src, handler, client_data); // install handler
-    interrupts_enable_source(src);  // turn on source
+    interrupts_set_handler(src, handler, client_data); // install handler
     module.uart->regs.ier = 1;      // enable interrupts in uart peripheral
 }
 
