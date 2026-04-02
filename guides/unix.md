@@ -33,7 +33,8 @@ If you don't know how to do these things, you will need to learn these skills.
 
 ## Resources
 - The CS107 course maintains an extensive collection of [unix reference documents and videos](https://web.stanford.edu/class/archive/cs/cs107/cs107.1186/unixref/).
-- Erik Engheim has a nice [crash course on the unix command line](https://blog.translusion.com/posts/unix-crash-course/)
+- Erik Engheim has a nice [crash course on the unix command line](https://erikexplores.substack.com/p/unix-crash-course)
+- Excellent tutorial on [Command line for beginners](https://documentation.ubuntu.com/desktop/en/latest/tutorial/the-linux-command-line-for-beginners/) from ubuntu manual
 
 The rest of this document is a very basic tutorial on simple use of Unix commands for navigating the file system, viewing files, and reading the manual pages.
 

@@ -8,21 +8,20 @@ attribution: Written by Maria Paula Hernandez, incorporating work of past TAs
 In this course, we use git repositories to share code between you and us. 
 These repositories are hosted on GitHub. You will use git commands such as `git pull`
 to access starter code and `git push` to submit your work. You can read more about
-the general use of `git` in [our git guide](/guides/git). To set up the `mycode` repo used in this course, check out [our git workflow setup guide](/guides/setup-mycode-repo).
+the general use of `git` in [our git guide](/guides/git).
 
 In this document, we walk through the specific workflow to access the starter code and submit your work.
 
-> __Note__ This guide assumes that you've already set up your `mycode` repo and development environment using the [Git workflow setup guide](/guides/setup-mycode-repo).
+> __Note__ This guide assumes that you've already done the [initial git setup](/guides/setup-mycode-repo) of your `mycode` repo.
 {: .callout-warning}
 
 ## Organization of the `mycode` repo
-Your `mycode` repo is organized by lab and assignment. There will be one folder for each lab (named `lab0`, `lab1`, and so on) and one folder for each assignment (named `assign0`, `assign1` and such). Each of these folders contains the code and files specific to the named lab or assignment. There is also a folder named `cs107e` containing shared files that are used throughout.
+The `mycode` repo is initially empty. The first thing you will add to it is the folder `cs107e` containing shared files that are used throughout. When you start each lab or assignment, you pull the folder of starter files for it. The lab folders are named `lab0`, `lab1`, and so on and the assignment folders are named `assign0`, `assign1` and such. Each folder contains the files specific to the named lab or assignment. Below we list a `mycode` repo midway through the quarter after pulling  the first few labs and assignments:
 
 ```console
 $ cd ~/cs107e_home/mycode
 $ ls
-assign0/   assign2/    assign4/    lab1/       lab3/       cs107e/
-assign1/   assign3/    lab0/       lab2/       lab4/
+assign0/ assign1/ cs107e/  lab0/    lab1/    lab2/
 $ ls assign1
 Makefile    larson.s
 ```
@@ -31,7 +30,7 @@ Your typical workflow will be to change to the subfolder for the particular lab 
 you are currently working on. Within that subfolder, you edit files, build and run your code, make git commits, and so on.
 
 In the instructions for the workflows we give below, we use `assignX` or `labX` as a generic
-placeholder. When you issue the command, be sure to replace the placeholer with the specific name you are intend to work on, e.g. `assign1` or `lab2`.
+placeholder. When you issue the command, be sure to replace the placeholder with the specific name you are intend to work on, e.g. `assign1` or `lab2`.
 
 ## Lab workflow
 
@@ -74,10 +73,10 @@ make regular git commits to record a snapshot of your work and track your progre
 saved in your local repo. You can follow up with a `git push` to sync those changes with your remote
 repo.
 
-> __Note__ We strongly encourage you to develop the habit of commit __early and often__. Any time you make a change that you'd be upset to lose, take a moment to make a commit (usually, this is at least once an hour, often more frequently). Also make regular pushes to send your latest commits to the remote. This means you have an offiste backup if anything scary should befall your laptop!
+> __Note__ We strongly encourage you to develop the habit of commit __early and often__. Any time you make a change that you'd be upset to lose, take a moment to make a commit (usually, this is at least once an hour, often more frequently). Also make regular pushes to send your latest commits to the remote. This means you have an offsite backup if anything scary should befall your laptop!
 {: .callout-warning}
 
-To see the current state of your repo, use the `git status` command. It will indicate which files have been modified, which changes are "staged" (ready to be commmitted) and whether the local and remote repos are currently in sync.
+To see the current state of your repo, use the `git status` command. It will indicate which files have been modified, which changes are "staged" (ready to be committed) and whether the local and remote repos are currently in sync.
 ```console
 $ git status
 ```
@@ -129,6 +128,7 @@ When grading your work, we'll run tests on your submission to verify its functio
 A _tag_ attaches a name to a commit. We'll
 also use this tag to determine your time of your submission.
 
+#### Create a new tag for the latest commit
 Create a tag to identify your assignment submission by doing the following (replace `assignX` with the appropriate `assign0`, `assign1`, etc.)
 
 ```console
@@ -142,8 +142,8 @@ was successful by browsing your repo on GitHub and
 confirming that your newly created tag shows up in the __Tags__ section of the branches
 dropdown menu.
 
-#### Adding a tag to a speicfic commit 
-If you say mispelled a tag, forgot to tag, or otherwise need to go back and add a tag to an older commit here is how. 
+#### Adding a tag to an older commit
+If you say misspelled a tag, forgot to tag, or otherwise need to go back and add a tag to an older commit here is how.
 
 First you will need to find the commit hash of the tag you want. The commit hash is the really long sequence of letters and numbers next to each commit. 
 Note you only need to copy the first seven or eight characters of the hash. To see a list of all your commits and their associated hashes run: 
@@ -201,7 +201,6 @@ View the `Issues` tab on Github to see a list of your issues. Each issue corresp
 test. If the test result includes output log files, the `student` log file is the output generated when running
 your code and the `staff` log file is the output generated by our staff solution.  Comparing the staff
 output to your own will give you insight as to why your code failed the test. 
-
 
 ### Assignment retest
 
