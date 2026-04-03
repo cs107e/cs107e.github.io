@@ -151,12 +151,12 @@ $ git remote add code-mirror git@github.com:cs107e/code-mirror.git
 $ git remote -v
 ```
 
-When executing the first `git remote -v` command, you should have only a single
-remote: `origin`. `origin` is a shorthand way of referring to your remote repo
-on GitHub. The `git remote add` command adds a second remote. This second remote
-is `code-mirror`, which is a shorthand way of referring to the code mirror
-repo on GitHub. The second `git remote -v` should show you both remotes:
-`origin` and `code-mirror` and the URLs that they represent.
+When executing the first `git remote -v` command, you should only have entries
+(fetch and push) for the `origin` remote. `origin` refers to your remote repo
+on GitHub; the one you originally made a local clone of.
+The `git remote add` command adds new entries (fetch and push) for the `code-mirror` remote,
+the `code-mirror` repo shared on Github. When you do `git remote -v` the second time,
+you should now see entries for both remotes.
 
 Let's pull some code from the `code-mirror` remote repo. If you look at <https://github.com/cs107e/code-mirror> (which we call `code-mirror`), you'll see that it contains a folder called `cs107e`. In that folder are a number of subfolders (like `bin`, `include`, and `src`) filled with files. Those files will serve as the base code for CS107e, and the code you write will sometimes reference those files (for example, all the `.h` files you'll reference in this class are located in the `include` folder). To update your local `mycode` repo to include the `cs107e` folder, use the following command:
 ```console
