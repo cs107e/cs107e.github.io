@@ -12,6 +12,7 @@
 #include "gpio.h"
 #include "gpio_extra.h"
 #include "interrupts.h"
+#include "mango.h"
 #include "system.h"
 
 #define LCR_DLAB            (1 << 7)
@@ -78,9 +79,7 @@ void uart_reinit_custom(int uart_id, int baud, gpio_id_t tx, gpio_id_t rx, unsig
     if (module.uart) {  // shut down previous if active
         uart_flush();
         gpio_set_function(module.config.tx, GPIO_FN_DISABLED); // disconnect gpio
-        gpio_set_pullnone(module.config.tx);
         gpio_set_function(module.config.rx, GPIO_FN_DISABLED);
-        gpio_set_pullnone(module.config.rx);
         module.uart = NULL;
     }
 
@@ -98,9 +97,7 @@ void uart_reinit_custom(int uart_id, int baud, gpio_id_t tx, gpio_id_t rx, unsig
 
     // configure GPIOs
     gpio_set_function(module.config.tx, module.config.fn);
-    gpio_set_pullup(module.config.tx);
     gpio_set_function(module.config.rx, module.config.fn);
-    gpio_set_pullup(module.config.rx);
 
     // configure baud rate
     module.uart->regs.fcr = 1;      // enable TX/RX fifo
@@ -131,7 +128,7 @@ void uart_init(void) {
     module.uart = NULL;
     // default to UART0 on pins PB8+9
     uart_reinit_custom(0, 115200, GPIO_PB8, GPIO_PB9, GPIO_FN_ALT6);
-    module.running_in_simulator = sys_running_in_simulator();
+    module.running_in_simulator = mango_running_in_simulator();
     uart_putchar('\f'); // clear terminal window on init
 }
 

@@ -3,7 +3,7 @@ released: true
 permalink: /lectures/Assembly/
 title: RISC-V assembly and machine code
 readings: |
-    RISC-V ISA and assembly language. Arithmetic and logical operations, load and store instructions. Control flow using branch/jump.
+    More RISC-V assembly: control flow using branch/jump, load and store instructions, instruction encoding and decoding. Tools to build and execute an assembly program. GPIO peripheral control via memory-mapped I/O.
 
     Readings:
     + Here is a link to the [Ripes simulator](https://ripes.me/) demoed in lecture.

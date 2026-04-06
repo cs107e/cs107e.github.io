@@ -3,7 +3,7 @@ released: true
 permalink: /lectures/C_Pointers/
 title: C Pointers and Arrays
 readings: |
-    Memory, addresses, and pointers. Address arithmetic, memory layout of arrays and structures.
+    Memory, addresses, and pointers. Address arithmetic, layout of arrays and structures. Typecast and `volatile`.
 
     Readings:
     + Review [EssentialC](http://cslibrary.stanford.edu/101/EssentialC.pdf) chapters 3 and 6 (postpone heap and memory management for later)

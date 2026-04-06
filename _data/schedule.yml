@@ -17,41 +17,41 @@ weeks:
     mon: /lectures/C_Functions/
     lab: /labs/lab2/
     assign: /assignments/assign2/
-    fri: /lectures/C_Mastery/
+    fri: /lectures/Serial/
   -
-    mon: /lectures/Serial/
+    mon: /lectures/Linking/
     lab: /labs/lab3/
     assign: /assignments/assign3/
-    fri: /lectures/Linking/
+    fri: /lectures/Memory/
   -
-    mon: /lectures/Memory/
+    mon: /lectures/C_Mastery/
     lab: /labs/lab4/
     assign: /assignments/assign4/
-    fri:
+    fri: /lectures/Keyboard/
   -
-    mon: /lectures/Keyboard/
+    mon: /lectures/Framebuffer/
     lab: /labs/lab5/
     assign: /assignments/assign5/ 
-    fri: /lectures/Framebuffer/
+    fri: /lectures/Project/
   -
     mon: /lectures/Interrupts1/
     lab: /labs/lab6/
     assign: /assignments/assign6/
     fri: /lectures/Interrupts2/
   -
-    mon: /lectures/Project/
+    mon: /lectures/Sensors/
     lab: /labs/lab7/
     assign: /assignments/assign7/
-    fri: /lectures/Sensors/
+    fri: /lectures/Output/
   -
     mon: Memorial Day
     lab: /labs/projectlab1/
     assign: /project/
-    fri: /lectures/Output/
+    fri:
   -
     mon: /lectures/Wrap/
     lab: /labs/projectlab2/
-    fri:
+    fri: No lecture (Finals)
   -
     project_demo: "2026-06-10 9:00 AM"
     project_due: "2026-06-10 11:59 PM"

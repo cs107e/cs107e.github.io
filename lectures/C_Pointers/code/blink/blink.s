@@ -1,7 +1,8 @@
-# File: blink.s (from asm lecture)
-# --------------------------------
+# File: blink.s
+# -------------
 # blink LED connected to GPIO PB0
 
+_start:
     lui     a0,0x2000       # a0 holds base addr PB group = 0x2000000
     addi    a1,zero,1       # a1 holds constant 1
     sw      a1,0x30(a0)     # config PB0 as output

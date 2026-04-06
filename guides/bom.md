@@ -33,7 +33,7 @@ Each student is given a parts kit containing the materials needed for the course
 
 
 ## Lab tools supplement
-The lab activities require some additional hand tools and supplies which will have available for use in the lab room.
+The lab activities require some additional hand tools and supplies that we keep in the lab room for shared used.
 
 Hand tools and supplies for breadboarding:
 
@@ -53,15 +53,12 @@ For keyboard lab:
     + can simply wire jumpers directly into keyboard plug (we did this for years and it works fine)
 
 For graphics lab:
-- any __display__ (monitor, tv, projector) that accepts HDMI input
+-  __display__ (monitor, tv, projector) that accepts HDMI input
 - __HDMI cable__ (Mango Pi has a mini-HDMI connector so need compatible cable or adapter)
 
-## Sources for parts
+## Suppliers
 
 We have found that parts from [Tayda Electronics](https://www.taydaelectronics.com/) are a good value, especially when purchasing in bulk, although it will take a few weeks to arrive. Ordering from the [Ali Express](https://www.aliexpress.com/) marketplace can be even more economical, but customer service and quality can vary by individual seller -- buyer beware!
-
-We often purchase boxes from [Daiso](https://www.daisojapan.com/) because their
-physical stores have very good quality boxes that are quite reasonably priced.
 
 If looking to buy parts for your personal use, we also recommend [Jameco](https://www.jameco.com/), [Pololu](https://www.pololu.com/), [Adafruit](https://www.adafruit.com/), and [Sparkfun](https://www.sparkfun.com/) for their high-quality products and excellent customer service. 
 

@@ -3,7 +3,7 @@ released: true
 permalink: /lectures/Intro/
 title: Welcome and intro to RISC-V
 readings: |
-    After a quick recap of course logistics, we dive right in to RISC-V and the Mango Pi MQ-Pro SBC we will be using this quarter.
+    After a quick recap of course logistics, we dive right into the RISC-V ISA and the Mango Pi MQ-Pro SBC we'll be using this quarter.  Introduce instructions for arithmetic and logical operations.
 
     Readings:
     + For background, review our guides on [electricity](/guides/electricity/), [binary/hexadecimal numbers](/guides/numbers/), and the [unix command line](/guides/unix). 
