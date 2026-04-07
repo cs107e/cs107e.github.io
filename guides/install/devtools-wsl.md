@@ -78,9 +78,9 @@ Next, we need to install xfel (<https://github.com/xboot/xfel>), which is the to
     $ sudo tar -xvf xfelWin32.tar.gz      # sudo to permit update file modtime
     $ rm xfelWin32.tar.gz                 # done with archive, remove
     ```
-2. Run the "zadig-2.8.exe" to install the USB device drive. When application launches, it will pop up an alert that asks you to confirm it can make changes to your drivers, be sure to click "yes".
+2. Run the "zadig-2.8.exe" to install the USB device driver. When application launches, it will pop up an alert that asks you to confirm it can make changes to your drivers, be sure to click "yes".
     ```console
-    $ powershell.exe "./xfel/zadig-2.8.exe"
+    $ powershell.exe "./xfel/zadig-2.8.exe"  # install driver for usb
     ```
 
 3. In the Zadig window that looks like screenshot below:
@@ -100,8 +100,8 @@ Next, we need to install xfel (<https://github.com/xboot/xfel>), which is the to
 
     If this worked, xfel will be findable on your wsl path:
     ```console
-    $ which xfel
-    $ /usr/local/bin/xfel
+    $ which xfel          # find xfel command and report its path
+    /usr/local/bin/xfel
     ```
 
 {% include checkstep.html content="confirm xfel" %}

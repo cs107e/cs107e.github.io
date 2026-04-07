@@ -13,7 +13,7 @@ In CS107e, we distribute course materials as git repos and you will use git to a
 ### Introduction
 Each student has their own `mycode` repo, which manages all of the code for the coures assignments and labs.
 
-We create a personal repository for each student on GitHub. This repo will be named `https://github.com/cs107e/{{page.quarterprefix}}-[YOUR-GITHUB-USERNAME]`, where the text `[YOUR-GITHUB-USERNAME]` is replaced with your actual github username.
+We create a personal repository for each student on GitHub. This repo will be named `https://github.com/cs107e/{{page.quarterprefix}}-YOUR_GITHUB_USERNAME`, where the text `YOUR_GITHUB_USERNAME` is replaced with your actual github username.
 
 Your personal repository that resides on GitHub 
 is your __remote__ `mycode` repo. After we have set up your remote repo, you will connect it to a __local__ `mycode` repo on your  on your laptop. You will work on your code in the local repo and use git commands to exchange code between the local and remote repos.
@@ -23,7 +23,7 @@ Follow the steps below to set up your `mycode` repo.
 
 ### Step 1: Accept both GitHub invitations
 
-You should have received __two__ email invitations from GitHub: an invitation for read-only access to the code mirror repo <https://github.com/cs107e/code-mirror.git> and another invitation for read-write access to your personal repo `{{page.quarterprefix}}-[YOUR-GITHUB-USERNAME]`. Once you receive and accept both invitations, you're ready to proceed.
+You should have received __two__ email invitations from GitHub: an invitation for read-only access to the code mirror repo <https://github.com/cs107e/code-mirror.git> and another invitation for read-write access to your personal repo `{{page.quarterprefix}}-YOUR_GITHUB_USERNAME`. Once you receive and accept both invitations, you're ready to proceed.
 
 ### Step 2: Create SSH key and add to GitHub account
 
@@ -83,11 +83,11 @@ Note: If you're using WSL, now is a good time to open File Explorer on your `cs1
 
 ### Step 5: Make local clone
 
-> __Note__ In the commands below, replace any reference to `[YOUR-GITHUB-USERNAME]` with your __actual GitHub username__.
+> __Note__ In the commands below, replace any reference to `YOUR_GITHUB_USERNAME` with your __actual GitHub username__.
 {: .callout-warning}
 
 In your browser, visit the page
-`https://github.com/cs107e/{{page.quarterprefix}}-[YOUR-GITHUB-USERNAME]` to see the contents of your remote repo.
+`https://github.com/cs107e/{{page.quarterprefix}}-YOUR_GITHUB_USERNAME` to see the contents of your remote repo.
 It should have only a single file: `README.md`, which lists the name of your
 repo and nothing more.
 
@@ -98,15 +98,15 @@ Make a local clone of your repo.
 
 ```console
 $ cd ~/cs107e_home
-$ git clone git@github.com:cs107e/{{page.quarterprefix}}-[YOUR-GITHUB-USERNAME].git mycode
+$ git clone git@github.com:cs107e/{{page.quarterprefix}}-YOUR_GITHUB_USERNAME.git mycode
 ```
 
 Change to your repo and use `ls` confirm the files match those you see when browsing your remote repo on GitHub.
 
 ```console
-$ cd mycode
-$ ls
-$ cat README.md
+$ cd mycode        # change to local repo
+$ ls               # list files in current directory
+$ cat README.md    # show contents of README.md file
 ```
 You'll notice that the command `cat` will just print the contents of a file to your terminal. This is a useful command that you'll use again!
 
@@ -120,9 +120,9 @@ following commands:
 
 ```console
 $ cd ~/cs107e_home/mycode
-$ git branch
-$ git checkout -b dev
-$ git branch
+$ git branch            # show list of branches
+$ git checkout -b dev   # create new branch named 'dev'
+$ git branch            # show list of branches
 ```
 
 When you execute the first `git branch` command, notice how there is only a single
@@ -136,7 +136,7 @@ connect it to a new remote branch of the same name. Use `git branch` to confirm 
 `dev` branch and execute the following command:
 
 ```console
-$ git push --set-upstream origin dev
+$ git push --set-upstream origin dev   # connect local `dev` to same named branch in remote GitHub repo
 ```
 
 If you return to your GitHub repo in your browser, you should now find a `dev` branch in the branches dropdown menu.
@@ -146,9 +146,9 @@ If you return to your GitHub repo in your browser, you should now find a `dev` b
 Now you will configure your local repo to have an additional remote connection to the code mirror repo. The `code-mirror` repo is where we place the starter code for labs and assignments. Execute the following commands to add the remote `code-mirror` repository for which you ealier accepted the invitation.
 
 ```console
-$ git remote -v
-$ git remote add code-mirror git@github.com:cs107e/code-mirror.git
-$ git remote -v
+$ git remote -v       # show list of remotes
+$ git remote add code-mirror git@github.com:cs107e/code-mirror.git  # add new remote
+$ git remote -v       # show list of remotes
 ```
 
 When executing the first `git remote -v` command, you should only have entries
@@ -160,11 +160,11 @@ you should now see entries for both remotes.
 
 Let's pull some code from the `code-mirror` remote repo. If you look at <https://github.com/cs107e/code-mirror> (which we call `code-mirror`), you'll see that it contains a folder called `cs107e`. In that folder are a number of subfolders (like `bin`, `include`, and `src`) filled with files. Those files will serve as the base code for CS107e, and the code you write will sometimes reference those files (for example, all the `.h` files you'll reference in this class are located in the `include` folder). To update your local `mycode` repo to include the `cs107e` folder, use the following command:
 ```console
-$ git pull code-mirror cs107e-starter
+$ git pull code-mirror cs107e-starter   # pull starter files for cs107e
 ```
 {% include checkstep.html content="confirm the cs107e folder is on your local machine" %}
 ```console
-$ ls cs107e
+$ ls cs107e       # list files in directory
 bin  include  lib  other sample_build  src
 ```
 Above confirms that the `cs107e` directory in your `mycode` repo is populated with the correct files.
@@ -172,9 +172,8 @@ Above confirms that the `cs107e` directory in your `mycode` repo is populated wi
 You should never edit files in the `cs107e` directory. Use the commands
 below to apply a local githook that disallows write permissions.
 ```console
-$ git config --local core.hooksPath cs107e/other/githooks
-$ git checkout dev
-
+$ git config --local core.hooksPath cs107e/other/githooks  # config githook
+$ git checkout dev                                         # checkout dev branch
 ```
 
 ### Step 8: Edit shell configuration file
@@ -186,7 +185,7 @@ When opening a new shell, the environment is initialized by reading a configurat
 
 1. Determine the name of your configuration file. The name depends on which shell you are using. Use the command `echo $SHELL` to see your shell. If on macOS, your shell is likely `zsh`. On WSL or older versions of macOS, your shell will be `bash`.
     ```console
-    $ echo $SHELL
+    $ echo $SHELL           # prints SHELL variable setting
     /bin/zsh
     ```
 
@@ -195,11 +194,11 @@ When opening a new shell, the environment is initialized by reading a configurat
     When we refer to "configuration file", we mean the file named `.zshrc`  or `.bashrc`. The commands below demonstrate use of `.zshrc` because that is more common name, but if your shell is bash, be sure to replace `.zsrhc` with `.bashrc`.
 2. Use the command `ls` to check if you already have an existing configuration file.
     ```console
-    $ ls ~/.zshrc   # OR ls ~/.bashrc
+    $ ls ~/.zshrc     # OR ls ~/.bashrc
     ```
     If `ls` reports there is no such file, use the `touch` command to create a new empty file.
     ```console
-    $ touch ~/.zshrc     # OR touch ~/.bashrc
+    $ touch ~/.zshrc  # OR touch ~/.bashrc
     ```
 
 3. Open the configuration file in a text editor and append the following two lines verbatim:

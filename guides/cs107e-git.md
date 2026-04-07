@@ -37,9 +37,9 @@ placeholder. When you issue the command, be sure to replace the placeholder with
 When starting a new lab, update your local `mycode` repo by checking out the `dev` branch and pulling the lab starter files from the remote (change `labX` to `lab1`, `lab2`, as appropriate):
 
 ```console
-$ cd ~/cs107e_home/mycode
-$ git checkout dev
-$ git pull code-mirror labX-starter
+$ cd ~/cs107e_home/mycode               # change to your local mycode repo
+$ git checkout dev                      # be on dev branch
+$ git pull code-mirror labX-starter     # get starter files for labX (replace X with number)
 ```
 
 (The `git pull` command may open up your editor and display the message `Merge branch labX-starter into dev`. Confirm the merge by saving and exiting the editor.)
@@ -58,9 +58,9 @@ Here are the steps to start, work on, and submit an assignment.
 When starting a new assignment, update your local `mycode` repo by checking out the `dev` branch and pulling the assignment starter files from the remote (change `assignX` to `assign1`, `assign2`, etc. as appropriate):
 
 ```console
-$ cd ~/cs107e_home/mycode
-$ git checkout dev
-$ git pull code-mirror assignX-starter
+$ cd ~/cs107e_home/mycode               # change to your local mycode repo
+$ git checkout dev                      # be on dev branch
+$ git pull code-mirror assignX-starter  # get starter files for assignX (replace X with number)
 ```
 
 (The `git pull` command may open up your editor and display the message `Merge branch assignX-starter into dev`. Confirm the merge by saving and exiting the editor.)
@@ -78,15 +78,15 @@ repo.
 
 To see the current state of your repo, use the `git status` command. It will indicate which files have been modified, which changes are "staged" (ready to be committed) and whether the local and remote repos are currently in sync.
 ```console
-$ git status
+$ git status           # shows state of modified files
 ```
 
 The commands below show how to add a changed file to the staging index, commit staged changes (save snapshot to local repo), and push the commit to GitHub (update remote repo):
 
 ```console
-$ git add filename.c
-$ git commit -m "Short but descriptive message about the changes you are committing"
-$ git push
+$ git add filename.c    # adds file to staging
+$ git commit -m "Short descriptive message about changes you are committing"  # commit
+$ git push              # sync commits with remote repo on GitHub
 ```
 
 The command `git add .` can be used as a
@@ -96,7 +96,7 @@ You can use `git log` to view the history of commits in your local repo. When
 you enter the log, you can exit out by pressing "q" on your keyboard.
 
 ```console
-$ git log
+$ git log               # show list of previous commits
 ```
 
 Each commit that you make records a snapshot of your work. You can use these
@@ -132,8 +132,8 @@ also use this tag to determine your time of your submission.
 Create a tag to identify your assignment submission by doing the following (replace `assignX` with the appropriate `assign0`, `assign1`, etc.)
 
 ```console
-$ git tag assignX-submit
-$ git push --tags
+$ git tag assignX-submit      # tag most recent commit assignX-submit (replace X with number)
+$ git push --tags             # sync tags with remote Github repo
 ```
 
 A submission tag is of the format `assignX-submit`
@@ -146,25 +146,25 @@ dropdown menu.
 If you say misspelled a tag, forgot to tag, or otherwise need to go back and add a tag to an older commit here is how.
 
 First you will need to find the commit hash of the tag you want. The commit hash is the really long sequence of letters and numbers next to each commit. 
-Note you only need to copy the first seven or eight characters of the hash. To see a list of all your commits and their associated hashes run: 
+ To see a list of all your commits and their associated hashes run:
 ```console 
 $ git log
 ```
 
-From there to add a tag to this commit you can run:
+To tag a specific commit, find the commit in the log listing and copy its hash. (You only need copy the first seven or eight characters) and use as the option extra argument to `git tag` command:
 ```console
-$ git tag assignX-submit [paste hash here and remove brackets]
-$ git push --tags
+$ git tag assignX-submit 0b34cd1   # replace example hash 0b34cd1 with actual hash
+$ git push --tags                  # sync tags with remote Github repo
 ```
 
 <A name="resubmit"></a>
 #### Move tag for resubmit
-If you need to update your previously tagged submission with additional changes, you can move the tag to a different commit with the following command
+If you need to update your previously tagged submission with additional changes, move the tag to a different commit with the following commands
 (note that you need the `--force` flag to move or push a tag that already exists. `--force` can be shortened to just `-f`).
 
 ```console
-$ git tag --force assignX-submit
-$ git push --force --tags
+$ git tag --force assignX-submit    # move assignX-submit tag to most recent commit (replacing previous)
+$ git push --force --tags           # sync tags with remote (replacing previous)
 ```
 
 If you complete one of the extensions for the assignment, add the tag `assignX-extension`
