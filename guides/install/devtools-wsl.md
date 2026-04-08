@@ -118,7 +118,7 @@ usage:
     ... blah blah blah ...
 ```
 
-{% include checkstep.html content="confirm xfel version" %}
+{% include checkstep.html content="confirm xfel communicates with Mango Pi" %}
 A more robust test is to confirm that xfel can communicate with your Mango Pi.  If you have your Mango Pi in hand, connect it to a USB port on your laptop and use `xfel version` to read the chip id.
 
 ```console?prompt=$
@@ -126,9 +126,9 @@ $ xfel version
 AWUSBFEX ID=0x00185900(D1/F133) dflag=0x44 dlength=0x08 scratchpad=0x00045000
 ```
 
-If the above fails with `ERROR: xfel cannot connect to usb device: -12`, this indicates your installation is not correct. We have seen this error when using WSL version 2 (you need to be on version 1) or if you have not properly installed the zadig driver. Review the steps above to correct the install issue and then re-check.
+If `xfel version` instead responds with `ERROR: xfel cannot connect to usb device: -12`, your installation is not quite right. Double-check that you have WSL __version 1__ (NOT version 2) and the zadig driver is properly installed. Retrace the steps above to correct the problem and use `xfel version` to confirm.
 
 
 ## Installation complete
 
-Yay! If you made it this far, you should feel so proud! Head back to the [main installation guide](../devtools) to do one last set of checks.
+Yay! You have a cross-compile tool chain and a working xfel. Head back to the [main installation guide](../devtools) to do one last set of checks.

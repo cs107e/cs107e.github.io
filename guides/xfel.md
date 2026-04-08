@@ -27,7 +27,7 @@ Using a bootloader, the cycle to run a program on the Pi is:
 {: .callout-warning}
 
 ## Connect through OTG
-FEL listens for commands over USB. The connection from your laptop to the OTG port that is [powering the Pi](/guides/power) is the same connection your laptop will use to communicate with the bootloader. Your usb cable/hub must support both charge and data, needed for power and communication, respectively.
+FEL listens for commands over USB. The connection from your laptop to the OTG port that is [powering the Pi](/guides/power) is the same connection your laptop will use to communicate with the bootloader. Your USB cable/hub must support both charge and data, needed for power and communication, respectively.
 
 ![usb otg power](../images/power-otg.jpg)
 {: .w-50 .mx-auto }
@@ -127,7 +127,7 @@ $ xfel exec  0x40000000                      # start executing program
 The blink-actled program runs an endless loop to blink the blue on-board led.
 
 To load and run a different program, your must first reset the Pi by briefly interrupting power. This step is necessary to reset the Pi and reenter the bootloader so it is ready to receive a new program. You can reset by unplugging and replugging the USB or clicking the tiny reset button (available on Mango Pi latest board rev Dec 2025).
-{% comment %}Your parts kit includes a usb cable with a rocker switch so you can reset the Pi with a quick flip off and back on. {% endcomment %}
+{% comment %}Your parts kit includes a USB cable with a rocker switch so you can reset the Pi with a quick flip off and back on. {% endcomment %}
 
 ## Pro-tip: `mango-run`
 You will need to re-play these commands (`xfel ddr d1; xfel write; xfel exec`) so often that we wrote a small script to package this command sequence into the single command `mango-run`.
@@ -162,14 +162,21 @@ There you have it, a simple way to execute programs on your Pi. Nifty!
 ## Troubleshooting 
 Some suggestions of how to diagnose and resolve troubles with the bootloader.
 
-Use `xfel version` (or `mango-run` with no arguments) to test communication with the bootloader.
-- If response is chip id `AWUXBFEX ID=...`, you are good to go! It found the connection to the Pi, the bootloader is running, and the Pi responded with its id. All's right in your world.
-- If response is `ERROR: xfel found no connected FEL device.`, it could not find a connected Pi.
-	- Double-check the Pi is powered up, that your laptop is connected to the Mango OTG port, and the cable you are using supports both charge and data.
-	- In some situations, a connection that was fine a moment ago can stop working. This can happen if your laptop's usb system went a bit wonky and suspended the port. Unplugging from your laptop usb port and replug may prompt your laptop to reset the port, if not, reboot your laptop to set things right.
-- If response is `ERROR: xfel had timeout comunicating with device (device not listening, needs reset?)`, it found the connection to Pi, but was not able to communicate with the bootloader.
-	- This generally means the bootloader is not running/listening. If you previously bootloaded a different program and it is now executing on the Pi, the bootloader is no longer running. To re-enter the bootloader, you must reset the Pi.
-- The `ERROR: xfel cannot connect to usb device: -12` on WSL indicates a problem with your installation. Review [install guide for WSL](/guides/install/devtools-wsl) for help.
+Use `xfel version` (or `mango-run` with no arguments) to test communication with the bootloader. If the response is:
+- `AWUXBFEX ID=0xID_NUMBER(D1/F133) ...`
+    - You are good to go! It found the connection to the Pi, the bootloader is running, and the Pi responded with its id.
+- `ERROR: xfel found no connected FEL device`
+    - xfel did not find a connected Pi.
+	- Double-check the Pi is powered up and connected to the OTG port using a USB cable that supports both charge and data.
+	- In some situations, a connection that was fine a moment ago can stop working, such as when your laptop's usb system goes a bit wonky and suspends the port.
+    - Unplugging from your laptop USB port and replug may prompt your laptop to reset the port or try plugging into a different USB port on your laptop.
+    - If still not resolved, reboot your laptop to set things right.
+- `ERROR: xfel had timeout comunicating with device (device not listening, needs reset?)`
+    - xfel found a connected Pi, but was not able to communicate with the FEL bootloader.
+	- This means the bootloader is not running/listening. If you have already bootloaded a program, that program is now executing on the Pi and the bootloader is no longer running.
+    - Reset the Pi to re-enter the bootloader.
+- `ERROR: xfel cannot connect to usb device: -12`
+    - If running on WSL, this error indicates a problem with your installation. Review the section "Install xfel" in the [install guide for WSL](/guides/install/devtools-wsl).
 
 ## Resources
 - The `xfel` source code is published on github, we maintain a custom fork at <https://github.com/cs107e/xfel>
