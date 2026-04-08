@@ -97,9 +97,10 @@ Then, once you've finished that, skim through the regular [Git workflow guide](/
 Here is the standard workflow to pull courseware updates and `lab0` starter files:
 
 ```console
-$ cd ~/cs107e_home/mycode
-$ git checkout dev
-$ git pull code-mirror lab0-starter
+$ cd ~/cs107e_home/mycode             # change to local mycode repo
+$ git checkout dev                    # be sure on dev branch
+$ git pull code-mirror lab0-starter   # pull starter code for this lab
+
 ```
 If you run into any trouble in setting up git, grab a staff member for help resolving. After pulling the starter files into your repo,
 you should have a `lab0` folder containing two text files.

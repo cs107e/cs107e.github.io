@@ -23,42 +23,38 @@ The coursework consists of 7 weekly assignments and a final project.  We look fo
 Our grading system is designed to be entirely __constructive__. We celebrate and reward each of your accomplishments, whether that is tracking down bugs, keen participation in lab, implementing extended features, or making on-time submssions.
 
 {% comment %}
-
-+ Engagement
-    - We encourage and recognize your contributions of __E-P-C__:
-        - __Effort__: growth mindset, willingness to challenge yourself, dedication to learning, continued improvement
-        - __Participation__: active involvement in lab, lecture, and forum
-        - __Community__: learning together, asking and answering questions, collaborating in lab, celebrating and supporting one another
-    - Together we can build a vibrant and interactive learning environment where all can thrive!
-
-Satisfying the base expectations listed below guarantees a course grade in the B range; your efforts to go above and beyond boost your course grade upward.
-
-If you have your sights set on earning an __A__ course grade, you will need consistently __outstanding__ work:
+The base expectation is solid work in all three areas:
 + Assignment deliverables
-    - Core functionality is complete and correct (resolve all issues, revise and resubmit ok)
-    - Consistently good timeliness (submit on-time, swift resolution of outstanding issues)
-    - Earn 15 or more bonus credits
-        - Extended features on assignments (2-4 credits)
-            - each assignment has one or more extended features you can choose to implement for bonus credits, refer to assignment writeup for details
-        - Full system bonus (6 credits)
-            - rewards an assign7 console that is polished, complete, and "ready to ship", uses only your code. This is a big achievement and great showing of mastery -- way to go!
-+ Project deliverables
-    - Outstanding project (strong challenge, demonstrates mastery of course topics, excellent execution)
-+ Engagement
-    - Active and involved throughout (all labs, thoughtful completion of all style reflections, strong E-P-C contributions)
-
-For a __B__ course grade, we expect __solid__ work that meets all base expectations:
-+ Assignment deliverables
-    - Essential core functionality is complete and correct (resolve all essential P1 issues, revise and resubmit ok)
+    - Essential core functionality is complete and correct, candidate for full system
     - Ok on timeliness (submit within grace, issues resolved by Assign 7)
-    - Candidate for full system bonus
 + Project deliverables
     - Good project (shows skill on course topics, satisfactory execution)
 + Engagement
-    - Good (all labs, ok style reflections, good E-P-C)
+    - Steady (consistent attendance lecture and lab, ok growth/mastery)
 
-Work that is not completed satisfactorily will earn grades __C and below__.
+Satisfying the base expectation guarantees a course grade of at least B. To boost grade upward, we recognize all the ways in which you go beyond meeting the base requirements:
++ Assignment deliverables
+    - 🥭 Resolve all P1 & P2 issues (P3 is nice-to-have also)
+    - 🥭 Full system demo/interview
+        - At end of assign7, sign up for interactive grading session to demo your work and discuss with us
+        - We're looking for a demo of your full system that shows it is robust, complete, and "ready to ship"
+        - We'll also do a friendly interview to hear more about your work and your growth and mastery
+    - 🌱 Consistently good timeliness (submit on-time, swift resolution of outstanding issues)
+    - 🌻 Extensions
+        - Could be adding neat, creative touches to multiple assignments or doing a deep dive into one mega-extension
++ Project deliverables
+    - 🥭 Outstanding project
+        - Strong challenge, demonstrates mastery of course topics, excellent execution
+        - Polished and successful demo at the final project show
++ Engagement
+    - 🌱 Active participation in lecture and labs
+    - 🌱 Office hours WHAT
+    - 🌱 Thoughtful completion of style reflections, responsive to feedback
+    - 🌱 Strong contributions to community, helpful interactions with peers in person/forum
 
+A 🥭 is a "landmark" achievements that we heavily prioritize and gives the most boost to the course grade. These accomplishments demonstrate strong mastery of the course learning goals -- bravo! A 🌻 rewards where you have gone above and beyond to learn and do more -- neat! A 🌱 recognizes your dedication to learning, active participation, and growth.
+
+To give a rough cut, nailing all three 🥭s pushes course grade up to A-, the nudge from there up to A is earned with 🌻 and 🌱.
 {% endcomment %}
 
 ## Late Policy
