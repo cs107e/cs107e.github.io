@@ -194,24 +194,24 @@ When opening a new shell, the environment is initialized by reading a configurat
     When we refer to "configuration file", we mean the file named `.zshrc`  or `.bashrc`. The commands below demonstrate use of `.zshrc` because that is more common name, but if your shell is bash, be sure to replace `.zsrhc` with `.bashrc`.
 2. Use the command `ls` to check if you already have an existing configuration file.
     ```console
-    $ ls ~/.zshrc     # OR ls ~/.bashrc
+    $ ls ~/.zshrc     # OR ~/.bashrc
     ```
-    If `ls` reports there is no such file, use the `touch` command to create a new empty file.
+    If `ls` reports there is no such file, use the `touch` command to create a new configuration file that is empty.
     ```console
-    $ touch ~/.zshrc  # OR touch ~/.bashrc
+    $ touch ~/.zshrc  # OR ~/.bashrc
     ```
 
-3. Open the configuration file in a text editor and append the following two lines verbatim:
-    ```
-    export CS107E=~/cs107e_home/mycode/cs107e
-    export PATH=$PATH:$CS107E/bin
+3. Use the following commands to append the CS107E-specific setup to your configuration file:
+    ```console
+    $ echo "export CS107E=~/cs107e_home/mycode/cs107e" >> ~/.zshrc  # OR ~/.bashrc
+    $ echo "export PATH=$PATH:$CS107E/bin" >> ~/.zshrc  # OR ~/.bashrc
     ```
 
-    The first line sets the environment variable `CS107E` to the path to cs107e folder. The second line adds the `bin` subdirectory to your executable path.
+    This CS107E setup does two things: sets the environment variable `CS107E` to the path to cs107e folder and adds the `bin` subdirectory to your executable path.
 
 4. Use the `source` command to read the updated configuration file into your current shell:
     ```console
-    $ source ~/.zshrc    # OR source ~/.bashrc
+    $ source ~/.zshrc    # OR ~/.bashrc
     ```
 
 {% include checkstep.html content="confirm current shell is properly configured" %}
@@ -229,12 +229,12 @@ The configuration file is persistent and should be automatically read when creat
 {% include checkstep.html content="confirm shell configuration is persistent and future shells properly configured" %}
 Close your current shell and open a new one. Repeat the check step above in the new shell and confirm the new shell is also properly configured.
 
-If you confirm your configuration is persistent, skip the step below. If it is not persistent and you are using the  `bash` shell and the macOS Terminal, add persistence with this additional customization.
+If you confirm that your configuration is persistent, skip the step below. If it is not persistent and you are using the `bash` shell and the macOS Terminal, add persistence with this additional customization.
 
 {: start="5"}
-5. (only if needed) Find the file named `.bash_profile` in your home directory. If no such file exists, use the `touch` command to create an empty file with that name. Open that file in a text editor and append the following line verbatim:
-    ```
-    source ~/.bashrc
+5. (only if needed) Use the command below to persistenly connect your `.bashrc` into your `.bash_profile`:
+    ```console
+    $ echo "source ~/.bashrc" >>~/.bash_profile
     ```
 
 Repeat the previous check step with a new shell to confirm your configuration is now persistent.
