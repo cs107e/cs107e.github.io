@@ -169,6 +169,7 @@ Use `xfel version` (or `mango-run` with no arguments) to test communication with
 	- In some situations, a connection that was fine a moment ago can stop working. This can happen if your laptop's usb system went a bit wonky and suspended the port. Unplugging from your laptop usb port and replug may prompt your laptop to reset the port, if not, reboot your laptop to set things right.
 - If response is `ERROR: xfel had timeout comunicating with device (device not listening, needs reset?)`, it found the connection to Pi, but was not able to communicate with the bootloader.
 	- This generally means the bootloader is not running/listening. If you previously bootloaded a different program and it is now executing on the Pi, the bootloader is no longer running. To re-enter the bootloader, you must reset the Pi.
+- The `ERROR: xfel cannot connect to usb device: -12` on WSL indicates a problem with your installation. Review [install guide for WSL](/guides/install/devtools-wsl) for help.
 
 ## Resources
 - The `xfel` source code is published on github, we maintain a custom fork at <https://github.com/cs107e/xfel>

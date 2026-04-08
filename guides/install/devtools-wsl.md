@@ -71,9 +71,9 @@ Connected to the simulator.
 
 Next, we need to install xfel (<https://github.com/xboot/xfel>), which is the tool that we use to communicate with your Pi (i.e., send code and other nifty tricks).
 
-1. Change to the proper directory, download the xfel archive, and unpack it. Replace `[YOUR-WINDOWS-USERNAME]` with the name of your __Windows__ login account.
+1. Change to the proper directory, download the xfel archive, and unpack it. Replace `[YOUR-WINDOWS-USERNAME]` with the name of your __Windows__ login account (this is NOT the same as your ubuntu username!)
     ```console 
-    $ cd /mnt/c/Users/[YOUR-WINDOWS-USERNAME]
+    $ cd /mnt/c/Users/[YOUR-WINDOWS-USERNAME]   # Windows username NOT ubuntu username
     $ wget https://github.com/cs107e/homebrew-cs107e/raw/master/xfelWin32.tar.gz
     $ sudo tar -xvf xfelWin32.tar.gz      # sudo to permit update file modtime
     $ rm xfelWin32.tar.gz                 # done with archive, remove
@@ -106,7 +106,7 @@ Next, we need to install xfel (<https://github.com/xboot/xfel>), which is the to
 
 {% include checkstep.html content="confirm xfel" %}
 
-Confirm xfel is properly installed by running the command below.
+Confirm xfel is installed by running the command below.
 
 ```console?prompt=$
 $ xfel
@@ -117,6 +117,17 @@ usage:
     xfel dump <address> <length>                        - Binary memory dump to stdout
     ... blah blah blah ...
 ```
+
+{% include checkstep.html content="confirm xfel version" %}
+A more robust test is to confirm that xfel can communicate with your Mango Pi.  If you have your Mango Pi in hand, connect it to a USB port on your laptop and use `xfel version` to read the chip id.
+
+```console?prompt=$
+$ xfel version
+AWUSBFEX ID=0x00185900(D1/F133) dflag=0x44 dlength=0x08 scratchpad=0x00045000
+```
+
+If the above fails with `ERROR: xfel cannot connect to usb device: -12`, this indicates your installation is not correct. We have seen this error when using WSL version 2 (you need to be on version 1) or if you have not properly installed the zadig driver. Review the steps above to correct the install issue and then re-check.
+
 
 ## Installation complete
 
