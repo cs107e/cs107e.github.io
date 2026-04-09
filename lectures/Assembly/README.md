@@ -9,6 +9,7 @@ readings: |
     + Here is a link to the [Ripes simulator](https://ripes.me/) demoed in lecture.
     + If you have a printout of the [one-page guide to RISC-V](/guides/riscv-onepage), bring it along!
     + From D1-H User Manual: [Ch9.7 GPIO](/readings/d1-h_user_manual_v1.0.pdf#page=1083)
+    + Course guides on [Meet your GPIO pins](/guides/MeetYourGPIOPins.pdf) and [Programming your GPIO pins](/guides/ProgramYourGPIOPins.pdf)
     + Enjoy Danny Cohen's article
      [Holy Wars and a Plea for Peace](/readings/holywars.pdf) on the history of little-endian vs. big-endian.
 ---
