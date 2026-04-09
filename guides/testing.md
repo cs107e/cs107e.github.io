@@ -12,7 +12,7 @@ in building things that work well and are robust.
 In this course, the assignments build on themselves,
 and you will be using the software 
 you build in early assignments in later assignments.
-Remember also we give a bonus if you hand in
+Remember also we give a reward if you hand in
 the final assignment and it uses only your software 
 (and not our reference implementations).
 

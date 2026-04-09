@@ -42,7 +42,7 @@ you submit by creating a pull-request. Consult [Assignment 0](/assignments/assig
 
 ### What is the policy on late assignments?
 
-Assignments will be due weekly Tuesday 5pm. On-time submissions are awarded a small reward that boosts course grade. After the deadline is a 2-day grace period that allows late submission with no penalty. All submissions are expected by end of the grace period.  Read our [course late policy](/policies/#late-policy)
+Assignments will be due weekly Tuesday 5pm. On-time submissions are awarded a small grading reward. After the deadline is a 2-day grace period that allows late submission with no penalty. All submissions are expected by end of the grace period.  Read our [course late policy](/policies/#late-policy)
 for specifics.
 
 ### What is the assignment collaboration policy?
@@ -60,7 +60,7 @@ Each assignment writeup has a required basic part and various optional extension
 
 The __core features__ are required of all students. The work follows directly from the material covered in lecture and lab. It has a tight specification to which your submission is expected to match. We provide suggested steps to guide you through completing the core part.
 
-The __extensions__ are optional add-ons that allow you to go deeper, implement extended features, and apply your creativity. These extended features earn bonus credits. Extensions are not required but everyone is highly encouraged to attempt some of these explorations. The extensions are given with a looser specification and much less guidance than the core features. If tackling an extension, you will need to research advanced material on your own and apply your creativity in problem-solving.
+The __extensions__ are optional add-ons that allow you to go deeper, implement extended features, and apply your creativity.  Extensions are not required but they boost your course grade. Everyone is highly encouraged to attempt some of these explorations. The extensions are given with a looser specification and much less guidance than the core features. You'll need to research advanced content and apply your creativity in problem-solving.
 
 In assignments 2 through 7, you will build up a library of useful utilities for bare metal programming on the Pi.  These assignments build on one another. To complete assignment 5, say, you will need working versions of assignments 2 through 4.
 
@@ -70,9 +70,8 @@ If your code doesn't work, you can fall back on our version.
 
 The last assignment requires you to use code from
 many of the previous assignments.
-To encourage you to complete all assignments and resubmit to fix your bugs,
-if you submit the last assignment using only your own code,
-we award you additional bonus credits for building a complete working system.
+To encourage you to use revise and resubmit to fix earlier bugs, we reward a special "full system" achievement for
+having a working assign7 console using all and only your own code.
 
 <a name="grading"></a>
 ### How are assignments graded? What kind of feedback will I get on my work?

@@ -37,6 +37,7 @@ During this lab you will:
 To prepare, please do the following before coming to lab:
 
 1. Be up to date on [recent lecture content](/schedule/#Week1): __RISC-V assembly, GPIO__
+    + Review course guides on [Meet your GPIO pins](/guides/MeetYourGPIOPins.pdf) and [Programming your GPIO pins](/guides/ProgramYourGPIOPins.pdf)
 1. Reading to do ahead of lab:
     - Read this SparkFun tutorial on [using a breadboard](https://learn.sparkfun.com/tutorials/how-to-use-a-breadboard). Pay special attention to the section labeled "Anatomy of a Breadboard" to learn about the internal connections.
     - Review course guides on:

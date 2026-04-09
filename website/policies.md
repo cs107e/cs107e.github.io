@@ -10,52 +10,50 @@ toc: true
 
 The coursework consists of 7 weekly assignments and a final project.  We look for your achievement of the course learning goals through meeting the assignment and project deliverables, demonstrating growth and proficiency, and sustained engagement with the material.
 
-+ Assignment deliverables
-    - Core functionality is "feature-complete"
-    - Timeliness in meeting schedule
-+ Project deliverables
-    - Successful completion of final project that shows proficiency with course material
-+ Engagement
-    - Willingness to challenge yourself, dedication to learning, continued improvement
-    - Active involvement in lecture, lab, forum, office hours
-    - Show growth and mastery in written and verbal forms (code reflections, project writeup, interview assessment)
++ __Assignment deliverables__: core functionality is feature-complete
++ __Project deliverables__: successful project that shows proficiency with course materials
++ __Engagement__: active participation, growth through the quater
 
 Our grading system is designed to be entirely __constructive__. We celebrate and reward each of your accomplishments, whether that is tracking down bugs, keen participation in lab, implementing extended features, or making on-time submssions.
 
-{% comment %}
-The base expectation is solid work in all three areas:
-+ Assignment deliverables
-    - Essential core functionality is complete and correct, candidate for full system
+The base expectation is solid work in all three areas. Satisfying the base expectation guarantees a course grade of at least __B__.
++ __Assignment deliverables__
+    - Essential core functionality is complete and largely correct, candidate for full system
     - Ok on timeliness (submit within grace, issues resolved by Assign 7)
-+ Project deliverables
++ __Project deliverables__
     - Good project (shows skill on course topics, satisfactory execution)
-+ Engagement
++ __Engagement__
     - Steady (consistent attendance lecture and lab, ok growth/mastery)
 
-Satisfying the base expectation guarantees a course grade of at least B. To boost grade upward, we recognize all the ways in which you go beyond meeting the base requirements:
-+ Assignment deliverables
-    - 🥭 Resolve all P1 & P2 issues (P3 is nice-to-have also)
-    - 🥭 Full system demo/interview
-        - At end of assign7, sign up for interactive grading session to demo your work and discuss with us
-        - We're looking for a demo of your full system that shows it is robust, complete, and "ready to ship"
-        - We'll also do a friendly interview to hear more about your work and your growth and mastery
-    - 🌱 Consistently good timeliness (submit on-time, swift resolution of outstanding issues)
-    - 🌻 Extensions
-        - Could be adding neat, creative touches to multiple assignments or doing a deep dive into one mega-extension
-+ Project deliverables
+The course grade goes up from there in recognition of all the ways in which you go beyond meeting the base requirements:
++ __Assignment deliverables__
+    - 🥭 Libmango is completely and fully correct
+        - all P1 & P2 issues resolved (P3 is nice-to-have also)
+    - 🥭 Full system demo and interview
+        - Sign up for interactive grading session to demo your work and discuss with us
+        - Give us a demo of your full system that shows it is robust, complete, and "ready to ship"
+        - We'll also do a friendly interview assessment to hear more about your work and your growth and mastery
+    - 🌱 Consistent good timeliness (submit on-time, swift resolution of outstanding issues)
+    - 🌱 Responsiveness to feedback, code refinement, skill progression
++ __Assignment extensions__
+    - No extensions required for base expectation, but help unlock A grade. Not expected to go hard on all/every extension but hope you will try a few and see where your curiosity leads!
+    - 🌻 Small creative enhancement
+    - 🌻🌻 Implement more involved extended feature(s)
+    - 🌻🌻🌻 Deep dive into new territory, build impressive mega-extension
++ __Project deliverables__
     - 🥭 Outstanding project
         - Strong challenge, demonstrates mastery of course topics, excellent execution
         - Polished and successful demo at the final project show
-+ Engagement
-    - 🌱 Active participation in lecture and labs
-    - 🌱 Office hours WHAT
-    - 🌱 Thoughtful completion of style reflections, responsive to feedback
-    - 🌱 Strong contributions to community, helpful interactions with peers in person/forum
++ __Engagement__
+    - 🌱 Attentive and involved during lectures and labs, arrive on time
+    - 🌱 Good conversations in office hours, show curiosity and dedication
+    - 🌱 Constructive contributions to community, helpful interactions with peers in person/forum
+    - 🌱 Demonstrate growth through the quarter
 
-A 🥭 is a "landmark" achievements that we heavily prioritize and gives the most boost to the course grade. These accomplishments demonstrate strong mastery of the course learning goals -- bravo! A 🌻 rewards where you have gone above and beyond to learn and do more -- neat! A 🌱 recognizes your dedication to learning, active participation, and growth.
 
-To give a rough cut, nailing all three 🥭s pushes course grade up to A-, the nudge from there up to A is earned with 🌻 and 🌱.
-{% endcomment %}
+🥭 is a landmark achievement that we value highly and demonstrates mastery of the course learning goals -- bravo! 🌻 is a reward for going above and beyond to learn and do more -- neat! 🌱 is a small nod to your effortful dedication to learning, active participation, and growth -- nice!
+
+Aiming for an A? Set your sights on nabbing the big three 🥭 accomplishments and gathering some 🌱 and 🌻 along the way to construct your awesome A-worthy Garden of Achievement.
 
 ## Late Policy
 

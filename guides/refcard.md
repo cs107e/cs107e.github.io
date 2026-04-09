@@ -9,7 +9,7 @@ The front side has the pinout for the GPIO pins, you'll be referring to this oft
 ![ref card front](../images/refcard-front.png)![ref card back](../images/refcard-back.png)
 {: .w-75 .mx-auto .border .p-2 }
 
-Bonus: try the command `pinout.py` for an Ascii pinout when your ref card is not on hand.
+Pro-tip: try the command `pinout.py` for an Ascii pinout when your ref card is not on hand.
 
 ```console
 $ pinout.py
