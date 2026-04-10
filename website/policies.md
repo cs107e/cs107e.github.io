@@ -10,7 +10,7 @@ toc: true
 
 The coursework consists of 7 weekly assignments and a final project.  We look for your achievement of the course learning goals through meeting the assignment and project deliverables, demonstrating growth and proficiency, and sustained engagement with the material.
 
-+ __Assignment deliverables__: core functionality is feature-complete
++ __Assignment deliverables__: core functionality is feature-complete, working full system
 + __Project deliverables__: successful project that shows proficiency with course materials
 + __Engagement__: active participation, growth through the quater
 
