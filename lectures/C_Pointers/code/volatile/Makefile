@@ -5,7 +5,7 @@ all : button.bin
 ARCH = -march=rv64im -mabi=lp64
 ASFLAGS = $(ARCH)
 # change optimization flag from Og to O2, what happens?
-CFLAGS = -O2 $(ARCH) -Wall -ffreestanding
+CFLAGS = -Og $(ARCH) -Wall -ffreestanding
 LDFLAGS = -nostdlib -e0
 OBJDUMP_FLAGS = --no-show-raw-insn --no-addresses --disassembler-color=terminal --visualize-jumps=extended-color
 

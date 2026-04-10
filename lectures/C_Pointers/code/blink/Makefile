@@ -29,5 +29,8 @@ clean:
 run: c_blink.bin
 	mango-run $<
 
+asm: blink.bin
+	mango-run $<
+
 .PHONY: all clean run
 .PRECIOUS: %.o %.elf
