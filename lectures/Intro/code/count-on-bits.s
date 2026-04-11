@@ -1,4 +1,4 @@
-li a0, 67 # 0x43 or 0b01000111
+li a0, 67 # 0x43 or 0b01000011
 li a1, 0
 loop:
     andi a2, a0, 1
