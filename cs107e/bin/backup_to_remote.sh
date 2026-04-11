@@ -32,7 +32,7 @@ if [ -z "$WORKTREE_PATH" ]; then # if no worktree exists, create one
     fi
     git -C $WORKTREE_PATH commit $QUIET --allow-empty -m "Init branch $BRANCH_NAME"
     git -C $WORKTREE_PATH pull $QUIET --no-rebase --no-edit --allow-unrelated-histories --strategy=ours origin $BRANCH_NAME 2>/dev/null
-    git -C $WORKTREE_PATH push $QUIET --set-upstream origin $BRANCH_NAME
+    git -C $WORKTREE_PATH push $QUIET --set-upstream origin $BRANCH_NAME 2>/dev/null
 fi
 
 shopt -s nullglob          # set non-match glob expands to empty
