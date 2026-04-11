@@ -137,14 +137,14 @@ Take a close look at the power and ground rails on the long edges. There is a br
 You are going to wire up a simple circuit to light an
 LED. You'll need an LED and a 1K resistor from your kit. A resistor's value is indicated by the sequence of colored bands. (See this Sparkfun [tutorial on resistors](https://learn.sparkfun.com/tutorials/resistors#decoding-resistor-markings) for help on decoding the bands and bookmark this [color code calculator](http://www.digikey.com/en/resources/conversion-calculators/conversion-calculator-resistor-color-code-4-band).) What are the band colors for 1K?  Find a 1K resistor in your kit. You can verify the value by using a multimeter to measure the resistance.
 
-Make a circuit on your breadboard for the LED. An LED has a directionality -- the longer lead is the anode and the shorter lead is the cathode.  The voltage from anode to the cathode
-should be positive.  If the polarity of voltages are switched, the LED
-will not light up.  The LED also needs a current-limiting resistor
+Make a circuit on your breadboard for the LED. An LED has a directionality -- the longer lead is the anode and the shorter lead is the cathode. The voltage from anode to the cathode
+should be positive. If the polarity of voltages are switched, the LED
+will not light up. The LED also needs a current-limiting resistor
 otherwise it can literally [blow up in a fiery, smoky
 extravaganza](https://www.youtube.com/watch?v=WLctUO1DGtw)! A resistor has no directionality and it can be placed ahead or behind the LED in the circuit.
 
 In the photo below, the cathode of the LED connects to the resistor which connects to the
-the ground rail. The LED itself crosses over the middle of the breadboard.  (click photo to enlarge)
+the ground rail. The LED itself crosses over the middle of the breadboard. (click photo to enlarge)
 
 ![Led and resistor on breadboard](images/led-resistor.png){: .zoom}
 
@@ -166,7 +166,7 @@ Follow these steps:
     ```console
     $ pinout.py              # display Mango Pi pinout in shell
     ```
-   Orient your Pi so that the 40-pin header is in a vertical column on the right edge to match the pinout diagram.  Identify a 3.3V power pin and a GND pin on the header. Connect the female ends of the jumpers to the Mango Pi:  black to ground and red to 3.3V power.
+   Orient your Pi so that the 40-pin header is in a vertical column on the right edge to match the pinout diagram. Identify a 3.3V power pin and a GND pin on the header. Connect the female ends of the jumpers to the Mango Pi:  black to ground and red to 3.3V power.
    > __Mango Pi GPIO pins are 3.3V only__ The GPIO pins are not 5V-tolerant and contact between 5V and another header pin can result in permanent and possibly fatal damage. To avoid accidental contact, we placed a small white shunt over the two 5V pins -- do not remove or move this shunt!
    {: .callout-danger}
 
@@ -191,7 +191,7 @@ If you substitute a 10K resistor in place of the 1K, how will this change the ra
 You are ready to answer the first check-in question. [^1]
 
 ### 4. Execute blink program
-You want to run `blink` program from lecture which blinks a LED connected to gpio `PB0`.  Look on your pinout card and find the pin labelled `PB0`. You can also identify a pin by giving an optional argument to `pinout.py`:
+You want to run `blink` program from lecture which blinks a LED connected to gpio `PB0`. Look on your pinout card and find the pin labelled `PB0`. You can also identify a pin by giving an optional argument to `pinout.py`:
 
 ```console
 $ pinout.py PB0                  # highlight PB0 on pinout
@@ -209,7 +209,7 @@ $ riscv64-unknown-elf-objcopy blink.o -O binary blink.bin   # copy only binary
 ```
 The `riscv64-unknown-elf-as` command assembles the RISC-V instructions in `blink.s` into an "object
 file". The assembler takes in assembly instructions in human-readable text and translates to binary-encoded instructions (machine-readable bits). In addition to the encoded instructions, the object file includes some extra data we don't need -- we just want the
-program.  The command `riscv64-unknown-elf-objcopy` extracts just the raw binary program of instructions into a file
+program. The command `riscv64-unknown-elf-objcopy` extracts just the raw binary program of instructions into a file
 `blink.bin`.
 
 Use the `mango-run` command to send the program to the bootloader:
@@ -272,11 +272,11 @@ You will be spending much quality time with your editor and terminal and will wa
 - Don't close out your editor each time you need to return to your shell; keep open multiple windows/tabs and use keyboard control to quickly switch between them.
 - Organize your screen for visibility of all essential content, don't force yourself to hunt through scattered and overlapping windows.
 - Longer term: avoid the overhead of reaching for your mouse and instead learn how to leverage key bindings and macros, so you can keep your hands on the keyboard and stay in programming flow state.
-    - <small>"The single biggest productivity slowdown I see in stanford undergrads (grads too) is the slow, laborious use of taking their hand off a keyboard, moving a mouse, clicking, switching screens, clicking on something else, switching back, etc. You don't realize how much this slows you down you until you watch someone who writes code well and compare their fluent flow to your plodding agrarian lifestyle.  Any time you move the mouse, you're not doing work. Do what you can to stop this." --Dawson Engler</small>
+    - <small>"The single biggest productivity slowdown I see in stanford undergrads (grads too) is the slow, laborious use of taking their hand off a keyboard, moving a mouse, clicking, switching screens, clicking on something else, switching back, etc. You don't realize how much this slows you down you until you watch someone who writes code well and compare their fluent flow to your plodding agrarian lifestyle. Any time you move the mouse, you're not doing work. Do what you can to stop this." --Dawson Engler</small>
 {: .callout-info}
 
 <A name="button"></A>
-### 6.  Add a button
+### 6. Add a button
 The final lab exercise is to study the `button` program and build a circuit to test the program.
 
 This button program is in the file `lab1/button/button.s`. It uses two gpios: `PB0` configured as an output and connected to an LED and `PC0` configured as an input and connected to a push button. The code waits into a loop and turns the LED on/off in response to the current value of `PC0`.
@@ -307,9 +307,9 @@ Here are a few questions to test your understanding.
 
 Once you understand how the code operates, you are ready to make the button circuit.
 
-Grab a pushbutton from your parts kit. The four legs of the button are organized into two pairs, the two neighboring legs on one side are one pair, the second pair is on the opposite side. The legs within a pair are always connected to one another. When the button is pressed, all four legs become connected. You need to select two legs to connect such that the circuit reads open until the button is pressed, which closes the switch. How the legs are wired is not obvious! One way to experimentally confirm is using the multimeter to test for continuity between legs when not pressed. I myself don't like fussing about the button orientation, so I rely on the fact that choosing two diagonal legs is guaranteed to not be an already-connected pair, these two will become connected only when the switch is closed.  Once you understand how the legs are connected, position the button on the breadboard so it can act as a switch.
+Grab a pushbutton from your parts kit. The four legs of the button are organized into two pairs, the two neighboring legs on one side are one pair, the second pair is on the opposite side. The legs within a pair are always connected to one another. When the button is pressed, all four legs become connected. You need to select two legs to connect such that the circuit reads open until the button is pressed, which closes the switch. How the legs are wired is not obvious! One way to experimentally confirm is using the multimeter to test for continuity between legs when not pressed. I myself don't like fussing about the button orientation, so I rely on the fact that choosing two diagonal legs is guaranteed to not be an already-connected pair, these two will become connected only when the switch is closed. Once you understand how the legs are connected, position the button on the breadboard so it can act as a switch.
 
-You will connect an input pin from the Pi into the button circuit to read the button state (pressed or not pressed). The default voltage of a gpio pin configured as an input is in a "floating" state, it might read high, it might read low, and value can fluctuate unpredictably. We must intentionally pull the pin to a known voltage to establish a reliable reading. The button program above is written expect that the button state is initially high and goes low when pressed, so we need to make the default state high. We can do this by connecting the input pin to the power rail through a 10K resistor to "pull up" the line. This causes the gpio to read high by default when the button is not pressed. Pressing the button grounds the circuit and the gpio will then read low.  Sparkfun has a nice tutorial on the [use of pull-up resistors](https://learn.sparkfun.com/tutorials/pull-up-resistors/all) for more information.
+You will connect an input pin from the Pi into the button circuit to read the button state (pressed or not pressed). The default voltage of a gpio pin configured as an input is in a "floating" state, it might read high, it might read low, and value can fluctuate unpredictably. We must intentionally pull the pin to a known voltage to establish a reliable reading. The button program above is written expect that the button state is initially high and goes low when pressed, so we need to make the default state high. We can do this by connecting the input pin to the power rail through a 10K resistor to "pull up" the line. This causes the gpio to read high by default when the button is not pressed. Pressing the button grounds the circuit and the gpio will then read low.
 
 Below is the schematic for a button connected to a pull-up resistor. The input pin will read high while switch is open (button unpressed) and low when switch is closed (button pressed).
 
@@ -325,9 +325,9 @@ In the photo above, we used an orange jumper to connect 3.3V on Pi to one end of
 >__Double-check your wiring!__ Before powering up your circuit, "read" it over to confirm it correctly models the schematic. Consistently choosing jumper colors according to use (e.g. orange for 3.3V power, black for ground) can help with readability. Be sure you understand why the resistor is needed and confirm it is correctly positioned. If the power were wrongly connected directly to the button leg (skipping the resistor), pressing the button would form a short. This causes the Pi to try to push near-infinite current (as R is near-zero) and the result would heat, smoke, permanent damage, and sadness.
 {:.callout-danger-invert}
 
-The circuit in photo is not yet complete -- it is missing the connection to read the button state.  Review the schematic to identify where the input pin connects into the button circuit. The input point is chosen such that the input will read high in the starting state and read low when the button is pressed. Use the pinout to find gpio `PC0` on the Mango Pi header.  Add a jumper from `PC0` to the input and your circuit is complete.
+The circuit in photo is not yet complete -- it is missing the connection to read the button state. Review the schematic to identify where the input pin connects into the button circuit. The input point is chosen such that the input will read high in the starting state and read low when the button is pressed. Use the pinout to find gpio `PC0` on the Mango Pi header. Add a jumper from `PC0` to the input and your circuit is complete.
 
-Your breadboard should have the previous circuit of LED connected to `PB0` and the additional button circuit connected to `PC0`. You are now ready to power it up and build and run the button program.  Time for another round of `riscv64-unknown-elf-...`, uh, what was that again? Let's add another useful tool to your bag of tricks: `make`. A `Makefile` can be used to list the commands needed to build and run the program and allows you to skip re-typing them again and again.  Next week's lab will have an exercise on exploring `make`, for now, you can take it on faith that we have provided a Makefile to use. Use the command `make run` as a shortcut for building and running a program on the Mango Pi. Try it out now!
+Your breadboard should have the previous circuit of LED connected to `PB0` and the additional button circuit connected to `PC0`. You are now ready to power it up and build and run the button program. Time for another round of `riscv64-unknown-elf-...`, uh, what was that again? Let's add another useful tool to your bag of tricks: `make`. A `Makefile` can be used to list the commands needed to build and run the program and allows you to skip re-typing them again and again. Next week's lab will have an exercise on exploring `make`, for now, you can take it on faith that we have provided a Makefile to use. Use the command `make run` as a shortcut for building and running a program on the Mango Pi. Try it out now!
 
 ```console
 $ make run
@@ -339,7 +339,11 @@ mango-run button.bin
 If the LED is on at start and turns off when the button is held down, you've got it all right!
 You're ready to answer the final check-in question[^4].
 
-If you have a little extra time, one last experiment is to make observations about a floating input. Consider the effect on the circuit of removing the connection that pulls up the input (i.e. remove pull-up resistor or disconnect jumper from to power). When the button is pushed, the input would still reliably read low (because the switch is closing the circuit from input to ground) so response to a button press should not be changed. But what is going to happen while the button is not pressed? The input is "dangling", not anchored to 3.3V or Ground. When the program reads from  it, it will be picking up an unreliable/unstable value coming from stray noise/capacitance. Here is an experiment to observe further. I know I said never to hot-wire a live Pi, but for this we are going to make an exception and proceed very cautiously. Have the circuit correctly configured and run the button program, confirm all is working as expected.  Now, without resetting the Pi, leave the button program running, and very carefully disconnect the jumper from the pull-up resistor to power. Have your partner keep a close eye on the LED while you do this. What change do you observe in the LED? How does the floating input cause that effect?
+If you have a little extra time, one last experiment is to make observations about a floating input. Consider the effect on the circuit of removing the connection that pulls up the input (i.e. remove pull-up resistor or disconnect jumper from to power). When the button is pushed, the input would still reliably read low (because the switch is closing the circuit from input to ground) so response to a button press should not be changed. But what is going to happen while the button is not pressed? The input is "dangling", not anchored to 3.3V or Ground. When the program reads from  it, it will be picking up an unreliable/unstable value coming from stray noise/capacitance. Here is an experiment to observe further. I know I said never to hot-wire a live Pi, but for this we are going to make an exception and proceed very cautiously. Have the circuit correctly configured and run the button program, confirm all is working as expected. Now, without resetting the Pi, leave the button program running, and very carefully disconnect the jumper from the pull-up resistor to power. Have your partner keep a close eye on the LED while you do this. What change do you observe in the LED? How does the floating input cause that effect?
+
+References on floating inputs and use of pull-up resistors:
+- Video short <https://www.youtube.com/shorts/y_QIEyC-uUk> from Adafruit
+- Helpful tutorial <https://learn.sparkfun.com/tutorials/pull-up-resistors/all> from Sparkfun
 
 
 ## Check in with TA
@@ -355,7 +359,7 @@ __Clean all the things__: Please return tools and supplies to their place, disca
 Circle lab attended:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  _Tuesday_  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  _Wednesday_
 <BR>
 <BR>
-Fill out this check-in sheet as you go and use it to jot down any questions/issues that come up.  Please check in with us along the way, we are here to help![^6]LED
+Fill out this check-in sheet as you go and use it to jot down any questions/issues that come up. Please check in with us along the way, we are here to help![^6]LED
 </div>
 
 [^1]: How much current flows through the LED with a 1K resistor connected to 3.3V? With a 10K resistor?
