@@ -159,9 +159,10 @@ If you enjoyed the core assignment and want to explore further, consider tacklin
     - use named assembly constants for number of LEDs and scanning frequency so they can be easily edited
     - learn ahead about how functions are implemented in assembly and decompose control flow into functions
 - add button(s) that allow user to interactively control the scanner
-    - pause and resume? increase and decrease speed? change pattern?
+    - pause while held down? increase and decrease speed? change pattern?
 - explore controlling LED brightness using software pwm ("pulse width modulation")
-    - the idea behind pwm is to switch LED on and off at high enough rate that it is smoothed by the human eye into seeing it as "partially-on"
+    - the idea is to repeatedly switch an LED on and off at high enough rate that it is smoothed by the human eye into seeing it as "partially-on"
+        - __software__ pwm manually sets gpio high and low and uses loops to control ratio of on/off time (hardware pwm using the D1-H `pwm` peripheral is a much more challenging task, not recommended to tackle as a first extension 😅)
     - apply an up-down ramp in brightness to simulate LED "breathing" or implement the classic Larson scanner that moves a group of five LEDs, where middle LED is full-on, immediate neighbors partially-on and outer neighbors even more dim. The effect can look really cool, see this [video from Evil Mad Science](https://www.youtube.com/watch?v=alW5zHiF6_0).
 - design your own repeating light-show pattern
 - random/chaotic
