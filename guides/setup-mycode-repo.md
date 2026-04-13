@@ -36,10 +36,9 @@ To streamline interacting with GitHub, you'll add an SSH
 $ ssh-keygen -t rsa -b 4096 -C "<your_email>"
 ```
 
-It will prompt you to choose a filename in which to save your
-key. Accept the default by pressing enter. Next, you'll be prompted to enter a
-passphrase for a key. If you want no passphrase, press enter. Otherwise, enter
-your passphrase. If you choose to add a passphrase, you must enter that passphrase each time you push to or pull from GitHub .
+When it prompts you to choose a filename in which to save your
+key, hit enter to accept the default. Next, it will prompt you to enter a
+passphrase. Hit enter to accept the default of no passphrase. (You could instead enter a chosen passphrase  here but you will then have to re-enter that passphrase every time you push to or pull from GitHub. This is a drag, so we don't recommend.)
 
 {% include checkstep.html content="confirm the key was created" %}
 Confirm the key has been created by looking for the key files in your `.ssh` directory:
