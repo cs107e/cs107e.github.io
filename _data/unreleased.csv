@@ -21,12 +21,10 @@ permalink,title,released
 "/lectures/Interrupts1/","Interrupts",false
 "/lectures/Interrupts2/","Interrupts, cont'd",false
 "/lectures/Keyboard/","Keyboards and the PS/2 Protocol",false
-"/lectures/Linking/","Modules, Libraries, and Linking",false
 "/lectures/Memory/","Memory Management",false
 "/lectures/OOP/","Object-oriented programming",false
 "/lectures/Output/","Output",false
 "/lectures/Project/","Project",false
 "/lectures/RISC-V/","RISC-V architecture",false
 "/lectures/Sensors/","Sensor Input",false
-"/lectures/Serial/","Communication and the Serial Protocol",false
 "/lectures/Wrap/","Wrap or There and Back Again",false
