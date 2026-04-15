@@ -201,7 +201,7 @@ The deliverables for the core `assign1-submit`:
 
 Be sure to add and commit all files. Submit by tag `assign1-submit` on your final commit and push to remote. Follow the steps in submit checklist of [Git Workflow Guide](/guides/cs107e-git#assignment-checklist).
 
-If you are making an extension submit `assign1-extension`:
+If you did an extension, submit `assign1-extension`:
 
 - assembly program `extension.s`
 - `README.md` with information on your extension
