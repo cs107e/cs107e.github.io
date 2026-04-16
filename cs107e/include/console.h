@@ -52,15 +52,4 @@ void console_clear(void);
  */
 int console_printf(const char *format, ...) __attribute__((format(printf, 1, 2)));
 
-
-/*
- * `console_startup_screen`: optional extension
- *
- * Draws a custom image or animation for splash screen.
- *
- * This function is NOT part of the core requirements.
- * You can leave this function unimplemented if not doing the extension.
- */
-void console_startup_screen(void);
-
 #endif
