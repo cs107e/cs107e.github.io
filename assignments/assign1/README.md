@@ -157,7 +157,7 @@ Here are the instructions for the [style reflection](style_reflection) to be sub
 If you enjoyed the core assignment and want to explore further, consider tackling an extension. Below we offer a few possible ideas to choose from, but you should also consider blazing your own trail. What are you eager to learn more about?
 - rework the base program into an upgraded form with superior readability/extensibility
     - use named assembly constants for number of LEDs and scanning frequency so they can be easily edited
-    - learn ahead about how functions are implemented in assembly and decompose control flow into functions
+    - learn ahead about how functions are implemented in assembly and decompose control flow into functions (simplest if have only one level, operation of nested functions is trickier)
 - add button(s) that allow user to interactively control the scanner
     - pause while held down? increase and decrease speed? change pattern?
 - explore controlling LED brightness using software pwm ("pulse width modulation")
