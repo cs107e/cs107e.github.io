@@ -1,0 +1,110 @@
+---
+layout: default
+---
+
+<style>
+    .footnote:before {
+        content: ' Q-';
+    }
+    .footnotes:before {
+        content: "Check-in questions";
+        font-size: 125%;
+    }
+
+    @media not print {
+      .checkinsheet {
+        display: none;
+      }
+    }
+
+    @media print {
+
+        @page {
+            size: Letter;
+            margin: 0;
+        }
+
+        .no-print {
+            display: none;
+        }
+
+        body * { /* hide everything */
+            display: none !important;
+        }
+
+
+        /* restore display of parent chain */
+        main,
+        .body-container,
+        .container-fluid,
+        .row,
+        .col-xs-12,
+        .col-md-10,
+        #content {
+            display: block !important;
+        }
+
+        /* restore display of these specific elements to default display type */
+        .checkinsheet,
+        .checkinsheet *,
+        .footnotes,
+        .footnotes * {
+            display: revert !important;
+        }
+
+        .body-container, .container-fluid {
+            margin: 0;
+            width: 100%;
+            max-width: 2000px;
+        }
+
+        #toc , .footer, .reversefootnote, .footnote, .footnotes:before  {
+            display:none !important;
+        }
+
+        .footnotes li {
+            padding-bottom: 110px;
+        }
+
+       .underline-name {
+            border-bottom: 1px solid;
+            width: 600px;
+            margin-top: 50px;
+            margin-left: 50px;
+            margin-bottom: 30px;
+            position: relative; /* Required for positioning the ::before element */
+        }
+        .underline-name::before {
+            content: "Name";
+            display: block;
+            font-size: 125%;
+            position: absolute; /* Position it absolutely within the box */
+            top: -20px;
+            left: -50px;
+        }
+        .underline-team {
+             border-bottom: 1px solid;
+             width: 600px;
+             margin-top: 50px;
+             margin-left: 50px;
+             margin-bottom: 30px;
+             position: relative; /* Required for positioning the ::before element */
+        }
+        .underline-team::before {
+             content: "Your names";
+             display: block;
+             font-size: 125%;
+             position: absolute; /* Position it absolutely within the box */
+             top: -20px;
+             left: -100px;
+        }
+
+        .new-page {
+            break-before: page;
+            margin-top: 50px;
+        }
+
+    }
+</style>
+
+{{ content }}

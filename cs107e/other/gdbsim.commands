@@ -1,0 +1,33 @@
+# gdb command file that configs simulator for CS107E bare-metal program
+
+echo \033[33mAuto-loading commands from $CS107E/other/gdbsim.commands... \033[0m \n
+
+set confirm off
+set backtrace past-main on
+set history expansion
+target sim
+
+# Configure sim memory map, unmap default region, set regions for peripherals and ram
+sim memory-delete 0
+sim memory-region 0x02000000,0x06000000
+sim memory-fill 0xab
+sim memory-region 0x40000000,0x10000000
+
+# if $elf_file set when gdb invoked, memmap file to 0x50000000 same as mango-run
+if ! $_isvoid($elf_file)
+    eval "sim memory-mapfile %s", $elf_file
+    sim memory-region 0x50000000
+else
+    sim memory-region 0x50000000,0x10000000
+end
+
+define hook-run
+    printf "Reset sim memory and reload program\n"
+                    # delete DRAM region, reset will memory-fill
+    sim memory-delete 0x40000000
+    sim memory-region 0x40000000,0x10000000
+                    # reload program binary to reset text/data segment
+    load
+end
+
+load

@@ -1,0 +1,88 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('icomoon.eot?nlhehe');
+  src:  url('icomoon.eot?nlhehe#iefix') format('embedded-opentype'),
+    url('icomoon.ttf?nlhehe') format('truetype'),
+    url('icomoon.woff?nlhehe') format('woff'),
+    url('icomoon.svg?nlhehe#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  --icon-info: "\f05a";
+  --icon-ban: "\f05e";
+  --icon-question: "\f059" ;
+  --icon-warning: "\f071";
+  --icon-thumbsup: "\f087";
+  --icon-comment: "\f075";
+  --icon-checkbox: "\f046";
+  --icon-checkbox-alt: "\f14a";
+  --icon-lightbulb: "\f0eb";
+  --icon-link: "\f08e";
+  --icon-file: "\f15b";
+}
+
+.icon-check-square-o:before {
+  content: var(--icon-checkbox);
+}
+.icon-check-square:before {
+  content: var(--icon-checkbox-alt)
+}
+.icon-question-circle:before {
+  content: var(--icon-question);
+}
+.icon-info-circle:before {
+  content: var(--icon-info);
+}
+.icon-ban:before {
+  content: var(--icon-ban);
+}
+.icon-warning:before {
+  content: var(--icon-warning);
+}
+.icon-comment:before {
+  content: var(--icon-comment);
+}
+.icon-thumbs-o-up:before {
+  content: var(--icon-thumbsup);
+}
+.icon-link:before {
+  content: var(--icon-link);
+}
+.icon-lightbulb-o:before {
+  content: var(--icon-lightbulb);
+}
+.icon-file:before {
+  content: var(--icon-file)
+}
+
+/* Reminders:
+
+Package from https://icomoon.io/app/#/select
+add FontAwesome library, select the icons you want
+Generate font, move files into jekyll assets
+
+Sample use in text
+<span class="icon-check-square-o"></span>
+<span class="icon-question-circle"></span>
+<span class="icon-info-circle"></span>
+<span class="icon-ban"></span>
+*/
+

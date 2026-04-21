@@ -1,0 +1,82 @@
+/* Customizations for the pre sections with language console highlighting */
+
+$midnight: #003761;
+$periwinkle:  #B2CCDF;
+$nearwhite: #f5f5f5;
+$nearblack: #1A2636;
+$lightgray: #dfdfdf;
+$midgray: #aaaaaa;
+$charcoal: #444444;
+
+$console-bg: $nearblack;
+$console-input: $nearwhite;
+$console-output: $periwinkle;
+
+.unselectable { /* browsers handle differently, sigh */
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.language-console pre, .language-console .highlight *
+{
+    background-color: $console-bg; color: $console-input; font-weight: 700;
+}
+
+/* select from terminal session will not capture prompt/response */
+.language-console .highlight .gp, .language-console .highlight .go
+{
+    @extend .unselectable;
+    color: $console-output; font-weight: 500;
+}
+
+.language-console {
+    margin: 0 40px 0 10px; /* use horizontal indent to set off */
+}
+
+
+.console-mac pre {
+    border-radius: 0 0 5px 5px;
+    border: 1px solid $console-bg;
+}
+
+.console-ubuntu pre {
+    border-radius: 0;
+    border: 1px solid $console-bg;
+}
+
+.language-console:before {
+    display: table;
+    width: 100%;
+    color: $charcoal;
+    content: "";
+}
+
+.console-mac .language-console:before, .console-mac.language-console:before {
+    background-color: $lightgray;
+    background-image: linear-gradient($lightgray, $midgray);
+    border-radius: 5px 5px 0 0;
+    border-bottom: 1px solid #999;
+    content: "macOS terminal";
+    font: 400 12px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    padding: 5px 5px;
+    text-align: center;
+}
+
+.console-ubuntu .language-console:before, .console-ubuntu.language-console:before {
+    background-color: $lightgray;
+    border: 1px solid $console-bg;
+    content: "Ubuntu 24.04";
+    font: 400 10px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    padding: 5px 5px;
+    text-align: left;
+}
+
+/* gdb frame info lines start with #, don't style as comment */
+.language-console .highlight .c
+{
+    color: $console-output;
+    font-style: normal;
+    font-weight: 500;
+}

@@ -1,0 +1,3 @@
+#! /bin/sh
+# post-checkout hook to make files in cs107e directory read-only
+find cs107e -type f -exec chmod -w {} \;
