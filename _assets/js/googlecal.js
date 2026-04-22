@@ -92,18 +92,18 @@ function createHTML(events) {
           }
 
           function my_time_format(t) { return t.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' }).toLowerCase(); };
-          const startTime = '<div class="start">' + my_time_format(start) + '</div>';
-          const stopTime  = '<div class="stop">' + (start.getTime() != stop.getTime() ? my_time_format(stop) : '') +  '</div>';
-          const where = event.location ? '<span class="where">' +  ' in ' + event.location + '</span>' : ''
-          const what = '<div class="what align-self-center">' + event.summary + where + '</div>';
-          const when = '<div class="ml-auto d-flex-col">' + startTime + stopTime + '</div>';
-          html += '<li class="event d-flex ' + eventType(event) + '">' + what  + when + '</li>';
+          const startTime = `<div class="start">${my_time_format(start)}</div>`;
+          const stopTime  = `<div class="stop">${start.getTime() != stop.getTime() ? my_time_format(stop) : ''}</div>`;
+          const where = event.location ? `<span class="where"> in ${event.location}</span>` : ''
+          const what  = `<div class="what align-self-center">${event.summary}${where}</div>`;
+          const when  = `<div class="ml-auto d-flex-col">${startTime}${stopTime}</div>`;
+          html += `<li class="event d-flex ${eventType(event)}"> ${what} ${when} </li>`;
     });
     return html;
 }
 
 function showMessage(text) {
-    $('#upcoming ul').html('<li><div class="what align-self-center">' + text  + '</div></li>');
+    $('#upcoming ul').html(`<div class="what align-self-center"> ${text} </div></li>`);
 }
 
 $().ready(function() {
@@ -113,16 +113,16 @@ $().ready(function() {
     const ndays = 7;
     const dayms = 1000*60*60*24; // convert to ms
     const span = '&timeMin=' + today.toISOString() + '&timeMax=' + new Date(today.getTime() + ndays*dayms).toISOString();
-    const options = '&singleEvents=true&orderBy=startTime&sortorder=ascending' + span;
-    const url = 'https://www.googleapis.com/calendar/v3/calendars/ID/events?key=AIzaSyAswReDophbZgMu3NnkPp6KV27Or1u2rS4' + options;
+    const options = '&singleEvents=true&orderBy=startTime&sortorder=ascending';
     const id = 'h15bjedfkcdpfa17tdf5d0l2j8@group.calendar.google.com';
-    const request = url.replace('ID', id)
+    const key = 'AIzaSyAmZ67lIMBZYHCsm4zCh0GUcO7CB0dxctk';
+    const requestURL = `https://www.googleapis.com/calendar/v3/calendars/${id}/events?key=${key}${options}${span}`;
 
     //const canvas = 'https://canvas.stanford.edu/feeds/calendars/user_dxK91vZkYAnDP6V6jvO2eqXPPo3K9AbHAIFuWKX6.ics';
     //readICS(canvas);
 
     showMessage('Loading... ');
-    $.when($.getJSON(request)).done(function(data) {
+    $.when($.getJSON(requestURL)).done(function(data) {
         // event w/ private visibility will not have summary, skip it
         // filter out events with no dateTime (e.g. all-day events, which only have date)
         let events = data.items.filter(e => e.summary && e.start.dateTime && e.end.dateTime);
