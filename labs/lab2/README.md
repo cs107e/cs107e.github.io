@@ -421,7 +421,7 @@ __Don't forget to clean up!__ Please use the hand vac or brush/dustpan to clean 
 Circle lab attended:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  _Tuesday_  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  _Wednesday_
 <BR>
 <BR>
-Fill out this check-in sheet as you go and use it to jot down any questions/issues that come up.  Please check in with us along the way, we are here to help![^6]
+Fill out sheet and jot down questions/issues that come up. Check in with us along the way, we are here to help![^6]
 </div>
 
 [^1]:  Review the code for `wait_until_low` in `codegen.c`. Which of the two variables needs to be be qualified as `volatile`?

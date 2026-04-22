@@ -624,7 +624,7 @@ The key takeaways from this lab are to confirm a working serial connection and a
 Circle lab attended:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  _Tuesday_  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  _Wednesday_
 <BR>
 <BR>
-Fill out this check-in sheet as you go and use it to jot down any questions/issues that come up. Please check in with us along the way, we are here to help![^6]
+Fill out sheet and jot down questions/issues that come up. Check in with us along the way, we are here to help![^6]
 </div>
 
 [^1]: Show us the serial connection between your laptop and your Pi communicating via `tio`. This will be your permanent setup from here forward (keep your usb-serial always connected and `tio` window always open). When packing the Pi into your kit box, tuck it in with the usb-serial connected.

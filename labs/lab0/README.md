@@ -222,7 +222,7 @@ Be sure to hand in your check-in sheet before leaving lab. We encourage you to t
 Circle lab attended:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  _Tuesday_  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  _Wednesday_
 <BR>
 <BR>
-Fill out this check-in sheet as you go and use it to jot down any questions/issues that come up.  Please check in with us along the way, we are here to help![^6]
+Fill out this sheet and jot down questions/issues that come up. Check in with us along the way, we are here to help![^6]
 </div>
 
 [^1]: Have you installed the development tools and confirmed each of the [final check](/guides/install/devtools#finalcheck) steps of the install guide?
