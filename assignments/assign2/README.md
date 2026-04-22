@@ -346,16 +346,17 @@ If you enjoyed the core assignment and want to go further, consider trying out a
     - write a simple game or interactive application that uses inputs/outputs in some cool way
 - for the more hardware-inclined
     - use a piece of protoboard to solder up a robust and permanent clock circuit (share with CAs to use for grading!)
-    - go old-school on that protoboard using [wire wrap](https://en.wikipedia.org/wiki/Wire_wrap) for gas-tight connections that are gas-tight with built-in strain relief
+    - go old-school on that protoboard using [wire wrap](https://en.wikipedia.org/wiki/Wire_wrap) for gas-tight connections that have built-in strain relief
     - design a custom PCB we could send out to fab (pretty please! big ask)
 - OR something else entirely, come by office hours to brainstorm your ideas with us
-
 
 Before diving into the extension, have your completed all core tasks and commit, tag, and push. This ensures your `assign2-submit` tag is a known good place for grading the core features. You also can nab the on-time reward by making your core submit on or before due date.
 
 Edit `extension.c` for your extension program and use `make extension` to compile and run. Use the same git workflow as core, i.e. edit on dev branch, regularly commit and push. Edit the `README.md` file to tell us what you did for the extension and how it works. Apply tag `assign2-extension` to submit when done.
 
 The grading review of all extensions is done in-person, you'll give us a demo and share about what you learned. See times for extension demo/grading on OH schedule. We are excited to see what you come up with it!
+
+The same guidelines apply to the extension as to the core: __it is fine to use online resources and generative AI tools to answer your questions and help you learn new things, but not cool to use it to write or fix your code.__
 
 {% comment %}
 Design a user interface for your chosen input device that allows the user to set the duration before starting the countdown. Ideally, it supports both reliable and precise single-stepping and efficiently making a sweeping change. While the user is setting the duration, the display should change in some fashion to show it is in "set" mode; perhaps by flashing or scrolling? Strive for an interface design that is easy to learn, straightforward to use, and provides clear feedback. It can be challenging to build an [interface with just a few buttons](images/dilbert160612.jpg). (Looking at you, [sign found posted in HCI wing](images/bad_ui.jpg) of Gates building. Oh, the irony...)

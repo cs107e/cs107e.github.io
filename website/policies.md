@@ -178,7 +178,7 @@ derived from the work of others. This prohibition applies no matter where the co
 to maintain your work privately.
 
 
-### Assistance from generative AI
+### Assistance from generative AI and LLMs
 
 - __OK to use AI in role of "ethical tutor"__{: .text-success }
 
