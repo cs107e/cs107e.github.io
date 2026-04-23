@@ -11,7 +11,7 @@ if [ ! -z $HAS_POWERSHELL ]; then   # has powershell -> on WSL
     COM=$(powershell.exe '(Get-WmiObject -query "SELECT * FROM Win32_PnPEntity" | Where-Object {$_.DeviceID -like "*VID_10C4&PID_EA60*"}).Name' | grep -o "\(COM[0-9]\)")
     if [ -z $COM ]; then
         # fallback take any serial device
-        COM=$(powershell.exe "Get-CimInstance -Class Win32_SerialPort | Select-Object Name" | grep -o "\(COM[0-9]\)")
+        COM=$(powershell.exe "Get-CimInstance -Class Win32_SerialPort | Select-Object Name" | grep -o "\(COM[0-9]+\)")
     fi
     if [ ! -z $COM ]; then
         DEV="/dev/ttyS${COM:3}"

@@ -44,7 +44,7 @@ if [ -n "$SOURCES" ]; then
     git -C $WORKTREE_PATH add .             # add to staging
     if ! git -C $WORKTREE_PATH diff --quiet --staged; then
         # non-empty changes are staged, commit & push
-        git -C $WORKTREE_PATH commit $QUIET -m "Auto-backup $(date '+%Y-%m-%d %H:%M:%S')"
+        git -C $WORKTREE_PATH commit $QUIET -m "Auto-backup $SUBDIR $(date '+%Y-%m-%d %H:%M:%S')"
         git -C $WORKTREE_PATH push $QUIET origin $BRANCH_NAME
     fi
 fi
