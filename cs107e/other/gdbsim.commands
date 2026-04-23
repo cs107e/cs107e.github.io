@@ -7,12 +7,11 @@ set backtrace past-main on
 set history expansion
 target sim
 
-# Configure sim memory map, unmap default region, set regions for peripherals and ram
+# config sim memory map
+# unmap default region (detect access to null ptr)
 sim memory-delete 0
+# add region for peripherals, zero-fill
 sim memory-region 0x02000000,0x06000000
-sim memory-fill 0xab
-sim memory-region 0x40000000,0x10000000
-
 # if $elf_file set when gdb invoked, memmap file to 0x50000000 same as mango-run
 if ! $_isvoid($elf_file)
     eval "sim memory-mapfile %s", $elf_file
@@ -20,6 +19,10 @@ if ! $_isvoid($elf_file)
 else
     sim memory-region 0x50000000,0x10000000
 end
+# add region for DRAM, fill byte 0xab
+sim memory-fill 0xab
+sim memory-region 0x40000000,0x10000000
+
 
 define hook-run
     printf "Reset sim memory and reload program\n"
