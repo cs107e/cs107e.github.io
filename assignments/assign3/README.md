@@ -417,10 +417,11 @@ printf to help you debug.  Here are a couple of strategies you may want to consi
 Congratulations on your printf success! The blood, sweat, and tears that you put in will pay big dividends, super-charging all your future debugging and providing a foundation on which you can build many cool tools. After this achievement, you may want to treat yourself to a breather (or give attention to midterm prep for those pesky other classes :-), but if you do have some energy for a further excursion, here are some possible ideas to consider:
 
 - polish your printf and make it your best work
+    - perhaps your code suffered somewhat in the push to get it done -- decisions made for short-term expediency, fixes hacked in without full understanding. Make a second pass over it to smooth away those warts!
     - take a step back and approach with fresh eyes as code reviewer
     - what parts are you particularly proud of? what makes that code so pleasing?
     - what parts are you not as keen on? what is it that bothers you about the code?
-    - focus on the ugly parts and rework: clean up design, unify common code, improve readability, reduce testing burden
+    - focus on reworking displeasing parts: clean up design, unify common code, improve readability, reduce testing burden
     - keep running full test suite so you can rework with confidence, knowing your unit tests will let you know if your changes introduce a regression
 - learn more about standard library functions <https://en.cppreference.com/c/string/byte> and implement additions
     - which functions are you interested to learn how they operate? which would you like to have in your library?
