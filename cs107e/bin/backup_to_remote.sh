@@ -38,13 +38,11 @@ fi
 shopt -s nullglob          # set non-match glob expands to empty
 SOURCES=$(echo *.c *.s)    # gather source files from cwd
 if [ -n "$SOURCES" ]; then
-    git -C $WORKTREE_PATH pull $QUIET --no-rebase --no-edit --allow-unrelated-histories --strategy=ours origin $BRANCH_NAME 2>/dev/null
     mkdir -p $WORKTREE_PATH/$SUBDIR         # ensure subdir exists
     cp -f *.c *.s $WORKTREE_PATH/$SUBDIR  2>/dev/null  # copy sources to subdir in backup worktree
     git -C $WORKTREE_PATH add .             # add to staging
-    if ! git -C $WORKTREE_PATH diff --quiet --staged; then
-        # non-empty changes are staged, commit & push
-        git -C $WORKTREE_PATH commit $QUIET -m "Auto-backup $SUBDIR $(date '+%Y-%m-%d %H:%M:%S')"
+    if ! git -C $WORKTREE_PATH commit $QUIET -m "Auto-backup $SUBDIR $(date '+%Y-%m-%d %H:%M:%S')"; then
+        git -C $WORKTREE_PATH pull $QUIET --no-rebase --no-edit --allow-unrelated-histories --strategy=ours origin $BRANCH_NAME 2>/dev/null
         git -C $WORKTREE_PATH push $QUIET origin $BRANCH_NAME
     fi
 fi

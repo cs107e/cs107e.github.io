@@ -38,7 +38,7 @@ $ ssh-keygen -t rsa -b 4096 -C "<your_email>"
 
 When it prompts you to choose a filename in which to save your
 key, hit enter to accept the default. Next, it will prompt you to enter a
-passphrase. Hit enter to accept the default of no passphrase. (You could instead enter a chosen passphrase  here but you will then have to re-enter that passphrase every time you push to or pull from GitHub. This is a drag, so we don't recommend.)
+passphrase. Hit enter to accept the default of no passphrase. (You could instead choose to set a passphrase but you will have to re-enter that passphrase every single time you push to or pull from GitHub. This is a huge drag, so we don't recommend.)
 
 {% include checkstep.html content="confirm the key was created" %}
 Confirm the key has been created by looking for the key files in your `.ssh` directory:
