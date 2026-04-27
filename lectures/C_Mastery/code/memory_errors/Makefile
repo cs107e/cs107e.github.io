@@ -2,7 +2,7 @@ PROGRAM = program
 
 ARCH    = -march=rv64im -mabi=lp64
 ASFLAGS = $(ARCH)
-CFLAGS  = $(ARCH) -g -Og -I$$CS107E/include -Wall -ffreestanding -fno-omit-frame-pointer
+CFLAGS  = $(ARCH) -g -Og -I$$CS107E/include -Wall -Wno-unused-function -ffreestanding -fno-omit-frame-pointer
 LDFLAGS = -nostdlib -L$$CS107E/lib -T memmap.ld
 LDLIBS  = -lmango -lmango_gcc
 

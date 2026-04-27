@@ -422,6 +422,8 @@ Congratulations on your printf success! The blood, sweat, and tears that you put
     - what parts are you particularly proud of? what makes that code so pleasing?
     - what parts are you not as keen on? what is it that bothers you about the code?
     - focus on reworking displeasing parts: clean up design, unify common code, improve readability, reduce testing burden
+    - give special attention to reduce/remove indiscriminate typecasts
+        - ideal is to work with type system and apply typecast only and exactly if absolutely required
     - keep running full test suite so you can rework with confidence, knowing your unit tests will let you know if your changes introduce a regression
 - learn more about standard library functions <https://en.cppreference.com/c/string/byte> and implement additions
     - which functions are you interested to learn how they operate? which would you like to have in your library?
