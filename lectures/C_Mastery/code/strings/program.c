@@ -12,7 +12,7 @@ void strings(void) {
     char b[] = "dopey";
     const char *c = "happy";
     char *d = malloc(10);
-    memcpy(d, "grumpy", 7);
+    memcpy(d, "grumpy", 6);
 
     // which of these memory locations are valid to write?
     *a = 'A';
@@ -20,12 +20,12 @@ void strings(void) {
     *(char *)c = 'C'; // why typecast here?
     *d = 'D';
 
-    printf("a = '%s' \n", a);
-    printf("b = '%s' \n", b);
-    printf("c = '%s' \n", c);
-    printf("d = '%s' \n", d);
+    printf("a = %p '%s' \n", a, a);
+    printf("b = %p '%s' \n", b, b);
+    printf("c = %p '%s' \n", c, c);
+    printf("d = %p '%s' \n", d, d);
 
-    printf("I'm %s!\n", "happy");
+    printf("I'm %p %s!\n", "happy", "happy");
 }
 
 int main(void) {
