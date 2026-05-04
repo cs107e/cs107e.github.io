@@ -27,7 +27,8 @@
  */
 typedef struct {
     enum { KEY_PRESS, KEY_RELEASE } what;
-    uint8_t keycode;
+    uint8_t scancode;
+    bool extended;
 } key_action_t;
 
 /*

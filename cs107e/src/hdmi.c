@@ -203,6 +203,7 @@ int hdmi_get_screen_height(void) {
 void tcon_wait_for_vertical_blank(void); // extern but not documented
 
 void tcon_wait_for_vertical_blank(void) {
+    // @60Hz vblank period = ~16.7ms
     // used to synchronize swap of framebuffer pointer during vertical no-display period (vblank)
     // returns when at the start of fresh vblank period
 

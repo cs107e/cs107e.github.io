@@ -111,8 +111,7 @@ void interrupts_init(void) {
     module.plic->regs.threshhold = 0;       // accept interrupts of any priority
     CSR_WRITE(mtvec, _trap_handler);        // install trap handler
     for (int i = 0; i < N_SOURCES/32; i++) { // 1 bit per souce
-        module.sources->regs.pending[i] = 0;// all sources initially disabled
-        module.sources->regs.enable[i] = 0;
+        module.sources->regs.enable[i] = 0; // all sources initially disabled
     }
     for (int i = 0; i < N_SOURCES; i++) {
         module.sources->regs.priority[i] = 0;
@@ -157,9 +156,12 @@ void interrupts_set_handler(interrupt_source_t source, handlerfn_t fn, void *aux
 }
 
 void interrupts_global_enable(void) {
+    #define MIE_MEIE  (1 << 11)  // M-mode external interrupt enable bit
+    #define MSTATUS_MIE (1 << 3)  // M-mode global interrupt enable bit
+
     if (!module.initialized) error("interrupts_init() has not been called!\n");
-    CSR_SET_BIT(mie, 1<<11);        // MEIE bit 11 (m-mode external interrupts)
-    CSR_SET_BIT(mstatus, 1<<3);     // MIE bit 3 (global enable m-mode interrupts)
+    CSR_SET_BIT(mie, MIE_MEIE);
+    CSR_SET_BIT(mstatus, MSTATUS_MIE);
 }
 
 void interrupts_global_disable(void) {

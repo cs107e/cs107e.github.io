@@ -173,7 +173,8 @@ static void de_config_blender0(de_size_t full_screen) {
     // #warning TODO TEMPORARY: setting blender background to magenta
     // module.de_bld0->regs.background_color = 0xff00ff;
     module.de_bld0->regs.output_size = full_screen;
-    uint32_t pipe_index = 1;  // use pipe index 1, route for first ui layer (ch1)
+    // Use pipe 1 for UI layer (pipe 0 designated for video)
+    uint32_t pipe_index = 1;  // route for first ui layer (ch1)
     module.de_bld0->regs.pipe_ctrl = ((1 << pipe_index) << 8); // enable pipe index 1
     module.de_bld0->regs.pipe[pipe_index].input_size = full_screen;
     module.de_bld0->regs.route = 0x3210; // channels 0-3, each channel routed to pipe at corresponding index
