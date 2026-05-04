@@ -309,7 +309,7 @@ There is a lot of memory wrangling that goes into a bare-metal program, from the
     - The final project of CS107 is a deep dive into heap allocators. A simple implicit list version is the warmup before the main event to implement an explicit list that has high throughput and tight utilization. It also supports a `realloc` operation to resize a malloc block. Review the assignment writeup to see what tasks you could take on to learn more about building an industrial-strength allocator:
         - [CS107 heap allocator assignment](https://web.stanford.edu/class/archive/cs/cs107/cs107.1264/assign6/)
 - Now that you have dynamic allocation in your bag of tricks, put it to work!
-    - `malloc = malloc + memset` <https://en.cppreference.com/c/memory/calloc>
+    - `calloc = malloc + memset` <https://en.cppreference.com/c/memory/calloc>
     - `strdup/strndup = malloc + strcpy ` <https://en.cppreference.com/c/string/byte/strndup>
     - `asprintf = malloc + printf` <https://en.cppreference.com/c/experimental/dynamic/asprintf> (GNU extension)
     - `get_line = malloc + uart_getchar` <https://man7.org/linux/man-pages/man3/getline.3.html> (POSIX)

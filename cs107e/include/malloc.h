@@ -16,7 +16,7 @@
  *
  * Service a dynamic allocation request. Returns the
  * address of a memory block of at least `nybtes` contiguous
- * bytes or NULL if the request cannot be satisifed.
+ * bytes or NULL if the request cannot be satisfied.
  * The block address is guaranteed to be aligned to an 8-byte boundary.
  * If `nbytes` is 0, malloc returns either NULL or a unique
  * pointer to an allocated block of some minimum size.
