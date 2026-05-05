@@ -107,10 +107,10 @@ VCC, black for GND, white for CLK, and purple for keyboard DATA.
 
 Use the red and black jumpers to supply power to the plug board.
 - insure your __Pi is powered off__ before fiddling with wiring!
-- use a red jumper to connect a 3.3V pin on the Pi to the VCC pin on the plug board
-  - VCC pin on plug board is labeled 5V, but keyboards we are using can run on 3.3V (which matches GPIO logic level), so that's what we will use
-- use a black jumper to connect a GND pin on the Pi to the GND pin on the plug board
-- double-check these connections to confirm they are correct (wiring a short circuit through the keyboard can cause fatal damage; ask us how we know...).
+- use a red jumper to connect the VCC pin on the plug board to a 5V pin on the Mango Pi header
+  - you will first need to remove the small white jumper cap that covers the 5V pins
+- use a black jumper to the GND pin on the plug board to a GND pin on the Pi
+- triple-check these connections to confirm they are correct (wiring a short circuit through the keyboard can cause fatal damage to the keyboard and/or your Pi; ask us how we know...).
 
 Plug the male PS/2 end of your keyboard cable into the female socket on the plug board, being sure to rotate to correct position to align the plastic tab. If you try to force a misaligned plug, you can bend the pins or break off the tab. Please do not do this!
 
