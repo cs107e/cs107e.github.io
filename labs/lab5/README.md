@@ -156,9 +156,9 @@ preparation. When the logic analyzer is unconnected, the start-up screen is simi
 
 Connect the USB cable from the mini-USB port on the logic analyzer to an open USB port on your laptop.
 
-> __Hardware hiccup: don't overload the hub__
-> While it would be convenient to plug the USB-A end of the logic analyzer cable into the USB hub alongside the Pi and usb-serial, sadly, the combo of all three is more than the hub can manage. Instead, plug the logic analyzer cable directly into a USB port on your laptop. We have USB-C-to-A adapters if your laptop only has USB-C ports.
-{: .callout-warning}
+> __Hardware hiccup: don't overload the hub!__
+> While it would be convenient to plug the USB-A end of the logic analyzer cable into the USB hub alongside the Pi and usb-serial, sadly, the combo is more than the hub can manage. Instead, plug the logic analyzer cable directly into a USB port on your laptop. We have USB-C-to-A adapters if your laptop only has USB-C ports.
+{: .callout-danger}
 
 When the logic analyzer is connected, the Logic screen will change to this:
 
@@ -370,7 +370,7 @@ public source (github, open source repository, blog, textbook, paper, etc.). Per
 {% endcomment %}
 
 ## Check in with TA
-The critical task for this lab is to confirm you are able to read keyboard scancodes. Take your keyboard and plug board with you, plan to return both at the end of the quarter. The __logic analyzer and usb cables__ stay in lab (not to take home).[^5]
+The critical task for this lab is to confirm you are able to read keyboard scancodes. Take your keyboard and plug board with you, plan to return both at the end of the quarter. The __logic analyzer+cable__ stays in lab (not to take home).[^5]
 
 <div class=checkinsheet markdown="1">
 <img src="images/scancode.gif" width="1224">
