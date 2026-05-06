@@ -49,7 +49,7 @@ To prepare for lab, do the following:
   - We will be using the `Saleae Logic` application to visualize the signals
   captured by the logic analyzer. [Saleae](http://saleae.com) is a company known
   for its high-quality logic analyzers and software.  Here is the page with
-  [download links for Saleae Logic](https://ideas.saleae.com/f/changelog/). Download
+  [download links for Saleae Logic](https://www.saleae.com/downloads). Download
   and install the version for your platform. If using WSL, download the Windows
   version.
     - The linux version seems to require some extra fiddling; see [helpful Ed post from Bhushan](https://edstem.org/us/courses/70346/discussion/6158273) with info.
