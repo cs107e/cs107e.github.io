@@ -100,6 +100,10 @@ static const ps2_key_t keymap[] = {
 static const ps2_key_t extended_keymap[] = {
     [0x14] = SPECIAL(PS2_KEY_CTRL),
     [0x11] = SPECIAL(PS2_KEY_ALT),
+    [0x6B] = SPECIAL(PS2_KEY_ARROW_LEFT),
+    [0x75] = SPECIAL(PS2_KEY_ARROW_UP),
+    [0x72] = SPECIAL(PS2_KEY_ARROW_DOWN),
+    [0x74] = SPECIAL(PS2_KEY_ARROW_RIGHT),
 };
 
 ps2_key_t ps2_key_for_scancode(uint8_t scancode, bool extended) {

@@ -55,7 +55,7 @@ typedef enum {
  */
 typedef struct {
     key_action_t action;                // see struct declared above
-    ps2_key_t key;                      // entry taken from ps2_keys table (see ps2_keys.h)
+    ps2_key_t key;                      // entry from keymap (see ps2_keys.h)
     keyboard_modifiers_t modifiers;     // modifiers in effect, composed of above bit flags
 } key_event_t;
 
@@ -77,15 +77,14 @@ void keyboard_init(gpio_id_t clock, gpio_id_t data);
  * This function reads (blocking) the next key typed on the keyboard.
  * The character returned reflects the current keyboard modifiers in effect.
  *
- * Return values in the range 0 - 0x7f indicate the typed key is an ordinary
- * Ascii character. For a typed key not associated with an Ascii character,
- * such an arrow or function key, the function returns a value >= 0x90. The
- * value assigned to each non-Ascii key is given in the list of `ps2_special_chars`
- * in the `ps2_keys.h` header file.
+ * A return value in the range 0 - 0x7f indicate the typed key produced an
+ * Ascii character. For a non-character key such as arrow or function key,
+ * the return value is the id of the special key from the enumeration
+ * defined in the `ps2_keys.h` header file.
  *
  * This function calls `keyboard_read_event` to receive a key press event.
  *
- * @return      Ascii value of typed char or function code for non-ascii key
+ * @return      Ascii value of typed char or id code for non-character key
  */
 char keyboard_read_next(void);
 
@@ -127,6 +126,7 @@ key_event_t keyboard_read_event(void);
  *
  * The `keycode` field of the returned key_action_t stores the last byte of
  * the sequence. This identifies the scancode of the PS2 key that was acted upon.
+ * The `extended` field is true if this was an extended scancode, false otherwise.
  *
  * This function calls `keyboard_read_scancode` to read each scancode.
  *
