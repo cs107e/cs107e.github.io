@@ -281,7 +281,7 @@ There are four modifier keys. Press and release of a modifier key changes the mo
     - Keyboard tracks state of __Alt__ modifier, but no alt keymap in core implementation (perhaps you will add as an extension?).
 
 If you are using a Mac, Keyboard Viewer is a handy tool for visualizing the
-character produced for a given key combination. Try it out!  If you are still
+character produced for a given key combination. There is a similar version for Windows under Settings -> Accessibility -> On-screen keyboard. Try it out! If you are still
 unsure how to handle a particular case, experiment with our reference
 implementation of the keyboard using the test application from lab.
 
