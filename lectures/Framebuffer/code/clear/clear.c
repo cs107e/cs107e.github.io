@@ -4,6 +4,7 @@
 #include "malloc.h"
 #include "printf.h"
 #include "uart.h"
+#include <stdint.h>
 #include "strings.h"
 
 // module-level variables
@@ -21,7 +22,7 @@ void fb_init(int width, int height, fb_mode_t mode) {
     module.depth = 4;   // our pixels always 32-bit
     int nbytes = module.width * module.height * module.depth;
     module.framebuffer = malloc(nbytes);
-    // what will be contents of newly malloc'ed memory block?
+    memset(module.framebuffer, 0x67, nbytes); // gray
 
     hdmi_resolution_id_t id = hdmi_best_match(width, height);   // choose from available screen resolutions
     hdmi_init(id);
@@ -69,7 +70,6 @@ void main(void) {
 
     printf("Screen size %d x %d\n", hdmi_get_screen_width(), hdmi_get_screen_height());
     printf("Framebuffer size %d x %d\n", module.width, module.height);
-    clear_char_by_char();
     while (1) {
         if (!confirm("clear to white, char by char")) break;
         clear_char_by_char();
