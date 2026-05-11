@@ -32,10 +32,10 @@ void main(void) {
 
     while (1) {
         for (float f = 0.0; f <= 1.0; f += .01) {
-           on_fractional(pin, f, 50); // 1 sec ramp up
+           on_fractional(pin, f, 50); // 5 sec ramp up
         }
         for (float f = 1.0; f >= 0.0; f -= .01) {
-           on_fractional(pin, f, 10); // 5 sec ramp down
+           on_fractional(pin, f, 5); // 1/2 sec ramp down
         }
         timer_delay_ms(500);
     }

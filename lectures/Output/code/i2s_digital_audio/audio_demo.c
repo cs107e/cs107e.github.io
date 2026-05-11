@@ -29,7 +29,8 @@ void main(void) {
     i2s_stream_playback_nb(gwav->data, gwav->n_data, ftype);
     i2s_await();
 
-    pause("enter to start capture: ");
+    timer_delay(3); //pause("enter to start capture: ");
+
     int n_samples = sample_freq*5;
     int16_t samples[n_samples];
     i2s_stream_capture_nb(samples, n_samples, I2S_MONO);

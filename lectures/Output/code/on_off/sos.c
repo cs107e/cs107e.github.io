@@ -13,35 +13,35 @@ const gpio_id_t pin = GPIO_PB4;
 #define LETTERSPACE (3*SPACE-SPACE)
 #define WORDSPACE (7*SPACE-LETTERSPACE)
 
-void dot(void) {
+static void dot(void) {
     gpio_write(pin, 1);
     timer_delay_ms(DOT);
     gpio_write(pin, 0);
     timer_delay_ms(SPACE);
 }
 
-void dash(void) {
+static void dash(void) {
     gpio_write(pin, 1);
     timer_delay_ms(DASH);
     gpio_write(pin, 0);
     timer_delay_ms(SPACE);
 }
 
-void s(void) {
+static void s(void) {
     dot();
     dot();
     dot();
     timer_delay_ms(LETTERSPACE);
 }
 
-void o(void) {
+static void o(void) {
     dash();
     dash();
     dash();
     timer_delay_ms(LETTERSPACE);
 }
 
-void sos(void) {
+static void sos(void) {
     s();
     o();
     s();
