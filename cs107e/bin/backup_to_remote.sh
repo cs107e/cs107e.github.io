@@ -3,6 +3,7 @@
 # script to backup changed source files to remote
 # using separate branch and worktree so as to
 # not muck with working dir/main git
+set -x
 
 # arg -v for verbose (turns off quiet)
 QUIET="--quiet"
@@ -42,7 +43,8 @@ if [ -n "$SOURCES" ]; then
     cp -f *.c *.s $WORKTREE_PATH/$SUBDIR  2>/dev/null  # copy sources to subdir in backup worktree
     git -C $WORKTREE_PATH add .             # add to staging
     if ! git -C $WORKTREE_PATH commit $QUIET -m "Auto-backup $SUBDIR $(date '+%Y-%m-%d %H:%M:%S')"; then
-        git -C $WORKTREE_PATH pull $QUIET --no-rebase --no-edit --allow-unrelated-histories --strategy=ours origin $BRANCH_NAME 2>/dev/null
-        git -C $WORKTREE_PATH push $QUIET origin $BRANCH_NAME
-    fi
+        # sync with remote in background
+        echo "I am here"
+        git -C $WORKTREE_PATH pull $QUIET --no-rebase --no-edit --allow-unrelated-histories --strategy=ours origin $BRANCH_NAME 2>/dev/null && git -C $WORKTREE_PATH push $QUIET origin $BRANCH_NAME &
+   fi
 fi
