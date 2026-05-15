@@ -16,8 +16,8 @@ static void update_screen(void) {
 }
 
 static void wait_for_press(gpio_id_t button) {
-    while (gpio_read(button) != 1) ; // loop until becomes high
-    while (gpio_read(button) == 1) ; // loop while stays high
+    while (gpio_read(button) != 1) ; // wait until pressed (high)
+    while (gpio_read(button) == 1) ; // wait until released
     gCount++;
 }
 
