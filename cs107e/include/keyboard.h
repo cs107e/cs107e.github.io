@@ -153,6 +153,6 @@ uint8_t keyboard_read_scancode(void);
  * specific to reference module. The student's keyboard module is initially
  * polling-only (assign5) and later changed to interrupt-only (assign7).
  */
-void keyboard_use_interrupts(void);
+void keyboard_use_interrupts(bool interrupts_on);
 
 #endif

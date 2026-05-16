@@ -103,7 +103,7 @@ bool ps2_write(ps2_device_t *dev, uint8_t command);
  * The reference implementation of this module has a switch to
  * change the mode for a ps2 device. The default is read-by-polling.
  * After creating a device with `ps2_new`, the client may call
- 8 `ps2_use_interrupts(device)` to change that device into
+ * `ps2_use_interrupts(device, true)` to change that device into
  * read-by-interrupt mode.
  *
  * The client must also globally enable interrupts at system level for
@@ -114,6 +114,6 @@ bool ps2_write(ps2_device_t *dev, uint8_t command);
  * The initial implementation by student is polling-only (assign5) and
  * later changed to interrupt-only (assign7).
  */
-void ps2_use_interrupts(ps2_device_t *dev);
+void ps2_use_interrupts(ps2_device_t *dev, bool interrupts_on);
 
 #endif

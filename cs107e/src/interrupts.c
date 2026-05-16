@@ -168,3 +168,7 @@ void interrupts_global_disable(void) {
     CSR_CLEAR_BIT(mie, 1<<11);      // clear bits set by global enable
     CSR_CLEAR_BIT(mstatus, 1<<3);
 }
+
+bool interrupts_are_initialized(void) {
+    return module.initialized;
+}

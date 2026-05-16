@@ -1,6 +1,8 @@
 #ifndef INTERRUPTS_H
 #define INTERRUPTS_H
 
+#include <stdbool.h>
+
 /*
  * Module to configure interrupts for Mango Pi.
  *
@@ -110,5 +112,12 @@ enum _interrupt_sources {
     INTERRUPT_SOURCE_GPIOF = 93,
     INTERRUPT_SOURCE_GPIOG = 95,
 };
+
+/*
+ * `interrupts_are_initialized`
+ *
+ * Returns true if the interrupts module has been initialized, false otherwise.
+ */
+bool interrupts_are_initialized(void);
 
 #endif
