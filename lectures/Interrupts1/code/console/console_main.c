@@ -25,7 +25,7 @@ void main(void) {
 
 #if USE_INTERRUPTS
     interrupts_init();
-    keyboard_use_interrupts();
+    keyboard_use_interrupts(true);
     console_enable_blink_cursor();
     interrupts_global_enable();
 #endif

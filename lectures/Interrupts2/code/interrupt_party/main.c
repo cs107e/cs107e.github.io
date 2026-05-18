@@ -45,9 +45,9 @@ void configure_button(void) {
 
 void configure_alarm(void) {
     // countdown expressed in number of usecs
-    hstimer_init(HSTIMER0, 1000000);
+    hstimer_init(HSTIMER0, 1000000, HSTIMER_PERIODIC);
     hstimer_enable(HSTIMER0);             // start timer
-    interrupts_set_handler(INTERRUPT_SOURCE_HSTIMER0, second_elapsed, NULL);
+    hstimer_set_handler(HSTIMER0, second_elapsed, NULL);
 }
 
 void configure_keyboard(void) {

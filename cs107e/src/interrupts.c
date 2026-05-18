@@ -105,9 +105,12 @@ __attribute__((interrupt("machine"))) void _trap_handler(void) {
 }
 
 void interrupts_init(void) {
+    #define MIE_MEIE  (1 << 11)     // enable bit for external interrupts M-mode
+
     if (module.initialized) error("interrupts_init() must be called only once");
     interrupts_global_disable();
-    module.plic->regs.ctrl = 0;             // machine mode only
+    CSR_SET_BIT(mie, MIE_MEIE);             // enable external interrupts
+    module.plic->regs.ctrl = 0;             // machine mode interrupt procesing in PLIC
     module.plic->regs.threshhold = 0;       // accept interrupts of any priority
     CSR_WRITE(mtvec, _trap_handler);        // install trap handler
     for (int i = 0; i < N_SOURCES/32; i++) { // 1 bit per souce
@@ -119,6 +122,10 @@ void interrupts_init(void) {
         module.plic->regs.claim_complete = i;   // reset any pending claim
     }
     module.initialized = true;
+}
+
+bool interrupts_are_initialized(void) {
+    return module.initialized;
 }
 
 static bool is_valid_source(interrupt_source_t source) {
@@ -149,26 +156,19 @@ void interrupts_set_handler(interrupt_source_t source, handlerfn_t fn, void *aux
     if (!module.initialized) error("interrupts_init() has not been called!\n");
     if (!is_valid_source(source)) error("call to set handler for interrupt source that is not valid");
 
-    set_source_enabled(source, false);              // disable before changing
-    module.handlers[source].fn = fn;                // store handler function and
-    module.handlers[source].aux_data = aux_data;    // aux_data pointer into array at index corresponding to source
-    if (fn) set_source_enabled(source, true);       // enable if fn is non-NULL
+    set_source_enabled(source, false);              // disable while changing
+    module.handlers[source].fn = fn;                // update array for source: handler function
+    module.handlers[source].aux_data = aux_data;    // update array for source: aux_data pointer
+    if (fn) set_source_enabled(source, true);       // enable after update array (iff fn is non-NULL)
 }
 
-void interrupts_global_enable(void) {
-    #define MIE_MEIE  (1 << 11)  // M-mode external interrupt enable bit
-    #define MSTATUS_MIE (1 << 3)  // M-mode global interrupt enable bit
+#define MSTATUS_MIE (1 << 3)    // global switch for all M-mode interrupts
 
+void interrupts_global_enable(void) {
     if (!module.initialized) error("interrupts_init() has not been called!\n");
-    CSR_SET_BIT(mie, MIE_MEIE);
-    CSR_SET_BIT(mstatus, MSTATUS_MIE);
+    CSR_SET_BIT(mstatus, MSTATUS_MIE);      // global switch on
 }
 
 void interrupts_global_disable(void) {
-    CSR_CLEAR_BIT(mie, 1<<11);      // clear bits set by global enable
-    CSR_CLEAR_BIT(mstatus, 1<<3);
-}
-
-bool interrupts_are_initialized(void) {
-    return module.initialized;
+    CSR_CLEAR_BIT(mstatus, MSTATUS_MIE);    // global switch off
 }

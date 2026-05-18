@@ -34,6 +34,10 @@ typedef enum { FB_SINGLEBUFFER = 0, FB_DOUBLEBUFFER = 1 } fb_mode_t;
  * A subsequent call to fb_init after the first does a re-initialization.
  * All previous framebuffer memory is deallocated and the framebuffer is
  * reset for the requested configuration.
+ *
+ * The contents of a newly created framebuffer are unspecified. Although an
+ * implementation might choose to fill contents as a debugging aid, it
+ * is not required to do so.
  */
 void fb_init(int width, int height, fb_mode_t mode);
 

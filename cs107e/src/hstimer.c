@@ -48,10 +48,11 @@ static struct {
     HS_TMR0_INTV_VALUE_HI acts as the bit[55:32].
     To read or write the interval value, HS_TMR0_INTV_LO_REG should be done before HS_TMR0_INTV_HI_REG.
  */
-void hstimer_init(hstimer_id_t index, long usecs) {
+void hstimer_init(hstimer_id_t index, long usecs, hstimer_mode_t mode) {
     if (index != HSTIMER0 && index != HSTIMER1) return;
     long rate = ccu_ungate_bus_clock(CCU_HSTIMER_BGR_REG);  // clock up peripheral
-    module.timers[index].regs.ctrl = (0 << 7) | (0 << 4);   // config mode normal periodic (not one-shot), prescale = 2^0, not enabled
+    int mode_bit = mode == HSTIMER_ONESHOT ? 1 : 0;  // 1 oneshot, 0 periodic
+    module.timers[index].regs.ctrl = (mode_bit << 7) | (0 << 4);   // config mode, prescale = 2^0, not enabled
     uint64_t count = (usecs * rate)/(1000*1000);            // calculate count based on clock frequency
     module.timers[index].regs.intv_lo = count & 0xffffffff; // must set low before high (see docs note above)
     module.timers[index].regs.intv_hi = count >> 32;
@@ -72,4 +73,10 @@ void hstimer_disable(hstimer_id_t index) {
 void hstimer_interrupt_clear(hstimer_id_t index) {
     if (index != HSTIMER0 && index != HSTIMER1) return;
     module.interrupt->regs.irq_stas = (1 << index); // write 1 to clear
+}
+
+void hstimer_set_handler(hstimer_id_t index, handlerfn_t fn, void *client_data) {
+    if (index != HSTIMER0 && index != HSTIMER1) return;
+    int source = (index == HSTIMER0)? INTERRUPT_SOURCE_HSTIMER0 : INTERRUPT_SOURCE_HSTIMER1;
+    interrupts_set_handler(source, fn, client_data);
 }
