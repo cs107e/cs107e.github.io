@@ -159,10 +159,12 @@ One way for `gl_draw_rect` to enforce clipping is iterate over all locations and
 approach is easy to get correct, but will be quite slow because of the
 repeated checks and function call overhead. The faster alternative for `gl_draw_rect` is to first compute the clipped bounds (i.e. by intersecting requested rectangle with framebuffer bounds) and then directly set only those pixels that are now known to be in bounds.
 
+We recommend that you start with a simple approach that makes it easy to get the functionality correct. Later on you can decide what changes to apply to get the performance you want. It is almost always an easier task to improve the performance of correct code than to fix the functionality of fast, broken code.
+
 Time to test! The `test_gl_console.c` test program defines a
 simple `test_gl` to get you started. The provided tests are quite basic, you will need to supplement with additional tests to confirm the full range of functionality. One possibility is to rig up
 assert-based unit tests that make a `gl_draw_xxx` call followed by calls to
-`gl_read_pixel` to confirm the pixel color at a location. This approach doesn't scale much beyond simple cases.  We do recommend asserts for edge cases or specific details that are not easily to visually confirm (i.e. a rectangle of width 10 spans exactly 10 pixels). Most of yorur testing will be by visually confirming the result that is drawn on the display -- that's the real deal! Make sure pixels that should have been clipped are not being drawn and
+`gl_read_pixel` to confirm the pixel color at a location. This approach doesn't scale much beyond simple cases.  We do recommend asserts for edge cases or specific details that are not easily to visually confirm (i.e. a rectangle of width 10 spans exactly 10 pixels). Most of your testing will be by visually confirming the result that is drawn on the display -- that's the real deal! Make sure pixels that should have been clipped are not being drawn and
 that you never write outside the bounds of the framebuffer memory.
 
 > __Careful with memory!__ The primary source of debugging woes on this assignment are due to incorrect
@@ -176,9 +178,6 @@ that you never write outside the bounds of the framebuffer memory.
 > artifacts on the display, up to and including a crash/lockup that forces you to reset your Pi. Such
 > symptoms are a sign you have bugs in how you access the framebuffer memory.
 {: .callout-danger}
-
-
-
 
 ### 3) Text-drawing
 The final two functions to implement for the graphics library are:
@@ -264,6 +263,9 @@ handling only a single line, then backspace, then multiple rows, then scrolling.
 For unit tests, we recommend you sequence together calls to `console_printf` and confirm the visual results on screen. Start with simple outputs and work your way up to correct
 handling of special characters, wrapping, and scrolling.
 
+The console does a lot of drawing, calling gl operations that may be a bit pokey yet. Rather than try to get ahead of that now, better to design for simplicity and correctness, get all console features working, albeit somewhat sluggishly, and then go back to make more responsive.  The alternative of jumping straight to a complex design in pursuit of efficiency can lead to a long fight with difficult bugs at unclear benefit.
+
+
 ### 5) Shell + console = magic!
 
 The final step is an easy but satisfying conclusion: use your console as
@@ -284,18 +286,21 @@ the HDMI monitor.
 <video controls="controls" width="625"
        name="Assignment 6 demo" src="images/console_demo.mp4"></video>
 
- > __Performance and dropped keys__ Thus far you have likely not given much thought to performance tuning as your programs have run acceptably fast without special effort.  Now that you are writing graphics routines that process literally millions of pixels, you're going to notice the impact of excess code in those tight inner loops. Identifying high-traffic code passages and streamlining them is a fun task with a pleasing reward. That said, make correctness your highest priority and only turn your attention to efficiency once the functionality is solid. Our expectations for the full system are relatively modest: your console should feel reasonably responsive. For assignment 6, it is given that  __your console will miss keys that are typed__ while it is in the middle of drawing. You'll fix this in assignment 7 by employing interrupts to share the CPU during a long-running operation and queue up key events so none are missed.
+ > __Dropped keys__ For assignment 6, it is given that  __your console will miss keys that are typed__ while it is in the middle of drawing. You'll fix this in assignment 7 by employing interrupts to share the CPU during a long-running operation and queue up key events so none are missed.
  {: .callout-warning}
+
 
 ## Extension
 The core `gl` features are exactly and only what is needed for the console; so many stones left unturned! If you are eager to learn more about graphics or thinking ahead to possible projects with fancier outputs, adding to your graphics library now would be a wonderful extension.
 
 - turbo-charge drawing
+    - up to now, we haven't worried about performance tuning as our programs have run acceptably fast without special effort, but graphics routines that process literally millions of pixels can't be so carefree
     - take measurements before optimizing, identify which operations are slow,  make changes, iterate, report on progress (use [speed exercise from lab6](/labs/lab6#speed) as template)
     - tighten inner loops (hoist out redundant operations, unroll, hand assembly?)
-        - cutting even a few instructions per pixel addds up tens of millions of instructions in a 1000x1000 framebuffer
+        - cutting even a few instructions per pixel saves tens of millions total across a 1000x1000 framebuffer
     - a naive approach to clipping that sends all drawing through `gl_draw_pixel` has a lot of overhead can be trimmed!
     - _cacheing_ is a technique used widely in computer science. The basic gist is to save result to re-use rather than repeatedly recompute/refetch. For example, `gl_draw_char` calls `font_get_glyph` each time to extract glyph. If gl extract a glyph once on first use and saved it, using cached version on subsequent draw avoids repeating the work.
+    - the reference console is reasonably responsive without much heroics. The approach we used was to choose a strategy that is simple to get correct (full redraw once at end of each call to `console_printf`, no incremental redraw/reuse of what was previously drawn) and worked at streamlining key drawing operations. This investment made all drawing faster, not only console, and console code was dirt simple. Win-win!
 - level up the features of your graphics library
     - draw lines/wireframes/curves
         - anti-aliasing will make for much nicer smooth edges!
