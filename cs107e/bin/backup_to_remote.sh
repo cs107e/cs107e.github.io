@@ -36,7 +36,7 @@ if [ -z "$WORKTREE_PATH" ]; then # if no worktree exists, create one
 fi
 
 shopt -s nullglob          # set non-match glob expands to empty
-SOURCES=$(echo *.c *.s)    # gather source files from cwd
+SOURCES=$(echo *.c *.s Makefile)    # gather source files from cwd
 if [ -n "$SOURCES" ]; then
     mkdir -p $WORKTREE_PATH/$SUBDIR         # ensure subdir exists
     cp -f *.c *.s $WORKTREE_PATH/$SUBDIR  2>/dev/null  # copy sources to subdir in backup worktree
