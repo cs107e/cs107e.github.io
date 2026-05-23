@@ -13,7 +13,6 @@ We prepared these guides on various topics relevant to CS107E students. Hope you
 
 ## Kit and Tools
 - [Bill of Materials (BOM)](bom) for course parts kit
-- [Choosing hardware for projects](/hardware_choices/)
 - Recommendations for [hand tools](handtools)
 - [Soldering guide](soldering-guide.pdf) for soldering pins onto the MangoPi 
 
