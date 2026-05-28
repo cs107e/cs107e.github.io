@@ -47,9 +47,9 @@ weeks:
     mon: Memorial Day
     lab: /labs/projectlab1/
     assign: /project/
-    fri:
+    fri: /lectures/Wrap/
   -
-    mon: /lectures/Wrap/
+    mon: No lecture (work on projects)
     lab: /labs/projectlab2/
     fri: No lecture
   -
