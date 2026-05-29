@@ -275,6 +275,7 @@ There are four modifier keys. Press and release of a modifier key changes the mo
 - Modifiers are Shift, Caps Lock, Control, Alt
 - When __Shift__ is active, `ch_shifted` is produced for all character keys. Special keys are unaffected.
 - When __Caps Lock__ is active, `ch_shifted` is produced for all alphabetic keys. Non-alphabetic character and special keys are unaffected.
+- If both __Shift__ and __Caps Lock__ are active, they don't cancel each other or invert, `ch_shifted` is produced for all character keys. This behavior follows Mac/linux keyboard conventions. You Windows folk may be used to Shift inverting the Caps Lock setting, we do not follow this!
 - When __Control__ is active, alphabetic keys produce ASCII control codes. Non-alphabetic character and special keys are unaffected.
     - ASCII control codes run from 1 to 26 and are assigned in alphabetic order: `ctrl-a` is 1, `ctrl-b` is 2, ... `ctrl-z` is 26
 - The __Alt__ modifier has no effect on typed characters
