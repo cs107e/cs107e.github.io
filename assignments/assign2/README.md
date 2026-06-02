@@ -343,7 +343,7 @@ If you enjoyed the core assignment and want to go further, consider trying out a
     - soup up your clock by adding:
         - input device to pause/resume? change countdown duration before starting?
         - output device for visual/audio as countdown progresses? alarm at end?
-    - write a simple game or interactive application that uses inputs/outputs in some cool way
+    - write a simple game or interactive application that uses inputs/outputs in some cool way (Simon? snake? reaction timer?)
 - for the more hardware-inclined
     - use a piece of protoboard to solder up a robust and permanent clock circuit (share with CAs to use for grading!)
     - go old-school on that protoboard using [wire wrap](https://en.wikipedia.org/wiki/Wire_wrap) for gas-tight connections that have built-in strain relief
