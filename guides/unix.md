@@ -145,7 +145,7 @@ $ man ls
 
 Tip: you can use the same keyboard shortcuts to scroll the man page as in the `more` program!
 
-Most commands also accept an option such `--help` or `-h` to print out a short *usage* reminder of the options and keyboard shortcuts for a command.
+Most commands also accept an option such `--help` or `-h` to print out a short usage reminder of the options and keyboard shortcuts for a command.
 ```console
 $ more --help
 ```

@@ -15,8 +15,10 @@
 /*
  * `console_init`: required initialization for console
  *
- * Initialize the console. The console text begins empty and
- * the cursor is in the home position (upper left corner).
+ * Initialize the console. The display size is configured for the
+ * requested number of rows and columns of text characters.
+ * The console text is initiallly empty and the cursor is in the
+ * home position (upper left corner).
  *
  * @param nrows       requested number of rows (in characters)
  * @param ncols       requested number of columns (in characters)

@@ -1,12 +1,14 @@
+PROGRAM = audio_demo
+
 ARCH    = -march=rv64im -mabi=lp64
 ASFLAGS = $(ARCH)
 CFLAGS  = $(ARCH) -g -Og -I$$CS107E/include -Wall -ffreestanding
 LDFLAGS = -nostdlib -L$$CS107E/lib -T memmap.ld
 LDLIBS  = -lextra -lmango -lmango_gcc
 
-all : audio_demo.bin
+all : $(PROGRAM).bin
 
-playwav.c: all-right-now.h
+$(PROGRAM).c: all-right-now.h
 
 %.h: %.wav
 	wav-to-c-header.py $< $@
@@ -23,8 +25,8 @@ playwav.c: all-right-now.h
 %.o: %.s
 	riscv64-unknown-elf-as $(ASFLAGS) $< -o $@
 
-run: audio_demo.bin
-	rm -f audio_demo.elf
+run: $(PROGRAM).bin
+	rm -f $(PROGRAM).elf
 	mango-run $<
 
 clean:

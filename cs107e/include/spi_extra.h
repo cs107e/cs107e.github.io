@@ -21,7 +21,7 @@
 // Non blocking versions of the equivalent functions from spi.h. Use
 // spi_is_bus_free to determine when the transfer is finished.
 //
-// *DO NOT* initiate a new transfer while a non-blocking transfer is ongoing.
+// DO NOT initiate a new transfer while a non-blocking transfer is ongoing.
 //
 // CAUTION: Be very careful that the buffer(s) passed as argument live long
 // enough for the transfer to finish. For example, a stack-allocated buffer

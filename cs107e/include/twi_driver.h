@@ -45,4 +45,4 @@ void twi_init(int rate);
  * @param bytes_r       array to store bytes that are read
  * @param num_r         number of bytes to read
  */
-bool twi_do_transaction(uint8_t dev_id, const uint8_t* bytes_w, int num_w, uint8_t* bytes_r, int num_r);
+bool twi_do_transaction(uint8_t dev_id, const uint8_t *bytes_w, int num_w, uint8_t *bytes_r, int num_r);

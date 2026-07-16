@@ -16,7 +16,7 @@ properties we can exploit for speed:
 2. Functions return in Last-In-First-Out (LIFO) order.
 
 To optimize for speed, people have converged on using a contiguous region of memory
-(called a *stack* because it's LIFO, like a stack of plates).  Roughly speaking it
+(called a __stack__ because it's LIFO, like a stack of plates).  Roughly speaking it
 works as follows:
 
 + At program start, we reserve a fixed-sized region to hold the stack and set a

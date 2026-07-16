@@ -110,10 +110,13 @@ static const struct pll_config_t *get_pll_config_for_rate(ccu_pll_id_t id, long 
 #define BITS_N_M1(n, m1)             ((pll_reg_t){ .factor_n=n, .factor_m1=m1 }).bits
 #define BITS_P_N_M1_M0(p, n, m1, m0) ((pll_reg_t){ .factor_p=p, .factor_n=n, .factor_m1=m1, .factor_m0=m0 }).bits;
 
-static void get_pll_bits(ccu_pll_id_t id, long rate, uint32_t *factor_mask, uint32_t *new_factors) {
+static bool get_pll_bits(ccu_pll_id_t id, long rate, uint32_t *factor_mask, uint32_t *new_factors) {
     uint32_t out_mhz;
     const struct pll_config_t *cfg = get_pll_config_for_rate(id, rate);
-    if (!cfg) printf("No matching pll config for id 0x%4x found in rate table.\n", id);
+    if (!cfg) {
+        printf("No matching pll config for id 0x%4x found in rate table.\n", id);
+        return false;
+    }
 
     switch(cfg->pll_id) {
     case CCU_PLL_VIDEO0_CTRL_REG: // N, M1
@@ -122,7 +125,7 @@ static void get_pll_bits(ccu_pll_id_t id, long rate, uint32_t *factor_mask, uint
         ASSERT_IN_RANGE(cfg->M1, 1, 2);
         *factor_mask = BITS_N_M1(-1,-1);
         *new_factors = BITS_N_M1(cfg->N-1,cfg->M1-1);
-        return;
+        return true;
     case CCU_PLL_AUDIO0_CTRL_REG:   // P, N, M1, M0
         ASSERT_IN_RANGE(cfg->P, 1, 64);
         ASSERT_IN_RANGE(cfg->N, 13, 255);
@@ -132,7 +135,7 @@ static void get_pll_bits(ccu_pll_id_t id, long rate, uint32_t *factor_mask, uint
         ASSERT_IN_RANGE(out_mhz, 180, 3000); // valid output freq range is 180M-3G
         *factor_mask = BITS_P_N_M1_M0(-1,-1,-1,-1);
         *new_factors = BITS_P_N_M1_M0(cfg->P-1,cfg->N-1,cfg->M1-1,cfg->M0-1);
-        return;
+        return true;
     case CCU_PLL_AUDIO1_CTRL_REG: // N, M1
         ASSERT_IN_RANGE(cfg->N, 13, 255);
         ASSERT_IN_RANGE(cfg->M1, 1, 2);
@@ -140,7 +143,7 @@ static void get_pll_bits(ccu_pll_id_t id, long rate, uint32_t *factor_mask, uint
         ASSERT_IN_RANGE(out_mhz, 180, 3500); // valid output freq range is 180M-3.5G
         *factor_mask = BITS_N_M1(-1,-1);
         *new_factors = BITS_N_M1(cfg->N-1,cfg->M1-1);
-        return;
+        return true;
 
     case CCU_PLL_PERI_CTRL_REG:
     case CCU_PLL_CPU_CTRL_REG:
@@ -150,6 +153,7 @@ static void get_pll_bits(ccu_pll_id_t id, long rate, uint32_t *factor_mask, uint
     default:
         printf("Invalid PLL id 0x%4x\n", id);
     }
+    return false;
 }
 
 // Procedure to update PLL from p46 of D1-H user manual
@@ -175,8 +179,9 @@ static void update_pll_bits(volatile uint32_t *reg, uint32_t factor_mask, uint32
 long ccu_config_pll_rate(ccu_pll_id_t id, long rate) {
     validate_pll(id);
     uint32_t factor_mask, new_factors;
-    get_pll_bits(id, rate, &factor_mask, &new_factors);
-    update_pll_bits(reg_for_id(id), factor_mask, new_factors);
+    if (get_pll_bits(id, rate, &factor_mask, &new_factors)) {
+        update_pll_bits(reg_for_id(id), factor_mask, new_factors);
+    }
     long set_rate = debug_rate_pll(id);
     assert(rate == set_rate);
     return set_rate;

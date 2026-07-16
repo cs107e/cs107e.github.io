@@ -564,11 +564,11 @@ The fact that a C-string depends on a properly-placed null terminator to mark th
 
 ```c
 struct request {
-  char* filename;
-  char* host;
+  char *filename;
+  char *host;
 };
 
-void process_request(struct request* request) {
+void process_request(struct request *request) {
   char filename[128];
   strcpy(filename, request->filename);
   read_file(filename); 

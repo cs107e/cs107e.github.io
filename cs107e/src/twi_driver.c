@@ -278,7 +278,7 @@ static void config_transaction(uint8_t dev_id, int n_write, int n_read) {
     module.twi->regs.driver.ctrl.start_tran = 1;
 }
 
-bool twi_do_transaction(uint8_t dev_id, const uint8_t* bytes_w, int num_w, uint8_t* bytes_r, int num_r) {
+bool twi_do_transaction(uint8_t dev_id, const uint8_t *bytes_w, int num_w, uint8_t *bytes_r, int num_r) {
     config_transaction(dev_id, num_w, num_r);
     if (num_w) send_bytes(bytes_w, num_w);
     if (num_r) receive_bytes(bytes_r, num_r);

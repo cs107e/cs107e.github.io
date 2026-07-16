@@ -178,7 +178,7 @@ void gl_draw_char(int x, int y, char ch, color_t c);
  * @param str   null-terminated string to be drawn
  * @param c     color of the string
  */
-void gl_draw_string(int x, int y, const char* str, color_t c);
+void gl_draw_string(int x, int y, const char *str, color_t c);
 
 /*
  * `gl_get_char_height`

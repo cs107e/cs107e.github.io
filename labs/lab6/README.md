@@ -206,7 +206,7 @@ character `!` (ASCII 33, hex 0x21), the neighboring glyph is
 character `"` (ASCII 34, hex 0x22) and so on ending with rightmost glyph, a little checkerboard, (ASCII 127, hex 0x7f) which corresponds to ASCII delete.
 
 Each glyph is the same size: 14 pixels wide and 16 pixels tall.  This is termed
-a *fixed-width* font.
+a __fixed-width__ font.
 
 The bitmap is stored using an array of `uint8_t`
 values. For example, the first two bytes in the array are `0x03, 0x00`.  Group

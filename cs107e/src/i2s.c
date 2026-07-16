@@ -94,9 +94,9 @@ typedef union {
         uint32_t tx_fifo;
         struct {
             uint32_t mclk_div   : 4;
-            uint32_t bclk_div   : 3;
+            uint32_t bclk_div   : 4;
             uint32_t mclk_ena   : 1;
-            uint32_t            :24;
+            uint32_t            :23;
         } clkd;
         uint32_t tx_cntr;
         uint32_t rx_cntr;

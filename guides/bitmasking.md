@@ -38,7 +38,7 @@ when we AND our bitmask with the value.
 
 ![101111001110101110100010101010111 & 111111111111111111111111111111000 = 101111001110101110100010101010000 OR 101 = 101111001110101110100010101010101.
 That's a lot of long numbers, and hard to listen to out loud, but the important thing is that when we use the AND trick we did in the
-picture/alt text above, and *then* we OR in a `101`, it will actually put `101` into our string.](../images/bitmasking4.png){: .w-75 .zoom}
+picture/alt text above, and __then__ we OR in a `101`, it will actually put `101` into our string.](../images/bitmasking4.png){: .w-75 .zoom}
 
 Cool! Looks like if we take our value, AND it with a bitmask, and then OR it with the number we want to plug in, we'll have inserted those bits without messing up any of the other bits.
 

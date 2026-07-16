@@ -16,6 +16,7 @@
 #include "twi_driver.h"
 #include "assert.h"
 #include "malloc.h"
+#include "stdbool.h"
 #include "strings.h"
 #include "timer.h"
 
@@ -28,13 +29,20 @@ struct i2c_device {
     int trans_delay_us; // If transition is I2C_STOP_START and requires delay
 };
 
+static struct {
+    bool initialized;
+} module;
+
+
 // Initialize I2C module with clockspeed `rate`
 void i2c_init(i2c_clk_freq_t rate) { 
     twi_init(rate); 
+    module.initialized = true;
 }
 
 // Create I2C device with address `addr` and default device settings.
 i2c_device_t* i2c_new(uint8_t addr) {
+    if (!module.initialized) error("i2c_init() has not been called!\n");
     i2c_device_t *dev = malloc(sizeof(*dev));
     dev->addr = addr;
     dev->reg_size = I2C_REG_8BIT;  // default config
@@ -51,7 +59,7 @@ i2c_device_t* i2c_new(uint8_t addr) {
 
 // Allows the user to change I2C device register size, transition state, and transition delay in microseconds
 // Note: Invalid to have a non-zero delay if I2C_REPEATED_START transition
-void i2c_config_device_settings(i2c_device_t* dev, i2c_reg_size_t reg_size, i2c_transition_t transition, int trans_delay_us) {
+void i2c_config_device_settings(i2c_device_t *dev, i2c_reg_size_t reg_size, i2c_transition_t transition, int trans_delay_us) {
     assert(dev);
     dev->reg_size = reg_size;
     dev->transition = transition;
@@ -59,13 +67,13 @@ void i2c_config_device_settings(i2c_device_t* dev, i2c_reg_size_t reg_size, i2c_
     dev->trans_delay_us = trans_delay_us;
 }
 
-bool i2c_write_reg(i2c_device_t* dev, uint16_t reg, uint8_t val) {
+bool i2c_write_reg(i2c_device_t *dev, uint16_t reg, uint8_t val) {
     assert(dev);
     uint8_t buf[1] = { val };
     return i2c_write_reg_n(dev, reg, buf, sizeof(buf));
 }
 
-bool i2c_write_reg_n(i2c_device_t* dev, uint16_t reg, const uint8_t* input_buffer, int n) {
+bool i2c_write_reg_n(i2c_device_t *dev, uint16_t reg, const uint8_t *input_buffer, int n) {
     assert(dev);
     uint8_t buf[dev->reg_size + n];
 
@@ -84,7 +92,7 @@ bool i2c_write_reg_n(i2c_device_t* dev, uint16_t reg, const uint8_t* input_buffe
     return twi_do_transaction(dev->addr, buf, sizeof(buf), NULL, 0);
 }
 
-int i2c_read_reg(i2c_device_t* dev, uint16_t reg) {
+int i2c_read_reg(i2c_device_t *dev, uint16_t reg) {
     assert(dev);
     uint8_t buf[1];
     
@@ -93,7 +101,7 @@ int i2c_read_reg(i2c_device_t* dev, uint16_t reg) {
     else return -1;
 }
 
-bool i2c_read_reg_n(i2c_device_t* dev, uint16_t reg, uint8_t* output_buffer, int n) {
+bool i2c_read_reg_n(i2c_device_t *dev, uint16_t reg, uint8_t *output_buffer, int n) {
     assert(dev);
     memset(output_buffer, SENTINEL, n);
     uint8_t buf[dev->reg_size];
@@ -113,11 +121,11 @@ bool i2c_read_reg_n(i2c_device_t* dev, uint16_t reg, uint8_t* output_buffer, int
 }
 
 // Wrapper for HAL block write
-bool i2c_block_write(i2c_device_t* dev, const uint8_t* bytes, int n) {
+bool i2c_block_write(i2c_device_t *dev, const uint8_t *bytes, int n) {
     return twi_do_transaction(dev->addr, bytes, n, NULL, 0);
 }
 
 // Wrapper for HAL block read
-bool i2c_block_read(i2c_device_t* dev, uint8_t* bytes, int n) {
+bool i2c_block_read(i2c_device_t *dev, uint8_t *bytes, int n) {
     return twi_do_transaction(dev->addr, NULL, 0, bytes, n);
 }
