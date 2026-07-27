@@ -134,6 +134,8 @@ static bool is_valid_source(interrupt_source_t source) {
         case INTERRUPT_SOURCE_TWI0...INTERRUPT_SOURCE_TWI3:
         case INTERRUPT_SOURCE_SPI0...INTERRUPT_SOURCE_SPI1:
         case INTERRUPT_SOURCE_HSTIMER0...INTERRUPT_SOURCE_HSTIMER1:
+        // NB: GPIOB..GPIOG are 85,87,89,91,93,95 (odd, gapped), but this range
+        // also accepts the unused even values 86,88,90,92,94 in between
         case INTERRUPT_SOURCE_GPIOB...INTERRUPT_SOURCE_GPIOG:
             return true;
     }

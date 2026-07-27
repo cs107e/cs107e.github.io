@@ -69,41 +69,37 @@ void gpio_interrupt_init(void) {
     module.initialized = true;
 }
 
+static void confirm_initialized(void) {
+    if (!module.initialized) error("gpio_interrupt_init() has not been called!\n");
+}
+
 // dispatch_to_pin handler receives GPIO interrupt per-group and does
 // second-level dispatch to per-pin handler set within this module
 static void dispatch_to_pin(void *aux_data) {
     gpio_int_group_t *gp = aux_data;
+    uint32_t status = gp->eint->regs.status;
+    if (status == 0) return; // spurious/late claim, no pin pending: __builtin_clz(0) is undefined
     // find 'on' bit in status register to determine which pin had interrupt
     // use clz to count number of leading zero bits before first one bit
-    int pin_index = 31 - __builtin_clz(gp->eint->regs.status);
+    int pin_index = 31 - __builtin_clz(status);
     gp->handlers[pin_index].fn(gp->handlers[pin_index].aux_data);
 }
 
-static void set_events_enabled(gpio_id_t gpio, bool state) {
-    int pin_index;
-    gpio_int_group_t *gp = get_int_group(gpio, &pin_index);
-    unsigned int mask = (1 << pin_index);
-    if (state) {
-        gp->eint->regs.ctl |= mask;     // set enable bit
-    } else {
-        gp->eint->regs.ctl &= ~mask;    // clear enable bit
-    }
-}
-
 void gpio_interrupt_clear(gpio_id_t gpio) {
-    if (!module.initialized) error("gpio_interrupt_init() has not been called!\n");
+    confirm_initialized();
     assert(gpio_id_is_valid(gpio));
     int pin_index;
     gpio_int_group_t *gp = get_int_group(gpio, &pin_index);
     unsigned int mask = (1 << pin_index);
     if ((gp->eint->regs.status & mask) != 0) {  // if pending bit set for pin
-        gp->eint->regs.status |= mask;          // write 1 to clear
+        gp->eint->regs.status = mask;           // write 1 to clear this pin only, W1C so 0 bits leave others untouched
     }
 }
 
 void gpio_interrupt_config(gpio_id_t gpio, gpio_event_t event, bool debounce) {
-    if (!module.initialized) error("gpio_interrupt_init() has not been called!\n");
-    assert(gpio_id_is_valid(gpio) && event <= GPIO_INTERRUPT_DOUBLE_EDGE);
+    confirm_initialized();
+    assert(gpio_id_is_valid(gpio));
+    assert(event <= GPIO_INTERRUPT_DOUBLE_EDGE);
     int pin_index;
     gpio_int_group_t *gp = get_int_group(gpio, &pin_index);
     int bank =  pin_index / 8;
@@ -124,12 +120,13 @@ void gpio_interrupt_config(gpio_id_t gpio, gpio_event_t event, bool debounce) {
 }
 
 void gpio_interrupt_set_handler(gpio_id_t gpio, handlerfn_t fn, void *aux_data) {
-    if (!module.initialized) error("gpio_interrupt_init() has not been called!\n");
+    confirm_initialized();
     assert(gpio_id_is_valid(gpio));
     int pin_index;
     gpio_int_group_t *gp = get_int_group(gpio, &pin_index);
-    set_events_enabled(gpio, false);        // disable events before changing
+    unsigned int mask = (1 << pin_index);
+    gp->eint->regs.ctl &= ~mask;             // disable events before changing
     gp->handlers[pin_index].fn = fn;
     gp->handlers[pin_index].aux_data = aux_data;
-    if (fn) set_events_enabled(gpio, true);  // enable events if fn is non-NULL
+    if (fn) gp->eint->regs.ctl |= mask;      // enable events if fn is non-NULL
 }

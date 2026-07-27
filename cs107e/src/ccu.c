@@ -29,7 +29,7 @@ static long debug_rate_pll(ccu_pll_id_t id);
 static long debug_rate_clk(ccu_module_id_t id);
 static long debug_rate_bgr(ccu_bgr_id_t id);
 static long debug_rate_parent(ccu_parent_id_t id);
-static int get_parent_src_index(ccu_module_id_t id, ccu_parent_id_t parent);
+static int get_parent_src_index(struct debug_info *info, ccu_parent_id_t parent);
 static void validate_pll(ccu_pll_id_t id);
 static void validate_module_clk(ccu_module_id_t id);
 static void validate_bgr(ccu_bgr_id_t id);
@@ -113,10 +113,8 @@ static const struct pll_config_t *get_pll_config_for_rate(ccu_pll_id_t id, long 
 static bool get_pll_bits(ccu_pll_id_t id, long rate, uint32_t *factor_mask, uint32_t *new_factors) {
     uint32_t out_mhz;
     const struct pll_config_t *cfg = get_pll_config_for_rate(id, rate);
-    if (!cfg) {
-        printf("No matching pll config for id 0x%4x found in rate table.\n", id);
-        return false;
-    }
+    if (!cfg) printf("No matching pll config for id 0x%4x found in rate table.\n", id);
+    assert(cfg != NULL);
 
     switch(cfg->pll_id) {
     case CCU_PLL_VIDEO0_CTRL_REG: // N, M1
@@ -188,15 +186,16 @@ long ccu_config_pll_rate(ccu_pll_id_t id, long rate) {
 }
 
 static uint32_t get_module_clk_bits(ccu_module_id_t id, ccu_parent_id_t parent, long rate) {
-    int src = get_parent_src_index(id, parent);
+    struct debug_info *info = info_for_id(id);
+    int src = get_parent_src_index(info, parent);
     if (src == -1) printf("Parent id 0x%4x is not valid for module clock 0x%4x\n", parent, id);
+    assert(src != -1);
     long parent_rate = debug_rate_parent(parent);
     module_clk_reg_t new_settings = { .src= src, .factor_n= 0, .factor_m= 0 };
 
     if (parent_rate == rate) { // no dividers needed, src parent at desired rate
         return new_settings.bits;
     }
-    struct debug_info *info = info_for_id(id);
     int n_exp_max = (1 << info->ncount) - 1;
     int m_max = (1 << info->mcount);
     int divisor_max = m_max * (1 << n_exp_max);
@@ -332,13 +331,10 @@ static struct debug_info ccu_clock_info_table[] = {
     {0},
   };
 
-static int get_parent_src_index(ccu_module_id_t id, ccu_parent_id_t parent) {
-    for (struct debug_info *info = ccu_clock_info_table; info->name ; info++) {
-        if (info->reg_id == id) {
-            for (int i = 0; i < sizeof(info->parents)/sizeof(*info->parents); i++) {
-                if (info->parents[i] == parent) return i;
-            }
-        }
+static int get_parent_src_index(struct debug_info *info, ccu_parent_id_t parent) {
+    if (!info) return -1;
+    for (int i = 0; i < sizeof(info->parents)/sizeof(*info->parents); i++) {
+        if (info->parents[i] == parent) return i;
     }
     return -1;
 }

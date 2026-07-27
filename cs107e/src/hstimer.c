@@ -6,6 +6,7 @@
 
 #include "hstimer.h"
 #include <stdint.h>
+#include "assert.h"
 #include "ccu.h"
 
 // structs defined to match layout of hardware registers
@@ -37,10 +38,19 @@ _Static_assert(&(INTERRUPT_BASE->regs.irq_stas) == (uint32_t *)0x3008004, "hstim
 static struct {
     volatile hstimer_irq_t *interrupt;
     volatile hstimer_t *timers;
-} const module = {
+    bool initialized[2]; // per-timer: has hstimer_init() been called for this index
+} module = {
     .interrupt = INTERRUPT_BASE,
     .timers = TIMER_BASE,
 };
+
+static bool is_valid_hstimer(hstimer_id_t index) {
+    return index == HSTIMER0 || index == HSTIMER1;
+}
+
+static void confirm_initialized(hstimer_id_t index) {
+    if (!module.initialized[index]) error("hstimer_init() has not been called for this timer!\n");
+}
 
 /* From docs:
     HSTimer0 is a 56-bit counter. The interval value consists of two parts:
@@ -49,7 +59,7 @@ static struct {
     To read or write the interval value, HS_TMR0_INTV_LO_REG should be done before HS_TMR0_INTV_HI_REG.
  */
 void hstimer_init(hstimer_id_t index, long usecs, hstimer_mode_t mode) {
-    if (index != HSTIMER0 && index != HSTIMER1) return;
+    assert(is_valid_hstimer(index));
     long rate = ccu_ungate_bus_clock(CCU_HSTIMER_BGR_REG);  // clock up peripheral
     int mode_bit = mode == HSTIMER_ONESHOT ? 1 : 0;  // 1 oneshot, 0 periodic
     module.timers[index].regs.ctrl = (mode_bit << 7) | (0 << 4);   // config mode, prescale = 2^0, not enabled
@@ -58,25 +68,30 @@ void hstimer_init(hstimer_id_t index, long usecs, hstimer_mode_t mode) {
     module.timers[index].regs.intv_hi = count >> 32;
     module.timers[index].regs.ctrl |= (1 << 1);             // reload interval into cur
     module.interrupt->regs.irq_en |= (1 << index);          // enable interrupts
+    module.initialized[index] = true;
 }
 
 void hstimer_enable(hstimer_id_t index) {
-    if (index != HSTIMER0 && index != HSTIMER1) return;
+    assert(is_valid_hstimer(index));
+    confirm_initialized(index);
     module.timers[index].regs.ctrl |= 1;   // set ctrl bit will start/resume countdown
 }
 
 void hstimer_disable(hstimer_id_t index) {
-    if (index != HSTIMER0 && index != HSTIMER1) return;
+    assert(is_valid_hstimer(index));
+    confirm_initialized(index);
     module.timers[index].regs.ctrl &= ~1; // clear ctrl bit will pause countdown
 }
 
 void hstimer_interrupt_clear(hstimer_id_t index) {
-    if (index != HSTIMER0 && index != HSTIMER1) return;
+    assert(is_valid_hstimer(index));
+    confirm_initialized(index);
     module.interrupt->regs.irq_stas = (1 << index); // write 1 to clear
 }
 
 void hstimer_set_handler(hstimer_id_t index, handlerfn_t fn, void *client_data) {
-    if (index != HSTIMER0 && index != HSTIMER1) return;
+    assert(is_valid_hstimer(index));
+    confirm_initialized(index);
     int source = (index == HSTIMER0)? INTERRUPT_SOURCE_HSTIMER0 : INTERRUPT_SOURCE_HSTIMER1;
     interrupts_set_handler(source, fn, client_data);
 }

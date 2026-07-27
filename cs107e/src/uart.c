@@ -72,6 +72,10 @@ static struct {
              .uart = NULL, // will be set in uart_init
 };
 
+static void confirm_initialized(void) {
+    if (module.uart == NULL) error("uart_init() has not been called!\n");
+}
+
 // not published for now, used to do testing of alternate uarts
 void uart_reinit_custom(int, int, gpio_id_t, gpio_id_t, unsigned int);
 
@@ -133,14 +137,14 @@ void uart_init(void) {
 }
 
 void uart_use_interrupts(handlerfn_t handler, void *client_data) {
-    if (module.uart == NULL) error("uart_init() has not been called!\n");
+    confirm_initialized();
     interrupt_source_t src = INTERRUPT_SOURCE_UART0 + module.config.index;
     interrupts_set_handler(src, handler, client_data); // install handler
     module.uart->regs.ier = 1;      // enable interrupts in uart peripheral
 }
 
 unsigned char uart_recv(void) {
-    if (module.uart == NULL) error("uart_init() has not been called!\n");
+    confirm_initialized();
     if (module.running_in_simulator) {
         char byte;
         syscall_read(0, &byte, 1); // divert iff under gdb sim
@@ -152,7 +156,7 @@ unsigned char uart_recv(void) {
 }
 
 void uart_send(char byte) {
-    if (module.uart == NULL) error("uart_init() has not been called!\n");
+    confirm_initialized();
     if (module.running_in_simulator) {
         syscall_write(1, &byte, 1); // divert iff under gdb sim
     } else {
@@ -162,12 +166,12 @@ void uart_send(char byte) {
 }
 
 void uart_flush(void) {
-    if (module.uart == NULL) error("uart_init() has not been called!\n");
+    confirm_initialized();
     while ((module.uart->regs.usr & USR_BUSY) != 0) ;
 }
 
 bool uart_haschar(void) {
-    if (module.uart == NULL) error("uart_init() has not been called!\n");
+    confirm_initialized();
     return (module.uart->regs.usr & USR_RX_NOT_EMPTY) != 0;
 }
 
@@ -179,7 +183,7 @@ bool uart_haschar(void) {
 // Use uart_send/uart_recv to send/receive raw byte, no conversion
 
 int uart_getchar(void) {
-    if (module.uart == NULL) error("uart_init() has not been called!\n");
+    confirm_initialized();
     int ch = uart_recv();
     if (ch == '\r') {
         return '\n';    // convert CR to newline
@@ -188,7 +192,7 @@ int uart_getchar(void) {
 }
 
 int uart_putchar(int ch) {
-    if (module.uart == NULL) error("uart_init() has not been called!\n");
+    confirm_initialized();
     if (ch == '\f' && !module.running_in_simulator) { // if formfeed on actual Pi
         uart_putstring("\e[2J"); // remap to clear screen sequence
         return ch;
@@ -202,7 +206,7 @@ int uart_putchar(int ch) {
 }
 
 int uart_putstring(const char *str) {
-    if (module.uart == NULL) error("uart_init() has not been called!\n");
+    confirm_initialized();
     int n = 0;
     while (str[n]) {
         uart_putchar(str[n++]);

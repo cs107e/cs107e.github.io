@@ -27,7 +27,7 @@
 
 struct ringbuffer {
     int entries[CAPACITY];
-    int head, tail;
+    volatile int head, tail; // shared between interrupt-context writer and main-context reader
 };
 
 rb_t *rb_new(void) {

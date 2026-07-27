@@ -8,6 +8,7 @@
  */
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdint.h>
 
 typedef struct {
     unsigned long start_ticks;

@@ -46,12 +46,14 @@ bool font_get_glyph(char ch, uint8_t buf[], size_t buflen) {
             buf[i] = 0;
         }
     } else {
+        int w = font_get_glyph_width(), h = font_get_glyph_height();
         int index = 0;
-        int nbits_in_row = (module.font->last_char - module.font->first_char + 1) * font_get_glyph_width();
+        int nbits_in_row = (module.font->last_char - module.font->first_char + 1) * w;
         int x_offset = (ch - module.font->first_char);
-        for (int y = 0; y < font_get_glyph_height(); y++) {
-            for (int x = 0; x < font_get_glyph_width(); x++) {
-                int bit_index = y * nbits_in_row + x_offset * font_get_glyph_width() + x;
+        int row_offset = x_offset * w; // doesn't depend on x or y, compute once
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                int bit_index = y * nbits_in_row + row_offset + x;
                 int bit_start = bit_index / 8;
                 int bit_offset = bit_index % 8;
                 // extract single bit for this pixel from bitmap
