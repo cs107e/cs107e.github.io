@@ -134,5 +134,5 @@ Here are short descriptions of some projects from past years:
 * __Beat saber arcade game__
   - swipe in time to the music to score points
 * __Music visualizer cube__
-  - analyze sound input in real-time and render as visual display on 8x8x8 LED cube
+  - analyze sound input in real-time and render as visual display on 8x8x8 LED cube (Toryn's blog <ttps://toryn.bio/projects/led-cube>)
 
