@@ -112,7 +112,7 @@ Here are short descriptions of some projects from past years:
 * __Lego printer__
   - Print image via pick-and-place of lego pixels on grid board
 * __Jelly bean sorter__
-  - Use color sensor and servo  motors to sort jelly beans by color
+  - Use color sensor and servo motors to sort jelly beans by color
 * __Escalating challenge snooze__
   - Each use of snooze alarm is harder to shut off
 * __Gesture tetris__
@@ -128,11 +128,22 @@ Here are short descriptions of some projects from past years:
 * __Firefighter guidance system__
   - Wearable vest with IR/ToF sensors and haptic feedback to guide rescuer to trapped person
 * __Laser communication__
-  - full-duplex transmit/receive, custom encoding
+  - Full-duplex transmit/receive using custom encoding
 * __Mediation buddy__
-  - Lighted,moving flower that provides biofeedback on heart and breath rate
+  - Lighted, moving flower that provides biofeedback on heart and breath rate
 * __Beat saber arcade game__
-  - swipe in time to the music to score points
+  - Swipe in time to the music to score points
 * __Music visualizer cube__
-  - analyze sound input in real-time and render as visual display on 8x8x8 LED cube (Toryn's blog <https://toryn.bio/projects/led-cube>)
+  - Analyze sound input in real-time and render as visual display on 8x8x8 LED cube (Toryn's blog <https://toryn.bio/projects/led-cube>)
+* __Way-Less RC car__
+  - Using lidar for object detection/avoidance
+* __Watch your back posture monitor__
+  - Graphic visualization of spine curvature read from wearable strip of accelerometers
+* __Wii Dino__
+  - Jump, crouch, and run to play the Dino Game
+* __Accessible mouse__
+  - Haptic and sound feedback for tracking mouse movement
+* __Laser guitar__
+  - Strum strings made of light, LED visualization (Jolie's site <https://laser-guitar.vercel.app/>)
+
 
