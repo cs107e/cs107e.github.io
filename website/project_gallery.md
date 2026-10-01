@@ -22,16 +22,12 @@ Fall quarter 2024 (Mango Pi)
 <hr>
 Here are short descriptions of some projects from past years:
 
-* __Noob cube__
-  - Graphical viewer for a 3D wireframe
-* __Pi selfie mirror__
-  - Take a selfie with animations displayed on a mirror-monitor
-* __Chess but cool__
-  - Chess board that can record & visualize moves on a screen (using Hall-effect sensors)
+* __Magic mirror__
+  - Selfie with animations displayed on a mirror-monitor
+* __Recording chessboard__
+  - Hall-effect sensors read positions of pieces, record & visualize moves on monitor
 * __Threading system__
   - Multi-threading system so Pi can simulate running code in parallel
-* __Keyboard orchestra__
-  - Record/play music using keyboard
 * __Sunlight lamp__
   - Lamp that mirrors natural sunlight intensity throughout day
 * __Drum hero__
@@ -39,32 +35,30 @@ Here are short descriptions of some projects from past years:
 * __SPI network with device-device communication__
   - Communication between Pis (display received data, store to memory, run received code)
 * __Fruit Ninja__
-  - arcade game controlled by user hand gestures (sonar sensors)
-* __Theremins visualized__
-  - Translate time-of-flight distance to pitch and output sound and visualization
-* __Synthetic music__
+  - arcade game controlled by user hand gestures read using ultrasound sensors
+* __Visual Theremin__
+  - Translate time-of-flight distance to pitch, output sound and visualization
+* __Finger piano__
   - Synthetic instrument using piezo sensors on fingers, and output sound and visualization
 * __Light-up dress__
   - Dress which lights up with electroluminescent wires when you move
     (based on gyroscope)
 * __Etch-a-sketch__
-  - Takes input from two knobs, accelerometer, and push buttons:
-    controls menu UI and paint program
+  - Knobs, accelerometer, and push buttons used to control paint program
 * __ArduCAM library__
-  - A library to retrieve images from ArduCAM, along with an interactive control shell
-* __Robo-Turtle__
-  - A robotic turtle with servo motors and ultrasonic sensor, controllable with an NES controller
+  - Library to capture still images from ArduCAM
+* __Robo-turtle__
+  - Robotic turtle with servo motors and ultrasonic sensors, controlled by NES keypad
 * __Raspberry Pi GPU__
-  - An assembler which targets the Pi GPU and guide to using the GPU from bare metal
+  - Assembler for Pi GPU,  guide to using GPU from bare metal
 * __Intruder detection system__
   - Detect motion using network of passive infrared sensors
 * __DMX lighting console and receiver__
-  - User interface to set/read lighting controls
+  - User interface to set/read theater lighting controls
 * __2-player basketball arcade game__
-  - Sensors detects when ball goes into basket and which player to award point (by color of ball)
-* __Sensor visualizer__
-  - Car dashboard-like visualization of MCP3008 ADC, including a GL
-    library
+  - Sensors detects when ball goes into basket and which player to award points (by color of ball)
+* __Analog sensor visualizer__
+  - Dashboard visualization of analog signals read by MCP3008 ADC
 * __Clappy bird__
   - Arcade game controlled by sound
 * __Finger-spelling recognition__
@@ -72,7 +66,7 @@ Here are short descriptions of some projects from past years:
 * __Walking weatherman__
   - Wearable shirt with environment sensors and informational display via leds
 * __Post-it printer__
-  - User paints picture on Pi which is then drawn on a Post-It using a pen controlled by stepper motors
+  - Use mouse to draw picture which is then replicated on Post-It using a pen controlled by stepper motors
 * __Vintage boombox__
   - Plays music through a refitted vintage radio case with LED visualization
 * __LED leggings__
@@ -88,13 +82,13 @@ Here are short descriptions of some projects from past years:
 * __Boba maker__
   - Swipe your Stanford ID and receive your preferred beverage mixed to order
 * __Gun of the sentry__
-  - Nerf gun that tracks and shoots at moving target
+  - Nerf gun that tracks and shoots at moving target using ultrasound sensors and servo motor
 * __Pi-rat__
   - Sensing and mobile robot that can autonomously solve a maze
 * __Laser harp__
   - Strings of made of light that you can pluck
 * __POV sphere__
-  - Rotating strip of leds to create illusion of spherical image
+  - Rotating circle  of led strip lights to create illusion of spherical image
 * __Workout buddy__
   - Wearable sensors to count reps at the gym
 * __Dance steps arcade game__
@@ -102,13 +96,11 @@ Here are short descriptions of some projects from past years:
 * __Lie detector__
   - Biometric sensors evaluate truthfulness of speaker
 * __Custom font__
-  - Draw letters on screen to create custom handwriting font
-* __BattleDarts__
-  - Battleship game where shot is fired by throwing dart onto board
+  - Create custom handwriting font by drawing letters with a mouse
 * __Midi stepper synth__
   - Midi from piano keyboard is visualized on screen, drive stepper motors to sound notes of correct frequency
 * __Bop-it game__
-  - Sensors to detect various actions
+  - Sensors to detect various actions (sound, force, motion)
 * __Lego printer__
   - Print image via pick-and-place of lego pixels on grid board
 * __Jelly bean sorter__
@@ -116,13 +108,15 @@ Here are short descriptions of some projects from past years:
 * __Escalating challenge snooze__
   - Each use of snooze alarm is harder to shut off
 * __Gesture tetris__
-  - Game controlled via hand gestures
+  - Game controlled via hand gestures read from accelerometer
 * __Zen garden__
-  - Trace patterns in sandbox by moving magnet via stepper motors
-* __Drawing stylus__
-  - Track moving magnet atop field of analog Hall effect sensors and use as input device
+  - Use stepper motor to drag magnet in sandbox to trace out patterns
 * __Midi-controlled music box__
   - Servo motors used to pluck tines and play midi input
+* __Drawing stylus__
+  - Track moving magnet atop field of analog Hall effect sensors and use as input device
+* __Obstacle avoidance bike__
+  - Servo motor applies brake when dangerous situation detected by accelerometer and ToF sensors
 * __Graphing calculator__
   - Handheld with integrated LCD display, keypad, battery power, sd card boot
 * __Firefighter guidance system__
@@ -131,18 +125,18 @@ Here are short descriptions of some projects from past years:
   - Full-duplex transmit/receive using custom encoding
 * __Mediation buddy__
   - Lighted, moving flower that provides biofeedback on heart and breath rate
-* __Beat saber arcade game__
+* __"Beat saber" arcade game__
   - Swipe in time to the music to score points
-* __Music visualizer cube__
+* __Audio visualizer cube__
   - Analyze sound input in real-time and render as visual display on 8x8x8 LED cube (Toryn's blog <https://toryn.bio/projects/led-cube>)
-* __Way-Less RC car__
+* __"Way-less" RC car__
   - Using lidar for object detection/avoidance
-* __Watch your back posture monitor__
+* __"Watch your back" posture monitor__
   - Graphic visualization of spine curvature read from wearable strip of accelerometers
-* __Wii Dino__
-  - Jump, crouch, and run to play the Dino Game
+* __Kinetic dino game__
+  - Jump, crouch, and run to play a version  of Chrome's [Dino Game](https://chromedino.com/)
 * __Accessible mouse__
-  - Haptic and sound feedback for tracking mouse movement
+  - Trace mouse movement and provide haptic/sound feedback to user
 * __Laser guitar__
   - Strum strings made of light, LED visualization (Jolie's site <https://laser-guitar.vercel.app/>)
 
